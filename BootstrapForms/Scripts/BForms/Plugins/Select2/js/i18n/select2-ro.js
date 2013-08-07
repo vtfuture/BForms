@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Select2 Romanian translation.
  */
 (function ($) {
