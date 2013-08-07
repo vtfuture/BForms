@@ -1,0 +1,137 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Text;
+using System.Web;
+using System.Web.Mvc;
+using System.Web.Routing;
+using System.Web.Mvc.Html;
+using BootstrapForms.HtmlHelpers;
+
+namespace BootstrapForms.Razor
+{
+    /// <summary>
+    /// Represents helpers for bootstrap forms validation
+    /// </summary>
+    public static class ValidationExtensions
+    {
+        /// <summary>
+        /// The name of the CSS class that is used to style the input group validation errors
+        /// </summary>
+        public static MvcHtmlString BsValidationCssFor<TModel, TProperty>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expression)
+        {
+            var propertyName = ExpressionHelper.GetExpressionText(expression);
+            var name = helper.AttributeEncode(helper.ViewData.TemplateInfo.GetFullHtmlFieldName(propertyName));
+            var cssClass = string.Empty;
+            var isInvalid = helper.ViewData.ModelState[name] != null &&
+                helper.ViewData.ModelState[name].Errors != null &&
+                helper.ViewData.ModelState[name].Errors.Count > 0;
+
+            if (HtmlExtensions.BsPropertyIsInvalid(helper, expression))
+            {
+                cssClass = "has-error";
+            }
+
+            return MvcHtmlString.Create(cssClass);
+        }
+
+        /// <summary>
+        /// Returns a span element containing the localized value of the ModelState error message
+        /// </summary>
+        public static MvcHtmlString BsValidationFor<TModel, TProperty>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expression, IDictionary<string, object> htmlAttributes)
+        {
+            var propertyName = ExpressionHelper.GetExpressionText(expression);
+            var name = helper.AttributeEncode(helper.ViewData.TemplateInfo.GetFullHtmlFieldName(propertyName));
+
+            //create span element
+            TagBuilder tag = new TagBuilder("span");
+            tag.MergeAttributes(htmlAttributes, false);
+
+            var isInvalid = HtmlExtensions.BsPropertyIsInvalid(helper, expression);
+
+            //add jquery validatior html attributes & css
+            tag.AddCssClass(isInvalid ? HtmlHelper.ValidationMessageCssClassName : HtmlHelper.ValidationMessageValidCssClassName);
+            tag.Attributes.Add("data-valmsg-for", name);
+            tag.Attributes.Add("data-valmsg-replace", "true");
+
+            //add bootstrap glyphicon & tooltip
+            tag.AddCssClass("input-group-addon glyphicon glyphicon-warning-sign");
+            tag.Attributes.Add("data-toggle", "tooltip");
+
+            if (isInvalid)
+            {
+                foreach (ModelError error in helper.ViewData.ModelState[name].Errors)
+                {
+                    //add error message as title
+                    tag.Attributes.Add("title", error.ErrorMessage);
+                    break;
+                }
+            }
+
+            //build span html element
+            var returnTag = new StringBuilder(tag.ToString(TagRenderMode.StartTag));
+            returnTag.Append(tag.ToString(TagRenderMode.EndTag));
+            return MvcHtmlString.Create(returnTag.ToString());
+        }
+        public static MvcHtmlString BsValidationFor<TModel, TProperty>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expression)
+        {
+            return BsValidationFor(helper, expression, (object)null);
+        }
+        public static MvcHtmlString BsValidationFor<TModel, TProperty>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expression, object htmlAttributes)
+        {
+            return BsValidationFor(helper, expression, new RouteValueDictionary(htmlAttributes));
+        }
+
+        /// <summary>
+        /// Returns a span element containing the localized value of the ModelState FormError custom message
+        /// </summary>
+        public static MvcHtmlString BsFormValidation(this HtmlHelper helper, IDictionary<string, object> htmlAttributes)
+        {
+            var name = "FormError";
+            var isInvalid = helper.ViewData.ModelState[name] != null &&
+                            helper.ViewData.ModelState[name].Errors != null &&
+                            helper.ViewData.ModelState[name].Errors.Count > 0;
+            if (isInvalid)
+            {
+                //create div element
+                var divTag = new TagBuilder("div");
+                divTag.MergeAttributes(htmlAttributes, false);
+
+                //add bootstrap css
+                divTag.AddCssClass("alert alert-danger");
+
+                //open div html element
+                var divHtml = new StringBuilder(divTag.ToString(TagRenderMode.StartTag));
+
+                //create close button
+                var btnTag = new TagBuilder("button");
+                btnTag.Attributes.Add("type", "button");
+                btnTag.Attributes.Add("data-dismiss", "alert");
+                btnTag.AddCssClass("close");
+
+                var btnHtml = new StringBuilder(btnTag.ToString(TagRenderMode.StartTag));
+                btnHtml.Append("&times;");
+                btnHtml.Append(btnTag.ToString(TagRenderMode.EndTag));
+
+                //add close button in div
+                divHtml.Append(btnHtml);
+
+                //add ModelState error message for FormError
+                divHtml.Append(helper.ValidationMessage(name));
+
+                //close div
+                divHtml.Append(divTag.ToString(TagRenderMode.EndTag));
+
+                //inline alert html
+                return MvcHtmlString.Create(divHtml.ToString());
+            }
+
+            return MvcHtmlString.Empty;
+        }
+        public static MvcHtmlString BsFormValidation(this HtmlHelper helper)
+        {
+            return BsFormValidation(helper, new RouteValueDictionary((object)null));
+        }
+    }
+}
