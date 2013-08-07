@@ -88,11 +88,9 @@
     <None Include="Scripts\BForms\Components\Bootstrap\fonts\glyphiconshalflings-regular.otf" />
     <None Include="Scripts\BForms\Components\Bootstrap\fonts\glyphiconshalflings-regular.ttf" />
     <None Include="Scripts\BForms\Components\Bootstrap\fonts\glyphiconshalflings-regular.woff" />
+    <None Include="Scripts\BForms\Stylesheets\bootstrap-forms.scss" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Scripts\BForms\Plugins\Select2\js\i18n\" />
-    <Folder Include="Scripts\BForms\Plugins\Validation\i18n\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Scripts\BForms\Components\Bootstrap\css\bootstrap-glyphicons.css" />
     <Content Include="Scripts\BForms\Components\Bootstrap\css\bootstrap.css" />
@@ -109,9 +107,12 @@
     <Content Include="Scripts\BForms\Plugins\Select2\css\select2-spinner.gif" />
     <Content Include="Scripts\BForms\Plugins\Select2\css\select2.css" />
     <Content Include="Scripts\BForms\Plugins\Select2\css\select2.png" />
+    <Content Include="Scripts\BForms\Plugins\Select2\js\i18n\select2-ro.js" />
     <Content Include="Scripts\BForms\Plugins\Select2\js\select2.js" />
+    <Content Include="Scripts\BForms\Plugins\Validation\i18n\jquery.validate-ro.js" />
     <Content Include="Scripts\BForms\Plugins\Validation\jquery.validate-1.11.1.js" />
     <Content Include="Scripts\BForms\Plugins\Validation\jquery.validate.unobtrusive.bootstrap.js" />
+    <Content Include="Scripts\BForms\Stylesheets\bootstrap-forms.css" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
