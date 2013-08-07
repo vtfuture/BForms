@@ -89,9 +89,7 @@
     <None Include="Scripts\BForms\Components\Bootstrap\fonts\glyphiconshalflings-regular.ttf" />
     <None Include="Scripts\BForms\Components\Bootstrap\fonts\glyphiconshalflings-regular.woff" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Scripts\BForms\Stylesheets\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Scripts\BForms\Components\Bootstrap\css\bootstrap-glyphicons.css" />
     <Content Include="Scripts\BForms\Components\Bootstrap\css\bootstrap.css" />
