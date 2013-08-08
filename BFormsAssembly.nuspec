@@ -9,9 +9,6 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Bootstrap Forms for ASP.NET MVC</description>
     <copyright>Copyright Stefan Prodan 2013</copyright>
-    <dependencies>
-      <dependency id="Newtonsoft.Json" version="5.0.6" />
-    </dependencies>
     <frameworkAssemblies>
       <frameworkAssembly assemblyName="Microsoft.Web.Infrastructure" targetFramework=".NETFramework4.0" />
     </frameworkAssemblies>
