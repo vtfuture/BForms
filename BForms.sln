@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.20623.1 VSUPREVIEW
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BootstrapForms", "BootstrapForms\BootstrapForms.csproj", "{60A6E254-CD66-4C0E-9191-5E95E70001EB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{FFE46FF4-E0D6-4DBB-9D78-840EC684F58E}"
@@ -8,6 +10,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{FFE46F
 		.nuget\NuGet.Config = .nuget\NuGet.Config
 		.nuget\NuGet.exe = .nuget\NuGet.exe
 		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuspec", ".nuspec", "{FB12F3C3-E98E-4136-8D36-ED2B952082EE}"
+	ProjectSection(SolutionItems) = preProject
+		BFormsAssembly.nuspec = BFormsAssembly.nuspec
+		BFormsFull.nuspec = BFormsFull.nuspec
 	EndProjectSection
 EndProject
 Global
