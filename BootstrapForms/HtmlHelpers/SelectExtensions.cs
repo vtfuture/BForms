@@ -24,9 +24,8 @@ namespace BootstrapForms.HtmlHelpers
         public static MvcHtmlString BsRadioButtonListFor<TModel, TProperty>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> radioList, IDictionary<string, object> htmlAttributes)
         {
             var metadata = ModelMetadata.FromLambdaExpression(expression, helper.ViewData);
-            var html = new StringBuilder();
             var propertyName = (helper.ViewData.TemplateInfo.HtmlFieldPrefix != string.Empty ? (helper.ViewData.TemplateInfo.HtmlFieldPrefix + ".") : string.Empty) + metadata.PropertyName;
-
+            var html = new StringBuilder();
             var divTag = new TagBuilder("div");
             divTag.MergeAttribute("id", propertyName);
             divTag.MergeAttribute("class", "RadioButtonsContainer form-control");
@@ -131,7 +130,7 @@ namespace BootstrapForms.HtmlHelpers
         /// </summary>
         public static MvcHtmlString BsDropDownListFor<TModel, TProperty>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList, string optionLabel, IDictionary<string, object> htmlAttributes)
         {
-            ModelMetadata metadata = ModelMetadata.FromLambdaExpression(expression, helper.ViewData);
+            var metadata = ModelMetadata.FromLambdaExpression(expression, helper.ViewData);
 
             //merge custom css classes with bootstrap
             htmlAttributes.MergeAttribute("class", "form-control");
@@ -270,7 +269,7 @@ namespace BootstrapForms.HtmlHelpers
 
         internal static string ListItemToOption(BsGroupedSelectListItem item)
         {
-            TagBuilder builder = new TagBuilder("option")
+            var builder = new TagBuilder("option")
             {
                 InnerHtml = HttpUtility.HtmlEncode(item.Text)
             };
@@ -316,12 +315,12 @@ namespace BootstrapForms.HtmlHelpers
 
             if (defaultValue != null)
             {
-                IEnumerable defaultValues = (allowMultiple) ? defaultValue as IEnumerable : new[] { defaultValue };
-                IEnumerable<string> values = from object value in defaultValues select Convert.ToString(value, CultureInfo.CurrentCulture);
-                HashSet<string> selectedValues = new HashSet<string>(values, StringComparer.OrdinalIgnoreCase);
-                List<BsGroupedSelectListItem> newSelectList = new List<BsGroupedSelectListItem>();
+                var defaultValues = (allowMultiple) ? defaultValue as IEnumerable : new[] { defaultValue };
+                var values = from object value in defaultValues select Convert.ToString(value, CultureInfo.CurrentCulture);
+                var selectedValues = new HashSet<string>(values, StringComparer.OrdinalIgnoreCase);
+                var newSelectList = new List<BsGroupedSelectListItem>();
 
-                foreach (BsGroupedSelectListItem item in selectList)
+                foreach (var item in selectList)
                 {
                     item.Selected = (item.Value != null) ? selectedValues.Contains(item.Value) : selectedValues.Contains(item.Text);
                     newSelectList.Add(item);
@@ -330,7 +329,7 @@ namespace BootstrapForms.HtmlHelpers
             }
 
             // Convert each ListItem to an <option> tag
-            StringBuilder listItemBuilder = new StringBuilder();
+            var listItemBuilder = new StringBuilder();
 
             // Make optionLabel the first item that gets rendered.
             if (optionLabel != null)
@@ -349,7 +348,7 @@ namespace BootstrapForms.HtmlHelpers
                 listItemBuilder.AppendLine("</optgroup>");
             }
 
-            TagBuilder tagBuilder = new TagBuilder("select")
+            var tagBuilder = new TagBuilder("select")
             {
                 InnerHtml = listItemBuilder.ToString()
             };
