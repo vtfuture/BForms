@@ -18,6 +18,7 @@ namespace BootstrapForms.HtmlHelpers
     /// </summary>
     public static class SelectExtensions
     {
+        #region RadioGroup
         /// <summary>
         /// Returns a list of radio buttons
         /// </summary>
@@ -89,7 +90,9 @@ namespace BootstrapForms.HtmlHelpers
         {
             return BsRadioButtonListFor(helper, expression, radioList, new RouteValueDictionary(htmlAttributes));
         }
+        #endregion
 
+        #region TagGroup
         /// <summary>
         /// Returns a list of tags with placeholder and info tooltip
         /// </summary>
@@ -124,7 +127,9 @@ namespace BootstrapForms.HtmlHelpers
         {
             return BsTagListFor(helper, expression, new RouteValueDictionary(htmlAttributes));
         }
+        #endregion
 
+        #region DropDown
         /// <summary>
         /// Returns a DropDownList element with placeholder and info tooltip
         /// </summary>
@@ -187,7 +192,9 @@ namespace BootstrapForms.HtmlHelpers
         {
             return BsDropDownListFor(helper, expression, selectList, new RouteValueDictionary(htmlAttributes));
         }
+        #endregion
 
+        #region DropDownGrouped
         /// <summary>
         /// Returns a DropDown grouped list element with placeholder and info tooltip
         /// </summary>
@@ -395,8 +402,13 @@ namespace BootstrapForms.HtmlHelpers
             return null;
         }
         #endregion
+
+        #endregion
     }
 
+    /// <summary>
+    /// SelectListItem for grouped DropDown
+    /// </summary>
     public class BsGroupedSelectListItem : SelectListItem
     {
         public string GroupKey { get; set; }
@@ -409,6 +421,7 @@ namespace BootstrapForms.HtmlHelpers
         public string Val { get; set; }
         public string Group { get; set; }
     }
+
     public class BsChosenTags
     {
         public List<string> Choices { get; set; }
