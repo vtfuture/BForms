@@ -333,7 +333,7 @@ namespace BootstrapForms.HtmlHelpers
 
             var labelTag = new TagBuilder("label");
             var labelHtml = new StringBuilder(labelTag.ToString(TagRenderMode.StartTag));
-            labelHtml.Append(helper.CheckBoxFor(expression, htmlAttributes));
+            labelHtml.Append(helper.RadioButtonFor(expression, htmlAttributes));
             labelHtml.AppendLine(labelText);
             labelHtml.AppendLine(labelTag.ToString(TagRenderMode.EndTag));
 
