@@ -67,8 +67,18 @@ namespace BootstrapForms.HtmlHelpers
 
         }
 
+        public static MvcHtmlString BsTextBoxFor<TModel, TProperty>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expression)
+        {
+            return BsTextBoxFor(helper, expression, (object)null);
+        }
+
+        public static MvcHtmlString BsTextBoxFor<TModel, TProperty>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expression, object htmlAttributes)
+        {
+            return BsTextBoxFor(helper, expression, new RouteValueDictionary(htmlAttributes));
+        }
+
         /// <summary>
-        /// Returns a textbox element with placeholder and info tooltip
+        /// Returns a textbox input element with placeholder and info tooltip
         /// </summary>
         public static MvcHtmlString BsTextBoxFor<TModel, TProperty>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expression, IDictionary<string, object> htmlAttributes)
         {
@@ -102,16 +112,6 @@ namespace BootstrapForms.HtmlHelpers
             }
 
             return MvcHtmlString.Create(helper.TextBoxFor(expression, htmlAttributes).ToHtmlString() + description.ToHtmlString());
-        }
-
-        public static MvcHtmlString BsTextBoxFor<TModel, TProperty>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expression)
-        {
-            return BsTextBoxFor(helper, expression, (object)null);
-        }
-
-        public static MvcHtmlString BsTextBoxFor<TModel, TProperty>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expression, object htmlAttributes)
-        {
-            return BsTextBoxFor(helper, expression, new RouteValueDictionary(htmlAttributes));
         }
 
         #endregion
@@ -214,31 +214,50 @@ namespace BootstrapForms.HtmlHelpers
         #endregion
 
         #region CheckBox
+
+        /// <summary>
+        /// Returns a checkbox input element wrapped in a label element
+        /// </summary>
         public static MvcHtmlString BsCheckBox(this HtmlHelper htmlHelper, string name)
         {
             return BsCheckBox(htmlHelper, name, htmlAttributes: (object)null);
         }
 
+        /// <summary>
+        /// Returns a checkbox input element wrapped in a label element
+        /// </summary>
         public static MvcHtmlString BsCheckBox(this HtmlHelper htmlHelper, string name, bool isChecked)
         {
             return BsCheckBox(htmlHelper, name, isChecked, htmlAttributes: (object)null);
         }
 
+        /// <summary>
+        /// Returns a checkbox input element wrapped in a label element
+        /// </summary>
         public static MvcHtmlString BsCheckBox(this HtmlHelper htmlHelper, string name, bool isChecked, object htmlAttributes)
         {
             return BsCheckBox(htmlHelper, name, isChecked, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
         }
 
+        /// <summary>
+        /// Returns a checkbox input element wrapped in a label element
+        /// </summary>
         public static MvcHtmlString BsCheckBox(this HtmlHelper htmlHelper, string name, object htmlAttributes)
         {
             return BsCheckBox(htmlHelper, name, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
         }
 
+        /// <summary>
+        /// Returns a checkbox input element wrapped in a label element
+        /// </summary>
         public static MvcHtmlString BsCheckBox(this HtmlHelper htmlHelper, string name, IDictionary<string, object> htmlAttributes)
         {
             return BsCheckBox(htmlHelper, name: name, isChecked: false, htmlAttributes: htmlAttributes);
         }
 
+        /// <summary>
+        /// Returns a checkbox input element wrapped in a label element
+        /// </summary>
         public static MvcHtmlString BsCheckBox(this HtmlHelper htmlHelper, string name, bool isChecked, IDictionary<string, object> htmlAttributes)
         {
             var metadata = ModelMetadata.FromStringExpression(name, htmlHelper.ViewData);
@@ -255,7 +274,23 @@ namespace BootstrapForms.HtmlHelpers
         }
 
         /// <summary>
-        /// Returns a checkbox element wrapped in a label element
+        /// Returns a checkbox input element wrapped in a label element
+        /// </summary>
+        public static MvcHtmlString BsCheckBoxFor<TModel>(this HtmlHelper<TModel> helper, Expression<Func<TModel, bool>> expression)
+        {
+            return BsCheckBoxFor(helper, expression, (object)null);
+        }
+
+        /// <summary>
+        /// Returns a checkbox input element wrapped in a label element
+        /// </summary>
+        public static MvcHtmlString BsCheckBoxFor<TModel>(this HtmlHelper<TModel> helper, Expression<Func<TModel, bool>> expression, object htmlAttributes)
+        {
+            return BsCheckBoxFor(helper, expression, new RouteValueDictionary(htmlAttributes));
+        }
+
+        /// <summary>
+        /// Returns a checkbox input element wrapped in a label element
         /// </summary>
         public static MvcHtmlString BsCheckBoxFor<TModel>(this HtmlHelper<TModel> helper, Expression<Func<TModel, bool>> expression, IDictionary<string, object> htmlAttributes)
         {
@@ -270,14 +305,6 @@ namespace BootstrapForms.HtmlHelpers
             labelHtml.AppendLine(labelTag.ToString(TagRenderMode.EndTag));
 
             return MvcHtmlString.Create(labelHtml.ToString());
-        }
-        public static MvcHtmlString BsCheckBoxFor<TModel>(this HtmlHelper<TModel> helper, Expression<Func<TModel, bool>> expression)
-        {
-            return BsCheckBoxFor(helper, expression, (object)null);
-        }
-        public static MvcHtmlString BsCheckBoxFor<TModel>(this HtmlHelper<TModel> helper, Expression<Func<TModel, bool>> expression, object htmlAttributes)
-        {
-            return BsCheckBoxFor(helper, expression, new RouteValueDictionary(htmlAttributes));
         }
         #endregion
 

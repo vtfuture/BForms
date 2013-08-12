@@ -73,6 +73,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\BsSelectModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="HtmlHelpers\GlyphiconExtensions.cs" />
     <Compile Include="HtmlHelpers\HtmlExtensions.cs" />

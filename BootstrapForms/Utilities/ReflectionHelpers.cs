@@ -11,9 +11,25 @@ namespace BootstrapForms.Utilities
     internal static class ReflectionHelpers
     {
         /// <summary>
+        /// Retuns model state value
+        /// </summary>
+        internal static object GetModelStateValue(this HtmlHelper htmlHelper, string key, Type destinationType)
+        {
+            ModelState modelState;
+            if (htmlHelper.ViewData.ModelState.TryGetValue(key, out modelState))
+            {
+                if (modelState.Value != null)
+                {
+                    return modelState.Value.ConvertTo(destinationType, null /* culture */);
+                }
+            }
+            return null;
+        }
+
+        /// <summary>
         /// Returns true if the specified model property has validation errors
         /// </summary>
-        internal static bool PropertyIsInvalid<TModel, TProperty>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expression)
+        internal static bool HasModelStateErros<TModel, TProperty>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expression)
         {
             var propertyName = ExpressionHelper.GetExpressionText(expression);
             var name = helper.AttributeEncode(helper.ViewData.TemplateInfo.GetFullHtmlFieldName(propertyName));

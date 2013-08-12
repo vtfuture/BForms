@@ -21,7 +21,7 @@ namespace BootstrapForms.HtmlHelpers
         {
             var cssClass = string.Empty;
 
-            if (helper.PropertyIsInvalid(expression))
+            if (helper.HasModelStateErros(expression))
             {
                 cssClass = "has-error";
             }
@@ -41,7 +41,7 @@ namespace BootstrapForms.HtmlHelpers
             var tag = new TagBuilder("span");
             tag.MergeAttributes(htmlAttributes, false);
 
-            var isInvalid = helper.PropertyIsInvalid(expression);
+            var isInvalid = helper.HasModelStateErros(expression);
 
             //add jquery validatior html attributes & css
             tag.AddCssClass(isInvalid ? HtmlHelper.ValidationMessageCssClassName : HtmlHelper.ValidationMessageValidCssClassName);

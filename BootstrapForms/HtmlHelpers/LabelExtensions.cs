@@ -15,7 +15,23 @@ namespace BootstrapForms.HtmlHelpers
     public static class LabelExtensions
     {
         /// <summary>
-        /// Adds to LabelFor bootstrap css and the required class
+        /// Returns a label element with required css class
+        /// </summary>
+        public static MvcHtmlString BsLabelFor<TModel, TProperty>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expression)
+        {
+            return BsLabelFor(helper, expression, (object)null);
+        }
+
+        /// <summary>
+        /// Returns a label element with required css class
+        /// </summary>
+        public static MvcHtmlString BsLabelFor<TModel, TProperty>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expression, object htmlAttributes)
+        {
+            return BsLabelFor(helper, expression, new RouteValueDictionary(htmlAttributes));
+        }
+
+        /// <summary>
+        /// Returns a label element with required css class
         /// </summary>
         public static MvcHtmlString BsLabelFor<TModel, TProperty>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expression, IDictionary<string, object> htmlAttributes)
         {
@@ -39,14 +55,6 @@ namespace BootstrapForms.HtmlHelpers
             }
 
             return helper.LabelFor(expression, htmlAttributes);
-        }
-        public static MvcHtmlString BsLabelFor<TModel, TProperty>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expression)
-        {
-            return BsLabelFor(helper, expression, (object)null);
-        }
-        public static MvcHtmlString BsLabelFor<TModel, TProperty>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expression, object htmlAttributes)
-        {
-            return BsLabelFor(helper, expression, new RouteValueDictionary(htmlAttributes));
         }
     }
 }
