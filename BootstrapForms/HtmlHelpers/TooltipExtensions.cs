@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace BootstrapForms.Razor
+namespace BootstrapForms.HtmlHelpers
 {
     /// <summary>
     /// Represents helpers for bootstrap forms info tooltips

@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.Routing;
 using System.Web.Mvc.Html;
-using BootstrapForms.HtmlHelpers;
+using System.Web.Routing;
 
-namespace BootstrapForms.Razor
+namespace BootstrapForms.HtmlHelpers
 {
     /// <summary>
     /// Represents helpers for bootstrap forms validation
@@ -22,13 +19,10 @@ namespace BootstrapForms.Razor
         public static MvcHtmlString BsValidationCssFor<TModel, TProperty>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expression)
         {
             var propertyName = ExpressionHelper.GetExpressionText(expression);
-            var name = helper.AttributeEncode(helper.ViewData.TemplateInfo.GetFullHtmlFieldName(propertyName));
+            helper.AttributeEncode(helper.ViewData.TemplateInfo.GetFullHtmlFieldName(propertyName));
             var cssClass = string.Empty;
-            var isInvalid = helper.ViewData.ModelState[name] != null &&
-                helper.ViewData.ModelState[name].Errors != null &&
-                helper.ViewData.ModelState[name].Errors.Count > 0;
 
-            if (HtmlExtensions.BsPropertyIsInvalid(helper, expression))
+            if (helper.BsPropertyIsInvalid(expression))
             {
                 cssClass = "has-error";
             }
@@ -45,10 +39,10 @@ namespace BootstrapForms.Razor
             var name = helper.AttributeEncode(helper.ViewData.TemplateInfo.GetFullHtmlFieldName(propertyName));
 
             //create span element
-            TagBuilder tag = new TagBuilder("span");
+            var tag = new TagBuilder("span");
             tag.MergeAttributes(htmlAttributes, false);
 
-            var isInvalid = HtmlExtensions.BsPropertyIsInvalid(helper, expression);
+            var isInvalid = helper.BsPropertyIsInvalid(expression);
 
             //add jquery validatior html attributes & css
             tag.AddCssClass(isInvalid ? HtmlHelper.ValidationMessageCssClassName : HtmlHelper.ValidationMessageValidCssClassName);
@@ -61,7 +55,7 @@ namespace BootstrapForms.Razor
 
             if (isInvalid)
             {
-                foreach (ModelError error in helper.ViewData.ModelState[name].Errors)
+                foreach (var error in helper.ViewData.ModelState[name].Errors)
                 {
                     //add error message as title
                     tag.Attributes.Add("title", error.ErrorMessage);
@@ -88,7 +82,7 @@ namespace BootstrapForms.Razor
         /// </summary>
         public static MvcHtmlString BsFormValidation(this HtmlHelper helper, IDictionary<string, object> htmlAttributes)
         {
-            var name = "FormError";
+            const string name = "FormError";
             var isInvalid = helper.ViewData.ModelState[name] != null &&
                             helper.ViewData.ModelState[name].Errors != null &&
                             helper.ViewData.ModelState[name].Errors.Count > 0;

@@ -1,17 +1,16 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Routing;
 using System.Web.Mvc.Html;
-using System.Collections;
-using System.Globalization;
-using BootstrapForms.HtmlHelpers;
+using System.Web.Routing;
 
-namespace BootstrapForms.Razor
+namespace BootstrapForms.HtmlHelpers
 {
     /// <summary>
     /// Represents support for making selections in a list
@@ -25,9 +24,10 @@ namespace BootstrapForms.Razor
         {
             var metadata = ModelMetadata.FromLambdaExpression(expression, helper.ViewData);
             var html = new StringBuilder();
+            var propertyName = (helper.ViewData.TemplateInfo.HtmlFieldPrefix != string.Empty ? (helper.ViewData.TemplateInfo.HtmlFieldPrefix + ".") : string.Empty) + metadata.PropertyName;
 
             var divTag = new TagBuilder("div");
-            divTag.MergeAttribute("id", metadata.PropertyName);
+            divTag.MergeAttribute("id", propertyName);
             divTag.MergeAttribute("class", "RadioButtonsContainer form-control");
 
             if (htmlAttributes != null)
@@ -39,11 +39,25 @@ namespace BootstrapForms.Razor
             foreach (SelectListItem item in radioList)
             {
                 // Generate an id to be given to the radio button field
-                var id = string.Format("{0}_{1}", metadata.PropertyName, item.Value);
+                var id = string.Format("{0}_{1}", propertyName, item.Value);
 
                 // Create and populate a radio button using the existing html helpers
                 var label = helper.Label(id, HttpUtility.HtmlEncode(item.Text));
-                var radio = helper.RadioButtonFor(expression, item.Value, new { id = id }).ToHtmlString();
+
+                var radioHtmlAttributes = new Dictionary<string, object> { { "id", id } };
+
+                if (htmlAttributes != null)
+                {
+                    htmlAttributes.ToList().ForEach(x =>
+                    {
+                        if (!radioHtmlAttributes.ContainsKey(x.Key))
+                        {
+                            radioHtmlAttributes.Add(x.Key, x.Value);
+                        }
+                    });
+                }
+
+                var radio = helper.RadioButtonFor(expression, item.Value, radioHtmlAttributes).ToHtmlString();
 
                 // Create the html string
                 // e.g. <input data-val="true" data-val-required="You must select an option" id="TestRadio_1" name="TestRadio" type="radio" value="1" /><label for="TestRadio_1">Line1</label>

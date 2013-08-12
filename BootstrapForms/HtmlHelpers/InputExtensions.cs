@@ -7,7 +7,6 @@ using System.Text;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
-using BootstrapForms.Razor;
 
 namespace BootstrapForms.HtmlHelpers
 {
@@ -16,6 +15,56 @@ namespace BootstrapForms.HtmlHelpers
     /// </summary>
     public static class InputExtensions
     {
+        public static MvcHtmlString BsTextBox(this HtmlHelper helper, string name)
+        {
+            return BsTextBox(helper, name, value: null);
+        }
+        public static MvcHtmlString BsTextBox(this HtmlHelper helper, string name, object value)
+        {
+            return BsTextBox(helper, name, value, format: null);
+        }
+        public static MvcHtmlString BsTextBox(this HtmlHelper helper, string name, object value, string format)
+        {
+            return BsTextBox(helper, name, value, format, htmlAttributes: (object)null);
+        }
+        public static MvcHtmlString BsTextBox(this HtmlHelper helper, string name, object value, object htmlAttributes)
+        {
+            return BsTextBox(helper, name, value, format: null, htmlAttributes: htmlAttributes);
+        }
+        public static MvcHtmlString BsTextBox(this HtmlHelper helper, string name, object value, string format, object htmlAttributes)
+        {
+            return BsTextBox(helper, name, value, format, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+        }
+        public static MvcHtmlString BsTextBox(this HtmlHelper helper, string name, object value, IDictionary<string, object> htmlAttributes)
+        {
+            return BsTextBox(helper, name, value, format: null, htmlAttributes: htmlAttributes);
+        }
+        public static MvcHtmlString BsTextBox(this HtmlHelper helper, string name, object value, string format, IDictionary<string, object> htmlAttributes)
+        {
+            var metadata = ModelMetadata.FromStringExpression(name, helper.ViewContext.ViewData);
+            if (value != null)
+            {
+                metadata.Model = value;
+            }
+
+            //add placeholder           
+            if (!string.IsNullOrEmpty(metadata.Watermark) && !htmlAttributes.ContainsKey("placeholder"))
+            {
+                htmlAttributes.BsMergeAttribute("placeholder", metadata.Watermark);
+            }
+
+            //add html5 input type
+            if (!string.IsNullOrEmpty(metadata.DataTypeName))
+            {
+                htmlAttributes.BsMergeAttribute("type", metadata.DataTypeName.GetHtml5Type());
+            }
+
+            //merge custom css classes with bootstrap
+            htmlAttributes.BsMergeAttribute("class", "form-control");
+            return helper.TextBox(name, value, format, htmlAttributes);
+
+        }
+
         /// <summary>
         /// Returns a textbox element with placeholder and info tooltip
         /// </summary>
@@ -25,10 +74,8 @@ namespace BootstrapForms.HtmlHelpers
             var fieldName = ExpressionHelper.GetExpressionText(expression);
             var labelText = metadata.DisplayName ?? metadata.PropertyName ?? fieldName.Split('.').Last();
 
-            //determine if the prop is decorated with Required
             var model = typeof(TModel);
             var property = model.GetProperty(fieldName);
-            var isRequired = Attribute.IsDefined(property, typeof(RequiredAttribute));
 
             //merge custom css classes with bootstrap
             htmlAttributes.BsMergeAttribute("class", "form-control");
@@ -42,50 +89,8 @@ namespace BootstrapForms.HtmlHelpers
             //add html5 input types
             if (!string.IsNullOrEmpty(metadata.DataTypeName))
             {
-                string html5Type;
                 var dataType = (DataTypeAttribute)Attribute.GetCustomAttribute(property, typeof(DataTypeAttribute));
-
-                switch (dataType.DataType)
-                {
-                    case DataType.Date:
-                        html5Type = "date";
-                        break;
-                    case DataType.DateTime:
-                        html5Type = "datetime";
-                        break;
-                    case DataType.EmailAddress:
-                        html5Type = "email";
-                        break;
-                    case DataType.ImageUrl:
-                        html5Type = "url";
-                        break;
-                    case DataType.Password:
-                        html5Type = "password";
-                        break;
-                    case DataType.PhoneNumber:
-                        html5Type = "tel";
-                        break;
-                    case DataType.PostalCode:
-                        html5Type = "number";
-                        break;
-                    case DataType.Text:
-                        html5Type = "text";
-                        break;
-                    case DataType.Time:
-                        html5Type = "time";
-                        break;
-                    case DataType.Upload:
-                        html5Type = "file";
-                        break;
-                    case DataType.Url:
-                        html5Type = "url";
-                        break;
-                    default:
-                        html5Type = "text";
-                        break;
-                }
-
-                htmlAttributes.BsMergeAttribute("type", html5Type);
+                htmlAttributes.BsMergeAttribute("type", dataType.GetHtml5Type());
             }
 
             //add info tooltip

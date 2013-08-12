@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Web;
+using System.Reflection;
 using System.Web.Mvc;
-using System.Web.Routing;
 using System.Web.Mvc.Html;
-using BootstrapForms.HtmlHelpers;
+using System.Web.Routing;
 
-namespace BootstrapForms.Razor
+namespace BootstrapForms.HtmlHelpers
 {
     /// <summary>
     /// Represents support for the bootstrap HTML label element
@@ -21,13 +18,16 @@ namespace BootstrapForms.Razor
         /// </summary>
         public static MvcHtmlString BsLabelFor<TModel, TProperty>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expression, IDictionary<string, object> htmlAttributes)
         {
-            ModelMetadata metadata = ModelMetadata.FromLambdaExpression(expression, helper.ViewData);
-            string fieldName = ExpressionHelper.GetExpressionText(expression);
-            string labelText = metadata.DisplayName ?? metadata.PropertyName ?? fieldName.Split('.').Last();
-
             //determine if the prop is decorated with Required
             var model = typeof(TModel);
-            var property = model.GetProperty(fieldName);
+            PropertyInfo property = null;
+            string fieldName = ExpressionHelper.GetExpressionText(expression);
+
+            foreach (var prop in fieldName.Split('.'))
+            {
+                property = model.GetProperty(prop);
+                model = property.PropertyType;
+            }
             var isRequired = Attribute.IsDefined(property, typeof(System.ComponentModel.DataAnnotations.RequiredAttribute));
 
             //merge custom css classes with bootstrap

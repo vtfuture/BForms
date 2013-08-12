@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel;
 
-namespace IndacoEMS.BootstrapForms.Razor
+namespace BootstrapForms.HtmlHelpers
 {
     public enum BsInputType
     {
