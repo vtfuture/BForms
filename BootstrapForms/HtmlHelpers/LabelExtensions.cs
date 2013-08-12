@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
+using BootstrapForms.Utilities;
 
 namespace BootstrapForms.HtmlHelpers
 {
@@ -31,10 +32,10 @@ namespace BootstrapForms.HtmlHelpers
             var isRequired = Attribute.IsDefined(property, typeof(System.ComponentModel.DataAnnotations.RequiredAttribute));
 
             //merge custom css classes with bootstrap
-            htmlAttributes.BsMergeAttribute("class", "control-label");
+            htmlAttributes.MergeAttribute("class", "control-label");
             if (isRequired)
             {
-                htmlAttributes.BsMergeAttribute("class", "required");
+                htmlAttributes.MergeAttribute("class", "required");
             }
 
             return helper.LabelFor(expression, htmlAttributes);

@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Web.Mvc;
 using System.Web.Routing;
+using BootstrapForms.Utilities;
 
 namespace BootstrapForms.HtmlHelpers
 {
@@ -35,7 +36,7 @@ namespace BootstrapForms.HtmlHelpers
         /// </summary>
         public static MvcHtmlString BsGlyphiconAddon<TModel>(this HtmlHelper<TModel> helper, Glyphicons icon, IDictionary<string, object> htmlAttributes)
         {
-            htmlAttributes.BsMergeAttribute("class", "input-group-addon");
+            htmlAttributes.MergeAttribute("class", "input-group-addon");
             return BsGlyphicon(helper, icon, htmlAttributes);
         }
         public static MvcHtmlString BsGlyphiconAddon<TModel>(this HtmlHelper<TModel> helper, Glyphicons icon, object htmlAttributes)

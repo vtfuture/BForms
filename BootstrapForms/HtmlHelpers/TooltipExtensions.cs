@@ -17,8 +17,6 @@ namespace BootstrapForms.HtmlHelpers
         /// </summary>
         public static MvcHtmlString BsDescriptionFor<TModel, TProperty>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expression, IDictionary<string, object> htmlAttributes)
         {
-            var propertyName = ExpressionHelper.GetExpressionText(expression);
-            var name = helper.AttributeEncode(helper.ViewData.TemplateInfo.GetFullHtmlFieldName(propertyName));
             var metaData = ModelMetadata.FromLambdaExpression(expression, helper.ViewData);
 
             if (!string.IsNullOrEmpty(metaData.Description))
@@ -40,10 +38,16 @@ namespace BootstrapForms.HtmlHelpers
 
             return MvcHtmlString.Create(string.Empty);
         }
+        /// <summary>
+        /// Returns a span element containing the localized value of Display description attribute
+        /// </summary>
         public static MvcHtmlString BsDescriptionFor<TModel, TProperty>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expression)
         {
             return BsDescriptionFor(helper, expression, (object)null);
         }
+        /// <summary>
+        /// Returns a span element containing the localized value of Display description attribute
+        /// </summary>
         public static MvcHtmlString BsDescriptionFor<TModel, TProperty>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expression, object htmlAttributes)
         {
             return BsDescriptionFor(helper, expression, new RouteValueDictionary(htmlAttributes));

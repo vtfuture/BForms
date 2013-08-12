@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
+using BootstrapForms.Utilities;
 
 namespace BootstrapForms.HtmlHelpers
 {
@@ -98,13 +99,13 @@ namespace BootstrapForms.HtmlHelpers
             var metadata = ModelMetadata.FromLambdaExpression(expression, helper.ViewData);
 
             //merge custom css classes with bootstrap
-            htmlAttributes.BsMergeAttribute("class", "form-control");
-            htmlAttributes.BsMergeAttribute("data-stringifyTags", "true");
+            htmlAttributes.MergeAttribute("class", "form-control");
+            htmlAttributes.MergeAttribute("data-stringifyTags", "true");
 
             //add placeholder
             if (!string.IsNullOrEmpty(metadata.Watermark) && !htmlAttributes.ContainsKey("placeholder"))
             {
-                htmlAttributes.BsMergeAttribute("placeholder", metadata.Watermark);
+                htmlAttributes.MergeAttribute("placeholder", metadata.Watermark);
             }
 
             //add info tooltip
@@ -133,7 +134,7 @@ namespace BootstrapForms.HtmlHelpers
             ModelMetadata metadata = ModelMetadata.FromLambdaExpression(expression, helper.ViewData);
 
             //merge custom css classes with bootstrap
-            htmlAttributes.BsMergeAttribute("class", "form-control");
+            htmlAttributes.MergeAttribute("class", "form-control");
 
             //add info tooltip
             var description = new MvcHtmlString("");
@@ -158,7 +159,7 @@ namespace BootstrapForms.HtmlHelpers
             string htmlSelect;
 
             //merge custom css classes with bootstrap
-            htmlAttributes.BsMergeAttribute("class", "form-control");
+            htmlAttributes.MergeAttribute("class", "form-control");
 
             //add optionLabel from Disply Watermark
             if (!string.IsNullOrEmpty(metadata.Watermark))

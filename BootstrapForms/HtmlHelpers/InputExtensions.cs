@@ -7,6 +7,7 @@ using System.Text;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
+using BootstrapForms.Utilities;
 
 namespace BootstrapForms.HtmlHelpers
 {
@@ -50,17 +51,17 @@ namespace BootstrapForms.HtmlHelpers
             //add placeholder           
             if (!string.IsNullOrEmpty(metadata.Watermark) && !htmlAttributes.ContainsKey("placeholder"))
             {
-                htmlAttributes.BsMergeAttribute("placeholder", metadata.Watermark);
+                htmlAttributes.MergeAttribute("placeholder", metadata.Watermark);
             }
 
             //add html5 input type
             if (!string.IsNullOrEmpty(metadata.DataTypeName))
             {
-                htmlAttributes.BsMergeAttribute("type", metadata.DataTypeName.GetHtml5Type());
+                htmlAttributes.MergeAttribute("type", metadata.DataTypeName.GetHtml5Type());
             }
 
             //merge custom css classes with bootstrap
-            htmlAttributes.BsMergeAttribute("class", "form-control");
+            htmlAttributes.MergeAttribute("class", "form-control");
             return helper.TextBox(name, value, format, htmlAttributes);
 
         }
@@ -78,19 +79,18 @@ namespace BootstrapForms.HtmlHelpers
             var property = model.GetProperty(fieldName);
 
             //merge custom css classes with bootstrap
-            htmlAttributes.BsMergeAttribute("class", "form-control");
+            htmlAttributes.MergeAttribute("class", "form-control");
 
             //add placeholder           
             if (!string.IsNullOrEmpty(metadata.Watermark) && !htmlAttributes.ContainsKey("placeholder"))
             {
-                htmlAttributes.BsMergeAttribute("placeholder", metadata.Watermark);
+                htmlAttributes.MergeAttribute("placeholder", metadata.Watermark);
             }
 
             //add html5 input types
             if (!string.IsNullOrEmpty(metadata.DataTypeName))
             {
-                var dataType = (DataTypeAttribute)Attribute.GetCustomAttribute(property, typeof(DataTypeAttribute));
-                htmlAttributes.BsMergeAttribute("type", dataType.GetHtml5Type());
+                htmlAttributes.MergeAttribute("type", metadata.DataTypeName.GetHtml5Type());
             }
 
             //add info tooltip
@@ -119,12 +119,12 @@ namespace BootstrapForms.HtmlHelpers
             ModelMetadata metadata = ModelMetadata.FromLambdaExpression(expression, helper.ViewData);
 
             //merge custom css classes with bootstrap
-            htmlAttributes.BsMergeAttribute("class", "form-control");
+            htmlAttributes.MergeAttribute("class", "form-control");
 
             //add placeholder
             if (!string.IsNullOrEmpty(metadata.Watermark) && !htmlAttributes.ContainsKey("placeholder"))
             {
-                htmlAttributes.BsMergeAttribute("placeholder", metadata.Watermark);
+                htmlAttributes.MergeAttribute("placeholder", metadata.Watermark);
             }
 
             //add info tooltip

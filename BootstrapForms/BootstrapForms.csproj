@@ -77,11 +77,12 @@
     <Compile Include="HtmlHelpers\GlyphiconExtensions.cs" />
     <Compile Include="HtmlHelpers\HtmlExtensions.cs" />
     <Compile Include="HtmlHelpers\InputExtensions.cs" />
-    <Compile Include="HtmlHelpers\InputTypes.cs" />
     <Compile Include="HtmlHelpers\LabelExtensions.cs" />
     <Compile Include="HtmlHelpers\SelectExtensions.cs" />
     <Compile Include="HtmlHelpers\TooltipExtensions.cs" />
     <Compile Include="HtmlHelpers\ValidationExtensions.cs" />
+    <Compile Include="Utilities\ReflectionHelpers.cs" />
+    <Compile Include="Utilities\Renders.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

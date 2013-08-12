@@ -5,6 +5,7 @@ using System.Text;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
+using BootstrapForms.Utilities;
 
 namespace BootstrapForms.HtmlHelpers
 {
@@ -18,11 +19,9 @@ namespace BootstrapForms.HtmlHelpers
         /// </summary>
         public static MvcHtmlString BsValidationCssFor<TModel, TProperty>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expression)
         {
-            var propertyName = ExpressionHelper.GetExpressionText(expression);
-            helper.AttributeEncode(helper.ViewData.TemplateInfo.GetFullHtmlFieldName(propertyName));
             var cssClass = string.Empty;
 
-            if (helper.BsPropertyIsInvalid(expression))
+            if (helper.PropertyIsInvalid(expression))
             {
                 cssClass = "has-error";
             }
@@ -42,7 +41,7 @@ namespace BootstrapForms.HtmlHelpers
             var tag = new TagBuilder("span");
             tag.MergeAttributes(htmlAttributes, false);
 
-            var isInvalid = helper.BsPropertyIsInvalid(expression);
+            var isInvalid = helper.PropertyIsInvalid(expression);
 
             //add jquery validatior html attributes & css
             tag.AddCssClass(isInvalid ? HtmlHelper.ValidationMessageCssClassName : HtmlHelper.ValidationMessageValidCssClassName);
@@ -68,10 +67,18 @@ namespace BootstrapForms.HtmlHelpers
             returnTag.Append(tag.ToString(TagRenderMode.EndTag));
             return MvcHtmlString.Create(returnTag.ToString());
         }
+
+        /// <summary>
+        /// Returns a span element containing the localized value of the ModelState error message
+        /// </summary>
         public static MvcHtmlString BsValidationFor<TModel, TProperty>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expression)
         {
             return BsValidationFor(helper, expression, (object)null);
         }
+
+        /// <summary>
+        /// Returns a span element containing the localized value of the ModelState error message
+        /// </summary>
         public static MvcHtmlString BsValidationFor<TModel, TProperty>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expression, object htmlAttributes)
         {
             return BsValidationFor(helper, expression, new RouteValueDictionary(htmlAttributes));
@@ -123,6 +130,10 @@ namespace BootstrapForms.HtmlHelpers
 
             return MvcHtmlString.Empty;
         }
+
+        /// <summary>
+        /// Returns a span element containing the localized value of the ModelState FormError custom message
+        /// </summary>
         public static MvcHtmlString BsFormValidation(this HtmlHelper helper)
         {
             return BsFormValidation(helper, new RouteValueDictionary((object)null));
