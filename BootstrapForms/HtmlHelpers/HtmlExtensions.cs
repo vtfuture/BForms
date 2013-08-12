@@ -10,7 +10,7 @@ using System.Web.Mvc.Html;
 namespace BootstrapForms.HtmlHelpers
 {
     /// <summary>
-    /// Represents helpers for bootstrap forms
+    /// Represents HTML helpers for bootstrap forms
     /// </summary>
     public static class HtmlExtensions
     {

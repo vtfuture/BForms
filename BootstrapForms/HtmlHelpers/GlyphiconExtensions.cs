@@ -14,6 +14,22 @@ namespace BootstrapForms.HtmlHelpers
         /// <summary>
         /// Returns a span element with glyphicon css
         /// </summary>
+        public static MvcHtmlString BsGlyphicon<TModel>(this HtmlHelper<TModel> helper, Glyphicons icon, object htmlAttributes)
+        {
+            return BsGlyphicon(helper, icon, new RouteValueDictionary(htmlAttributes));
+        }
+
+        /// <summary>
+        /// Returns a span element with glyphicon css
+        /// </summary>
+        public static MvcHtmlString BsGlyphicon<TModel>(this HtmlHelper<TModel> helper, Glyphicons icon)
+        {
+            return BsGlyphicon(helper, icon, (object)null);
+        }
+
+        /// <summary>
+        /// Returns a span element with glyphicon css
+        /// </summary>
         public static MvcHtmlString BsGlyphicon<TModel>(this HtmlHelper<TModel> helper, Glyphicons icon, IDictionary<string, object> htmlAttributes)
         {
             var spanTag = new TagBuilder("span");
@@ -22,13 +38,21 @@ namespace BootstrapForms.HtmlHelpers
             spanTag.AddCssClass("glyphicon");
             return MvcHtmlString.Create(spanTag.ToString(TagRenderMode.Normal));
         }
-        public static MvcHtmlString BsGlyphicon<TModel>(this HtmlHelper<TModel> helper, Glyphicons icon, object htmlAttributes)
+
+        /// <summary>
+        /// Returns a span element with glyphicon css and input-group-addon, to be used inside a input-group div
+        /// </summary>
+        public static MvcHtmlString BsGlyphiconAddon<TModel>(this HtmlHelper<TModel> helper, Glyphicons icon, object htmlAttributes)
         {
-            return BsGlyphicon(helper, icon, new RouteValueDictionary(htmlAttributes));
+            return BsGlyphiconAddon(helper, icon, new RouteValueDictionary(htmlAttributes));
         }
-        public static MvcHtmlString BsGlyphicon<TModel>(this HtmlHelper<TModel> helper, Glyphicons icon)
+
+        /// <summary>
+        /// Returns a span element with glyphicon css and input-group-addon, to be used inside a input-group div
+        /// </summary>
+        public static MvcHtmlString BsGlyphiconAddon<TModel>(this HtmlHelper<TModel> helper, Glyphicons icon)
         {
-            return BsGlyphicon(helper, icon, (object)null);
+            return BsGlyphiconAddon(helper, icon, (object)null);
         }
 
         /// <summary>
@@ -39,16 +63,11 @@ namespace BootstrapForms.HtmlHelpers
             htmlAttributes.MergeAttribute("class", "input-group-addon");
             return BsGlyphicon(helper, icon, htmlAttributes);
         }
-        public static MvcHtmlString BsGlyphiconAddon<TModel>(this HtmlHelper<TModel> helper, Glyphicons icon, object htmlAttributes)
-        {
-            return BsGlyphiconAddon(helper, icon, new RouteValueDictionary(htmlAttributes));
-        }
-        public static MvcHtmlString BsGlyphiconAddon<TModel>(this HtmlHelper<TModel> helper, Glyphicons icon)
-        {
-            return BsGlyphiconAddon(helper, icon, (object)null);
-        }
     }
 
+    /// <summary>
+    /// Glyphicon font symbols
+    /// </summary>
     public enum Glyphicons
     {
         //when you want to specify a symbol that is not listed in this enum
