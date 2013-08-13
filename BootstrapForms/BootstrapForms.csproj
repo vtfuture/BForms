@@ -110,11 +110,14 @@
     <Content Include="Scripts\BForms\Plugins\Datepicker\css\datepicker.css" />
     <Content Include="Scripts\BForms\Plugins\Datepicker\js\bootstrap-datepicker-1.01.js" />
     <Content Include="Scripts\BForms\Plugins\Datepicker\js\i18n\bootstrap-datepicker.ro.js" />
+    <Content Include="Scripts\BForms\Plugins\RadioButtonsList\radioButtonsList.js" />
+    <Content Include="Scripts\BForms\Plugins\ResetInput\resetInput.js" />
     <Content Include="Scripts\BForms\Plugins\Select2\css\select2-spinner.gif" />
     <Content Include="Scripts\BForms\Plugins\Select2\css\select2.css" />
     <Content Include="Scripts\BForms\Plugins\Select2\css\select2.png" />
     <Content Include="Scripts\BForms\Plugins\Select2\js\i18n\select2-ro.js" />
     <Content Include="Scripts\BForms\Plugins\Select2\js\select2.js" />
+    <Content Include="Scripts\BForms\Plugins\StyleInputs\styleInputs.js" />
     <Content Include="Scripts\BForms\Plugins\Validation\i18n\jquery.validate-ro.js" />
     <Content Include="Scripts\BForms\Plugins\Validation\jquery.validate-1.11.1.js" />
     <Content Include="Scripts\BForms\Plugins\Validation\jquery.validate.unobtrusive.bootstrap.js" />
