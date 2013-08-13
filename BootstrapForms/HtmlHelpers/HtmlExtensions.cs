@@ -20,17 +20,27 @@ namespace BootstrapForms.HtmlHelpers
         /// <example>
         /// @Html.PartialPrefixed(m => m.Client.Address, "Client/_Address", Model)
         /// </example>
-        public static MvcHtmlString BsPartialPrefixed<TModel, TNewModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TNewModel, TProperty>> expression, string partialViewName, TNewModel model, string additionalPrefix = "")
+        public static MvcHtmlString BsPartialPrefixed<TModel, TNewModel, TProperty>(this HtmlHelper<TModel> htmlHelper,
+            Expression<Func<TNewModel, TProperty>> expression, string partialViewName, TNewModel model,
+            string additionalPrefix = "")
         {
             var propertyName = ExpressionHelper.GetExpressionText(expression);
-            var backup = htmlHelper.ViewData.TemplateInfo.HtmlFieldPrefix;
+            var backupFieldPrefix = htmlHelper.ViewData.TemplateInfo.HtmlFieldPrefix;
             var backupModel = htmlHelper.ViewData["Model"];
-            htmlHelper.ViewData.TemplateInfo.HtmlFieldPrefix += (htmlHelper.ViewData.TemplateInfo.HtmlFieldPrefix != string.Empty ? "." : string.Empty) + propertyName + additionalPrefix;
+
+            htmlHelper.ViewData.TemplateInfo.HtmlFieldPrefix += (htmlHelper.ViewData.TemplateInfo.HtmlFieldPrefix !=
+                                                                 string.Empty
+                ? "."
+                : string.Empty) + propertyName + additionalPrefix;
+
             htmlHelper.ViewData["Model"] = model;
+
             var property = expression.Compile()(model);
             var result = htmlHelper.Partial(partialViewName, property);
-            htmlHelper.ViewData.TemplateInfo.HtmlFieldPrefix = backup;
+
+            htmlHelper.ViewData.TemplateInfo.HtmlFieldPrefix = backupFieldPrefix;
             htmlHelper.ViewData["Model"] = backupModel;
+
             return result;
         }
     }

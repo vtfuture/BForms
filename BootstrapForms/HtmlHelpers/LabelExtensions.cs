@@ -17,15 +17,17 @@ namespace BootstrapForms.HtmlHelpers
         /// <summary>
         /// Returns a label element with required css class
         /// </summary>
-        public static MvcHtmlString BsLabelFor<TModel, TProperty>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expression)
+        public static MvcHtmlString BsLabelFor<TModel, TProperty>(this HtmlHelper<TModel> helper,
+            Expression<Func<TModel, TProperty>> expression)
         {
-            return BsLabelFor(helper, expression, (object)null);
+            return BsLabelFor(helper, expression, (object) null);
         }
 
         /// <summary>
         /// Returns a label element with required css class
         /// </summary>
-        public static MvcHtmlString BsLabelFor<TModel, TProperty>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expression, object htmlAttributes)
+        public static MvcHtmlString BsLabelFor<TModel, TProperty>(this HtmlHelper<TModel> helper,
+            Expression<Func<TModel, TProperty>> expression, object htmlAttributes)
         {
             return BsLabelFor(helper, expression, new RouteValueDictionary(htmlAttributes));
         }
@@ -33,10 +35,11 @@ namespace BootstrapForms.HtmlHelpers
         /// <summary>
         /// Returns a label element with required css class
         /// </summary>
-        public static MvcHtmlString BsLabelFor<TModel, TProperty>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expression, IDictionary<string, object> htmlAttributes)
+        public static MvcHtmlString BsLabelFor<TModel, TProperty>(this HtmlHelper<TModel> helper,
+            Expression<Func<TModel, TProperty>> expression, IDictionary<string, object> htmlAttributes)
         {
             //determine if the prop is decorated with Required
-            var model = typeof(TModel);
+            var model = typeof (TModel);
             PropertyInfo property = null;
             string fieldName = ExpressionHelper.GetExpressionText(expression);
 
@@ -45,7 +48,8 @@ namespace BootstrapForms.HtmlHelpers
                 property = model.GetProperty(prop);
                 model = property.PropertyType;
             }
-            var isRequired = Attribute.IsDefined(property, typeof(System.ComponentModel.DataAnnotations.RequiredAttribute));
+            var isRequired = Attribute.IsDefined(property,
+                typeof (System.ComponentModel.DataAnnotations.RequiredAttribute));
 
             //merge custom css classes with bootstrap
             htmlAttributes.MergeAttribute("class", "control-label");

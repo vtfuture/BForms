@@ -17,6 +17,7 @@ namespace BootstrapForms.HtmlHelpers
     public static class InputExtensions
     {
         #region TextBox
+
         /// <summary>
         /// Returns a textbox input element with placeholder
         /// </summary>
@@ -38,7 +39,7 @@ namespace BootstrapForms.HtmlHelpers
         /// </summary>
         public static MvcHtmlString BsTextBox(this HtmlHelper helper, string name, object value, string format)
         {
-            return BsTextBox(helper, name, value, format, htmlAttributes: (object)null);
+            return BsTextBox(helper, name, value, format, htmlAttributes: (object) null);
         }
 
         /// <summary>
@@ -52,7 +53,8 @@ namespace BootstrapForms.HtmlHelpers
         /// <summary>
         /// Returns a textbox input element with placeholder
         /// </summary>
-        public static MvcHtmlString BsTextBox(this HtmlHelper helper, string name, object value, string format, object htmlAttributes)
+        public static MvcHtmlString BsTextBox(this HtmlHelper helper, string name, object value, string format,
+            object htmlAttributes)
         {
             return BsTextBox(helper, name, value, format, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
         }
@@ -60,7 +62,8 @@ namespace BootstrapForms.HtmlHelpers
         /// <summary>
         /// Returns a textbox input element with placeholder
         /// </summary>
-        public static MvcHtmlString BsTextBox(this HtmlHelper helper, string name, object value, IDictionary<string, object> htmlAttributes)
+        public static MvcHtmlString BsTextBox(this HtmlHelper helper, string name, object value,
+            IDictionary<string, object> htmlAttributes)
         {
             return BsTextBox(helper, name, value, format: null, htmlAttributes: htmlAttributes);
         }
@@ -68,7 +71,8 @@ namespace BootstrapForms.HtmlHelpers
         /// <summary>
         /// Returns a textbox input element with placeholder
         /// </summary>
-        public static MvcHtmlString BsTextBox(this HtmlHelper helper, string name, object value, string format, IDictionary<string, object> htmlAttributes)
+        public static MvcHtmlString BsTextBox(this HtmlHelper helper, string name, object value, string format,
+            IDictionary<string, object> htmlAttributes)
         {
             var metadata = ModelMetadata.FromStringExpression(name, helper.ViewContext.ViewData);
             if (value != null)
@@ -97,15 +101,17 @@ namespace BootstrapForms.HtmlHelpers
         /// <summary>
         /// Returns a textbox input element with placeholder and info tooltip
         /// </summary>
-        public static MvcHtmlString BsTextBoxFor<TModel, TProperty>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expression)
+        public static MvcHtmlString BsTextBoxFor<TModel, TProperty>(this HtmlHelper<TModel> helper,
+            Expression<Func<TModel, TProperty>> expression)
         {
-            return BsTextBoxFor(helper, expression, (object)null);
+            return BsTextBoxFor(helper, expression, (object) null);
         }
 
         /// <summary>
         /// Returns a textbox input element with placeholder and info tooltip
         /// </summary>
-        public static MvcHtmlString BsTextBoxFor<TModel, TProperty>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expression, object htmlAttributes)
+        public static MvcHtmlString BsTextBoxFor<TModel, TProperty>(this HtmlHelper<TModel> helper,
+            Expression<Func<TModel, TProperty>> expression, object htmlAttributes)
         {
             return BsTextBoxFor(helper, expression, new RouteValueDictionary(htmlAttributes));
         }
@@ -113,14 +119,10 @@ namespace BootstrapForms.HtmlHelpers
         /// <summary>
         /// Returns a textbox input element with placeholder and info tooltip
         /// </summary>
-        public static MvcHtmlString BsTextBoxFor<TModel, TProperty>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expression, IDictionary<string, object> htmlAttributes)
+        public static MvcHtmlString BsTextBoxFor<TModel, TProperty>(this HtmlHelper<TModel> helper,
+            Expression<Func<TModel, TProperty>> expression, IDictionary<string, object> htmlAttributes)
         {
             var metadata = ModelMetadata.FromLambdaExpression(expression, helper.ViewData);
-            var fieldName = ExpressionHelper.GetExpressionText(expression);
-            var labelText = metadata.DisplayName ?? metadata.PropertyName ?? fieldName.Split('.').Last();
-
-            var model = typeof(TModel);
-            var property = model.GetProperty(fieldName);
 
             //merge custom css classes with bootstrap
             htmlAttributes.MergeAttribute("class", "form-control");
@@ -131,7 +133,7 @@ namespace BootstrapForms.HtmlHelpers
                 htmlAttributes.MergeAttribute("placeholder", metadata.Watermark);
             }
 
-            //add html5 input types
+            //add html5 input type
             if (!string.IsNullOrEmpty(metadata.DataTypeName))
             {
                 htmlAttributes.MergeAttribute("type", metadata.DataTypeName.GetHtml5Type());
@@ -144,18 +146,21 @@ namespace BootstrapForms.HtmlHelpers
                 description = helper.BsDescriptionFor(expression);
             }
 
-            return MvcHtmlString.Create(helper.TextBoxFor(expression, htmlAttributes).ToHtmlString() + description.ToHtmlString());
+            return
+                MvcHtmlString.Create(helper.TextBoxFor(expression, htmlAttributes).ToHtmlString() +
+                                     description.ToHtmlString());
         }
 
         #endregion
 
         #region TextArea
+
         /// <summary>
         /// Returns a textarea element with placeholder
         /// </summary>
         public static MvcHtmlString BsTextArea(this HtmlHelper htmlHelper, string name)
         {
-            return BsTextArea(htmlHelper, name, null /* value */, null /* htmlAttributes */);
+            return BsTextArea(htmlHelper, name, value: null, htmlAttributes: null);
         }
 
         /// <summary>
@@ -163,13 +168,15 @@ namespace BootstrapForms.HtmlHelpers
         /// </summary>
         public static MvcHtmlString BsTextArea(this HtmlHelper htmlHelper, string name, object htmlAttributes)
         {
-            return BsTextArea(htmlHelper, name, null /* value */, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+            return BsTextArea(htmlHelper, name, null /* value */,
+                HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
         }
 
         /// <summary>
         /// Returns a textarea element with placeholder
         /// </summary>
-        public static MvcHtmlString BsTextArea(this HtmlHelper htmlHelper, string name, IDictionary<string, object> htmlAttributes)
+        public static MvcHtmlString BsTextArea(this HtmlHelper htmlHelper, string name,
+            IDictionary<string, object> htmlAttributes)
         {
             return BsTextArea(htmlHelper, name, null /* value */, htmlAttributes);
         }
@@ -179,13 +186,14 @@ namespace BootstrapForms.HtmlHelpers
         /// </summary>
         public static MvcHtmlString BsTextArea(this HtmlHelper htmlHelper, string name, string value)
         {
-            return BsTextArea(htmlHelper, name, value, null /* htmlAttributes */);
+            return BsTextArea(htmlHelper, name, value, htmlAttributes: null);
         }
 
         /// <summary>
         /// Returns a textarea element with placeholder
         /// </summary>
-        public static MvcHtmlString BsTextArea(this HtmlHelper htmlHelper, string name, string value, object htmlAttributes)
+        public static MvcHtmlString BsTextArea(this HtmlHelper htmlHelper, string name, string value,
+            object htmlAttributes)
         {
             return BsTextArea(htmlHelper, name, value, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
         }
@@ -193,23 +201,27 @@ namespace BootstrapForms.HtmlHelpers
         /// <summary>
         /// Returns a textarea element with placeholder
         /// </summary>
-        public static MvcHtmlString BsTextArea(this HtmlHelper htmlHelper, string name, string value, IDictionary<string, object> htmlAttributes)
+        public static MvcHtmlString BsTextArea(this HtmlHelper htmlHelper, string name, string value,
+            IDictionary<string, object> htmlAttributes)
         {
-            return BsTextArea(htmlHelper, name, value, 2, 20, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+            return BsTextArea(htmlHelper, name, value, rows: 2, columns: 20, htmlAttributes: HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
         }
 
         /// <summary>
         /// Returns a textarea element with placeholder
         /// </summary>
-        public static MvcHtmlString BsTextArea(this HtmlHelper htmlHelper, string name, string value, int rows, int columns, object htmlAttributes)
+        public static MvcHtmlString BsTextArea(this HtmlHelper htmlHelper, string name, string value, int rows,
+            int columns, object htmlAttributes)
         {
-            return BsTextArea(htmlHelper, name, value, rows, columns, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+            return BsTextArea(htmlHelper, name, value, rows, columns,
+                HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
         }
 
         /// <summary>
         /// Returns a textarea element with placeholder
         /// </summary>
-        public static MvcHtmlString BsTextArea(this HtmlHelper htmlHelper, string name, string value, int rows, int columns, IDictionary<string, object> htmlAttributes)
+        public static MvcHtmlString BsTextArea(this HtmlHelper htmlHelper, string name, string value, int rows,
+            int columns, IDictionary<string, object> htmlAttributes)
         {
             ModelMetadata metadata = ModelMetadata.FromStringExpression(name, htmlHelper.ViewContext.ViewData);
             if (value != null)
@@ -231,15 +243,17 @@ namespace BootstrapForms.HtmlHelpers
         /// <summary>
         /// Returns a textarea element with placeholder and info tooltip
         /// </summary>
-        public static MvcHtmlString BsTextAreaFor<TModel, TProperty>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expression)
+        public static MvcHtmlString BsTextAreaFor<TModel, TProperty>(this HtmlHelper<TModel> helper,
+            Expression<Func<TModel, TProperty>> expression)
         {
-            return BsTextAreaFor(helper, expression, (object)null);
+            return BsTextAreaFor(helper, expression, (object) null);
         }
 
         /// <summary>
         /// Returns a textarea element with placeholder and info tooltip
         /// </summary>
-        public static MvcHtmlString BsTextAreaFor<TModel, TProperty>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expression, object htmlAttributes)
+        public static MvcHtmlString BsTextAreaFor<TModel, TProperty>(this HtmlHelper<TModel> helper,
+            Expression<Func<TModel, TProperty>> expression, object htmlAttributes)
         {
             return BsTextAreaFor(helper, expression, new RouteValueDictionary(htmlAttributes));
         }
@@ -247,9 +261,10 @@ namespace BootstrapForms.HtmlHelpers
         /// <summary>
         /// Returns a textarea element with placeholder and info tooltip
         /// </summary>
-        public static MvcHtmlString BsTextAreaFor<TModel, TProperty>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expression, IDictionary<string, object> htmlAttributes)
+        public static MvcHtmlString BsTextAreaFor<TModel, TProperty>(this HtmlHelper<TModel> helper,
+            Expression<Func<TModel, TProperty>> expression, IDictionary<string, object> htmlAttributes)
         {
-            ModelMetadata metadata = ModelMetadata.FromLambdaExpression(expression, helper.ViewData);
+            var metadata = ModelMetadata.FromLambdaExpression(expression, helper.ViewData);
 
             //merge custom css classes with bootstrap
             htmlAttributes.MergeAttribute("class", "form-control");
@@ -267,18 +282,21 @@ namespace BootstrapForms.HtmlHelpers
                 description = helper.BsDescriptionFor(expression);
             }
 
-            return MvcHtmlString.Create(helper.TextAreaFor(expression, htmlAttributes).ToHtmlString() + description.ToHtmlString());
+            return
+                MvcHtmlString.Create(helper.TextAreaFor(expression, htmlAttributes).ToHtmlString() +
+                                     description.ToHtmlString());
         }
 
         #endregion
 
         #region CheckBox
+
         /// <summary>
         /// Returns a checkbox input element wrapped in a label element
         /// </summary>
         public static MvcHtmlString BsCheckBox(this HtmlHelper htmlHelper, string name)
         {
-            return BsCheckBox(htmlHelper, name, htmlAttributes: (object)null);
+            return BsCheckBox(htmlHelper, name, htmlAttributes: (object) null);
         }
 
         /// <summary>
@@ -286,13 +304,14 @@ namespace BootstrapForms.HtmlHelpers
         /// </summary>
         public static MvcHtmlString BsCheckBox(this HtmlHelper htmlHelper, string name, bool isChecked)
         {
-            return BsCheckBox(htmlHelper, name, isChecked, htmlAttributes: (object)null);
+            return BsCheckBox(htmlHelper, name, isChecked, htmlAttributes: (object) null);
         }
 
         /// <summary>
         /// Returns a checkbox input element wrapped in a label element
         /// </summary>
-        public static MvcHtmlString BsCheckBox(this HtmlHelper htmlHelper, string name, bool isChecked, object htmlAttributes)
+        public static MvcHtmlString BsCheckBox(this HtmlHelper htmlHelper, string name, bool isChecked,
+            object htmlAttributes)
         {
             return BsCheckBox(htmlHelper, name, isChecked, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
         }
@@ -308,7 +327,8 @@ namespace BootstrapForms.HtmlHelpers
         /// <summary>
         /// Returns a checkbox input element wrapped in a label element
         /// </summary>
-        public static MvcHtmlString BsCheckBox(this HtmlHelper htmlHelper, string name, IDictionary<string, object> htmlAttributes)
+        public static MvcHtmlString BsCheckBox(this HtmlHelper htmlHelper, string name,
+            IDictionary<string, object> htmlAttributes)
         {
             return BsCheckBox(htmlHelper, name: name, isChecked: false, htmlAttributes: htmlAttributes);
         }
@@ -316,7 +336,8 @@ namespace BootstrapForms.HtmlHelpers
         /// <summary>
         /// Returns a checkbox input element wrapped in a label element
         /// </summary>
-        public static MvcHtmlString BsCheckBox(this HtmlHelper htmlHelper, string name, bool isChecked, IDictionary<string, object> htmlAttributes)
+        public static MvcHtmlString BsCheckBox(this HtmlHelper htmlHelper, string name, bool isChecked,
+            IDictionary<string, object> htmlAttributes)
         {
             var metadata = ModelMetadata.FromStringExpression(name, htmlHelper.ViewData);
             var fieldName = htmlHelper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name);
@@ -334,15 +355,17 @@ namespace BootstrapForms.HtmlHelpers
         /// <summary>
         /// Returns a checkbox input element wrapped in a label element
         /// </summary>
-        public static MvcHtmlString BsCheckBoxFor<TModel>(this HtmlHelper<TModel> helper, Expression<Func<TModel, bool>> expression)
+        public static MvcHtmlString BsCheckBoxFor<TModel>(this HtmlHelper<TModel> helper,
+            Expression<Func<TModel, bool>> expression)
         {
-            return BsCheckBoxFor(helper, expression, (object)null);
+            return BsCheckBoxFor(helper, expression, (object) null);
         }
 
         /// <summary>
         /// Returns a checkbox input element wrapped in a label element
         /// </summary>
-        public static MvcHtmlString BsCheckBoxFor<TModel>(this HtmlHelper<TModel> helper, Expression<Func<TModel, bool>> expression, object htmlAttributes)
+        public static MvcHtmlString BsCheckBoxFor<TModel>(this HtmlHelper<TModel> helper,
+            Expression<Func<TModel, bool>> expression, object htmlAttributes)
         {
             return BsCheckBoxFor(helper, expression, new RouteValueDictionary(htmlAttributes));
         }
@@ -350,7 +373,8 @@ namespace BootstrapForms.HtmlHelpers
         /// <summary>
         /// Returns a checkbox input element wrapped in a label element
         /// </summary>
-        public static MvcHtmlString BsCheckBoxFor<TModel>(this HtmlHelper<TModel> helper, Expression<Func<TModel, bool>> expression, IDictionary<string, object> htmlAttributes)
+        public static MvcHtmlString BsCheckBoxFor<TModel>(this HtmlHelper<TModel> helper,
+            Expression<Func<TModel, bool>> expression, IDictionary<string, object> htmlAttributes)
         {
             var metadata = ModelMetadata.FromLambdaExpression(expression, helper.ViewData);
             var fieldName = ExpressionHelper.GetExpressionText(expression);
@@ -364,15 +388,17 @@ namespace BootstrapForms.HtmlHelpers
 
             return MvcHtmlString.Create(labelHtml.ToString());
         }
+
         #endregion
 
         #region RadioButton
+
         /// <summary>
         /// Returns a radio button input element wrapped in a label element
         /// </summary>
         public static MvcHtmlString BsRadioButton(this HtmlHelper htmlHelper, string name)
         {
-            return BsRadioButton(htmlHelper, name, htmlAttributes: (object)null);
+            return BsRadioButton(htmlHelper, name, htmlAttributes: (object) null);
         }
 
         /// <summary>
@@ -380,13 +406,14 @@ namespace BootstrapForms.HtmlHelpers
         /// </summary>
         public static MvcHtmlString BsRadioButton(this HtmlHelper htmlHelper, string name, bool isChecked)
         {
-            return BsRadioButton(htmlHelper, name, isChecked, htmlAttributes: (object)null);
+            return BsRadioButton(htmlHelper, name, isChecked, htmlAttributes: (object) null);
         }
 
         /// <summary>
         /// Returns a radio button input element wrapped in a label element
         /// </summary>
-        public static MvcHtmlString BsRadioButton(this HtmlHelper htmlHelper, string name, bool isChecked, object htmlAttributes)
+        public static MvcHtmlString BsRadioButton(this HtmlHelper htmlHelper, string name, bool isChecked,
+            object htmlAttributes)
         {
             return BsRadioButton(htmlHelper, name, isChecked, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
         }
@@ -402,7 +429,8 @@ namespace BootstrapForms.HtmlHelpers
         /// <summary>
         /// Returns a radio button input element wrapped in a label element
         /// </summary>
-        public static MvcHtmlString BsRadioButton(this HtmlHelper htmlHelper, string name, IDictionary<string, object> htmlAttributes)
+        public static MvcHtmlString BsRadioButton(this HtmlHelper htmlHelper, string name,
+            IDictionary<string, object> htmlAttributes)
         {
             return BsRadioButton(htmlHelper, name: name, isChecked: false, htmlAttributes: htmlAttributes);
         }
@@ -410,7 +438,8 @@ namespace BootstrapForms.HtmlHelpers
         /// <summary>
         /// Returns a radio button input element wrapped in a label element
         /// </summary>
-        public static MvcHtmlString BsRadioButton(this HtmlHelper htmlHelper, string name, bool isChecked, IDictionary<string, object> htmlAttributes)
+        public static MvcHtmlString BsRadioButton(this HtmlHelper htmlHelper, string name, bool isChecked,
+            IDictionary<string, object> htmlAttributes)
         {
             var metadata = ModelMetadata.FromStringExpression(name, htmlHelper.ViewData);
             var fieldName = htmlHelper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name);
@@ -428,15 +457,17 @@ namespace BootstrapForms.HtmlHelpers
         /// <summary>
         /// Returns a radio button input element wrapped in a label element
         /// </summary>
-        public static MvcHtmlString BsRadioButtonFor<TModel>(this HtmlHelper<TModel> helper, Expression<Func<TModel, bool>> expression)
+        public static MvcHtmlString BsRadioButtonFor<TModel>(this HtmlHelper<TModel> helper,
+            Expression<Func<TModel, bool>> expression)
         {
-            return BsRadioButtonFor(helper, expression, (object)null);
+            return BsRadioButtonFor(helper, expression, (object) null);
         }
 
         /// <summary>
         /// Returns a radio button input element wrapped in a label element
         /// </summary>
-        public static MvcHtmlString BsRadioButtonFor<TModel>(this HtmlHelper<TModel> helper, Expression<Func<TModel, bool>> expression, object htmlAttributes)
+        public static MvcHtmlString BsRadioButtonFor<TModel>(this HtmlHelper<TModel> helper,
+            Expression<Func<TModel, bool>> expression, object htmlAttributes)
         {
             return BsRadioButtonFor(helper, expression, new RouteValueDictionary(htmlAttributes));
         }
@@ -444,7 +475,8 @@ namespace BootstrapForms.HtmlHelpers
         /// <summary>
         /// Returns a radio button input element wrapped in a label element
         /// </summary>
-        public static MvcHtmlString BsRadioButtonFor<TModel>(this HtmlHelper<TModel> helper, Expression<Func<TModel, bool>> expression, IDictionary<string, object> htmlAttributes)
+        public static MvcHtmlString BsRadioButtonFor<TModel>(this HtmlHelper<TModel> helper,
+            Expression<Func<TModel, bool>> expression, IDictionary<string, object> htmlAttributes)
         {
             var metadata = ModelMetadata.FromLambdaExpression(expression, helper.ViewData);
             var fieldName = ExpressionHelper.GetExpressionText(expression);
@@ -458,6 +490,7 @@ namespace BootstrapForms.HtmlHelpers
 
             return MvcHtmlString.Create(labelHtml.ToString());
         }
+
         #endregion
     }
 }

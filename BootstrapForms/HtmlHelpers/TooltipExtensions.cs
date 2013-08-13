@@ -17,7 +17,7 @@ namespace BootstrapForms.HtmlHelpers
         /// </summary>
         public static MvcHtmlString BsDescription(this HtmlHelper helper, string name)
         {
-            return helper.BsDescription(name, (object)null);
+            return helper.BsDescription(name, (object) null);
         }
 
         /// <summary>
@@ -31,7 +31,8 @@ namespace BootstrapForms.HtmlHelpers
         /// <summary>
         /// Returns a span element containing the localized value of Display description attribute
         /// </summary>
-        public static MvcHtmlString BsDescription(this HtmlHelper helper, string name, IDictionary<string, object> htmlAttributes)
+        public static MvcHtmlString BsDescription(this HtmlHelper helper, string name,
+            IDictionary<string, object> htmlAttributes)
         {
             var metaData = ModelMetadata.FromStringExpression(name, helper.ViewData);
 
@@ -58,15 +59,17 @@ namespace BootstrapForms.HtmlHelpers
         /// <summary>
         /// Returns a span element containing the localized value of Display description attribute
         /// </summary>
-        public static MvcHtmlString BsDescriptionFor<TModel, TProperty>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expression)
+        public static MvcHtmlString BsDescriptionFor<TModel, TProperty>(this HtmlHelper<TModel> helper,
+            Expression<Func<TModel, TProperty>> expression)
         {
-            return BsDescriptionFor(helper, expression, (object)null);
+            return BsDescriptionFor(helper, expression, (object) null);
         }
 
         /// <summary>
         /// Returns a span element containing the localized value of Display description attribute
         /// </summary>
-        public static MvcHtmlString BsDescriptionFor<TModel, TProperty>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expression, object htmlAttributes)
+        public static MvcHtmlString BsDescriptionFor<TModel, TProperty>(this HtmlHelper<TModel> helper,
+            Expression<Func<TModel, TProperty>> expression, object htmlAttributes)
         {
             return BsDescriptionFor(helper, expression, new RouteValueDictionary(htmlAttributes));
         }
@@ -74,7 +77,8 @@ namespace BootstrapForms.HtmlHelpers
         /// <summary>
         /// Returns a span element containing the localized value of Display description attribute
         /// </summary>
-        public static MvcHtmlString BsDescriptionFor<TModel, TProperty>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expression, IDictionary<string, object> htmlAttributes)
+        public static MvcHtmlString BsDescriptionFor<TModel, TProperty>(this HtmlHelper<TModel> helper,
+            Expression<Func<TModel, TProperty>> expression, IDictionary<string, object> htmlAttributes)
         {
             var metaData = ModelMetadata.FromLambdaExpression(expression, helper.ViewData);
 

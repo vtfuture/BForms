@@ -20,26 +20,31 @@ namespace BootstrapForms.HtmlHelpers
     public static class SelectExtensions
     {
         #region RadioGroup
+
         /// <summary>
         /// Returns a a list of radio buttons
         /// </summary>
-        public static MvcHtmlString BsRadioButtonList(this HtmlHelper htmlHelper, string name, IEnumerable<SelectListItem> radioList)
+        public static MvcHtmlString BsRadioButtonList(this HtmlHelper htmlHelper, string name,
+            IEnumerable<SelectListItem> radioList)
         {
-            return BsRadioButtonList(htmlHelper, name, radioList, htmlAttributes: (object)null);
+            return BsRadioButtonList(htmlHelper, name, radioList, htmlAttributes: (object) null);
         }
 
         /// <summary>
         /// Returns a a list of radio buttons
         /// </summary>
-        public static MvcHtmlString BsRadioButtonList(this HtmlHelper htmlHelper, string name, IEnumerable<SelectListItem> radioList, object htmlAttributes)
+        public static MvcHtmlString BsRadioButtonList(this HtmlHelper htmlHelper, string name,
+            IEnumerable<SelectListItem> radioList, object htmlAttributes)
         {
-            return BsRadioButtonList(htmlHelper, name, radioList, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+            return BsRadioButtonList(htmlHelper, name, radioList,
+                HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
         }
 
         /// <summary>
         /// Returns a a list of radio buttons
         /// </summary>
-        public static MvcHtmlString BsRadioButtonList(this HtmlHelper htmlHelper, string name, IEnumerable<SelectListItem> radioList, IDictionary<string, object> htmlAttributes)
+        public static MvcHtmlString BsRadioButtonList(this HtmlHelper htmlHelper, string name,
+            IEnumerable<SelectListItem> radioList, IDictionary<string, object> htmlAttributes)
         {
             var metadata = ModelMetadata.FromStringExpression(name, htmlHelper.ViewData);
             return htmlHelper.BsRadioButtonListInternal(metadata, name, radioList, htmlAttributes);
@@ -48,29 +53,35 @@ namespace BootstrapForms.HtmlHelpers
         /// <summary>
         /// Returns a list of radio buttons
         /// </summary>
-        public static MvcHtmlString BsRadioButtonListFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> radioList)
+        public static MvcHtmlString BsRadioButtonListFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper,
+            Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> radioList)
         {
-            return BsRadioButtonListFor(htmlHelper, expression, radioList, (object)null);
+            return BsRadioButtonListFor(htmlHelper, expression, radioList, (object) null);
         }
 
         /// <summary>
         /// Returns a list of radio buttons
         /// </summary>
-        public static MvcHtmlString BsRadioButtonListFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> radioList, object htmlAttributes)
+        public static MvcHtmlString BsRadioButtonListFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper,
+            Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> radioList, object htmlAttributes)
         {
-            return BsRadioButtonListFor(htmlHelper, expression, radioList, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+            return BsRadioButtonListFor(htmlHelper, expression, radioList,
+                HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
         }
 
         /// <summary>
         /// Returns a list of radio buttons
         /// </summary>
-        public static MvcHtmlString BsRadioButtonListFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> radioList, IDictionary<string, object> htmlAttributes)
+        public static MvcHtmlString BsRadioButtonListFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper,
+            Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> radioList,
+            IDictionary<string, object> htmlAttributes)
         {
             var metadata = ModelMetadata.FromLambdaExpression(expression, htmlHelper.ViewData);
             return htmlHelper.BsRadioButtonListInternal(metadata, metadata.PropertyName, radioList, htmlAttributes);
         }
 
-        private static MvcHtmlString BsRadioButtonListInternal(this HtmlHelper htmlHelper,  ModelMetadata metadata, string name, IEnumerable<SelectListItem> radioList, IDictionary<string, object> htmlAttributes)
+        private static MvcHtmlString BsRadioButtonListInternal(this HtmlHelper htmlHelper, ModelMetadata metadata,
+            string name, IEnumerable<SelectListItem> radioList, IDictionary<string, object> htmlAttributes)
         {
             var propertyName = htmlHelper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name);
             var html = new StringBuilder();
@@ -84,7 +95,7 @@ namespace BootstrapForms.HtmlHelpers
             }
 
             // Create a radio button for each item in the list
-            foreach (SelectListItem item in radioList)
+            foreach (var item in radioList)
             {
                 // Generate an id to be given to the radio button field
                 var id = string.Format("{0}_{1}", propertyName, item.Value);
@@ -92,7 +103,7 @@ namespace BootstrapForms.HtmlHelpers
                 // Create and populate a radio button using the existing html htmlHelpers
                 var label = htmlHelper.Label(id, HttpUtility.HtmlEncode(item.Text));
 
-                var radioHtmlAttributes = new Dictionary<string, object> { { "id", id } };
+                var radioHtmlAttributes = new Dictionary<string, object> {{"id", id}};
 
                 if (htmlAttributes != null)
                 {
@@ -129,21 +140,25 @@ namespace BootstrapForms.HtmlHelpers
 
             return MvcHtmlString.Create(divTag.ToString() + description);
         }
+
         #endregion
 
         #region TagGroup
+
         /// <summary>
         /// Returns a list of tags with placeholder and info tooltip
         /// </summary>
-        public static MvcHtmlString BsTagListFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression)
+        public static MvcHtmlString BsTagListFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper,
+            Expression<Func<TModel, TProperty>> expression)
         {
-            return BsTagListFor(htmlHelper, expression, (object)null);
+            return BsTagListFor(htmlHelper, expression, (object) null);
         }
 
         /// <summary>
         /// Returns a list of tags with placeholder and info tooltip
         /// </summary>
-        public static MvcHtmlString BsTagListFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, object htmlAttributes)
+        public static MvcHtmlString BsTagListFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper,
+            Expression<Func<TModel, TProperty>> expression, object htmlAttributes)
         {
             return BsTagListFor(htmlHelper, expression, new RouteValueDictionary(htmlAttributes));
         }
@@ -151,7 +166,8 @@ namespace BootstrapForms.HtmlHelpers
         /// <summary>
         /// Returns a list of tags with placeholder and info tooltip
         /// </summary>
-        public static MvcHtmlString BsTagListFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IDictionary<string, object> htmlAttributes)
+        public static MvcHtmlString BsTagListFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper,
+            Expression<Func<TModel, TProperty>> expression, IDictionary<string, object> htmlAttributes)
         {
             var metadata = ModelMetadata.FromLambdaExpression(expression, htmlHelper.ViewData);
 
@@ -172,17 +188,21 @@ namespace BootstrapForms.HtmlHelpers
                 description = htmlHelper.BsDescriptionFor(expression);
             }
 
-            return MvcHtmlString.Create(htmlHelper.HiddenFor(expression, htmlAttributes).ToHtmlString() + description.ToHtmlString());
+            return
+                MvcHtmlString.Create(htmlHelper.HiddenFor(expression, htmlAttributes).ToHtmlString() +
+                                     description.ToHtmlString());
         }
+
         #endregion
 
         #region DropDown
+
         /// <summary>
         ///  Returns a single-selection select element with placeholder
         /// </summary>
         public static MvcHtmlString BsDropDownList(this HtmlHelper htmlHelper, string name)
         {
-            return BsDropDownList(htmlHelper, name, null /* selectList */, null /* optionLabel */, null /* htmlAttributes */);
+            return BsDropDownList(htmlHelper, name, null /* selectList */, null /* optionLabel */, htmlAttributes: null);
         }
 
         /// <summary>
@@ -190,29 +210,33 @@ namespace BootstrapForms.HtmlHelpers
         /// </summary>
         public static MvcHtmlString BsDropDownList(this HtmlHelper htmlHelper, string name, string optionLabel)
         {
-            return BsDropDownList(htmlHelper, name, null /* selectList */, optionLabel, null /* htmlAttributes */);
+            return BsDropDownList(htmlHelper, name, null /* selectList */, optionLabel, htmlAttributes: null);
         }
 
         /// <summary>
         ///  Returns a single-selection select element with placeholder
         /// </summary>
-        public static MvcHtmlString BsDropDownList(this HtmlHelper htmlHelper, string name, IEnumerable<SelectListItem> selectList)
+        public static MvcHtmlString BsDropDownList(this HtmlHelper htmlHelper, string name,
+            IEnumerable<SelectListItem> selectList)
         {
-            return BsDropDownList(htmlHelper, name, selectList, null /* optionLabel */, null /* htmlAttributes */);
+            return BsDropDownList(htmlHelper, name, selectList, null /* optionLabel */, htmlAttributes: null);
         }
 
         /// <summary>
         ///  Returns a single-selection select element with placeholder
         /// </summary>
-        public static MvcHtmlString BsDropDownList(this HtmlHelper htmlHelper, string name, IEnumerable<SelectListItem> selectList, object htmlAttributes)
+        public static MvcHtmlString BsDropDownList(this HtmlHelper htmlHelper, string name,
+            IEnumerable<SelectListItem> selectList, object htmlAttributes)
         {
-            return BsDropDownList(htmlHelper, name, selectList, null /* optionLabel */, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+            return BsDropDownList(htmlHelper, name, selectList, null /* optionLabel */,
+                HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
         }
 
         /// <summary>
         ///  Returns a single-selection select element with placeholder
         /// </summary>
-        public static MvcHtmlString BsDropDownList(this HtmlHelper htmlHelper, string name, IEnumerable<SelectListItem> selectList, IDictionary<string, object> htmlAttributes)
+        public static MvcHtmlString BsDropDownList(this HtmlHelper htmlHelper, string name,
+            IEnumerable<SelectListItem> selectList, IDictionary<string, object> htmlAttributes)
         {
             return BsDropDownList(htmlHelper, name, selectList, null /* optionLabel */, htmlAttributes);
         }
@@ -220,23 +244,27 @@ namespace BootstrapForms.HtmlHelpers
         /// <summary>
         ///  Returns a single-selection select element with placeholder
         /// </summary>
-        public static MvcHtmlString BsDropDownList(this HtmlHelper htmlHelper, string name, IEnumerable<SelectListItem> selectList, string optionLabel)
+        public static MvcHtmlString BsDropDownList(this HtmlHelper htmlHelper, string name,
+            IEnumerable<SelectListItem> selectList, string optionLabel)
         {
-            return BsDropDownList(htmlHelper, name, selectList, optionLabel, null /* htmlAttributes */);
+            return BsDropDownList(htmlHelper, name, selectList, optionLabel, htmlAttributes: null);
         }
 
         /// <summary>
         ///  Returns a single-selection select element with placeholder
         /// </summary>
-        public static MvcHtmlString BsDropDownList(this HtmlHelper htmlHelper, string name, IEnumerable<SelectListItem> selectList, string optionLabel, object htmlAttributes)
+        public static MvcHtmlString BsDropDownList(this HtmlHelper htmlHelper, string name,
+            IEnumerable<SelectListItem> selectList, string optionLabel, object htmlAttributes)
         {
-            return BsDropDownList(htmlHelper, name, selectList, optionLabel, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+            return BsDropDownList(htmlHelper, name, selectList, optionLabel,
+                HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
         }
 
         /// <summary>
         ///  Returns a single-selection select element with placeholder
         /// </summary>
-        public static MvcHtmlString BsDropDownList(this HtmlHelper htmlHelper, string name, IEnumerable<SelectListItem> selectList, string optionLabel, IDictionary<string, object> htmlAttributes)
+        public static MvcHtmlString BsDropDownList(this HtmlHelper htmlHelper, string name,
+            IEnumerable<SelectListItem> selectList, string optionLabel, IDictionary<string, object> htmlAttributes)
         {
             //merge custom css classes with bootstrap
             htmlAttributes.MergeAttribute("class", "form-control");
@@ -247,23 +275,27 @@ namespace BootstrapForms.HtmlHelpers
         /// <summary>
         ///  Returns a single-selection select element with placeholder
         /// </summary>
-        public static MvcHtmlString BsDropDownListFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList)
+        public static MvcHtmlString BsDropDownListFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper,
+            Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList)
         {
-            return BsDropDownListFor(htmlHelper, expression, selectList, (object)null);
+            return BsDropDownListFor(htmlHelper, expression, selectList, (object) null);
         }
 
         /// <summary>
         ///  Returns a single-selection select element with placeholder
         /// </summary>
-        public static MvcHtmlString BsDropDownListFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList, string optionLabel)
+        public static MvcHtmlString BsDropDownListFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper,
+            Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList, string optionLabel)
         {
-            return BsDropDownListFor(htmlHelper, expression, selectList, optionLabel, (object)null);
+            return BsDropDownListFor(htmlHelper, expression, selectList, optionLabel, (object) null);
         }
 
         /// <summary>
         ///  Returns a single-selection select element with placeholder
         /// </summary>
-        public static MvcHtmlString BsDropDownListFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList, object htmlAttributes)
+        public static MvcHtmlString BsDropDownListFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper,
+            Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList,
+            object htmlAttributes)
         {
             return BsDropDownListFor(htmlHelper, expression, selectList, new RouteValueDictionary(htmlAttributes));
         }
@@ -271,7 +303,9 @@ namespace BootstrapForms.HtmlHelpers
         /// <summary>
         ///  Returns a single-selection select element with placeholder
         /// </summary>
-        public static MvcHtmlString BsDropDownListFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList, IDictionary<string, object> htmlAttributes)
+        public static MvcHtmlString BsDropDownListFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper,
+            Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList,
+            IDictionary<string, object> htmlAttributes)
         {
             return htmlHelper.BsDropDownListFor(expression, selectList, null, htmlAttributes);
         }
@@ -279,15 +313,20 @@ namespace BootstrapForms.HtmlHelpers
         /// <summary>
         ///  Returns a single-selection select element with placeholder
         /// </summary>
-        public static MvcHtmlString BsDropDownListFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList, string optionLabel, object htmlAttributes)
+        public static MvcHtmlString BsDropDownListFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper,
+            Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList, string optionLabel,
+            object htmlAttributes)
         {
-            return BsDropDownListFor(htmlHelper, expression, selectList, optionLabel, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+            return BsDropDownListFor(htmlHelper, expression, selectList, optionLabel,
+                HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
         }
 
         /// <summary>
         /// Returns a single-selection select element with placeholder and info tooltip
         /// </summary>
-        public static MvcHtmlString BsDropDownListFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList, string optionLabel, IDictionary<string, object> htmlAttributes)
+        public static MvcHtmlString BsDropDownListFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper,
+            Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList, string optionLabel,
+            IDictionary<string, object> htmlAttributes)
         {
             var metadata = ModelMetadata.FromLambdaExpression(expression, htmlHelper.ViewData);
 
@@ -301,15 +340,74 @@ namespace BootstrapForms.HtmlHelpers
                 description = htmlHelper.BsDescriptionFor(expression);
             }
 
-            return MvcHtmlString.Create(htmlHelper.DropDownListFor(expression, selectList, optionLabel, htmlAttributes).ToHtmlString() + description.ToHtmlString());
+            return
+                MvcHtmlString.Create(
+                    htmlHelper.DropDownListFor(expression, selectList, optionLabel, htmlAttributes).ToHtmlString() +
+                    description.ToHtmlString());
         }
+
         #endregion
 
         #region DropDown grouped
+
         /// <summary>
-        /// Returns a DropDown grouped list element with placeholder and info tooltip
+        /// Returns a grouped drop-down list element with placeholder and info tooltip
         /// </summary>
-        public static MvcHtmlString BsDropDownGroupedListFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<BsGroupedSelectListItem> selectList, string optionLabel, IDictionary<string, object> htmlAttributes)
+        public static MvcHtmlString DropDownListGroupedFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper,
+            Expression<Func<TModel, TProperty>> expression, IEnumerable<BsGroupedSelectListItem> selectList)
+        {
+            return DropDownListGroupedFor(htmlHelper, expression, selectList, null /* optionLabel */,
+                htmlAttributes: null);
+        }
+
+        /// <summary>
+        /// Returns a grouped drop-down list element with placeholder and info tooltip
+        /// </summary>
+        public static MvcHtmlString DropDownListGroupedFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper,
+            Expression<Func<TModel, TProperty>> expression, IEnumerable<BsGroupedSelectListItem> selectList,
+            object htmlAttributes)
+        {
+            return DropDownListGroupedFor(htmlHelper, expression, selectList, null /* optionLabel */,
+                new RouteValueDictionary(htmlAttributes));
+        }
+
+        /// <summary>
+        /// Returns a grouped drop-down list element with placeholder and info tooltip
+        /// </summary>
+        public static MvcHtmlString DropDownListGroupedFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper,
+            Expression<Func<TModel, TProperty>> expression, IEnumerable<BsGroupedSelectListItem> selectList,
+            IDictionary<string, object> htmlAttributes)
+        {
+            return DropDownListGroupedFor(htmlHelper, expression, selectList, null /* optionLabel */, htmlAttributes);
+        }
+
+        /// <summary>
+        /// Returns a grouped drop-down list element with placeholder and info tooltip
+        /// </summary>
+        public static MvcHtmlString DropDownListGroupedFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper,
+            Expression<Func<TModel, TProperty>> expression, IEnumerable<BsGroupedSelectListItem> selectList,
+            string optionLabel)
+        {
+            return DropDownListGroupedFor(htmlHelper, expression, selectList, optionLabel, htmlAttributes: null);
+        }
+
+        /// <summary>
+        /// Returns a grouped drop-down list element with placeholder and info tooltip
+        /// </summary>
+        public static MvcHtmlString DropDownListGroupedFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper,
+            Expression<Func<TModel, TProperty>> expression, IEnumerable<BsGroupedSelectListItem> selectList,
+            string optionLabel, object htmlAttributes)
+        {
+            return DropDownListGroupedFor(htmlHelper, expression, selectList, optionLabel,
+                new RouteValueDictionary(htmlAttributes));
+        }
+
+        /// <summary>
+        /// Returns a grouped drop-down list element with placeholder and info tooltip
+        /// </summary>
+        public static MvcHtmlString DropDownListGroupedFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper,
+            Expression<Func<TModel, TProperty>> expression, IEnumerable<BsGroupedSelectListItem> selectList,
+            string optionLabel, IDictionary<string, object> htmlAttributes)
         {
             var metadata = ModelMetadata.FromLambdaExpression(expression, htmlHelper.ViewData);
             string htmlSelect;
@@ -317,11 +415,15 @@ namespace BootstrapForms.HtmlHelpers
             //copy watermark to optionLabel
             if (!string.IsNullOrEmpty(metadata.Watermark))
             {
-                htmlSelect = BsGroupedListHelper(htmlHelper, ExpressionHelper.GetExpressionText(expression), selectList, metadata.Watermark, htmlAttributes, false).ToHtmlString();
+                htmlSelect =
+                    BsGroupedListHelper(htmlHelper, ExpressionHelper.GetExpressionText(expression), selectList,
+                        metadata.Watermark, htmlAttributes, false).ToHtmlString();
             }
             else
             {
-                htmlSelect = BsGroupedListHelper(htmlHelper, ExpressionHelper.GetExpressionText(expression), selectList, optionLabel, htmlAttributes, false).ToHtmlString();
+                htmlSelect =
+                    BsGroupedListHelper(htmlHelper, ExpressionHelper.GetExpressionText(expression), selectList,
+                        optionLabel, htmlAttributes, false).ToHtmlString();
             }
 
             //add info tooltip
@@ -333,36 +435,17 @@ namespace BootstrapForms.HtmlHelpers
 
             return MvcHtmlString.Create(htmlSelect + description.ToHtmlString());
         }
-        public static MvcHtmlString BsDropDownGroupedListFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<BsGroupedSelectListItem> selectList)
-        {
-            return BsDropDownGroupedListFor(htmlHelper, expression, selectList, null /* optionLabel */, null /* htmlAttributes */);
-        }
-        public static MvcHtmlString BsDropDownGroupedListFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<BsGroupedSelectListItem> selectList, object htmlAttributes)
-        {
-            return BsDropDownGroupedListFor(htmlHelper, expression, selectList, null /* optionLabel */, new RouteValueDictionary(htmlAttributes));
-        }
-        public static MvcHtmlString BsDropDownGroupedListFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<BsGroupedSelectListItem> selectList, IDictionary<string, object> htmlAttributes)
-        {
-            return BsDropDownGroupedListFor(htmlHelper, expression, selectList, null /* optionLabel */, htmlAttributes);
-        }
-        public static MvcHtmlString BsDropDownGroupedListFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<BsGroupedSelectListItem> selectList, string optionLabel)
-        {
-            return BsDropDownGroupedListFor(htmlHelper, expression, selectList, optionLabel, null /* htmlAttributes */);
-        }
-        public static MvcHtmlString BsDropDownGroupedListFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<BsGroupedSelectListItem> selectList, string optionLabel, object htmlAttributes)
-        {
-            return BsDropDownGroupedListFor(htmlHelper, expression, selectList, optionLabel, new RouteValueDictionary(htmlAttributes));
-        }
 
         #endregion
 
         #region ListBox
+
         /// <summary>
         ///  Returns a ListBox element with placeholder
         /// </summary>
         public static MvcHtmlString BsListBox(this HtmlHelper htmlHelper, string name)
         {
-            return BsListBox(htmlHelper, name, null /* selectList */, null /* optionLabel */, null /* htmlAttributes */);
+            return BsListBox(htmlHelper, name, null /* selectList */, null /* optionLabel */, htmlAttributes: null);
         }
 
         /// <summary>
@@ -370,29 +453,33 @@ namespace BootstrapForms.HtmlHelpers
         /// </summary>
         public static MvcHtmlString BsListBox(this HtmlHelper htmlHelper, string name, string optionLabel)
         {
-            return BsListBox(htmlHelper, name, null /* selectList */, optionLabel, null /* htmlAttributes */);
+            return BsListBox(htmlHelper, name, null /* selectList */, optionLabel, htmlAttributes: null);
         }
 
         /// <summary>
         ///  Returns a ListBox element with placeholder
         /// </summary>
-        public static MvcHtmlString BsListBox(this HtmlHelper htmlHelper, string name, IEnumerable<SelectListItem> selectList)
+        public static MvcHtmlString BsListBox(this HtmlHelper htmlHelper, string name,
+            IEnumerable<SelectListItem> selectList)
         {
-            return BsListBox(htmlHelper, name, selectList, null /* optionLabel */, null /* htmlAttributes */);
+            return BsListBox(htmlHelper, name, selectList, null /* optionLabel */, htmlAttributes: null);
         }
 
         /// <summary>
         ///  Returns a ListBox element with placeholder
         /// </summary>
-        public static MvcHtmlString BsListBox(this HtmlHelper htmlHelper, string name, IEnumerable<SelectListItem> selectList, object htmlAttributes)
+        public static MvcHtmlString BsListBox(this HtmlHelper htmlHelper, string name,
+            IEnumerable<SelectListItem> selectList, object htmlAttributes)
         {
-            return BsListBox(htmlHelper, name, selectList, null /* optionLabel */, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+            return BsListBox(htmlHelper, name, selectList, null /* optionLabel */,
+                HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
         }
 
         /// <summary>
         ///  Returns a ListBox element with placeholder
         /// </summary>
-        public static MvcHtmlString BsListBox(this HtmlHelper htmlHelper, string name, IEnumerable<SelectListItem> selectList, IDictionary<string, object> htmlAttributes)
+        public static MvcHtmlString BsListBox(this HtmlHelper htmlHelper, string name,
+            IEnumerable<SelectListItem> selectList, IDictionary<string, object> htmlAttributes)
         {
             return BsListBox(htmlHelper, name, selectList, null /* optionLabel */, htmlAttributes);
         }
@@ -400,23 +487,27 @@ namespace BootstrapForms.HtmlHelpers
         /// <summary>
         ///  Returns a ListBox element with placeholder
         /// </summary>
-        public static MvcHtmlString BsListBox(this HtmlHelper htmlHelper, string name, IEnumerable<SelectListItem> selectList, string optionLabel)
+        public static MvcHtmlString BsListBox(this HtmlHelper htmlHelper, string name,
+            IEnumerable<SelectListItem> selectList, string optionLabel)
         {
-            return BsListBox(htmlHelper, name, selectList, optionLabel, null /* htmlAttributes */);
+            return BsListBox(htmlHelper, name, selectList, optionLabel, htmlAttributes: null);
         }
 
         /// <summary>
         ///  Returns a ListBox element with placeholder
         /// </summary>
-        public static MvcHtmlString BsListBox(this HtmlHelper htmlHelper, string name, IEnumerable<SelectListItem> selectList, string optionLabel, object htmlAttributes)
+        public static MvcHtmlString BsListBox(this HtmlHelper htmlHelper, string name,
+            IEnumerable<SelectListItem> selectList, string optionLabel, object htmlAttributes)
         {
-            return BsListBox(htmlHelper, name, selectList, optionLabel, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+            return BsListBox(htmlHelper, name, selectList, optionLabel,
+                HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
         }
 
         /// <summary>
         ///  Returns a ListBox element with placeholder
         /// </summary>
-        public static MvcHtmlString BsListBox(this HtmlHelper htmlHelper, string name, IEnumerable<SelectListItem> selectList, string optionLabel, IDictionary<string, object> htmlAttributes)
+        public static MvcHtmlString BsListBox(this HtmlHelper htmlHelper, string name,
+            IEnumerable<SelectListItem> selectList, string optionLabel, IDictionary<string, object> htmlAttributes)
         {
             //merge custom css classes with bootstrap
             htmlAttributes.MergeAttribute("class", "form-control");
@@ -428,23 +519,27 @@ namespace BootstrapForms.HtmlHelpers
         /// <summary>
         ///  Returns a ListBox element with placeholder
         /// </summary>
-        public static MvcHtmlString BsListBoxFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList)
+        public static MvcHtmlString BsListBoxFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper,
+            Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList)
         {
-            return BsListBoxFor(htmlHelper, expression, selectList, (object)null);
+            return BsListBoxFor(htmlHelper, expression, selectList, (object) null);
         }
 
         /// <summary>
         ///  Returns a ListBox element with placeholder
         /// </summary>
-        public static MvcHtmlString BsListBoxFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList, string optionLabel)
+        public static MvcHtmlString BsListBoxFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper,
+            Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList, string optionLabel)
         {
-            return BsListBoxFor(htmlHelper, expression, selectList, optionLabel, (object)null);
+            return BsListBoxFor(htmlHelper, expression, selectList, optionLabel, (object) null);
         }
 
         /// <summary>
         ///  Returns a ListBox element with placeholder
         /// </summary>
-        public static MvcHtmlString BsListBoxFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList, object htmlAttributes)
+        public static MvcHtmlString BsListBoxFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper,
+            Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList,
+            object htmlAttributes)
         {
             return BsListBoxFor(htmlHelper, expression, selectList, new RouteValueDictionary(htmlAttributes));
         }
@@ -452,7 +547,9 @@ namespace BootstrapForms.HtmlHelpers
         /// <summary>
         ///  Returns a ListBox element with placeholder
         /// </summary>
-        public static MvcHtmlString BsListBoxFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList, IDictionary<string, object> htmlAttributes)
+        public static MvcHtmlString BsListBoxFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper,
+            Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList,
+            IDictionary<string, object> htmlAttributes)
         {
             return htmlHelper.BsListBoxFor(expression, selectList, null, htmlAttributes);
         }
@@ -460,15 +557,20 @@ namespace BootstrapForms.HtmlHelpers
         /// <summary>
         ///  Returns a ListBox element with placeholder
         /// </summary>
-        public static MvcHtmlString BsListBoxFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList, string optionLabel, object htmlAttributes)
+        public static MvcHtmlString BsListBoxFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper,
+            Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList, string optionLabel,
+            object htmlAttributes)
         {
-            return BsListBoxFor(htmlHelper, expression, selectList, optionLabel, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+            return BsListBoxFor(htmlHelper, expression, selectList, optionLabel,
+                HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
         }
 
         /// <summary>
         /// Returns a ListBox element with placeholder and info tooltip
         /// </summary>
-        public static MvcHtmlString BsListBoxFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList, string optionLabel, IDictionary<string, object> htmlAttributes)
+        public static MvcHtmlString BsListBoxFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper,
+            Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList, string optionLabel,
+            IDictionary<string, object> htmlAttributes)
         {
             var metadata = ModelMetadata.FromLambdaExpression(expression, htmlHelper.ViewData);
 
@@ -483,8 +585,12 @@ namespace BootstrapForms.HtmlHelpers
                 description = htmlHelper.BsDescriptionFor(expression);
             }
 
-            return MvcHtmlString.Create(htmlHelper.DropDownListFor(expression, selectList, optionLabel, htmlAttributes).ToHtmlString() + description.ToHtmlString());
+            return
+                MvcHtmlString.Create(
+                    htmlHelper.DropDownListFor(expression, selectList, optionLabel, htmlAttributes).ToHtmlString() +
+                    description.ToHtmlString());
         }
+
         #endregion
 
         #region ListBox grouped
@@ -492,23 +598,29 @@ namespace BootstrapForms.HtmlHelpers
         /// <summary>
         /// Returns a grouped ListBox list element with placeholder and info tooltip
         /// </summary>
-        public static MvcHtmlString BsListBoxGroupedFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<BsGroupedSelectListItem> selectList)
+        public static MvcHtmlString BsListBoxGroupedFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper,
+            Expression<Func<TModel, TProperty>> expression, IEnumerable<BsGroupedSelectListItem> selectList)
         {
-            return BsListBoxGroupedFor(htmlHelper, expression, selectList, null /* optionLabel */, null /* htmlAttributes */);
+            return BsListBoxGroupedFor(htmlHelper, expression, selectList, null /* optionLabel */, htmlAttributes: null);
         }
 
         /// <summary>
         /// Returns a grouped ListBox list element with placeholder and info tooltip
         /// </summary>
-        public static MvcHtmlString BsListBoxGroupedFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<BsGroupedSelectListItem> selectList, object htmlAttributes)
+        public static MvcHtmlString BsListBoxGroupedFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper,
+            Expression<Func<TModel, TProperty>> expression, IEnumerable<BsGroupedSelectListItem> selectList,
+            object htmlAttributes)
         {
-            return BsListBoxGroupedFor(htmlHelper, expression, selectList, null /* optionLabel */, new RouteValueDictionary(htmlAttributes));
+            return BsListBoxGroupedFor(htmlHelper, expression, selectList, null /* optionLabel */,
+                new RouteValueDictionary(htmlAttributes));
         }
 
         /// <summary>
         /// Returns a grouped ListBox list element with placeholder and info tooltip
         /// </summary>
-        public static MvcHtmlString BsListBoxGroupedFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<BsGroupedSelectListItem> selectList, IDictionary<string, object> htmlAttributes)
+        public static MvcHtmlString BsListBoxGroupedFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper,
+            Expression<Func<TModel, TProperty>> expression, IEnumerable<BsGroupedSelectListItem> selectList,
+            IDictionary<string, object> htmlAttributes)
         {
             return BsListBoxGroupedFor(htmlHelper, expression, selectList, null /* optionLabel */, htmlAttributes);
         }
@@ -516,23 +628,30 @@ namespace BootstrapForms.HtmlHelpers
         /// <summary>
         /// Returns a grouped ListBox list element with placeholder and info tooltip
         /// </summary>
-        public static MvcHtmlString BsListBoxGroupedFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<BsGroupedSelectListItem> selectList, string optionLabel)
+        public static MvcHtmlString BsListBoxGroupedFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper,
+            Expression<Func<TModel, TProperty>> expression, IEnumerable<BsGroupedSelectListItem> selectList,
+            string optionLabel)
         {
-            return BsListBoxGroupedFor(htmlHelper, expression, selectList, optionLabel, null /* htmlAttributes */);
+            return BsListBoxGroupedFor(htmlHelper, expression, selectList, optionLabel, htmlAttributes: null);
         }
 
         /// <summary>
         /// Returns a grouped ListBox list element with placeholder and info tooltip
         /// </summary>
-        public static MvcHtmlString BsListBoxGroupedFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<BsGroupedSelectListItem> selectList, string optionLabel, object htmlAttributes)
+        public static MvcHtmlString BsListBoxGroupedFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper,
+            Expression<Func<TModel, TProperty>> expression, IEnumerable<BsGroupedSelectListItem> selectList,
+            string optionLabel, object htmlAttributes)
         {
-            return BsListBoxGroupedFor(htmlHelper, expression, selectList, optionLabel, new RouteValueDictionary(htmlAttributes));
+            return BsListBoxGroupedFor(htmlHelper, expression, selectList, optionLabel,
+                new RouteValueDictionary(htmlAttributes));
         }
-        
+
         /// <summary>
         /// Returns a grouped ListBox list element with placeholder and info tooltip
         /// </summary>
-        public static MvcHtmlString BsListBoxGroupedFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<BsGroupedSelectListItem> selectList, string optionLabel, IDictionary<string, object> htmlAttributes)
+        public static MvcHtmlString BsListBoxGroupedFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper,
+            Expression<Func<TModel, TProperty>> expression, IEnumerable<BsGroupedSelectListItem> selectList,
+            string optionLabel, IDictionary<string, object> htmlAttributes)
         {
             var metadata = ModelMetadata.FromLambdaExpression(expression, htmlHelper.ViewData);
             string htmlSelect;
@@ -540,11 +659,15 @@ namespace BootstrapForms.HtmlHelpers
             //copy watermark to optionLabel
             if (!string.IsNullOrEmpty(metadata.Watermark))
             {
-                htmlSelect = BsGroupedListHelper(htmlHelper, ExpressionHelper.GetExpressionText(expression), selectList, metadata.Watermark, htmlAttributes, true).ToHtmlString();
+                htmlSelect =
+                    BsGroupedListHelper(htmlHelper, ExpressionHelper.GetExpressionText(expression), selectList,
+                        metadata.Watermark, htmlAttributes, true).ToHtmlString();
             }
             else
             {
-                htmlSelect = BsGroupedListHelper(htmlHelper, ExpressionHelper.GetExpressionText(expression), selectList, optionLabel, htmlAttributes, true).ToHtmlString();
+                htmlSelect =
+                    BsGroupedListHelper(htmlHelper, ExpressionHelper.GetExpressionText(expression), selectList,
+                        optionLabel, htmlAttributes, true).ToHtmlString();
             }
 
             //add info tooltip
@@ -556,15 +679,21 @@ namespace BootstrapForms.HtmlHelpers
 
             return MvcHtmlString.Create(htmlSelect + description.ToHtmlString());
         }
+
         #endregion
 
         #region Grouped Select Helpers
-        private static MvcHtmlString BsGroupedListHelper(HtmlHelper htmlHelper, string expression, IEnumerable<BsGroupedSelectListItem> selectList, string optionLabel, IDictionary<string, object> htmlAttributes, bool allowMultiple)
+
+        private static MvcHtmlString BsGroupedListHelper(HtmlHelper htmlHelper, string expression,
+            IEnumerable<BsGroupedSelectListItem> selectList, string optionLabel,
+            IDictionary<string, object> htmlAttributes, bool allowMultiple)
         {
             return GroupedSelectInternal(htmlHelper, optionLabel, expression, selectList, allowMultiple, htmlAttributes);
         }
 
-        private static MvcHtmlString GroupedSelectInternal(this HtmlHelper htmlHelper, string optionLabel, string name, IEnumerable<BsGroupedSelectListItem> selectList, bool allowMultiple, IDictionary<string, object> htmlAttributes)
+        private static MvcHtmlString GroupedSelectInternal(this HtmlHelper htmlHelper, string optionLabel, string name,
+            IEnumerable<BsGroupedSelectListItem> selectList, bool allowMultiple,
+            IDictionary<string, object> htmlAttributes)
         {
             name = htmlHelper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name);
             if (String.IsNullOrEmpty(name))
@@ -581,7 +710,9 @@ namespace BootstrapForms.HtmlHelpers
                 usedViewData = true;
             }
 
-            object defaultValue = (allowMultiple) ? htmlHelper.GetModelStateValue(name, typeof(string[])) : htmlHelper.GetModelStateValue(name, typeof(string));
+            object defaultValue = (allowMultiple)
+                ? htmlHelper.GetModelStateValue(name, typeof (string[]))
+                : htmlHelper.GetModelStateValue(name, typeof (string));
 
             // If we haven't already used ViewData to get the entire list of items then we need to
             // use the ViewData-supplied value before using the parameter-supplied value.
@@ -595,14 +726,17 @@ namespace BootstrapForms.HtmlHelpers
 
             if (defaultValue != null)
             {
-                var defaultValues = (allowMultiple) ? defaultValue as IEnumerable : new[] { defaultValue };
-                var values = from object value in defaultValues select Convert.ToString(value, CultureInfo.CurrentCulture);
+                var defaultValues = (allowMultiple) ? defaultValue as IEnumerable : new[] {defaultValue};
+                var values = from object value in defaultValues
+                    select Convert.ToString(value, CultureInfo.CurrentCulture);
                 var selectedValues = new HashSet<string>(values, StringComparer.OrdinalIgnoreCase);
                 var newSelectList = new List<BsGroupedSelectListItem>();
 
                 foreach (var item in selectList)
                 {
-                    item.Selected = (item.Value != null) ? selectedValues.Contains(item.Value) : selectedValues.Contains(item.Text);
+                    item.Selected = (item.Value != null)
+                        ? selectedValues.Contains(item.Value)
+                        : selectedValues.Contains(item.Text);
                     newSelectList.Add(item);
                 }
                 selectList = newSelectList;
@@ -614,12 +748,19 @@ namespace BootstrapForms.HtmlHelpers
             // Make optionLabel the first item that gets rendered.
             if (optionLabel != null)
             {
-                listItemBuilder.AppendLine(ListItemToOption(new BsGroupedSelectListItem() { Text = optionLabel, Value = String.Empty, Selected = false }));
+                listItemBuilder.AppendLine(
+                    ListItemToOption(new BsGroupedSelectListItem()
+                    {
+                        Text = optionLabel,
+                        Value = String.Empty,
+                        Selected = false
+                    }));
             }
 
             foreach (var group in selectList.GroupBy(i => i.GroupKey))
             {
-                string groupName = selectList.Where(i => i.GroupKey == group.Key).Select(it => it.GroupName).FirstOrDefault();
+                string groupName =
+                    selectList.Where(i => i.GroupKey == group.Key).Select(it => it.GroupName).FirstOrDefault();
                 listItemBuilder.AppendLine(string.Format("<optgroup label=\"{0}\" value=\"{1}\">", groupName, group.Key));
                 foreach (BsGroupedSelectListItem item in group)
                 {
