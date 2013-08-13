@@ -16,6 +16,5 @@
   <files>
     <file src="BootstrapForms\bin\Debug\BootstrapForms.dll" target="lib\net45\" />
     <file src="BootstrapForms\bin\Debug\BootstrapForms.xml" target="lib\net45\" />
-    <file src="BootstrapForms\bin\Debug\BootstrapForms.pdb" target="lib\net45\" />
   </files>
 </package>
