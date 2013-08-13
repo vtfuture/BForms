@@ -78,7 +78,7 @@ namespace BootstrapForms.HtmlHelpers
         public static MvcHtmlString BsValidationFor<TModel, TProperty>(this HtmlHelper<TModel> helper,
             Expression<Func<TModel, TProperty>> expression)
         {
-            return BsValidationFor(helper, expression, (object) null);
+            return helper.BsValidationFor(expression, htmlAttributes: (object) null);
         }
 
         /// <summary>
@@ -87,7 +87,7 @@ namespace BootstrapForms.HtmlHelpers
         public static MvcHtmlString BsValidationFor<TModel, TProperty>(this HtmlHelper<TModel> helper,
             Expression<Func<TModel, TProperty>> expression, object htmlAttributes)
         {
-            return BsValidationFor(helper, expression, new RouteValueDictionary(htmlAttributes));
+            return helper.BsValidationFor(expression, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
         }
 
         /// <summary>
@@ -142,7 +142,7 @@ namespace BootstrapForms.HtmlHelpers
         /// </summary>
         public static MvcHtmlString BsFormValidation(this HtmlHelper helper)
         {
-            return BsFormValidation(helper, new RouteValueDictionary((object) null));
+            return helper.BsFormValidation(new RouteValueDictionary((object) null));
         }
     }
 }

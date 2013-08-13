@@ -17,7 +17,7 @@ namespace BootstrapForms.HtmlHelpers
         public static MvcHtmlString BsGlyphicon<TModel>(this HtmlHelper<TModel> helper, Glyphicon icon,
             object htmlAttributes)
         {
-            return BsGlyphicon(helper, icon, new RouteValueDictionary(htmlAttributes));
+            return helper.BsGlyphicon(icon, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
         }
 
         /// <summary>
@@ -25,7 +25,7 @@ namespace BootstrapForms.HtmlHelpers
         /// </summary>
         public static MvcHtmlString BsGlyphicon<TModel>(this HtmlHelper<TModel> helper, Glyphicon icon)
         {
-            return BsGlyphicon(helper, icon, (object) null);
+            return helper.BsGlyphicon(icon, htmlAttributes: (object)null);
         }
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace BootstrapForms.HtmlHelpers
         public static MvcHtmlString BsGlyphiconAddon<TModel>(this HtmlHelper<TModel> helper, Glyphicon icon,
             object htmlAttributes)
         {
-            return BsGlyphiconAddon(helper, icon, new RouteValueDictionary(htmlAttributes));
+            return helper.BsGlyphiconAddon(icon, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
         }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace BootstrapForms.HtmlHelpers
         /// </summary>
         public static MvcHtmlString BsGlyphiconAddon<TModel>(this HtmlHelper<TModel> helper, Glyphicon icon)
         {
-            return BsGlyphiconAddon(helper, icon, (object) null);
+            return helper.BsGlyphiconAddon(icon, htmlAttributes: (object)null);
         }
 
         /// <summary>
@@ -65,7 +65,8 @@ namespace BootstrapForms.HtmlHelpers
             IDictionary<string, object> htmlAttributes)
         {
             htmlAttributes.MergeAttribute("class", "input-group-addon");
-            return BsGlyphicon(helper, icon, htmlAttributes);
+
+            return helper.BsGlyphicon(icon, htmlAttributes);
         }
     }
 }

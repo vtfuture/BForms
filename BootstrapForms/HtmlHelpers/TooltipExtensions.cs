@@ -17,7 +17,7 @@ namespace BootstrapForms.HtmlHelpers
         /// </summary>
         public static MvcHtmlString BsDescription(this HtmlHelper helper, string name)
         {
-            return helper.BsDescription(name, (object) null);
+            return helper.BsDescription(name, htmlAttributes: (object) null);
         }
 
         /// <summary>
@@ -25,7 +25,7 @@ namespace BootstrapForms.HtmlHelpers
         /// </summary>
         public static MvcHtmlString BsDescription(this HtmlHelper helper, string name, object htmlAttributes)
         {
-            return helper.BsDescription(name, new RouteValueDictionary(htmlAttributes));
+            return helper.BsDescription(name, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
         }
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace BootstrapForms.HtmlHelpers
         public static MvcHtmlString BsDescriptionFor<TModel, TProperty>(this HtmlHelper<TModel> helper,
             Expression<Func<TModel, TProperty>> expression)
         {
-            return BsDescriptionFor(helper, expression, (object) null);
+            return helper.BsDescriptionFor(expression, htmlAttributes: (object) null);
         }
 
         /// <summary>
@@ -71,7 +71,7 @@ namespace BootstrapForms.HtmlHelpers
         public static MvcHtmlString BsDescriptionFor<TModel, TProperty>(this HtmlHelper<TModel> helper,
             Expression<Func<TModel, TProperty>> expression, object htmlAttributes)
         {
-            return BsDescriptionFor(helper, expression, new RouteValueDictionary(htmlAttributes));
+            return helper.BsDescriptionFor(expression, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
         }
 
         /// <summary>

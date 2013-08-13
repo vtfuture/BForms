@@ -38,24 +38,28 @@ namespace BootstrapForms.HtmlHelpers
         public static MvcHtmlString BsLabelFor<TModel, TProperty>(this HtmlHelper<TModel> helper,
             Expression<Func<TModel, TProperty>> expression, IDictionary<string, object> htmlAttributes)
         {
+            //merge custom css classes with bootstrap
+            htmlAttributes.MergeAttribute("class", "control-label");
+
             //determine if the prop is decorated with Required
             var model = typeof (TModel);
             PropertyInfo property = null;
-            string fieldName = ExpressionHelper.GetExpressionText(expression);
+            var fieldName = ExpressionHelper.GetExpressionText(expression);
 
             foreach (var prop in fieldName.Split('.'))
             {
                 property = model.GetProperty(prop);
                 model = property.PropertyType;
             }
-            var isRequired = Attribute.IsDefined(property,
-                typeof (System.ComponentModel.DataAnnotations.RequiredAttribute));
-
-            //merge custom css classes with bootstrap
-            htmlAttributes.MergeAttribute("class", "control-label");
-            if (isRequired)
+            if (property != null)
             {
-                htmlAttributes.MergeAttribute("class", "required");
+                var isRequired = Attribute.IsDefined(property,
+                    typeof (System.ComponentModel.DataAnnotations.RequiredAttribute));
+
+                if (isRequired)
+                {
+                    htmlAttributes.MergeAttribute("class", "required");
+                }
             }
 
             return helper.LabelFor(expression, htmlAttributes);

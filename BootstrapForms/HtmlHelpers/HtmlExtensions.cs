@@ -28,10 +28,8 @@ namespace BootstrapForms.HtmlHelpers
             var backupFieldPrefix = htmlHelper.ViewData.TemplateInfo.HtmlFieldPrefix;
             var backupModel = htmlHelper.ViewData["Model"];
 
-            htmlHelper.ViewData.TemplateInfo.HtmlFieldPrefix += (htmlHelper.ViewData.TemplateInfo.HtmlFieldPrefix !=
-                                                                 string.Empty
-                ? "."
-                : string.Empty) + propertyName + additionalPrefix;
+            var prefix = htmlHelper.ViewData.TemplateInfo.HtmlFieldPrefix != string.Empty ? "." : string.Empty;
+            htmlHelper.ViewData.TemplateInfo.HtmlFieldPrefix += prefix + propertyName + additionalPrefix;
 
             htmlHelper.ViewData["Model"] = model;
 
