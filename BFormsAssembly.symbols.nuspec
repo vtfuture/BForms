@@ -4,7 +4,7 @@
     <version>1.00</version>
     <authors>Stefan Prodan</authors>
     <owners>Indaco Systems</owners>
-    <id>BForms</id>
+    <id>BForms.Symbols</id>
     <title>BForms</title>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Bootstrap Forms for ASP.NET MVC</description>
