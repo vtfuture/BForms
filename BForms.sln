@@ -19,6 +19,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuspec", ".nuspec", "{FB12
 		BFormsFull.nuspec = BFormsFull.nuspec
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BForms.Docs", "BForms.Docs\BForms.Docs.csproj", "{ACFAD539-59C8-4739-8DA4-6C76F7B1DE97}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +31,10 @@ Global
 		{60A6E254-CD66-4C0E-9191-5E95E70001EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{60A6E254-CD66-4C0E-9191-5E95E70001EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{60A6E254-CD66-4C0E-9191-5E95E70001EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ACFAD539-59C8-4739-8DA4-6C76F7B1DE97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACFAD539-59C8-4739-8DA4-6C76F7B1DE97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACFAD539-59C8-4739-8DA4-6C76F7B1DE97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACFAD539-59C8-4739-8DA4-6C76F7B1DE97}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

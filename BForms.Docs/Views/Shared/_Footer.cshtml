@@ -1,0 +1,20 @@
+﻿@{var footer = ViewBag.Footer;}
+
+    <footer>
+          <div class="footer">
+            <div class="row">
+                <div class="col-lg-6">
+                    <ul>
+                       @*@foreach(var item in footer)
+                       {
+                            <li><a href="@item.Route" class="navbar-link">@item.Name</a></li>
+                       }*@ 
+                    </ul>
+                     <p>Made by BForms Team &copy; @DateTime.Now.Year</p>
+                </div>
+                 <div class="hidden-sm col-lg-6">
+                     <a href="https://github.com/stefanprodan/BForms/" target="_blank" class="indaco_logo pull-right"><img src="@Url.Content("~/Content/images/logo-bsforms.png")" height="30"></a>
+                </div>
+            </div>
+        </div>
+    </footer>
