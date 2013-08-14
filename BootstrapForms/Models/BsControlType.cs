@@ -9,7 +9,7 @@ namespace BootstrapForms.Models
     /// <summary>
     /// BForms input elements
     /// </summary>
-    public enum BsInputType
+    public enum BsControlType
     {
         /// <summary>
         /// Text input element

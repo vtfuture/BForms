@@ -73,8 +73,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\BsInputAttribute.cs" />
-    <Compile Include="Models\BsInputType.cs" />
+    <Compile Include="Attributes\BsControlAttribute.cs" />
+    <Compile Include="Models\BsControlType.cs" />
     <Compile Include="Models\BsSelectModels.cs" />
     <Compile Include="Models\Glyphicon.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

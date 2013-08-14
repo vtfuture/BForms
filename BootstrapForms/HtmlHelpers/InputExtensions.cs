@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Text;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
+using BootstrapForms.Attributes;
+using BootstrapForms.Models;
 using BootstrapForms.Utilities;
 
 namespace BootstrapForms.HtmlHelpers
@@ -78,6 +81,26 @@ namespace BootstrapForms.HtmlHelpers
             if (value != null)
             {
                 metadata.Model = value;
+            }
+
+            //determine if the prop is decorated with Required
+            var model = metadata.ModelType;
+            PropertyInfo property = null;
+
+            foreach (var prop in name.Split('.'))
+            {
+                property = model.GetProperty(prop);
+                model = property.PropertyType;
+            }
+            if (property != null)
+            {
+                var isRequired = Attribute.IsDefined(property,
+                    typeof(BsControlAttribute));
+
+                if (isRequired)
+                {
+                    htmlAttributes.MergeAttribute("class", "required");
+                }
             }
 
             //add placeholder           

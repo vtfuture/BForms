@@ -4,12 +4,43 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Web.Mvc;
+using BootstrapForms.Models;
+using BootstrapForms.Attributes;
 
 namespace BootstrapForms.Utilities
 {
     internal static class ReflectionHelpers
     {
+        /// <summary>
+        /// Retuns BsControlAttribute
+        /// </summary>
+        internal static bool TryGetControlAttribute(string name, Type modelType, out BsControlAttribute attribute)
+        {
+            var hasAttribute = false;
+            attribute = null;
+
+            PropertyInfo property = null;
+
+            foreach (var prop in name.Split('.'))
+            {
+                property = modelType.GetProperty(prop);
+                modelType = property.PropertyType;
+            }
+            if (property != null)
+            {
+                hasAttribute = Attribute.IsDefined(property, typeof (BsControlAttribute));
+                
+                if (hasAttribute)
+                {
+                    attribute = (BsControlAttribute) Attribute.GetCustomAttribute(property, typeof (BsControlAttribute));
+                }
+            }
+
+            return hasAttribute;
+        }
+
         /// <summary>
         /// Retuns model state value
         /// </summary>
