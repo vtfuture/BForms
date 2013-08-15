@@ -10,6 +10,7 @@ namespace BForms.Docs
         {
             bundles.Add(new StyleBundle("~/BForms/css").Include(
                       "~/Scripts/BForms/Components/Bootstrap/css/*.css",
+                      "~/Scripts/BForms/Plugins/Select2/css/*.css",
                       "~/Scripts/BForms/Stylesheets/*.css",
                       "~/Content/Stylesheets/*.css"));
         }

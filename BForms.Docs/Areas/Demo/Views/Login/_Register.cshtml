@@ -1,0 +1,60 @@
+@using BootstrapForms.HtmlHelpers
+@using BootstrapForms.Models
+@model BForms.Docs.Areas.Demo.Models.RegisterModel
+
+<div class="col-12 col-sm-12 col-lg-12">
+    <h1>@Html.BsGlyphicon(Glyphicon.StartEmpty) Register form</h1>
+</div>
+
+@using (Html.BeginForm("Register", "Login", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "bs-form" }))
+{
+    <div class="form-container">
+        @Html.BsFormValidation()
+
+        <div class="col-12 col-sm-6 col-lg-6 form-group">
+            @Html.BsLabelFor(m => m.Email)
+            <div class="input-group">
+                @Html.BsGlyphiconAddon(Glyphicon.Envelope)
+                @Html.BsTextBoxFor(m => m.Email)
+                @Html.BsValidationFor(m => m.Email)
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-lg-6 form-group">
+            @Html.BsLabelFor(m => m.Password)
+            <div class="input-group">
+                @Html.BsGlyphiconAddon(Glyphicon.GLock)
+                @Html.BsTextBoxFor(m => m.Password)
+                @Html.BsValidationFor(m => m.Password)
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-lg-6 form-group">
+            @Html.BsLabelFor(m => m.PasswordRetyped)
+            <div class="input-group">
+                @Html.BsGlyphiconAddon(Glyphicon.GLock)
+                @Html.BsTextBoxFor(m => m.PasswordRetyped)
+                @Html.BsValidationFor(m => m.PasswordRetyped)
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-lg-6 form-group checkbox">
+            @Html.BsCheckBoxFor(m => m.EnableNotifications)
+        </div>
+
+        <div class="col-12 col-sm-6 col-lg-6 form-group">
+            @Html.BsLabelFor(m => m.CountryId)
+            <div class="input-group">
+                @Html.BsDropDownListFor(m => m.CountryId, Model.CountriesDropdown)
+                @Html.BsValidationFor(m => m.CountryId)
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-12 col-lg-12">
+            <hr />
+            <button class="btn btn-primary" type="submit">Register</button>
+            <button class="btn btn-danger pull-right" type="button">Cancel</button>
+        </div>
+    </div>
+}
+

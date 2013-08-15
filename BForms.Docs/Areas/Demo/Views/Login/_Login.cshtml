@@ -1,0 +1,40 @@
+@using BootstrapForms.HtmlHelpers
+@using BootstrapForms.Models
+@model BForms.Docs.Areas.Demo.Models.LoginModel
+
+<div>
+    <h1>@Html.BsGlyphicon(Glyphicon.StartEmpty) Login form</h1>
+</div>
+
+@using (Html.BeginForm("Authentication", "Login", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "bs-form" }))
+{
+    <div class="form-container">
+        @Html.BsFormValidation()
+
+        <div class="form-group @Html.BsValidationCssFor(m => m.Email)">
+            <div class="input-group">
+                @Html.BsGlyphiconAddon(Glyphicon.User)
+                @Html.BsTextBoxFor(m => m.Email)
+                @Html.BsValidationFor(m => m.Email)
+            </div>
+        </div>
+
+        <div class="form-group @Html.BsValidationCssFor(m => m.Password)">
+            <div class="input-group">
+                @Html.BsGlyphiconAddon(Glyphicon.GLock)
+                @Html.BsTextBoxFor(m => m.Password)
+                @Html.BsValidationFor(m => m.Password)
+            </div>
+        </div>
+
+        <div class="form-group checkbox">
+            @Html.BsCheckBoxFor(m => m.RememberMe)
+        </div>
+
+        <div>
+            <hr />
+            <button class="btn btn-default" type="submit">Login</button>
+        </div>
+
+    </div>
+}

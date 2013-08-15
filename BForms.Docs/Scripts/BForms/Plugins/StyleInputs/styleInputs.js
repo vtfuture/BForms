@@ -15,10 +15,10 @@
         select2: true,
         select2Selector: 'select:not(.no-select2)',
 
-        datepicker: false,
+        datepicker: true,
         datepickerSelector: '.js-dateInput',
 
-        radioButtons: false,
+        radioButtons: true,
         radioButtonsSelector: '.RadioButtonsContainer'
     };
 
