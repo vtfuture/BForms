@@ -22,7 +22,7 @@
         }
 
         LoginIndex.prototype.init = function () {
-            this.$form = $('.js-form');
+            this.$form = $('.bs-form');
             this.$form.styleInputs(this.options.styleInputs);
         };
     };

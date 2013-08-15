@@ -4,13 +4,13 @@
 @{
     ViewBag.Title = "Authentication";  
 }
-<div class="bs-form_wrapper">
+<div>
 
-    <div class="bs-form_title">
+    <div>
         <h1>@Html.BsGlyphicon(Glyphicon.StartEmpty) Login form</h1>
     </div>
 
-    @using (Html.BeginForm("Authentication", "Login", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "js-form" }))
+    @using (Html.BeginForm("Authentication", "Login", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "bs-form" }))
     {
         <div class="form-container">
             @Html.BsFormValidation()
@@ -42,13 +42,13 @@
     }
 </div>
 
-<div class="row bs-form_wrapper">
+<div class="row">
 
     <div class="col-12 col-sm-12 col-lg-12 bs-form_title">
         <h1>@Html.BsGlyphicon(Glyphicon.StartEmpty) Register form</h1>
     </div>
 
-    @using (Html.BeginForm("Authentication", "Login", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "js-form" }))
+    @using (Html.BeginForm("Authentication", "Login", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "bs-form" }))
     {
         <div class="form-container">
             @Html.BsFormValidation()

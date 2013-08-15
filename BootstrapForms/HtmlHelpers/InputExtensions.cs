@@ -42,7 +42,7 @@ namespace BootstrapForms.HtmlHelpers
         /// </summary>
         public static MvcHtmlString BsTextBox(this HtmlHelper helper, string name, object value, string format)
         {
-            return BsTextBox(helper, name, value, format, htmlAttributes: (object) null);
+            return BsTextBox(helper, name, value, format, htmlAttributes: (object)null);
         }
 
         /// <summary>
@@ -83,36 +83,23 @@ namespace BootstrapForms.HtmlHelpers
                 metadata.Model = value;
             }
 
-            //determine if the prop is decorated with Required
-            var model = metadata.ModelType;
-            PropertyInfo property = null;
-
-            foreach (var prop in name.Split('.'))
-            {
-                property = model.GetProperty(prop);
-                model = property.PropertyType;
-            }
-            if (property != null)
-            {
-                var isRequired = Attribute.IsDefined(property,
-                    typeof(BsControlAttribute));
-
-                if (isRequired)
-                {
-                    htmlAttributes.MergeAttribute("class", "required");
-                }
-            }
-
             //add placeholder           
             if (!string.IsNullOrEmpty(metadata.Watermark) && !htmlAttributes.ContainsKey("placeholder"))
             {
                 htmlAttributes.MergeAttribute("placeholder", metadata.Watermark);
             }
 
-            //add html5 input type
+            //add html5 input type based on DataType attribute
             if (!string.IsNullOrEmpty(metadata.DataTypeName))
             {
                 htmlAttributes.MergeAttribute("type", metadata.DataTypeName.GetHtml5Type());
+            }
+
+            //overwrite html5 input type based on BsControlType attribute
+            BsControlAttribute bsControl = null;
+            if (ReflectionHelpers.TryGetControlAttribute(name, metadata.ModelType, out bsControl))
+            {
+                htmlAttributes.MergeAttribute("type", bsControl.ControlType.GetHtml5Type(), true);
             }
 
             //merge custom css classes with bootstrap
@@ -127,7 +114,7 @@ namespace BootstrapForms.HtmlHelpers
         public static MvcHtmlString BsTextBoxFor<TModel, TProperty>(this HtmlHelper<TModel> helper,
             Expression<Func<TModel, TProperty>> expression)
         {
-            return BsTextBoxFor(helper, expression, (object) null);
+            return BsTextBoxFor(helper, expression, (object)null);
         }
 
         /// <summary>
@@ -156,10 +143,17 @@ namespace BootstrapForms.HtmlHelpers
                 htmlAttributes.MergeAttribute("placeholder", metadata.Watermark);
             }
 
-            //add html5 input type
+            //add html5 input type based on DataType attribute
             if (!string.IsNullOrEmpty(metadata.DataTypeName))
             {
                 htmlAttributes.MergeAttribute("type", metadata.DataTypeName.GetHtml5Type());
+            }
+
+            //overwrite html5 input type based on BsControlType attribute
+            BsControlAttribute bsControl = null;
+            if (ReflectionHelpers.TryGetControlAttribute(ExpressionHelper.GetExpressionText(expression), typeof(TModel), out bsControl))
+            {
+                htmlAttributes.MergeAttribute("type", bsControl.ControlType.GetHtml5Type(), true);
             }
 
             //add info tooltip
@@ -269,7 +263,7 @@ namespace BootstrapForms.HtmlHelpers
         public static MvcHtmlString BsTextAreaFor<TModel, TProperty>(this HtmlHelper<TModel> helper,
             Expression<Func<TModel, TProperty>> expression)
         {
-            return BsTextAreaFor(helper, expression, (object) null);
+            return BsTextAreaFor(helper, expression, (object)null);
         }
 
         /// <summary>
@@ -319,7 +313,7 @@ namespace BootstrapForms.HtmlHelpers
         /// </summary>
         public static MvcHtmlString BsCheckBox(this HtmlHelper htmlHelper, string name)
         {
-            return BsCheckBox(htmlHelper, name, htmlAttributes: (object) null);
+            return BsCheckBox(htmlHelper, name, htmlAttributes: (object)null);
         }
 
         /// <summary>
@@ -327,7 +321,7 @@ namespace BootstrapForms.HtmlHelpers
         /// </summary>
         public static MvcHtmlString BsCheckBox(this HtmlHelper htmlHelper, string name, bool isChecked)
         {
-            return BsCheckBox(htmlHelper, name, isChecked, htmlAttributes: (object) null);
+            return BsCheckBox(htmlHelper, name, isChecked, htmlAttributes: (object)null);
         }
 
         /// <summary>
@@ -381,7 +375,7 @@ namespace BootstrapForms.HtmlHelpers
         public static MvcHtmlString BsCheckBoxFor<TModel>(this HtmlHelper<TModel> helper,
             Expression<Func<TModel, bool>> expression)
         {
-            return BsCheckBoxFor(helper, expression, (object) null);
+            return BsCheckBoxFor(helper, expression, (object)null);
         }
 
         /// <summary>
@@ -421,7 +415,7 @@ namespace BootstrapForms.HtmlHelpers
         /// </summary>
         public static MvcHtmlString BsRadioButton(this HtmlHelper htmlHelper, string name)
         {
-            return BsRadioButton(htmlHelper, name, htmlAttributes: (object) null);
+            return BsRadioButton(htmlHelper, name, htmlAttributes: (object)null);
         }
 
         /// <summary>
@@ -429,7 +423,7 @@ namespace BootstrapForms.HtmlHelpers
         /// </summary>
         public static MvcHtmlString BsRadioButton(this HtmlHelper htmlHelper, string name, bool isChecked)
         {
-            return BsRadioButton(htmlHelper, name, isChecked, htmlAttributes: (object) null);
+            return BsRadioButton(htmlHelper, name, isChecked, htmlAttributes: (object)null);
         }
 
         /// <summary>
@@ -483,7 +477,7 @@ namespace BootstrapForms.HtmlHelpers
         public static MvcHtmlString BsRadioButtonFor<TModel>(this HtmlHelper<TModel> helper,
             Expression<Func<TModel, bool>> expression)
         {
-            return BsRadioButtonFor(helper, expression, (object) null);
+            return BsRadioButtonFor(helper, expression, (object)null);
         }
 
         /// <summary>

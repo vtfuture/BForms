@@ -16,6 +16,34 @@ namespace BootstrapForms.Models
         /// </summary>
         TextBox,
         /// <summary>
+        /// Password input element
+        /// </summary>
+        Password,
+        /// <summary>
+        /// Number input element
+        /// </summary>
+        Number,
+        /// <summary>
+        /// Url input element
+        /// </summary>
+        Url,
+        /// <summary>
+        /// Email input element
+        /// </summary>
+        Email,
+        /// <summary>
+        /// Datepicker input element
+        /// </summary>
+        Datepicker,
+        /// <summary>
+        /// Datepicker range input element
+        /// </summary>
+        DatepickerRange,
+        /// <summary>
+        /// Time input element
+        /// </summary>
+        Time,
+        /// <summary>
         /// Textarea input element
         /// </summary>
         TextArea,
@@ -50,7 +78,15 @@ namespace BootstrapForms.Models
         /// <summary>
         /// Grouped listbox input element
         /// </summary>
-        ListBoxGrouped
+        ListBoxGrouped,
+        /// <summary>
+        /// File upload input element
+        /// </summary>
+        Upload,
+        /// <summary>
+        /// File upload input element
+        /// </summary>
+        Color
     }
 
 
