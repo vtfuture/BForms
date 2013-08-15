@@ -62,8 +62,6 @@ p {
   .navbar .navbar-inner {
     border: 0;
     padding: 0; }
-  .navbar .nav-collapse {
-    margin-top: 10px; }
   .navbar .nav > li {
     margin: 10px 15px 10px;
     text-transform: uppercase;
