@@ -12,6 +12,7 @@ $borderColor: #e8e8e8;
 
 label {
 	font-size: 16px;
+	font-weight: normal;
 }
 textarea {
 	resize: vertical;
@@ -130,23 +131,17 @@ textarea {
 }
 
 .btn {
-	//clear: both;
-	background: #fff;
 	padding: 4px 12px;
-	border: 1px solid #ccc;
-	border-bottom: 2px solid $navy;
 	text-transform: uppercase;
-	font-size: 17px;
-	&:hover, &:focus {
-		color: $turqoise;
-	}
-	&:last-child {
-		border-bottom: 2px solid $turqoise;
-	}
+	font-size: 17px;	
+	border: none;
 }
-.btn-prev {
-	float: left;
-	margin-right: 5px;
+.btn-default {
+	background: $navy;
+	color: #fff;
+	&:hover, &:focus {
+		background: $turqoise;
+	}
 }
 
 .upload-file { /* File upload button */

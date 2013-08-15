@@ -2,7 +2,8 @@
   width: 100%; }
 
 label {
-  font-size: 16px; }
+  font-size: 16px;
+  font-weight: normal; }
 
 textarea {
   resize: vertical; }
@@ -91,20 +92,16 @@ textarea {
   border-left: none; }
 
 .btn {
-  background: #fff;
   padding: 4px 12px;
-  border: 1px solid #ccc;
-  border-bottom: 2px solid #547980;
   text-transform: uppercase;
-  font-size: 17px; }
-  .btn:hover, .btn:focus {
-    color: #45ada8; }
-  .btn:last-child {
-    border-bottom: 2px solid #45ada8; }
+  font-size: 17px;
+  border: none; }
 
-.btn-prev {
-  float: left;
-  margin-right: 5px; }
+.btn-default {
+  background: #547980;
+  color: #fff; }
+  .btn-default:hover, .btn-default:focus {
+    background: #45ada8; }
 
 .upload-file {
   /* File upload button */
