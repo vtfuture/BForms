@@ -1,4 +1,4 @@
-﻿.input-group {
+.input-group {
   width: 100%; }
 
 label {
@@ -9,7 +9,7 @@ textarea {
 
 .required:after {
   content: "*";
-  color: #f03c02; }
+  color: #b94a48; }
 
 /* Errors */
 .field-validation-valid {
@@ -71,7 +71,7 @@ textarea {
   cursor: pointer; }
   .checkbox_replace .option.selected {
     background: #eee;
-    color: #f03c02; }
+    color: #547980; }
 .checkbox_replace:focus {
   outline: none; }
 .checkbox_replace.form-control {
@@ -83,21 +83,9 @@ textarea {
       border-left: none; }
 
 /* Custom UI END*/
-.step_container {
-  position: relative;
-  clear: both; }
-  .step_container.loading:after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: white url(../images/ems-loading.gif) center center no-repeat; }
-
 .form-control:focus {
   box-shadow: none;
-  border-color: #f08302; }
+  border-color: #45ada8; }
 
 .form-control + .input-group-addon {
   border-left: none; }
@@ -106,13 +94,13 @@ textarea {
   background: #fff;
   padding: 4px 12px;
   border: 1px solid #ccc;
-  border-bottom: 2px solid #f03c02;
+  border-bottom: 2px solid #547980;
   text-transform: uppercase;
   font-size: 17px; }
   .btn:hover, .btn:focus {
-    color: #f08302; }
+    color: #45ada8; }
   .btn:last-child {
-    border-bottom: 2px solid #f08302; }
+    border-bottom: 2px solid #45ada8; }
 
 .btn-prev {
   float: left;
@@ -162,56 +150,6 @@ textarea {
     height: 38px; }
   .form-group.checkbox.has-error label, .form-group.radio.has-error label {
     border: 1px solid #b94a48; }
-
-/*Wizzard large container*/
-.page-wizzard {
-  margin-bottom: 60px; }
-  .page-wizzard .event_title {
-    margin-bottom: 30px;
-    margin-top: -41px; }
-    .page-wizzard .event_title h3 {
-      padding: 10px 15px;
-      background: #f08302;
-      font-size: 21px;
-      text-align: center;
-      color: #fff; }
-      .page-wizzard .event_title h3 a {
-        color: #fff; }
-        .page-wizzard .event_title h3 a:hover {
-          color: #fff !important; }
-      .page-wizzard .event_title h3 span {
-        font-size: 16px; }
-
-.disclaimer-body {
-  text-align: justify; }
-  .disclaimer-body p, .disclaimer-body li {
-    font-size: 17px;
-    line-height: 24px; }
-  .disclaimer-body ~ .checkbox label {
-    font-size: 17px;
-    color: #f08302; }
-
-.upload_files {
-  font-size: 17px; }
-  .upload_files .row {
-    margin: 0 0 -1px;
-    border: 1px solid #e8e8e8; }
-    .upload_files .row > div {
-      padding: 10px 15px; }
-  .upload_files .glyphicon {
-    vertical-align: middle; }
-  .upload_files .glyphicon-ok {
-    color: #59b444;
-    margin-left: 5px; }
-  .upload_files .file_name {
-    color: #989898;
-    padding-left: 17px;
-    font-size: 15px; }
-  .upload_files .btn {
-    font-size: 14px;
-    width: 135px; }
-    .upload_files .btn.erase {
-      border-bottom: 2px solid #f03c02; }
 
 @media (min-width: 768px) {
   /* fixes for 2 cols */

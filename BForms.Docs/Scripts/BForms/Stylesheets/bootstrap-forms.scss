@@ -1,5 +1,5 @@
-﻿$darkOrange: #f03c02;
-$lightOrange: #f08302;
+﻿$turqoise: #45ADA8;
+$navy: #547980;
 $Gray: #dadada;
 $darkGray: #585858;
 $textGray: #989898;
@@ -18,7 +18,7 @@ textarea {
 }
 .required:after {
 	content: "*";
-	color: $darkOrange;	
+	color: #b94a48;	
 }
 
 
@@ -99,7 +99,7 @@ textarea {
 		cursor: pointer;
 		&.selected {
 			background: #eee;
-			color: $darkOrange;
+			color: $navy;
 		}
 	}
 	&:focus {
@@ -119,22 +119,10 @@ textarea {
 
 /* Custom UI END*/
 
-.step_container {
-	position: relative;
-	clear: both;
-	&.loading:after {
-		content: "";
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		background: #fff url(../images/ems-loading.gif) center center no-repeat;
-	}
-}
+
 .form-control:focus {
 	box-shadow: none;
-	border-color: $lightOrange;
+	border-color: $turqoise;
 }
 
 .form-control + .input-group-addon {
@@ -146,14 +134,14 @@ textarea {
 	background: #fff;
 	padding: 4px 12px;
 	border: 1px solid #ccc;
-	border-bottom: 2px solid $darkOrange;
+	border-bottom: 2px solid $navy;
 	text-transform: uppercase;
 	font-size: 17px;
 	&:hover, &:focus {
-		color: $lightOrange;
+		color: $turqoise;
 	}
 	&:last-child {
-		border-bottom: 2px solid $lightOrange;
+		border-bottom: 2px solid $turqoise;
 	}
 }
 .btn-prev {
@@ -219,72 +207,6 @@ textarea {
 }
 
 
-/*Wizzard large container*/
-.page-wizzard  {
-	margin-bottom: 60px;
-	.event_title {
-		margin-bottom: 30px;
-		margin-top: -41px;
-		h3 {
-			padding: 10px 15px;
-			background: $lightOrange;
-			font-size: 21px;
-			text-align: center;
-			color: #fff;
-			a {
-				color: #fff;
-				&:hover {
-					color: #fff !important;
-				}
-			}
-			span {
-				font-size: 16px;
-			}
-		}
-	}
-}
-
-.disclaimer-body {
-	text-align: justify;
-	p, li {
-		font-size: 17px;
-		line-height: 24px;
-	}
-	~ .checkbox label {
-		font-size: 17px;
-		color: $lightOrange;
-	}
-}
-
-.upload_files {
-	font-size: 17px;
-	.row {
-		margin: 0 0 -1px;		
-		border: 1px solid $borderColor;	
-		> div {
-			padding: 10px 15px;
-		}		
-	}
-	.glyphicon {
-		vertical-align: middle;
-	}
-	.glyphicon-ok {
-		color: #59b444;
-		margin-left: 5px;
-	}
-	.file_name {
-		color: $textGray;
-		padding-left: 17px;
-		font-size: 15px;
-	}
-	.btn {
-		font-size: 14px;
-		width: 135px;		
-		&.erase {
-			border-bottom: 2px solid $darkOrange;
-		}
-	}
-}
 
 @media (min-width: 768px) { /* fixes for 2 cols */
 	

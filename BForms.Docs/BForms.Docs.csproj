@@ -135,6 +135,7 @@
     <Content Include="Content\Images\icn-gg.png" />
     <Content Include="Content\Images\icn-tw.png" />
     <Content Include="Content\Images\logo-bsforms.png" />
+    <Content Include="Content\Images\preloader.gif" />
     <Content Include="Content\Stylesheets\Site.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
