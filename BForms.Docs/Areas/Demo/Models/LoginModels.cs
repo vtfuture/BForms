@@ -64,6 +64,11 @@ namespace BForms.Docs.Areas.Demo.Models
         [BsControl(BsControlType.DropDownList)]
         public string CountryId { get; set; }
         public List<System.Web.Mvc.SelectListItem> CountriesDropdown { get; set; }
+
+        [Display(Name = "Notifications")]
+        [BsControl(BsControlType.DropDownList)]
+        public string NotificationTypeId { get; set; }
+        public List<System.Web.Mvc.SelectListItem> NotificationDropdown { get; set; }
     }
 
 

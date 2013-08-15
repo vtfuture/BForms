@@ -117,6 +117,7 @@
     <Compile Include="Areas\Demo\Helpers\Utils.cs" />
     <Compile Include="Areas\Demo\Models\LoginModels.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\ComponentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -129,6 +130,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Images\Docs\email-input.jpg" />
     <Content Include="Content\Images\icn-err_error.png" />
     <Content Include="Content\Images\icn-err_notfound.png" />
     <Content Include="Content\Images\icn-err_unauth.png" />
@@ -167,6 +169,7 @@
     <Content Include="Scripts\BForms\Plugins\Validation\jquery.validate.unobtrusive.bootstrap.js" />
     <Content Include="Scripts\BForms\Stylesheets\bootstrap-forms.css" />
     <Content Include="Scripts\Controllers\Demo\Login\login-index.js" />
+    <Content Include="Scripts\Controllers\Root\Components\components-index.js" />
     <Content Include="Scripts\Controllers\Root\Home\home-contact.js" />
     <Content Include="Scripts\Controllers\Root\Home\home-index.js" />
     <Content Include="Scripts\Requirejs\async.js" />
@@ -252,6 +255,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Demo\Views\Login\_Register.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\_TextInput.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
