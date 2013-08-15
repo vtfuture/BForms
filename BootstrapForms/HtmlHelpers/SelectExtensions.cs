@@ -333,6 +333,12 @@ namespace BootstrapForms.HtmlHelpers
             //merge custom css classes with bootstrap
             htmlAttributes.MergeAttribute("class", "form-control");
 
+            //add optionLabel from Watermark 
+            if (!string.IsNullOrEmpty(metadata.Watermark) && string.IsNullOrEmpty(optionLabel))
+            {
+                optionLabel = metadata.Watermark;
+            }
+
             //add info tooltip
             var description = new MvcHtmlString("");
             if (!string.IsNullOrEmpty(metadata.Description))
@@ -412,19 +418,16 @@ namespace BootstrapForms.HtmlHelpers
             var metadata = ModelMetadata.FromLambdaExpression(expression, htmlHelper.ViewData);
             string htmlSelect;
 
-            //copy watermark to optionLabel
-            if (!string.IsNullOrEmpty(metadata.Watermark))
+            //add optionLabel from Watermark 
+            if (!string.IsNullOrEmpty(metadata.Watermark) && string.IsNullOrEmpty(optionLabel))
             {
-                htmlSelect =
-                    BsGroupedListHelper(htmlHelper, ExpressionHelper.GetExpressionText(expression), selectList,
-                        metadata.Watermark, htmlAttributes, false).ToHtmlString();
+                optionLabel = metadata.Watermark;
             }
-            else
-            {
-                htmlSelect =
-                    BsGroupedListHelper(htmlHelper, ExpressionHelper.GetExpressionText(expression), selectList,
-                        optionLabel, htmlAttributes, false).ToHtmlString();
-            }
+
+            htmlSelect =
+                BsGroupedListHelper(htmlHelper, ExpressionHelper.GetExpressionText(expression), selectList,
+                    optionLabel, htmlAttributes, false).ToHtmlString();
+
 
             //add info tooltip
             var description = new MvcHtmlString("");

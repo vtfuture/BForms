@@ -6,11 +6,11 @@ namespace BootstrapForms.Attributes
     /// <summary>
     /// BForms control descriptor
     /// </summary>
-    [AttributeUsage(AttributeTargets.Property, Inherited = false, AllowMultiple = false)]
+    [AttributeUsage(AttributeTargets.Method | AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Parameter, AllowMultiple = false)]
     public class BsControlAttribute : Attribute
     {
         /// <summary>
-        /// BForms input type works with DataAnnotations.DataType to create HTML5 inputs, when DataType is not specified, it will render type="text"
+        /// Specifies the control type for BFroms HTML input and select elements
         /// </summary>
         public BsControlType ControlType { get; set; }
 
@@ -18,5 +18,18 @@ namespace BootstrapForms.Attributes
         /// Let's you specify custom css classes for each input
         /// </summary>
         public string CssClass { get; set; }
+
+        public BsControlAttribute()
+        {
+
+        }
+
+        /// <summary>
+        /// Specifies the name of an BFroms control type to associate with an input HTML field
+        /// </summary>
+        public BsControlAttribute(BsControlType ControlType)
+        {
+            this.ControlType = ControlType;
+        }
     }
 }
