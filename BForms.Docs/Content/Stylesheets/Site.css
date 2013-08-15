@@ -5,7 +5,8 @@ body {
   max-width: 1024px;
   margin: 20px auto 0;
   padding: 0 10px;
-  width: 99%; }
+  width: 99%;
+  font-size: 17px; }
 
 .sidebar-nav {
   padding: 9px 0; }
@@ -28,9 +29,6 @@ a {
     text-decoration: none;
     color: #547980 !important;
     background-color: none !important; }
-
-p {
-  margin: 0; }
 
 /* Global loading */
 .loading-global {
@@ -96,7 +94,7 @@ p {
 
 /* Main area */
 h1 {
-  font-size: 17px;
+  font-size: 20px;
   line-height: normal;
   font-weight: normal;
   border-bottom: 2px solid #45ada8;
@@ -115,6 +113,57 @@ h1 {
   line-height: 24px; }
 .docs_page table {
   min-width: 700px; }
+
+/* Aside menu*/
+aside .bs-sidenav {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  text-shadow: 0 1px 0 #fff;
+  background-color: #f7f5fa; }
+aside .nav li a {
+  font-weight: bold; }
+aside .nav .nav li a {
+  font-weight: normal;
+  padding: 10px 15px 10px 25px; }
+
+/* Example page*/
+.bs-docs-section .page-header {
+  padding: 0;
+  border: none; }
+  .bs-docs-section .page-header h1 {
+    font-size: 27px; }
+.bs-docs-section h3 {
+  font-size: 22px; }
+.bs-docs-section .bs-example {
+  position: relative;
+  padding: 45px 15px 15px;
+  background-color: #fafafa;
+  border: 1px solid #e8e8e8;
+  margin-bottom: -1px; }
+  .bs-docs-section .bs-example:after {
+    content: "Example";
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #bbb;
+    text-transform: uppercase;
+    letter-spacing: 1px; }
+.bs-docs-section .highlight {
+  padding: 9px 14px;
+  margin-bottom: 14px;
+  background-color: #f7f7f9;
+  border: 1px solid #e8e8e8; }
+  .bs-docs-section .highlight pre {
+    padding: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    background-color: transparent;
+    border: 0;
+    white-space: nowrap; }
 
 /* Error pages */
 .error_page .brand {
