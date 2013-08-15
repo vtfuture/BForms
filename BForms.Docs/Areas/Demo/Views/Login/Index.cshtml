@@ -4,10 +4,11 @@
 @{
     ViewBag.Title = "Authentication";  
 }
+<div class="bs-form_wrapper">
 
-    <hgroup class="title">
-        <h1>@Html.BsGlyphicon(Glyphicon.StartEmpty) @ViewBag.Title</h1>
-    </hgroup>
+    <div class="bs-form_title">
+        <h1>@Html.BsGlyphicon(Glyphicon.StartEmpty) Login form</h1>
+    </div>
 
     @using (Html.BeginForm("Authentication", "Login", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "js-form" }))
     {
@@ -32,8 +33,48 @@
                 </div>
             </div>
 
-            <hr />
-            <button class="btn" type="submit">Login</button>
+            <div class="bs-form_controls">
+                <hr />
+                <button class="btn" type="submit">Login</button>
+            </div>
 
         </div>
     }
+</div>
+
+<div class="row bs-form_wrapper">
+
+    <div class="col-12 col-sm-12 col-lg-12 bs-form_title">
+        <h1>@Html.BsGlyphicon(Glyphicon.StartEmpty) Register form</h1>
+    </div>
+
+    @using (Html.BeginForm("Authentication", "Login", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "js-form" }))
+    {
+        <div class="form-container">
+            @Html.BsFormValidation()
+
+            <div class="col-12 col-sm-6 col-lg-6 form-group @Html.BsValidationCssFor(m => m.UserName)">
+                @Html.BsLabelFor(m => m.UserName)
+                <div class="input-group">
+                    @Html.BsGlyphiconAddon(Glyphicon.User)
+                    @Html.BsTextBoxFor(m => m.UserName)
+                    @Html.BsValidationFor(m => m.UserName)
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-lg-6 form-group @Html.BsValidationCssFor(m => m.Password)">
+                @Html.BsLabelFor(m => m.Password)
+                <div class="input-group">
+                    @Html.BsGlyphiconAddon(Glyphicon.GLock)
+                    @Html.BsTextBoxFor(m => m.Password)
+                    @Html.BsValidationFor(m => m.Password)
+                </div>
+            </div>
+
+            <div class="col-sm-12 col-lg-12 bs-form_controls">
+                <hr />
+                <button class="btn" type="submit">Register</button>
+            </div>
+        </div>
+    }
+</div>
