@@ -18,10 +18,14 @@ namespace BForms.Docs.Areas.Demo.Controllers
             var model = new AuthenticationModel()
             {
                 LoginModel = new LoginModel(),
-                RegisterModel = new RegisterModel() { CountriesDropdown = Utils.GetCounties() }
+                RegisterModel = new RegisterModel()
+                {
+                    CountriesDropdown = Utils.AllCounties(),
+                    NotificationDropdown = Utils.GetNotificationTypes()
+                }
             };
 
             return View(model);
         }
-	}
+    }
 }

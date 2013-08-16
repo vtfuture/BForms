@@ -12,6 +12,15 @@
         @Html.BsFormValidation()
 
         <div class="col-12 col-sm-6 col-lg-6 form-group">
+            @Html.BsLabelFor(m => m.Name)
+            <div class="input-group">
+                @Html.BsGlyphiconAddon(Glyphicon.User)
+                @Html.BsTextBoxFor(m => m.Name)
+                @Html.BsValidationFor(m => m.Name)
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-lg-6 form-group">
             @Html.BsLabelFor(m => m.Email)
             <div class="input-group">
                 @Html.BsGlyphiconAddon(Glyphicon.Envelope)
@@ -38,15 +47,19 @@
             </div>
         </div>
 
-        <div class="col-12 col-sm-6 col-lg-6 form-group checkbox">
-            @Html.BsCheckBoxFor(m => m.EnableNotifications)
+        <div class="col-12 col-sm-6 col-lg-6 form-group">
+            @Html.BsLabelFor(m => m.NotificationTypeId)
+            <div class="input-group">
+                @Html.BsRadioButtonListFor(m => m.NotificationTypeId, Model.NotificationDropdown)
+                @Html.BsValidationFor(m => m.NotificationTypeId)
+            </div>
         </div>
 
         <div class="col-12 col-sm-6 col-lg-6 form-group">
-            @Html.BsLabelFor(m => m.CountryId)
+            @Html.BsLabelFor(m => m.CountriesDropdown)
             <div class="input-group">
-                @Html.BsDropDownListFor(m => m.CountryId, Model.CountriesDropdown)
-                @Html.BsValidationFor(m => m.CountryId)
+                @Html.BsSelectFor(m => m.CountriesDropdown, Model.CountriesDropdown, new { })
+                @Html.BsValidationFor(m => m.CountriesDropdown)
             </div>
         </div>
 

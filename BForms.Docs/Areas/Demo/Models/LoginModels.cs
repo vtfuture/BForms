@@ -59,14 +59,12 @@ namespace BForms.Docs.Areas.Demo.Models
         [BsControl(BsControlType.CheckBox)]
         public bool EnableNotifications { get; set; }
 
-        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
         [Display(Name = "Location", Prompt = "Chose your country")]
         [BsControl(BsControlType.DropDownList)]
-        public string CountryId { get; set; }
-        public List<System.Web.Mvc.SelectListItem> CountriesDropdown { get; set; }
+        public BsSelectList<string> CountriesDropdown { get; set; }
 
-        [Display(Name = "Notifications")]
-        [BsControl(BsControlType.DropDownList)]
+        [Display(Name = "Notifications", Description = "Your register email address will be used")]
+        [BsControl(BsControlType.RadioButtonList)]
         public string NotificationTypeId { get; set; }
         public List<System.Web.Mvc.SelectListItem> NotificationDropdown { get; set; }
     }
