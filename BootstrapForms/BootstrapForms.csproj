@@ -43,6 +43,7 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.Helpers.dll</HintPath>
@@ -75,6 +76,8 @@
   <ItemGroup>
     <Compile Include="Attributes\BsControlAttribute.cs" />
     <Compile Include="Models\BsControlType.cs" />
+    <Compile Include="Models\BsJsonResult.cs" />
+    <Compile Include="Models\BsResponseStatus.cs" />
     <Compile Include="Models\BsSelectModels.cs" />
     <Compile Include="Models\Glyphicon.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -85,6 +88,7 @@
     <Compile Include="HtmlHelpers\SelectExtensions.cs" />
     <Compile Include="HtmlHelpers\TooltipExtensions.cs" />
     <Compile Include="HtmlHelpers\ValidationExtensions.cs" />
+    <Compile Include="Utilities\ActionResultHelpers.cs" />
     <Compile Include="Utilities\ReflectionHelpers.cs" />
     <Compile Include="Utilities\Renders.cs" />
   </ItemGroup>
