@@ -8,32 +8,35 @@ using System.Web.Mvc;
 namespace BootstrapForms.Models
 {
     /// <summary>
-    /// Represents a list of items that users can select one or more items
+    /// Represents a list of items for Dropdown, ListBox, RadioList, CheckboxList binding
     /// </summary>
     public class BsSelectList<T>
     {
-        private T id;
+        private T selectedValues;
 
-        public T Id
+        /// <summary>
+        /// Selected values
+        /// </summary>
+        public T SelectedValues
         {
             get
             {
-                return id;
+                return selectedValues;
             }
             set
             {
-                id = value;
+                selectedValues = value;
             }
         }
 
         public static implicit operator T(BsSelectList<T> value)
         {
-            return value.Id;
+            return value.SelectedValues;
         }
 
         public static implicit operator BsSelectList<T>(T value)
         {
-            return new BsSelectList<T> { Id = value };
+            return new BsSelectList<T> { SelectedValues = value };
         }
 
         public List<BsSelectListItem> Items { get; set; }
@@ -81,8 +84,19 @@ namespace BootstrapForms.Models
     /// </summary>
     public class BsSelectListItem : SelectListItem
     {
+        /// <summary>
+        /// Option group unique ID
+        /// </summary>
         public string GroupKey { get; set; }
+
+        /// <summary>
+        /// Option group display name
+        /// </summary>
         public string GroupName { get; set; }
+
+        /// <summary>
+        /// The dictionary items are serialized in html as data- attributes
+        /// </summary>
         public Dictionary<string, string> Data { get; set; }
     }
 
@@ -95,6 +109,7 @@ namespace BootstrapForms.Models
         /// Group unique id
         /// </summary>
         public string GroupKey { get; set; }
+
         /// <summary>
         /// Group display name
         /// </summary>

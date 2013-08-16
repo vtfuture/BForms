@@ -154,6 +154,7 @@ namespace BootstrapForms.HtmlHelpers
             if (ReflectionHelpers.TryGetControlAttribute(ExpressionHelper.GetExpressionText(expression), typeof(TModel), out bsControl))
             {
                 htmlAttributes.MergeAttribute("type", bsControl.ControlType.GetHtml5Type(), true);
+                htmlAttributes.MergeAttribute("class", bsControl.ControlType.GetDescription());
             }
 
             //add info tooltip
@@ -292,6 +293,13 @@ namespace BootstrapForms.HtmlHelpers
                 htmlAttributes.MergeAttribute("placeholder", metadata.Watermark);
             }
 
+            //add bs- control type
+            BsControlAttribute bsControl = null;
+            if (ReflectionHelpers.TryGetControlAttribute(ExpressionHelper.GetExpressionText(expression), typeof(TModel), out bsControl))
+            {
+                htmlAttributes.MergeAttribute("class", bsControl.ControlType.GetDescription());
+            }
+
             //add info tooltip
             var description = new MvcHtmlString("");
             if (!string.IsNullOrEmpty(metadata.Description))
@@ -397,6 +405,13 @@ namespace BootstrapForms.HtmlHelpers
             var fieldName = ExpressionHelper.GetExpressionText(expression);
             var labelText = metadata.DisplayName ?? metadata.PropertyName ?? fieldName.Split('.').Last();
 
+            //add bs- control type
+            BsControlAttribute bsControl = null;
+            if (ReflectionHelpers.TryGetControlAttribute(ExpressionHelper.GetExpressionText(expression), typeof(TModel), out bsControl))
+            {
+                htmlAttributes.MergeAttribute("class", bsControl.ControlType.GetDescription());
+            }
+
             var labelTag = new TagBuilder("label");
             var labelHtml = new StringBuilder(labelTag.ToString(TagRenderMode.StartTag));
             labelHtml.Append(helper.CheckBoxFor(expression, htmlAttributes));
@@ -498,6 +513,13 @@ namespace BootstrapForms.HtmlHelpers
             var metadata = ModelMetadata.FromLambdaExpression(expression, helper.ViewData);
             var fieldName = ExpressionHelper.GetExpressionText(expression);
             var labelText = metadata.DisplayName ?? metadata.PropertyName ?? fieldName.Split('.').Last();
+
+            //add bs- control type
+            BsControlAttribute bsControl = null;
+            if (ReflectionHelpers.TryGetControlAttribute(ExpressionHelper.GetExpressionText(expression), typeof(TModel), out bsControl))
+            {
+                htmlAttributes.MergeAttribute("class", bsControl.ControlType.GetDescription());
+            }
 
             var labelTag = new TagBuilder("label");
             var labelHtml = new StringBuilder(labelTag.ToString(TagRenderMode.StartTag));

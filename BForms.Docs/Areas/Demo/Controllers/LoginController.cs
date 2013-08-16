@@ -17,10 +17,6 @@ namespace BForms.Docs.Areas.Demo.Controllers
 
     public class LoginController : BaseController
     {
-        [Display(Name = "Location", Prompt = "Chose your country")]
-        [BsControl(BsControlType.ListBoxGrouped)]
-        public BsSelectList<string> MyList { get; set; }
-
         //
         // GET: /Demo/Login/
         public ActionResult Index()

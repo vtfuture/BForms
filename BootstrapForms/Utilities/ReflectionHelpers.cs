@@ -184,12 +184,10 @@ namespace BootstrapForms.Utilities
                 case BsControlType.Url:
                     html5Type = "url";
                     break;
-                case BsControlType.Datepicker:
+                case BsControlType.DatePicker:
                     html5Type = "datetime";
                     break;
-                case BsControlType.DatepickerRange:
-                    break;
-                case BsControlType.Time:
+                case BsControlType.TimePicker:
                     html5Type = "time";
                     break;
                 case BsControlType.Email:
@@ -198,31 +196,14 @@ namespace BootstrapForms.Utilities
                 case BsControlType.Upload:
                     html5Type = "file";
                     break;
-                case BsControlType.TextArea:
-                    break;
                 case BsControlType.CheckBox:
                     html5Type = "checkbox";
                     break;
                 case BsControlType.RadioButton:
                     html5Type = "radio";
                     break;
-                case BsControlType.Color:
+                case BsControlType.ColorPicker:
                     html5Type = "color";
-                    break;
-                case BsControlType.TagList:
-                    break;
-                case BsControlType.RadioButtonList:
-                    break;
-                case BsControlType.DropDownList:
-                    break;
-                case BsControlType.DropDownListGrouped:
-                    break;
-                case BsControlType.ListBox:
-                    break;
-                case BsControlType.ListBoxGrouped:
-                    break;
-                default:
-                    html5Type = "text";
                     break;
             }
 
