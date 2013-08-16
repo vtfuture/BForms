@@ -31,13 +31,15 @@ namespace BForms.Docs.Areas.Demo.Controllers
                 }
             };
 
+            RequireJsOptions.Add("registerUrl",Url.Action("Register"));
+
             return View(model);
         }
 
         public BsJsonResult Register(AuthenticationModel model)
         {
-            ModelState.ClearModelState(model.GetPropertyName(m => m.RegisterModel) + ".");
-
+            ModelState.ClearModelState(model.GetPropertyName(m => m.LoginModel) + ".");
+            ModelState.AddModelError("RegisterModel.Name","Testing server validation error");
             if (ModelState.IsValid)
             {
                 

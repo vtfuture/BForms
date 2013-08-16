@@ -6,7 +6,7 @@
     <h1>@Html.BsGlyphicon(Glyphicon.StartEmpty) Login form</h1>
 </div>
 
-@using (Html.BeginForm("Authentication", "Login", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "bs-form" }))
+@using (Html.BeginForm("Authentication", "Login", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "bs-form js-loginForm" }))
 {
     <div class="form-container">
         @Html.BsFormValidation()
@@ -33,7 +33,7 @@
 
         <div>
             <hr />
-            <button class="btn btn-default" type="submit">Login</button>
+            <button class="btn btn-default js-loginBtn" type="submit">Login</button>
         </div>
 
     </div>
