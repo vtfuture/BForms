@@ -60,7 +60,7 @@ namespace BForms.Docs.Areas.Demo.Models
         public bool EnableNotifications { get; set; }
 
         [Display(Name = "Location", Prompt = "Chose your country")]
-        [BsControl(BsControlType.DropDownList)]
+        [BsControl(BsControlType.ListBoxGrouped)]
         public BsSelectList<string> CountriesDropdown { get; set; }
 
         [Display(Name = "Notifications", Description = "Your register email address will be used")]

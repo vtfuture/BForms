@@ -852,18 +852,50 @@ namespace BootstrapForms.HtmlHelpers
         #endregion
 
         #region BsSelectList
-
         /// <summary>
         /// Returns a BForms select element with placeholder and info tooltip
         /// </summary>
-        public static MvcHtmlString BsSelectFor<TModel, TProperty, TKey>(this HtmlHelper<TModel> htmlHelper,
-            Expression<Func<TModel, TProperty>> expression, BsSelectList<TKey> selectList, IDictionary<string, object> htmlAttributes)
+        public static MvcHtmlString BsSelectFor<TModel, TKey>(this HtmlHelper<TModel> htmlHelper,
+            Expression<Func<TModel, BsSelectList<TKey>>> expression)
         {
-            var metadata = ModelMetadata.FromLambdaExpression(expression, htmlHelper.ViewData);
+            return htmlHelper.BsSelectFor(expression, null);
+        }
+
+        /// <summary>
+        /// Returns a BForms select element based on 
+        /// </summary>
+        public static MvcHtmlString BsSelectFor<TModel, TKey>(this HtmlHelper<TModel> htmlHelper,
+            Expression<Func<TModel, BsSelectList<TKey>>> expression, IDictionary<string, object> htmlAttributes)
+        {
+            string name = ExpressionHelper.GetExpressionText(expression);
+
+            //get list object from expression
+            var selectList = expression.Compile().Invoke(htmlHelper.ViewData.Model);
+
+            return htmlHelper.BsSelect(name, selectList, htmlAttributes);
+        }
+
+        /// <summary>
+        /// Returns a BForms select element based on 
+        /// </summary>
+        public static MvcHtmlString BsSelect<TKey>(this HtmlHelper htmlHelper, string name,
+            BsSelectList<TKey> selectList)
+        {
+            return htmlHelper.BsSelect(name, selectList, null);
+        }
+
+        /// <summary>
+        /// Returns a BForms select element based on 
+        /// </summary>
+        public static MvcHtmlString BsSelect<TKey>(this HtmlHelper htmlHelper, string name,
+            BsSelectList<TKey> selectList, IDictionary<string, object> htmlAttributes)
+        {
+            var metadata = ModelMetadata.FromStringExpression(name, htmlHelper.ViewData);
+
             string htmlSelect;
             string optionLabel = null;
             bool allowMultiple = false;
-            
+
             //add optionLabel from Watermark 
             if (!string.IsNullOrEmpty(metadata.Watermark))
             {
@@ -872,7 +904,7 @@ namespace BootstrapForms.HtmlHelpers
 
             //determine the select type
             BsControlAttribute bsControl = null;
-            if (ReflectionHelpers.TryGetControlAttribute(ExpressionHelper.GetExpressionText(expression), typeof(TModel), out bsControl))
+            if (ReflectionHelpers.TryGetControlAttribute(name, metadata.ModelType, out bsControl))
             {
                 switch (bsControl.ControlType)
                 {
@@ -883,27 +915,27 @@ namespace BootstrapForms.HtmlHelpers
                         break;
                     case BsControlType.RadioButtonList:
                         allowMultiple = false;
-                        htmlSelect = BsCheckListInternal<TKey>(htmlHelper, ExpressionHelper.GetExpressionText(expression),
+                        htmlSelect = BsCheckListInternal(htmlHelper, name,
                             selectList, htmlAttributes, false).ToHtmlString();
                         break;
                     case BsControlType.ListBox:
                     case BsControlType.ListBoxGrouped:
                         allowMultiple = true;
-                        htmlSelect = BsSelectInternal(htmlHelper, ExpressionHelper.GetExpressionText(expression), selectList,
+                        htmlSelect = BsSelectInternal(htmlHelper, name, selectList,
                             optionLabel, htmlAttributes, allowMultiple).ToHtmlString();
                         break;
                     case BsControlType.DropDownList:
                     case BsControlType.DropDownListGrouped:
                     default:
                         allowMultiple = false;
-                        htmlSelect = BsSelectInternal(htmlHelper, ExpressionHelper.GetExpressionText(expression), selectList,
+                        htmlSelect = BsSelectInternal(htmlHelper, name, selectList,
                         optionLabel, htmlAttributes, allowMultiple).ToHtmlString();
                         break;
                 }
             }
             else
             {
-                htmlSelect = BsSelectInternal(htmlHelper, ExpressionHelper.GetExpressionText(expression), selectList,
+                htmlSelect = BsSelectInternal(htmlHelper, name, selectList,
                     optionLabel, htmlAttributes, allowMultiple).ToHtmlString();
             }
 
@@ -912,7 +944,7 @@ namespace BootstrapForms.HtmlHelpers
             var description = new MvcHtmlString("");
             if (!string.IsNullOrEmpty(metadata.Description))
             {
-                description = htmlHelper.BsDescriptionFor(expression);
+                description = htmlHelper.BsDescription(name);
             }
 
             return MvcHtmlString.Create(htmlSelect + description.ToHtmlString());
