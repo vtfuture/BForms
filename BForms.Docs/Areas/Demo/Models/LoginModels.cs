@@ -67,13 +67,13 @@ namespace BForms.Docs.Areas.Demo.Models
         [BsControl(BsControlType.RadioButtonList)]
         public BsSelectList<int?> NotificationList { get; set; }
 
-        [Display(Name = "Technologies", Prompt = "Chose your favorite technologies")]
+        [Display(Name = "Technologies", Prompt = "Choose your favorite technologies")]
         [BsControl(BsControlType.ListBox)]
         public BsSelectList<List<int>> TechnologiesList { get; set; }
 
         [Display(Name = "Tags", Prompt = "Type your favorite programming languages")]
         [BsControl(BsControlType.TagList)]
-        public string Tags { get; set; }
+        public BsSelectList<List<string>> TagList { get; set; }
     }
 
 

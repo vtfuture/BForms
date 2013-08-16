@@ -46,9 +46,9 @@ namespace BootstrapForms.Models
             Items = new List<BsSelectListItem>();
         }
 
-        public List<SelectListItem> ToSelectList()
+        public IEnumerable<SelectListItem> ToSelectList()
         {
-            List<SelectListItem> list = null;
+            var list = new List<SelectListItem>();
             
             foreach (var item in Items)
             {
@@ -98,21 +98,5 @@ namespace BootstrapForms.Models
         /// The dictionary items are serialized in html as data- attributes
         /// </summary>
         public Dictionary<string, string> Data { get; set; }
-    }
-
-    /// <summary>
-    /// SelectListItem for grouped DropDownList and ListBox
-    /// </summary>
-    public class BsGroupedSelectListItem : SelectListItem
-    {
-        /// <summary>
-        /// Group unique id
-        /// </summary>
-        public string GroupKey { get; set; }
-
-        /// <summary>
-        /// Group display name
-        /// </summary>
-        public string GroupName { get; set; }
     }
 }

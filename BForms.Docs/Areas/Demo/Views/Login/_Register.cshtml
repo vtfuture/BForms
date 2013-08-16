@@ -72,10 +72,10 @@
         </div>
 
         <div class="col-12 col-sm-6 col-lg-6 form-group">
-            @Html.BsLabelFor(m => m.Tags)
+            @Html.BsLabelFor(m => m.TagList)
             <div class="input-group">
-                @Html.BsTagListFor(m => m.Tags)
-                @Html.BsValidationFor(m => m.Tags)
+                @Html.BsSelectFor(m => m.TagList)
+                @Html.BsValidationFor(m => m.TagList)
             </div>
         </div>
 

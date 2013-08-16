@@ -110,5 +110,19 @@ namespace BForms.Docs.Areas.Demo.Helpers
 
             return list;
         }
+
+        public static BsSelectList<T> GetLanguages<T>()
+        {
+            var list = new BsSelectList<T>();
+
+            list.Items.Add(new BsSelectListItem() { Text = "C#", Value = "0" });
+            list.Items.Add(new BsSelectListItem() { Text = "Java", Value = "1" });
+            list.Items.Add(new BsSelectListItem() { Text = "C++", Value = "2" });
+            list.Items.Add(new BsSelectListItem() { Text = "Objective-C", Value = "3" });
+            list.Items.Add(new BsSelectListItem() { Text = "Javascript", Value = "4" });
+            list.Items.Add(new BsSelectListItem() { Text = "F#", Value = "5" });
+
+            return list;
+        }
     }
 }
