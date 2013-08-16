@@ -11,6 +11,7 @@ using System.Web.Mvc.Html;
 using System.Web.Routing;
 using BootstrapForms.Utilities;
 using BootstrapForms.Models;
+using BootstrapForms.Attributes;
 
 namespace BootstrapForms.HtmlHelpers
 {
@@ -27,7 +28,7 @@ namespace BootstrapForms.HtmlHelpers
         public static MvcHtmlString BsRadioButtonList(this HtmlHelper htmlHelper, string name,
             IEnumerable<SelectListItem> radioList)
         {
-            return BsRadioButtonList(htmlHelper, name, radioList, htmlAttributes: (object) null);
+            return BsRadioButtonList(htmlHelper, name, radioList, htmlAttributes: (object)null);
         }
 
         /// <summary>
@@ -56,7 +57,7 @@ namespace BootstrapForms.HtmlHelpers
         public static MvcHtmlString BsRadioButtonListFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper,
             Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> radioList)
         {
-            return BsRadioButtonListFor(htmlHelper, expression, radioList, (object) null);
+            return BsRadioButtonListFor(htmlHelper, expression, radioList, (object)null);
         }
 
         /// <summary>
@@ -103,7 +104,7 @@ namespace BootstrapForms.HtmlHelpers
                 // Create and populate a radio button using the existing html htmlHelpers
                 var label = htmlHelper.Label(id, HttpUtility.HtmlEncode(item.Text));
 
-                var radioHtmlAttributes = new Dictionary<string, object> {{"id", id}};
+                var radioHtmlAttributes = new Dictionary<string, object> { { "id", id } };
 
                 if (htmlAttributes != null)
                 {
@@ -151,7 +152,7 @@ namespace BootstrapForms.HtmlHelpers
         public static MvcHtmlString BsTagListFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper,
             Expression<Func<TModel, TProperty>> expression)
         {
-            return BsTagListFor(htmlHelper, expression, (object) null);
+            return BsTagListFor(htmlHelper, expression, (object)null);
         }
 
         /// <summary>
@@ -278,7 +279,7 @@ namespace BootstrapForms.HtmlHelpers
         public static MvcHtmlString BsDropDownListFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper,
             Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList)
         {
-            return BsDropDownListFor(htmlHelper, expression, selectList, (object) null);
+            return BsDropDownListFor(htmlHelper, expression, selectList, (object)null);
         }
 
         /// <summary>
@@ -287,7 +288,7 @@ namespace BootstrapForms.HtmlHelpers
         public static MvcHtmlString BsDropDownListFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper,
             Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList, string optionLabel)
         {
-            return BsDropDownListFor(htmlHelper, expression, selectList, optionLabel, (object) null);
+            return BsDropDownListFor(htmlHelper, expression, selectList, optionLabel, (object)null);
         }
 
         /// <summary>
@@ -525,7 +526,7 @@ namespace BootstrapForms.HtmlHelpers
         public static MvcHtmlString BsListBoxFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper,
             Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList)
         {
-            return BsListBoxFor(htmlHelper, expression, selectList, (object) null);
+            return BsListBoxFor(htmlHelper, expression, selectList, (object)null);
         }
 
         /// <summary>
@@ -534,7 +535,7 @@ namespace BootstrapForms.HtmlHelpers
         public static MvcHtmlString BsListBoxFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper,
             Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList, string optionLabel)
         {
-            return BsListBoxFor(htmlHelper, expression, selectList, optionLabel, (object) null);
+            return BsListBoxFor(htmlHelper, expression, selectList, optionLabel, (object)null);
         }
 
         /// <summary>
@@ -714,8 +715,8 @@ namespace BootstrapForms.HtmlHelpers
             }
 
             object defaultValue = (allowMultiple)
-                ? htmlHelper.GetModelStateValue(name, typeof (string[]))
-                : htmlHelper.GetModelStateValue(name, typeof (string));
+                ? htmlHelper.GetModelStateValue(name, typeof(string[]))
+                : htmlHelper.GetModelStateValue(name, typeof(string));
 
             // If we haven't already used ViewData to get the entire list of items then we need to
             // use the ViewData-supplied value before using the parameter-supplied value.
@@ -729,9 +730,9 @@ namespace BootstrapForms.HtmlHelpers
 
             if (defaultValue != null)
             {
-                var defaultValues = (allowMultiple) ? defaultValue as IEnumerable : new[] {defaultValue};
+                var defaultValues = (allowMultiple) ? defaultValue as IEnumerable : new[] { defaultValue };
                 var values = from object value in defaultValues
-                    select Convert.ToString(value, CultureInfo.CurrentCulture);
+                             select Convert.ToString(value, CultureInfo.CurrentCulture);
                 var selectedValues = new HashSet<string>(values, StringComparer.OrdinalIgnoreCase);
                 var newSelectList = new List<BsGroupedSelectListItem>();
 
@@ -845,6 +846,302 @@ namespace BootstrapForms.HtmlHelpers
             {
                 builder.Attributes["selected"] = "selected";
             }
+            return builder.ToString(TagRenderMode.Normal);
+        }
+
+        #endregion
+
+        #region BsSelectList
+
+        /// <summary>
+        /// Returns a BForms select element with placeholder and info tooltip
+        /// </summary>
+        public static MvcHtmlString BsSelectFor<TModel, TProperty, TKey>(this HtmlHelper<TModel> htmlHelper,
+            Expression<Func<TModel, TProperty>> expression, BsSelectList<TKey> selectList, IDictionary<string, object> htmlAttributes)
+        {
+            var metadata = ModelMetadata.FromLambdaExpression(expression, htmlHelper.ViewData);
+            string htmlSelect;
+            string optionLabel = null;
+            bool allowMultiple = false;
+            
+            //add optionLabel from Watermark 
+            if (!string.IsNullOrEmpty(metadata.Watermark))
+            {
+                optionLabel = metadata.Watermark;
+            }
+
+            //determine the select type
+            BsControlAttribute bsControl = null;
+            if (ReflectionHelpers.TryGetControlAttribute(ExpressionHelper.GetExpressionText(expression), typeof(TModel), out bsControl))
+            {
+                switch (bsControl.ControlType)
+                {
+                    case BsControlType.TagList:
+                        allowMultiple = true;
+                        //TODO: Rewrite TagList
+                        htmlSelect = null;
+                        break;
+                    case BsControlType.RadioButtonList:
+                        allowMultiple = false;
+                        htmlSelect = BsCheckListInternal<TKey>(htmlHelper, ExpressionHelper.GetExpressionText(expression),
+                            selectList, htmlAttributes, false).ToHtmlString();
+                        break;
+                    case BsControlType.ListBox:
+                    case BsControlType.ListBoxGrouped:
+                        allowMultiple = true;
+                        htmlSelect = BsSelectInternal(htmlHelper, ExpressionHelper.GetExpressionText(expression), selectList,
+                            optionLabel, htmlAttributes, allowMultiple).ToHtmlString();
+                        break;
+                    case BsControlType.DropDownList:
+                    case BsControlType.DropDownListGrouped:
+                    default:
+                        allowMultiple = false;
+                        htmlSelect = BsSelectInternal(htmlHelper, ExpressionHelper.GetExpressionText(expression), selectList,
+                        optionLabel, htmlAttributes, allowMultiple).ToHtmlString();
+                        break;
+                }
+            }
+            else
+            {
+                htmlSelect = BsSelectInternal(htmlHelper, ExpressionHelper.GetExpressionText(expression), selectList,
+                    optionLabel, htmlAttributes, allowMultiple).ToHtmlString();
+            }
+
+
+            //add info tooltip
+            var description = new MvcHtmlString("");
+            if (!string.IsNullOrEmpty(metadata.Description))
+            {
+                description = htmlHelper.BsDescriptionFor(expression);
+            }
+
+            return MvcHtmlString.Create(htmlSelect + description.ToHtmlString());
+        }
+
+        private static MvcHtmlString BsSelectInternal<TKey>(this HtmlHelper htmlHelper, string name,
+            BsSelectList<TKey> selectList, string optionLabel,
+            IDictionary<string, object> htmlAttributes, bool allowMultiple)
+        {
+            name = htmlHelper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name);
+            if (String.IsNullOrEmpty(name))
+            {
+                throw new ArgumentException("Null Or Empty", "name");
+            }
+
+            bool usedViewData = false;
+
+            // If we got a null selectList, try to use ViewData to get the list of items.
+            if (selectList == null)
+            {
+                selectList = htmlHelper.GetSelectData<TKey>(name);
+                usedViewData = true;
+            }
+
+            object defaultValue = (allowMultiple)
+                ? htmlHelper.GetModelStateValue(name, typeof(string[]))
+                : htmlHelper.GetModelStateValue(name, typeof(string));
+
+            // If we haven't already used ViewData to get the entire list of items then we need to
+            // use the ViewData-supplied value before using the parameter-supplied value.
+            if (!usedViewData)
+            {
+                if (defaultValue == null)
+                {
+                    defaultValue = htmlHelper.ViewData.Eval(name);
+                }
+            }
+
+            if (defaultValue != null)
+            {
+                var defaultValues = (allowMultiple) ? defaultValue as IEnumerable : new[] { defaultValue };
+                var values = from object value in defaultValues
+                             select Convert.ToString(value, CultureInfo.CurrentCulture);
+                var selectedValues = new HashSet<string>(values, StringComparer.OrdinalIgnoreCase);
+                var newSelectList = new BsSelectList<TKey> { Id = selectList.Id };
+
+                foreach (var item in selectList.Items)
+                {
+                    item.Selected = (item.Value != null)
+                        ? selectedValues.Contains(item.Value)
+                        : selectedValues.Contains(item.Text);
+                    newSelectList.Items.Add(item);
+                }
+                selectList = newSelectList;
+            }
+
+            // Convert each ListItem to an <option> tag
+            var listItemBuilder = new StringBuilder();
+
+            // Make optionLabel the first item that gets rendered.
+            if (optionLabel != null)
+            {
+                listItemBuilder.AppendLine(
+                    ListItemToOption(new BsSelectListItem
+                    {
+                        Text = optionLabel,
+                        Value = String.Empty,
+                        Selected = false
+                    }));
+            }
+
+            if (selectList.Items.Any(x => string.IsNullOrEmpty(x.GroupKey)))
+            {
+                //build options
+                foreach (var item in selectList.Items)
+                {
+                    listItemBuilder.AppendLine(ListItemToOption(item));
+                }
+            }
+            else
+            {
+                //build options with optgroup
+                foreach (var group in selectList.Items.GroupBy(i => i.GroupKey))
+                {
+                    string groupName =
+                        selectList.Items.Where(i => i.GroupKey == group.Key).Select(it => it.GroupName).FirstOrDefault();
+                    listItemBuilder.AppendLine(string.Format("<optgroup label=\"{0}\" value=\"{1}\">", groupName, group.Key));
+                    foreach (var item in group)
+                    {
+                        listItemBuilder.AppendLine(ListItemToOption(item));
+                    }
+                    listItemBuilder.AppendLine("</optgroup>");
+                }
+            }
+
+            var tagBuilder = new TagBuilder("select")
+            {
+                InnerHtml = listItemBuilder.ToString()
+            };
+            tagBuilder.MergeAttributes(htmlAttributes);
+            tagBuilder.MergeAttribute("name", name, true /* replaceExisting */);
+            tagBuilder.MergeAttribute("class", "form-control");
+            tagBuilder.GenerateId(name);
+            if (allowMultiple)
+            {
+                tagBuilder.MergeAttribute("multiple", "multiple");
+            }
+
+            // If there are any errors for a named field, we add the css attribute.
+            ModelState modelState;
+            if (htmlHelper.ViewData.ModelState.TryGetValue(name, out modelState))
+            {
+                if (modelState.Errors.Count > 0)
+                {
+                    tagBuilder.AddCssClass(HtmlHelper.ValidationInputCssClassName);
+                }
+            }
+
+            var attributes = htmlHelper.GetUnobtrusiveValidationAttributes(name);
+
+            if (name.Contains(".") && !attributes.Any())
+            {
+                attributes = htmlHelper.GetUnobtrusiveValidationAttributes(name.Split('.').LastOrDefault());
+            }
+            tagBuilder.MergeAttributes<string, object>(attributes);
+
+            return MvcHtmlString.Create(tagBuilder.ToString());
+        }
+
+        private static MvcHtmlString BsCheckListInternal<TKey>(this HtmlHelper htmlHelper, string name,
+            BsSelectList<TKey> radioList, IDictionary<string, object> htmlAttributes, bool allowMultiple)
+        {
+            var propertyName = htmlHelper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name);
+            var html = new StringBuilder();
+            var divTag = new TagBuilder("div");
+            divTag.MergeAttribute("id", propertyName, true);
+            divTag.MergeAttribute("class", "RadioButtonsContainer form-control");
+
+            if (htmlAttributes != null)
+            {
+                divTag.MergeAttributes(htmlAttributes);
+            }
+
+            // Create a radio button for each item in the list
+            foreach (var item in radioList.Items)
+            {
+                // Generate an id to be given to the radio button field
+                var id = string.Format("{0}_{1}", propertyName, item.Value);
+
+                // Create and populate a radio button using the existing html htmlHelpers
+                var label = htmlHelper.Label(id, HttpUtility.HtmlEncode(item.Text));
+
+                var radioHtmlAttributes = new Dictionary<string, object> { { "id", id } };
+
+                if (htmlAttributes != null)
+                {
+                    htmlAttributes.ToList().ForEach(x =>
+                    {
+                        if (!radioHtmlAttributes.ContainsKey(x.Key))
+                        {
+                            radioHtmlAttributes.Add(x.Key, x.Value);
+                        }
+                    });
+                }
+
+                var radio = htmlHelper.RadioButton(name, item.Value, radioHtmlAttributes).ToHtmlString();
+
+                // Create the html string
+                // e.g. <input data-val="true" data-val-required="You must select an option" id="TestRadio_1" name="TestRadio" type="radio" value="1" /><label for="TestRadio_1">Line1</label>
+                var innerDivTag = new TagBuilder("div");
+                innerDivTag.AddCssClass("RadioButton");
+                html.Append(innerDivTag.ToString(TagRenderMode.StartTag));
+                html.Append(radio);
+                html.Append(label);
+                html.Append(innerDivTag.ToString(TagRenderMode.EndTag));
+            }
+
+
+            divTag.InnerHtml = html.ToString();
+
+            return MvcHtmlString.Create(divTag.ToString());
+        }
+
+        private static BsSelectList<TKey> GetSelectData<TKey>(this HtmlHelper htmlHelper, string name)
+        {
+            object o = null;
+            if (htmlHelper.ViewData != null)
+            {
+                o = htmlHelper.ViewData.Eval(name);
+            }
+            if (o == null)
+            {
+                throw new InvalidOperationException(
+                    String.Format(
+                        CultureInfo.CurrentCulture,
+                        "Missing Select Data"));
+            }
+            var selectList = o as BsSelectList<TKey>;
+            if (selectList == null)
+            {
+                throw new InvalidOperationException(
+                    String.Format(
+                        CultureInfo.CurrentCulture,
+                        "Wrong Select DataType"));
+            }
+            return selectList;
+        }
+
+        private static string ListItemToOption(BsSelectListItem item)
+        {
+            var builder = new TagBuilder("option")
+            {
+                InnerHtml = HttpUtility.HtmlEncode(item.Text)
+            };
+            if (item.Value != null)
+            {
+                builder.Attributes["value"] = item.Value;
+            }
+            if (item.Selected)
+            {
+                builder.Attributes["selected"] = "selected";
+            }
+
+            if (item.Data != null)
+                foreach (var data in item.Data)
+                {
+                    builder.Attributes["data-" + data.Key] = data.Value;
+                }
+
             return builder.ToString(TagRenderMode.Normal);
         }
 
