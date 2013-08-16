@@ -853,7 +853,7 @@ namespace BootstrapForms.HtmlHelpers
 
         #region BsSelectList
         /// <summary>
-        /// Returns a BForms select element with placeholder and info tooltip
+        /// Returns a BForms select element based on BsControlAttribute
         /// </summary>
         public static MvcHtmlString BsSelectFor<TModel, TKey>(this HtmlHelper<TModel> htmlHelper,
             Expression<Func<TModel, BsSelectList<TKey>>> expression)
@@ -862,21 +862,80 @@ namespace BootstrapForms.HtmlHelpers
         }
 
         /// <summary>
-        /// Returns a BForms select element based on 
+        /// Returns a BForms select element based on BsControlAttribute
         /// </summary>
         public static MvcHtmlString BsSelectFor<TModel, TKey>(this HtmlHelper<TModel> htmlHelper,
             Expression<Func<TModel, BsSelectList<TKey>>> expression, IDictionary<string, object> htmlAttributes)
         {
+
+            var metadata = ModelMetadata.FromLambdaExpression(expression, htmlHelper.ViewData);
             string name = ExpressionHelper.GetExpressionText(expression);
 
             //get list object from expression
             var selectList = expression.Compile().Invoke(htmlHelper.ViewData.Model);
 
-            return htmlHelper.BsSelect(name, selectList, htmlAttributes);
+            string htmlSelect;
+            string optionLabel = null;
+            bool allowMultiple = false;
+
+            //add optionLabel from Watermark 
+            if (!string.IsNullOrEmpty(metadata.Watermark))
+            {
+                optionLabel = metadata.Watermark;
+            }
+
+            //determine the select type
+            BsControlAttribute bsControl = null;
+            if (ReflectionHelpers.TryGetControlAttribute(name, typeof(TModel), out bsControl))
+            {
+                switch (bsControl.ControlType)
+                {
+                    case BsControlType.TagList:
+                        allowMultiple = true;
+                        //TODO: Rewrite TagList
+                        htmlSelect = null;
+                        break;
+                    case BsControlType.RadioButtonList:
+                        allowMultiple = false;
+                        htmlSelect = BsCheckListInternal(htmlHelper, name,
+                            selectList, htmlAttributes, false).ToHtmlString();
+                        break;
+                    case BsControlType.ListBox:
+                    case BsControlType.ListBoxGrouped:
+                        allowMultiple = true;
+                        htmlSelect = BsSelectInternal(htmlHelper, name, selectList,
+                            optionLabel, htmlAttributes, allowMultiple).ToHtmlString();
+                        break;
+                    case BsControlType.DropDownList:
+                    case BsControlType.DropDownListGrouped:
+                    default:
+                        allowMultiple = false;
+                        htmlSelect = BsSelectInternal(htmlHelper, name, selectList,
+                        optionLabel, htmlAttributes, allowMultiple).ToHtmlString();
+                        break;
+                }
+            }
+            else
+            {
+                htmlSelect = BsSelectInternal(htmlHelper, name, selectList,
+                    optionLabel, htmlAttributes, allowMultiple).ToHtmlString();
+            }
+
+
+            //add info tooltip
+            var description = new MvcHtmlString("");
+            if (!string.IsNullOrEmpty(metadata.Description))
+            {
+                description = htmlHelper.BsDescription(name);
+            }
+
+            return MvcHtmlString.Create(htmlSelect + description.ToHtmlString());
+
+            //return htmlHelper.BsSelect(name, selectList, htmlAttributes);
         }
 
         /// <summary>
-        /// Returns a BForms select element based on 
+        /// Returns a BForms select element based on BsControlAttribute
         /// </summary>
         public static MvcHtmlString BsSelect<TKey>(this HtmlHelper htmlHelper, string name,
             BsSelectList<TKey> selectList)
@@ -885,7 +944,7 @@ namespace BootstrapForms.HtmlHelpers
         }
 
         /// <summary>
-        /// Returns a BForms select element based on 
+        /// Returns a BForms select element based on BsControlAttribute
         /// </summary>
         public static MvcHtmlString BsSelect<TKey>(this HtmlHelper htmlHelper, string name,
             BsSelectList<TKey> selectList, IDictionary<string, object> htmlAttributes)
@@ -954,7 +1013,12 @@ namespace BootstrapForms.HtmlHelpers
             BsSelectList<TKey> selectList, string optionLabel,
             IDictionary<string, object> htmlAttributes, bool allowMultiple)
         {
+            //TODO: refactoring
+            //bind the selected values to Id
+            name += ".Id";
+
             name = htmlHelper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name);
+
             if (String.IsNullOrEmpty(name))
             {
                 throw new ArgumentException("Null Or Empty", "name");
@@ -1077,6 +1141,10 @@ namespace BootstrapForms.HtmlHelpers
         private static MvcHtmlString BsCheckListInternal<TKey>(this HtmlHelper htmlHelper, string name,
             BsSelectList<TKey> radioList, IDictionary<string, object> htmlAttributes, bool allowMultiple)
         {
+            //TODO: refactoring
+            //bind the selected values to Id
+            name += ".Id";
+
             var propertyName = htmlHelper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name);
             var html = new StringBuilder();
             var divTag = new TagBuilder("div");

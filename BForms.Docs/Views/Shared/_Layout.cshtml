@@ -10,6 +10,12 @@
 
         <title>@ViewBag.Title - BForms</title>
 
+        @*For IE6-8 support of HTML5 elements and responsive*@
+        <!--[if lt IE 9]>
+        <script src="~/Scripts/BForms/Components/Html5shiv/html5shiv.js"></script>
+        <script src="~/Scripts/BForms/Components/Respond/respond.js"></script>
+        <![endif]-->
+
         @Styles.Render("~/BForms/css")
     </head>
     <body>
@@ -25,7 +31,9 @@
             Loading...
         </div>
 
+        @*Highlight source cod*@
         <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+
         @Html.Partial("_RequireSetup")
     </body>
 

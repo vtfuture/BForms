@@ -7,6 +7,9 @@ using System.Web.Mvc;
 
 namespace BootstrapForms.Models
 {
+    /// <summary>
+    /// Represents a list of items that users can select one or more items
+    /// </summary>
     public class BsSelectList<T>
     {
         private T id;
@@ -43,6 +46,7 @@ namespace BootstrapForms.Models
         public List<SelectListItem> ToSelectList()
         {
             List<SelectListItem> list = null;
+            
             foreach (var item in Items)
             {
                 list.Add(new SelectListItem
@@ -55,8 +59,26 @@ namespace BootstrapForms.Models
             return list;
         }
 
+        public static BsSelectList<T> FromSelectList(List<SelectListItem> list)
+        {
+            var bsList = new BsSelectList<T>();
+            foreach (var item in list)
+            {
+                bsList.Items.Add(new BsSelectListItem
+                {
+                    Selected = item.Selected,
+                    Text = item.Text,
+                    Value = item.Value
+                });
+            }
+            return bsList;
+        }
+
     }
 
+    /// <summary>
+    /// Represents the selected item in an instance of the BsSelectList
+    /// </summary>
     public class BsSelectListItem : SelectListItem
     {
         public string GroupKey { get; set; }

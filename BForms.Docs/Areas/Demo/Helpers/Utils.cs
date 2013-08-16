@@ -47,7 +47,7 @@ namespace BForms.Docs.Areas.Demo.Helpers
             return list;
         }
 
-        public static BsSelectList<string> AllCounties()
+        public static BsSelectList<T> AllCounties<T>()
         {
             SortedDictionary<string, string> countryList = new SortedDictionary<string, string>();
             // Iterate the Framework Cultures...
@@ -74,7 +74,7 @@ namespace BForms.Docs.Areas.Demo.Helpers
                 }
             }
 
-            var list = new BsSelectList<string>();
+            var list = new BsSelectList<T>();
 
             foreach (var item in countryList)
             {

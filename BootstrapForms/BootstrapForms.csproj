@@ -89,6 +89,7 @@
     <Compile Include="HtmlHelpers\TooltipExtensions.cs" />
     <Compile Include="HtmlHelpers\ValidationExtensions.cs" />
     <Compile Include="Utilities\ActionResultHelpers.cs" />
+    <Compile Include="Utilities\ModelStateHelpers.cs" />
     <Compile Include="Utilities\ReflectionHelpers.cs" />
     <Compile Include="Utilities\Renders.cs" />
   </ItemGroup>

@@ -4,11 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Mvc.Html;
 using BForms.Docs.Areas.Demo.Models;
 using BForms.Docs.Areas.Demo.Helpers;
 using System.ComponentModel.DataAnnotations;
 using BootstrapForms.Attributes;
 using BootstrapForms.Models;
+using BootstrapForms.Utilities;
 
 namespace BForms.Docs.Areas.Demo.Controllers
 {
@@ -23,15 +25,12 @@ namespace BForms.Docs.Areas.Demo.Controllers
         // GET: /Demo/Login/
         public ActionResult Index()
         {
-            MyList = Utils.AllCounties();
-            ViewBag.MyList = MyList;
-
             var model = new AuthenticationModel()
             {
                 LoginModel = new LoginModel(),
                 RegisterModel = new RegisterModel()
                 {
-                    CountriesDropdown = Utils.AllCounties(),
+                    CountriesDropdown = Utils.AllCounties<List<string>>(),
                     NotificationDropdown = Utils.GetNotificationTypes()
                 }
             };
@@ -39,6 +38,20 @@ namespace BForms.Docs.Areas.Demo.Controllers
             return View(model);
         }
 
+        public BsJsonResult Register(AuthenticationModel model)
+        {
+            ModelState.ClearModelState(model.GetPropertyName(m => m.RegisterModel) + ".");
 
+            if (ModelState.IsValid)
+            {
+                
+            }
+            else
+            {
+                return new BsJsonResult(new Dictionary<string, object> { { "Errors", ModelState.GetErrors() } }, BsResponseStatus.ValidationError);
+            }
+
+            return new BsJsonResult();
+        }
     }
 }
