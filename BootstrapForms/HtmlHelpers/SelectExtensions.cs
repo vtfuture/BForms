@@ -48,7 +48,7 @@ namespace BootstrapForms.HtmlHelpers
             IEnumerable<SelectListItem> radioList, IDictionary<string, object> htmlAttributes)
         {
             var metadata = ModelMetadata.FromStringExpression(name, htmlHelper.ViewData);
-            return htmlHelper.BsRadioButtonListInternal(metadata, name, radioList, htmlAttributes);
+            return htmlHelper.BsRadioButtonListInternal(metadata, name, radioList, htmlAttributes, "bs-radio-list");
         }
 
         /// <summary>
@@ -81,22 +81,24 @@ namespace BootstrapForms.HtmlHelpers
 
             //add bs- control type
             BsControlAttribute bsControl = null;
+            string bsCssClass = string.Empty;
             if (ReflectionHelpers.TryGetControlAttribute(ExpressionHelper.GetExpressionText(expression), typeof(TModel), out bsControl))
             {
-                htmlAttributes.MergeAttribute("class", bsControl.ControlType.GetDescription());
+                bsCssClass = bsControl.ControlType.GetDescription();
             }
 
-            return htmlHelper.BsRadioButtonListInternal(metadata, metadata.PropertyName, radioList, htmlAttributes);
+            return htmlHelper.BsRadioButtonListInternal(metadata, metadata.PropertyName, radioList, htmlAttributes, bsCssClass);
         }
 
         private static MvcHtmlString BsRadioButtonListInternal(this HtmlHelper htmlHelper, ModelMetadata metadata,
-            string name, IEnumerable<SelectListItem> radioList, IDictionary<string, object> htmlAttributes)
+            string name, IEnumerable<SelectListItem> radioList, IDictionary<string, object> htmlAttributes, string bsCssClass)
         {
             var propertyName = htmlHelper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name);
             var html = new StringBuilder();
             var divTag = new TagBuilder("div");
             divTag.MergeAttribute("id", propertyName, true);
-            divTag.MergeAttribute("class", "RadioButtonsContainer form-control");
+            divTag.MergeAttribute("class", "form-control");
+            divTag.MergeAttribute("class", bsCssClass);
 
             if (htmlAttributes != null)
             {
@@ -982,8 +984,6 @@ namespace BootstrapForms.HtmlHelpers
             }
 
             return MvcHtmlString.Create(htmlSelect + description.ToHtmlString());
-
-            //return htmlHelper.BsSelect(name, selectList, htmlAttributes);
         }
 
         private static MvcHtmlString BsSelectInternal<TKey>(this HtmlHelper htmlHelper, string name,
