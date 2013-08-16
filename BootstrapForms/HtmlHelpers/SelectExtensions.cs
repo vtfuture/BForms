@@ -932,7 +932,7 @@ namespace BootstrapForms.HtmlHelpers
             if (ReflectionHelpers.TryGetControlAttribute(name, typeof(TModel), out bsControl))
             {
                 //add bs- control type
-                htmlAttributes.MergeAttribute("class", bsControl.ControlType.GetDescription());
+                var bsCssClass = bsControl.ControlType.GetDescription();
 
                 switch (bsControl.ControlType)
                 {
@@ -945,32 +945,32 @@ namespace BootstrapForms.HtmlHelpers
                         allowMultiple = true;
                         //TODO: Implement CheckBoxList
                         htmlSelect = BsRadioListInternal(htmlHelper, name,
-                            selectList, htmlAttributes, allowMultiple).ToHtmlString();
+                            selectList, htmlAttributes, allowMultiple, bsCssClass).ToHtmlString();
                         break;
                     case BsControlType.RadioButtonList:
                         allowMultiple = false;
                         htmlSelect = BsRadioListInternal(htmlHelper, name,
-                            selectList, htmlAttributes, allowMultiple).ToHtmlString();
+                            selectList, htmlAttributes, allowMultiple, bsCssClass).ToHtmlString();
                         break;
                     case BsControlType.ListBox:
                     case BsControlType.ListBoxGrouped:
                         allowMultiple = true;
                         htmlSelect = BsSelectInternal(htmlHelper, name, selectList,
-                            optionLabel, htmlAttributes, allowMultiple).ToHtmlString();
+                            optionLabel, htmlAttributes, allowMultiple, bsCssClass).ToHtmlString();
                         break;
                     case BsControlType.DropDownList:
                     case BsControlType.DropDownListGrouped:
                     default:
                         allowMultiple = false;
                         htmlSelect = BsSelectInternal(htmlHelper, name, selectList,
-                        optionLabel, htmlAttributes, allowMultiple).ToHtmlString();
+                        optionLabel, htmlAttributes, allowMultiple, bsCssClass).ToHtmlString();
                         break;
                 }
             }
             else
             {
                 htmlSelect = BsSelectInternal(htmlHelper, name, selectList,
-                    optionLabel, htmlAttributes, allowMultiple).ToHtmlString();
+                    optionLabel, htmlAttributes, allowMultiple, "bs-dropdown").ToHtmlString();
             }
 
 
@@ -988,7 +988,7 @@ namespace BootstrapForms.HtmlHelpers
 
         private static MvcHtmlString BsSelectInternal<TKey>(this HtmlHelper htmlHelper, string name,
             BsSelectList<TKey> selectList, string optionLabel,
-            IDictionary<string, object> htmlAttributes, bool allowMultiple)
+            IDictionary<string, object> htmlAttributes, bool allowMultiple, string bsCssClass)
         {
             //TODO: refactoring
             //bind the selected values BsSelectList.SelectedValues
@@ -1088,6 +1088,7 @@ namespace BootstrapForms.HtmlHelpers
             tagBuilder.MergeAttributes(htmlAttributes);
             tagBuilder.MergeAttribute("name", name, true /* replaceExisting */);
             tagBuilder.MergeAttribute("class", "form-control");
+            tagBuilder.MergeAttribute("class", bsCssClass);
             tagBuilder.GenerateId(name);
             if (allowMultiple)
             {
@@ -1116,7 +1117,7 @@ namespace BootstrapForms.HtmlHelpers
         }
 
         private static MvcHtmlString BsRadioListInternal<TKey>(this HtmlHelper htmlHelper, string name,
-            BsSelectList<TKey> radioList, IDictionary<string, object> htmlAttributes, bool allowMultiple)
+            BsSelectList<TKey> radioList, IDictionary<string, object> htmlAttributes, bool allowMultiple, string bsCssClass)
         {
             //TODO: refactoring
             //bind the selected values BsSelectList.SelectedValues
@@ -1126,7 +1127,8 @@ namespace BootstrapForms.HtmlHelpers
             var html = new StringBuilder();
             var divTag = new TagBuilder("div");
             divTag.MergeAttribute("id", propertyName, true);
-            divTag.MergeAttribute("class", "RadioButtonsContainer form-control");
+            divTag.MergeAttribute("class", "form-control");
+            divTag.MergeAttribute("class", bsCssClass);
 
             if (htmlAttributes != null)
             {
