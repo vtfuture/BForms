@@ -27,7 +27,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
                 RegisterModel = new RegisterModel()
                 {
                     CountriesDropdown = Utils.AllCounties<List<string>>(),
-                    NotificationDropdown = Utils.GetNotificationTypes<int>()
+                    NotificationDropdown = Utils.GetNotificationTypes<int?>()
                 }
             };
 

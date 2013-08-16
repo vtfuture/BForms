@@ -65,7 +65,7 @@ namespace BForms.Docs.Areas.Demo.Models
 
         [Display(Name = "Notifications", Description = "Your register email address will be used")]
         [BsControl(BsControlType.RadioButtonList)]
-        public BsSelectList<int> NotificationDropdown { get; set; }
+        public BsSelectList<int?> NotificationDropdown { get; set; }
     }
 
 
