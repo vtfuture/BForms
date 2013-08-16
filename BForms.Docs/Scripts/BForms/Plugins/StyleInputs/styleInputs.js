@@ -13,13 +13,13 @@
 
     $.fn.styleInputsDefaults = {
         select2: true,
-        select2Selector: 'select:not(.no-select2)',
+        select2Selector: '.bs-dropdown:not(.no-select2), .bs-dropdown-grouped:not(.no-select2), .bs-listbox:not(.no-select2), .bs-listbox-grouped:not(.no-select2)',
 
         datepicker: true,
-        datepickerSelector: '.js-dateInput',
+        datepickerSelector: '.bs-date',
 
         radioButtons: true,
-        radioButtonsSelector: '.RadioButtonsContainer'
+        radioButtonsSelector: '.bs-radio-list'
     };
 
     $.fn.styleInputs = function (opts) {
