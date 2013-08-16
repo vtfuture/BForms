@@ -97,14 +97,16 @@ namespace BForms.Docs.Areas.Demo.Helpers
             return list;
         }
 
-        public static BsSelectList<T> GetLanguages<T>()
+        public static BsSelectList<T> GetTech<T>()
         {
             var list = new BsSelectList<T>();
 
-            list.Items.Add(new BsSelectListItem() { Text = "Never", Value = "0", GroupKey = "server", GroupName = "Back-end" });
-            list.Items.Add(new BsSelectListItem() { Text = "Daily", Value = "1", GroupKey = "server", GroupName = "Back-end" });
-            list.Items.Add(new BsSelectListItem() { Text = "Weekly", Value = "2", GroupKey = "server", GroupName = "Back-end" });
-            list.Items.Add(new BsSelectListItem() { Text = "Monthly", Value = "3", GroupKey = "server", GroupName = "Back-end" });
+            list.Items.Add(new BsSelectListItem() { Text = "ASP.NET MVC", Value = "0", GroupKey = "server", GroupName = "Back-end" });
+            list.Items.Add(new BsSelectListItem() { Text = "ASP.NET WebApi", Value = "1", GroupKey = "server", GroupName = "Back-end" });
+            list.Items.Add(new BsSelectListItem() { Text = "WCF", Value = "2", GroupKey = "server", GroupName = "Back-end" });
+            list.Items.Add(new BsSelectListItem() { Text = "jQuery", Value = "3", GroupKey = "client", GroupName = "Front-end" });
+            list.Items.Add(new BsSelectListItem() { Text = "Bootstrap", Value = "4", GroupKey = "client", GroupName = "Front-end" });
+            list.Items.Add(new BsSelectListItem() { Text = "RequireJS", Value = "5", GroupKey = "client", GroupName = "Front-end" });
 
             return list;
         }

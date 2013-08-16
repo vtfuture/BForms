@@ -60,12 +60,20 @@ namespace BForms.Docs.Areas.Demo.Models
         public bool EnableNotifications { get; set; }
 
         [Display(Name = "Location", Prompt = "Chose your country")]
-        [BsControl(BsControlType.ListBox)]
-        public BsSelectList<List<string>> CountriesDropdown { get; set; }
+        [BsControl(BsControlType.DropDownList)]
+        public BsSelectList<List<string>> CountriesList { get; set; }
 
         [Display(Name = "Notifications", Description = "Your register email address will be used")]
         [BsControl(BsControlType.RadioButtonList)]
-        public BsSelectList<int?> NotificationDropdown { get; set; }
+        public BsSelectList<int?> NotificationList { get; set; }
+
+        [Display(Name = "Technologies", Prompt = "Chose your favorite technologies")]
+        [BsControl(BsControlType.ListBox)]
+        public BsSelectList<List<int>> TechnologiesList { get; set; }
+
+        [Display(Name = "Tags", Prompt = "Type your favorite programming languages")]
+        [BsControl(BsControlType.TagList)]
+        public string Tags { get; set; }
     }
 
 

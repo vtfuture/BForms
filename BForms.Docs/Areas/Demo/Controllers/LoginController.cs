@@ -26,8 +26,9 @@ namespace BForms.Docs.Areas.Demo.Controllers
                 LoginModel = new LoginModel(),
                 RegisterModel = new RegisterModel()
                 {
-                    CountriesDropdown = Utils.AllCounties<List<string>>(),
-                    NotificationDropdown = Utils.GetNotificationTypes<int?>()
+                    CountriesList = Utils.AllCounties<List<string>>(),
+                    NotificationList = Utils.GetNotificationTypes<int?>(),
+                    TechnologiesList = Utils.GetTech<List<int>>()
                 }
             };
 
