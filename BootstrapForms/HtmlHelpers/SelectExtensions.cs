@@ -1087,8 +1087,8 @@ namespace BootstrapForms.HtmlHelpers
             };
             tagBuilder.MergeAttributes(htmlAttributes);
             tagBuilder.MergeAttribute("name", name, true /* replaceExisting */);
-            tagBuilder.MergeAttribute("class", "form-control");
-            tagBuilder.MergeAttribute("class", bsCssClass);
+            tagBuilder.AddCssClass(bsCssClass);
+            tagBuilder.AddCssClass("form-control");
             tagBuilder.GenerateId(name);
             if (allowMultiple)
             {
