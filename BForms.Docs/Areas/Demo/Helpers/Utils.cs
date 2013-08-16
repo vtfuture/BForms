@@ -84,15 +84,27 @@ namespace BForms.Docs.Areas.Demo.Helpers
             return list;
         }
 
-        public static List<SelectListItem> GetNotificationTypes()
+        public static BsSelectList<T> GetNotificationTypes<T>()
         {
-            var list = new List<SelectListItem>();
+            var list = new BsSelectList<T>();
 
-            list.Add(new SelectListItem() { Text = "Never", Value = "0" });
-            list.Add(new SelectListItem() { Text = "Daily", Value = "1" });
-            list.Add(new SelectListItem() { Text = "Weekly", Value = "2" });
-            list.Add(new SelectListItem() { Text = "Monthly", Value = "3" });
+            list.Items.Add(new BsSelectListItem() { Text = "Never", Value = "0" });
+            list.Items.Add(new BsSelectListItem() { Text = "Daily", Value = "1" });
+            list.Items.Add(new BsSelectListItem() { Text = "Weekly", Value = "2" });
+            list.Items.Add(new BsSelectListItem() { Text = "Monthly", Value = "3" });
 
+
+            return list;
+        }
+
+        public static BsSelectList<T> GetLanguages<T>()
+        {
+            var list = new BsSelectList<T>();
+
+            list.Items.Add(new BsSelectListItem() { Text = "Never", Value = "0", GroupKey = "server", GroupName = "Back-end" });
+            list.Items.Add(new BsSelectListItem() { Text = "Daily", Value = "1", GroupKey = "server", GroupName = "Back-end" });
+            list.Items.Add(new BsSelectListItem() { Text = "Weekly", Value = "2", GroupKey = "server", GroupName = "Back-end" });
+            list.Items.Add(new BsSelectListItem() { Text = "Monthly", Value = "3", GroupKey = "server", GroupName = "Back-end" });
 
             return list;
         }

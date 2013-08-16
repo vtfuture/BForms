@@ -1127,8 +1127,9 @@ namespace BootstrapForms.HtmlHelpers
             var html = new StringBuilder();
             var divTag = new TagBuilder("div");
             divTag.MergeAttribute("id", propertyName, true);
-            divTag.MergeAttribute("class", "form-control");
-            divTag.MergeAttribute("class", bsCssClass);
+            divTag.AddCssClass(bsCssClass);
+            divTag.AddCssClass("form-control");
+            
 
             if (htmlAttributes != null)
             {

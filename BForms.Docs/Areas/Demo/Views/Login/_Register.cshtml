@@ -48,10 +48,10 @@
         </div>
 
         <div class="col-12 col-sm-6 col-lg-6 form-group">
-            @Html.BsLabelFor(m => m.NotificationTypeId)
+            @Html.BsLabelFor(m => m.NotificationDropdown)
             <div class="input-group">
-                @Html.BsRadioButtonListFor(m => m.NotificationTypeId, Model.NotificationDropdown)
-                @Html.BsValidationFor(m => m.NotificationTypeId)
+                @Html.BsSelectFor(m => m.NotificationDropdown)
+                @Html.BsValidationFor(m => m.NotificationDropdown)
             </div>
         </div>
 
