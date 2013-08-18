@@ -48,6 +48,14 @@
         </div>
 
         <div class="col-12 col-sm-6 col-lg-6 form-group">
+            @Html.BsLabelFor(m => m.Birthday)
+            <div class="input-group">
+                @Html.BsInputFor(m => m.Birthday)
+                @Html.BsValidationFor(m => m.Birthday)
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-lg-6 form-group">
             @Html.BsLabelFor(m => m.NotificationList)
             <div class="input-group">
                 @Html.BsSelectFor(m => m.NotificationList)
@@ -85,6 +93,19 @@
                 @Html.BsDropDownListFor(m => m.Gender, Model.GenderList)
                 @Html.BsValidationFor(m => m.Gender)
             </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-lg-6 form-group">
+            @Html.BsLabelFor(m => m.AnnualIncome)
+            <div class="input-group">
+                @Html.BsGlyphiconAddon(Glyphicon.Euro)
+                @Html.BsInputFor(m => m.AnnualIncome)
+                @Html.BsValidationFor(m => m.AnnualIncome)
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-lg-6 checkbox">
+            @Html.BsInputFor(m => m.EnableNotifications)
         </div>
 
         <div class="col-12 col-sm-12 col-lg-12">

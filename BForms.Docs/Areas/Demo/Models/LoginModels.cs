@@ -55,6 +55,14 @@ namespace BForms.Docs.Areas.Demo.Models
         [BsControl(BsControlType.Password)]
         public string PasswordRetyped { get; set; }
 
+        [Display(Name = "Birthday")]
+        [BsControl(BsControlType.DatePicker)]
+        public DateTime? Birthday { get; set; }
+
+        [Display(Name = "AnnualIncome")]
+        [BsControl(BsControlType.Number)]
+        public decimal? AnnualIncome { get; set; }
+
         [Display(Name = "EnableNotifications")]
         [BsControl(BsControlType.CheckBox)]
         public bool EnableNotifications { get; set; }
