@@ -14,7 +14,7 @@
         <div class="form-group @Html.BsValidationCssFor(m => m.Email)">
             <div class="input-group">
                 @Html.BsGlyphiconAddon(Glyphicon.Envelope)
-                @Html.BsTextBoxFor(m => m.Email)
+                @Html.BsInputFor(m => m.Email)
                 @Html.BsValidationFor(m => m.Email)
             </div>
         </div>
@@ -22,13 +22,13 @@
         <div class="form-group @Html.BsValidationCssFor(m => m.Password)">
             <div class="input-group">
                 @Html.BsGlyphiconAddon(Glyphicon.GLock)
-                @Html.BsTextBoxFor(m => m.Password)
+                @Html.BsInputFor(m => m.Password)
                 @Html.BsValidationFor(m => m.Password)
             </div>
         </div>
 
         <div class="form-group checkbox">
-            @Html.BsCheckBoxFor(m => m.RememberMe)
+            @Html.BsInputFor(m => m.RememberMe)
         </div>
 
         <div>

@@ -124,5 +124,15 @@ namespace BForms.Docs.Areas.Demo.Helpers
 
             return list;
         }
+
+        public static List<SelectListItem> GetGenders()
+        {
+            var list = new List<SelectListItem>();
+
+            list.Add(new SelectListItem() { Text = "Male", Value = "0" });
+            list.Add(new SelectListItem() { Text = "Female", Value = "1" });
+
+            return list;
+        }
     }
 }

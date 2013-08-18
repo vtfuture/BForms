@@ -15,7 +15,7 @@
             @Html.BsLabelFor(m => m.Name)
             <div class="input-group">
                 @Html.BsGlyphiconAddon(Glyphicon.User)
-                @Html.BsTextBoxFor(m => m.Name)
+                @Html.BsInputFor(m => m.Name)
                 @Html.BsValidationFor(m => m.Name)
             </div>
         </div>
@@ -24,7 +24,7 @@
             @Html.BsLabelFor(m => m.Email)
             <div class="input-group">
                 @Html.BsGlyphiconAddon(Glyphicon.Envelope)
-                @Html.BsTextBoxFor(m => m.Email)
+                @Html.BsInputFor(m => m.Email)
                 @Html.BsValidationFor(m => m.Email)
             </div>
         </div>
@@ -33,7 +33,7 @@
             @Html.BsLabelFor(m => m.Password)
             <div class="input-group">
                 @Html.BsGlyphiconAddon(Glyphicon.GLock)
-                @Html.BsTextBoxFor(m => m.Password)
+                @Html.BsInputFor(m => m.Password)
                 @Html.BsValidationFor(m => m.Password)
             </div>
         </div>
@@ -42,7 +42,7 @@
             @Html.BsLabelFor(m => m.PasswordRetyped)
             <div class="input-group">
                 @Html.BsGlyphiconAddon(Glyphicon.GLock)
-                @Html.BsTextBoxFor(m => m.PasswordRetyped)
+                @Html.BsInputFor(m => m.PasswordRetyped)
                 @Html.BsValidationFor(m => m.PasswordRetyped)
             </div>
         </div>
@@ -76,6 +76,14 @@
             <div class="input-group">
                 @Html.BsSelectFor(m => m.TagList)
                 @Html.BsValidationFor(m => m.TagList)
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-lg-6 form-group">
+            @Html.BsLabelFor(m => m.Gender)
+            <div class="input-group">
+                @Html.BsDropDownListFor(m => m.Gender, Model.GenderList)
+                @Html.BsValidationFor(m => m.Gender)
             </div>
         </div>
 

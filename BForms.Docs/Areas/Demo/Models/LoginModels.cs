@@ -74,6 +74,11 @@ namespace BForms.Docs.Areas.Demo.Models
         [Display(Name = "Tags", Prompt = "Type your favorite programming languages")]
         [BsControl(BsControlType.TagList)]
         public BsSelectList<List<string>> TagList { get; set; }
+
+        [Display(Name = "Gender", Prompt = "Choose your gender")]
+        [BsControl(BsControlType.DropDownList)]
+        public int? Gender { get; set; }
+        public List<System.Web.Mvc.SelectListItem> GenderList { get; set; }
     }
 
 

@@ -75,6 +75,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes\BsControlAttribute.cs" />
+    <Compile Include="HtmlHelpers\CheckBoxExtensions.cs" />
+    <Compile Include="HtmlHelpers\ListBoxExtensions.cs" />
+    <Compile Include="HtmlHelpers\DropDownListExtensions.cs" />
+    <Compile Include="HtmlHelpers\PasswordExtensions.cs" />
+    <Compile Include="HtmlHelpers\RadioButtonExtensions.cs" />
+    <Compile Include="HtmlHelpers\TextAreaExtensions.cs" />
+    <Compile Include="HtmlHelpers\TextBoxExtensions.cs" />
     <Compile Include="Models\BsControlType.cs" />
     <Compile Include="Models\BsJsonResult.cs" />
     <Compile Include="Models\BsResponseStatus.cs" />

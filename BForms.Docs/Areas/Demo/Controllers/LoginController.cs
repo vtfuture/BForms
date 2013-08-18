@@ -29,7 +29,8 @@ namespace BForms.Docs.Areas.Demo.Controllers
                     CountriesList = Utils.AllCounties<List<string>>(),
                     NotificationList = Utils.GetNotificationTypes<int?>(),
                     TechnologiesList = Utils.GetTech<List<int>>(),
-                    TagList = Utils.GetLanguages<List<string>>()
+                    TagList = Utils.GetLanguages<List<string>>(),
+                    GenderList = Utils.GetGenders()
                 }
             };
 
