@@ -1,16 +1,16 @@
-using BForms.Docs.Controllers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
-using BForms.Docs.Areas.Demo.Models;
-using BForms.Docs.Areas.Demo.Helpers;
 using System.ComponentModel.DataAnnotations;
 using BootstrapForms.Attributes;
 using BootstrapForms.Models;
 using BootstrapForms.Utilities;
+using BForms.Docs.Areas.Demo.Models;
+using BForms.Docs.Areas.Demo.Helpers;
+using BForms.Docs.Controllers;
 
 namespace BForms.Docs.Areas.Demo.Controllers
 {
@@ -42,7 +42,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
         public BsJsonResult Register(AuthenticationModel model)
         {
             ModelState.ClearModelState(model.GetPropertyName(m => m.LoginModel) + ".");
-            ModelState.AddModelError("RegisterModel.Name","Testing server validation error");
+            ModelState.AddModelError("RegisterModel.EnableNotifications", "This email address is in use");
             if (ModelState.IsValid)
             {
                 

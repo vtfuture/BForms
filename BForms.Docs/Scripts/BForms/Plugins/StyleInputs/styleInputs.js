@@ -62,6 +62,8 @@
 
                     if (datepickerOpts.language == 'ro') {
                         datepickerOpts.format = 'dd-mm-yyyy';
+                    } else {
+                        datepickerOpts.format = 'yyyy-mm-dd';
                     }
 
                     $elem.datepicker(datepickerOpts);
