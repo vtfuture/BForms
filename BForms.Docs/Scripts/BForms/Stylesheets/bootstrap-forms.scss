@@ -44,6 +44,7 @@ textarea {
 		line-height: 38px;
 		font-size: 14px;
 		border-radius: 0 !important;
+		background-image: none;
 		div {
 			border-radius: 0 !important;
 			width: 24px;
@@ -60,8 +61,27 @@ textarea {
 			display: none;
 		}
 	}
+	&.select2-container-active {
+		.select2-choice,
+		.select2-choices {
+			border: 1px solid $turqoise;
+			outline: none;
+			background:#F7F7F7;
+			-webkit-box-shadow: none;
+			   -moz-box-shadow: none;
+					box-shadow: none;
+		}
+	}
 }
-
+.select2-drop {
+	font-size: 14px;
+	border: 1px solid $turqoise;
+	border-top: 0;
+	&.select2-drop-above {
+		border: 1px solid $turqoise;
+		border-bottom: 0;
+	}
+}
 .custom_select-multi {
 	
 	&.form-control {
@@ -70,6 +90,7 @@ textarea {
 	}
 	.select2-choices {
 		min-height: 38px;
+		background-image: none;
 		.select2-search-field input {
 			font-family: Calibri, "Helvetica Neue", Helvetica, Arial, sans-serif;
 			margin-top: 3px;
@@ -85,7 +106,19 @@ textarea {
 			}
 		}
 	}
+	&.select2-container-active {
+		.select2-choice,
+		.select2-choices {
+			border: 1px solid $turqoise;
+			outline: none;
+			background: #F7F7F7;
+			-webkit-box-shadow: none;
+			   -moz-box-shadow: none;
+					box-shadow: none;
+		}
+	}
 }
+
 
 .checkbox_replace {
 	.option {
@@ -114,6 +147,31 @@ textarea {
 			&:first-child {
 				border-left: none;
 			}
+		}
+	}
+}
+
+/* Autocomplete */
+
+.twitter-typeahead {
+	display: block !important;
+	.tt-hint {
+		padding: 8px 12px;
+		height: 38px;
+		width: 100%;
+	}
+	.tt-dropdown-menu {
+		width: 100%;
+		margin-top: -1px;
+		padding: 8px 0;
+		background-color: #FFF;
+		border: 1px solid #ccc;
+		border-top: 1px solid #fff;
+	}
+	.tt-suggestion {
+		padding: 3px 20px;
+		&.tt-is-under-cursor {
+			background: $Gray;
 		}
 	}
 }
