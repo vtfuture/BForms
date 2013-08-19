@@ -4,7 +4,8 @@
         'select2',
         'radioButtonsList',
         'bootstrap-datepicker',
-        'selectInput2'], factory);
+        'selectInput2',
+        'typeaheadSelect'], factory);
     } else {
         factory(window.jQuery);
     }
@@ -25,7 +26,10 @@
         tagListSelector: '.bs-tag-list',
 
         multiSelect2: true,
-        multiSelect2Selector: '.bs-listbox:not(.no-select2), .bs-listbox-grouped:not(.no-select2)'
+        multiSelect2Selector: '.bs-listbox:not(.no-select2), .bs-listbox-grouped:not(.no-select2)',
+
+        autocomplete: true,
+        autocompleteSelector: '.bs-autocomplete'
     };
 
     $.fn.styleInputs = function (opts) {
@@ -95,6 +99,14 @@
                     });
                 } else {
                     throw "SelectInput2 script must be loaded before calling styleInputs";
+                }
+            }
+
+            if (this.options.autocomplete === true && this.$elem.find(this.options.autocompleteSelector).length) {
+                if (typeof $.fn.typeaheadSelect === "function") {
+                    this.$elem.find(this.options.autocompleteSelector).typeaheadSelect();
+                } else {
+                    throw "TypeaheadSelect script must be loaded before calling styleInputs";
                 }
             }
         };
