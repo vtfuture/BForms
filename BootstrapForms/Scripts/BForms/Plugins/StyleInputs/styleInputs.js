@@ -29,7 +29,10 @@
         multiSelect2Selector: '.bs-listbox:not(.no-select2), .bs-listbox-grouped:not(.no-select2)',
 
         autocomplete: true,
-        autocompleteSelector: '.bs-autocomplete'
+        autocompleteSelector: '.bs-autocomplete',
+
+        loadingSelector: '.loading',
+        loadingClass: 'loading'
     };
 
     $.fn.styleInputs = function (opts) {
@@ -108,6 +111,14 @@
                 } else {
                     throw "TypeaheadSelect script must be loaded before calling styleInputs";
                 }
+            }
+
+
+            //remove loading
+            if (this.$elem.hasClass(this.options.loadingClass)) {
+                this.$elem.removeClass(this.options.loadingClass);
+            } else {
+                this.$elem.find(this.options.loadingSelector).removeClass(this.options.loadingClass);
             }
         };
 
