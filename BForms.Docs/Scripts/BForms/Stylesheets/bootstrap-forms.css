@@ -31,7 +31,8 @@ textarea {
     height: 38px;
     line-height: 38px;
     font-size: 14px;
-    border-radius: 0 !important; }
+    border-radius: 0 !important;
+    background-image: none; }
     .custom_select .select2-choice div {
       border-radius: 0 !important;
       width: 24px; }
@@ -42,12 +43,29 @@ textarea {
     border: none; }
     .custom_select.form-control + select.form-control {
       display: none; }
+  .custom_select.select2-container-active .select2-choice,
+  .custom_select.select2-container-active .select2-choices {
+    border: 1px solid #45ada8;
+    outline: none;
+    background: #F7F7F7;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none; }
+
+.select2-drop {
+  font-size: 14px;
+  border: 1px solid #45ada8;
+  border-top: 0; }
+  .select2-drop.select2-drop-above {
+    border: 1px solid #45ada8;
+    border-bottom: 0; }
 
 .custom_select-multi.form-control {
   padding: 0;
   border: none; }
 .custom_select-multi .select2-choices {
-  min-height: 38px; }
+  min-height: 38px;
+  background-image: none; }
   .custom_select-multi .select2-choices .select2-search-field input {
     font-family: Calibri, "Helvetica Neue", Helvetica, Arial, sans-serif;
     margin-top: 3px; }
@@ -59,6 +77,14 @@ textarea {
     margin: 6px 0 0 5px; }
     .custom_select-multi .select2-choices .select2-search-choice .select2-search-choice-close {
       top: 5px; }
+.custom_select-multi.select2-container-active .select2-choice,
+.custom_select-multi.select2-container-active .select2-choices {
+  border: 1px solid #45ada8;
+  outline: none;
+  background: #F7F7F7;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none; }
 
 .checkbox_replace .option {
   float: left;
@@ -82,6 +108,25 @@ textarea {
     border-bottom: none; }
     .checkbox_replace.form-control .option:first-child {
       border-left: none; }
+
+/* Autocomplete */
+.twitter-typeahead {
+  display: block !important; }
+  .twitter-typeahead .tt-hint {
+    padding: 8px 12px;
+    height: 38px;
+    width: 100%; }
+  .twitter-typeahead .tt-dropdown-menu {
+    width: 100%;
+    margin-top: -1px;
+    padding: 8px 0;
+    background-color: #FFF;
+    border: 1px solid #ccc;
+    border-top: 1px solid #fff; }
+  .twitter-typeahead .tt-suggestion {
+    padding: 3px 20px; }
+    .twitter-typeahead .tt-suggestion.tt-is-under-cursor {
+      background: #dadada; }
 
 /* Custom UI END*/
 .form-control:focus {
