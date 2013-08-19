@@ -21,6 +21,9 @@ textarea {
 	content: "*";
 	color: #b94a48;	
 }
+.radio, .checkbox {
+	padding-left: 15px;
+}
 
 
 /* Errors */
@@ -80,7 +83,7 @@ textarea {
 		.select2-choices {
 			border: 1px solid $turqoise;
 			outline: none;
-			background:#F7F7F7;
+			background:#fff;
 			-webkit-box-shadow: none;
 			   -moz-box-shadow: none;
 					box-shadow: none;
@@ -91,18 +94,25 @@ textarea {
 	font-size: 14px;
 	border: 1px solid $turqoise;
 	border-top: 0;
-	border-radius: 0;
-	-webkit-box-shadow: none;
-	   -moz-box-shadow: none;
-		    box-shadow: none;
+	border-radius: 0 !important;
+	-webkit-box-shadow: none !important;
+	   -moz-box-shadow: none !important;
+		    box-shadow: none !important;
 	&.select2-drop-above {
 		border: 1px solid $turqoise;
 		border-bottom: 0;
 	}
 }
-.select2-results .select2-highlighted {
-	background: $Gray;
-	color: #333;
+.select2-results {
+	padding: 0;
+	margin-right: 0;
+	.select2-highlighted {
+		background: $Gray;
+		color: #333;
+	}
+	.select2-result-label {
+		padding: 5px 8px;
+	}
 }
 .custom_select-multi {
 	
@@ -116,6 +126,7 @@ textarea {
 		.select2-search-field input {
 			font-family: Calibri, "Helvetica Neue", Helvetica, Arial, sans-serif;
 			margin-top: 3px;
+			padding: 5px 8px;
 		}
 		.select2-search-choice {
 			background: #fff;
@@ -133,7 +144,7 @@ textarea {
 		.select2-choices {
 			border: 1px solid $turqoise;
 			outline: none;
-			background: #F7F7F7;
+			background: #fff;
 			-webkit-box-shadow: none;
 			   -moz-box-shadow: none;
 					box-shadow: none;
@@ -179,7 +190,7 @@ textarea {
 	display: block !important;
 	font-size: 14px;
 	.tt-hint {
-		padding: 8px 12px;
+		padding: 8px;
 		height: 38px;
 		width: 100%;
 	}
@@ -192,7 +203,7 @@ textarea {
 		border-top: none;
 	}
 	.tt-suggestion {
-		padding: 5px 15px;
+		padding: 8px;
 		p {
 			margin: 0;
 		}
@@ -204,14 +215,15 @@ textarea {
 
 /* Custom UI END*/
 
-
-.form-control:focus {
-	box-shadow: none;
-	border-color: $turqoise;
-}
-
-.form-control + .input-group-addon {
-	border-left: none;
+.form-control {
+	padding: 8px;
+	&:focus {
+		box-shadow: none;
+		border-color: $turqoise;
+	}
+	+ .input-group-addon {
+		border-left: none;
+	}
 }
 
 .btn {
@@ -295,8 +307,7 @@ textarea {
 		margin: 0 0 15px;
 	}
 	.col-lg-12,
-	.col-sm-12,
-	.col-12 {  /* Normal distance for a single column layout */
+	.col-sm-12 {  /* Normal distance for a single column layout */
 		&.checkbox,
 		&.radio {
 			padding-top: 0;
