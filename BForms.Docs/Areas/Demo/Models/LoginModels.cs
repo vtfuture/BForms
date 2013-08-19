@@ -56,14 +56,17 @@ namespace BForms.Docs.Areas.Demo.Models
         [BsControl(BsControlType.Password)]
         public string PasswordRetyped { get; set; }
 
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
         [Display(Name = "Birthday")]
         [BsControl(BsControlType.DatePicker)]
         public DateTime? Birthday { get; set; }
 
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
         [Display(Name = "AnnualIncome")]
         [BsControl(BsControlType.Number)]
         public decimal? AnnualIncome { get; set; }
 
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
         [Display(Name = "EnableNotifications")]
         [BsControl(BsControlType.CheckBox)]
         public bool EnableNotifications { get; set; }
@@ -73,18 +76,22 @@ namespace BForms.Docs.Areas.Demo.Models
         [BsControl(BsControlType.DropDownList)]
         public BsSelectList<int?> CountriesList { get; set; }
 
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
         [Display(Name = "Notifications", Description = "Your register email address will be used")]
         [BsControl(BsControlType.RadioButtonList)]
         public BsSelectList<NotificationTypes> NotificationList { get; set; }
 
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
         [Display(Name = "Technologies", Prompt = "Choose your favorite technologies")]
         [BsControl(BsControlType.ListBox)]
         public BsSelectList<List<int>> TechnologiesList { get; set; }
 
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
         [Display(Name = "Tags", Prompt = "Type your favorite programming languages")]
         [BsControl(BsControlType.TagList)]
         public BsSelectList<List<string>> TagList { get; set; }
 
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
         [Display(Name = "Autocomplete", Prompt = "Type your favorite programming languages")]
         [BsControl(BsControlType.Autocomplete)]
         public BsSelectList<string> AutocompleteList { get; set; }

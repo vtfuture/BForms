@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Web.Mvc;
@@ -17,25 +18,25 @@ namespace BootstrapForms.HtmlHelpers
         /// <summary>
         /// Returns a label element with required css class
         /// </summary>
-        public static MvcHtmlString BsLabelFor<TModel, TProperty>(this HtmlHelper<TModel> helper,
+        public static MvcHtmlString BsLabelFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper,
             Expression<Func<TModel, TProperty>> expression)
         {
-            return BsLabelFor(helper, expression, (object) null);
+            return BsLabelFor(htmlHelper, expression, (object) null);
         }
 
         /// <summary>
         /// Returns a label element with required css class
         /// </summary>
-        public static MvcHtmlString BsLabelFor<TModel, TProperty>(this HtmlHelper<TModel> helper,
+        public static MvcHtmlString BsLabelFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper,
             Expression<Func<TModel, TProperty>> expression, object htmlAttributes)
         {
-            return BsLabelFor(helper, expression, new RouteValueDictionary(htmlAttributes));
+            return BsLabelFor(htmlHelper, expression, new RouteValueDictionary(htmlAttributes));
         }
 
         /// <summary>
         /// Returns a label element with required css class
         /// </summary>
-        public static MvcHtmlString BsLabelFor<TModel, TProperty>(this HtmlHelper<TModel> helper,
+        public static MvcHtmlString BsLabelFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper,
             Expression<Func<TModel, TProperty>> expression, IDictionary<string, object> htmlAttributes)
         {
             //merge custom css classes with bootstrap
@@ -62,7 +63,17 @@ namespace BootstrapForms.HtmlHelpers
                 }
             }
 
-            return helper.LabelFor(expression, htmlAttributes);
+            var propertyName = ExpressionHelper.GetExpressionText(expression);
+            var name = htmlHelper.AttributeEncode(htmlHelper.ViewData.TemplateInfo.GetFullHtmlFieldName(propertyName));
+            if (typeof(TProperty).FullName.Contains("BsSelectList"))
+            {
+                name += ".SelectedValues";
+            }
+
+            var metadata = ModelMetadata.FromLambdaExpression(expression, htmlHelper.ViewData);
+            var labelText = metadata.DisplayName ?? metadata.PropertyName ?? fieldName.Split('.').Last();
+
+            return htmlHelper.Label(name, labelText, htmlAttributes);
         }
     }
 }

@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
 using BootstrapForms.Utilities;
+using BootstrapForms.Models;
 
 namespace BootstrapForms.HtmlHelpers
 {
@@ -33,17 +34,22 @@ namespace BootstrapForms.HtmlHelpers
         /// <summary>
         /// Returns a span element containing the localized value of the ModelState error message
         /// </summary>
-        public static MvcHtmlString BsValidationFor<TModel, TProperty>(this HtmlHelper<TModel> helper,
+        public static MvcHtmlString BsValidationFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper,
             Expression<Func<TModel, TProperty>> expression, IDictionary<string, object> htmlAttributes)
         {
             var propertyName = ExpressionHelper.GetExpressionText(expression);
-            var name = helper.AttributeEncode(helper.ViewData.TemplateInfo.GetFullHtmlFieldName(propertyName));
+            var name = htmlHelper.AttributeEncode(htmlHelper.ViewData.TemplateInfo.GetFullHtmlFieldName(propertyName));
+
+             if (typeof(TProperty).FullName.Contains("BsSelectList"))
+             {
+                 name += ".SelectedValues";
+             }
 
             //create span element
             var tag = new TagBuilder("span");
             tag.MergeAttributes(htmlAttributes, false);
 
-            var isInvalid = helper.HasModelStateErros(expression);
+            var isInvalid = htmlHelper.HasModelStateErros(expression);
 
             //add jquery validatior html attributes & css
             tag.AddCssClass(isInvalid
@@ -58,7 +64,7 @@ namespace BootstrapForms.HtmlHelpers
 
             if (isInvalid)
             {
-                foreach (var error in helper.ViewData.ModelState[name].Errors)
+                foreach (var error in htmlHelper.ViewData.ModelState[name].Errors)
                 {
                     //add error message as title
                     tag.Attributes.Add("title", error.ErrorMessage);
