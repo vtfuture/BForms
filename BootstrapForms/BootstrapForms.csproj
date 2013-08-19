@@ -130,7 +130,10 @@
     <Content Include="Scripts\BForms\Plugins\Select2\css\select2.png" />
     <Content Include="Scripts\BForms\Plugins\Select2\js\i18n\select2-ro.js" />
     <Content Include="Scripts\BForms\Plugins\Select2\js\select2.js" />
+    <Content Include="Scripts\BForms\Plugins\Select2\js\selectInput2.js" />
     <Content Include="Scripts\BForms\Plugins\StyleInputs\styleInputs.js" />
+    <Content Include="Scripts\BForms\Plugins\Typeahead\typeahead.js" />
+    <Content Include="Scripts\BForms\Plugins\Typeahead\typeaheadSelect.js" />
     <Content Include="Scripts\BForms\Plugins\Validation\i18n\jquery.validate-ro.js" />
     <Content Include="Scripts\BForms\Plugins\Validation\jquery.validate-1.11.1.js" />
     <Content Include="Scripts\BForms\Plugins\Validation\jquery.validate.unobtrusive.bootstrap.js" />

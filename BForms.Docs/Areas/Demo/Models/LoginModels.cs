@@ -85,7 +85,7 @@ namespace BForms.Docs.Areas.Demo.Models
 
         [Display(Name = "Autocomplete", Prompt = "Type your favorite programming languages")]
         [BsControl(BsControlType.Autocomplete)]
-        public BsSelectList<List<string>> AutocompleteList { get; set; }
+        public BsSelectList<string> AutocompleteList { get; set; }
 
         [Display(Name = "Gender", Prompt = "Choose your gender")]
         [BsControl(BsControlType.DropDownList)]

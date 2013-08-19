@@ -119,9 +119,20 @@
     var RadioButtonsListUpdateSelf = (function () {
         function RadioButtonsListUpdateSelf(self, value) {
             self.find("input[type='radio']").each(function () {
-                $(this).prop("checked", ($(this).val() == value ? true : false));
-                if ($(this).val() == value)
+
+                var $current = $(this),
+                    wasChecked = $current.prop("checked"),
+                    newVal = $current.val() == value ? true : false;
+
+                if(newVal && wasChecked) {
+                    newVal = false;
+                }
+
+                $current.prop("checked", newVal);
+                
+                if ($current.val() == value)
                     self.data('value', value);
+                
             });
             self.trigger("change");
         }
