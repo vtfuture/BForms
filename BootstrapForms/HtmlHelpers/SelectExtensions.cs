@@ -495,6 +495,9 @@ namespace BootstrapForms.HtmlHelpers
                 }
             }
 
+            //Validation Hack
+            name = name.Replace(".SelectedValues", "");
+
             var attributes = htmlHelper.GetUnobtrusiveValidationAttributes(name);
 
             if (name.Contains(".") && !attributes.Any())
