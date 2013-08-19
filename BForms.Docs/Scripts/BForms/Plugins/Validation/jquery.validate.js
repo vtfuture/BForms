@@ -221,7 +221,7 @@
             errorContainer: $([]),
             errorLabelContainer: $([]),
             onsubmit: true,
-            ignore: ':hidden',
+            ignore: '',
             scrollToError : true,
             ignoreTitle: false,
             onfocusin: function (element, event) {
@@ -1020,7 +1020,7 @@
                 if (element.nodeName.toLowerCase() === "select") {
                     // could be an array for select-multiple or a string, both are fine this way
                     var val = $(element).val();
-                    return val != '' && val.length > 0;
+                    return val != null & val != '' && val.length > 0;
                 }
                 if (this.checkable(element)) {
                     return this.getLength(value, element) > 0;
