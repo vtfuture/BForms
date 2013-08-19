@@ -175,6 +175,7 @@ namespace BootstrapForms.HtmlHelpers
                         break;
                     case BsControlType.DropDownList:
                     case BsControlType.DropDownListGrouped:
+                    case BsControlType.Autocomplete:
                         allowMultiple = false;
                         htmlSelect = BsSelectInternal(htmlHelper, name, selectList,
                         optionLabel, htmlAttributes, allowMultiple, bsCssClass).ToHtmlString();

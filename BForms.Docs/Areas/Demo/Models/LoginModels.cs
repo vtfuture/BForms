@@ -83,6 +83,10 @@ namespace BForms.Docs.Areas.Demo.Models
         [BsControl(BsControlType.TagList)]
         public BsSelectList<List<string>> TagList { get; set; }
 
+        [Display(Name = "Autocomplete", Prompt = "Type your favorite programming languages")]
+        [BsControl(BsControlType.Autocomplete)]
+        public BsSelectList<List<string>> AutocompleteList { get; set; }
+
         [Display(Name = "Gender", Prompt = "Choose your gender")]
         [BsControl(BsControlType.DropDownList)]
         public int? Gender { get; set; }

@@ -31,6 +31,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
                     NotificationList = Lists.GetNotificationTypes<int?>(),
                     TechnologiesList = Lists.GetTech<List<int>>(),
                     TagList = Lists.GetLanguages<List<string>>(),
+                    AutocompleteList = Lists.GetLanguages<List<string>>(),
                     GenderList = Lists.GetGenders()
                 }
             };
