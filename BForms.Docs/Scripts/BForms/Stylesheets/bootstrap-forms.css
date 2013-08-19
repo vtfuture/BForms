@@ -67,10 +67,18 @@ textarea {
 .select2-drop {
   font-size: 14px;
   border: 1px solid #45ada8;
-  border-top: 0; }
+  border-top: 0;
+  border-radius: 0;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none; }
   .select2-drop.select2-drop-above {
     border: 1px solid #45ada8;
     border-bottom: 0; }
+
+.select2-results .select2-highlighted {
+  background: #dadada;
+  color: #333; }
 
 .custom_select-multi.form-control {
   padding: 0;
@@ -132,12 +140,14 @@ textarea {
   .twitter-typeahead .tt-dropdown-menu {
     width: 100%;
     margin-top: -1px;
-    padding: 8px 0;
+    padding: 4px 0;
     background-color: #FFF;
-    border: 1px solid #ccc;
-    border-top: 1px solid #fff; }
+    border: 1px solid #45ada8;
+    border-top: none; }
   .twitter-typeahead .tt-suggestion {
-    padding: 3px 20px; }
+    padding: 5px 15px; }
+    .twitter-typeahead .tt-suggestion p {
+      margin: 0; }
     .twitter-typeahead .tt-suggestion.tt-is-under-cursor {
       background: #dadada; }
 
@@ -200,7 +210,7 @@ textarea {
   .form-group.checkbox label, .form-group.radio label {
     display: table-cell;
     border: 1px solid transparent;
-    padding-left: 20px;
+    padding-left: 15px;
     padding-top: 6px;
     height: 38px; }
   .form-group.checkbox.has-error label, .form-group.radio.has-error label {
