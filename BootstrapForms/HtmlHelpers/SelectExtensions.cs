@@ -8,7 +8,6 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
-using System.Web.Routing;
 using BootstrapForms.Utilities;
 using BootstrapForms.Models;
 using BootstrapForms.Attributes;
@@ -81,7 +80,7 @@ namespace BootstrapForms.HtmlHelpers
 
             //add bs- control type
             BsControlAttribute bsControl = null;
-            string bsCssClass = string.Empty;
+            var bsCssClass = string.Empty;
             if (ReflectionHelpers.TryGetControlAttribute(ExpressionHelper.GetExpressionText(expression), typeof(TModel), out bsControl))
             {
                 bsCssClass = bsControl.ControlType.GetDescription();
@@ -110,67 +109,6 @@ namespace BootstrapForms.HtmlHelpers
 
         #endregion
 
-        #region TagGroup
-
-        /// <summary>
-        /// Returns a list of tags with placeholder and info tooltip
-        /// </summary>
-        public static MvcHtmlString BsTagListFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper,
-            Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> tagList)
-        {
-            return BsTagListFor(htmlHelper, expression, tagList, (object)null);
-        }
-
-        /// <summary>
-        /// Returns a list of tags with placeholder and info tooltip
-        /// </summary>
-        public static MvcHtmlString BsTagListFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper,
-            Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> tagList, object htmlAttributes)
-        {
-            return BsTagListFor(htmlHelper, expression, tagList, new RouteValueDictionary(htmlAttributes));
-        }
-
-        /// <summary>
-        /// Returns a list of tags with placeholder and info tooltip
-        /// </summary>
-        public static MvcHtmlString BsTagListFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper,
-            Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> tagList, IDictionary<string, object> htmlAttributes)
-        {
-            var metadata = ModelMetadata.FromLambdaExpression(expression, htmlHelper.ViewData);
-            var name = ExpressionHelper.GetExpressionText(expression);
-            //add bs- control type
-            BsControlAttribute bsControl = null;
-            var bsCssClass = "bs-tag-list";
-            if (ReflectionHelpers.TryGetControlAttribute(name, typeof(TModel), out bsControl))
-            {
-                bsCssClass = bsControl.ControlType.GetDescription();
-            }
-
-            //merge custom css classes with bootstrap
-            htmlAttributes.MergeAttribute("class", "form-control");
-
-            //add placeholder
-            if (!string.IsNullOrEmpty(metadata.Watermark) && !htmlAttributes.ContainsKey("placeholder"))
-            {
-                htmlAttributes.MergeAttribute("placeholder", metadata.Watermark);
-            }
-
-            //add info tooltip
-            var description = new MvcHtmlString("");
-            if (!string.IsNullOrEmpty(metadata.Description))
-            {
-                description = htmlHelper.BsDescriptionFor(expression);
-            }
-            var bsList = BsSelectList<List<string>>.FromSelectList(tagList.ToList());
-            var tagsHtml = htmlHelper.BsTagListInternal<List<string>>(name, bsList, metadata.Watermark, htmlAttributes, bsCssClass);
-
-            return
-                MvcHtmlString.Create(tagsHtml.ToHtmlString() +
-                                     description.ToHtmlString());
-        }
-
-        #endregion
-
         #region BsSelectList
         /// <summary>
         /// Returns a BForms select element based on BsControlAttribute
@@ -189,14 +127,14 @@ namespace BootstrapForms.HtmlHelpers
         {
 
             var metadata = ModelMetadata.FromLambdaExpression(expression, htmlHelper.ViewData);
-            string name = ExpressionHelper.GetExpressionText(expression);
+            var name = ExpressionHelper.GetExpressionText(expression);
 
             //get list object from expression
             var selectList = expression.Compile().Invoke(htmlHelper.ViewData.Model);
 
             string htmlSelect;
             string optionLabel = null;
-            bool allowMultiple = false;
+            var allowMultiple = false;
 
             //add optionLabel from Watermark 
             if (!string.IsNullOrEmpty(metadata.Watermark))
@@ -237,17 +175,19 @@ namespace BootstrapForms.HtmlHelpers
                         break;
                     case BsControlType.DropDownList:
                     case BsControlType.DropDownListGrouped:
-                    default:
                         allowMultiple = false;
                         htmlSelect = BsSelectInternal(htmlHelper, name, selectList,
                         optionLabel, htmlAttributes, allowMultiple, bsCssClass).ToHtmlString();
                         break;
+                    default:
+                        throw new Exception(bsControl.ControlType.GetDescription() + " does not match a select element");
+                        break;
+                        
                 }
             }
             else
             {
-                htmlSelect = BsSelectInternal(htmlHelper, name, selectList,
-                    optionLabel, htmlAttributes, allowMultiple, "bs-dropdown").ToHtmlString();
+                throw new Exception("The " + name + " property is not decorated with a BsControlAttribute");
             }
 
 
@@ -563,7 +503,7 @@ namespace BootstrapForms.HtmlHelpers
             return MvcHtmlString.Create(tagBuilder.ToString());
         }
 
-        private static BsSelectList<TKey> GetSelectData<TKey>(this HtmlHelper htmlHelper, string name)
+        internal static BsSelectList<TKey> GetSelectData<TKey>(this HtmlHelper htmlHelper, string name)
         {
             object o = null;
             if (htmlHelper.ViewData != null)
@@ -588,7 +528,7 @@ namespace BootstrapForms.HtmlHelpers
             return selectList;
         }
 
-        private static string ListItemToOption(BsSelectListItem item)
+        internal static string ListItemToOption(BsSelectListItem item)
         {
             var builder = new TagBuilder("option")
             {

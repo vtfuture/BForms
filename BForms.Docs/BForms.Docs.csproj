@@ -115,6 +115,8 @@
     <Compile Include="Areas\Demo\Controllers\LoginController.cs" />
     <Compile Include="Areas\Demo\DemoAreaRegistration.cs" />
     <Compile Include="Areas\Demo\Helpers\Utils.cs" />
+    <Compile Include="Areas\Demo\Mock\Enums.cs" />
+    <Compile Include="Areas\Demo\Mock\Lists.cs" />
     <Compile Include="Areas\Demo\Models\LoginModels.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ComponentsController.cs" />

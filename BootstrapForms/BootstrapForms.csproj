@@ -76,6 +76,7 @@
   <ItemGroup>
     <Compile Include="Attributes\BsControlAttribute.cs" />
     <Compile Include="HtmlHelpers\CheckBoxExtensions.cs" />
+    <Compile Include="HtmlHelpers\TagListExtensions.cs" />
     <Compile Include="HtmlHelpers\ListBoxExtensions.cs" />
     <Compile Include="HtmlHelpers\DropDownListExtensions.cs" />
     <Compile Include="HtmlHelpers\PasswordExtensions.cs" />

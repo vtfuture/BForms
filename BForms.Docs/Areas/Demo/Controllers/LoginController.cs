@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using System.ComponentModel.DataAnnotations;
+using BForms.Docs.Areas.Demo.Mock;
 using BootstrapForms.Attributes;
 using BootstrapForms.Models;
 using BootstrapForms.Utilities;
@@ -26,11 +27,11 @@ namespace BForms.Docs.Areas.Demo.Controllers
                 LoginModel = new LoginModel(),
                 RegisterModel = new RegisterModel()
                 {
-                    CountriesList = Utils.AllCounties<List<string>>(),
-                    NotificationList = Utils.GetNotificationTypes<int?>(),
-                    TechnologiesList = Utils.GetTech<List<int>>(),
-                    TagList = Utils.GetLanguages<List<string>>(),
-                    GenderList = Utils.GetGenders()
+                    CountriesList = Lists.AllCounties<List<string>>(),
+                    NotificationList = Lists.GetNotificationTypes<int?>(),
+                    TechnologiesList = Lists.GetTech<List<int>>(),
+                    TagList = Lists.GetLanguages<List<string>>(),
+                    GenderList = Lists.GetGenders()
                 }
             };
 

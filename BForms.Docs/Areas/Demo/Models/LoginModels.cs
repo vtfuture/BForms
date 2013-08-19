@@ -27,7 +27,7 @@ namespace BForms.Docs.Areas.Demo.Models
         [BsControl(BsControlType.Password)]
         public string Password { get; set; }
 
-        [Display(Name = "RememberMe")]
+        [Display(Name = "RememberMe", Description = "Remember me")]
         [BsControl(BsControlType.CheckBox)]
         public bool RememberMe { get; set; }
     }
@@ -63,7 +63,7 @@ namespace BForms.Docs.Areas.Demo.Models
         [BsControl(BsControlType.Number)]
         public decimal? AnnualIncome { get; set; }
 
-        [Display(Name = "EnableNotifications")]
+        [Display(Name = "EnableNotifications", Description = "Remember me")]
         [BsControl(BsControlType.CheckBox)]
         public bool EnableNotifications { get; set; }
 

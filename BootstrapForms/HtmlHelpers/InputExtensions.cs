@@ -133,7 +133,7 @@ namespace BootstrapForms.HtmlHelpers
                         inputHtml = htmlHelper.TextBoxForInternal(expression, format, htmlAttributes);
                         break;
                     default:
-                        throw new Exception(bsControl.ControlType.ToString() + " does not match an input element");
+                        throw new Exception(bsControl.ControlType.GetDescription() + " does not match an input element");
                 }
             }
 
