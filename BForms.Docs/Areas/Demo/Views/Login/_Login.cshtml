@@ -2,7 +2,7 @@
 @using BootstrapForms.Models
 @model BForms.Docs.Areas.Demo.Models.LoginModel
 
-<div>
+<div class="col-12 col-sm-12 col-lg-12">
     <h1>@Html.BsGlyphicon(Glyphicon.StartEmpty) Login form</h1>
 </div>
 
@@ -11,7 +11,7 @@
     <div class="form-container">
         @Html.BsFormValidation()
 
-        <div class="form-group @Html.BsValidationCssFor(m => m.Email)">
+        <div class="col-12 col-sm-12 col-lg-12 form-group @Html.BsValidationCssFor(m => m.Email)">
             <div class="input-group">
                 @Html.BsGlyphiconAddon(Glyphicon.Envelope)
                 @Html.BsInputFor(m => m.Email)
@@ -19,7 +19,7 @@
             </div>
         </div>
 
-        <div class="form-group @Html.BsValidationCssFor(m => m.Password)">
+        <div class="col-12 col-sm-12 col-lg-12 form-group @Html.BsValidationCssFor(m => m.Password)">
             <div class="input-group">
                 @Html.BsGlyphiconAddon(Glyphicon.GLock)
                 @Html.BsInputFor(m => m.Password)
@@ -27,14 +27,16 @@
             </div>
         </div>
 
-        <div class="form-group checkbox">
+        <div class="col-12 col-sm-12 col-lg-12 form-group checkbox">
             @Html.BsInputFor(m => m.RememberMe)
         </div>
 
-        <div>
+        <div class="col-12 col-sm-12 col-lg-12">
             <hr />
             <button class="btn btn-default js-loginBtn" type="submit">Login</button>
         </div>
+
+        <div class="clearfix"></div>
 
     </div>
 }

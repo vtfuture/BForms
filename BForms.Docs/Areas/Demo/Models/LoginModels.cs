@@ -1,4 +1,5 @@
-﻿using BForms.Docs.Resources;
+﻿using BForms.Docs.Areas.Demo.Mock;
+using BForms.Docs.Resources;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -27,7 +28,7 @@ namespace BForms.Docs.Areas.Demo.Models
         [BsControl(BsControlType.Password)]
         public string Password { get; set; }
 
-        [Display(Name = "RememberMe", Description = "Remember me")]
+        [Display(Name = "RememberMe")]
         [BsControl(BsControlType.CheckBox)]
         public bool RememberMe { get; set; }
     }
@@ -63,7 +64,7 @@ namespace BForms.Docs.Areas.Demo.Models
         [BsControl(BsControlType.Number)]
         public decimal? AnnualIncome { get; set; }
 
-        [Display(Name = "EnableNotifications", Description = "Remember me")]
+        [Display(Name = "EnableNotifications")]
         [BsControl(BsControlType.CheckBox)]
         public bool EnableNotifications { get; set; }
 
@@ -73,7 +74,7 @@ namespace BForms.Docs.Areas.Demo.Models
 
         [Display(Name = "Notifications", Description = "Your register email address will be used")]
         [BsControl(BsControlType.RadioButtonList)]
-        public BsSelectList<int?> NotificationList { get; set; }
+        public BsSelectList<NotificationTypes> NotificationList { get; set; }
 
         [Display(Name = "Technologies", Prompt = "Choose your favorite technologies")]
         [BsControl(BsControlType.ListBox)]
