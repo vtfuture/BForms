@@ -4,9 +4,9 @@
 @{
     ViewBag.Title = "Authentication";  
 }
-<div class="row js-registerForm">
+<div class="row js-registerFormContainer">
     @Html.BsPartialPrefixed(m => m.RegisterModel, "_Register", Model)
 </div>
-<div class="js-loginForm">
+<div class="js-loginFormContainer">
     @Html.BsPartialPrefixed(m => m.LoginModel, "_Login", Model)
 </div>

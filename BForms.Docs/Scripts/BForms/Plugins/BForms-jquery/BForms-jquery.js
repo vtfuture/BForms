@@ -11,45 +11,70 @@
     //#region parse form
     $.fn.parseForm = function () {
 
-        var $form = $(this).is('form') ? $(this) : this.find('form:first');
+        // don't change the element sent, we allow jq objects or selectors too
+        var $elem = $(this);
 
-        $form = $form.length > 0 ? $form : $('<form></form>').append(this.clone());
+        // object to be returned and where all the data goes
+        var data = {};
+      
+        if ($elem.length > 0) {
 
-        if (typeof $form !== 'undefined' && $form != null) {
+            // NORMAL INPUT FIELDS
 
-            var serializedArray = $form.serializeArray(),
-                result = {},
-                l = serializedArray.length,
-                i = 0;
+            // input and select fields 
+            var input = $elem.find('input[type!="radio"], input[type="radio"]:checked, select, textarea');
 
-            for (; i < l; i++) {
-                var name = serializedArray[i].name,
-                    value = serializedArray[i].value;
+            for (var key in input) {
+                if (!isNaN(key)) {
 
-                result[name] = typeof result[name] === 'undefined' ?
-                    value : $.isArray(result[name]) ?
-                                       result[name].concat(value) : [result[name], value];
+                    var jqEl = $(input[key]);
+                    var name = jqEl.data('formname') || jqEl.attr('name');
+                    var value = jqEl.data('select2') != null ? jqEl.select2('val') : jqEl.data('redactor') != null ? jqEl.getCode() : jqEl.val();
+
+                    if ('undefined' !== typeof (name)) {
+
+                        if (jqEl.attr('type') === 'checkbox') {
+
+                            // checkbox
+                            value = jqEl.is(':checked');
+                            data[name] = value;
+
+                        } else if ('object' !== typeof (value)) {
+
+                            // normal input
+                            if ('undefined' === typeof (data[name]))
+                                data[name] = value;
+
+                        } else if (value !== null) {
+
+                            // multiselect
+                            for (k in value) {
+                                data[name + '[' + k + ']'] = value[k];
+                            }
+                        }
+                    }
+                }
             }
 
-            $form.find(':file').each(function (idx, el) {
-                var f = el.files,
-                    n = el.name;
-                if (typeof f !== 'undefined' && f != null) {
-                    var len = f.length,
-                        i = 0;
-                    if (len > 1) {
-                        for (; i < len; i++) {
-                            result[n + '[' + i + ']'] = f[i];
+            // files
+            $elem.find('input[type="file"]').each(function (k, el) {
+
+                var files = el.files;
+                if (files != undefined) {
+                    var name = el.name;
+                    if (files.length > 1) {
+                        for (var i = 0; i < files.length; i++) {
+                            data[name + '[' + i + ']'] = files[i];
                         }
-                    } else if (len == 1) {
-                        result[n] = f[0];
+                    } else if (files.length == 1) {
+                        data[name] = files[0];
                     }
                 }
             });
 
-            return result;
-
         }
+
+        return data;
     };
     //#endregion
 

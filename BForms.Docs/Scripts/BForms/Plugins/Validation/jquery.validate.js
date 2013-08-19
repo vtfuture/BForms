@@ -898,7 +898,6 @@
             if (rules.maxlength && /-1|2147483647|524288/.test(rules.maxlength)) {
                 delete rules.maxlength;
             }
-
             return rules;
         },
 

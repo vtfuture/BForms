@@ -6,7 +6,7 @@
     <h1>@Html.BsGlyphicon(Glyphicon.StartEmpty) Register form</h1>
 </div>
 
-@using (Html.BeginForm("Register", "Login", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "bs-form js-regForm" }))
+@using (Html.BeginForm("Register", "Login", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "bs-form js-registerForm" }))
 {
     <div class="form-container">
         @Html.BsFormValidation()

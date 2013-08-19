@@ -2417,10 +2417,8 @@ the specific language governing permissions and limitations under the Apache Lic
         prepareOpts: function () {
             var opts = this.parent.prepareOpts.apply(this, arguments),
                 self = this;
-
-            // TODO validate placeholder is a string if specified
-
-            if (typeof $.fn.select2.defaults.placeholder === 'undefined' && typeof opts.element.data('placeholder') === 'undefined') {
+          
+            if (typeof $.fn.select2.defaults.placeholder === 'undefined' && typeof opts.placeholder === "undefined" && typeof opts.element.data('placeholder') === 'undefined') {
                 opts.element.data('placeholder', $.fn.select2.defaults.formatPlaceholder());
             }
 
@@ -2429,7 +2427,7 @@ the specific language governing permissions and limitations under the Apache Lic
             }
 
             if (opts.element.get(0).tagName.toLowerCase() === "select") {
-                // install sthe selection initializer
+                // install the selection initializer
                 opts.initSelection = function (element, callback) {
 
                     var data = [];

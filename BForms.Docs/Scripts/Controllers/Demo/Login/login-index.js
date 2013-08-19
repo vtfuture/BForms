@@ -28,8 +28,8 @@
 
     LoginIndex.prototype.init = function () {
         this.$loginForm = $('.js-loginForm');
-        this.$registerForm = $('.js-regForm');
-
+        this.$registerForm = $('.js-registerForm');
+        
         this.$loginForm.styleInputs(this.options.styleInputs);
         this.$registerForm.styleInputs(this.options.styleInputs);
 
@@ -41,13 +41,15 @@
     };
 
     LoginIndex.prototype.onRegisterSubmit = function (e) {
-
+        e.stopPropagation();
+        e.preventDefault();
+        
         $.validator.unobtrusive.parse(this.$registerForm);
         var validatedForm = this.$registerForm.validate();
-        
+
         if (this.$registerForm.valid()) {
             var registerData = this.$registerForm.parseForm();
-
+            
             $.ajax({
                 url: this.options.registerUrl,
                 data: JSON.stringify(registerData),
@@ -62,9 +64,6 @@
                 }
             }, this));
         }
-        
-        e.stopPropagation();
-        e.preventDefault();
     };
 
     $(document).ready(function () {
