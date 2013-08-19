@@ -115,16 +115,19 @@ h1 {
   min-width: 700px; }
 
 /* Aside menu*/
-aside .bs-sidenav {
+.bs-sidebar .bs-sidenav {
   margin-top: 30px;
   margin-bottom: 30px;
   padding-top: 10px;
   padding-bottom: 10px;
   text-shadow: 0 1px 0 #fff;
   background-color: #f7f5fa; }
-aside .nav li a {
+  .bs-sidebar .bs-sidenav .active > a {
+    border-right: 2px solid #45ada8;
+    color: #45ada8; }
+.bs-sidebar .nav li a {
   font-weight: bold; }
-aside .nav .nav li a {
+.bs-sidebar .nav .nav li a {
   font-weight: normal;
   padding: 10px 15px 10px 25px; }
 
@@ -136,22 +139,20 @@ aside .nav .nav li a {
     font-size: 27px; }
 .bs-docs-section h3 {
   font-size: 22px; }
+.bs-docs-section .sub_title {
+  font-size: 14px;
+  font-weight: bold;
+  color: #989898;
+  text-transform: uppercase;
+  margin-top: 20px; }
 .bs-docs-section .bs-example {
   position: relative;
-  padding: 45px 15px 15px;
+  padding: 15px;
   background-color: #fafafa;
   border: 1px solid #e8e8e8;
   margin-bottom: -1px; }
-  .bs-docs-section .bs-example:after {
-    content: "Example";
-    position: absolute;
-    top: 15px;
-    left: 15px;
-    font-size: 12px;
-    font-weight: bold;
-    color: #bbb;
-    text-transform: uppercase;
-    letter-spacing: 1px; }
+  .bs-docs-section .bs-example.bs-img-example {
+    background: #fff; }
 .bs-docs-section .highlight {
   padding: 9px 14px;
   margin-bottom: 14px;

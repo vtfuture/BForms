@@ -9,11 +9,12 @@ You can chose from standard HTML inputs like
 or HTML5 flavored inputs like
 <code>Email</code>, <code>Url</code>, <code>Number</code>, <code>Time</code>, <code>Color</code>.
 </p>
-    <div class="bs-example">
+<h4 class="sub_title">Example</h4>    
+<div class="bs-example bs-img-example">
         <img src="@Url.Content("~/Content/images/docs/email-input.jpg")">
     </div>
     <h4 class="sub_title">Model</h4>
-<pre class="prettyprint lang-cs">
+<pre class="prettyprint lang-cs bs-example">
 public class LoginModel
 {
     [Required]
@@ -25,7 +26,7 @@ public class LoginModel
 }
 </pre>
     <h4 class="sub_title">View</h4>
-<pre class="prettyprint lang-cs">
+<pre class="prettyprint lang-cs bs-example">
 &lt;div class=&quot;form-group&quot;&gt;
     @@Html.BsLabelFor(m =&gt; m.Email)
     &lt;div class=&quot;input-group&quot;&gt;
@@ -36,7 +37,7 @@ public class LoginModel
 &lt;/div&gt;
 </pre>
     <h4 class="sub_title">HTML result</h4>
-<pre class="prettyprint lang-cs">
+<pre class="prettyprint lang-cs bs-example">
 &lt;div class=&quot;form-group &quot;&gt;
     &lt;div class=&quot;input-group&quot;&gt;
         &lt;span class=&quot;glyphicon glyphicon-envelope input-group-addon&quot;&gt;&lt;/span&gt;

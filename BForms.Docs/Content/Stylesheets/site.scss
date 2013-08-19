@@ -162,14 +162,18 @@ h1 {
 
 /* Aside menu*/
 
-aside {
+.bs-sidebar {
 	.bs-sidenav {
 		margin-top: 30px;
 		margin-bottom: 30px;
 		padding-top: 10px;
 		padding-bottom: 10px;
 		text-shadow: 0 1px 0 #fff;
-		background-color: #f7f5fa;		
+		background-color: #f7f5fa;
+		.active > a {
+			border-right: 2px solid $turqoise;
+			color: $turqoise;
+		}		
 	}
 	.nav li a {
 		font-weight: bold;
@@ -193,22 +197,21 @@ aside {
 	h3 {
 		font-size: 22px;
 	}
+	.sub_title {
+		font-size: 14px;
+		font-weight: bold;
+		color: $textGray;
+		text-transform: uppercase;
+		margin-top: 20px;
+	}
 	.bs-example {
 		position: relative;
-		padding: 45px 15px 15px;
+		padding: 15px;
 		background-color: #fafafa;
 		border: 1px solid $borderColor;
 		margin-bottom: -1px;
-		&:after {
-			content: "Example";
-			position: absolute;
-			top: 15px;
-			left: 15px;
-			font-size: 12px;
-			font-weight: bold;
-			color: #bbb;
-			text-transform: uppercase;
-			letter-spacing: 1px;
+		&.bs-img-example {
+			background: #fff;
 		}
 	}
 	.highlight {
