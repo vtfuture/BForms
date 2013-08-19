@@ -27,7 +27,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
                 LoginModel = new LoginModel(),
                 RegisterModel = new RegisterModel()
                 {
-                    CountriesList = Lists.AllCounties<List<string>>(),
+                    CountriesList = Lists.GetGendersBs<int?>(),
                     NotificationList = BsSelectList<NotificationTypes>.FromEnum(typeof(NotificationTypes)),
                     TechnologiesList = Lists.GetTech<List<int>>(),
                     TagList = Lists.GetLanguages<List<string>>(),
@@ -43,7 +43,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
 
         public BsJsonResult Register(AuthenticationModel model)
         {
-            ModelState.ClearModelState(model.GetPropertyName(m => m.LoginModel) + ".");
+            ModelState.ClearModelState(model.GetPropertyName(m => m.RegisterModel) + ".");
             ModelState.AddModelError("RegisterModel.EnableNotifications", "This email address is in use");
             if (ModelState.IsValid)
             {

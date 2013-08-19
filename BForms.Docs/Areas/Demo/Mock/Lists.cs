@@ -129,8 +129,18 @@ namespace BForms.Docs.Areas.Demo.Mock
         {
             var list = new List<SelectListItem>();
 
-            list.Add(new SelectListItem() { Text = "Male", Value = "0" });
-            list.Add(new SelectListItem() { Text = "Female", Value = "1" });
+            list.Add(new SelectListItem() { Text = "Male", Value = "1" });
+            list.Add(new SelectListItem() { Text = "Female", Value = "2" });
+
+            return list;
+        }
+
+        public static BsSelectList<T> GetGendersBs<T>()
+        {
+            var list = new BsSelectList<T>();
+
+            list.Items.Add(new BsSelectListItem() { Text = "Male", Value = "1" });
+            list.Items.Add(new BsSelectListItem() { Text = "Female", Value = "2" });
 
             return list;
         }

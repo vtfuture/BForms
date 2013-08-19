@@ -68,9 +68,10 @@ namespace BForms.Docs.Areas.Demo.Models
         [BsControl(BsControlType.CheckBox)]
         public bool EnableNotifications { get; set; }
 
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
         [Display(Name = "Location", Prompt = "Chose your country")]
         [BsControl(BsControlType.DropDownList)]
-        public BsSelectList<List<string>> CountriesList { get; set; }
+        public BsSelectList<int?> CountriesList { get; set; }
 
         [Display(Name = "Notifications", Description = "Your register email address will be used")]
         [BsControl(BsControlType.RadioButtonList)]
@@ -88,6 +89,7 @@ namespace BForms.Docs.Areas.Demo.Models
         [BsControl(BsControlType.Autocomplete)]
         public BsSelectList<string> AutocompleteList { get; set; }
 
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
         [Display(Name = "Gender", Prompt = "Choose your gender")]
         [BsControl(BsControlType.DropDownList)]
         public int? Gender { get; set; }

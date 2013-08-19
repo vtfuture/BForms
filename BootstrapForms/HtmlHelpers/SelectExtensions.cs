@@ -319,7 +319,7 @@ namespace BootstrapForms.HtmlHelpers
                     tagBuilder.AddCssClass(HtmlHelper.ValidationInputCssClassName);
                 }
             }
-
+            //name = name.Replace(".SelectedValues", "");
             var attributes = htmlHelper.GetUnobtrusiveValidationAttributes(name);
 
             if (name.Contains(".") && !attributes.Any())
