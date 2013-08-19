@@ -158,7 +158,6 @@ namespace BootstrapForms.HtmlHelpers
                         break;
                     case BsControlType.CheckBoxList:
                         allowMultiple = true;
-                        //TODO: Implement CheckBoxList
                         htmlSelect = BsRadioListInternal(htmlHelper, name,
                             selectList, htmlAttributes, allowMultiple, bsCssClass).ToHtmlString();
                         break;
@@ -374,14 +373,14 @@ namespace BootstrapForms.HtmlHelpers
                     });
                 }
 
-                var radio = htmlHelper.RadioButton(name, item.Value, radioHtmlAttributes).ToHtmlString();
+                var input = allowMultiple ? htmlHelper.CheckBox(name, item.Selected, radioHtmlAttributes).ToHtmlString() : htmlHelper.RadioButton(name, item.Value, radioHtmlAttributes).ToHtmlString();
 
                 // Create the html string
                 // e.g. <input data-val="true" data-val-required="You must select an option" id="TestRadio_1" name="TestRadio" type="radio" value="1" /><label for="TestRadio_1">Line1</label>
                 var innerDivTag = new TagBuilder("div");
                 innerDivTag.AddCssClass("RadioButton");
                 html.Append(innerDivTag.ToString(TagRenderMode.StartTag));
-                html.Append(radio);
+                html.Append(input);
                 html.Append(label);
                 html.Append(innerDivTag.ToString(TagRenderMode.EndTag));
             }
