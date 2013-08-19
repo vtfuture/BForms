@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace BootstrapForms.Models
@@ -74,6 +73,41 @@ namespace BootstrapForms.Models
                     Value = item.Value
                 });
             }
+            return bsList;
+        }
+
+        /// <summary>
+        /// Returns a BsSelectList from enum using the DescriptionAttribute
+        /// </summary>
+        public static BsSelectList<T> FromEnum(Type myEnum)
+        {
+            var enumType = myEnum;
+            if (!enumType.IsEnum)
+            {
+                throw new ArgumentException("E is not of type enum", "myEnum");
+            }
+
+            var bsList = new BsSelectList<T>();
+            foreach (var item in Enum.GetValues(enumType))
+            {
+                //get Description Name from resources
+                var name = Enum.GetName(enumType, item);
+                var text = enumType.GetMember(name)
+                        .First()
+                        .GetCustomAttributes(false)
+                        .OfType<DescriptionAttribute>()
+                        .LastOrDefault();
+
+                var textValue = text == null ? name : text.Description;
+
+                bsList.Items.Add(new BsSelectListItem
+                {
+                    Selected = false,
+                    Text = textValue,
+                    Value = Convert.ChangeType(item, Enum.GetUnderlyingType(myEnum)).ToString()
+                });
+            }
+
             return bsList;
         }
 

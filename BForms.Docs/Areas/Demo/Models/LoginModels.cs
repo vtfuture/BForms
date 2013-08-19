@@ -1,4 +1,5 @@
-﻿using BForms.Docs.Resources;
+﻿using BForms.Docs.Areas.Demo.Mock;
+using BForms.Docs.Resources;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -73,7 +74,7 @@ namespace BForms.Docs.Areas.Demo.Models
 
         [Display(Name = "Notifications", Description = "Your register email address will be used")]
         [BsControl(BsControlType.RadioButtonList)]
-        public BsSelectList<int?> NotificationList { get; set; }
+        public BsSelectList<NotificationTypes> NotificationList { get; set; }
 
         [Display(Name = "Technologies", Prompt = "Choose your favorite technologies")]
         [BsControl(BsControlType.ListBox)]
