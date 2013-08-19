@@ -22,6 +22,18 @@ textarea {
 .has-error .glyphicon-info-sign {
   display: none; }
 
+.form-container {
+  position: relative;
+  clear: both; }
+  .form-container.loading:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: white url(Images/preloader.gif) center center no-repeat; }
+
 /* Custom UI*/
 .custom_select {
   width: 100% !important;
@@ -111,7 +123,8 @@ textarea {
 
 /* Autocomplete */
 .twitter-typeahead {
-  display: block !important; }
+  display: block !important;
+  font-size: 14px; }
   .twitter-typeahead .tt-hint {
     padding: 8px 12px;
     height: 38px;
@@ -198,7 +211,18 @@ textarea {
   .form-group.checkbox,
   .form-group.radio {
     padding-top: 28px;
-    margin: 0 0 15px; } }
+    margin: 0 0 15px; }
+
+  .col-lg-12,
+  .col-sm-12,
+  .col-12 {
+    /* Normal distance for a single column layout */ }
+    .col-lg-12.checkbox, .col-lg-12.radio,
+    .col-sm-12.checkbox,
+    .col-sm-12.radio,
+    .col-12.checkbox,
+    .col-12.radio {
+      padding-top: 0; } }
 @media (max-width: 959px) {
   .col-12 {
     padding: 0; } }

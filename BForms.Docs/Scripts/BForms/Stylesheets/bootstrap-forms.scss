@@ -34,6 +34,20 @@ textarea {
 	display: none;
 }
 
+.form-container {
+	position: relative;
+	clear: both;
+	&.loading:after {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: #fff url(Images/preloader.gif) center center no-repeat;
+	}
+}
+
 /* Custom UI*/
 .custom_select {
 	width: 100% !important;
@@ -155,6 +169,7 @@ textarea {
 
 .twitter-typeahead {
 	display: block !important;
+	font-size: 14px;
 	.tt-hint {
 		padding: 8px 12px;
 		height: 38px;
@@ -267,6 +282,14 @@ textarea {
     .form-group.radio	{
 		padding-top: 28px;
 		margin: 0 0 15px;
+	}
+	.col-lg-12,
+	.col-sm-12,
+	.col-12 {  /* Normal distance for a single column layout */
+		&.checkbox,
+		&.radio {
+			padding-top: 0;
+		}
 	}
 
 }
