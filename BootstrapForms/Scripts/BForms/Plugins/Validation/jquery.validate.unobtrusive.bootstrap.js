@@ -41,11 +41,11 @@
     function onError(error, inputElement) {  // 'this' is the form element
         var container = $(this).find("[data-valmsg-for='" + escapeAttributeValue(inputElement[0].name) + "']"),
             replace = $.parseJSON(container.attr("data-valmsg-replace") || "null") !== false;
-        
+
         container.removeClass("field-validation-valid").addClass("field-validation-error");
         container.closest(".form-group").addClass("has-error");
         error.data("unobtrusiveContainer", container);
-        
+
         if (container.data('toggle') === 'tooltip' && typeof container.data('bs.tooltip') === 'undefined') {
             container.tooltip({ container: 'body' });
         }
@@ -207,9 +207,15 @@
                     info.attachValidation();
                 }
             });
-            
+
             //init tooltips
             $('span[data-toggle=tooltip]').tooltip({ container: 'body' });
+
+            //transform number inputs into text input (chrome only)
+            var numberValidation = $('<input type="number"></input>').val('chrome').val() == 'chrome';
+            if (!numberValidation) {
+                $('input[type="number"]').prop('type', 'text');
+            }
         }
     };
 
