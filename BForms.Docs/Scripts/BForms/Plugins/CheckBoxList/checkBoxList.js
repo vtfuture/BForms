@@ -35,6 +35,13 @@
         }
     });
 
+    $.fn.parseCheckList = function() {
+        var $elem = $(this);
+        if ($elem.hasClass('checkBoxList-done')) {
+            return new CheckBoxListParse($elem);
+        }
+    };
+
     var CheckBoxList = (function () {
         function CheckBoxList(self) {
             //#region functions
@@ -45,11 +52,13 @@
 
                 if (self.hasClass('form-control')) wrapper.addClass('form-control');
 
-                self.children().each(function (idx) {
+                self.children().each(function () {
                     var anchorText = $(this).find("label").text();
                     var childSelect = $(this).find("input[type='checkbox']");
-                    childSelect.data('value', idx);
-                    wrapper.append("<a data-value='" + idx + "' class='option'>" + anchorText + "</a>");
+                    childSelect.data('noparse', true);
+                    var value = childSelect.data('value');
+                    
+                    wrapper.append("<a data-value='" + value + "' class='option'>" + anchorText + "</a>");
                 });
                 UpdateWrapper(self, wrapper);
                 return wrapper;
@@ -131,4 +140,24 @@
         }
         return CheckBoxListUpdateSelf;
     })();
+
+    var CheckBoxListParse = (function($elem) {
+        function CheckBoxListParse(self) {
+
+            var name = self.find('input[type="checkbox"]:first').prop('name'),
+                data = { };
+
+            var $checked = self.find('input[type="checkbox"]:checked');
+            $checked.each(function(idx, elem) {
+                var $elem = $(elem);
+                if($elem.is(':checked')) {
+                    data[name + '[' + idx + ']'] = $elem.data('value');
+                }
+            });
+
+            return data;
+        }
+
+        return CheckBoxListParse($elem);
+    });
 })

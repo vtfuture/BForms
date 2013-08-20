@@ -5,6 +5,7 @@
  */
 jQuery.extend(jQuery.validator.messages, {
     required: "Acest câmp este obligatoriu.",
+    mandatory: "Acest câmp este obligatoriu",
     remote: "Te rugăm să completezi acest câmp.",
     email: "Te rugăm să introduci o adresă de mail validă",
     url: "Te rugăm sa introduci o adresă URL validă.",
