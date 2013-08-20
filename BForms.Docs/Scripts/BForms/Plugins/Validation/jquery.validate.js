@@ -222,7 +222,8 @@
             errorLabelContainer: $([]),
             onsubmit: true,
             ignore: '',
-            selectedSuffix : '.SelectedValues',
+            selectedSuffix: '.SelectedValues',
+            checklistClass: 'bs-checkbox',
             scrollToError : true,
             ignoreTitle: false,
             onfocusin: function (element, event) {
@@ -256,6 +257,11 @@
                     // or option elements, check parent select in that case
                 else if (element.parentNode.name in this.submitted) {
                     this.element(element.parentNode);
+                } else {
+                    var $elem = $(element);
+                    if($elem.hasClass(this.settings.checklistClass)) {
+                        this.element(element);
+                    }
                 }
             },
             highlight: function (element, errorClass, validClass) {
@@ -281,6 +287,7 @@
 
         messages: {
             required: "This field is required.",
+            mandatory : 'This field is mandatory.',
             remote: "Please fix this field.",
             email: "Please enter a valid email address.",
             url: "Please enter a valid URL.",

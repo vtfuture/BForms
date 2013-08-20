@@ -317,6 +317,21 @@
     adapters.addSingleVal("accept", "exts").addSingleVal("regex", "pattern");
     adapters.addBool("creditcard").addBool("date").addBool("digits").addBool("email").addBool("number").addBool("url");
     adapters.addMinMax("length", "minlength", "maxlength", "rangelength").addMinMax("range", "min", "max", "range");
+
+    jQuery.validator.addMethod('mandatory', function (value,elem) {
+        var $elem = $(elem);
+        if ($elem.prop('type') == 'checkbox') {
+            if (!$elem.prop('checked')) {
+                return false;
+            }
+        }
+
+        return true;
+    });
+
+    $.validator.unobtrusive.adapters.addBool('mandatory');
+
+
     adapters.add("equalto", ["other"], function (options) {
         var prefix = getModelPrefix(options.element.name),
             other = options.params.other,

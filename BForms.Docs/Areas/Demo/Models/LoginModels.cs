@@ -1,4 +1,5 @@
-﻿using BForms.Docs.Areas.Demo.Mock;
+﻿using System.Web.Mvc;
+using BForms.Docs.Areas.Demo.Mock;
 using BForms.Docs.Resources;
 using System;
 using System.Collections.Generic;
@@ -52,7 +53,7 @@ namespace BForms.Docs.Areas.Demo.Models
 
         [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
         [Display(Name = "PasswordRetyped")]
-        [Compare("Password")]
+        [System.ComponentModel.DataAnnotations.Compare("Password")]
         [BsControl(BsControlType.Password)]
         public string PasswordRetyped { get; set; }
 
@@ -66,10 +67,10 @@ namespace BForms.Docs.Areas.Demo.Models
         [BsControl(BsControlType.Number)]
         public decimal? AnnualIncome { get; set; }
 
-        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
+        [Mandatory(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
         [Display(Name = "EnableNotifications")]
         [BsControl(BsControlType.CheckBox)]
-        public bool EnableNotifications { get; set; }
+        public bool EnableNotifications  { get; set; }
 
         [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
         [Display(Name = "Location", Prompt = "Chose your country")]
@@ -83,7 +84,7 @@ namespace BForms.Docs.Areas.Demo.Models
 
         [Display(Name = "Technologies checkbox list", Prompt = "Choose your favorite technologies")]
         [BsControl(BsControlType.CheckBoxList)]
-        public BsSelectList<List<bool>> TechnologiesCheckboxList { get; set; }
+        public BsSelectList<List<int>> TechnologiesCheckboxList { get; set; }
 
         //[Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
         [Display(Name = "Technologies", Prompt = "Choose your favorite technologies")]
@@ -107,5 +108,27 @@ namespace BForms.Docs.Areas.Demo.Models
         public List<System.Web.Mvc.SelectListItem> GenderList { get; set; }
     }
 
+    public class MandatoryAttribute : ValidationAttribute, IClientValidatable
+    {
+
+        public override bool IsValid(object value)
+        {
+            return ((bool?)value).Value;
+        }
+
+        public override string FormatErrorMessage(string name)
+        {
+            return "The " + name + " field is mandatory.";
+        }
+
+        public IEnumerable<ModelClientValidationRule> GetClientValidationRules(ModelMetadata metadata, ControllerContext context)
+        {
+            yield return new ModelClientValidationRule
+            {
+                ErrorMessage = this.ErrorMessage,
+                ValidationType = "mandatory"
+            };
+        }
+    }
 
 }
