@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace BootstrapForms.Mvc
@@ -31,11 +28,6 @@ namespace BootstrapForms.Mvc
             }
 
             throw new ArgumentException("The object must be of type bool or nullable bool", "value");
-        }
-
-        public override string FormatErrorMessage(string name)
-        {
-            return "The " + name + " field is mandatory.";
         }
 
         public IEnumerable<ModelClientValidationRule> GetClientValidationRules(ModelMetadata metadata, ControllerContext context)
