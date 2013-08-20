@@ -75,14 +75,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Mvc\BsControlAttribute.cs" />
-    <Compile Include="HtmlHelpers\CheckBoxExtensions.cs" />
-    <Compile Include="HtmlHelpers\TagListExtensions.cs" />
-    <Compile Include="HtmlHelpers\ListBoxExtensions.cs" />
-    <Compile Include="HtmlHelpers\DropDownListExtensions.cs" />
-    <Compile Include="HtmlHelpers\PasswordExtensions.cs" />
-    <Compile Include="HtmlHelpers\RadioButtonExtensions.cs" />
-    <Compile Include="HtmlHelpers\TextAreaExtensions.cs" />
-    <Compile Include="HtmlHelpers\TextBoxExtensions.cs" />
+    <Compile Include="Html\CheckBoxExtensions.cs" />
+    <Compile Include="Html\TagListExtensions.cs" />
+    <Compile Include="Html\ListBoxExtensions.cs" />
+    <Compile Include="Html\DropDownListExtensions.cs" />
+    <Compile Include="Html\PasswordExtensions.cs" />
+    <Compile Include="Html\RadioButtonExtensions.cs" />
+    <Compile Include="Html\TextAreaExtensions.cs" />
+    <Compile Include="Html\TextBoxExtensions.cs" />
     <Compile Include="Models\BsControlType.cs" />
     <Compile Include="Models\BsJsonResult.cs" />
     <Compile Include="Models\BsResponseStatus.cs" />
@@ -91,17 +91,17 @@
     <Compile Include="Mvc\BsMandatoryAttribute.cs" />
     <Compile Include="Mvc\BsModelValidatorProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="HtmlHelpers\GlyphiconExtensions.cs" />
-    <Compile Include="HtmlHelpers\HtmlExtensions.cs" />
-    <Compile Include="HtmlHelpers\InputExtensions.cs" />
-    <Compile Include="HtmlHelpers\LabelExtensions.cs" />
-    <Compile Include="HtmlHelpers\SelectExtensions.cs" />
-    <Compile Include="HtmlHelpers\TooltipExtensions.cs" />
-    <Compile Include="HtmlHelpers\ValidationExtensions.cs" />
+    <Compile Include="Html\GlyphiconExtensions.cs" />
+    <Compile Include="Html\HtmlExtensions.cs" />
+    <Compile Include="Html\InputExtensions.cs" />
+    <Compile Include="Html\LabelExtensions.cs" />
+    <Compile Include="Html\SelectExtensions.cs" />
+    <Compile Include="Html\TooltipExtensions.cs" />
+    <Compile Include="Html\ValidationExtensions.cs" />
     <Compile Include="Utilities\ActionResultHelpers.cs" />
-    <Compile Include="Utilities\ModelStateHelpers.cs" />
+    <Compile Include="Mvc\ModelStateExtensions.cs" />
     <Compile Include="Utilities\ReflectionHelpers.cs" />
-    <Compile Include="Utilities\Renders.cs" />
+    <Compile Include="Mvc\RenderViewHelpers.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

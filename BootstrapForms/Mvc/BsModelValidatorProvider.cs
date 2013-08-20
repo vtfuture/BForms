@@ -17,6 +17,9 @@ namespace BootstrapForms.Mvc
     /// </summary>
     public class BsModelValidatorProvider : ModelValidatorProvider
     {
+        /// <summary>
+        /// Custom validation for BsSelectList&lt;T&gt;
+        /// </summary>
         public override IEnumerable<ModelValidator> GetValidators(ModelMetadata metadata, ControllerContext context)
         {
             var res = new List<ModelValidator>();
@@ -25,24 +28,23 @@ namespace BootstrapForms.Mvc
                 return res;
             }
 
-            //find BsSelectList fields
             if (metadata.ModelType.IsSubclassOfRawGeneric(typeof(BsSelectList<>)))
             {
                 var selectedValuesMetadata = metadata.Properties.Where(r => r.PropertyName == "SelectedValues").FirstOrDefault();
-                var myPropInfo = metadata.ContainerType.GetProperties().Where(r => r.Name == metadata.PropertyName).FirstOrDefault();
+                var propertyInfo = metadata.ContainerType.GetProperties().Where(r => r.Name == metadata.PropertyName).FirstOrDefault();
 
-                if (myPropInfo == null)
+                if (propertyInfo == null)
                 {
                     return res;
                 }
 
-                //get validation attribute from parent
+                //get validation attributes for parent
                 var attributes =
-                    myPropInfo.GetCustomAttributes(true)
+                    propertyInfo.GetCustomAttributes(true)
                         .Where(r => r is ValidationAttribute)
                         .ToList();
 
-                //copy validation meta to parent from SelectedValues child
+                //copy validation meta to parent from SelectedValues
                 foreach (var attribute in attributes)
                 {
                     res.Add(new DataAnnotationsModelValidator(selectedValuesMetadata, context, attribute as ValidationAttribute));

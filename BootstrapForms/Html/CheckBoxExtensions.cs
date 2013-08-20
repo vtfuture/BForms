@@ -9,104 +9,104 @@ using System.Web.Mvc.Html;
 using BootstrapForms.Models;
 using BootstrapForms.Utilities;
 
-namespace BootstrapForms.HtmlHelpers
+namespace BootstrapForms.Html
 {
     /// <summary>
-    /// Represents a radio button input element that is used to present mutually exclusive options
+    /// Represents a check box input element
     /// </summary>
-    public static class RadioButtonExtensions
+    public static class CheckBoxExtensions
     {
-        #region RadioButton
+        #region CheckBox
         /// <summary>
         /// Returns a checkbox input element wrapped in a label element
         /// </summary>
-        public static MvcHtmlString BsRadioButton(this HtmlHelper htmlHelper, string name)
+        public static MvcHtmlString BsCheckBox(this HtmlHelper htmlHelper, string name)
         {
-            return BsRadioButton(htmlHelper, name, htmlAttributes: (object)null);
+            return BsCheckBox(htmlHelper, name, htmlAttributes: (object)null);
         }
 
         /// <summary>
         /// Returns a checkbox input element wrapped in a label element
         /// </summary>
-        public static MvcHtmlString BsRadioButton(this HtmlHelper htmlHelper, string name, bool isChecked)
+        public static MvcHtmlString BsCheckBox(this HtmlHelper htmlHelper, string name, bool isChecked)
         {
-            return BsRadioButton(htmlHelper, name, isChecked, htmlAttributes: (object)null);
+            return BsCheckBox(htmlHelper, name, isChecked, htmlAttributes: (object)null);
         }
 
         /// <summary>
         /// Returns a checkbox input element wrapped in a label element
         /// </summary>
-        public static MvcHtmlString BsRadioButton(this HtmlHelper htmlHelper, string name, bool isChecked,
+        public static MvcHtmlString BsCheckBox(this HtmlHelper htmlHelper, string name, bool isChecked,
             object htmlAttributes)
         {
-            return BsRadioButton(htmlHelper, name, isChecked, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+            return BsCheckBox(htmlHelper, name, isChecked, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
         }
 
         /// <summary>
         /// Returns a checkbox input element wrapped in a label element
         /// </summary>
-        public static MvcHtmlString BsRadioButton(this HtmlHelper htmlHelper, string name, object htmlAttributes)
+        public static MvcHtmlString BsCheckBox(this HtmlHelper htmlHelper, string name, object htmlAttributes)
         {
-            return BsRadioButton(htmlHelper, name, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+            return BsCheckBox(htmlHelper, name, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
         }
 
         /// <summary>
         /// Returns a checkbox input element wrapped in a label element
         /// </summary>
-        public static MvcHtmlString BsRadioButton(this HtmlHelper htmlHelper, string name,
+        public static MvcHtmlString BsCheckBox(this HtmlHelper htmlHelper, string name,
             IDictionary<string, object> htmlAttributes)
         {
-            return BsRadioButton(htmlHelper, name: name, isChecked: false, htmlAttributes: htmlAttributes);
+            return BsCheckBox(htmlHelper, name: name, isChecked: false, htmlAttributes: htmlAttributes);
         }
 
         /// <summary>
         /// Returns a checkbox input element wrapped in a label element
         /// </summary>
-        public static MvcHtmlString BsRadioButton(this HtmlHelper htmlHelper, string name, bool isChecked,
+        public static MvcHtmlString BsCheckBox(this HtmlHelper htmlHelper, string name, bool isChecked,
             IDictionary<string, object> htmlAttributes)
         {
             //add bootstrap attributes
-            htmlAttributes.ApplyRadioButtonAttributes();
+            htmlAttributes.ApplyCheckBoxAttributes();
 
-            return htmlHelper.RadioButtonInternal(name, isChecked, htmlAttributes);
+            return htmlHelper.CheckBoxInternal(name, isChecked, htmlAttributes);
         }
 
         #endregion
 
-        #region RadioButtonFor
+        #region CheckBoxFor
         /// <summary>
         /// Returns a checkbox input element wrapped in a label element
         /// </summary>
-        public static MvcHtmlString BsRadioButtonFor<TModel>(this HtmlHelper<TModel> htmlHelper,
+        public static MvcHtmlString BsCheckBoxFor<TModel>(this HtmlHelper<TModel> htmlHelper,
             Expression<Func<TModel, bool>> expression)
         {
-            return BsRadioButtonFor(htmlHelper, expression, (object)null);
+            return BsCheckBoxFor(htmlHelper, expression, (object)null);
         }
 
         /// <summary>
         /// Returns a checkbox input element wrapped in a label element
         /// </summary>
-        public static MvcHtmlString BsRadioButtonFor<TModel>(this HtmlHelper<TModel> htmlHelper,
+        public static MvcHtmlString BsCheckBoxFor<TModel>(this HtmlHelper<TModel> htmlHelper,
             Expression<Func<TModel, bool>> expression, object htmlAttributes)
         {
-            return BsRadioButtonFor(htmlHelper, expression, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+            return BsCheckBoxFor(htmlHelper, expression, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
         }
 
         /// <summary>
         /// Returns a checkbox input element wrapped in a label element
         /// </summary>
-        public static MvcHtmlString BsRadioButtonFor<TModel>(this HtmlHelper<TModel> htmlHelper,
+        public static MvcHtmlString BsCheckBoxFor<TModel>(this HtmlHelper<TModel> htmlHelper,
             Expression<Func<TModel, bool>> expression, IDictionary<string, object> htmlAttributes)
         {
             //add bootstrap attributes
-            htmlAttributes.ApplyRadioButtonAttributes();
+            htmlAttributes.ApplyCheckBoxAttributes();
 
-            return htmlHelper.RadioButtonForInternal(expression, htmlAttributes);
+            return htmlHelper.CheckBoxForInternal(expression, htmlAttributes);
         }
         #endregion
 
         #region Helpers
-        internal static MvcHtmlString RadioButtonInternal(this HtmlHelper htmlHelper, string name, bool isChecked,
+        internal static MvcHtmlString CheckBoxInternal(this HtmlHelper htmlHelper, string name, bool isChecked,
             IDictionary<string, object> htmlAttributes)
         {
             var metadata = ModelMetadata.FromStringExpression(name, htmlHelper.ViewData);
@@ -116,7 +116,7 @@ namespace BootstrapForms.HtmlHelpers
             var labelTag = new TagBuilder("label");
             var labelHtml = new StringBuilder(labelTag.ToString(TagRenderMode.StartTag));
 
-            labelHtml.Append(htmlHelper.RadioButton(name, isChecked, htmlAttributes));
+            labelHtml.Append(htmlHelper.CheckBox(name, isChecked, htmlAttributes));
 
             labelHtml.AppendLine(labelText);
             labelHtml.AppendLine(labelTag.ToString(TagRenderMode.EndTag));
@@ -124,7 +124,7 @@ namespace BootstrapForms.HtmlHelpers
             return MvcHtmlString.Create(labelHtml.ToString());
         }
 
-        internal static MvcHtmlString RadioButtonForInternal<TModel>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, bool>> expression,
+        internal static MvcHtmlString CheckBoxForInternal<TModel>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, bool>> expression,
             IDictionary<string, object> htmlAttributes)
         {
             var metadata = ModelMetadata.FromLambdaExpression(expression, htmlHelper.ViewData);
@@ -134,7 +134,7 @@ namespace BootstrapForms.HtmlHelpers
             var labelTag = new TagBuilder("label");
             var labelHtml = new StringBuilder(labelTag.ToString(TagRenderMode.StartTag));
 
-            labelHtml.Append(htmlHelper.RadioButtonFor(expression, htmlAttributes));
+            labelHtml.Append(htmlHelper.CheckBoxFor(expression, htmlAttributes));
 
             labelHtml.AppendLine(labelText);
             labelHtml.AppendLine(labelTag.ToString(TagRenderMode.EndTag));
@@ -142,11 +142,11 @@ namespace BootstrapForms.HtmlHelpers
             return MvcHtmlString.Create(labelHtml.ToString());
         }
 
-        internal static void ApplyRadioButtonAttributes(this IDictionary<string, object> htmlAttributes)
+        internal static void ApplyCheckBoxAttributes(this IDictionary<string, object> htmlAttributes)
         {
             //add bootstrap css
             //htmlAttributes.MergeAttribute("class", "form-control");
-            htmlAttributes.MergeAttribute("class", BsControlType.RadioButton.GetDescription());
+            htmlAttributes.MergeAttribute("class", BsControlType.CheckBox.GetDescription());
         }
         #endregion
     }

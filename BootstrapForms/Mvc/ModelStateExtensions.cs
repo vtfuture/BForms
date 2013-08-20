@@ -6,9 +6,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
-namespace BootstrapForms.Utilities
+namespace BootstrapForms.Mvc
 {
-    public static class ModelStateHelpers
+    /// <summary>
+    /// MVC ModelState helpers 
+    /// </summary>
+    public static class ModelStateExtensions
     {
         public static Dictionary<string, string> GetErrors(this ModelStateDictionary modelState, string replaceWith = ".")
         {
@@ -21,6 +24,9 @@ namespace BootstrapForms.Utilities
             return errorDictionary;
         }
 
+        /// <summary>
+        /// Removes model state errors except for the specified filed
+        /// </summary>
         public static void ClearModelState(this ModelStateDictionary ms, string propName)
         {
             foreach (var key in ms.Keys.ToList().Where(key => key.IndexOf(propName, System.StringComparison.Ordinal) == -1))
@@ -29,6 +35,9 @@ namespace BootstrapForms.Utilities
             }
         }
 
+        /// <summary>
+        /// Removes model state errors except for the specified fileds
+        /// </summary>
         public static void ClearModelState(this ModelStateDictionary ms, List<string> props)
         {
             foreach (var key in ms.Keys.ToList())

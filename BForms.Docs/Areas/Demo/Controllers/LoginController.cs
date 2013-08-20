@@ -5,9 +5,10 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using System.ComponentModel.DataAnnotations;
-using BForms.Docs.Areas.Demo.Mock;
 using BootstrapForms.Models;
+using BootstrapForms.Mvc;
 using BootstrapForms.Utilities;
+using BForms.Docs.Areas.Demo.Mock;
 using BForms.Docs.Areas.Demo.Models;
 using BForms.Docs.Areas.Demo.Helpers;
 using BForms.Docs.Controllers;
@@ -30,8 +31,8 @@ namespace BForms.Docs.Areas.Demo.Controllers
                     NotificationList = BsSelectList<NotificationTypes?>.FromEnum(typeof(NotificationTypes)),
                     TechnologiesList = Lists.AllTech<List<int>>(),
                     TechnologiesCheckboxList =  Lists.AllTech<List<int>>(),
-                    TagList = Lists.AllLanguages<List<string>>(),
-                    AutocompleteList = Lists.AllCounties<string>(),
+                    LanguagesList = Lists.AllLanguages<List<string>>(),
+                    IdeList = Lists.AllIde<string>(),
                     GenderList = Lists.AllGenders<int>().ToSelectList().ToList()
                 }
             };

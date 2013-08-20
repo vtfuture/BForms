@@ -9,7 +9,7 @@ using System.Web.Mvc.Html;
 using BootstrapForms.Models;
 using BootstrapForms.Utilities;
 
-namespace BootstrapForms.HtmlHelpers
+namespace BootstrapForms.Html
 {
     /// <summary>
     /// Represents bootstrap v3 support for password input control

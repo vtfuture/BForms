@@ -12,7 +12,7 @@ using BootstrapForms.Mvc;
 using BootstrapForms.Utilities;
 using BootstrapForms.Models;
 
-namespace BootstrapForms.HtmlHelpers
+namespace BootstrapForms.Html
 {
     /// <summary>
     /// Represents support for making selections in a list

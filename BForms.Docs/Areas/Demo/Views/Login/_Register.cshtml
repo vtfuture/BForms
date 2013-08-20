@@ -1,4 +1,4 @@
-@using BootstrapForms.HtmlHelpers
+@using BootstrapForms.Html
 @using BootstrapForms.Models
 @model BForms.Docs.Areas.Demo.Models.RegisterModel
 
@@ -88,18 +88,18 @@
         </div>
 
         <div class="col-12 col-sm-6 col-lg-6 form-group">
-            @Html.BsLabelFor(m => m.TagList)
+            @Html.BsLabelFor(m => m.LanguagesList)
             <div class="input-group">
-                @Html.BsSelectFor(m => m.TagList)
-                @Html.BsValidationFor(m => m.TagList)
+                @Html.BsSelectFor(m => m.LanguagesList)
+                @Html.BsValidationFor(m => m.LanguagesList)
             </div>
         </div>
 
         <div class="col-12 col-sm-6 col-lg-6 form-group">
-            @Html.BsLabelFor(m => m.AutocompleteList)
+            @Html.BsLabelFor(m => m.IdeList)
             <div class="input-group">
-                @Html.BsSelectFor(m => m.AutocompleteList)
-                @Html.BsValidationFor(m => m.AutocompleteList)
+                @Html.BsSelectFor(m => m.IdeList)
+                @Html.BsValidationFor(m => m.IdeList)
             </div>
         </div>
 
@@ -121,8 +121,8 @@
         </div>
 
         <div class="col-12 col-sm-6 col-lg-6 form-group checkbox">
-            @Html.BsInputFor(m => m.EnableNotifications)
-            @Html.BsValidationFor(m => m.EnableNotifications)
+            @Html.BsInputFor(m => m.ConsentAgreement)
+            @Html.BsValidationFor(m => m.ConsentAgreement)
         </div>
 
         <div class="col-12 col-sm-12 col-lg-12">

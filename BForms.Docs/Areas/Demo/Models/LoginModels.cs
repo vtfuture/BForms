@@ -34,12 +34,12 @@ namespace BForms.Docs.Areas.Demo.Models
     public class RegisterModel
     {
         [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
-        [Display(Name = "Name")]
+        [Display(Name = "Name", Prompt = "Surname & Name")]
         [BsControl(BsControlType.TextBox)]
         public string Name { get; set; }
 
         [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
-        [Display(Name = "Email")]
+        [Display(Name = "Email address", Prompt = "email@example.com")]
         [BsControl(BsControlType.Email)]
         public string Email { get; set; }
 
@@ -49,7 +49,7 @@ namespace BForms.Docs.Areas.Demo.Models
         public string Password { get; set; }
 
         [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
-        [Display(Name = "PasswordRetyped")]
+        [Display(Name = "Retype password")]
         [System.ComponentModel.DataAnnotations.Compare("Password")]
         [BsControl(BsControlType.Password)]
         public string PasswordRetyped { get; set; }
@@ -60,14 +60,9 @@ namespace BForms.Docs.Areas.Demo.Models
         public DateTime? Birthday { get; set; }
 
         [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
-        [Display(Name = "AnnualIncome")]
+        [Display(Name = "Annual income")]
         [BsControl(BsControlType.Number)]
         public decimal? AnnualIncome { get; set; }
-
-        [BsMandatory(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
-        [Display(Name = "EnableNotifications")]
-        [BsControl(BsControlType.CheckBox)]
-        public bool EnableNotifications  { get; set; }
 
         [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
         [Display(Name = "Location", Prompt = "Chose your country")]
@@ -75,7 +70,7 @@ namespace BForms.Docs.Areas.Demo.Models
         public BsSelectList<string> CountriesList { get; set; }
 
         [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
-        [Display(Name = "Notifications", Description = "Your register email address will be used")]
+        [Display(Name = "Receive email notifications", Description = "Your register email address will be used")]
         [BsControl(BsControlType.RadioButtonList)]
         public BsSelectList<NotificationTypes?> NotificationList { get; set; }
 
@@ -89,20 +84,25 @@ namespace BForms.Docs.Areas.Demo.Models
         public BsSelectList<List<int>> TechnologiesList { get; set; }
 
         [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
-        [Display(Name = "Tags", Prompt = "Type your favorite programming languages")]
+        [Display(Name = "Programming languages", Prompt = "Type your favorite programming languages")]
         [BsControl(BsControlType.TagList)]
-        public BsSelectList<List<string>> TagList { get; set; }
+        public BsSelectList<List<string>> LanguagesList { get; set; }
 
         [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
-        [Display(Name = "Autocomplete", Prompt = "Type your favorite programming languages")]
+        [Display(Name = "Programming IDE", Prompt = "Type your favorite IDE")]
         [BsControl(BsControlType.Autocomplete)]
-        public BsSelectList<string> AutocompleteList { get; set; }
+        public BsSelectList<string> IdeList { get; set; }
 
         [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
         [Display(Name = "Gender", Prompt = "Choose your gender")]
         [BsControl(BsControlType.DropDownList)]
         public int? Gender { get; set; }
         public List<System.Web.Mvc.SelectListItem> GenderList { get; set; }
+
+        [BsMandatory(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
+        [Display(Name = "I agree with Terms & Conditions")]
+        [BsControl(BsControlType.CheckBox)]
+        public bool ConsentAgreement { get; set; }
     }
 
 }

@@ -83,7 +83,29 @@ namespace BForms.Docs.Areas.Demo.Mock
             list.Items.Add(new BsSelectListItem() { Text = "C++", Value = "3" });
             list.Items.Add(new BsSelectListItem() { Text = "Objective-C", Value = "4" });
             list.Items.Add(new BsSelectListItem() { Text = "Javascript", Value = "5" });
-            list.Items.Add(new BsSelectListItem() { Text = "F#", Value = "6" });
+            list.Items.Add(new BsSelectListItem() { Text = "Fortran", Value = "6" });
+            list.Items.Add(new BsSelectListItem() { Text = "Ruby", Value = "7" });
+            list.Items.Add(new BsSelectListItem() { Text = "PHP", Value = "8" });
+            list.Items.Add(new BsSelectListItem() { Text = "Python", Value = "9" });
+            list.Items.Add(new BsSelectListItem() { Text = "Scala", Value = "10" });
+            list.Items.Add(new BsSelectListItem() { Text = "Ada", Value = "11" });
+            list.Items.Add(new BsSelectListItem() { Text = "ActionScript", Value = "12" });
+            list.Items.Add(new BsSelectListItem() { Text = "Visual Basic", Value = "13" });
+
+            return list;
+        }
+
+        public static BsSelectList<T> AllIde<T>()
+        {
+            var list = new BsSelectList<T>();
+
+            list.Items.Add(new BsSelectListItem() { Text = "Visual Studio", Value = "1" });
+            list.Items.Add(new BsSelectListItem() { Text = "IntelliJ IDEA", Value = "2" });
+            list.Items.Add(new BsSelectListItem() { Text = "Eclipse", Value = "3" });
+            list.Items.Add(new BsSelectListItem() { Text = "Xcode", Value = "4" });
+            list.Items.Add(new BsSelectListItem() { Text = "MonoDevelop", Value = "5" });
+            list.Items.Add(new BsSelectListItem() { Text = "NetBeans", Value = "6" });
+            list.Items.Add(new BsSelectListItem() { Text = "Anjuta", Value = "7" });
 
             return list;
         }
