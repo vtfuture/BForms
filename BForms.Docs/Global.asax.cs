@@ -22,7 +22,7 @@ namespace BForms.Docs
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            //ModelValidatorProviders.Providers.Add(new CustomModelValidatorProvider());
+            ModelValidatorProviders.Providers.Add(new CustomModelValidatorProvider());
             //ModelMetadataProviders.Current = new CustomMetadataProvider();
         }
     }

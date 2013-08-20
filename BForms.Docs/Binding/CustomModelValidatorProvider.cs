@@ -28,24 +28,21 @@ namespace BForms.Docs.Binding
             }
             if(metadata.ModelType.IsSubclassOfRawGeneric(typeof(BsSelectList<>)))
             {
-                var a = 5;
-            }
-            if (metadata.ContainerType.IsSubclassOfRawGeneric(typeof(BsSelectList<>)) 
-                && metadata.PropertyName == "SelectedValues")
-            {
-                var parentAttributes =
-                    metadata.ContainerType.GetCustomAttributes(true)
-                        .Where(r => r.GetType().IsAssignableFrom(typeof(ValidationAttribute)))
-                        .ToList();
-                var parentMetadata =
-                    System.Web.Mvc.ModelMetadataProviders.Current.GetMetadataForProperties(context.Controller.ViewData.Model,
-                        metadata.ContainerType);
-                foreach (var parentAttribute in parentAttributes)
+                var selectedValuesMetadata = metadata.Properties.Where(r => r.PropertyName == "SelectedValues").FirstOrDefault();
+                var myPropInfo = metadata.ContainerType.GetProperties().Where(r => r.Name == metadata.PropertyName).FirstOrDefault();
+                if (myPropInfo == null)
                 {
-                    res.Add(new DataAnnotationsModelValidator(metadata, context, parentAttribute as ValidationAttribute));
+                    return res;
+                }
+                var attributes =
+                    myPropInfo.GetCustomAttributes(true)
+                        .Where(r => r is ValidationAttribute)
+                        .ToList();
+                foreach (var attribute in attributes)
+                {
+                    res.Add(new DataAnnotationsModelValidator(selectedValuesMetadata, context, attribute as ValidationAttribute));
                 }
             }
-
             return res;
         }
     }
