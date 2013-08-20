@@ -47,8 +47,8 @@
         $.validator.unobtrusive.parse(this.$registerForm);
         var validatedForm = this.$registerForm.validate();
 
-       // if (this.$registerForm.valid()) {
-            
+        if (this.$registerForm.valid()) {
+
             var registerData = this.$registerForm.parseForm();
 
             $.ajax({
@@ -64,7 +64,7 @@
 
                 }
             }, this));
-        //}
+        }
     };
 
     $(document).ready(function () {
