@@ -19,7 +19,8 @@ textarea {
 .field-validation-valid {
   display: none; }
 
-.input-validation-error .select2-choice {
+.input-validation-error .select2-choice,
+.has-error .select2-choices {
   border-color: #b94a48 !important; }
 
 .has-error .glyphicon-info-sign {
@@ -28,6 +29,8 @@ textarea {
 .form-container {
   position: relative;
   clear: both; }
+  .form-container.loading .form-group {
+    height: 66px; }
   .form-container.loading:after {
     content: "";
     position: absolute;
@@ -94,10 +97,13 @@ textarea {
 .custom_select-multi .select2-choices {
   min-height: 38px;
   background-image: none; }
-  .custom_select-multi .select2-choices .select2-search-field input {
-    font-family: Calibri, "Helvetica Neue", Helvetica, Arial, sans-serif;
-    margin-top: 3px;
-    padding: 5px 8px; }
+  .custom_select-multi .select2-choices .select2-search-field {
+    width: 100%; }
+    .custom_select-multi .select2-choices .select2-search-field input {
+      font-family: Calibri, "Helvetica Neue", Helvetica, Arial, sans-serif;
+      margin-top: 3px;
+      padding: 5px 8px;
+      width: 100% !important; }
   .custom_select-multi .select2-choices .select2-search-choice {
     background: #fff;
     background-image: none;
@@ -117,7 +123,7 @@ textarea {
 
 .checkbox_replace .option {
   float: left;
-  height: 37px;
+  height: 36px;
   padding: 0 8px;
   line-height: 37px;
   border: 1px solid #ccc;

@@ -30,7 +30,8 @@ textarea {
 .field-validation-valid {
 	display: none;
 }
-.input-validation-error .select2-choice {
+.input-validation-error .select2-choice, 
+.has-error .select2-choices {
 	border-color: #b94a48!important;
 }
 .has-error .glyphicon-info-sign {
@@ -40,14 +41,19 @@ textarea {
 .form-container {
 	position: relative;
 	clear: both;
-	&.loading:after {
-		content: "";
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		background: #fff url(Images/preloader.gif) center center no-repeat;
+	&.loading {
+		.form-group {
+			height: 66px;
+		}
+		&:after {
+			content: "";
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: #fff url(Images/preloader.gif) center center no-repeat;
+		}
 	}
 }
 
@@ -123,11 +129,16 @@ textarea {
 	.select2-choices {
 		min-height: 38px;
 		background-image: none;
-		.select2-search-field input {
-			font-family: Calibri, "Helvetica Neue", Helvetica, Arial, sans-serif;
-			margin-top: 3px;
-			padding: 5px 8px;
+		.select2-search-field {
+			width: 100%;
+			input {
+				font-family: Calibri, "Helvetica Neue", Helvetica, Arial, sans-serif;
+				margin-top: 3px;
+				padding: 5px 8px;
+				width: 100% !important;
+			}
 		}
+		
 		.select2-search-choice {
 			background: #fff;
 			background-image: none;
@@ -156,7 +167,7 @@ textarea {
 .checkbox_replace {
 	.option {
 		float: left;
-		height: 37px;
+		height: 36px;
 		padding: 0 8px;
 		line-height: 37px;
 		border: 1px solid #ccc;
@@ -289,7 +300,7 @@ textarea {
 			padding-top: 6px;
 			height: 38px;
 		}
-		&.has-error {
+		&.has-error {			
 			label {
 				border: 1px solid #b94a48;
 			}
