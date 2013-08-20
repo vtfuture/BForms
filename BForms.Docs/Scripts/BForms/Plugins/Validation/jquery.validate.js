@@ -222,6 +222,7 @@
             errorLabelContainer: $([]),
             onsubmit: true,
             ignore: '',
+            selectedSuffix : '.SelectedValues',
             scrollToError : true,
             ignoreTitle: false,
             onfocusin: function (element, event) {
@@ -340,7 +341,7 @@
                         "[type='week'], [type='time'], [type='datetime-local'], " +
                         "[type='range'], [type='color'] ",
                         "focusin focusout keyup", delegate)
-                    .validateDelegate("[type='radio'], [type='checkbox'], select, option", "click", delegate);
+                    .validateDelegate("[type='radio'], [type='checkbox'], select, option", "click customchange", delegate);
 
                 if (this.settings.invalidHandler) {
                     $(this.currentForm).bind("invalid-form.validate", this.settings.invalidHandler);
@@ -756,7 +757,11 @@
             },
 
             findByName: function (name) {
-                return $(this.currentForm).find("[name='" + name + "']");
+                var $elem = $(this.currentForm).find("[name='" + name + "']");
+                if ($elem.length === 0) {
+                    $elem = $(this.currentForm).find("[name='" + name + this.settings.selectedSuffix +  "']");
+                }
+                return $elem;
             },
 
             getLength: function (value, element) {

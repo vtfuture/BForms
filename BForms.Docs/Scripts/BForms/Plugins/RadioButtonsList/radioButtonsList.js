@@ -132,6 +132,10 @@
                 
                 if ($current.val() == value)
                     self.data('value', value);
+
+                if(typeof $current.valid === "function") {
+                    $current.valid();
+                }
                 
             });
             self.trigger("change");

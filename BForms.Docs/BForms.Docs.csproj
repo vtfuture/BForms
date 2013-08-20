@@ -156,6 +156,7 @@
     <Content Include="Scripts\BForms\Components\jQuery\jquery-migrate.js" />
     <Content Include="Scripts\BForms\Components\Respond\respond.js" />
     <Content Include="Scripts\BForms\Plugins\BForms-jquery\BForms-jquery.js" />
+    <Content Include="Scripts\BForms\Plugins\CheckBoxList\checkBoxList.js" />
     <Content Include="Scripts\BForms\Plugins\Datepicker\css\datepicker.css" />
     <Content Include="Scripts\BForms\Plugins\Datepicker\js\bootstrap-datepicker.js" />
     <Content Include="Scripts\BForms\Plugins\Datepicker\js\i18n\bootstrap-datepicker.ro.js" />

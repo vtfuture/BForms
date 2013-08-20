@@ -46,11 +46,18 @@
         $input.prop('value', this._selectSettings.selectedValues);
 
         $input.data(this.$elem.data());
-
+      
         this.$elem.prop('id', 'tag_' + $input.prop('id'));
         this.$elem.prop('name', 'tag_' + $input.prop('name'));
 
         this.$input = $input;
+
+        this.$input.on('change', function() {
+            if (typeof $(this).valid === "function") {
+                $(this).valid();
+            }
+        });
+
         this.$elem.before(this.$input);
         this.$elem.hide();
     };

@@ -5,7 +5,8 @@
         'radioButtonsList',
         'bootstrap-datepicker',
         'selectInput2',
-        'typeaheadSelect'], factory);
+        'typeaheadSelect',
+        'checkBoxList'], factory);
     } else {
         factory(window.jQuery);
     }
@@ -21,6 +22,9 @@
 
         radioButtons: true,
         radioButtonsSelector: '.bs-radio-list',
+        
+        checkBoxList: true,
+        checkBoxListSelector : '.bs-checkbox-list',
 
         tagList: true,
         tagListSelector: '.bs-tag-list',
@@ -62,6 +66,14 @@
                     this.$elem.find(this.options.radioButtonsSelector).radioButtonsList();
                 } else {
                     throw "radioButtonsList script must be loaded before calling styleInputs";
+                }
+            }
+            
+            if (this.options.checkBoxList === true) {
+                if (typeof $.fn.checkBoxList === "function") {
+                    this.$elem.find(this.options.checkBoxListSelector).checkBoxList();
+                } else {
+                    throw "CheckBoxList script must be loaded before calling styleInputs";
                 }
             }
 
@@ -115,11 +127,16 @@
 
 
             //remove loading
-            if(this.$elem.hasClass(this.options.loadingClass)) {
-                this.$elem.removeClass(this.options.loadingClass);
-            }else {
-                this.$elem.find(this.options.loadingSelector).removeClass(this.options.loadingClass);
-            }
+            var timeoutHandler = window.setTimeout($.proxy(function () {
+                
+                if (this.$elem.hasClass(this.options.loadingClass)) {
+                    this.$elem.removeClass(this.options.loadingClass);
+                } else {
+                    this.$elem.find(this.options.loadingSelector).removeClass(this.options.loadingClass);
+                }
+
+                window.clearTimeout(timeoutHandler);
+            }, this), 0);
         };
 
         return StyleInputs;
