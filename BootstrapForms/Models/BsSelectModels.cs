@@ -45,6 +45,10 @@ namespace BootstrapForms.Models
             Items = new List<BsSelectListItem>();
         }
 
+        /// <summary>
+        /// Returns all select list items as IEnumerable
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<SelectListItem> ToSelectList()
         {
             var list = new List<SelectListItem>();
@@ -61,7 +65,10 @@ namespace BootstrapForms.Models
             return list;
         }
 
-        public static BsSelectList<T> FromSelectList(List<SelectListItem> list)
+        /// <summary>
+        /// Returns a BsSelectList from 
+        /// </summary>
+        public static BsSelectList<T> FromSelectList(IEnumerable<SelectListItem> list)
         {
             var bsList = new BsSelectList<T>();
             foreach (var item in list)

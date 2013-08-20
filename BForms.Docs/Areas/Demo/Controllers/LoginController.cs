@@ -27,12 +27,12 @@ namespace BForms.Docs.Areas.Demo.Controllers
                 LoginModel = new LoginModel(),
                 RegisterModel = new RegisterModel()
                 {
-                    CountriesList = Lists.GetGendersBs<int?>(),
+                    CountriesList = Lists.AllCounties<string>(),
                     NotificationList = BsSelectList<NotificationTypes>.FromEnum(typeof(NotificationTypes)),
-                    TechnologiesList = Lists.GetTech<List<int>>(),
-                    TagList = Lists.GetLanguages<List<string>>(),
-                    AutocompleteList = Lists.GetLanguages<string>(),
-                    GenderList = Lists.GetGenders()
+                    TechnologiesList = Lists.AllTech<List<int>>(),
+                    TagList = Lists.AllLanguages<List<string>>(),
+                    AutocompleteList = Lists.AllCounties<string>(),
+                    GenderList = Lists.AllGenders<int>().ToSelectList().ToList()
                 }
             };
 

@@ -381,7 +381,7 @@ namespace BootstrapForms.HtmlHelpers
                 // Create the html string
                 // e.g. <input data-val="true" data-val-required="You must select an option" id="TestRadio_1" name="TestRadio" type="radio" value="1" /><label for="TestRadio_1">Line1</label>
                 var innerDivTag = new TagBuilder("div");
-                innerDivTag.AddCssClass("RadioButton");
+                //innerDivTag.AddCssClass("RadioButton");
                 html.Append(innerDivTag.ToString(TagRenderMode.StartTag));
                 html.Append(input);
                 html.Append(label);

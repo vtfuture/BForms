@@ -74,7 +74,7 @@ namespace BForms.Docs.Areas.Demo.Models
         [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
         [Display(Name = "Location", Prompt = "Chose your country")]
         [BsControl(BsControlType.DropDownList)]
-        public BsSelectList<int?> CountriesList { get; set; }
+        public BsSelectList<string> CountriesList { get; set; }
 
         [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
         [Display(Name = "Notifications", Description = "Your register email address will be used")]
