@@ -7,6 +7,8 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 
+using BForms.Docs.Binding;
+
 namespace BForms.Docs
 {
     // Note: For instructions on enabling IIS7 classic mode, 
@@ -20,6 +22,8 @@ namespace BForms.Docs
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            //ModelValidatorProviders.Providers.Add(new CustomModelValidatorProvider());
+            //ModelMetadataProviders.Current = new CustomMetadataProvider();
         }
     }
 }
