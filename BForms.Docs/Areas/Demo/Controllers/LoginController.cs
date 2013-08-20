@@ -28,7 +28,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
                 RegisterModel = new RegisterModel()
                 {
                     CountriesList = Lists.AllCounties<string>(),
-                    NotificationList = BsSelectList<NotificationTypes>.FromEnum(typeof(NotificationTypes)),
+                    NotificationList = BsSelectList<NotificationTypes?>.FromEnum(typeof(NotificationTypes)),
                     TechnologiesList = Lists.AllTech<List<int>>(),
                     TagList = Lists.AllLanguages<List<string>>(),
                     AutocompleteList = Lists.AllCounties<string>(),

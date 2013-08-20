@@ -10,12 +10,12 @@ namespace BForms.Docs.Areas.Demo.Mock
     public enum NotificationTypes
     {
         [Display(Name = "Password", ResourceType = typeof(Resource))]
-        Never = 0,
+        Never = 1,
         [Display(Name = "Daily")]
-        Daily = 1,
+        Daily = 2,
         [Display(Name = "Weekly")]
-        Weekly = 2,
+        Weekly = 3,
         [Display(Name = "Monthly")]
-        Monthly = 3
+        Monthly = 4
     }
 }
