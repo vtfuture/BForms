@@ -37,6 +37,9 @@ textarea {
 .has-error .glyphicon-info-sign {
 	display: none;
 }
+.has-error .select2-search-field {
+	width: 100%;
+}
 
 .form-container {
 	position: relative;
@@ -129,8 +132,7 @@ textarea {
 	.select2-choices {
 		min-height: 38px;
 		background-image: none;
-		.select2-search-field {
-			width: 100%;
+		.select2-search-field {			
 			input {
 				font-family: Calibri, "Helvetica Neue", Helvetica, Arial, sans-serif;
 				margin-top: 3px;
