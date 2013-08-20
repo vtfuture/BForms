@@ -6,8 +6,8 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using BootstrapForms.Mvc;
 
-using BForms.Docs.Binding;
 
 namespace BForms.Docs
 {
@@ -22,8 +22,7 @@ namespace BForms.Docs
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            ModelValidatorProviders.Providers.Add(new CustomModelValidatorProvider());
-            //ModelMetadataProviders.Current = new CustomMetadataProvider();
+            ModelValidatorProviders.Providers.Add(new BsModelValidatorProvider());
         }
     }
 }

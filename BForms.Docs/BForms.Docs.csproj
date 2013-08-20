@@ -118,8 +118,6 @@
     <Compile Include="Areas\Demo\Mock\Enums.cs" />
     <Compile Include="Areas\Demo\Mock\Lists.cs" />
     <Compile Include="Areas\Demo\Models\LoginModels.cs" />
-    <Compile Include="Binding\CustomMetadataProvider.cs" />
-    <Compile Include="Binding\CustomModelValidatorProvider.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ComponentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -132,7 +130,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
-    <Compile Include="Utils\ReflectionHelpers.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Images\Docs\email-input.jpg" />

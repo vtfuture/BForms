@@ -6,7 +6,6 @@ using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using System.ComponentModel.DataAnnotations;
 using BForms.Docs.Areas.Demo.Mock;
-using BootstrapForms.Attributes;
 using BootstrapForms.Models;
 using BootstrapForms.Utilities;
 using BForms.Docs.Areas.Demo.Models;

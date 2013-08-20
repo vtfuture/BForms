@@ -5,8 +5,8 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
-using BootstrapForms.Attributes;
 using BootstrapForms.Models;
+using BootstrapForms.Mvc;
 
 namespace BForms.Docs.Areas.Demo.Models
 {
@@ -71,7 +71,7 @@ namespace BForms.Docs.Areas.Demo.Models
         [BsControl(BsControlType.CheckBox)]
         public bool EnableNotifications { get; set; }
 
-        //[Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
         [Display(Name = "Location", Prompt = "Chose your country")]
         [BsControl(BsControlType.DropDownList)]
         public BsSelectList<string> CountriesList { get; set; }

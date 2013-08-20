@@ -8,8 +8,8 @@ using System.Text;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
-using BootstrapForms.Attributes;
 using BootstrapForms.Models;
+using BootstrapForms.Mvc;
 using BootstrapForms.Utilities;
 
 namespace BootstrapForms.HtmlHelpers

@@ -74,7 +74,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Attributes\BsControlAttribute.cs" />
+    <Compile Include="Mvc\BsControlAttribute.cs" />
     <Compile Include="HtmlHelpers\CheckBoxExtensions.cs" />
     <Compile Include="HtmlHelpers\TagListExtensions.cs" />
     <Compile Include="HtmlHelpers\ListBoxExtensions.cs" />
@@ -88,6 +88,7 @@
     <Compile Include="Models\BsResponseStatus.cs" />
     <Compile Include="Models\BsSelectModels.cs" />
     <Compile Include="Models\Glyphicon.cs" />
+    <Compile Include="Mvc\BsModelValidatorProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="HtmlHelpers\GlyphiconExtensions.cs" />
     <Compile Include="HtmlHelpers\HtmlExtensions.cs" />

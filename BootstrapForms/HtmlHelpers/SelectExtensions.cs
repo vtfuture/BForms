@@ -8,9 +8,9 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
+using BootstrapForms.Mvc;
 using BootstrapForms.Utilities;
 using BootstrapForms.Models;
-using BootstrapForms.Attributes;
 
 namespace BootstrapForms.HtmlHelpers
 {
@@ -341,10 +341,10 @@ namespace BootstrapForms.HtmlHelpers
             //bind the selected values BsSelectList.SelectedValues
             name += ".SelectedValues";
 
-            var propertyName = htmlHelper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name);
+            var fullName = htmlHelper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name);
             var html = new StringBuilder();
             var divTag = new TagBuilder("div");
-            divTag.MergeAttribute("id", propertyName, true);
+            divTag.MergeAttribute("id", fullName, true);
             divTag.AddCssClass(bsCssClass);
             divTag.AddCssClass("form-control");
             
@@ -358,7 +358,7 @@ namespace BootstrapForms.HtmlHelpers
             foreach (var item in radioList.Items)
             {
                 // Generate an id to be given to the radio button field
-                var id = string.Format("{0}_{1}", propertyName, item.Value);
+                var id = string.Format("{0}_{1}", fullName, item.Value);
 
                 // Create and populate a radio button using the existing html htmlHelpers
                 var label = htmlHelper.Label(id, HttpUtility.HtmlEncode(item.Text));
@@ -377,6 +377,22 @@ namespace BootstrapForms.HtmlHelpers
                 }
 
                 var input = allowMultiple ? htmlHelper.CheckBox(name, item.Selected, radioHtmlAttributes).ToHtmlString() : htmlHelper.RadioButton(name, item.Value, radioHtmlAttributes).ToHtmlString();
+
+                var radioBuilder = new TagBuilder("input");
+                radioBuilder.MergeAttribute("name", fullName, true);
+                radioBuilder.MergeAttributes(radioHtmlAttributes);
+                if (item.Selected) radioBuilder.MergeAttribute("checked", "checked");
+
+                if (allowMultiple)
+                {
+                    //render checkbox
+                    radioBuilder.MergeAttribute("type", "checkbox");
+                }
+                else
+                {
+                    //render radio
+                    radioBuilder.MergeAttribute("type", "radio");
+                }
 
                 // Create the html string
                 // e.g. <input data-val="true" data-val-required="You must select an option" id="TestRadio_1" name="TestRadio" type="radio" value="1" /><label for="TestRadio_1">Line1</label>

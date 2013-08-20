@@ -7,7 +7,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Web.Mvc;
 using BootstrapForms.Models;
-using BootstrapForms.Attributes;
+using BootstrapForms.Mvc;
 
 namespace BootstrapForms.Utilities
 {
@@ -208,6 +208,25 @@ namespace BootstrapForms.Utilities
             }
 
             return html5Type;
+        }
+
+        /// <summary>
+        /// Checks to see if a generic type is a subclass of a raw generic type. eg. List&lt;int&gt; for List&lt;&gt;
+        /// </summary>
+        /// <param name="generic">The generic without type specifiers, such as List&lt;&gt; or Dictionary&lt;,&gt;</param>
+        /// <param name="toCheck">The generic subclass, such as List&lt;&gt; or Dictionary&lt;string,object&gt;</param>
+        internal static bool IsSubclassOfRawGeneric(this Type toCheck, Type generic)
+        {
+            while (toCheck != null && toCheck != typeof(object))
+            {
+                var cur = toCheck.IsGenericType ? toCheck.GetGenericTypeDefinition() : toCheck;
+                if (generic == cur)
+                {
+                    return true;
+                }
+                toCheck = toCheck.BaseType;
+            }
+            return false;
         }
     }
 }
