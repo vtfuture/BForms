@@ -1,11 +1,8 @@
-﻿using System.Web.Mvc;
-using BForms.Docs.Areas.Demo.Mock;
+﻿using BForms.Docs.Areas.Demo.Mock;
 using BForms.Docs.Resources;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 using BootstrapForms.Models;
 using BootstrapForms.Mvc;
 
@@ -67,7 +64,7 @@ namespace BForms.Docs.Areas.Demo.Models
         [BsControl(BsControlType.Number)]
         public decimal? AnnualIncome { get; set; }
 
-        [Mandatory(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
+        [BsMandatory(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
         [Display(Name = "EnableNotifications")]
         [BsControl(BsControlType.CheckBox)]
         public bool EnableNotifications  { get; set; }
@@ -86,7 +83,7 @@ namespace BForms.Docs.Areas.Demo.Models
         [BsControl(BsControlType.CheckBoxList)]
         public BsSelectList<List<int>> TechnologiesCheckboxList { get; set; }
 
-        //[Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
         [Display(Name = "Technologies", Prompt = "Choose your favorite technologies")]
         [BsControl(BsControlType.ListBox)]
         public BsSelectList<List<int>> TechnologiesList { get; set; }
@@ -96,7 +93,7 @@ namespace BForms.Docs.Areas.Demo.Models
         [BsControl(BsControlType.TagList)]
         public BsSelectList<List<string>> TagList { get; set; }
 
-        //[Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
         [Display(Name = "Autocomplete", Prompt = "Type your favorite programming languages")]
         [BsControl(BsControlType.Autocomplete)]
         public BsSelectList<string> AutocompleteList { get; set; }
@@ -106,29 +103,6 @@ namespace BForms.Docs.Areas.Demo.Models
         [BsControl(BsControlType.DropDownList)]
         public int? Gender { get; set; }
         public List<System.Web.Mvc.SelectListItem> GenderList { get; set; }
-    }
-
-    public class MandatoryAttribute : ValidationAttribute, IClientValidatable
-    {
-
-        public override bool IsValid(object value)
-        {
-            return ((bool?)value).Value;
-        }
-
-        public override string FormatErrorMessage(string name)
-        {
-            return "The " + name + " field is mandatory.";
-        }
-
-        public IEnumerable<ModelClientValidationRule> GetClientValidationRules(ModelMetadata metadata, ControllerContext context)
-        {
-            yield return new ModelClientValidationRule
-            {
-                ErrorMessage = this.ErrorMessage,
-                ValidationType = "mandatory"
-            };
-        }
     }
 
 }

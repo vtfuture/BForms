@@ -408,6 +408,7 @@ namespace BootstrapForms.HtmlHelpers
                 {
                     //render checkbox
                     radioBuilder.MergeAttribute("type", "checkbox");
+                    radioBuilder.MergeAttribute("data-value", item.Value);
 
                     var inputItemBuilder = new StringBuilder();
                     inputItemBuilder.Append(radioBuilder.ToString(TagRenderMode.SelfClosing));
@@ -423,6 +424,7 @@ namespace BootstrapForms.HtmlHelpers
                 {
                     //render radio
                     radioBuilder.MergeAttribute("type", "radio");
+                    radioBuilder.MergeAttribute("value", item.Value);
                     input = radioBuilder.ToString(TagRenderMode.SelfClosing);
                 }   
 
