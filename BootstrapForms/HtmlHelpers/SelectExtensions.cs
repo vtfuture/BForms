@@ -329,7 +329,7 @@ namespace BootstrapForms.HtmlHelpers
             {
                 attributes = htmlHelper.GetUnobtrusiveValidationAttributes(name.Split('.').LastOrDefault());
             }
-            tagBuilder.MergeAttributes<string, object>(attributes);
+            tagBuilder.MergeAttributes(attributes);
 
             return MvcHtmlString.Create(tagBuilder.ToString());
         }
@@ -376,23 +376,55 @@ namespace BootstrapForms.HtmlHelpers
                     });
                 }
 
-                var input = allowMultiple ? htmlHelper.CheckBox(name, item.Selected, radioHtmlAttributes).ToHtmlString() : htmlHelper.RadioButton(name, item.Value, radioHtmlAttributes).ToHtmlString();
-
+                //build radio or checkbox input
+                var input = string.Empty;
                 var radioBuilder = new TagBuilder("input");
                 radioBuilder.MergeAttribute("name", fullName, true);
                 radioBuilder.MergeAttributes(radioHtmlAttributes);
                 if (item.Selected) radioBuilder.MergeAttribute("checked", "checked");
 
+                // If there are any errors for a named field, we add the css attribute.
+                ModelState modelState;
+                if (htmlHelper.ViewData.ModelState.TryGetValue(fullName, out modelState))
+                {
+                    if (modelState.Errors.Count > 0)
+                    {
+                        radioBuilder.AddCssClass(HtmlHelper.ValidationInputCssClassName);
+                    }
+                }
+
+                //Validation Hack
+                var parentName = fullName.Replace(".SelectedValues", "");
+
+                var attributes = htmlHelper.GetUnobtrusiveValidationAttributes(parentName);
+
+                if (parentName.Contains(".") && !attributes.Any())
+                {
+                    attributes = htmlHelper.GetUnobtrusiveValidationAttributes(parentName.Split('.').LastOrDefault());
+                }
+                radioBuilder.MergeAttributes(attributes);
+
                 if (allowMultiple)
                 {
                     //render checkbox
                     radioBuilder.MergeAttribute("type", "checkbox");
+
+                    var inputItemBuilder = new StringBuilder();
+                    inputItemBuilder.Append(radioBuilder.ToString(TagRenderMode.SelfClosing));
+
+                    var hiddenInput = new TagBuilder("input");
+                    hiddenInput.MergeAttribute("type", HtmlHelper.GetInputTypeString(InputType.Hidden));
+                    hiddenInput.MergeAttribute("name", fullName);
+                    hiddenInput.MergeAttribute("value", "false");
+                    inputItemBuilder.Append(hiddenInput.ToString(TagRenderMode.SelfClosing));
+                    input = inputItemBuilder.ToString();
                 }
                 else
                 {
                     //render radio
                     radioBuilder.MergeAttribute("type", "radio");
-                }
+                    input = radioBuilder.ToString(TagRenderMode.SelfClosing);
+                }   
 
                 // Create the html string
                 // e.g. <input data-val="true" data-val-required="You must select an option" id="TestRadio_1" name="TestRadio" type="radio" value="1" /><label for="TestRadio_1">Line1</label>
