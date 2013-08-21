@@ -132,15 +132,19 @@ textarea {
   box-shadow: none; }
 
 .checkbox_replace .option {
-  float: left;
   height: 36px;
   padding: 0 8px;
-  line-height: 36px;
-  border: 1px solid #ccc;
-  margin-right: -1px;
+  border-left: 1px solid #ccc;
   background: #FFF;
   text-decoration: none;
-  cursor: pointer; }
+  cursor: pointer;
+  display: table-cell;
+  width: 1%;
+  vertical-align: middle; }
+  .checkbox_replace .option:first-child {
+    border: none; }
+  .checkbox_replace .option:hover {
+    background: #f7f7f7 !important; }
   .checkbox_replace .option.selected {
     background: #eee;
     color: #547980; }
@@ -148,11 +152,6 @@ textarea {
   outline: none; }
 .checkbox_replace.form-control {
   padding: 0; }
-  .checkbox_replace.form-control .option {
-    border-top: none;
-    border-bottom: none; }
-    .checkbox_replace.form-control .option:first-child {
-      border-left: none; }
 
 /* Autocomplete */
 .twitter-typeahead {
