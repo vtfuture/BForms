@@ -28,7 +28,7 @@ a {
   a:hover {
     text-decoration: none;
     color: #547980 !important;
-    background-color: none !important; }
+    background-color: transparent !important; }
 
 /* Global loading */
 .loading-global {
@@ -214,13 +214,13 @@ h1 {
       .footer ul li .divider {
         margin-left: 5px; }
 
-@media (max-width: 959px) {
+@media (max-width: 756px) {
   .brand img {
     max-width: 230px; }
 
   .pull-right {
     /* Enable use of floated navbar text */
-    float: none; }
+    float: none !important; }
 
   .navbar .nav-collapse {
     margin-top: 0; }
@@ -248,5 +248,4 @@ h1 {
   .footer {
     padding: 10px; }
     .footer .pull-right {
-      float: none;
       margin-top: 10px; } }

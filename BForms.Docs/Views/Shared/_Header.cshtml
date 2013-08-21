@@ -5,13 +5,15 @@
 
 <header>
     <div class="navbar">
-	    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand brand" href="@Url.Action("Index", "Home", new { area = "" })"><img src="@Url.Content("~/Content/images/logo-bforms.png")"></a>
-	    
+	    <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand brand" href="@Url.Action("Index", "Home", new { area = "" })"><img src="@Url.Content("~/Content/images/logo-bforms.png")"></a>
+	    </div>
+
 		<div class="collapse navbar-collapse navbar-responsive-collapse">
 			<ul class="nav navbar-nav pull-right">
                 <li><a href="@Url.Action("Index", "Components", new { area = "" })">Components</a></li>

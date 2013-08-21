@@ -61,7 +61,8 @@ textarea {
     line-height: 38px;
     font-size: 14px;
     border-radius: 0 !important;
-    background-image: none; }
+    background-image: none;
+    border: 1px solid #ccc; }
     .custom_select .select2-choice div {
       border-radius: 0 !important;
       width: 24px; }
@@ -107,7 +108,8 @@ textarea {
   border: none; }
 .custom_select-multi .select2-choices {
   min-height: 38px;
-  background-image: none; }
+  background-image: none;
+  border: 1px solid #ccc; }
   .custom_select-multi .select2-choices .select2-search-field input {
     font-family: Calibri, "Helvetica Neue", Helvetica, Arial, sans-serif;
     margin-top: 3px;
@@ -240,6 +242,9 @@ textarea {
   .form-group.checkbox.has-error label, .form-group.radio.has-error label {
     border: 1px solid #b94a48; }
 
+@media (max-width: 756px) {
+  .col-12 {
+    padding: 0; } }
 @media (min-width: 768px) {
   /* fixes for 2 cols */
   .form-group.checkbox,

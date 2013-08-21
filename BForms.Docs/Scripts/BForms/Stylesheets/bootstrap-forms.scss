@@ -83,6 +83,7 @@ textarea {
 		font-size: 14px;
 		border-radius: 0 !important;
 		background-image: none;
+		border: 1px solid #ccc;
 		div {
 			border-radius: 0 !important;
 			width: 24px;
@@ -144,6 +145,7 @@ textarea {
 	.select2-choices {
 		min-height: 38px;
 		background-image: none;
+		border: 1px solid #ccc;
 		.select2-search-field {			
 			input {
 				font-family: Calibri, "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -322,7 +324,11 @@ textarea {
 	}
 }
 
-
+@media (max-width: 756px) {
+	.col-12 {
+		padding: 0;
+	}
+}
 
 @media (min-width: 768px) { /* fixes for 2 cols */
 	
