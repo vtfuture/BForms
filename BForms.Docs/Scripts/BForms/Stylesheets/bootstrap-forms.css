@@ -15,6 +15,9 @@ textarea {
 .radio, .checkbox {
   padding-left: 15px; }
 
+.glyphicon {
+  font-size: 12px; }
+
 /* Errors */
 .field-validation-valid {
   display: none; }
@@ -251,6 +254,3 @@ textarea {
     .col-sm-12.checkbox,
     .col-sm-12.radio {
       padding-top: 0; } }
-@media (max-width: 959px) {
-  .col-12 {
-    padding: 0; } }

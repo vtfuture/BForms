@@ -24,6 +24,9 @@ textarea {
 .radio, .checkbox {
 	padding-left: 15px;
 }
+.glyphicon {
+	font-size: 12px;
+}
 
 
 /* Errors */
@@ -338,8 +341,4 @@ textarea {
 
 }
 
-@media (max-width: 959px)  {
-	.col-12 {
-		padding: 0;
-	}
-}
+

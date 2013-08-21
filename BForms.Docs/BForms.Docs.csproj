@@ -146,9 +146,8 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Lib\RequireJsNet.dll" />
-    <Content Include="Scripts\BForms\Components\Bootstrap\css\bootstrap-glyphicons.css" />
     <Content Include="Scripts\BForms\Components\Bootstrap\css\bootstrap.css" />
-    <Content Include="Scripts\BForms\Components\Bootstrap\fonts\glyphiconshalflings-regular.svg" />
+    <Content Include="Scripts\BForms\Components\Bootstrap\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Scripts\BForms\Components\Bootstrap\js\bootstrap.js" />
     <Content Include="Scripts\BForms\Components\Html5shiv\html5shiv.js" />
     <Content Include="Scripts\BForms\Components\jQuery-ui\jquery-ui.core.js" />
@@ -216,10 +215,6 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Scripts\BForms\Components\Bootstrap\fonts\glyphiconshalflings-regular.eot" />
-    <Content Include="Scripts\BForms\Components\Bootstrap\fonts\glyphiconshalflings-regular.otf" />
-    <Content Include="Scripts\BForms\Components\Bootstrap\fonts\glyphiconshalflings-regular.ttf" />
-    <Content Include="Scripts\BForms\Components\Bootstrap\fonts\glyphiconshalflings-regular.woff" />
     <Content Include="Scripts\BForms\Stylesheets\bootstrap-forms.scss" />
   </ItemGroup>
   <ItemGroup>
@@ -269,6 +264,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Components\_TextInput.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\BForms\Components\Bootstrap\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Scripts\BForms\Components\Bootstrap\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Scripts\BForms\Components\Bootstrap\fonts\glyphicons-halflings-regular.woff" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
