@@ -43,14 +43,17 @@
     LoginIndex.prototype.onRegisterSubmit = function (e) {
         e.stopPropagation();
         e.preventDefault();
-
+        var $target = $(e.currentTarget);
+        console.log($target)
         $.validator.unobtrusive.parse(this.$registerForm);
         var validatedForm = this.$registerForm.validate();
 
         if (this.$registerForm.valid()) {
 
             var registerData = this.$registerForm.parseForm();
-
+            
+            $target.prop('disabled', "disabled");
+            
             $.ajax({
                 url: this.options.registerUrl,
                 data: JSON.stringify(registerData),
@@ -63,7 +66,12 @@
                 } else {
 
                 }
-            }, this));
+                
+                $target.removeProp('disabled');
+
+            }, this),function () {
+                $target.removeProp('disabled');
+            });
         }
     };
 

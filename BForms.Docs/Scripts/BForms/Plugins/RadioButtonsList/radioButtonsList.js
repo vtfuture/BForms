@@ -43,7 +43,7 @@
                             self.attr("id") + "_checkBox' " +
                             "class='checkbox_replace'></div>");
 
-                var $buttonsContainer = $('<div class="btn-group btn-group-justified"></div>');
+                var $buttonsContainer = $('<div class="btn-group-justified"></div>');
                 wrapper.append($buttonsContainer);
 
                 if (self.hasClass('form-control')) wrapper.addClass('form-control');
