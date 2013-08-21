@@ -29,6 +29,7 @@ textarea {
 }
 
 
+
 /* Errors */
 .field-validation-valid {
 	display: none;
@@ -182,15 +183,22 @@ textarea {
 
 .checkbox_replace {
 	.option {
-		float: left;
 		height: 36px;
+		
 		padding: 0 8px;
-		line-height: 36px;
-		border: 1px solid #ccc;
-		margin-right: -1px;
+		border-left: 1px solid #ccc;
 		background: #FFF;
 		text-decoration: none;
 		cursor: pointer;
+		display: table-cell;
+		width: 1%;
+		vertical-align: middle;
+		&:first-child {
+			border: none;
+		}
+		&:hover {
+			background: #f7f7f7 !important;
+		}
 		&.selected {
 			background: #eee;
 			color: $navy;
@@ -201,13 +209,6 @@ textarea {
 	}
 	&.form-control {
 		padding: 0;
-		.option {
-			border-top: none;
-			border-bottom: none;
-			&:first-child {
-				border-left: none;
-			}
-		}
 	}
 }
 
