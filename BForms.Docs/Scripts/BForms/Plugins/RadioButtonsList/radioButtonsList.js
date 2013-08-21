@@ -43,12 +43,15 @@
                             self.attr("id") + "_checkBox' " +
                             "class='checkbox_replace'></div>");
 
+                var $buttonsContainer = $('<div class="btn-group btn-group-justified"></div>');
+                wrapper.append($buttonsContainer);
+
                 if (self.hasClass('form-control')) wrapper.addClass('form-control');
 
                 self.children().each(function () {
                     var anchorText = $(this).find("label").text();
                     var childSelect = $(this).find("input[type='radio']");
-                    wrapper.append("<a data-value='" + childSelect.val() + "' class='option'>" + anchorText + "</a>");
+                    $buttonsContainer.append("<a data-value='" + childSelect.val() + "' class='option'>" + anchorText + "</a>");
                 });
                 UpdateWrapper(self, wrapper);
                 return wrapper;

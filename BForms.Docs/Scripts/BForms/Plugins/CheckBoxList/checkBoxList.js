@@ -50,6 +50,9 @@
                             self.attr("id") + "_checkBox' " +
                             "class='checkbox_replace'></div>");
 
+                var $buttonsContainer = $('<div class="btn-group btn-group-justified"></div>');
+                wrapper.append($buttonsContainer);
+
                 if (self.hasClass('form-control')) wrapper.addClass('form-control');
 
                 self.children().each(function () {
@@ -58,7 +61,7 @@
                     childSelect.data('noparse', true);
                     var value = childSelect.data('value');
                     
-                    wrapper.append("<a data-value='" + value + "' class='option'>" + anchorText + "</a>");
+                    $buttonsContainer.append("<a data-value='" + value + "' class='option'>" + anchorText + "</a>");
                 });
                 UpdateWrapper(self, wrapper);
                 return wrapper;
