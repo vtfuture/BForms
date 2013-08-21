@@ -59,7 +59,7 @@
                 contentType: 'application/json; charset=utf-8'
             }).then($.proxy(function (response, status, jqXHR) {
                 if (response.Status == 2) {//validation error
-                    validatedForm.showErrors(response.Data.Errors);
+                    validatedForm.showErrors(response.Data.Errors,true);
                 } else {
 
                 }
