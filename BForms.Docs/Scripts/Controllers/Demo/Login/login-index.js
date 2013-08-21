@@ -44,7 +44,7 @@
         e.stopPropagation();
         e.preventDefault();
         var $target = $(e.currentTarget);
-        console.log($target)
+        
         $.validator.unobtrusive.parse(this.$registerForm);
         var validatedForm = this.$registerForm.validate();
 
