@@ -105,42 +105,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="Scripts\BForms\Components\Bootstrap\fonts\glyphiconshalflings-regular.eot" />
-    <None Include="Scripts\BForms\Components\Bootstrap\fonts\glyphiconshalflings-regular.otf" />
-    <None Include="Scripts\BForms\Components\Bootstrap\fonts\glyphiconshalflings-regular.ttf" />
-    <None Include="Scripts\BForms\Components\Bootstrap\fonts\glyphiconshalflings-regular.woff" />
-    <None Include="Scripts\BForms\Stylesheets\bootstrap-forms.scss" />
   </ItemGroup>
   <ItemGroup />
-  <ItemGroup>
-    <Content Include="Scripts\BForms\Components\Bootstrap\css\bootstrap-glyphicons.css" />
-    <Content Include="Scripts\BForms\Components\Bootstrap\css\bootstrap.css" />
-    <Content Include="Scripts\BForms\Components\Bootstrap\fonts\glyphiconshalflings-regular.svg" />
-    <Content Include="Scripts\BForms\Components\Bootstrap\js\bootstrap-3.0.0-rc1.js" />
-    <Content Include="Scripts\BForms\Components\Html5shiv\html5shiv-3.6.2.js" />
-    <Content Include="Scripts\BForms\Components\jQuery-ui\jquery-ui-1.10.3.core.js" />
-    <Content Include="Scripts\BForms\Components\jQuery\jquery-1.10.2.js" />
-    <Content Include="Scripts\BForms\Components\jQuery\jquery-migrate-1.2.1.js" />
-    <Content Include="Scripts\BForms\Components\Respond\respond-1.1.0.js" />
-    <Content Include="Scripts\BForms\Plugins\Datepicker\css\datepicker.css" />
-    <Content Include="Scripts\BForms\Plugins\Datepicker\js\bootstrap-datepicker-1.01.js" />
-    <Content Include="Scripts\BForms\Plugins\Datepicker\js\i18n\bootstrap-datepicker.ro.js" />
-    <Content Include="Scripts\BForms\Plugins\RadioButtonsList\radioButtonsList.js" />
-    <Content Include="Scripts\BForms\Plugins\ResetInput\resetInput.js" />
-    <Content Include="Scripts\BForms\Plugins\Select2\css\select2-spinner.gif" />
-    <Content Include="Scripts\BForms\Plugins\Select2\css\select2.css" />
-    <Content Include="Scripts\BForms\Plugins\Select2\css\select2.png" />
-    <Content Include="Scripts\BForms\Plugins\Select2\js\i18n\select2-ro.js" />
-    <Content Include="Scripts\BForms\Plugins\Select2\js\select2.js" />
-    <Content Include="Scripts\BForms\Plugins\Select2\js\selectInput2.js" />
-    <Content Include="Scripts\BForms\Plugins\StyleInputs\styleInputs.js" />
-    <Content Include="Scripts\BForms\Plugins\Typeahead\typeahead.js" />
-    <Content Include="Scripts\BForms\Plugins\Typeahead\typeaheadSelect.js" />
-    <Content Include="Scripts\BForms\Plugins\Validation\i18n\jquery.validate-ro.js" />
-    <Content Include="Scripts\BForms\Plugins\Validation\jquery.validate-1.11.1.js" />
-    <Content Include="Scripts\BForms\Plugins\Validation\jquery.validate.unobtrusive.bootstrap.js" />
-    <Content Include="Scripts\BForms\Stylesheets\bootstrap-forms.css" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
