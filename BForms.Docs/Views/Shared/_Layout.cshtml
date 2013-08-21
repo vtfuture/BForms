@@ -10,13 +10,14 @@
 
         <title>@ViewBag.Title - BForms</title>
 
-        @*For IE6-8 support of HTML5 elements and responsive*@
+        @Styles.Render("~/BForms/css")
+
+         @*For IE6-8 support of HTML5 elements and responsive*@
         <!--[if lt IE 9]>
-        <script src="~/Scripts/BForms/Components/Html5shiv/html5shiv.js"></script>
-        <script src="~/Scripts/BForms/Components/Respond/respond.js"></script>
+            <script src="@Url.Content("~/Scripts/BForms/Components/Html5shiv/html5shiv.js")"></script>
+            <script src="@Url.Content("~/Scripts/BForms/Components/Respond/respond.js")" type="text/javascript"></script>
         <![endif]-->
 
-        @Styles.Render("~/BForms/css")
     </head>
     <body>
         @Html.Partial("_Header")
