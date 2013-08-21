@@ -301,7 +301,7 @@ namespace BootstrapForms.Html
                 InnerHtml = listItemBuilder.ToString()
             };
             tagBuilder.MergeAttributes(htmlAttributes);
-            tagBuilder.MergeAttribute("name", name, true /* replaceExisting */);
+            tagBuilder.MergeAttribute("name", name, true);
             tagBuilder.AddCssClass(bsCssClass);
             tagBuilder.AddCssClass("form-control");
             tagBuilder.GenerateId(name);
@@ -310,26 +310,7 @@ namespace BootstrapForms.Html
                 tagBuilder.MergeAttribute("multiple", "multiple");
             }
 
-            // If there are any errors for a named field, we add the css attribute.
-            ModelState modelState;
-            if (htmlHelper.ViewData.ModelState.TryGetValue(name, out modelState))
-            {
-                if (modelState.Errors.Count > 0)
-                {
-                    tagBuilder.AddCssClass(HtmlHelper.ValidationInputCssClassName);
-                }
-            }
-
-            //Validation Hack
-            name = name.Replace(".SelectedValues", "");
-
-            var attributes = htmlHelper.GetUnobtrusiveValidationAttributes(name);
-
-            if (name.Contains(".") && !attributes.Any())
-            {
-                attributes = htmlHelper.GetUnobtrusiveValidationAttributes(name.Split('.').LastOrDefault());
-            }
-            tagBuilder.MergeAttributes(attributes);
+            tagBuilder.BsSelectListValidation(htmlHelper, name);
 
             return MvcHtmlString.Create(tagBuilder.ToString());
         }
@@ -383,26 +364,7 @@ namespace BootstrapForms.Html
                 radioBuilder.MergeAttributes(radioHtmlAttributes);
                 if (item.Selected) radioBuilder.MergeAttribute("checked", "checked");
 
-                // If there are any errors for a named field, we add the css attribute.
-                ModelState modelState;
-                if (htmlHelper.ViewData.ModelState.TryGetValue(fullName, out modelState))
-                {
-                    if (modelState.Errors.Count > 0)
-                    {
-                        radioBuilder.AddCssClass(HtmlHelper.ValidationInputCssClassName);
-                    }
-                }
-
-                //Validation Hack
-                var parentName = fullName.Replace(".SelectedValues", "");
-
-                var attributes = htmlHelper.GetUnobtrusiveValidationAttributes(parentName);
-
-                if (parentName.Contains(".") && !attributes.Any())
-                {
-                    attributes = htmlHelper.GetUnobtrusiveValidationAttributes(parentName.Split('.').LastOrDefault());
-                }
-                radioBuilder.MergeAttributes(attributes);
+                radioBuilder.BsSelectListValidation(htmlHelper, name);
 
                 if (allowMultiple)
                 {
@@ -526,7 +488,7 @@ namespace BootstrapForms.Html
                 InnerHtml = listItemBuilder.ToString()
             };
             tagBuilder.MergeAttributes(htmlAttributes);
-            tagBuilder.MergeAttribute("name", name, true /* replaceExisting */);
+            tagBuilder.MergeAttribute("name", name, true);
             tagBuilder.AddCssClass(bsCssClass);
             tagBuilder.AddCssClass("form-control");
             tagBuilder.GenerateId(name);
@@ -535,26 +497,7 @@ namespace BootstrapForms.Html
                 tagBuilder.MergeAttribute("multiple", "multiple");
             }
 
-            // If there are any errors for a named field, we add the css attribute.
-            ModelState modelState;
-            if (htmlHelper.ViewData.ModelState.TryGetValue(name, out modelState))
-            {
-                if (modelState.Errors.Count > 0)
-                {
-                    tagBuilder.AddCssClass(HtmlHelper.ValidationInputCssClassName);
-                }
-            }
-
-            //Validation Hack
-            name = name.Replace(".SelectedValues", "");
-
-            var attributes = htmlHelper.GetUnobtrusiveValidationAttributes(name);
-
-            if (name.Contains(".") && !attributes.Any())
-            {
-                attributes = htmlHelper.GetUnobtrusiveValidationAttributes(name.Split('.').LastOrDefault());
-            }
-            tagBuilder.MergeAttributes<string, object>(attributes);
+            tagBuilder.BsSelectListValidation(htmlHelper, name);
 
             return MvcHtmlString.Create(tagBuilder.ToString());
         }
@@ -608,6 +551,30 @@ namespace BootstrapForms.Html
             return builder.ToString(TagRenderMode.Normal);
         }
 
+        internal static void BsSelectListValidation(this TagBuilder tagBuilder, HtmlHelper htmlHelper, string name)
+        {
+            // If there are any errors for a named field, we add the css attribute.
+            ModelState modelState;
+            if (htmlHelper.ViewData.ModelState.TryGetValue(name, out modelState))
+            {
+                if (modelState.Errors.Count > 0)
+                {
+                    tagBuilder.AddCssClass(HtmlHelper.ValidationInputCssClassName);
+                }
+            }
+
+            //Validation Hack
+            name = name.Replace(".SelectedValues", "");
+
+            var attributes = htmlHelper.GetUnobtrusiveValidationAttributes(name);
+
+            if (name.Contains(".") && !attributes.Any())
+            {
+                attributes = htmlHelper.GetUnobtrusiveValidationAttributes(name.Split('.').LastOrDefault());
+            }
+
+            tagBuilder.MergeAttributes(attributes);
+        }
         #endregion
     }
 }

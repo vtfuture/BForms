@@ -27,12 +27,18 @@ namespace BootstrapForms.Mvc
         /// <summary>
         /// Removes model state errors except for the specified filed
         /// </summary>
-        public static void ClearModelState(this ModelStateDictionary ms, string propName)
+        public static void ClearModelState(this ModelStateDictionary modelState, string propName)
         {
-            foreach (var key in ms.Keys.ToList().Where(key => key.IndexOf(propName, System.StringComparison.Ordinal) == -1))
+            foreach (var key in modelState.Keys.ToList().Where(key => key.IndexOf(propName, System.StringComparison.Ordinal) == -1))
             {
-                ms.Remove(key);
+                modelState.Remove(key);
             }
+        }
+
+        public static void AddFormError(this ModelStateDictionary modelState, string prefix, string errorMessage)
+        {
+            var key = string.IsNullOrEmpty(prefix) ? "BsFormError" : prefix + ".BsFormError";
+            modelState.AddModelError(key, errorMessage);
         }
 
         /// <summary>

@@ -32,7 +32,7 @@ namespace BootstrapForms.Html
         }
 
         /// <summary>
-        /// Returns a span element containing the localized value of the ModelState error message
+        /// Returns an alert div containing the BsFormError message
         /// </summary>
         public static MvcHtmlString BsValidationFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper,
             Expression<Func<TModel, TProperty>> expression, IDictionary<string, object> htmlAttributes)
@@ -79,7 +79,7 @@ namespace BootstrapForms.Html
         }
 
         /// <summary>
-        /// Returns a span element containing the localized value of the ModelState error message
+        /// Returns an alert div containing the BsFormError message
         /// </summary>
         public static MvcHtmlString BsValidationFor<TModel, TProperty>(this HtmlHelper<TModel> helper,
             Expression<Func<TModel, TProperty>> expression)
@@ -88,7 +88,7 @@ namespace BootstrapForms.Html
         }
 
         /// <summary>
-        /// Returns a span element containing the localized value of the ModelState error message
+        /// Returns an alert div containing the BsFormError message
         /// </summary>
         public static MvcHtmlString BsValidationFor<TModel, TProperty>(this HtmlHelper<TModel> helper,
             Expression<Func<TModel, TProperty>> expression, object htmlAttributes)
@@ -97,11 +97,13 @@ namespace BootstrapForms.Html
         }
 
         /// <summary>
-        /// Returns a span element containing the localized value of the ModelState FormError custom message
+        /// Returns an alert div containing the BsFormError message
         /// </summary>
-        public static MvcHtmlString BsFormValidation(this HtmlHelper helper, IDictionary<string, object> htmlAttributes)
+        public static MvcHtmlString BsValidationSummary(this HtmlHelper helper, IDictionary<string, object> htmlAttributes)
         {
-            const string name = "FormError";
+            var prefix = helper.NameForModel().ToHtmlString();
+            string name = prefix + ".BsFormError";
+
             var isInvalid = helper.ViewData.ModelState[name] != null &&
                             helper.ViewData.ModelState[name].Errors != null &&
                             helper.ViewData.ModelState[name].Errors.Count > 0;
@@ -109,10 +111,11 @@ namespace BootstrapForms.Html
             {
                 //create div element
                 var divTag = new TagBuilder("div");
-                divTag.MergeAttributes(htmlAttributes, false);
-
+                divTag.MergeAttributes(htmlAttributes);
+                
                 //add bootstrap css
                 divTag.AddCssClass("alert alert-danger");
+                divTag.AddCssClass("bs-form-error");
 
                 //open div html element
                 var divHtml = new StringBuilder(divTag.ToString(TagRenderMode.StartTag));
@@ -130,9 +133,9 @@ namespace BootstrapForms.Html
                 //add close button in div
                 divHtml.Append(btnHtml);
 
-                //add ModelState error message for FormError
-                divHtml.Append(helper.ValidationMessage(name));
-
+                //append error message for BsFormError
+                divHtml.Append(helper.ViewData.ModelState[name].Errors[0].ErrorMessage);
+                
                 //close div
                 divHtml.Append(divTag.ToString(TagRenderMode.EndTag));
 
@@ -144,11 +147,19 @@ namespace BootstrapForms.Html
         }
 
         /// <summary>
-        /// Returns a span element containing the localized value of the ModelState FormError custom message
+        /// Returns an alert div containing the BsFormError message
         /// </summary>
-        public static MvcHtmlString BsFormValidation(this HtmlHelper helper)
+        public static MvcHtmlString BsValidationSummary(this HtmlHelper helper, object htmlAttributes)
         {
-            return helper.BsFormValidation(new RouteValueDictionary((object) null));
+            return helper.BsValidationSummary(new RouteValueDictionary(htmlAttributes));
+        }
+
+        /// <summary>
+        /// Returns an alert div containing the BsFormError message
+        /// </summary>
+        public static MvcHtmlString BsValidationSummary(this HtmlHelper helper)
+        {
+            return helper.BsValidationSummary(new RouteValueDictionary((object)null));
         }
     }
 }

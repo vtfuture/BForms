@@ -6,10 +6,10 @@
     <h1>@Html.BsGlyphicon(Glyphicon.StartEmpty) Login form</h1>
 </div>
 
-@using (Html.BeginForm("Authentication", "Login", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "bs-form js-loginForm" }))
+@using (Html.BeginForm("Index", "Login", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "bs-form js-loginForm" }))
 {
     <div class="form-container loading">
-        @Html.BsFormValidation()
+        @Html.BsValidationSummary(new { @class= "col-12 col-sm-12 col-lg-12"})
 
         <div class="col-12 col-sm-12 col-lg-12 form-group @Html.BsValidationCssFor(m => m.Email)">
             <div class="input-group">
