@@ -12,9 +12,9 @@ namespace BForms.Docs.Areas.Demo.Mock
     {
         public static BsSelectList<T> AllCounties<T>()
         {
-            SortedDictionary<string, string> countryList = new SortedDictionary<string, string>();
+            var countryList = new SortedDictionary<string, string>();
             // Iterate the Framework Cultures...
-            foreach (CultureInfo ci in CultureInfo.GetCultures(CultureTypes.FrameworkCultures))
+            foreach (var ci in CultureInfo.GetCultures(CultureTypes.FrameworkCultures))
             {
                 RegionInfo ri = null;
                 try
@@ -28,7 +28,7 @@ namespace BForms.Docs.Areas.Demo.Mock
                     continue;
                 }
                 // Create new country dictionary entry.
-                KeyValuePair<string, string> newKeyValuePair = new KeyValuePair<string, string>(ri.EnglishName, ri.ThreeLetterISORegionName);
+                var newKeyValuePair = new KeyValuePair<string, string>(ri.EnglishName, ri.ThreeLetterISORegionName);
 
                 // If the country is not alreayd in the countryList add it...
                 if (!(countryList.ContainsKey(ri.EnglishName)))
@@ -64,12 +64,25 @@ namespace BForms.Docs.Areas.Demo.Mock
         {
             var list = new BsSelectList<T>();
 
-            list.Items.Add(new BsSelectListItem() { Text = "ASP.NET MVC", Value = "1", GroupKey = "server", GroupName = "Back-end" });
-            list.Items.Add(new BsSelectListItem() { Text = "ASP.NET WebApi", Value = "2", GroupKey = "server", GroupName = "Back-end" });
-            list.Items.Add(new BsSelectListItem() { Text = "WCF", Value = "3", GroupKey = "server", GroupName = "Back-end" });
-            list.Items.Add(new BsSelectListItem() { Text = "jQuery", Value = "4", GroupKey = "client", GroupName = "Front-end" });
-            list.Items.Add(new BsSelectListItem() { Text = "Bootstrap", Value = "5", GroupKey = "client", GroupName = "Front-end" });
-            list.Items.Add(new BsSelectListItem() { Text = "RequireJS", Value = "6", GroupKey = "client", GroupName = "Front-end" });
+            list.Items.Add(new BsSelectListItem() { Text = "IIS", Value = "1", GroupKey = "server", GroupName = "Windows" });
+            list.Items.Add(new BsSelectListItem() { Text = "SQL Server", Value = "2", GroupKey = "server", GroupName = "Windows" });
+            list.Items.Add(new BsSelectListItem() { Text = "Azure", Value = "3", GroupKey = "server", GroupName = "Windows" });
+            list.Items.Add(new BsSelectListItem() { Text = "Apache", Value = "4", GroupKey = "client", GroupName = "Linux" });
+            list.Items.Add(new BsSelectListItem() { Text = "SOLR", Value = "5", GroupKey = "client", GroupName = "Linux" });
+            list.Items.Add(new BsSelectListItem() { Text = "Lucene", Value = "6", GroupKey = "client", GroupName = "Linux" });
+
+            return list;
+        }
+
+        public static BsSelectList<T> AllAsp<T>()
+        {
+            var list = new BsSelectList<T>();
+
+            list.Items.Add(new BsSelectListItem() { Text = "MVC", Value = "1" });
+            list.Items.Add(new BsSelectListItem() { Text = "Razor", Value = "2" });
+            list.Items.Add(new BsSelectListItem() { Text = "Web Forms", Value = "3" });
+            list.Items.Add(new BsSelectListItem() { Text = "SignalR", Value = "4" });
+            list.Items.Add(new BsSelectListItem() { Text = "Web Api", Value = "5" });
 
             return list;
         }

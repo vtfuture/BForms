@@ -34,7 +34,7 @@ namespace BForms.Docs.Areas.Demo.Models
     public class RegisterModel
     {
         [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
-        [Display(Name = "Name", Prompt = "Surname & Name")]
+        [Display(Name = "Name", Prompt = "Surname and name")]
         [BsControl(BsControlType.TextBox)]
         public string Name { get; set; }
 
@@ -50,7 +50,7 @@ namespace BForms.Docs.Areas.Demo.Models
 
         [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
         [Display(Name = "Retype password")]
-        [System.ComponentModel.DataAnnotations.Compare("Password")]
+        [Compare("Password")]
         [BsControl(BsControlType.Password)]
         public string PasswordRetyped { get; set; }
 
@@ -74,7 +74,7 @@ namespace BForms.Docs.Areas.Demo.Models
         [BsControl(BsControlType.RadioButtonList)]
         public BsSelectList<NotificationTypes?> NotificationList { get; set; }
 
-        [Display(Name = "Technologies checkbox list", Prompt = "Choose your favorite technologies")]
+        [Display(Name = "What ASP.NET flavors do you use")]
         [BsControl(BsControlType.CheckBoxList)]
         public BsSelectList<List<int>> TechnologiesCheckboxList { get; set; }
 

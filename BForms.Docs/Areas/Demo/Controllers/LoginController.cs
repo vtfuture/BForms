@@ -30,7 +30,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
                     CountriesList = Lists.AllCounties<string>(),
                     NotificationList = BsSelectList<NotificationTypes?>.FromEnum(typeof(NotificationTypes)),
                     TechnologiesList = Lists.AllTech<List<int>>(),
-                    TechnologiesCheckboxList =  Lists.AllTech<List<int>>(),
+                    TechnologiesCheckboxList =  Lists.AllAsp<List<int>>(),
                     LanguagesList = Lists.AllLanguages<List<string>>(),
                     IdeList = Lists.AllIde<string>(),
                     GenderList = Lists.AllGenders<int>().ToSelectList().ToList()

@@ -45,9 +45,9 @@ namespace BootstrapForms.Html
             //determine if the prop is decorated with Required
             var model = typeof (TModel);
             PropertyInfo property = null;
-            var fieldName = ExpressionHelper.GetExpressionText(expression);
+            var propertyName = ExpressionHelper.GetExpressionText(expression);
 
-            foreach (var prop in fieldName.Split('.'))
+            foreach (var prop in propertyName.Split('.'))
             {
                 property = model.GetProperty(prop);
                 model = property.PropertyType;
@@ -63,7 +63,7 @@ namespace BootstrapForms.Html
                 }
             }
 
-            var propertyName = ExpressionHelper.GetExpressionText(expression);
+            
             var name = htmlHelper.AttributeEncode(htmlHelper.ViewData.TemplateInfo.GetFullHtmlFieldName(propertyName));
             if (typeof(TProperty).FullName.Contains("BsSelectList"))
             {
@@ -71,7 +71,7 @@ namespace BootstrapForms.Html
             }
 
             var metadata = ModelMetadata.FromLambdaExpression(expression, htmlHelper.ViewData);
-            var labelText = metadata.DisplayName ?? metadata.PropertyName ?? fieldName.Split('.').Last();
+            var labelText = metadata.DisplayName ?? metadata.PropertyName ?? propertyName.Split('.').Last();
 
             return htmlHelper.Label(name, labelText, htmlAttributes);
         }

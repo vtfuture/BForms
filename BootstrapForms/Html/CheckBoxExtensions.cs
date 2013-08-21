@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -132,6 +133,26 @@ namespace BootstrapForms.Html
             var labelText = metadata.DisplayName ?? metadata.PropertyName ?? fieldName.Split('.').Last();
 
             var labelTag = new TagBuilder("label");
+
+            //determine if the prop is decorated with Required
+            var model = typeof(TModel);
+            PropertyInfo property = null;
+            foreach (var prop in fieldName.Split('.'))
+            {
+                property = model.GetProperty(prop);
+                model = property.PropertyType;
+            }
+            if (property != null)
+            {
+                var isRequired = Attribute.IsDefined(property,
+                    typeof(Mvc.BsMandatoryAttribute));
+
+                if (isRequired)
+                {
+                    labelTag.AddCssClass("required");
+                }
+            }
+
             var labelHtml = new StringBuilder(labelTag.ToString(TagRenderMode.StartTag));
 
             labelHtml.Append(htmlHelper.CheckBoxFor(expression, htmlAttributes));
