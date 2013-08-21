@@ -37,8 +37,17 @@ textarea {
 .has-error .glyphicon-info-sign {
 	display: none;
 }
-.has-error .select2-search-field {
-	width: 100%;
+.has-error {
+	.select2-offscreen, 
+	.select2-offscreen:focus {
+		display: none;
+	}
+	.select2-search-field {
+		width: 100%;
+		input {
+			width: 100% !important;
+		}
+	}
 }
 
 .form-container {
@@ -137,7 +146,7 @@ textarea {
 				font-family: Calibri, "Helvetica Neue", Helvetica, Arial, sans-serif;
 				margin-top: 3px;
 				padding: 5px 8px;
-				width: 100% !important;
+				
 			}
 		}
 		
@@ -171,7 +180,7 @@ textarea {
 		float: left;
 		height: 36px;
 		padding: 0 8px;
-		line-height: 37px;
+		line-height: 36px;
 		border: 1px solid #ccc;
 		margin-right: -1px;
 		background: #FFF;

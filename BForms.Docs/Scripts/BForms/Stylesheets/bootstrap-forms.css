@@ -26,8 +26,13 @@ textarea {
 .has-error .glyphicon-info-sign {
   display: none; }
 
+.has-error .select2-offscreen,
+.has-error .select2-offscreen:focus {
+  display: none; }
 .has-error .select2-search-field {
   width: 100%; }
+  .has-error .select2-search-field input {
+    width: 100% !important; }
 
 .form-container {
   position: relative;
@@ -103,8 +108,7 @@ textarea {
   .custom_select-multi .select2-choices .select2-search-field input {
     font-family: Calibri, "Helvetica Neue", Helvetica, Arial, sans-serif;
     margin-top: 3px;
-    padding: 5px 8px;
-    width: 100% !important; }
+    padding: 5px 8px; }
   .custom_select-multi .select2-choices .select2-search-choice {
     background: #fff;
     background-image: none;
@@ -126,7 +130,7 @@ textarea {
   float: left;
   height: 36px;
   padding: 0 8px;
-  line-height: 37px;
+  line-height: 36px;
   border: 1px solid #ccc;
   margin-right: -1px;
   background: #FFF;
