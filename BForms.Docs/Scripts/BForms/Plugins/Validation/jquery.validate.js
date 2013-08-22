@@ -224,7 +224,8 @@
             ignore: '',
             selectedSuffix: '.SelectedValues',
             checklistClass: 'bs-checkbox',
-            scrollToError : true,
+            validationSummaryKey: 'BsFormError',
+            scrollToError: true,
             ignoreTitle: false,
             onfocusin: function (element, event) {
                 this.lastActive = element;
@@ -259,7 +260,7 @@
                     this.element(element.parentNode);
                 } else {
                     var $elem = $(element);
-                    if($elem.hasClass(this.settings.checklistClass)) {
+                    if ($elem.hasClass(this.settings.checklistClass)) {
                         this.element(element);
                     }
                 }
@@ -287,7 +288,7 @@
 
         messages: {
             required: "This field is required.",
-            mandatory : 'This field is mandatory.',
+            mandatory: 'This field is mandatory.',
             remote: "Please fix this field.",
             email: "Please enter a valid email address.",
             url: "Please enter a valid URL.",
@@ -363,9 +364,9 @@
                 if (!this.valid()) {
                     $(this.currentForm).triggerHandler("invalid-form", [this]);
                 }
-                
-                this.showErrors(null,true);
-                
+
+                this.showErrors(null, true);
+
                 return this.valid();
             },
 
@@ -398,20 +399,29 @@
             },
 
             // http://docs.jquery.com/Plugins/Validation/Validator/showErrors
-            showErrors: function (errors,scrollToFirst) {
+            showErrors: function (errors, scrollToFirst) {
                 if (errors) {
                     // add items to error list and map
                     $.extend(this.errorMap, errors);
                     this.errorList = [];
+                    var validationSummary = null;
+                    var summaryError;
+
                     for (var name in errors) {
                         var errorObj = {
                             message: errors[name],
                             element: this.findByName(name)[0]
                         };
-                        if(typeof errorObj.element !== "undefined") {
+                        if (typeof errorObj.element !== "undefined") {
                             this.errorList.push(errorObj);
+
+                        } else if (name.indexOf(this.settings.validationSummaryKey) !== -1) {//validation summary?
+                            summaryError = this.showSummaryError(errors[name]);
+                        } else {
+                            this.removeSummaryError();
                         }
                     }
+
                     // remove items from success list
                     this.successList = $.grep(this.successList, function (element) {
                         return !(element.name in errors);
@@ -422,10 +432,26 @@
                 } else {
                     this.defaultShowErrors();
                 }
-                
-                if (scrollToFirst && this.settings.scrollToError === true && this.errorList[0] != null) {
-                    var firstError = this.errorList[0],
-                        $elem = $(firstError.element).parents('.has-error:first'),
+
+                if (scrollToFirst && this.settings.scrollToError === true && (this.errorList[0] != null || typeof summaryError !== "undefined")) {
+
+                    var firstError = null;
+
+                    if (this.errorList[0] != null) {
+                        firstError = this.errorList[0];
+                    }
+
+                    if (typeof summaryError !== "undefined") {
+                        if (firstError != null) {
+                            if (summaryError.element.prevAll(firstError.element).length === 0) {
+                                firstError = summaryError;
+                            }
+                        } else {
+                            firstError = summaryError;
+                        }
+                    }
+
+                    var $elem = $(firstError.element).parents('.has-error, .bs-validationSummaryContainer').first(),
                         elemTop = $elem.offset().top,
                         elemBottom = elemTop + $elem.height(),
                         docTop = $(document).scrollTop(),
@@ -436,6 +462,34 @@
                             scrollTop: $elem.offset().top - 200
                         });
                     }
+                }
+            },
+
+            showSummaryError: function (message) {
+
+                var $errorContainer = $(this.currentForm).find('.bs-validationSummaryContainer');
+
+                if ($errorContainer.length == 0) {
+                    $errorContainer = $('<div class="col-12 col-sm-12 col-lg-12 bs-validationSummaryContainer"></div>');
+                    $(this.currentForm).prepend($errorContainer);
+                }
+
+                var $error = $('<div class="bs-form-error alert alert-danger">' +
+                                        '<button class="close" data-dismiss="alert" type="button">×</button>' +
+                                         message +
+                                    '</div>'
+                                );
+
+                $errorContainer.html($error);
+                return {
+                    element: $error
+                };
+            },
+
+            removeSummaryError : function() {
+                var $errorContainer = $(this.currentForm).find('.bs-validationSummaryContainer');
+                if($errorContainer.length) {
+                    $errorContainer.html('');
                 }
             },
 
@@ -766,7 +820,7 @@
             findByName: function (name) {
                 var $elem = $(this.currentForm).find("[name='" + name + "']");
                 if ($elem.length === 0) {
-                    $elem = $(this.currentForm).find("[name='" + name + this.settings.selectedSuffix +  "']");
+                    $elem = $(this.currentForm).find("[name='" + name + this.settings.selectedSuffix + "']");
                 }
                 return $elem;
             },

@@ -9,7 +9,7 @@
 @using (Html.BeginForm("Register", "Login", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "bs-form js-registerForm" }))
 {
     <div class="form-container loading">
-        <div class="col-12 col-sm-12 col-lg-12">
+        <div class="col-12 col-sm-12 col-lg-12 bs-validationSummaryContainer">
             @Html.BsValidationSummary()
         </div>
 
