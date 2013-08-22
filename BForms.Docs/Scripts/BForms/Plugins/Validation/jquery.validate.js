@@ -426,7 +426,10 @@
                     this.successList = $.grep(this.successList, function (element) {
                         return !(element.name in errors);
                     });
+                }else {
+                    this.removeSummaryError();
                 }
+                
                 if (this.settings.showErrors) {
                     this.settings.showErrors.call(this, this.errorMap, this.errorList);
                 } else {
