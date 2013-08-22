@@ -9,7 +9,9 @@
 @using (Html.BeginForm("Index", "Login", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "bs-form js-loginForm" }))
 {
     <div class="form-container loading">
-        @Html.BsValidationSummary(new { @class= "col-12 col-sm-12 col-lg-12"})
+        <div class="col-12 col-sm-12 col-lg-12">
+            @Html.BsValidationSummary()
+        </div>
 
         <div class="col-12 col-sm-12 col-lg-12 form-group @Html.BsValidationCssFor(m => m.Email)">
             <div class="input-group">
