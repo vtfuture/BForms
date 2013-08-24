@@ -263,7 +263,7 @@
     <Content Include="Views\Components\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\_TextInput.cshtml" />
+    <Content Include="Views\Components\_InputHelper.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\BForms\Components\Bootstrap\fonts\glyphicons-halflings-regular.eot" />
