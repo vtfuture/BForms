@@ -74,7 +74,7 @@ namespace BootstrapForms.Models
         [Description("glyphicon-list-alt")]
         ListAlt,
         [Description("glyphicon-lock")]
-        GLock,
+        Lock,
         [Description("glyphicon-flag")]
         Flag,
         [Description("glyphicon-headphones")]
@@ -324,6 +324,57 @@ namespace BootstrapForms.Models
         [Description("glyphicon-collapse")]
         Collapse,
         [Description("glyphicon-collapse-top")]
-        CollapseTop
+        CollapseTop,
+        [Description("glyphicon-cloud")]
+        Cloud,
+        [Description("glyphicon-cloud-download")]
+        CloudDownload,
+        [Description("glyphicon-cloud-upload")]
+        CloudUpload,
+        [Description("glyphicon-earphone")]
+        Earphone,
+        [Description("glyphicon-compressed")]
+        Compressed,
+        [Description("glyphicon-copyright-mark")]
+        CopyrightMark,
+        [Description("glyphicon-credit-card")]
+        CreditCard,
+        [Description("glyphicon-cutlery")]
+        Cutlery,
+        [Description("glyphicon-flash")]
+        Flash,
+        [Description("glyphicon-import")]
+        Import,
+        [Description("glyphicon-save")]
+        Save,
+        [Description("glyphicon-saved")]
+        Saved,
+        [Description("glyphicon-sd-video")]
+        SdVideo,
+        [Description("glyphicon-stats")]
+        Stats,
+        [Description("glyphicon-subtitles")]
+        Subtitles,
+        [Description("glyphicon-transfer")]
+        Transfer,
+        [Description("glyphicon-tower")]
+        Tower,
+        [Description("glyphicon-conifer")]
+        Conifer,
+        [Description("glyphicon-deciduous")]
+        Deciduous,
+        [Description("glyphicon-sound-dolby")]
+        SoundDolby,
+        [Description("glyphicon-sound-stereo")]
+        SoundStereo,
+        [Description("glyphicon-log-in")]
+        LogIn,
+        [Description("glyphicon-log-out")]
+        LogOut,
+        [Description("glyphicon-record")]
+        Record,
+        [Description("glyphicon-registration-mark")]
+        RegistrationMark
+
     }
 }
