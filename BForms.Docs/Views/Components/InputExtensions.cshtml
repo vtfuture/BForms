@@ -1,0 +1,54 @@
+﻿@{
+    ViewBag.Title = "Components";
+}
+
+<div class="row">
+    <div class="col-lg-3">
+        <div class="bs-sidebar">
+            <ul class="nav bs-sidenav">
+                <li>
+                    <a href="#input-section">Text inputs</a>
+                    <ul class="nav">
+                        <li><a href="#Input">Input helper</a></li>
+                        <li><a href="#Input-Textbox">Textbox</a></li>
+                        <li><a href="#Input-Password">Password</a></li>
+                        <li><a href="#Input-Email">Email</a></li>
+                        <li><a href="#Input-Url">Url</a></li>
+                        <li><a href="#Input-Number">Number</a></li>
+                        <li><a href="#Input-Upload">File upload</a></li>
+                        <li><a href="#Input-CheckBox">Checkbox & Radio</a></li>
+                        <li><a href="#Input-DatePicker">DatePicker</a></li>
+                        <li><a href="#Input-TimePicker">TimePicker</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <main class="col-lg-9" role="main">
+        <div class="bs-docs-section">
+            <div class="page-header">
+                <h1 id="input-section">Text inputs</h1>
+            </div>
+            <p>
+                BForms exposes two ways of building text inputs using Razor HTML extensions, one way is throw the <code>BsControlAttribute</code> in combination with 
+                <code>BsInputFor</code> helper, the <code>BsInputFor</code> will reader the specified input type based on <code>BsControlType</code> enum. 
+                Another way is to use the specialized helpers like <code>BsTextBoxFor</code>, <code>BsTextAreaFor</code> and so on.
+            </p>
+            <p>
+                We recommend you using the generic <code>BsInputFor</code> helper, this declarative approach makes the Model the place where you can decide the behavior of your form, 
+                when you need to change the output of a certain model property all you need to do is change the <code>BsControlType</code> designated for that property 
+                without modifying the view at all. 
+            </p>
+            <p>
+                In ASP.NET MVC the behavior of a certain property is determine by mixing attributes like Description, DataType and Required with specialized helpers like TextBoxFor, 
+                BFroms is trying to simplify this process by only using attributes and a generic helper.  In order to maintain compatibility with MVC, 
+                BForms will exposes the same specialized helpers as MVC, so if you don’t like the declarative approach you can still use BForms as you are using MVC.
+            </p>
+
+            @Html.Partial("_InputHelper")
+            @Html.Partial("_InputEmail")
+        </div>
+    </main>
+
+</div>

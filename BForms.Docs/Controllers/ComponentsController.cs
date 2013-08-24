@@ -12,5 +12,30 @@ namespace BForms.Docs.Controllers
         {
             return View();
         }
+
+        public ActionResult Overview()
+        {
+            return View();
+        }
+
+        public ActionResult InputExtensions()
+        {
+            return View();
+        }
+
+        public ActionResult DatetimeExtensions()
+        {
+            return View();
+        }
+
+        public ActionResult FileExtensions()
+        {
+            return View();
+        }
+
+        public ActionResult SelectExtensions()
+        {
+            return View();
+        }
     }
 }

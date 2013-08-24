@@ -177,6 +177,9 @@
     <Content Include="Scripts\BForms\Stylesheets\Images\preloader.gif" />
     <Content Include="Scripts\Controllers\Demo\Login\login-index.js" />
     <Content Include="Scripts\Controllers\Root\Components\components-index.js" />
+    <Content Include="Scripts\Controllers\Root\Components\components-overview.js" />
+    <Content Include="Scripts\Controllers\Root\Components\components-inputextensions.js" />
+    <Content Include="Scripts\Controllers\Root\Components\components-selectextensions.js" />
     <Content Include="Scripts\Controllers\Root\Home\home-contact.js" />
     <Content Include="Scripts\Controllers\Root\Home\home-index.js" />
     <Content Include="Scripts\Requirejs\async.js" />
@@ -260,7 +263,7 @@
     <Content Include="Areas\Demo\Views\Login\_Register.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\Index.cshtml" />
+    <Content Include="Views\Components\Overview.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Components\_InputHelper.cshtml" />
@@ -278,6 +281,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Components\_SelectHelper.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\InputExtensions.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\SelectExtensions.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
