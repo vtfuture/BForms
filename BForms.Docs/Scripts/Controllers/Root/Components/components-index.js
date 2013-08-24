@@ -1,9 +1,8 @@
 ﻿require([
-         'bforms/plugins/navscroll/navscroll',
-    
          'jquery',
          'jquery-ui-core',
-         'bootstrap'
+         'bootstrap',
+         'navscroll'
 ], function () {
     var ComponentsIndex = function (options) {
         this.options = $.extend(true, {}, options);
