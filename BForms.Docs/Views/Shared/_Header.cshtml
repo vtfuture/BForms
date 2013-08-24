@@ -1,7 +1,11 @@
 ﻿@using BootstrapForms.Html
 @using BootstrapForms.Models
 
-@{var header = ViewBag.Header;}
+@{
+    var header = ViewBag.Header;
+    var ctrl = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString();
+    var area = HttpContext.Current.Request.RequestContext.RouteData.DataTokens["area"];
+}
 
 <header>
     <div class="navbar">
@@ -14,9 +18,9 @@
             <a class="navbar-brand brand" href="@Url.Action("Index", "Home", new { area = "" })"><img src="@Url.Content("~/Content/images/logo-bforms.png")"></a>
 	    </div>
 
-		<div class="collapse navbar-collapse navbar-responsive-collapse">
-			<ul class="nav navbar-nav pull-right">
-                <li class="dropdown">
+        <div class="collapse navbar-collapse navbar-responsive-collapse">
+            <ul class="nav navbar-nav pull-right">
+                <li class="dropdown @(ctrl.Contains("Components") ? "active" : "")">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Components</a>
                     <ul class="dropdown-menu">
                         <li><a href="@Url.Action("Overview", "Components", new { area = "" })">Overview</a></li>
@@ -24,7 +28,7 @@
                         <li><a href="@Url.Action("SelectExtensions", "Components", new { area = "" })">Select controls</a></li>
                     </ul>
                 </li>
-                <li class="active dropdown">
+                <li class="dropdown @((area != null && area.ToString().Contains("Demo")) ? "active" : "")">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Demo</a>
                     <ul class="dropdown-menu">
                         <li><a href="@Url.Action("Index", "Login", new { area = "Demo" })">Login or register<span class="badge badge-info">post-back</span></a></li>
@@ -33,6 +37,7 @@
                 </li>
                 <li><a href="@Url.Action("Contact", "Home", new { area = "" })">Contact</a></li>   
             </ul>
-		</div>
+        </div>
+
     </div>
 </header>
