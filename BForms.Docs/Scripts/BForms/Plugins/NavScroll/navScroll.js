@@ -13,7 +13,13 @@
         this.options = options;
         this.hash = null;
 
+        this.$sidebar = $(this.options.sidebar);
+        this.$relativeElement = $(this.options.relativeElement);
+
         this.menuItems = this.$element.find('a');
+
+        this.topBreak = this.options.topBreak;
+        this.bottomBreak = this.options.bottomBreak;
 
         this.init();
     };
@@ -21,6 +27,7 @@
     navScroll.prototype.init = function () {
 
         this.updateHash();
+        this._setPosition();
         this.addHandlers();
 
     };
@@ -39,6 +46,11 @@
     };
 
     navScroll.prototype.onScroll = function (e) {
+        this._setHash();
+        this._setPosition();
+    };
+
+    navScroll.prototype._setHash = function () {
         var fromTop = $(window).scrollTop() + $('header').height();
 
         var visibleElements = this.menuItems.map(function (idx, anchor) {
@@ -67,6 +79,65 @@
         }
     };
 
+    navScroll.prototype._setPosition = function (initialInit) {
+
+        var navOffset = this.$element.offset(),
+            scrollTop = $(window).scrollTop();
+
+        //check bottom first if it doesn't have affix-bottom class
+        if (!this.$sidebar.hasClass('affix-bottom')) {
+            
+            console.log(this.$sidebar.offset().top + this.$sidebar.outerHeight() , this.bottomBreak)
+
+            if (this.$sidebar.offset().top + this.$sidebar.outerHeight() >= this.bottomBreak) {
+                
+                this.$sidebar.removeClass('affix-top');
+                this.$sidebar.removeClass('affix');
+
+                var top = this.bottomBreak - this.$sidebar.height() - this.$relativeElement.offset().top - 30;
+               
+                this.$sidebar.css({
+                    top: top
+                });
+
+                this.$sidebar.addClass('affix-bottom');
+            } else if (scrollTop > this.topBreak) {
+                //debugger;
+                this.$sidebar.removeClass('affix-top');
+                this.$sidebar.addClass('affix');
+                this.$sidebar.removeClass('affix-bottom');
+                //this.$sidebar.css({
+                //    top: 0
+                //});
+            } else {
+                this.$sidebar.removeClass('affix');
+                this.$sidebar.removeClass('affix-bottom');
+                this.$sidebar.addClass('affix-top');
+                
+                this.$sidebar.css({
+                    top: 0
+                });
+            }
+        } else {
+            if (scrollTop > this.topBreak) {
+                this.$sidebar.removeClass('affix-top');
+                this.$sidebar.addClass('affix');
+                this.$sidebar.removeClass('affix-bottom');
+                this.$sidebar.css({
+                    top: 0
+                });
+            } else {
+                this.$sidebar.removeClass('affix');
+                this.$sidebar.removeClass('affix-bottom');
+                this.$sidebar.addClass('affix-top');
+                this.$sidebar.css({
+                    top: 0
+                });
+            }
+        }
+        
+    };
+
     navScroll.prototype.updateNav = function (hash) {
 
         var $active = this.$element.find('*[href=' + hash + ']').parentsUntil(this.$element, this.options.receiver);
@@ -84,6 +155,10 @@
     };
 
     $.fn.navScrollDefaults = {
+        sidebar: '.bs-sidebar',
+        sidebarTopClass: 'affix-top',
+        sidebarClass: 'affix',
+        sidebarBottomClass: 'affix-bottom',
         activeClass: 'active',
         receiver: 'li'
     };

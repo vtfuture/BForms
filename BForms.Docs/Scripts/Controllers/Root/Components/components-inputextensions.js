@@ -9,7 +9,11 @@
     };
 
     ComponentsIndex.prototype.init = function() {
-        $('.bs-sidenav').navScroll();
+        $('.bs-sidenav').navScroll({
+            topBreak: $('#body').offset().top,
+            bottomBreak : $('#body').offset().top + $('#body').outerHeight(),
+            relativeElement : '#body'
+        });
     };
 
     $(document).ready(function () {
