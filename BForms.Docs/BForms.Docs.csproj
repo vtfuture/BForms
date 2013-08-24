@@ -133,6 +133,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Images\Docs\email-input.jpg" />
+    <Content Include="Content\Images\Docs\email-tooltip-input.jpg" />
     <Content Include="Content\Images\icn-err_error.png" />
     <Content Include="Content\Images\icn-err_notfound.png" />
     <Content Include="Content\Images\icn-err_unauth.png" />
@@ -287,6 +288,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Components\SelectExtensions.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\_InputTextbox.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

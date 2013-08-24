@@ -5,14 +5,25 @@
     <code>@@Html.BsInputFor</code> helper extension and 
     decorate your model property with <code>BsControlAttribute</code> and <code>DisplayAttribute</code>.
     You can choose from standard HTML inputs like
-    <code>Text</code>, <code>Password</code>, <code>TextArea</code>, <code>File</code>
+    <code>Text</code>, <code>Password</code>, <code>TextArea</code>
     or HTML5 flavored inputs like
-    <code>Email</code>, <code>Url</code>, <code>Number</code>, <code>Date</code>, <code>Time</code>, <code>Color</code>.
+    <code>Email</code>, <code>Url</code>, <code>Number</code>, <code>Color</code>.
+</p>
+
+<p>
+    All the text inputs rendered by <code>@@Html.BsInputFor</code> supports placeholder and description tooltip, 
+    the placeholder text is extracted from the <code>Prompt</code> property of the <code>Display</code> attribute 
+    while the description tooltip is using the <code>Description</code> propery.
+</p>
+
+<p>        
+    Besides text inputs, <code>BsInputFor</code> helper can render the following types: 
+    <code>Checkbox</code>, <code>Radio</code>, <code>Date</code>, <code>Time</code>, <code>Datetime</code> and <code>File</code>.
 </p>
 
 <h4 class="sub_title">Example</h4>    
 <div class="bs-example bs-img-example">
-    <img src="@Url.Content("~/Content/images/docs/email-input.jpg")">
+    <img src="@Url.Content("~/Content/images/docs/email-tooltip-input.jpg")">
 </div>
 
 <h4 class="sub_title">Model</h4>
@@ -21,7 +32,7 @@ public class RegisterModel
 {
     [Required]
     [BsControl(BsControlType.Email)]
-    [Display(Name = "Email", Prompt = "Registration email address")]
+    [Display(Name = "Email", Prompt = "email@example.com", Description = "A verification...")]
     public string Email { get; set; }
     
     ...
@@ -36,17 +47,6 @@ public class RegisterModel
         @@Html.BsGlyphiconAddon(Glyphicon.Envelope)
         @@Html.BsInputFor(m =&gt; m.Email)
         @@Html.BsValidationFor(m =&gt; m.Email)
-    &lt;/div&gt;
-&lt;/div&gt;
-</pre>
-
-<h4 class="sub_title">HTML result</h4>
-<pre class="prettyprint lang-cs bs-example">
-&lt;div class=&quot;form-group &quot;&gt;
-    &lt;div class=&quot;input-group&quot;&gt;
-        &lt;span class=&quot;glyphicon glyphicon-envelope input-group-addon&quot;&gt;&lt;/span&gt;
-        &lt;input class=&quot;form-control&quot; data-val=&quot;true&quot; data-val-required=&quot;This field is required&quot; id=&quot;LoginModel_Email&quot; name=&quot;LoginModel.Email&quot; placeholder=&quot;Registration email address&quot; type=&quot;email&quot; value=&quot;&quot;&gt;
-        &lt;span class=&quot;input-group-addon glyphicon glyphicon-warning-sign field-validation-valid&quot; data-toggle=&quot;tooltip&quot; data-valmsg-for=&quot;LoginModel.Email&quot; data-valmsg-replace=&quot;true&quot; data-original-title=&quot;&quot; title=&quot;&quot;&gt;&lt;/span&gt;
     &lt;/div&gt;
 &lt;/div&gt;
 </pre>
