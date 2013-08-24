@@ -298,7 +298,25 @@ h1 {
 	}
 }
 
+.affix {
+	position: fixed;
+}
+.affix-bottom {
+	position: absolute;
+}
+@media screen and (min-width: 757px) {
+	.bs-sidebar.affix {
+		position: fixed;
+		top: 0;
+	}
+}
 
+@media screen and (min-width: 1200px) {
+	.bs-sidebar.affix-bottom, 
+	.bs-sidebar.affix {
+		width: 229px;
+	}
+}
 
 @media (max-width: 756px) {
 	.brand img {
