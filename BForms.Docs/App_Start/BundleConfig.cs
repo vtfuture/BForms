@@ -8,12 +8,13 @@ namespace BForms.Docs
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
-            bundles.Add(new StyleBundle("~/BForms/css").Include(
-                      "~/Scripts/BForms/Components/Bootstrap/css/*.css",
-                      "~/Scripts/BForms/Plugins/Select2/css/*.css",
-                      "~/Scripts/BForms/Plugins/Datepicker/css/*.css",
-                      "~/Scripts/BForms/Stylesheets/*.css",
-                      "~/Content/Stylesheets/*.css"));
+            bundles.Add(new StyleBundle("~/css")
+                .Include("~/Scripts/BForms/Components/Bootstrap/css/*.css", new CssRewriteUrlTransform())
+                .Include("~/Scripts/BForms/Plugins/Select2/css/*.css", new CssRewriteUrlTransform())
+                .Include("~/Scripts/BForms/Plugins/Datepicker/css/*.css", new CssRewriteUrlTransform())
+                .Include("~/Scripts/BForms/Stylesheets/*.css", new CssRewriteUrlTransform())
+                .Include("~/Content/Stylesheets/*.css", new CssRewriteUrlTransform())
+                );
         }
     }
 }

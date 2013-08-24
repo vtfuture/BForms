@@ -9,8 +9,8 @@
         <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 
         <title>@ViewBag.Title - BForms</title>
-
-        @Html.Partial("_Stylesheets")
+        @Styles.Render("~/css")
+        @*@Html.Partial("_Stylesheets")*@
 
          @*For IE6-8 support of HTML5 elements and responsive*@
         <!--[if lt IE 9]>

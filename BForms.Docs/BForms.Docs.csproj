@@ -160,6 +160,7 @@
     <Content Include="Scripts\BForms\Plugins\Datepicker\css\datepicker.css" />
     <Content Include="Scripts\BForms\Plugins\Datepicker\js\bootstrap-datepicker.js" />
     <Content Include="Scripts\BForms\Plugins\Datepicker\js\i18n\bootstrap-datepicker.ro.js" />
+    <Content Include="Scripts\BForms\Plugins\NavScroll\navScroll.js" />
     <Content Include="Scripts\BForms\Plugins\RadioButtonsList\radioButtonsList.js" />
     <Content Include="Scripts\BForms\Plugins\ResetInput\resetInput.js" />
     <Content Include="Scripts\BForms\Plugins\Select2\css\select2-spinner.gif" />
