@@ -1,13 +1,10 @@
-﻿<h3 id="Input">Input helper</h3>
+﻿<h3 id="Input-Email">Email Input</h3>
 
 <p>        
-    In order to render text inputs you will need to use the 
+    In order to render a text input of type email you will need to use the 
     <code>@@Html.BsInputFor</code> helper extension and 
-    decorate your model property with <code>BsControlAttribute</code> and <code>DisplayAttribute</code>.
-    You can choose from standard HTML inputs like
-    <code>Text</code>, <code>Password</code>, <code>TextArea</code>, <code>File</code>
-    or HTML5 flavored inputs like
-    <code>Email</code>, <code>Url</code>, <code>Number</code>, <code>Date</code>, <code>Time</code>, <code>Color</code>.
+    decorate your model property with <code>[BsControl(BsControlType.Email)]</code>.
+    Using <code>BsControlType.Email</code> will enforce email validation on both client and server side.
 </p>
 
 <h4 class="sub_title">Example</h4>    

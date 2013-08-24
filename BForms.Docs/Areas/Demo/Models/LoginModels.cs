@@ -65,7 +65,7 @@ namespace BForms.Docs.Areas.Demo.Models
         public decimal? AnnualIncome { get; set; }
 
         [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
-        [Display(Name = "Location", Prompt = "Chose your country")]
+        [Display(Name = "Location", Prompt = "Choose your country")]
         [BsControl(BsControlType.DropDownList)]
         public BsSelectList<string> CountriesList { get; set; }
 

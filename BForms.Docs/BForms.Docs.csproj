@@ -273,6 +273,12 @@
   <ItemGroup>
     <Content Include="Views\Shared\_Stylesheets.cshtml" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\_InputEmail.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\_SelectHelper.cshtml" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
