@@ -132,10 +132,12 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Images\Docs\checkbox-input.jpg" />
     <Content Include="Content\Images\Docs\email-input.jpg" />
     <Content Include="Content\Images\Docs\email-tooltip-input.jpg" />
     <Content Include="Content\Images\Docs\number-input.jpg" />
     <Content Include="Content\Images\Docs\password-input.jpg" />
+    <Content Include="Content\Images\Docs\textbox-input.jpg" />
     <Content Include="Content\Images\Docs\url-input.jpg" />
     <Content Include="Content\Images\icn-err_error.png" />
     <Content Include="Content\Images\icn-err_notfound.png" />
@@ -303,6 +305,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Components\_InputNumber.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\_InputCheckbox.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\_InputRadio.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
