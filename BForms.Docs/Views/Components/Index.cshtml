@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Welcome to BForms";
+    ViewBag.Title = "Components";
 }
 
 <div class="row">
@@ -8,7 +8,7 @@
             <ul class="nav bs-sidenav">
 
                 <li class="active">
-                    <a href="#Components">Components</a>
+                    <a href="#controls-section">UI Controls</a>
                     <ul class="nav">
                         <li class="active"><a href="#html-helpers">MVC HTML helpers</a></li>
                         <li><a href="#placeholder-tooltip">Placeholder &amp; tooltip</a></li>
@@ -17,16 +17,33 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="#controls-section">UI Controls</a>
+                    <a href="#inputs-section">Text inputs</a>
                     <ul class="nav">
-                        <li><a href="#TextInputs">Text inputs</a></li>
-                        <li><a href="#Dropdown">Dropdown</a></li>
-                        <li><a href="#ListBox">ListBox</a></li>
-                        <li><a href="#TagList">TagList</a></li>
-                        <li><a href="#RadioButtonList">RadioButtonList</a></li>
+                        <li><a href="#Input">Input helper</a></li>
+                        <li><a href="#Textbox">Textbox</a></li>
+                        <li><a href="#Password">Password</a></li>
+                        <li><a href="#Email">Email</a></li>
+                        <li><a href="#Url">Url</a></li>
+                        <li><a href="#Number">Number</a></li>
+                        <li><a href="#Upload">File upload</a></li>
+                        <li><a href="#CheckBox">Checkbox & Radio</a></li>
+                        <li><a href="#DatePicker">DatePicker</a></li>
+                        <li><a href="#TimePicker">TimePicker</a></li>
                     </ul>
                 </li>
-
+                <li>
+                    <a href="#select-section">Select inputs</a>
+                    <ul class="nav">
+                        <li><a href="#Select">Select helper</a></li>
+                        <li><a href="#DropDownList">DropDownList</a></li>
+                        <li><a href="#ListBox">ListBox</a></li>
+                        <li><a href="#CheckBoxList">CheckBoxList</a></li>
+                        <li><a href="#RadioButtonList">RadioButtonList</a></li>
+                        <li><a href="#TagList">TagList</a></li>
+                        <li><a href="#Autocomplete">Autocomplete</a></li>
+                        <li><a href="#UploadList">File upload list</a></li>
+                    </ul>
+                </li>
             </ul>
         </div>
     </div>
@@ -35,28 +52,45 @@
 
         <div class="bs-docs-section">
             <div class="page-header">
-                <h1 id="Components">Components</h1>
+                <h1 id="controls-section">UI Controls</h1>
             </div>
 
             <p>The BFroms framework consists in a collection of ASP.NET MVC HTML Helpers, Javascript AMD modules and custom CSS that extends Twitter Bootstrap Version 3.</p>
             <p>
-                With BFroms you'll be able to build ASP.NET MVC web apps using Bootstrap mobile-first approach and benefit from out of the box HTML5 controls with both client and server side validation.
+                With BFroms you'll be able to build ASP.NET MVC web apps using Bootstrap mobile-first approach and benefit 
+                from out of the box HTML5 controls with both client and server side validation.
             </p>
 
+            <p>BFroms input HTML Extensions cover most of the HTML5 new input types as well as the standard ones.</p>
+            <p>
+                Similar to the <code>DataAnnotations.DataType</code>, BForms provides a <code>BsControl</code> attribute
+                and a <code>BsControlType</code> enum
+                that allows you to specify witch type of input should the Razor engine render.
+            </p>
         </div>
 
         <div class="bs-docs-section">
             <div class="page-header">
-                <h1 id="controls-section">UI Controls</h1>
+                <h1 id="inputs-section">Text inputs</h1>
             </div>
-
-            <p>BFroms input HTML Extensions cover most of the HTML5 new input types as well as the standard ones.</p>
             <p>
-                Similar to the <strong>DataAnnotations.DataType</strong>, BForms provides a <strong>BsControl</strong> attribute
-                and a <strong>BsControlType</strong> enum
-                that allows you to specify witch type of input should the Razor engine render.
+                BForms exposes two ways of building text inputs using Razor HTML extensions, one way is throw the <code>BsControlAttribute</code> in combination with 
+                <code>BsInputFor</code> helper, the <code>BsInputFor</code> will reader the specified input type based on <code>BsControlType</code> enum. 
+                Another way is to use the specialized helpers like <code>BsTextBoxFor</code>, <code>BsTextAreaFor</code> and so on.
             </p>
-            @Html.Partial("_TextInput")
+            <p>
+                We recommend you using the generic <code>BsInputFor</code> helper, this declarative approach makes the Model the place where you can decide the behavior of your form, 
+                when you need to change the output of a certain model property all you need to do is change the <code>BsControlType</code> designated for that property 
+                without modifying the view at all. 
+            </p>
+            <p>
+                In ASP.NET MVC the behavior of a certain property is determine by mixing attributes like Description, DataType and Required with specialized helpers like TextBoxFor, 
+                BFroms is trying to simplify this process by only using attributes and a generic helper.  In order to maintain compatibility with MVC, 
+                BForms will exposes the same specialized helpers as MVC, so if you don’t like the declarative approach you can still use BForms as you are using MVC.
+            </p>
+
+
+            @Html.Partial("_InputHelper")
         </div>
 
     </main>
