@@ -289,17 +289,17 @@ namespace BootstrapForms.Models
         Briefcase,
         [Description("glyphicon-fullscreen")]
         Fullscreen,
-        [Description("glyphicon-collapse-dashboard")]
+        [Description("glyphicon-dashboard")]
         Dashboard,
-        [Description("glyphicon-collapse-paperclip")]
+        [Description("glyphicon-paperclip")]
         Paperclip,
-        [Description("glyphicon-collapse-heart-empty")]
+        [Description("glyphicon-heart-empty")]
         HeartEmpty,
-        [Description("glyphicon-collapse-link")]
+        [Description("glyphicon-link")]
         Link,
-        [Description("glyphicon-collapse-phone")]
+        [Description("glyphicon-phone")]
         Phone,
-        [Description("glyphicon-collapse-pushpin")]
+        [Description("glyphicon-pushpin")]
         Pushpin,
         [Description("glyphicon-euro")]
         Euro,

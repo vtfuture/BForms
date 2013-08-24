@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Components";
+    ViewBag.Title = "Input controls";
 }
 
 <div class="row">
@@ -28,17 +28,17 @@
     <main class="col-lg-9" role="main">
         <div class="bs-docs-section">
             <div class="page-header">
-                <h1 id="input-section">Text inputs</h1>
+                <h1 id="input-section">Inputs</h1>
             </div>
             <p>
                 BForms exposes two ways of building input elements using Razor HTML extensions, one way is throw the <code>BsControlAttribute</code> in combination with 
-                <code>BsInputFor</code> helper, the <code>BsInputFor</code> will reader the specified input type based on <code>BsControlType</code> enum. 
+                <code>BsInputFor</code> helper, the <code>BsInputFor</code> will render the specified input type based on <code>BsControlType</code> enum. 
                 Another way is to use the specialized helpers like <code>BsTextBoxFor</code>, <code>BsTextAreaFor</code> and so on.
             </p>
             <p>
                 We recommend you using the generic <code>BsInputFor</code> helper, this declarative approach makes the Model the place where you can decide the behavior of your form, 
                 when you need to change the output of a certain model property all you need to do is change the <code>BsControlType</code> designated for that property 
-                without modifying the view at all. 
+                without modifying the view at all.
             </p>
             <p>
                 In ASP.NET MVC the behavior of a certain property is determine by mixing attributes like <code>Description</code>, <code>DataType</code> and <code>Required</code> 
@@ -49,7 +49,12 @@
 
             @Html.Partial("_InputHelper")
             @Html.Partial("_InputTextbox")
+            @Html.Partial("_InputPassword")
             @Html.Partial("_InputEmail")
+            @Html.Partial("_InputUrl")
+            @Html.Partial("_InputNumber")
+            @Html.Partial("_InputCheckbox")
+            @Html.Partial("_InputRadio")
         </div>
     </main>
 

@@ -1,0 +1,33 @@
+﻿<h3 id="Input-Radio">Radio button Input</h3>
+
+<p>        
+    In order to render an input of type radio you will need to use the 
+    <code>@@Html.BsInputFor</code> helper extension and 
+    decorate your model property with <code>[BsControl(BsControlType.RadioButton)]</code>.
+</p>
+
+<p>
+    To achieve the same behavior without the <code>BsControlAttribute</code>, you can use the specialized helper
+    <code>BsRadioButtonFor</code> or <code>BsRadioButton</code>.
+</p>
+
+<h4 class="sub_title">Model</h4>
+<pre class="prettyprint lang-cs bs-example">
+public class RegisterModel
+{
+
+    [BsControl(BsControlType.RadioButton)]
+    [Display(Name = "Radio label")]
+    public bool? Radio { get; set; }
+
+    ...
+}
+</pre>
+
+<h4 class="sub_title">View</h4>
+<pre class="prettyprint lang-cs bs-example">
+&lt;div class=&quot;form-group radio&quot;&gt;
+    @@Html.BsInputFor(m =&gt; m.Radio)
+    @@Html.BsValidationFor(m =&gt; m.Radio)
+&lt;/div&gt;
+</pre>

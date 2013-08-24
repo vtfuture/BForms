@@ -8,8 +8,12 @@
         this.options = $.extend(true, {}, options);
     };
 
-    ComponentsIndex.prototype.init = function() {
-        $('.bs-sidenav').navScroll();
+    ComponentsIndex.prototype.init = function () {
+        $('.bs-sidenav').navScroll({
+            topBreak: $('#body').offset().top,
+            bottomBreak: $('#body').offset().top + $('#body').outerHeight(),
+            relativeElement: '#body'
+        });
     };
 
     $(document).ready(function () {

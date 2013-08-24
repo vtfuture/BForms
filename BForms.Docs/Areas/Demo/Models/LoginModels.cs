@@ -43,6 +43,11 @@ namespace BForms.Docs.Areas.Demo.Models
         [BsControl(BsControlType.Email)]
         public string Email { get; set; }
 
+        
+        [Display(Name = "Personal website", Prompt = "http://www.mysite.com")]
+        [BsControl(BsControlType.Url)]
+        public string Website { get; set; }
+
         [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
         [Display(Name = "Password", ResourceType = typeof(Resource))]
         [BsControl(BsControlType.Password)]

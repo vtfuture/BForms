@@ -134,6 +134,9 @@
   <ItemGroup>
     <Content Include="Content\Images\Docs\email-input.jpg" />
     <Content Include="Content\Images\Docs\email-tooltip-input.jpg" />
+    <Content Include="Content\Images\Docs\number-input.jpg" />
+    <Content Include="Content\Images\Docs\password-input.jpg" />
+    <Content Include="Content\Images\Docs\url-input.jpg" />
     <Content Include="Content\Images\icn-err_error.png" />
     <Content Include="Content\Images\icn-err_notfound.png" />
     <Content Include="Content\Images\icn-err_unauth.png" />
@@ -178,7 +181,6 @@
     <Content Include="Scripts\BForms\Stylesheets\bootstrap-forms.css" />
     <Content Include="Scripts\BForms\Stylesheets\Images\preloader.gif" />
     <Content Include="Scripts\Controllers\Demo\Login\login-index.js" />
-    <Content Include="Scripts\Controllers\Root\Components\components-index.js" />
     <Content Include="Scripts\Controllers\Root\Components\components-overview.js" />
     <Content Include="Scripts\Controllers\Root\Components\components-inputextensions.js" />
     <Content Include="Scripts\Controllers\Root\Components\components-selectextensions.js" />
@@ -292,6 +294,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Components\_InputTextbox.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\_InputPassword.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\_InputUrl.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\_InputNumber.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

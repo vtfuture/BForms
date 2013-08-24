@@ -32,6 +32,15 @@
         </div>
 
         <div class="col-12 col-sm-6 col-lg-6 form-group">
+            @Html.BsLabelFor(m => m.Website)
+            <div class="input-group">
+                @Html.BsGlyphiconAddon(Glyphicon.Link)
+                @Html.BsInputFor(m => m.Website)
+                @Html.BsValidationFor(m => m.Website)
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-lg-6 form-group">
             @Html.BsLabelFor(m => m.Password)
             <div class="input-group">
                 @Html.BsGlyphiconAddon(Glyphicon.GLock)
@@ -50,12 +59,12 @@
         </div>
 
         @*<div class="col-12 col-sm-6 col-lg-6 form-group">
-            @Html.BsLabelFor(m => m.Birthday)
-        <div class="input-group">
-            @Html.BsInputFor(m => m.Birthday)
-            @Html.BsValidationFor(m => m.Birthday)
-        </div>
-        </div>
+                @Html.BsLabelFor(m => m.Birthday)
+            <div class="input-group">
+                @Html.BsInputFor(m => m.Birthday)
+                @Html.BsValidationFor(m => m.Birthday)
+            </div>
+            </div>
         *@
         <div class="col-12 col-sm-6 col-lg-6 form-group">
             @Html.BsLabelFor(m => m.NotificationList)
@@ -134,7 +143,7 @@
             <button class="btn btn-danger pull-right" type="button">Cancel</button>
         </div>
 
-        
+
     </div>
 }
 
