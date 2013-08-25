@@ -49,7 +49,8 @@ namespace BootstrapForms.Html
         /// <summary>
         /// Returns an input element based on BsControlType with placeholder and info tooltip
         /// </summary>
-        public static MvcHtmlString BsInputFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, string format)
+        public static MvcHtmlString BsInputFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, 
+            Expression<Func<TModel, TProperty>> expression, string format)
         {
             return BsInputFor(htmlHelper, expression, null, null);
         }
@@ -57,7 +58,8 @@ namespace BootstrapForms.Html
         /// <summary>
         /// Returns an input element based on BsControlType with placeholder and info tooltip
         /// </summary>
-        public static MvcHtmlString BsInputFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, string format, object htmlAttributes)
+        public static MvcHtmlString BsInputFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, 
+            Expression<Func<TModel, TProperty>> expression, string format, object htmlAttributes)
         {
             return BsInputFor(htmlHelper, expression, null, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
         }
@@ -65,7 +67,8 @@ namespace BootstrapForms.Html
         /// <summary>
         /// Returns an input element based on BsControlType with placeholder and info tooltip
         /// </summary>
-        public static MvcHtmlString BsInputFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, string format, IDictionary<string, object> htmlAttributes)
+        public static MvcHtmlString BsInputFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, 
+            Expression<Func<TModel, TProperty>> expression, string format, IDictionary<string, object> htmlAttributes)
         {
             var inputHtml = new MvcHtmlString("");
             var metadata = ModelMetadata.FromLambdaExpression(expression, htmlHelper.ViewData);

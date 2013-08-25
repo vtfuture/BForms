@@ -47,6 +47,40 @@
                 you can still use BForms as you are using MVC.
             </p>
 
+            <h4 class="sub_title">Input Extensions</h4>
+<pre class="prettyprint lang-cs bs-example">
+public static MvcHtmlString BsInputFor&lt;TModel, TProperty&gt;(
+	this HtmlHelper&lt;TModel&gt; htmlHelper,
+	Expression&lt;Func&lt;TModel, TProperty&gt;&gt; expression)
+	
+public static MvcHtmlString BsInputFor&lt;TModel, TProperty&gt;(
+	this HtmlHelper&lt;TModel&gt; htmlHelper,
+	Expression&lt;Func&lt;TModel, TProperty&gt;&gt; expression, 
+	object htmlAttributes)
+	
+public static MvcHtmlString BsInputFor&lt;TModel, TProperty&gt;(
+	this HtmlHelper&lt;TModel&gt; htmlHelper,
+	Expression&lt;Func&lt;TModel, TProperty&gt;&gt; expression, 
+	IDictionary&lt;string, object&gt; htmlAttributes)
+		
+public static MvcHtmlString BsInputFor&lt;TModel, TProperty&gt;(
+	this HtmlHelper&lt;TModel&gt; htmlHelper, 
+	Expression&lt;Func&lt;TModel, TProperty&gt;&gt; expression, 
+	string format)
+	
+public static MvcHtmlString BsInputFor&lt;TModel, TProperty&gt;(
+	this HtmlHelper&lt;TModel&gt; htmlHelper, 
+	Expression&lt;Func&lt;TModel, TProperty&gt;&gt; expression, 
+	string format, 
+	object htmlAttributes)
+		
+public static MvcHtmlString BsInputFor&lt;TModel, TProperty&gt;(
+	this HtmlHelper&lt;TModel&gt; htmlHelper, 
+	Expression&lt;Func&lt;TModel, TProperty&gt;&gt; expression, 
+	string format, 
+	IDictionary&lt;string, object&gt; htmlAttributes)
+</pre>
+
             @Html.Partial("_InputHelper")
             @Html.Partial("_InputTextbox")
             @Html.Partial("_InputPassword")
