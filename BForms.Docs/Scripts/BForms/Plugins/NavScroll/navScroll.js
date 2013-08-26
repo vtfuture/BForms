@@ -13,8 +13,11 @@
         this.options = options;
         this.hash = null;
 
+        this.$container = $(this.options.container);
         this.$sidebar = $(this.options.sidebar);
         this.$relativeElement = $(this.options.relativeElement);
+
+        this.heightOffset = (this.$container.height() - this.$element.height() - (this.$element.outerHeight() - this.$element.height())) / 2;
 
         this.menuItems = this.$element.find('a');
 
@@ -27,7 +30,7 @@
     navScroll.prototype.init = function () {
 
         this.updateHash();
-        this._setPosition();
+        this._setPosition(true);
         this.addHandlers();
 
     };
@@ -37,6 +40,8 @@
 
         if (this.hash != '') {
             this.updateNav(this.hash);
+        }else {
+            this._setHash();
         }
     };
 
@@ -47,11 +52,11 @@
 
     navScroll.prototype.onScroll = function (e) {
         this._setHash();
-        this._setPosition();
+        this._setPosition(true);
     };
 
     navScroll.prototype._setHash = function () {
-        var fromTop = $(window).scrollTop() + $('header').height();
+        var fromTop = $(window).scrollTop() + $('header').height() + 600;
 
         var visibleElements = this.menuItems.map(function (idx, anchor) {
             var $anchor = $(anchor),
@@ -79,46 +84,45 @@
         }
     };
 
-    navScroll.prototype._setPosition = function (initialInit) {
+    navScroll.prototype._setPosition = function (callAgain) {
 
-        var navOffset = this.$element.offset(),
-            scrollTop = $(window).scrollTop();
-
-        //check bottom first if it doesn't have affix-bottom class
+        var scrollTop = $(window).scrollTop();
+        
         if (!this.$sidebar.hasClass('affix-bottom')) {
-            
-            console.log(this.$sidebar.offset().top + this.$sidebar.outerHeight() , this.bottomBreak)
 
-            if (this.$sidebar.offset().top + this.$sidebar.outerHeight() >= this.bottomBreak) {
+            if (this.$sidebar.offset().top + this.$sidebar.outerHeight() - this.heightOffset >= this.bottomBreak) {
                 
                 this.$sidebar.removeClass('affix-top');
                 this.$sidebar.removeClass('affix');
 
-                var top = this.bottomBreak - this.$sidebar.height() - this.$relativeElement.offset().top - 30;
-               
+                var top = this.bottomBreak - this.$sidebar.height() - this.$relativeElement.offset().top - this.heightOffset;
+
                 this.$sidebar.css({
                     top: top
                 });
 
                 this.$sidebar.addClass('affix-bottom');
+                this.break = scrollTop;
             } else if (scrollTop > this.topBreak) {
-                //debugger;
+                
                 this.$sidebar.removeClass('affix-top');
                 this.$sidebar.addClass('affix');
                 this.$sidebar.removeClass('affix-bottom');
-                //this.$sidebar.css({
-                //    top: 0
-                //});
+                this.$sidebar.css({
+                    top: 0
+                });
+              
             } else {
                 this.$sidebar.removeClass('affix');
                 this.$sidebar.removeClass('affix-bottom');
                 this.$sidebar.addClass('affix-top');
-                
+
                 this.$sidebar.css({
                     top: 0
                 });
             }
-        } else {
+        } else if (this.break > scrollTop) {
+            this.break = null;
             if (scrollTop > this.topBreak) {
                 this.$sidebar.removeClass('affix-top');
                 this.$sidebar.addClass('affix');
@@ -126,6 +130,7 @@
                 this.$sidebar.css({
                     top: 0
                 });
+
             } else {
                 this.$sidebar.removeClass('affix');
                 this.$sidebar.removeClass('affix-bottom');
@@ -135,7 +140,10 @@
                 });
             }
         }
-        
+      
+        if(callAgain) {
+            this._setPosition();
+        }
     };
 
     navScroll.prototype.updateNav = function (hash) {
@@ -155,6 +163,7 @@
     };
 
     $.fn.navScrollDefaults = {
+        container : '.hidden-sm',
         sidebar: '.bs-sidebar',
         sidebarTopClass: 'affix-top',
         sidebarClass: 'affix',
