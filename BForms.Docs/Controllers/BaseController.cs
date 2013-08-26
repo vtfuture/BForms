@@ -14,7 +14,7 @@ namespace BForms.Docs.Controllers
             RequireJsOptions.Add(
                 "homeUrl",
                 Url.Action("Index", "Home", new { area = "" }),
-                RequireJsOptionsScope.Website);
+                RequireJsOptionsScope.Global);
         }
     }
 }

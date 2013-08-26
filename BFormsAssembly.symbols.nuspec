@@ -3,9 +3,9 @@
   <metadata>
     <version>1.00</version>
     <authors>Stefan Prodan</authors>
-    <owners>Indaco Systems</owners>
+    <owners>Stefan Prodan</owners>
     <id>BForms.Symbols</id>
-    <title>BForms</title>
+    <title>BForms Symbols</title>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Bootstrap Forms for ASP.NET MVC</description>
     <copyright>Copyright Stefan Prodan 2013</copyright>
