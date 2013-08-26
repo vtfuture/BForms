@@ -194,7 +194,8 @@ textarea {
   background: #547980;
   color: #fff; }
   .btn-default:hover, .btn-default:focus {
-    background: #45ada8; }
+    background: #45ada8 !important;
+    color: #333 !important; }
 
 .upload-file {
   /* File upload button */

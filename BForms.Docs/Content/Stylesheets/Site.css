@@ -25,7 +25,7 @@ body {
 
 a {
   color: #212121; }
-  a:hover {
+  a:hover, a:focus {
     text-decoration: none;
     color: #547980 !important;
     background-color: transparent !important; }
@@ -113,6 +113,33 @@ h1 {
   line-height: 24px; }
 .docs_page table {
   min-width: 700px; }
+
+/* Main page */
+.bs-docs-section .jumbotron {
+  background: #fff;
+  border: 1px solid #e8e8e8; }
+.bs-docs-section .bs-link-buttons {
+  padding: 0;
+  margin: 0 0 30px;
+  list-style: none; }
+  .bs-docs-section .bs-link-buttons li {
+    display: inline-block;
+    margin-right: 10px; }
+    .bs-docs-section .bs-link-buttons li.current-version {
+      color: #45ada8; }
+.bs-docs-section .bs-docs-tech {
+  margin: 0;
+  background: #45ada8;
+  color: #fff; }
+  .bs-docs-section .bs-docs-tech > div {
+    border-right: 1px solid #3e9b96;
+    border-left: 1px solid #52bab5; }
+  .bs-docs-section .bs-docs-tech p {
+    font-size: 16px; }
+  .bs-docs-section .bs-docs-tech .btn {
+    margin: 20px 0 10px; }
+    .bs-docs-section .bs-docs-tech .btn:hover, .bs-docs-section .bs-docs-tech .btn:focus {
+      background: #3e9b96 !important; }
 
 /* Aside menu*/
 .bs-sidebar .bs-sidenav {
@@ -233,6 +260,11 @@ h1 {
   .bs-sidebar.affix-bottom,
   .bs-sidebar.affix {
     width: 229px; } }
+@media screen and (max-width: 959px) {
+  .bs-docs-section .bs-docs-tech > div {
+    border: none;
+    border-bottom: 1px solid #3e9b96;
+    border-top: 1px solid #52bab5; } }
 @media (max-width: 756px) {
   .brand img {
     max-width: 230px; }

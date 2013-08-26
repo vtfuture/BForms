@@ -264,7 +264,8 @@ textarea {
 	background: $navy;
 	color: #fff;
 	&:hover, &:focus {
-		background: $turqoise;
+		background: $turqoise !important;
+		color: #333 !important;
 	}
 }
 

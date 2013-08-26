@@ -12,9 +12,26 @@
         </p>
     </div>
 
-    <div class="row">
+    <div class="bs-link">
+            <ul class="bs-link-buttons">
+                <li class="current-version">
+                    Version <strong>0.0.1</strong> Pre Alpha
+                </li>
+                <li>
+                    <a href="@Url.Action("Overview", "Components")">BForms docs</a>
+                </li>
+                <li>
+                    <a href="https://github.com/stefanprodan/bforms">GitHub project</a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Index", "Login", new { area = "Demo" })">Examples</a>
+                </li>
+            </ul>
+    </div>
 
-        <div class="col-lg-4">
+    <div class="row bs-docs-tech">
+
+        <div class="col-md-4 col-lg-4">
             <h2>.NET Integration</h2>
             <p>
                 BForms framework smoothly integrates Bootstrap with ASP.NET MVC on the server side using 
@@ -23,7 +40,7 @@
             <p><a class="btn btn-default" href="#">View details »</a></p>
         </div>
 
-        <div class="col-lg-4">
+        <div class="col-md-4 col-lg-4">
             <h2>JavaScript</h2>
             <p>
                 Our JavaScript framework consists of AMD campatible modules that makes client-side development easy.
@@ -32,7 +49,7 @@
             <p><a class="btn btn-default" href="#">View details »</a></p>
         </div>
 
-        <div class="col-lg-4">
+        <div class="col-md-4 col-lg-4">
             <h2>NuGet</h2>
             <p>
                 BFroms has several NuGet packages for assemby, js scripts and vs.net template hosted on nuget.org and to make server-side debugging easy 
@@ -50,22 +67,7 @@
             @Html.Partial("_Social")
         }
         
-        <div class="bs-link col-lg-12" style="text-align: left;">
-            <ul class="bs-link-buttons" style="padding: 0; margin-top: 20px; margin-bottom: 20px; list-style: none;">
-                <li class="current-version" style="display: inline-block; margin-right: 10px;">
-                    Version <strong>0.0.1</strong> Pre Alpha
-                </li>
-                <li style="display: inline-block; margin-right: 10px;">
-                    <a href="@Url.Action("Overview", "Components")">BForms docs</a>
-                </li>
-                <li style="display: inline-block; margin-right: 10px;">
-                    <a href="https://github.com/stefanprodan/bforms">GitHub project</a>
-                </li>
-                <li style="display: inline-block;">
-                    <a href="@Url.Action("Index", "Login", new { area = "Demo" })">Examples</a>
-                </li>
-            </ul>
-        </div>
+        
     </div>
 
 </div>
