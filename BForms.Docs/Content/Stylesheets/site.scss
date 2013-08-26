@@ -304,10 +304,17 @@ h1 {
 .affix-bottom {
 	position: absolute;
 }
-@media screen and (min-width: 757px) {
+.bs-sidebar.affix {
+	position: fixed;
+	top: 0;
+}
+
+/* responsive for fixed menu */
+
+@media screen and (min-width: 920px) {
+	.bs-sidebar.affix-bottom, 
 	.bs-sidebar.affix {
-		position: fixed;
-		top: 0;
+		width: 214px;
 	}
 }
 
@@ -317,6 +324,7 @@ h1 {
 		width: 229px;
 	}
 }
+
 
 @media (max-width: 756px) {
 	.brand img {
