@@ -1,0 +1,8 @@
+﻿public class RegisterModel
+{
+    [Display(Name = "Personal website")]
+    [DataType(DataType.Url)]
+    public string Website { get; set; }
+
+    ...
+}

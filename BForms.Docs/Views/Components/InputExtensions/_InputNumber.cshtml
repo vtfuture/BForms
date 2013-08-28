@@ -21,3 +21,18 @@
 <pre class="prettyprint lang-cs bs-example">
 @Html.InsertFileContentCached("~/Views/Components/InputExtensions/Source/InputNumberView.cshtml.embed")
 </pre>
+<h5 class="sub_title">Specialized helper </h5>
+<p>
+    To achieve the same behavior without the <code>BsControlAttribute</code>, you can use the textbox helper <code>BsTextBoxFor</code> alongside the <code>[DataType]</code> annotation with
+    a value of <code>DataType.PhoneNumber</code>.
+</p>
+
+<h4 class="sub_title">Model</h4>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Components/InputExtensions/Source/InputNumberSpecializedModel.cs.embed")
+</pre>
+
+<h4 class="sub_title">View</h4>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Components/InputExtensions/Source/InputNumberSpecializedView.cshtml.embed")
+</pre>

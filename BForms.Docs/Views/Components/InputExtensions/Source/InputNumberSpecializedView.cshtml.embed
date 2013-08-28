@@ -1,0 +1,8 @@
+﻿<div class="form-group">
+    @Html.BsLabelFor(m => m.AnnualIncome)
+    <div class="input-group">
+        @Html.BsGlyphiconAddon(Glyphicon.Link)
+        @Html.BsTextBoxFor(m => m.AnnualIncome)
+        @Html.BsValidationFor(m => m.AnnualIncome)
+    </div>
+</div>

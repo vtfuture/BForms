@@ -134,6 +134,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
+    <None Include="Views\Components\InputExtensions\Source\InputPasswordSpecializedView.cshtml.embed" />
+    <Content Include="Views\Components\InputExtensions\Source\InputUrlSpecializedModel.cs.embed" />
+    <Content Include="Views\Components\InputExtensions\Source\InputUrlSpecializedView.cshtml.embed" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Images\Docs\checkbox-input.jpg" />
@@ -325,6 +328,13 @@
     <Content Include="RequireJS.Release.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Views\Components\InputExtensions\Source\InputCheckboxSpecializedModel.cs.embed" />
+    <Content Include="Views\Components\InputExtensions\Source\InputCheckboxSpecializedView.cshtml.embed" />
+    <Content Include="Views\Components\InputExtensions\Source\InputEmailSpecializedModel.cs.embed" />
+    <Content Include="Views\Components\InputExtensions\Source\InputEmailSpecializedView.cshtml.embed" />
+    <Content Include="Views\Components\InputExtensions\Source\InputNumberSpecializedModel.cs.embed" />
+    <Content Include="Views\Components\InputExtensions\Source\InputNumberSpecializedView.cshtml.embed" />
+    <Content Include="Views\Components\InputExtensions\Source\InputPasswordSpecializedModel.cs.embed" />
     <None Include="Views\Components\SelectExtensions\Source\SelectHelperModel.cs.embed" />
   </ItemGroup>
   <ItemGroup>

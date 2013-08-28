@@ -7,10 +7,7 @@
     decorate your model property with <code>[BsControl(BsControlType.CheckBox)]</code>.
 </p>
 
-<p>
-    To achieve the same behavior without the <code>BsControlAttribute</code>, you can use the specialized helpers:
-    <code>BsCheckBoxFor</code> and <code>BsCheckBox</code>.
-</p>
+
 
 <p>
     If you need to make the input checked state required, BForms comes with a <code>BsMandatory</code> attribute made just for that. 
@@ -30,4 +27,20 @@
 <h4 class="sub_title">View</h4>
 <pre class="prettyprint lang-cs bs-example">
 @Html.InsertFileContentCached("~/Views/Components/InputExtensions/Source/InputCheckboxView.cshtml.embed")
+</pre>
+
+<h5 class="sub_title">Specialized helper </h5>
+<p>
+    To achieve the same behavior without the <code>BsControlAttribute</code>, you can use the specialized helpers:
+    <code>BsCheckBoxFor</code> and <code>BsCheckBox</code>.
+</p>
+
+<h4 class="sub_title">Model</h4>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Components/InputExtensions/Source/InputCheckboxSpecializedModel.cs.embed")
+</pre>
+
+<h4 class="sub_title">View</h4>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Components/InputExtensions/Source/InputCheckboxSpecializedView.cshtml.embed")
 </pre>

@@ -1,0 +1,8 @@
+﻿<div class="form-group">
+    @Html.BsLabelFor(m => m.Website)
+    <div class="input-group">
+        @Html.BsGlyphiconAddon(Glyphicon.Link)
+        @Html.BsTextBoxFor(m => m.Website, new { placeolder = "http://www.mysite.com" })
+        @Html.BsValidationFor(m => m.Website)
+    </div>
+</div>

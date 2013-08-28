@@ -1,0 +1,9 @@
+﻿public class RegisterModel
+{
+    [Required]
+    [DataType(DataType.EmailAddress)]
+    [Display(Name = "Email")]
+    public string Email { get; set; }
+    
+    ...
+}

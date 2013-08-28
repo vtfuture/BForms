@@ -1,0 +1,8 @@
+﻿public class RegisterModel
+{
+    [BsMandatory]
+    [Display(Name = "I agree with Terms & Conditions")]
+    public bool? ConsentAgreement { get; set; }
+
+    ...
+}

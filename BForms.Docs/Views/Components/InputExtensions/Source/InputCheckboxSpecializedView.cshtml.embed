@@ -1,0 +1,4 @@
+﻿<div class="form-group checkbox">
+    @Html.BsCheckBoxFor(m => m.ConsentAgreement)
+    @Html.BsValidationFor(m => m.ConsentAgreement)
+</div>

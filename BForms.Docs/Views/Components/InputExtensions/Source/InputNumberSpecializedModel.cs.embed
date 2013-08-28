@@ -1,0 +1,8 @@
+﻿public class RegisterModel
+{
+    [Display(Name = "Annual income")]
+    [DataType(DataType.PhoneNumber)]
+    public decimal? AnnualIncome { get; set; }
+
+    ...
+}
