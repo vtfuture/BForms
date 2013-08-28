@@ -427,6 +427,12 @@
   <ItemGroup>
     <Content Include="Views\Components\SelectExtensions\_TagList.cshtml" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\Overview\_HtmlHelpers.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\Overview\_JSComponents.cshtml" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

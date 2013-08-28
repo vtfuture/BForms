@@ -7,14 +7,12 @@
     <div class="hidden-xs hidden-sm col-md-3 col-lg-3">
         <div class="bs-sidebar">
             <ul class="nav bs-sidenav">
-
                 <li>
                     <a href="#controls-section">UI Controls</a>
                     <ul class="nav">
-                        <li><a href="#html-helpers">Razor integration</a></li>
-                        <li><a href="#validation">Form validation</a></li>
-                        <li><a href="#placeholder-tooltip">Placeholder &amp; tooltip</a></li>
-                        <li><a href="#glyphicons">Glyphicons</a></li>
+                        <li><a href="#html-helpers">HTML Helpers</a></li>
+                        <li><a href="#javascript-components">JavaScript components</a></li>
+                        <li><a href="#bforms-css">CSS</a></li>
                     </ul>
                 </li>
             </ul>
@@ -27,21 +25,25 @@
             <div class="page-header">
                 <h1 id="controls-section">UI Controls</h1>
             </div>
-
-            <p>The BForms framework consists of a collection of ASP.NET MVC HTML Helpers, Javascript AMD modules and custom CSS that extends Twitter Bootstrap Version 3.</p>
             <p>
                 With BForms you'll be able to build ASP.NET MVC web apps using Bootstrap's mobile-first approach and benefit 
                 from out of the box HTML5 controls with both client and server-side validation.
             </p>
 
-            <p>BFroms input HTML Extensions cover most of the new HTML5 input types as well as the standard ones.</p>
             <p>
+                BForms comes with HTML Extensions that cover all the HTML5 input types, 
+                single and multi select lists, date and time pickers, file upload, autocomplete, range pickers.          
+            </p>
+            <p>
+                By decorating your models with BForms attributes you can easily define the behavior and UI appearance of each form field.
                 Similar to <code>DataAnnotations.DataType</code>, BForms provides a <code>BsControl</code> attribute
                 and a <code>BsControlType</code> enum
                 that allows you to specify witch type of input should be rendered by the Razor engine.
             </p>
         </div>
 
+        @Html.Partial("Overview/_HtmlHelpers")
+        @Html.Partial("Overview/_JSComponents")
     </main>
 
 </div>

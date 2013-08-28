@@ -19,7 +19,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
     public class LoginController : BaseController
     {
         [HttpGet]
-        public ActionResult Index()
+        public ActionResult Index(string mode)
         {
             var model = new AuthenticationModel()
             {
@@ -27,19 +27,27 @@ namespace BForms.Docs.Areas.Demo.Controllers
                 RegisterModel = InitRegisterModel()
             };
 
+            if(!string.IsNullOrEmpty(mode))
+            if(mode.ToLower() == "login")
+            {
+                model.RegisterModel = null;
+            }
+            else if (mode.ToLower() == "register")
+            {
+                model.LoginModel = null;
+            }
+
             RequireJsOptions.Add("registerUrl",Url.Action("Register"));
 
             return View(model);
         }
 
         [HttpPost]
-        public ActionResult Index(AuthenticationModel model)
+        public ActionResult Index(AuthenticationModel model, string mode)
         {
             //add global validation error
             ModelState.AddFormError("LoginModel",
                 "<strong>This account has been suspended!</strong> <a href=\"#\" class=\"alert-link\">Contact us</a> for more details.");
-
-            model.RegisterModel = InitRegisterModel();
 
             return View(model);
         }

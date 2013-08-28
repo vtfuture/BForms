@@ -4,9 +4,17 @@
 @{
     ViewBag.Title = "Authentication";  
 }
+
+@if(Model.RegisterModel != null)
+{
 <div class="row js-registerFormContainer">
     @Html.BsPartialPrefixed(m => m.RegisterModel, "_Register", Model)
 </div>
+}
+
+@if (Model.LoginModel != null)
+{
 <div class="row js-loginFormContainer">
     @Html.BsPartialPrefixed(m => m.LoginModel, "_Login", Model)
 </div>
+}
