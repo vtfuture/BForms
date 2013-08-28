@@ -27,10 +27,10 @@ namespace BForms.Docs.Helpers
                 return InsertFileContent(helper, path);
             }
             var cacheKey = "insertFile|" + path.GetHashCode();
-            var cached = HttpRuntime.Cache.Get(cacheKey);
+            var cached = HttpRuntime.Cache.Get(cacheKey) as MvcHtmlString;
             if (cached != null)
             {
-                return (MvcHtmlString)cached;
+                return cached;
             }
             var result = InsertFileContent(helper, path);
             HttpRuntime.Cache.Add(cacheKey, 
