@@ -74,6 +74,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\BsSelectList.cs" />
     <Compile Include="Mvc\BsControlAttribute.cs" />
     <Compile Include="Html\CheckBoxExtensions.cs" />
     <Compile Include="Html\TagListExtensions.cs" />
@@ -86,7 +87,7 @@
     <Compile Include="Models\BsControlType.cs" />
     <Compile Include="Models\BsJsonResult.cs" />
     <Compile Include="Models\BsResponseStatus.cs" />
-    <Compile Include="Models\BsSelectModels.cs" />
+    <Compile Include="Models\BsSelectListItem.cs" />
     <Compile Include="Models\Glyphicon.cs" />
     <Compile Include="Mvc\BsMandatoryAttribute.cs" />
     <Compile Include="Mvc\BsModelValidatorProvider.cs" />

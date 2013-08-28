@@ -56,11 +56,11 @@ namespace BootstrapForms.Models
             foreach (var item in Items)
             {
                 list.Add(new SelectListItem
-                {
-                    Selected = item.Selected,
-                    Text = item.Text,
-                    Value = item.Value
-                });
+                         {
+                             Selected = item.Selected,
+                             Text = item.Text,
+                             Value = item.Value
+                         });
             }
             return list;
         }
@@ -74,11 +74,11 @@ namespace BootstrapForms.Models
             foreach (var item in list)
             {
                 bsList.Items.Add(new BsSelectListItem
-                {
-                    Selected = item.Selected,
-                    Text = item.Text,
-                    Value = item.Value
-                });
+                                 {
+                                     Selected = item.Selected,
+                                     Text = item.Text,
+                                     Value = item.Value
+                                 });
             }
             return bsList;
         }
@@ -100,44 +100,23 @@ namespace BootstrapForms.Models
                 //get Description Name from resources
                 var name = Enum.GetName(enumType, item);
                 var text = enumType.GetMember(name)
-                        .First()
-                        .GetCustomAttributes(false)
-                        .OfType<DescriptionAttribute>()
-                        .LastOrDefault();
+                    .First()
+                    .GetCustomAttributes(false)
+                    .OfType<DescriptionAttribute>()
+                    .LastOrDefault();
 
                 var textValue = text == null ? name : text.Description;
 
                 bsList.Items.Add(new BsSelectListItem
-                {
-                    Selected = false,
-                    Text = textValue,
-                    Value = Convert.ChangeType(item, Enum.GetUnderlyingType(myEnum)).ToString()
-                });
+                                 {
+                                     Selected = false,
+                                     Text = textValue,
+                                     Value = Convert.ChangeType(item, Enum.GetUnderlyingType(myEnum)).ToString()
+                                 });
             }
 
             return bsList;
         }
 
-    }
-
-    /// <summary>
-    /// Represents the selected item in an instance of the BsSelectList
-    /// </summary>
-    public class BsSelectListItem : SelectListItem
-    {
-        /// <summary>
-        /// Option group unique ID
-        /// </summary>
-        public string GroupKey { get; set; }
-
-        /// <summary>
-        /// Option group display name
-        /// </summary>
-        public string GroupName { get; set; }
-
-        /// <summary>
-        /// The dictionary items are serialized in html as data- attributes
-        /// </summary>
-        public Dictionary<string, string> Data { get; set; }
     }
 }
