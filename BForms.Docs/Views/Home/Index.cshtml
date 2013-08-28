@@ -1,29 +1,31 @@
-﻿@{
+﻿@using BootstrapForms.Html
+@using BootstrapForms.Models
+@{
     ViewBag.Title = "BForms Framework";
 }
 
 <div class="bs-docs-section">
 
     <div class="jumbotron">
-        <h1 style="font-size: 30px;">Bootstrap Forms for ASP.NET MVC</h1>
+        <h1>Bootstrap Forms for ASP.NET MVC</h1>
         <p>The BFroms open source framework consists of a collection of ASP.NET MVC HTML Helpers, Javascript AMD modules and custom CSS made with SASS that extends Twitter Bootstrap Version 3.x</p>
-        <p>
-            <a class="btn btn-lg btn-default" href="@Url.Action("Overview", "Components")">Getting started »</a>
-        </p>
+        <a class="btn btn-lg btn-default" href="@Url.Action("Overview", "Components")">Getting started »</a>
+        
     </div>
     <div class="bs-link">
             <ul class="bs-link-buttons">
                 <li class="current-version">
-                    Version <strong>0.0.1</strong> Pre Alpha
+                    @Html.BsGlyphicon(Glyphicon.Time) Version <strong>0.0.1</strong> Pre Alpha
+                </li>
+
+                <li>
+                    <a href="#">@Html.BsGlyphicon(Glyphicon.Tasks) Changelog</a>
                 </li>
                 <li>
-                    <a href="#">Changelog</a>
+                    <a href="https://github.com/stefanprodan/bforms">@Html.BsGlyphicon(Glyphicon.File) Source code</a>
                 </li>
                 <li>
-                    <a href="https://github.com/stefanprodan/bforms">Source code</a>
-                </li>
-                <li>
-                    <a href="#">Packages</a>
+                    <a href="#">@Html.BsGlyphicon(Glyphicon.Compressed) Packages</a>
                 </li>
             </ul>
     </div>
@@ -36,7 +38,7 @@
                 The BForms framework smoothly integrates Bootstrap with ASP.NET MVC on the server-side using 
                 Razor HTML extension methods, custom model validator providers, model behavior throw attributes @*TODO: wtf?*@ and Json serialization.
             </p>
-            <p><a class="btn btn-default" href="#">View details »</a></p>
+            <a class="btn btn-default" href="#">View details »</a>
         </div>
 
         <div class="col-md-4 col-lg-4">
@@ -45,7 +47,7 @@
                 Our JavaScript framework consists of AMD compatible modules that make client-side development easy.
                 Besides our controls, BForms comes with out of the box JavaScript components like Select2 and Typeahead.
             </p>
-            <p><a class="btn btn-default" href="#">View details »</a></p>
+            <a class="btn btn-default" href="#">View details »</a>
         </div>
 
         <div class="col-md-4 col-lg-4">
@@ -54,7 +56,7 @@
                 BForms has several NuGet packages: assembly, JavaScript files and vs.net templates - this way you have full control over what you include in your project.
                 To make server-side debugging easy, we've set-up a symbol source package hosted on <a href="http://symbolsource.org">SymbolSource</a>.
             </p>
-            <p><a class="btn btn-default" href="#">View details »</a></p>
+            <a class="btn btn-default" href="#">View details »</a>
         </div>
 
     </div>
