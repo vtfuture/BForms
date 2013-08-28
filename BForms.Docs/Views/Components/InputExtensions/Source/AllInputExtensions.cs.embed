@@ -1,0 +1,30 @@
+﻿public static MvcHtmlString BsInputFor<TModel, TProperty>(
+	this HtmlHelper<TModel> htmlHelper,
+	Expression<Func<TModel, TProperty>> expression)
+	
+public static MvcHtmlString BsInputFor<TModel, TProperty>(
+	this HtmlHelper<TModel> htmlHelper,
+	Expression<Func<TModel, TProperty>> expression, 
+	object htmlAttributes)
+	
+public static MvcHtmlString BsInputFor<TModel, TProperty>(
+	this HtmlHelper<TModel> htmlHelper,
+	Expression<Func<TModel, TProperty>> expression, 
+	IDictionary<string, object> htmlAttributes)
+		
+public static MvcHtmlString BsInputFor<TModel, TProperty>(
+	this HtmlHelper<TModel> htmlHelper, 
+	Expression<Func<TModel, TProperty>> expression, 
+	string format)
+	
+public static MvcHtmlString BsInputFor<TModel, TProperty>(
+	this HtmlHelper<TModel> htmlHelper, 
+	Expression<Func<TModel, TProperty>> expression, 
+	string format, 
+	object htmlAttributes)
+		
+public static MvcHtmlString BsInputFor<TModel, TProperty>(
+	this HtmlHelper<TModel> htmlHelper, 
+	Expression<Func<TModel, TProperty>> expression, 
+	string format, 
+	IDictionary<string, object> htmlAttributes)

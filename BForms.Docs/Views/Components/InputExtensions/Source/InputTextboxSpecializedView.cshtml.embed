@@ -1,0 +1,8 @@
+﻿<div class="form-group">
+    @Html.BsLabelFor(m => m.Name)
+    <div class="input-group">
+        @Html.BsGlyphiconAddon(Glyphicon.User)
+        @Html.BsTextBoxFor(m => m.Name, new { placeholder="Surname and name" })
+        @Html.BsValidationFor(m => m.Name)
+    </div>
+</div>

@@ -1,0 +1,9 @@
+﻿public class RegisterModel
+{
+
+    [BsControl(BsControlType.RadioButton)]
+    [Display(Name = "Radio label")]
+    public bool? Radio { get; set; }
+
+    ...
+}

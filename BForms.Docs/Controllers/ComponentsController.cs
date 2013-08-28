@@ -8,19 +8,15 @@ namespace BForms.Docs.Controllers
 {
     public class ComponentsController : BaseController
     {
-        public ActionResult Index()
-        {
-            return View();
-        }
 
         public ActionResult Overview()
         {
-            return View();
+            return View("Overview/Overview");
         }
 
         public ActionResult InputExtensions()
         {
-            return View();
+            return View("InputExtensions/InputExtensions");
         }
 
         public ActionResult DatetimeExtensions()
@@ -35,7 +31,7 @@ namespace BForms.Docs.Controllers
 
         public ActionResult SelectExtensions()
         {
-            return View();
+            return View("SelectExtensions/SelectExtensions");
         }
     }
 }

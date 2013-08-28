@@ -1,4 +1,5 @@
-﻿<h3 id="Input-Radio">Radio button Input</h3>
+﻿@using BForms.Docs.Helpers
+<h3 id="Input-Radio">Radio button Input</h3>
 
 <p>        
     In order to render an input of type radio you will need to use the 
@@ -13,21 +14,10 @@
 
 <h4 class="sub_title">Model</h4>
 <pre class="prettyprint lang-cs bs-example">
-public class RegisterModel
-{
-
-    [BsControl(BsControlType.RadioButton)]
-    [Display(Name = "Radio label")]
-    public bool? Radio { get; set; }
-
-    ...
-}
+@Html.InsertFileContentCached("~/Views/COmponents/InputExtensions/Source/InputRadioModel.cs.embed")
 </pre>
 
 <h4 class="sub_title">View</h4>
 <pre class="prettyprint lang-cs bs-example">
-&lt;div class=&quot;form-group radio&quot;&gt;
-    @@Html.BsInputFor(m =&gt; m.Radio)
-    @@Html.BsValidationFor(m =&gt; m.Radio)
-&lt;/div&gt;
+@Html.InsertFileContentCached("~/Views/COmponents/InputExtensions/Source/InputRadioView.cshtml.embed")
 </pre>

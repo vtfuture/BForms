@@ -1,0 +1,9 @@
+﻿public class RegisterModel
+{
+    [Required]
+    [BsControl(BsControlType.Email)]
+    [Display(Name = "Email", Prompt = "Registration email address")]
+    public string Email { get; set; }
+    
+    ...
+}

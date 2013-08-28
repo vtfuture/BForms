@@ -1,0 +1,9 @@
+﻿public class RegisterModel
+{
+    [Required]
+    [BsControl(BsControlType.TextBox)]
+    [Display(Name = "Name", Prompt = "Surname and name")]
+    public string Name { get; set; }
+    
+    ...
+}

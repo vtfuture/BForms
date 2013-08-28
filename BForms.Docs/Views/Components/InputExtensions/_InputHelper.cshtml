@@ -1,0 +1,38 @@
+﻿@using BForms.Docs.Helpers
+<h3 id="Input">Input helper</h3>
+
+<p>        
+    In order to render text inputs you will need to use the 
+    <code>@@Html.BsInputFor</code> helper extension and 
+    decorate your model property with <code>BsControlAttribute</code> and <code>DisplayAttribute</code>.
+    You can choose from standard HTML inputs like
+    <code>Text</code>, <code>Password</code>, <code>TextArea</code>
+    or HTML5 flavored inputs like
+    <code>Email</code>, <code>Url</code>, <code>Number</code>, <code>Color</code>.
+</p>
+
+<p>
+    All the text inputs rendered by <code>@@Html.BsInputFor</code> supports placeholder and description tooltip, 
+    the placeholder text is extracted from the <code>Prompt</code> property of the <code>Display</code> attribute 
+    while the description tooltip is using the <code>Description</code> propery.
+</p>
+
+<p>        
+    Besides text inputs, <code>BsInputFor</code> helper can render the following types: 
+    <code>Checkbox</code>, <code>Radio</code>, <code>Date</code>, <code>Time</code>, <code>Datetime</code> and <code>File</code>.
+</p>
+
+<h4 class="sub_title">Example</h4>    
+<div class="bs-example bs-img-example">
+    <img src="@Url.Content("~/Content/images/docs/email-tooltip-input.jpg")">
+</div>
+
+<h4 class="sub_title">Model</h4>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Components/InputExtensions/Source/InputHelperModel.cs.embed")
+</pre>
+
+<h4 class="sub_title">View</h4>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Components/InputExtensions/Source/InputHelperView.cshtml.embed")
+</pre>

@@ -41,6 +41,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="JetBrains.Annotations">
+      <HintPath>..\packages\JetBrains.Annotations.7.0\lib\net45\JetBrains.Annotations.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -124,6 +127,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\FileUtilities.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Resource.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -268,10 +272,10 @@
     <Content Include="Areas\Demo\Views\Login\_Register.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\Overview.cshtml" />
+    <Content Include="Views\Components\Overview\Overview.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\_InputHelper.cshtml" />
+    <Content Include="Views\Components\InputExtensions\_InputHelper.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\BForms\Components\Bootstrap\fonts\glyphicons-halflings-regular.eot" />
@@ -282,34 +286,34 @@
     <Content Include="Views\Shared\_Stylesheets.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\_InputEmail.cshtml" />
+    <Content Include="Views\Components\InputExtensions\_InputEmail.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\_SelectHelper.cshtml" />
+    <Content Include="Views\Components\SelectExtensions\_SelectHelper.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\InputExtensions.cshtml" />
+    <Content Include="Views\Components\InputExtensions\InputExtensions.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\SelectExtensions.cshtml" />
+    <Content Include="Views\Components\SelectExtensions\SelectExtensions.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\_InputTextbox.cshtml" />
+    <Content Include="Views\Components\InputExtensions\_InputTextbox.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\_InputPassword.cshtml" />
+    <Content Include="Views\Components\InputExtensions\_InputPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\_InputUrl.cshtml" />
+    <Content Include="Views\Components\InputExtensions\_InputUrl.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\_InputNumber.cshtml" />
+    <Content Include="Views\Components\InputExtensions\_InputNumber.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\_InputCheckbox.cshtml" />
+    <Content Include="Views\Components\InputExtensions\_InputCheckbox.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\_InputRadio.cshtml" />
+    <Content Include="Views\Components\InputExtensions\_InputRadio.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\_Social.cshtml" />
@@ -319,6 +323,69 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="RequireJS.Release.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Views\Components\SelectExtensions\Source\SelectHelperModel.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Views\Components\SelectExtensions\Source\SelectHelperView.cshtml.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Views\Components\InputExtensions\Source\AllInputExtensions.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Views\Components\InputExtensions\Source\InputHelperModel.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Views\Components\InputExtensions\Source\InputHelperView.cshtml.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Views\Components\InputExtensions\Source\InputCheckboxModel.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Views\Components\InputExtensions\Source\InputCheckboxView.cshtml.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Views\Components\InputExtensions\Source\InputEmailModel.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Views\Components\InputExtensions\Source\InputEmailView.cshtml.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Views\Components\InputExtensions\Source\InputNumberModel.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Views\Components\InputExtensions\Source\InputNumberView.cshtml.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Views\Components\InputExtensions\Source\InputPasswordModel.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Views\Components\InputExtensions\Source\InputPasswordView.cshtml.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Views\Components\InputExtensions\Source\InputRadioModel.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Views\Components\InputExtensions\Source\InputRadioView.cshtml.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Views\Components\InputExtensions\Source\InputUrlModel.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Views\Components\InputExtensions\Source\InputUrlView.cshtml.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Views\Components\InputExtensions\Source\InputTextboxModel.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Views\Components\InputExtensions\Source\InputTextboxView.cshtml.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Views\Components\InputExtensions\Source\InputTextboxSpecializedModel.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Views\Components\InputExtensions\Source\InputTextboxSpecializedView.cshtml.embed" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

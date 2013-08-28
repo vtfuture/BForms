@@ -1,0 +1,8 @@
+﻿public class RegisterModel
+{
+    [Display(Name = "Personal website", Prompt = "http://www.mysite.com")]
+    [BsControl(BsControlType.Url)]
+    public string Website { get; set; }
+
+    ...
+}

@@ -1,0 +1,8 @@
+﻿<div class="form-group">
+    @Html.BsLabelFor(m => m.Email)
+    <div class="input-group">
+        @Html.BsGlyphiconAddon(Glyphicon.Envelope)
+        @Html.BsInputFor(m => m.Email)
+        @Html.BsValidationFor(m => m.Email)
+    </div>
+</div>

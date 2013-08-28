@@ -1,0 +1,9 @@
+﻿public class RegisterModel
+{
+    [BsMandatory]
+    [BsControl(BsControlType.CheckBox)]
+    [Display(Name = "I agree with Terms & Conditions")]
+    public bool? ConsentAgreement { get; set; }
+
+    ...
+}

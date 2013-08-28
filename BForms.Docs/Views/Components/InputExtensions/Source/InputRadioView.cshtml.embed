@@ -1,0 +1,4 @@
+﻿<div class="form-group radio">
+    @Html.BsInputFor(m => m.Radio)
+    @Html.BsValidationFor(m => m.Radio)
+</div>

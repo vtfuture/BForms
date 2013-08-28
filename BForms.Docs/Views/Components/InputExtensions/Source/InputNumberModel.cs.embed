@@ -1,0 +1,8 @@
+﻿public class RegisterModel
+{
+    [Display(Name = "Annual income")]
+    [BsControl(BsControlType.Number)]
+    public decimal? AnnualIncome { get; set; }
+
+    ...
+}

@@ -1,4 +1,5 @@
-﻿<h3 id="Input-Checkbox">Checkbox Input</h3>
+﻿@using BForms.Docs.Helpers
+<h3 id="Input-Checkbox">Checkbox Input</h3>
 
 <p>        
     In order to render an input of type checkbox you will need to use the 
@@ -23,21 +24,10 @@
 
 <h4 class="sub_title">Model</h4>
 <pre class="prettyprint lang-cs bs-example">
-public class RegisterModel
-{
-    [BsMandatory]
-    [BsControl(BsControlType.CheckBox)]
-    [Display(Name = "I agree with Terms & Conditions")]
-    public bool? ConsentAgreement { get; set; }
-
-    ...
-}
+@Html.InsertFileContentCached("~/Views/Components/InputExtensions/Source/InputCheckboxModel.cs.embed")
 </pre>
 
 <h4 class="sub_title">View</h4>
 <pre class="prettyprint lang-cs bs-example">
-&lt;div class=&quot;form-group checkbox&quot;&gt;
-    @@Html.BsInputFor(m =&gt; m.ConsentAgreement)
-    @@Html.BsValidationFor(m =&gt; m.ConsentAgreement)
-&lt;/div&gt;
+@Html.InsertFileContentCached("~/Views/Components/InputExtensions/Source/InputCheckboxView.cshtml.embed")
 </pre>

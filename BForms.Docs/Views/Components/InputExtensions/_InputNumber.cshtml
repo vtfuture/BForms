@@ -1,4 +1,5 @@
-﻿<h3 id="Input-Number">Number Input</h3>
+﻿@using BForms.Docs.Helpers
+<h3 id="Input-Number">Number Input</h3>
 
 <p>        
     In order to render a text input of type number you will need to use the 
@@ -13,24 +14,10 @@
 
 <h4 class="sub_title">Model</h4>
 <pre class="prettyprint lang-cs bs-example">
-public class RegisterModel
-{
-    [Display(Name = "Annual income")]
-    [BsControl(BsControlType.Number)]
-    public decimal? AnnualIncome { get; set; }
-
-    ...
-}
+@Html.InsertFileContentCached("~/Views/Components/InputExtensions/Source/InputNumberModel.cs.embed")
 </pre>
 
 <h4 class="sub_title">View</h4>
 <pre class="prettyprint lang-cs bs-example">
-&lt;div class=&quot;form-group&quot;&gt;
-    @@Html.BsLabelFor(m =&gt; m.AnnualIncome)
-    &lt;div class=&quot;input-group&quot;&gt;
-        @@Html.BsGlyphiconAddon(Glyphicon.Link)
-        @@Html.BsInputFor(m =&gt; m.AnnualIncome)
-        @@Html.BsValidationFor(m =&gt; m.AnnualIncome)
-    &lt;/div&gt;
-&lt;/div&gt;
+@Html.InsertFileContentCached("~/Views/Components/InputExtensions/Source/InputNumberView.cshtml.embed")
 </pre>
