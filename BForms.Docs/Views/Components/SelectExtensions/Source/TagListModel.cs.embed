@@ -1,0 +1,8 @@
+﻿public class RegisterModel
+{
+    [Display(Name = "Programming languages", Prompt = "Type your favorite programming languages")]
+    [BsControl(BsControlType.TagList)]
+    public BsSelectList<List<string>> LanguagesList { get; set; }
+    
+    ...
+}

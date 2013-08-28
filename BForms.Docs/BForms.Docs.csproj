@@ -134,6 +134,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
+    <Content Include="Content\Images\Docs\dropdown-search-select.jpg" />
+    <Content Include="Content\Images\Docs\listbox-search-select.jpg" />
+    <Content Include="Content\Images\Docs\taglist-search-select.jpg" />
     <Content Include="Views\Components\InputExtensions\Source\InputPasswordSpecializedView.cshtml.embed" />
     <Content Include="Views\Components\InputExtensions\Source\InputUrlSpecializedModel.cs.embed" />
     <Content Include="Views\Components\InputExtensions\Source\InputUrlSpecializedView.cshtml.embed" />
@@ -396,6 +399,33 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Components\InputExtensions\Source\InputTextboxSpecializedView.cshtml.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\SelectExtensions\Source\DropdownListModel.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\SelectExtensions\Source\DropdownListView.cshtml.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\SelectExtensions\Source\ListboxView.cshtml.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\SelectExtensions\Source\ListboxModel.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\SelectExtensions\Source\TagListView.cshtml.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\SelectExtensions\Source\TagListModel.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\SelectExtensions\_DropdownList.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\SelectExtensions\_Listbox.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\SelectExtensions\_TagList.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
