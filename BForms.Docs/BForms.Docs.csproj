@@ -134,15 +134,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
-    <None Include="Views\Components\InputExtensions\Source\InputPasswordSpecializedView.cshtml.embed">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Views\Components\InputExtensions\Source\InputUrlSpecializedModel.cs.embed">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Views\Components\InputExtensions\Source\InputUrlSpecializedView.cshtml.embed">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <Content Include="Views\Components\InputExtensions\Source\InputPasswordSpecializedView.cshtml.embed" />
+    <Content Include="Views\Components\InputExtensions\Source\InputUrlSpecializedModel.cs.embed" />
+    <Content Include="Views\Components\InputExtensions\Source\InputUrlSpecializedView.cshtml.embed" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Images\Docs\checkbox-input.jpg" />
@@ -334,130 +328,74 @@
     <Content Include="RequireJS.Release.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Views\Components\InputExtensions\Source\InputCheckboxSpecializedModel.cs.embed">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Views\Components\InputExtensions\Source\InputCheckboxSpecializedView.cshtml.embed">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Views\Components\InputExtensions\Source\InputEmailSpecializedModel.cs.embed">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Views\Components\InputExtensions\Source\InputEmailSpecializedView.cshtml.embed">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Views\Components\InputExtensions\Source\InputNumberSpecializedModel.cs.embed">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Views\Components\InputExtensions\Source\InputNumberSpecializedView.cshtml.embed">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Views\Components\InputExtensions\Source\InputPasswordSpecializedModel.cs.embed">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Views\Components\SelectExtensions\Source\SelectHelperModel.cs.embed">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <Content Include="Views\Components\InputExtensions\Source\InputCheckboxSpecializedModel.cs.embed" />
+    <Content Include="Views\Components\InputExtensions\Source\InputCheckboxSpecializedView.cshtml.embed" />
+    <Content Include="Views\Components\InputExtensions\Source\InputEmailSpecializedModel.cs.embed" />
+    <Content Include="Views\Components\InputExtensions\Source\InputEmailSpecializedView.cshtml.embed" />
+    <Content Include="Views\Components\InputExtensions\Source\InputNumberSpecializedModel.cs.embed" />
+    <Content Include="Views\Components\InputExtensions\Source\InputNumberSpecializedView.cshtml.embed" />
+    <Content Include="Views\Components\InputExtensions\Source\InputPasswordSpecializedModel.cs.embed" />
+    <Content Include="Views\Components\SelectExtensions\Source\SelectHelperModel.cs.embed" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Views\Components\SelectExtensions\Source\SelectHelperView.cshtml.embed">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <Content Include="Views\Components\SelectExtensions\Source\SelectHelperView.cshtml.embed" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Views\Components\InputExtensions\Source\AllInputExtensions.cs.embed">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <Content Include="Views\Components\InputExtensions\Source\AllInputExtensions.cs.embed" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Views\Components\InputExtensions\Source\InputHelperModel.cs.embed">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <Content Include="Views\Components\InputExtensions\Source\InputHelperModel.cs.embed" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Views\Components\InputExtensions\Source\InputHelperView.cshtml.embed">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <Content Include="Views\Components\InputExtensions\Source\InputHelperView.cshtml.embed" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Views\Components\InputExtensions\Source\InputCheckboxModel.cs.embed">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <Content Include="Views\Components\InputExtensions\Source\InputCheckboxModel.cs.embed" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Views\Components\InputExtensions\Source\InputCheckboxView.cshtml.embed">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <Content Include="Views\Components\InputExtensions\Source\InputCheckboxView.cshtml.embed" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Views\Components\InputExtensions\Source\InputEmailModel.cs.embed">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <Content Include="Views\Components\InputExtensions\Source\InputEmailModel.cs.embed" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Views\Components\InputExtensions\Source\InputEmailView.cshtml.embed">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <Content Include="Views\Components\InputExtensions\Source\InputEmailView.cshtml.embed" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Views\Components\InputExtensions\Source\InputNumberModel.cs.embed">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <Content Include="Views\Components\InputExtensions\Source\InputNumberModel.cs.embed" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Views\Components\InputExtensions\Source\InputNumberView.cshtml.embed">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <Content Include="Views\Components\InputExtensions\Source\InputNumberView.cshtml.embed" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Views\Components\InputExtensions\Source\InputPasswordModel.cs.embed">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <Content Include="Views\Components\InputExtensions\Source\InputPasswordModel.cs.embed" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Views\Components\InputExtensions\Source\InputPasswordView.cshtml.embed">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <Content Include="Views\Components\InputExtensions\Source\InputPasswordView.cshtml.embed" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Views\Components\InputExtensions\Source\InputRadioModel.cs.embed">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <Content Include="Views\Components\InputExtensions\Source\InputRadioModel.cs.embed" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Views\Components\InputExtensions\Source\InputRadioView.cshtml.embed">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <Content Include="Views\Components\InputExtensions\Source\InputRadioView.cshtml.embed" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Views\Components\InputExtensions\Source\InputUrlModel.cs.embed">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <Content Include="Views\Components\InputExtensions\Source\InputUrlModel.cs.embed" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Views\Components\InputExtensions\Source\InputUrlView.cshtml.embed">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <Content Include="Views\Components\InputExtensions\Source\InputUrlView.cshtml.embed" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Views\Components\InputExtensions\Source\InputTextboxModel.cs.embed">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <Content Include="Views\Components\InputExtensions\Source\InputTextboxModel.cs.embed" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Views\Components\InputExtensions\Source\InputTextboxView.cshtml.embed">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <Content Include="Views\Components\InputExtensions\Source\InputTextboxView.cshtml.embed" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Views\Components\InputExtensions\Source\InputTextboxSpecializedModel.cs.embed">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <Content Include="Views\Components\InputExtensions\Source\InputTextboxSpecializedModel.cs.embed" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Views\Components\InputExtensions\Source\InputTextboxSpecializedView.cshtml.embed">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <Content Include="Views\Components\InputExtensions\Source\InputTextboxSpecializedView.cshtml.embed" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
