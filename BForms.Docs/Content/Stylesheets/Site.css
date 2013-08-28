@@ -213,6 +213,8 @@ h1 {
   margin-bottom: -1px; }
   .bs-docs-section .bs-example.bs-img-example {
     background: #fff; }
+    .bs-docs-section .bs-example.bs-img-example img {
+      max-width: 100%; }
 .bs-docs-section .highlight {
   padding: 9px 14px;
   margin-bottom: 14px;

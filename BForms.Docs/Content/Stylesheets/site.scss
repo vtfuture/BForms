@@ -293,6 +293,9 @@ h1 {
 		margin-bottom: -1px;
 		&.bs-img-example {
 			background: #fff;
+			img {
+				max-width: 100%;
+			}
 		}
 	}
 	.highlight {
