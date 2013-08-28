@@ -70,6 +70,8 @@ a {
       color: #212121; }
       .navbar .nav > li > a .glyphicon {
         vertical-align: top; }
+      .navbar .nav > li > a:hover, .navbar .nav > li > a:focus {
+        background: transparent !important; }
     .navbar .nav > li .dropdown-menu {
       min-width: 180px;
       top: 120%; }
@@ -79,6 +81,12 @@ a {
         .navbar .nav > li .dropdown-menu li .badge-info {
           margin-left: 10px;
           background: #547980; }
+    .navbar .nav > li:hover, .navbar .nav > li:focus {
+      background: transparent !important; }
+  .navbar .nav .open > a,
+  .navbar .nav .open > a:hover,
+  .navbar .nav .open > a:focus {
+    background-color: transparent !important; }
   .navbar li.active > a {
     border-bottom: 2px solid #45ada8; }
   .navbar li.active .dropdown-toggle {

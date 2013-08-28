@@ -96,7 +96,10 @@ a {
 			color: $textColor;	
 			.glyphicon {
 				vertical-align: top;
-			}			
+			}	
+			&:hover, &:focus {
+				background: transparent !important;
+			}
 		}
 		.dropdown-menu {
 			min-width: 180px;
@@ -110,10 +113,18 @@ a {
 				}
 			}
 		}
+		&:hover, &:focus {
+			background: transparent !important;
+		}
+	}
+	.nav .open > a, 
+	.nav .open > a:hover, 
+	.nav .open > a:focus {
+		background-color: transparent !important;
 	}
 	li.active {
 		> a {
-		border-bottom: 2px solid $turqoise;
+			border-bottom: 2px solid $turqoise;
 		}
 		.dropdown-toggle {
 			background: #fff;
