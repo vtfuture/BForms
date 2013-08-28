@@ -32,20 +32,20 @@
                 <h1 id="input-section">Inputs</h1>
             </div>
             <p>
-                BForms exposes two ways of building input elements using Razor HTML extensions, one way is throw the <code>BsControlAttribute</code> in combination with 
-                <code>BsInputFor</code> helper, the <code>BsInputFor</code> will render the specified input type based on <code>BsControlType</code> enum. 
-                Another way is to use the specialized helpers like <code>BsTextBoxFor</code>, <code>BsTextAreaFor</code> and so on.
+                BForms exposes two ways of building input elements using Razor HTML extension methods: the first way of doing this is through the <code>BsControlAttribute</code> in combination with 
+                <code>BsInputFor</code> helper, the <code>BsInputFor</code> will render the specified input type based on the selected value of the <code>BsControlType</code> enum. 
+                Another way is to use a specialized helpers like <code>BsTextBoxFor</code>, <code>BsTextAreaFor</code> and so on.
             </p>
             <p>
-                We recommend you using the generic <code>BsInputFor</code> helper, this declarative approach makes the Model the place where you can decide the behavior of your form, 
-                when you need to change the output of a certain model property all you need to do is change the <code>BsControlType</code> designated for that property 
-                without modifying the view at all.
+                We recommend you use the generic <code>BsInputFor</code> helper, this declarative approach makes the Model the place where you can decide the behavior of your form. 
+                When you need to change the output of a certain model property all you need to do is change the <code>BsControlType</code> designated for that property 
+                 - this way you don't have to modify the view at all.
             </p>
             <p>
-                In ASP.NET MVC the behavior of a certain property is determine by mixing attributes like <code>Description</code>, <code>DataType</code> and <code>Required</code> 
-                with specialized helpers like <code>TextBoxFor</code>, BFroms is trying to simplify this process by only using attributes and a generic helper. 
-                In order to maintain compatibility with MVC, BForms will exposes the same specialized helpers as MVC, so if you don’t like the declarative approach 
-                you can still use BForms as you are using MVC.
+                In ASP.NET MVC the behavior of a certain property is determined by mixing attributes like <code>Description</code>, <code>DataType</code> and <code>Required</code> 
+                with specialized helpers like <code>TextBoxFor</code>. BFroms tries to simplify this process by only using attributes and a generic helper. 
+                In order to maintain compatibility with MVC, BForms will expose the same specialized helpers as MVC does, so if you don’t like the declarative approach 
+                you can still use BForms.
             </p>
 
             <h4 class="sub_title">Input Extensions</h4>
