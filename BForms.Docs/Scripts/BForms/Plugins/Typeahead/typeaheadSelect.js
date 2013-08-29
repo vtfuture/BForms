@@ -12,6 +12,11 @@
         this.$elem = $elem;
         this.options = opts;
         this.init();
+
+        this.$elem.data('typeaheadSelect', this);
+        this.$input.data('typeaheadSelect', this);
+
+        return $elem;
     };
 
     typeaheadSelect.prototype.init = function () {
@@ -79,14 +84,25 @@
 
     typeaheadSelect.prototype._applyTypeahead = function () {
         this.$input.typeahead(this._settings);
-        
-        if(typeof this._settings.placeholder !== "undefined") {
+
+        if (typeof this._settings.placeholder !== "undefined") {
             this.$input.prop('placeholder', this._settings.placeholder);
         }
-        
+
         if (typeof this._settings.value !== "undefined") {
             this.$input.val(this._settings.value);
         }
+    };
+
+    typeaheadSelect.prototype._updateTypeahead = function (value, name) {
+
+        this.$input.typeahead("destroy");
+        
+        this.$input.typeahead({
+            name: name,
+            local: value
+        });
+
     };
 
     jQuery.fn.typeaheadSelectDefaults = {
@@ -96,6 +112,16 @@
 
     $.fn.typeaheadSelect = function (opts) {
         return new typeaheadSelect($(this), $.extend(true, {}, $.fn.typeaheadSelectDefaults, opts));
+    };
+
+    $.fn.typeaheadSelectUpdate = function () {
+        var instance = $(this).data('typeaheadSelect');
+
+        if (typeof instance !== "undefined") {
+
+            instance._updateTypeahead.apply(instance, arguments);
+
+        }
     };
 
 });
