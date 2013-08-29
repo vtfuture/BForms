@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using RequireJS
+
+<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="utf-8" />
@@ -36,7 +38,8 @@
         @*Highlight source code*@
         <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
 
-        @Html.Partial("_RequireSetup")
+        @Html.RenderRequireJsSetup(Url.Content("~/Scripts"), Url.Content("~/Scripts/requirejs/require.js"))
+
         @if (!HttpContext.Current.IsDebuggingEnabled)
         {
                 @Html.Partial("_Tracking")
