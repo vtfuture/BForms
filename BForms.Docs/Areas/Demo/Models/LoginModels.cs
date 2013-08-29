@@ -81,7 +81,7 @@ namespace BForms.Docs.Areas.Demo.Models
 
         [Display(Name = "What ASP.NET flavors do you use")]
         [BsControl(BsControlType.CheckBoxList)]
-        public BsSelectList<List<int>> TechnologiesCheckboxList { get; set; }
+        public BsSelectList<List<int>> TechnologiesCheckboxList { get; set; }    
 
         [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
         [Display(Name = "Technologies", Prompt = "Choose your favorite technologies")]

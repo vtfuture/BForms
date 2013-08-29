@@ -77,12 +77,24 @@ namespace BForms.Docs.Areas.Demo.Controllers
 
         private RegisterModel InitRegisterModel()
         {
+            var listWithSelected = Lists.AllAsp<List<int>>();
+            listWithSelected.SelectedValues = new List<int> {1, 2};
+
+            var enumWithSelected = BsSelectList<NotificationTypes?>.FromEnum(typeof(NotificationTypes));
+            enumWithSelected.SelectedValues = NotificationTypes.Monthly;
+
+            var ddlWithSelected = Lists.AllCounties<string>();
+            ddlWithSelected.SelectedValues = "ROU";
+
+            var enumListWithSelected = BsSelectList<List<NotificationTypes?>>.FromEnum(typeof(NotificationTypes));
+            enumListWithSelected.SelectedValues = new List<NotificationTypes?>() {NotificationTypes.Monthly, NotificationTypes.Daily};
+
             return new RegisterModel()
                 {
-                    CountriesList = Lists.AllCounties<string>(),
-                    NotificationList = BsSelectList<NotificationTypes?>.FromEnum(typeof(NotificationTypes)),
+                    CountriesList = ddlWithSelected,
+                    NotificationList = enumWithSelected,
                     TechnologiesList = Lists.AllTech<List<int>>(),
-                    TechnologiesCheckboxList = Lists.AllAsp<List<int>>(),
+                    TechnologiesCheckboxList = listWithSelected,
                     LanguagesList = Lists.AllLanguages<List<string>>(),
                     IdeList = Lists.AllIde<string>(),
                     GenderList = Lists.AllGenders<int>().ToSelectList().ToList()

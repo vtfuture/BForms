@@ -119,6 +119,29 @@ namespace BootstrapForms.Html
             return htmlHelper.BsSelectFor(expression, null);
         }
 
+        private static string GetNonEnumerableValue(object obj)
+        {
+            var bsKeyType = obj.GetType();
+            var result = string.Empty;
+
+            if (bsKeyType.IsEnum)
+            {
+                result =
+                    Convert.ChangeType(obj, Enum.GetUnderlyingType(bsKeyType)).ToString();
+
+            }
+            else if (bsKeyType.IsSubclassOfRawGeneric(typeof (Nullable<>)) && bsKeyType.GenericTypeArguments[0].IsEnum)
+            {
+                result =
+                    Convert.ChangeType(obj, Enum.GetUnderlyingType(bsKeyType.GenericTypeArguments[0])).ToString();
+            }
+            else
+            {
+                result = obj.ToString();
+            }
+            return result;
+        }
+
         /// <summary>
         /// Returns a BForms select element based on BsControlAttribute
         /// </summary>
@@ -135,6 +158,32 @@ namespace BootstrapForms.Html
             string htmlSelect;
             string optionLabel = null;
             var allowMultiple = false;
+
+            //copy from BsSelectList.SelectedValues to SelectListItem.Selected
+            if (selectList.SelectedValues != null && selectList.Items != null && selectList.Items.Any())
+            {
+                var selectedValuesStr = new List<string>();
+                var bsKeyType = typeof (TKey);
+                if (typeof (IEnumerable).IsAssignableFrom(bsKeyType) && bsKeyType != typeof (string))
+                {
+                    
+                    var selectedValues = (IEnumerable) selectList.SelectedValues;
+                    selectedValuesStr = (from object selectedValue in selectedValues select GetNonEnumerableValue(selectedValue)).ToList();
+                }
+                else
+                {
+                    selectedValuesStr.Add(GetNonEnumerableValue(selectList.SelectedValues));
+                }
+
+
+                foreach (var item in selectList.Items)
+                {
+                    if (selectedValuesStr.Contains(item.Value))
+                    {
+                        item.Selected = true;
+                    }
+                }
+            }
 
             //add optionLabel from Watermark 
             if (!string.IsNullOrEmpty(metadata.Watermark))
