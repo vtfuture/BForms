@@ -72,31 +72,9 @@ namespace BootstrapForms.Html
         {
             var inputHtml = new MvcHtmlString("");
             var metadata = ModelMetadata.FromLambdaExpression(expression, htmlHelper.ViewData);
-            htmlAttributes = HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes);
 
-            //merge custom css classes with bootstrap (if is checkbox or radio do not apply)
-            if (metadata.ModelType != typeof(bool))
-            {
-                htmlAttributes.MergeAttribute("class", "form-control");
-            }
-
-            //add placeholder           
-            if (!string.IsNullOrEmpty(metadata.Watermark) && !htmlAttributes.ContainsKey("placeholder"))
-            {
-                htmlAttributes.MergeAttribute("placeholder", metadata.Watermark);
-            }
-
-            //set html5 input type based on DataType attribute
-            if (!string.IsNullOrEmpty(metadata.DataTypeName))
-            {
-                htmlAttributes.MergeAttribute("type", metadata.DataTypeName.GetHtml5Type());
-            }
-
-            //set data- options
-            if (dataOptions != null && dataOptions.Any())
-            {
-                htmlAttributes.MergeAttribute("data-options", dataOptions.ToJsonString());
-            }
+            //add html attributes
+            htmlAttributes.ApplyBFormsAttributes(metadata, dataOptions);
 
             //set html5 input type based on BsControlType attribute
             BsControlAttribute bsControl = null;
@@ -104,6 +82,11 @@ namespace BootstrapForms.Html
             {
                 htmlAttributes.MergeAttribute("type", bsControl.ControlType.GetHtml5Type(), true);
                 htmlAttributes.MergeAttribute("class", bsControl.ControlType.GetDescription());
+
+                if(bsControl.IsReadonly)
+                {
+                    htmlAttributes.MergeAttribute("readonly", "readonly");
+                }
 
                 switch (bsControl.ControlType)
                 {
@@ -151,6 +134,5 @@ namespace BootstrapForms.Html
 
             return MvcHtmlString.Create(inputHtml.ToHtmlString() + description.ToHtmlString());
         }
-
     }
 }

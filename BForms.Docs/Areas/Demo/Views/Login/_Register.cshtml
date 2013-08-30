@@ -136,6 +136,15 @@
             @Html.BsValidationFor(m => m.ConsentAgreement)
         </div>
 
+        <div class="col-12 col-sm-6 col-lg-6 form-group">
+            @Html.BsLabelFor(m => m.Interval)
+            <div class="input-group">
+                @Html.BsGlyphiconAddon(Glyphicon.Calendar)
+                @Html.BsRangeFor(m => m.Interval, null, null)
+                @Html.BsValidationFor(m => m.Interval)
+            </div>
+        </div>
+
         <div class="clearfix"></div>
         <div class="col-12 col-sm-12 col-lg-12">
             <hr />

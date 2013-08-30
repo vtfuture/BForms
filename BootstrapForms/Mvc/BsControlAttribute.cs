@@ -20,6 +20,11 @@ namespace BootstrapForms.Mvc
         public string CssClass { get; set; }
 
         /// <summary>
+        /// Sets readonly html attribute
+        /// </summary>
+        public bool IsReadonly { get; set; }
+
+        /// <summary>
         /// Empty ctor
         /// </summary>
         public BsControlAttribute()

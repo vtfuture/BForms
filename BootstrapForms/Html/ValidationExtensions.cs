@@ -45,6 +45,11 @@ namespace BootstrapForms.Html
                  name += ".SelectedValues";
              }
 
+             if (typeof(TProperty).FullName.Contains("BsRange"))
+             {
+                 name += ".TextValue";
+             }
+
             //create span element
             var tag = new TagBuilder("span");
             tag.MergeAttributes(htmlAttributes, false);

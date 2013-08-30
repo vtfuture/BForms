@@ -6,13 +6,14 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
+using BootstrapForms.Utilities;
 
 namespace BootstrapForms.Html
 {
     /// <summary>
     /// Represents HTML helpers for bootstrap forms
     /// </summary>
-    public static class HtmlExtensions
+    public static class BaseExtensions
     {
         /// <summary>
         /// Replacer for Html.Partial when dealing with nested models
@@ -40,6 +41,38 @@ namespace BootstrapForms.Html
             htmlHelper.ViewData["Model"] = backupModel;
 
             return result;
+        }
+
+        /// <summary>
+        /// Appends BForms custom html attribute to an existing collection
+        /// </summary>
+        internal static void ApplyBFormsAttributes(this IDictionary<string, object> htmlAttributes, ModelMetadata metadata, IDictionary<string, object> dataOptions)
+        {
+            htmlAttributes = htmlAttributes ?? new Dictionary<string, object>();
+
+            //merge custom css classes with bootstrap (if is checkbox or radio do not apply)
+            if (metadata.ModelType != typeof(bool))
+            {
+                htmlAttributes.MergeAttribute("class", "form-control");
+            }
+
+            //add placeholder           
+            if (!string.IsNullOrEmpty(metadata.Watermark) && !htmlAttributes.ContainsKey("placeholder"))
+            {
+                htmlAttributes.MergeAttribute("placeholder", metadata.Watermark);
+            }
+
+            //set html5 input type based on DataType attribute
+            if (!string.IsNullOrEmpty(metadata.DataTypeName))
+            {
+                htmlAttributes.MergeAttribute("type", metadata.DataTypeName.GetHtml5Type());
+            }
+
+            //set data- options
+            if (dataOptions != null && dataOptions.Any())
+            {
+                htmlAttributes.MergeAttribute("data-options", dataOptions.ToJsonString());
+            }
         }
     }
 }

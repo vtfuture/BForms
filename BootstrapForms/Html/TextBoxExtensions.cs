@@ -164,8 +164,6 @@ namespace BootstrapForms.Html
         internal static MvcHtmlString TextBoxForInternal<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression,
             string format, IDictionary<string, object> htmlAttributes)
         {
-
-
             return htmlHelper.TextBoxFor(expression, format, htmlAttributes);
         }
 

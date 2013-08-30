@@ -50,6 +50,29 @@ namespace BootstrapForms.Mvc
                     res.Add(new DataAnnotationsModelValidator(selectedValuesMetadata, context, attribute as ValidationAttribute));
                 }
             }
+
+            if (metadata.ModelType.IsSubclassOfRawGeneric(typeof(BsRange<>)))
+            {
+                var selectedValuesMetadata = metadata.Properties.Where(r => r.PropertyName == "TextValue").FirstOrDefault();
+                var propertyInfo = metadata.ContainerType.GetProperties().Where(r => r.Name == metadata.PropertyName).FirstOrDefault();
+
+                if (propertyInfo == null)
+                {
+                    return res;
+                }
+
+                //get validation attributes for parent
+                var attributes =
+                    propertyInfo.GetCustomAttributes(true)
+                        .Where(r => r is ValidationAttribute)
+                        .ToList();
+
+                //copy validation meta to parent from SelectedValues
+                foreach (var attribute in attributes)
+                {
+                    res.Add(new DataAnnotationsModelValidator(selectedValuesMetadata, context, attribute as ValidationAttribute));
+                }
+            }
             return res;
         }
     }

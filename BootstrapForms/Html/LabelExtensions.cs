@@ -69,7 +69,10 @@ namespace BootstrapForms.Html
             {
                 name += ".SelectedValues";
             }
-
+            if (typeof(TProperty).FullName.Contains("BsRange"))
+            {
+                name += ".TextValue";
+            }
             var metadata = ModelMetadata.FromLambdaExpression(expression, htmlHelper.ViewData);
             var labelText = metadata.DisplayName ?? metadata.PropertyName ?? propertyName.Split('.').Last();
 

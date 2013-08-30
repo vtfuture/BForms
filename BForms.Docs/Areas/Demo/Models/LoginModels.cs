@@ -108,6 +108,11 @@ namespace BForms.Docs.Areas.Demo.Models
         [Display(Name = "I agree with Terms & Conditions")]
         [BsControl(BsControlType.CheckBox)]
         public bool ConsentAgreement { get; set; }
+
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
+        [Display(Name = "Interval", Prompt = "Choose dates")]
+        [BsControl(BsControlType.DateTimePickerRange)]
+        public BsRange<DateTime?> Interval { get; set; }
     }
 
 }

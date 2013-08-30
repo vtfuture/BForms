@@ -58,7 +58,15 @@ namespace BForms.Docs.Areas.Demo.Controllers
             ModelState.ClearModelState(model.GetPropertyName(m => m.RegisterModel) + ".");
 
             //add validation error to field
-            ModelState.AddModelError("RegisterModel.Email", "This email address is in use");
+            if (model.RegisterModel != null && 
+                model.RegisterModel.Interval != null &&
+                model.RegisterModel.Interval.To.HasValue && 
+                model.RegisterModel.Interval.From.HasValue &&
+                model.RegisterModel.Interval.From.Value > model.RegisterModel.Interval.To.Value)
+            {
+                ModelState.AddModelError("RegisterModel.Interval", "Invalid interval");
+            }
+            
 
             //add global validation error
             ModelState.AddFormError("RegisterModel", "This email address is in use.");
@@ -97,7 +105,8 @@ namespace BForms.Docs.Areas.Demo.Controllers
                     TechnologiesCheckboxList = listWithSelected,
                     LanguagesList = Lists.AllLanguages<List<string>>(),
                     IdeList = Lists.AllIde<string>(),
-                    GenderList = Lists.AllGenders<int>().ToSelectList().ToList()
+                    GenderList = Lists.AllGenders<int>().ToSelectList().ToList(),
+                    Interval = new BsRange<DateTime?> { From = DateTime.Now.AddDays(-1), To = DateTime.Now }
                 };
         }
     }
