@@ -119,27 +119,13 @@ namespace BootstrapForms.Html
             return htmlHelper.BsSelectFor(expression, null);
         }
 
-        private static string GetNonEnumerableValue(object obj)
+        /// <summary>
+        /// Returns a BForms select element based on BsControlAttribute
+        /// </summary>
+        public static MvcHtmlString BsSelectFor<TModel, TKey>(this HtmlHelper<TModel> htmlHelper,
+            Expression<Func<TModel, BsSelectList<TKey>>> expression, object htmlAttributes)
         {
-            var bsKeyType = obj.GetType();
-            var result = string.Empty;
-
-            if (bsKeyType.IsEnum)
-            {
-                result =
-                    Convert.ChangeType(obj, Enum.GetUnderlyingType(bsKeyType)).ToString();
-
-            }
-            else if (bsKeyType.IsSubclassOfRawGeneric(typeof (Nullable<>)) && bsKeyType.GenericTypeArguments[0].IsEnum)
-            {
-                result =
-                    Convert.ChangeType(obj, Enum.GetUnderlyingType(bsKeyType.GenericTypeArguments[0])).ToString();
-            }
-            else
-            {
-                result = obj.ToString();
-            }
-            return result;
+            return htmlHelper.BsSelectFor(expression, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
         }
 
         /// <summary>
@@ -168,11 +154,11 @@ namespace BootstrapForms.Html
                 {
                     
                     var selectedValues = (IEnumerable) selectList.SelectedValues;
-                    selectedValuesStr = (from object selectedValue in selectedValues select GetNonEnumerableValue(selectedValue)).ToList();
+                    selectedValuesStr = (from object selectedValue in selectedValues select ReflectionHelpers.GetNonEnumerableValue(selectedValue)).ToList();
                 }
                 else
                 {
-                    selectedValuesStr.Add(GetNonEnumerableValue(selectList.SelectedValues));
+                    selectedValuesStr.Add(ReflectionHelpers.GetNonEnumerableValue(selectList.SelectedValues));
                 }
 
 

@@ -5,7 +5,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Text;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 using BootstrapForms.Models;
 using BootstrapForms.Mvc;
 
@@ -168,7 +170,7 @@ namespace BootstrapForms.Utilities
         /// </summary>
         internal static string GetHtml5Type(this BsControlType bsType)
         {
-            var html5Type = string.Empty;
+            var html5Type = String.Empty;
 
             switch (bsType)
             {
@@ -227,6 +229,43 @@ namespace BootstrapForms.Utilities
                 toCheck = toCheck.BaseType;
             }
             return false;
+        }
+
+        internal static string GetNonEnumerableValue(object obj)
+        {
+            var bsKeyType = obj.GetType();
+            var result = String.Empty;
+
+            if (bsKeyType.IsEnum)
+            {
+                result =
+                    Convert.ChangeType(obj, Enum.GetUnderlyingType(bsKeyType)).ToString();
+
+            }
+            else if (bsKeyType.IsSubclassOfRawGeneric(typeof(Nullable<>)) && bsKeyType.GenericTypeArguments[0].IsEnum)
+            {
+                result =
+                    Convert.ChangeType(obj, Enum.GetUnderlyingType(bsKeyType.GenericTypeArguments[0])).ToString();
+            }
+            else
+            {
+                result = obj.ToString();
+            }
+            return result;
+        }
+
+        internal static string ToJsonString(this IDictionary<string, object> options)
+        {
+            var config = new StringBuilder();
+            var serializer = new JavaScriptSerializer();
+
+            config.Append("{");
+            foreach (var item in options)
+            {
+                config.AppendFormat(" {0}: {1}{2} ", item.Key, serializer.Serialize(item.Value), options.Last().Equals(item) ? "" : ",");
+            }
+            config.Append("}");
+            return config.ToString();
         }
     }
 }

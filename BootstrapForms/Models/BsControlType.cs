@@ -63,10 +63,25 @@ namespace BootstrapForms.Models
         [Description("bs-date-range")]
         DatePickerRange,
         /// <summary>
+        /// Date and time picker input element
+        /// </summary>
+        [Description("bs-datetime")]
+        DateTimePicker,
+        /// <summary>
+        /// Date and time picker range input element
+        /// </summary>
+        [Description("bs-datetime-range")]
+        DateTimePickerRange,
+        /// <summary>
         /// Time input element
         /// </summary>
         [Description("bs-time")]
         TimePicker,
+        /// <summary>
+        /// Time picker range input element
+        /// </summary>
+        [Description("bs-time-range")]
+        TimePickerRange,
         /// <summary>
         /// Checkbox input element
         /// </summary>

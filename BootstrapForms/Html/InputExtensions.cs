@@ -61,17 +61,18 @@ namespace BootstrapForms.Html
         public static MvcHtmlString BsInputFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, 
             Expression<Func<TModel, TProperty>> expression, string format, object htmlAttributes)
         {
-            return BsInputFor(htmlHelper, expression, null, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+            return BsInputFor(htmlHelper, expression, null, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes), null);
         }
 
         /// <summary>
         /// Returns an input element based on BsControlType with placeholder and info tooltip
         /// </summary>
-        public static MvcHtmlString BsInputFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, 
-            Expression<Func<TModel, TProperty>> expression, string format, IDictionary<string, object> htmlAttributes)
+        public static MvcHtmlString BsInputFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper,
+            Expression<Func<TModel, TProperty>> expression, string format, IDictionary<string, object> htmlAttributes, IDictionary<string, object> dataOptions)
         {
             var inputHtml = new MvcHtmlString("");
             var metadata = ModelMetadata.FromLambdaExpression(expression, htmlHelper.ViewData);
+            htmlAttributes = HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes);
 
             //merge custom css classes with bootstrap (if is checkbox or radio do not apply)
             if (metadata.ModelType != typeof(bool))
@@ -89,6 +90,12 @@ namespace BootstrapForms.Html
             if (!string.IsNullOrEmpty(metadata.DataTypeName))
             {
                 htmlAttributes.MergeAttribute("type", metadata.DataTypeName.GetHtml5Type());
+            }
+
+            //set data- options
+            if (dataOptions != null && dataOptions.Any())
+            {
+                htmlAttributes.MergeAttribute("data-options", dataOptions.ToJsonString());
             }
 
             //set html5 input type based on BsControlType attribute
@@ -110,26 +117,21 @@ namespace BootstrapForms.Html
                         inputHtml = htmlHelper.PasswordFor(expression, htmlAttributes);
                         break;
                     case BsControlType.Url:
-                        inputHtml = htmlHelper.TextBoxForInternal(expression, format, htmlAttributes);
-                        break;
                     case BsControlType.Email:
-                        inputHtml = htmlHelper.TextBoxForInternal(expression, format, htmlAttributes);
-                        break;
                     case BsControlType.Number:
                         inputHtml = htmlHelper.TextBoxForInternal(expression, format, htmlAttributes);
                         break;
                     case BsControlType.DatePicker:
-                        inputHtml = htmlHelper.TextBoxForInternal(expression, format, htmlAttributes);
-                        break;
+                    case BsControlType.DateTimePicker:
                     case BsControlType.TimePicker:
                         inputHtml = htmlHelper.TextBoxForInternal(expression, format, htmlAttributes);
                         break;
                     case BsControlType.CheckBox:
-                        var checkExpression = (Expression<System.Func<TModel, bool>>)(object)expression;
+                        var checkExpression = (Expression<Func<TModel, bool>>) (object) expression;
                         inputHtml = htmlHelper.CheckBoxForInternal(checkExpression, htmlAttributes);
                         break;
                     case BsControlType.RadioButton:
-                        var radioExpression = (Expression<System.Func<TModel, bool>>)(object)expression;
+                        var radioExpression = (Expression<Func<TModel, bool>>) (object) expression;
                         inputHtml = htmlHelper.RadioButtonForInternal(radioExpression, htmlAttributes);
                         break;
                     case BsControlType.ColorPicker:
