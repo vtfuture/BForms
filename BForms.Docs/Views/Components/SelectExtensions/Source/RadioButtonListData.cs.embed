@@ -1,0 +1,19 @@
+﻿//create a BsSelectList from an enum
+var notificationList = BsSelectList<NotificationType?>.FromEnum(typeof(NotificationType));
+notificationList.SelectedValues = NotificationType.Daily;
+
+registerModel.NotificationList = notificationList;
+
+...
+
+public enum NotificationType
+{
+    [Display(Name = "Never")]
+    Never = 1,
+    [Display(Name = "Daily")]
+    Daily = 2,
+    [Display(Name = "Weekly")]
+    Weekly = 3,
+    [Display(Name = "Monthly")]
+    Monthly = 4
+}

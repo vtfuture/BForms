@@ -3,7 +3,7 @@
     [Required]
     [Display(Name = "Receive email notifications", Description = "Your register...")]
     [BsControl(BsControlType.RadioButtonList)]
-    public BsSelectList<NotificationTypes?> NotificationList { get; set; }
+    public BsSelectList<NotificationType?> NotificationList { get; set; }
     
     ...
 }

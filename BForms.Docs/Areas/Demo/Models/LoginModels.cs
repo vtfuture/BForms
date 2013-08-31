@@ -77,7 +77,7 @@ namespace BForms.Docs.Areas.Demo.Models
         [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
         [Display(Name = "Receive email notifications", Description = "Your register email address will be used")]
         [BsControl(BsControlType.RadioButtonList)]
-        public BsSelectList<NotificationTypes?> NotificationList { get; set; }
+        public BsSelectList<NotificationType?> NotificationList { get; set; }
 
         [Display(Name = "What ASP.NET flavors do you use")]
         [BsControl(BsControlType.CheckBoxList)]

@@ -7,7 +7,7 @@ using BForms.Docs.Resources;
 
 namespace BForms.Docs.Areas.Demo.Mock
 {
-    public enum NotificationTypes
+    public enum NotificationType
     {
         [Display(Name = "Password", ResourceType = typeof(Resource))]
         Never = 1,

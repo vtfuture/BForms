@@ -2,7 +2,7 @@
 {
     [Display(Name = "What ASP.NET flavors do you use")]
     [BsControl(BsControlType.CheckBoxList)]
-    public BsSelectList<List<int>> TechnologiesCheckboxList { get; set; }   
+    public BsSelectList<List<int>> TechnologyList { get; set; }   
     
     ...
 }

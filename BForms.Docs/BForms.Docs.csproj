@@ -438,9 +438,6 @@
     <Content Include="Views\Components\SelectExtensions\_CheckboxList.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\SelectExtensions\Source\CheckboxListModel.cs.embed" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Components\SelectExtensions\Source\CheckboxListView.cshtml.embed" />
   </ItemGroup>
   <ItemGroup>
@@ -460,6 +457,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Components\SelectExtensions\Source\AutocompleteView.cshtml.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\SelectExtensions\Source\RadioButtonListData.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\SelectExtensions\Source\CheckboxListModel.cs.embed" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

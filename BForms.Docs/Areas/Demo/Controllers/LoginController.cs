@@ -57,22 +57,26 @@ namespace BForms.Docs.Areas.Demo.Controllers
             //keep errors only for RegisterModel
             ModelState.ClearModelState(model.GetPropertyName(m => m.RegisterModel) + ".");
 
-            //add validation error to field
+            //add validation error to BsRange field
             if (model.RegisterModel != null && 
                 model.RegisterModel.Interval != null &&
                 model.RegisterModel.Interval.To.HasValue && 
                 model.RegisterModel.Interval.From.HasValue &&
                 model.RegisterModel.Interval.From.Value > model.RegisterModel.Interval.To.Value)
             {
-                ModelState.AddFieldError("RegisterModel.Interval", model.RegisterModel.Interval.GetType(), "Invalid interval");
+                ModelState.AddFieldError("RegisterModel.Interval",
+                    model.RegisterModel.Interval.GetType(), 
+                    "Invalid interval");
             }
 
+            //add validation error to BsSelectList field
             ModelState.AddFieldError("RegisterModel.CountriesList",
                 model.RegisterModel.CountriesList.GetType(),
                 "Selected location doesn't match your GPS location");
 
             //add global validation error
-            ModelState.AddFormError("RegisterModel", "This email address is in use.");
+            ModelState.AddFormError("RegisterModel", 
+                "This email address is in use.");
 
             if (ModelState.IsValid)
             {
@@ -80,6 +84,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
             }
             else
             {
+                //JSON serialize ModelState errors
                 return new BsJsonResult(new Dictionary<string, object> { { "Errors", ModelState.GetErrors() } }, BsResponseStatus.ValidationError);
             }
 
@@ -91,14 +96,14 @@ namespace BForms.Docs.Areas.Demo.Controllers
             var listWithSelected = Lists.AllAsp<List<int>>();
             listWithSelected.SelectedValues = new List<int> {1, 2};
 
-            var enumWithSelected = BsSelectList<NotificationTypes?>.FromEnum(typeof(NotificationTypes));
-            enumWithSelected.SelectedValues = NotificationTypes.Monthly;
+            var enumWithSelected = BsSelectList<NotificationType?>.FromEnum(typeof(NotificationType));
+            enumWithSelected.SelectedValues = NotificationType.Monthly;
 
             var ddlWithSelected = Lists.AllCounties<string>();
             ddlWithSelected.SelectedValues = "ROU";
 
-            var enumListWithSelected = BsSelectList<List<NotificationTypes?>>.FromEnum(typeof(NotificationTypes));
-            enumListWithSelected.SelectedValues = new List<NotificationTypes?>() {NotificationTypes.Monthly, NotificationTypes.Daily};
+            var enumListWithSelected = BsSelectList<List<NotificationType?>>.FromEnum(typeof(NotificationType));
+            enumListWithSelected.SelectedValues = new List<NotificationType?>() {NotificationType.Monthly, NotificationType.Daily};
 
             return new RegisterModel()
                 {
