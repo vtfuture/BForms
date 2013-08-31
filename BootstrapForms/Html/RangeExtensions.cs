@@ -25,7 +25,7 @@ namespace BootstrapForms.Html
         public static MvcHtmlString BsRangeFor<TModel, TKey>(this HtmlHelper<TModel> htmlHelper,
             Expression<Func<TModel, BsRange<TKey>>> expression)
         {
-            return htmlHelper.BsRangeFor(expression, null);
+            return htmlHelper.BsRangeFor(expression, null, null);
         }
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace BootstrapForms.Html
         public static MvcHtmlString BsRangeFor<TModel, TKey>(this HtmlHelper<TModel> htmlHelper,
             Expression<Func<TModel, BsRange<TKey>>> expression, object htmlAttributes)
         {
-            return htmlHelper.BsRangeFor(expression, null, null);
+            return htmlHelper.BsRangeFor(expression, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes), null);
         }
 
         /// <summary>
@@ -48,9 +48,17 @@ namespace BootstrapForms.Html
             var name = ExpressionHelper.GetExpressionText(expression);
             var fullName = htmlHelper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name);
             var range = expression.Compile().Invoke(htmlHelper.ViewData.Model);
+            
+            if (htmlAttributes == null)
+            {
+                htmlAttributes = new Dictionary<string, object>();
+            }
+            if (dataOptions == null)
+            {
+                dataOptions = new Dictionary<string, object>();
+            }
 
-            //add html attributes
-            htmlAttributes = HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes);
+            //add BForms custom html attributes
             htmlAttributes.ApplyBFormsAttributes(metadata, dataOptions);
 
             BsControlAttribute bsControl = null;

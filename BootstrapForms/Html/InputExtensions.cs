@@ -25,7 +25,7 @@ namespace BootstrapForms.Html
         public static MvcHtmlString BsInputFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper,
             Expression<Func<TModel, TProperty>> expression)
         {
-            return BsInputFor(htmlHelper, expression, (object)null);
+            return BsInputFor(htmlHelper, expression, null, null, null);
         }
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace BootstrapForms.Html
         public static MvcHtmlString BsInputFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper,
             Expression<Func<TModel, TProperty>> expression, object htmlAttributes)
         {
-            return BsInputFor(htmlHelper, expression, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+            return BsInputFor(htmlHelper, expression, null, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes), null);
         }
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace BootstrapForms.Html
         public static MvcHtmlString BsInputFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper,
             Expression<Func<TModel, TProperty>> expression, IDictionary<string, object> htmlAttributes)
         {
-            return BsInputFor(htmlHelper, expression, null, htmlAttributes);
+            return BsInputFor(htmlHelper, expression, null, htmlAttributes, null);
         }
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace BootstrapForms.Html
         public static MvcHtmlString BsInputFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, 
             Expression<Func<TModel, TProperty>> expression, string format)
         {
-            return BsInputFor(htmlHelper, expression, null, null);
+            return BsInputFor(htmlHelper, expression, format, null, null);
         }
 
         /// <summary>
@@ -72,6 +72,15 @@ namespace BootstrapForms.Html
         {
             var inputHtml = new MvcHtmlString("");
             var metadata = ModelMetadata.FromLambdaExpression(expression, htmlHelper.ViewData);
+
+            if (htmlAttributes == null)
+            {
+                htmlAttributes = new Dictionary<string, object>();
+            }
+            if (dataOptions == null)
+            {
+                dataOptions = new Dictionary<string, object>();
+            }
 
             //add html attributes
             htmlAttributes.ApplyBFormsAttributes(metadata, dataOptions);
