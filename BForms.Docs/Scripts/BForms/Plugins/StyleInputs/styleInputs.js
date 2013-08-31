@@ -3,40 +3,56 @@
         define(['jquery',
         'select2',
         'radioButtonsList',
-        'bootstrap-datepicker',
         'selectInput2',
         'typeaheadSelect',
-        'checkBoxList'], factory);
+        'bDatepicker',
+        'bRangepicker',
+        'checkBoxList',
+        'bforms/plugins/bdatepicker/lang/lang.bundle'], factory);
     } else {
         factory(window.jQuery);
     }
 
 })(function ($) {
-
     $.fn.styleInputsDefaults = {
         select2: true,
         select2Selector: '.bs-dropdown:not(.no-select2), .bs-dropdown-grouped:not(.no-select2)',
 
         datepicker: true,
         datepickerSelector: '.bs-date',
+        
+        timepicker: true,
+        timepickerSelector: '.bs-time',
+        
+        datetimepicker: true,
+        datetimepickerSelector: '.bs-datetime',
+        
+        datetimerange: true,
+        datetimerangeSelector: '.bs-datetime-range',
+        
+        daterange: true,
+        daterangeSelector: '.bs-date-range',
+        
+        timerange: true,
+        timerangeSelector: '.bs-time-range',
 
         radioButtons: true,
         radioButtonsSelector: '.bs-radio-list',
-        
+
         checkBoxList: true,
-        checkBoxListSelector : '.bs-checkbox-list',
+        checkBoxListSelector: '.bs-checkbox-list',
 
         tagList: true,
         tagListSelector: '.bs-tag-list',
-        
+
         multiSelect2: true,
         multiSelect2Selector: '.bs-listbox:not(.no-select2), .bs-listbox-grouped:not(.no-select2)',
-        
+
         autocomplete: true,
         autocompleteSelector: '.bs-autocomplete',
-        
+
         loadingSelector: '.loading',
-        loadingClass : 'loading'
+        loadingClass: 'loading'
     };
 
     $.fn.styleInputs = function (opts) {
@@ -68,7 +84,7 @@
                     throw "radioButtonsList script must be loaded before calling styleInputs";
                 }
             }
-            
+
             if (this.options.checkBoxList === true) {
                 if (typeof $.fn.checkBoxList === "function") {
                     this.$elem.find(this.options.checkBoxListSelector).checkBoxList();
@@ -77,25 +93,127 @@
                 }
             }
 
-            if (this.options.datepicker === true) {
-                if (this.options.datepicker === true) {
+            if (this.options.datepicker === true && this.$elem.find(this.options.datepickerSelector).length) {
+                if (typeof $.fn.bDatepicker === "function") {
                     this.$elem.find(this.options.datepickerSelector).each(function (idx, elem) {
                         var $elem = $(elem);
-
-                        var datepickerOpts = {
-                            language: requireConfig.websiteOptions.locale
-                        };
-
-                        if (datepickerOpts.language == 'ro') {
-                            datepickerOpts.format = 'dd-mm-yyyy';
-                        } else {
-                            datepickerOpts.format = 'yyyy-mm-dd';
-                        }
-
-                        $elem.datepicker(datepickerOpts);
+                        $elem.attr('type', 'text');
+                        
+                        $elem.bDatepicker({
+                            type: 'datepicker'
+                        });
                     });
-                } else {
-                    throw "Datepicker script must be loaded before calling styleInputs";
+                }
+                else {
+                    throw "bDatepicker script must be loaded before calling styleInputs";
+                }
+            }
+            
+            if (this.options.timepicker === true && this.$elem.find(this.options.timepickerSelector).length) {
+                if (typeof $.fn.bDatepicker === "function") {
+                    this.$elem.find(this.options.timepickerSelector).each(function (idx, elem) {
+                        var $elem = $(elem);
+                        $elem.attr('type', 'text');
+
+                        $elem.bDatepicker({
+                            type: 'timepicker',
+                            Is12Hours : true
+                        });
+                    });
+                }
+                else {
+                    throw "bDatepicker script must be loaded before calling styleInputs";
+                }
+            }
+            
+            if (this.options.datetimepicker === true && this.$elem.find(this.options.datetimepickerSelector).length) {
+                if (typeof $.fn.bDatepicker === "function") {
+                    this.$elem.find(this.options.datetimepickerSelector).each(function (idx, elem) {
+                        var $elem = $(elem);
+                        $elem.attr('type', 'text');
+
+                        $elem.bDatepicker({
+                            type: 'datetimepicker',
+                            Is12Hours: true
+                        });
+                    });
+                }
+                else {
+                    throw "bDatepicker script must be loaded before calling styleInputs";
+                }
+            }
+            
+            if (this.options.datetimerange === true && this.$elem.find(this.options.datetimerangeSelector).length) {
+                if (typeof $.fn.bRangepicker === "function") {
+                    this.$elem.find(this.options.datetimerangeSelector).each(function (idx, elem) {
+                        var $elem = $(elem);
+                        $elem.attr('type', 'text');
+
+                        $elem.bRangepicker({
+                            startOptions : {
+                                type: 'datetimepicker'
+                            },
+                            endOptions : {
+                                type: 'datetimepicker'
+                            },
+                            
+                            startAltFields: [{ selector: $elem.siblings('.bs-range-from:first') }],
+                            endAltFields: [{ selector: $elem.siblings('.bs-range-to:first') }]
+                        });
+                    });
+                }
+                else {
+                    throw "bRangepicker script must be loaded before calling styleInputs";
+                }
+            }
+            
+            if (this.options.daterange === true && this.$elem.find(this.options.daterangeSelector).length) {
+                if (typeof $.fn.bRangepicker === "function") {
+                    this.$elem.find(this.options.daterangeSelector).each(function (idx, elem) {
+                        var $elem = $(elem);
+                        $elem.attr('type', 'text');
+
+                        $elem.bRangepicker({
+                            startOptions: {
+                                type: 'datepicker'
+                            },
+                            endOptions: {
+                                type: 'datepicker'
+                            },
+
+                            startAltFields: [{ selector: $elem.siblings('.bs-range-from:first') }],
+                            endAltFields: [{ selector: $elem.siblings('.bs-range-to:first') }]
+                        });
+                    });
+                }
+                else {
+                    throw "bRangepicker script must be loaded before calling styleInputs";
+                }
+            }
+            
+            if (this.options.timerange === true && this.$elem.find(this.options.timerangeSelector).length) {
+                if (typeof $.fn.bRangepicker === "function") {
+                    this.$elem.find(this.options.timerangeSelector).each(function (idx, elem) {
+                        var $elem = $(elem);
+                        $elem.attr('type', 'text');
+
+                        $elem.bRangepicker({
+                            startOptions: {
+                                type: 'timepicker',
+                                Is12Hours : true
+                            },
+                            endOptions: {
+                                type: 'timepicker',
+                                Is12Hours: true
+                            },
+
+                            startAltFields: [{ selector: $elem.siblings('.bs-range-from:first') }],
+                            endAltFields: [{ selector: $elem.siblings('.bs-range-to:first') }]
+                        });
+                    });
+                }
+                else {
+                    throw "bRangepicker script must be loaded before calling styleInputs";
                 }
             }
 
@@ -106,17 +224,17 @@
                     throw "SelectInput2 script must be loaded before calling styleInputs";
                 }
             }
-            
+
             if (this.options.multiSelect2 === true && this.$elem.find(this.options.multiSelect2Selector).length) {
                 if (typeof $.fn.selectInput2 === "function") {
                     this.$elem.find(this.options.multiSelect2Selector).selectInput2({
-                        tags : false
+                        tags: false
                     });
                 } else {
                     throw "SelectInput2 script must be loaded before calling styleInputs";
                 }
             }
-            
+
             if (this.options.autocomplete === true && this.$elem.find(this.options.autocompleteSelector).length) {
                 if (typeof $.fn.typeaheadSelect === "function") {
                     this.$elem.find(this.options.autocompleteSelector).typeaheadSelect();
@@ -128,7 +246,7 @@
 
             //remove loading
             var timeoutHandler = window.setTimeout($.proxy(function () {
-                
+
                 if (this.$elem.hasClass(this.options.loadingClass)) {
                     this.$elem.removeClass(this.options.loadingClass);
                 } else {
