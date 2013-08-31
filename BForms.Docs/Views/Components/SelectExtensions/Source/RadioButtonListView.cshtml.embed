@@ -1,0 +1,7 @@
+﻿  <div class="form-group">
+    @Html.BsLabelFor(m => m.NotificationList)
+    <div class="input-group">
+      @Html.BsSelectFor(m => m.NotificationList)
+      @Html.BsValidationFor(m => m.NotificationList)
+    </div>
+  </div>

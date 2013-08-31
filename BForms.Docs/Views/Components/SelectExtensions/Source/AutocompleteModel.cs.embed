@@ -1,0 +1,9 @@
+﻿public class RegisterModel
+{
+    [Required]
+    [Display(Name = "Programming IDE", Prompt = "Type your favorite IDE")]
+    [BsControl(BsControlType.Autocomplete)]
+    public BsSelectList<string> IdeList { get; set; } 
+    
+    ...
+}

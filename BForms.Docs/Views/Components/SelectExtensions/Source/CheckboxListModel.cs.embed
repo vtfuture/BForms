@@ -1,0 +1,8 @@
+﻿public class RegisterModel
+{
+    [Display(Name = "What ASP.NET flavors do you use")]
+    [BsControl(BsControlType.CheckBoxList)]
+    public BsSelectList<List<int>> TechnologiesCheckboxList { get; set; }   
+    
+    ...
+}

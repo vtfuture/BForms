@@ -135,8 +135,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
+    <Content Include="Content\Images\Docs\autocomplete-select.jpg" />
+    <Content Include="Content\Images\Docs\checkboxlist-select.jpg" />
     <Content Include="Content\Images\Docs\dropdown-search-select.jpg" />
     <Content Include="Content\Images\Docs\listbox-search-select.jpg" />
+    <Content Include="Content\Images\Docs\radiolist-select.jpg" />
     <Content Include="Content\Images\Docs\taglist-search-select.jpg" />
     <Content Include="Views\Components\InputExtensions\Source\InputPasswordSpecializedView.cshtml.embed" />
     <Content Include="Views\Components\InputExtensions\Source\InputUrlSpecializedModel.cs.embed" />
@@ -430,6 +433,33 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Components\Overview\_JSComponents.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\SelectExtensions\_CheckboxList.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\SelectExtensions\Source\CheckboxListModel.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\SelectExtensions\Source\CheckboxListView.cshtml.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\SelectExtensions\_RadioButtonList.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\SelectExtensions\Source\RadioButtonListModel.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\SelectExtensions\Source\RadioButtonListView.cshtml.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\SelectExtensions\_Autocomplete.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\SelectExtensions\Source\AutocompleteModel.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\SelectExtensions\Source\AutocompleteView.cshtml.embed" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

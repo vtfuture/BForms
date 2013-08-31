@@ -1,0 +1,7 @@
+﻿  <div class="form-group">
+    @Html.BsLabelFor(m => m.TechnologiesCheckboxList)
+    <div class="input-group">
+      @Html.BsSelectFor(m => m.TechnologiesCheckboxList)
+      @Html.BsValidationFor(m => m.TechnologiesCheckboxList)
+    </div>
+  </div>
