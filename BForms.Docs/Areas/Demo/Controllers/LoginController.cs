@@ -64,9 +64,12 @@ namespace BForms.Docs.Areas.Demo.Controllers
                 model.RegisterModel.Interval.From.HasValue &&
                 model.RegisterModel.Interval.From.Value > model.RegisterModel.Interval.To.Value)
             {
-                ModelState.AddModelError("RegisterModel.Interval", "Invalid interval");
+                ModelState.AddFieldError("RegisterModel.Interval", model.RegisterModel.Interval.GetType(), "Invalid interval");
             }
-            
+
+            ModelState.AddFieldError("RegisterModel.CountriesList",
+                model.RegisterModel.CountriesList.GetType(),
+                "Selected location doesn't match your GPS location");
 
             //add global validation error
             ModelState.AddFormError("RegisterModel", "This email address is in use.");
@@ -106,7 +109,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
                     LanguagesList = Lists.AllLanguages<List<string>>(),
                     IdeList = Lists.AllIde<string>(),
                     GenderList = Lists.AllGenders<int>().ToSelectList().ToList(),
-                    Interval = new BsRange<DateTime?> { From = DateTime.Now.AddDays(-1), To = DateTime.Now }
+                    Interval = new BsRange<DateTime?> { From = DateTime.Now.AddDays(5), To = DateTime.Now }
                 };
         }
     }

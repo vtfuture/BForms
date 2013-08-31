@@ -5,6 +5,8 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using BootstrapForms.Utilities;
+using BootstrapForms.Models;
 
 namespace BootstrapForms.Mvc
 {
@@ -38,6 +40,21 @@ namespace BootstrapForms.Mvc
         public static void AddFormError(this ModelStateDictionary modelState, string prefix, string errorMessage)
         {
             var key = string.IsNullOrEmpty(prefix) ? "BsFormError" : prefix + ".BsFormError";
+            modelState.AddModelError(key, errorMessage);
+        }
+
+        public static void AddFieldError(this ModelStateDictionary modelState, string prefix, Type filedType, string errorMessage)
+        {
+            var key = prefix;
+            if (filedType.IsSubclassOfRawGeneric(typeof(BsSelectList<>)))
+            {
+                key += ".SelectedValues";
+            }
+            if (filedType.IsSubclassOfRawGeneric(typeof(BsRange<>)))
+            {
+                key += ".TextValue";
+            }
+
             modelState.AddModelError(key, errorMessage);
         }
 
