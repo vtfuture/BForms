@@ -63,20 +63,19 @@ namespace BootstrapForms.Html
                 }
             }
 
-            
             var name = htmlHelper.AttributeEncode(htmlHelper.ViewData.TemplateInfo.GetFullHtmlFieldName(propertyName));
             if (typeof(TProperty).FullName.Contains("BsSelectList"))
             {
-                name += ".SelectedValues";
+                propertyName += ".SelectedValues";
             }
             if (typeof(TProperty).FullName.Contains("BsRange"))
             {
-                name += ".TextValue";
+                propertyName += ".TextValue";
             }
             var metadata = ModelMetadata.FromLambdaExpression(expression, htmlHelper.ViewData);
-            var labelText = metadata.DisplayName ?? metadata.PropertyName ?? propertyName.Split('.').Last();
+            var labelText = metadata.DisplayName ?? metadata.PropertyName ?? name.Split('.').Last();
 
-            return htmlHelper.Label(name, labelText, htmlAttributes);
+            return htmlHelper.Label(propertyName, labelText, htmlAttributes);
         }
     }
 }

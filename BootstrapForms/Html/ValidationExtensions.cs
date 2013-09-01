@@ -39,6 +39,7 @@ namespace BootstrapForms.Html
         {
             var propertyName = ExpressionHelper.GetExpressionText(expression);
             var name = htmlHelper.AttributeEncode(htmlHelper.ViewData.TemplateInfo.GetFullHtmlFieldName(propertyName));
+            var fullName = htmlHelper.AttributeEncode(htmlHelper.ViewData.TemplateInfo.GetFullHtmlFieldName(propertyName));
 
              if (typeof(TProperty).FullName.Contains("BsSelectList"))
              {
@@ -69,7 +70,7 @@ namespace BootstrapForms.Html
 
             if (isInvalid)
             {
-                foreach (var error in htmlHelper.ViewData.ModelState[name].Errors)
+                foreach (var error in htmlHelper.ViewData.ModelState[fullName].Errors)
                 {
                     //add error message as title
                     tag.Attributes.Add("title", error.ErrorMessage);
