@@ -136,25 +136,29 @@ namespace BootstrapForms.Html
             //render hidden for range
             object valRange = null;
             htmlAttributes = new Dictionary<string, object>();
-            htmlAttributes.MergeAttribute("data-for", fullName);    
+                
 
             //From
+            var fromName = fullName + ".From";
             htmlAttributes.MergeAttribute("class", "bs-range-from", true);
+            htmlAttributes.MergeAttribute("data-for", fromName, true);
             if (range != null) valRange = range.From;
             var hiddenTag = new TagBuilder("input");
-            hiddenTag.GenerateId(fullName + ".From");
-            hiddenTag.MergeAttribute("name", fullName + ".From");
+            hiddenTag.GenerateId(fromName);
+            hiddenTag.MergeAttribute("name", fromName);
             hiddenTag.MergeAttribute("value", valRange.ToString());
             hiddenTag.MergeAttribute("type", "hidden");
             hiddenTag.MergeAttributes(htmlAttributes);
             inputHtml.Append(hiddenTag.ToString(TagRenderMode.Normal));
 
             //To
+            var toName = fullName + ".To";
             htmlAttributes.MergeAttribute("class", "bs-range-to", true);
+            htmlAttributes.MergeAttribute("data-for", toName, true);
             if (range != null) valRange = range.To;
             hiddenTag = new TagBuilder("input");
-            hiddenTag.GenerateId(fullName + ".To");
-            hiddenTag.MergeAttribute("name", fullName + ".To");
+            hiddenTag.GenerateId(toName);
+            hiddenTag.MergeAttribute("name", toName);
             hiddenTag.MergeAttribute("value", valRange.ToString());
             hiddenTag.MergeAttribute("type", "hidden");
             hiddenTag.MergeAttributes(htmlAttributes);
