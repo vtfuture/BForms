@@ -91,19 +91,19 @@ namespace BForms.Docs.Areas.Demo.Mock
         {
             var list = new BsSelectList<T>();
 
-            list.Items.Add(new BsSelectListItem() { Text = "C#", Value = "1" });
-            list.Items.Add(new BsSelectListItem() { Text = "Java", Value = "2" });
-            list.Items.Add(new BsSelectListItem() { Text = "C++", Value = "3" });
-            list.Items.Add(new BsSelectListItem() { Text = "Objective-C", Value = "4" });
-            list.Items.Add(new BsSelectListItem() { Text = "Javascript", Value = "5" });
-            list.Items.Add(new BsSelectListItem() { Text = "Fortran", Value = "6" });
-            list.Items.Add(new BsSelectListItem() { Text = "Ruby", Value = "7" });
-            list.Items.Add(new BsSelectListItem() { Text = "PHP", Value = "8" });
-            list.Items.Add(new BsSelectListItem() { Text = "Python", Value = "9" });
-            list.Items.Add(new BsSelectListItem() { Text = "Scala", Value = "10" });
-            list.Items.Add(new BsSelectListItem() { Text = "Ada", Value = "11" });
-            list.Items.Add(new BsSelectListItem() { Text = "ActionScript", Value = "12" });
-            list.Items.Add(new BsSelectListItem() { Text = "Visual Basic", Value = "13" });
+            list.Items.Add(new BsSelectListItem() { Text = "C#", Value = "C#" });
+            list.Items.Add(new BsSelectListItem() { Text = "Java", Value = "Java" });
+            list.Items.Add(new BsSelectListItem() { Text = "C++", Value = "C++" });
+            list.Items.Add(new BsSelectListItem() { Text = "Objective-C", Value = "Objective-C" });
+            list.Items.Add(new BsSelectListItem() { Text = "Javascript", Value = "Javascript" });
+            list.Items.Add(new BsSelectListItem() { Text = "Fortran", Value = "Fortran" });
+            list.Items.Add(new BsSelectListItem() { Text = "Ruby", Value = "Ruby" });
+            list.Items.Add(new BsSelectListItem() { Text = "PHP", Value = "PHP" });
+            list.Items.Add(new BsSelectListItem() { Text = "Python", Value = "Python" });
+            list.Items.Add(new BsSelectListItem() { Text = "Scala", Value = "Scala" });
+            list.Items.Add(new BsSelectListItem() { Text = "Ada", Value = "Ada" });
+            list.Items.Add(new BsSelectListItem() { Text = "ActionScript", Value = "ActionScript" });
+            list.Items.Add(new BsSelectListItem() { Text = "Visual Basic", Value = "Visual Basic" });
 
             return list;
         }

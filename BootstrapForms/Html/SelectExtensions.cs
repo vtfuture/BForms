@@ -216,7 +216,6 @@ namespace BootstrapForms.Html
                         break;
                     default:
                         throw new Exception(bsControl.ControlType.GetDescription() + " does not match a select element");
-                        break;
                         
                 }
             }
