@@ -200,11 +200,13 @@
                         $elem.bRangepicker({
                             startOptions: {
                                 type: 'timepicker',
-                                Is12Hours : true
+                                //Is12Hours : true
+                                language : 'ro'
                             },
                             endOptions: {
                                 type: 'timepicker',
-                                Is12Hours: true
+                                //Is12Hours: true
+                                language : 'ro'
                             },
 
                             startAltFields: [{ selector: $elem.siblings('.bs-range-from:first') }],

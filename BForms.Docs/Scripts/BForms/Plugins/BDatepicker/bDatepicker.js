@@ -690,7 +690,7 @@
         this._stopEvent(e);
 
         var newValue = this.currentValue.format('H') >= 12 ? this.currentValue.clone().subtract('hour', 12) : this.currentValue.clone().add('hour', 12);
-        
+
         if (this.isValidDate(newValue)) {
             this.currentValue.format('H') >= 12 ? this.currentValue.subtract('hour', 12) : this.currentValue.add('hour', 12);
             this.value = this.currentValue.clone();
@@ -850,7 +850,6 @@
 
             var model = this.getRenderModel();
             var $time = this.renderer.renderTime(model);
-            console.log()
             this.$picker.find('.bs-time-wrapper').html($time.html());
 
         }
@@ -976,7 +975,7 @@
                 this._type = this.options.type;
                 break;
         }
-        
+
         this._getInitialValue();
         this._initRenderModel();
         this._initOptions();
@@ -1245,6 +1244,26 @@
 
         var isValid = date.isValid() || allowInvalidDate,
             format = this._type == this.enums.Type.Datepicker ? "day" : "second";
+
+        if (this._type == this.enums.Type.Timepicker && (withMin || withMax)) {
+            date = date.clone();
+
+            if (withMin) {
+                minDate = minDate.clone();
+
+                minDate.year(date.year());
+                minDate.month(date.month());
+                minDate.date(date.date());
+            }
+
+            if (withMax) {
+                maxDate = maxDate.clone();
+
+                maxDate.year(date.year());
+                maxDate.month(date.month());
+                maxDate.date(date.date());
+            }
+        }
 
         if (withMin) {
             isValid = date.isAfter(minDate, format) && isValid;
