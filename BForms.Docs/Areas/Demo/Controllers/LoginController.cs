@@ -105,6 +105,9 @@ namespace BForms.Docs.Areas.Demo.Controllers
             var enumListWithSelected = BsSelectList<List<NotificationType?>>.FromEnum(typeof(NotificationType));
             enumListWithSelected.SelectedValues = new List<NotificationType?>() {NotificationType.Monthly, NotificationType.Daily};
 
+            var ideListWithSelected = Lists.AllIde<string>();
+            ideListWithSelected.SelectedValues = "Visual Studio";
+
             return new RegisterModel()
                 {
                     CountriesList = ddlWithSelected,
@@ -112,7 +115,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
                     TechnologiesList = Lists.AllTech<List<int>>(),
                     TechnologiesCheckboxList = listWithSelected,
                     LanguagesList = Lists.AllLanguages<List<string>>(),
-                    IdeList = Lists.AllIde<string>(),
+                    IdeList = ideListWithSelected,
                     GenderList = Lists.AllGenders<int>().ToSelectList().ToList(),
                     Interval = new BsRange<DateTime?> { From = DateTime.Now.AddDays(5), To = DateTime.Now }
                 };

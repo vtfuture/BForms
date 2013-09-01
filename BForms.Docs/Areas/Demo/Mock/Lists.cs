@@ -112,13 +112,13 @@ namespace BForms.Docs.Areas.Demo.Mock
         {
             var list = new BsSelectList<T>();
 
-            list.Items.Add(new BsSelectListItem() { Text = "Visual Studio", Value = "1" });
-            list.Items.Add(new BsSelectListItem() { Text = "IntelliJ IDEA", Value = "2" });
-            list.Items.Add(new BsSelectListItem() { Text = "Eclipse", Value = "3" });
-            list.Items.Add(new BsSelectListItem() { Text = "Xcode", Value = "4" });
-            list.Items.Add(new BsSelectListItem() { Text = "MonoDevelop", Value = "5" });
-            list.Items.Add(new BsSelectListItem() { Text = "NetBeans", Value = "6" });
-            list.Items.Add(new BsSelectListItem() { Text = "Anjuta", Value = "7" });
+            list.Items.Add(new BsSelectListItem() { Text = "Visual Studio", Value = "Visual Studio" });
+            list.Items.Add(new BsSelectListItem() { Text = "IntelliJ IDEA", Value = "IntelliJ IDEA" });
+            list.Items.Add(new BsSelectListItem() { Text = "Eclipse", Value = "Eclipse" });
+            list.Items.Add(new BsSelectListItem() { Text = "Xcode", Value = "Xcode" });
+            list.Items.Add(new BsSelectListItem() { Text = "MonoDevelop", Value = "MonoDevelop" });
+            list.Items.Add(new BsSelectListItem() { Text = "NetBeans", Value = "NetBeans" });
+            list.Items.Add(new BsSelectListItem() { Text = "Anjuta", Value = "Anjuta" });
 
             return list;
         }
