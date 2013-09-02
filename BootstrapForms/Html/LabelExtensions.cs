@@ -68,7 +68,7 @@ namespace BootstrapForms.Html
             {
                 propertyName += ".SelectedValues";
             }
-            if (typeof(TProperty).FullName.Contains("BsRange"))
+            if (typeof(TProperty).FullName.Contains("BsRange") || typeof(TProperty).FullName.Contains("BsDateTime"))
             {
                 propertyName += ".TextValue";
             }

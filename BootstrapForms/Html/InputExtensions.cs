@@ -116,7 +116,8 @@ namespace BootstrapForms.Html
                     case BsControlType.DatePicker:
                     case BsControlType.DateTimePicker:
                     case BsControlType.TimePicker:
-                        inputHtml = htmlHelper.TextBoxForInternal(expression, format, htmlAttributes);
+                        var dateExpression = (Expression<Func<TModel, BsDateTime>>)(object)expression;
+                        inputHtml = htmlHelper.DateTimeForInternal(dateExpression, htmlAttributes, dataOptions);
                         break;
                     case BsControlType.CheckBox:
                         var checkExpression = (Expression<Func<TModel, bool>>) (object) expression;

@@ -61,8 +61,8 @@ namespace BForms.Docs.Areas.Demo.Models
 
         [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
         [Display(Name = "Birthday")]
-        [BsControl(BsControlType.DateTimePicker)]
-        public DateTime? Birthday { get; set; }
+        [BsControl(BsControlType.DatePicker)]
+        public BsDateTime Birthday { get; set; }
 
         [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
         [Display(Name = "Annual income")]
@@ -111,7 +111,7 @@ namespace BForms.Docs.Areas.Demo.Models
 
         [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
         [Display(Name = "Interval", Prompt = "Choose dates")]
-        [BsControl(BsControlType.TimePickerRange)]
+        [BsControl(BsControlType.DateTimePicker)]
         public BsRange<DateTime?> Interval { get; set; }
     }
 

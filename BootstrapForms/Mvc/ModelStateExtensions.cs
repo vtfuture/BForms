@@ -50,7 +50,7 @@ namespace BootstrapForms.Mvc
             {
                 key += ".SelectedValues";
             }
-            if (filedType.IsSubclassOfRawGeneric(typeof(BsRange<>)))
+            if (filedType.IsSubclassOfRawGeneric(typeof(BsRange<>)) || filedType == typeof(BsDateTime))
             {
                 key += ".TextValue";
             }

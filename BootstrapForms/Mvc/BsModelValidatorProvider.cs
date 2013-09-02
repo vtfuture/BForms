@@ -51,7 +51,7 @@ namespace BootstrapForms.Mvc
                 }
             }
 
-            if (metadata.ModelType.IsSubclassOfRawGeneric(typeof(BsRange<>)))
+            if (metadata.ModelType.IsSubclassOfRawGeneric(typeof(BsRange<>)) || metadata.ModelType == typeof(BsDateTime))
             {
                 var selectedValuesMetadata = metadata.Properties.Where(r => r.PropertyName == "TextValue").FirstOrDefault();
                 var propertyInfo = metadata.ContainerType.GetProperties().Where(r => r.Name == metadata.PropertyName).FirstOrDefault();
@@ -67,7 +67,7 @@ namespace BootstrapForms.Mvc
                         .Where(r => r is ValidationAttribute)
                         .ToList();
 
-                //copy validation meta to parent from SelectedValues
+                //copy validation meta to parent from TextValue
                 foreach (var attribute in attributes)
                 {
                     res.Add(new DataAnnotationsModelValidator(selectedValuesMetadata, context, attribute as ValidationAttribute));
