@@ -12,27 +12,6 @@ $borderColor: #e8e8e8;
 	box-sizing: border-box;
 }
 
-.btn {
-	padding: 4px 12px;
-	line-height: 1.428571429;
-	font-size: 14px;
-	display: inline-block;
-	background: #f1f1f1;
-	color: #333;
-	border: none;
-	text-transform: uppercase;
-	&:hover, &:focus {
-		background: #eee;
-	}
-	&.btn-default {
-		background: $navy;
-		color: #FFF;
-		&:hover, &:focus {
-			background: $turqoise;
-			color: #333 !important;
-		}
-	}
-}
 
 /* Date time picker */
 
@@ -51,6 +30,27 @@ $borderColor: #e8e8e8;
 	z-index: 9999;
 	a {
 		text-decoration: none;
+	}
+	.btn {
+		padding: 4px 12px;
+		line-height: 1.4;
+		font-size: 14px;
+		display: inline-block;
+		background: #f1f1f1;
+		color: #333;
+		border: none;
+		text-transform: uppercase;
+		&:hover, &:focus {
+			background-color: #eee !important;
+		}
+		&.btn-default {
+			background: $navy;
+			color: #FFF;
+			&:hover, &:focus {
+				background: $turqoise !important;
+				color: #333 !important;
+			}
+		}
 	}
 	.btn-close {
 		position: absolute;

@@ -3,24 +3,6 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box; }
 
-.btn {
-  padding: 4px 12px;
-  line-height: 1.428571429;
-  font-size: 14px;
-  display: inline-block;
-  background: #f1f1f1;
-  color: #333;
-  border: none;
-  text-transform: uppercase; }
-  .btn:hover, .btn:focus {
-    background: #eee; }
-  .btn.btn-default {
-    background: #547980;
-    color: #FFF; }
-    .btn.btn-default:hover, .btn.btn-default:focus {
-      background: #45ada8;
-      color: #333 !important; }
-
 /* Date time picker */
 .bs-datetime-picker {
   font-family: Calibri, "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -37,6 +19,23 @@
   z-index: 9999; }
   .bs-datetime-picker a {
     text-decoration: none; }
+  .bs-datetime-picker .btn {
+    padding: 4px 12px;
+    line-height: 1.4;
+    font-size: 14px;
+    display: inline-block;
+    background: #f1f1f1;
+    color: #333;
+    border: none;
+    text-transform: uppercase; }
+    .bs-datetime-picker .btn:hover, .bs-datetime-picker .btn:focus {
+      background-color: #eee !important; }
+    .bs-datetime-picker .btn.btn-default {
+      background: #547980;
+      color: #FFF; }
+      .bs-datetime-picker .btn.btn-default:hover, .bs-datetime-picker .btn.btn-default:focus {
+        background: #45ada8 !important;
+        color: #333 !important; }
   .bs-datetime-picker .btn-close {
     position: absolute;
     right: -10px;
