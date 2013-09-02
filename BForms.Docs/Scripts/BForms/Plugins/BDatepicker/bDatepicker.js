@@ -65,7 +65,13 @@
 
     bDatepicker.prototype._getInitialValue = function () {
 
-        if (this.$element.is('input')) {
+        if (typeof this.options.initialValue !== "undefined" && this.options.initialValue != '') {
+            
+            var initialValue = moment(this.options.initialValue).lang(this.options.language);
+            this.currentValue = initialValue.clone();
+            this._updateDisplays();
+
+        } else if (this.$element.is('input')) {
             var value = this.$element.val();
             if (value != '') {
                 this.currentValue = moment(value).lang(this.options.language);
@@ -124,13 +130,13 @@
         } else {
             switch (this._type) {
                 case this.enums.Type.DateTimepicker:
-                    this._displayFormat = "L LT";
+                    this._displayFormat = moment.langData(this.options.language)._longDateFormat['L'] + ' ' + moment.langData(this.options.language)._longDateFormat['LT'];
                     break;
                 case this.enums.Type.Datepicker:
-                    this._displayFormat = "L";
+                    this._displayFormat = moment.langData(this.options.language)._longDateFormat['L'];
                     break;
                 case this.enums.Type.Timepicker:
-                    this._displayFormat = "LT";
+                    this._displayFormat = moment.langData(this.options.language)._longDateFormat['LT'];
                     break;
                 default:
             }
@@ -184,7 +190,7 @@
 
                     var $target = $(e.target);
 
-                    if ($target[0] != this.$input[0] && $target.closest('.bs-datetime-picker').length === 0 && $target.closest('.bs-range-picker').length === 0) {
+                    if ($target[0] != this.$input[0] && $target.closest('.bs-datetime-picker').length === 0) {
                         if (!$target.hasClass('glyphicon') || $target.parent()[0] != this.$input.parent()[0]) {
                             this.hide();
                         }
@@ -234,6 +240,10 @@
                 this._stopEvent(e);
                 this.hide();
             }, this));
+        }
+
+        if (typeof this.$input !== "undefined" && this.$input.length) {
+            this.$input.on('change', $.proxy(this.onInputChange, this));
         }
 
         this.$picker.on('click', '.bs-setTimeBtn', $.proxy(function (e) {
@@ -341,6 +351,29 @@
     //#endregion
 
     //#region events
+    bDatepicker.prototype.onInputChange = function(e) {
+        this._stopEvent(e);
+        
+        var $target = $(e.currentTarget),
+                  val = $target.val();
+
+       if(val != '') {
+           var date = moment(val, this._displayFormat, this.options.language);
+
+           if (date.isValid() && this.isValidDate(date)) {
+               this._setCurrentValue(date);
+               this.value = this.currentValue.clone();
+
+               this._updateDateView();
+               this._updateTimeView();
+           }
+
+           this._updateDisplays();
+       } else {
+           this.resetValue();
+       }
+    };
+
     bDatepicker.prototype.showTimeClick = function (e) {
         this._stopEvent(e);
         $(e.currentTarget).hide();
@@ -734,8 +767,10 @@
     };
 
     bDatepicker.prototype._stopEvent = function (e) {
-        e.preventDefault();
-        e.stopPropagation();
+        if(typeof e !== "undefined") {
+            e.preventDefault();
+            e.stopPropagation();
+        }
     };
 
     bDatepicker.prototype._buildElement = function () {
@@ -757,10 +792,10 @@
         }
     };
 
-    bDatepicker.prototype._updateDisplays = function () {
+    bDatepicker.prototype._updateDisplays = function (value) {
 
         if (this.$input != null) {
-            this.$input.val(this.currentValue.format(this._displayFormat));
+            this.$input.val(typeof value !== "undefined" ? value : this.currentValue.format(this._displayFormat));
         }
 
         if (typeof this.options.altFields !== "undefined") {
@@ -770,9 +805,9 @@
                 var $toUpdate = $(current.selector);
                 if ($toUpdate.length > 0) {
                     if ($toUpdate.is('input')) {
-                        $toUpdate.val(this.currentValue.format(typeof current.format !== "undefined" ? current.format : this._displayFormat));
+                        $toUpdate.val(typeof value !== "undefined" ? value : (this.currentValue.format(typeof current.format !== "undefined" ? current.format : '')));
                     } else {
-                        $toUpdate.text(this.currentValue.format(typeof current.format !== "undefined" ? current.format : this._displayFormat));
+                        $toUpdate.text(typeof value !=="undefined" ? value : (this.currentValue.format(typeof current.format !== "undefined" ? current.format : '')));
                     }
                 }
             }
@@ -926,8 +961,8 @@
                 return d;
             } else {
 
-                var now = moment();
-
+                var now = moment(this.options.defaultDateValue).clone() || moment();
+                
                 var pairs = value.split(' '),
                     i = 0,
                     l = pairs.length;
@@ -1034,6 +1069,16 @@
         return this;
     };
 
+    bDatepicker.prototype.resetValue = function () {
+        this._setCurrentValue(this._getDefaultDate().clone().lang(this.options.language));
+        this.value = this.currentValue.clone();
+
+        this._updateDateView();
+        this._updateTimeView();
+
+        this._updateDisplays('');
+    };
+    
     bDatepicker.prototype.getValue = function () {
         return this.currentValue.format(this._displayFormat);
     };
@@ -1057,6 +1102,18 @@
         } else {
             return false;
         }
+    };
+
+    bDatepicker.prototype.getFormat = function() {
+        return this._displayFormat;
+    };
+
+    bDatepicker.prototype.format = function(date) {
+
+        var fDate = moment(date).lang(this.options.language);
+        
+        if (fDate.isValid())
+            return fDate.format(this._displayFormat);
     };
 
     bDatepicker.prototype.option = function (name, value) {
@@ -1129,14 +1186,13 @@
                 selectable: true
             };
 
-
-            if (typeof this.options.beforeShowDay === "function") {
-                $.extend(true, dayObj, this.options.beforeShowDay(daysStart.toISOString()));
-            }
-
             if (!this.isValidDate(daysStart, true)) {
                 dayObj.selectable = false;
                 dayObj.cssClass = 'inactive';
+            }
+
+            if (typeof this.options.beforeShowDay === "function") {
+                $.extend(true, dayObj, this.options.beforeShowDay(daysStart.toISOString()));
             }
 
             days.push(dayObj);

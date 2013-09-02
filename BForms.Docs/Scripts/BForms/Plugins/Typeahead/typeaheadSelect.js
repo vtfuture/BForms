@@ -83,14 +83,14 @@
     };
 
     typeaheadSelect.prototype._applyTypeahead = function () {
+        if (typeof this._settings.value !== "undefined") {
+            this.$input.val(this._settings.value);
+        }
+
         this.$input.typeahead(this._settings);
 
         if (typeof this._settings.placeholder !== "undefined") {
             this.$input.prop('placeholder', this._settings.placeholder);
-        }
-
-        if (typeof this._settings.value !== "undefined") {
-            this.$input.val(this._settings.value);
         }
     };
 

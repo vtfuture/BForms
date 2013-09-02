@@ -54,6 +54,7 @@
         var endOptions = this.options.endOptions;
 
         this.$end.bDatepicker($.extend(true, {}, {
+            defaultDateValue : this.$start.bDatepicker('getUnformattedValue'),
             defaultDate: endOptions.type == 'timepicker' ? '+1h' : '+1d',
             onChange: $.proxy(this.onEndChange, this),
             onDayMouseOver: $.proxy(this.onEndDaysMouseOver, this),
@@ -103,11 +104,18 @@
                 $(window).on('click', $.proxy(function (e) {
 
                     var $target = $(e.target);
+
                     if ($target[0] != this.$input[0] && $target.closest('.bs-range-picker').length === 0) {
-                        this.hide();
+                        if (!$target.hasClass('glyphicon') || $target.parent()[0] != this.$input.parent()[0]) {
+                            this.hide();
+                        }
                     }
 
                 }, this));
+            }
+
+            if (typeof this.$input !== "undefined" && this.$input.length) {
+                this.$input.on('change', $.proxy(this.onInputChange, this));
             }
         }
 
@@ -116,6 +124,37 @@
     };
 
     //#region events
+    bRangePicker.prototype.onInputChange = function (e) {
+        var $target = $(e.currentTarget);
+
+        var values = $target.val().split(' ' + this.options.delimiter + ' ');
+        
+        if(values.length == 2) {
+            var startVal = values[0],
+                endVal = values[1];
+
+            var startDate = moment(startVal, this.$start.bDatepicker('getFormat'), this.$start.bDatepicker('option','language')),
+                endDate = moment(endVal, this.$end.bDatepicker('getFormat'), this.$end.bDatepicker('option','language'));
+
+            if (startDate.isValid() && this.$start.bDatepicker('isValidDate', startDate)) {
+                this.$start.bDatepicker('setValue', startDate);
+            }
+            
+            if (endDate.isValid() && this.$end.bDatepicker('isValidDate', endDate)) {
+                this.$end.bDatepicker('setValue', endDate);
+            }
+            
+            this.applyRange();
+
+        }else {
+            if(values[0] == '') {
+                this.resetRange();
+            }else {
+                this.applyRange();
+            }}
+
+    };
+
     bRangePicker.prototype.onStartChange = function (data) {
         this.$end.bDatepicker('option', 'minDate', data.date);
         this._setStartLabel(data.formattedDate);
@@ -128,11 +167,20 @@
         this.$endLabel.data('value', data.date);
     };
 
-    bRangePicker.prototype.applyRange = function (e) {
+    bRangePicker.prototype.applyRange = function () {
 
         this._startValue = this.$startLabel.data('value');
-        this._endValue = this.$endLabel.data('value');
+        
+        if(typeof this._startValue === "undefined") {
+            this._startValue = this.$start.bDatepicker('getUnformattedValue');
+            this.$startLabel.data(this._startValue);
+        }
 
+        this._endValue = this.$endLabel.data('value');
+        if(typeof this._endValue === "undefined") {
+            this._endValue = this.$end.bDatepicker('getUnformattedValue');
+            this.$endLabel.data(this._endValue);
+        }
 
         var val = this.getStartValue() + ' ' + this.options.delimiter + ' ' + this.getEndValue();
         this.$input.val(val);
@@ -142,12 +190,12 @@
 
     bRangePicker.prototype.cancelRange = function (e) {
         this.hide();
-        
-        if(typeof this._startValue !== "undefined") {
+
+        if (typeof this._startValue !== "undefined") {
             this.$start.bDatepicker('setValue', this._startValue);
         }
-        
-        if(typeof this._endValaue !== "undefined") {
+
+        if (typeof this._endValaue !== "undefined") {
             this.$end.bDatepicker('setValue', this._endValue);
         }
     };
@@ -177,7 +225,7 @@
             startValue = this.$start.bDatepicker('getUnformattedValue'),
             date = moment(val);
 
-        if (date.isBefore(endValue) && date.isAfter(startValue)) {
+        if (date.isSame(endValue, 'day') || date.isBefore(endValue) && date.isAfter(startValue) || date.isSame(startValue, 'day')) {
             return {
                 cssClass: 'in-range'
             };
@@ -259,13 +307,13 @@
 
     };
 
-    bRangePicker.prototype._updateAltFields = function() {
+    bRangePicker.prototype._updateAltFields = function () {
 
-        if(typeof this.options.startAltFields !== "undefined" && $.isArray(this.options.startAltFields)) {
+        if (typeof this.options.startAltFields !== "undefined" && $.isArray(this.options.startAltFields)) {
             for (var idxS in this.options.startAltFields) {
                 var currentS = this.options.startAltFields[idxS];
-
                 var $toUpdateS = $(currentS.selector);
+                
                 if ($toUpdateS.length > 0) {
                     if ($toUpdateS.is('input')) {
                         $toUpdateS.val(moment.isMoment(this._startValue) ? this._startValue.format() : '');
@@ -275,7 +323,7 @@
                 }
             }
         }
-        
+
         if (typeof this.options.endAltFields !== "undefined" && $.isArray(this.options.endAltFields)) {
             for (var idxE in this.options.endAltFields) {
                 var currentE = this.options.endAltFields[idxE];
@@ -329,6 +377,21 @@
 
     bRangePicker.prototype.getEndValue = function () {
         return this.$endLabel.val();
+    };
+
+    bRangePicker.prototype.resetRange = function () {
+
+        console.log(this._startValue, this._endValue);
+
+        this.$startLabel.data('value', this._startValue);
+        this.$startLabel.val(this.$start.bDatepicker('format', this._startValue));
+        this.$start.bDatepicker('setValue', this._startValue);
+        
+        this.$endLabel.data('value', this._endValue);
+        this.$endLabel.val(this.$end.bDatepicker('format', this._endValue));
+        this.$end.bDatepicker('setValue', this._endValue);
+
+        this.applyRange();
     };
     //#endregion
 

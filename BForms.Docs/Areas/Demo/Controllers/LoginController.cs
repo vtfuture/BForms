@@ -121,7 +121,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
                 IdeList = ideListWithSelected,
                 GenderList = Lists.AllGenders<int>().ToSelectList().ToList(),
                 Birthday = new BsDateTime() {DateValue = new DateTime(1982, 5, 20)},
-                Interval = new BsRange<DateTime?> {From = DateTime.Now.AddDays(5), To = null}
+                Interval = new BsRange<DateTime?> { From = DateTime.Now.AddDays(-1), To = DateTime.Now.AddDays(12) }
             };
         }
     }
