@@ -112,16 +112,17 @@ namespace BForms.Docs.Areas.Demo.Controllers
             langListWithSelected.SelectedValues = new List<string> { "C#" };
 
             return new RegisterModel()
-                {
-                    CountriesList = ddlWithSelected,
-                    NotificationList = enumWithSelected,
-                    TechnologiesList = Lists.AllTech<List<int>>(),
-                    TechnologiesCheckboxList = listWithSelected,
-                    LanguagesList = langListWithSelected,
-                    IdeList = ideListWithSelected,
-                    GenderList = Lists.AllGenders<int>().ToSelectList().ToList(),
-                    Interval = new BsRange<DateTime?> { From = DateTime.Now.AddDays(5), To = DateTime.Now }
-                };
+            {
+                CountriesList = ddlWithSelected,
+                NotificationList = enumWithSelected,
+                TechnologiesList = Lists.AllTech<List<int>>(),
+                TechnologiesCheckboxList = listWithSelected,
+                LanguagesList = langListWithSelected,
+                IdeList = ideListWithSelected,
+                GenderList = Lists.AllGenders<int>().ToSelectList().ToList(),
+                Birthday = new BsDateTime() {DateValue = new DateTime(1982, 5, 20)},
+                Interval = new BsRange<DateTime?> {From = DateTime.Now.AddDays(5), To = null}
+            };
         }
     }
 }

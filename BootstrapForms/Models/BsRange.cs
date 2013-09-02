@@ -9,13 +9,14 @@ namespace BootstrapForms.Models
     /// <summary>
     /// Model type class from BsRangeFor
     /// </summary>
+    [Serializable]
     public class BsRange<T>
     {
         /// <summary>
         /// Display value
         /// </summary>
         public string TextValue { get; set; }
-
+        
         /// <summary>
         /// Begin value
         /// </summary>

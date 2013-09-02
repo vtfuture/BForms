@@ -74,7 +74,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Html\DateTimeExtensions.cs" />
     <Compile Include="Html\RangeExtensions.cs" />
+    <Compile Include="Models\BsDateTime.cs" />
     <Compile Include="Models\BsRange.cs" />
     <Compile Include="Models\BsSelectList.cs" />
     <Compile Include="Mvc\BsControlAttribute.cs" />
