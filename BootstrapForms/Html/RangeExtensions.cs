@@ -136,7 +136,7 @@ namespace BootstrapForms.Html
             //render hidden for range
             object valRange = null;
             htmlAttributes = new Dictionary<string, object>();
-            htmlAttributes.MergeAttribute("data-for", name + ".TextValue");
+            htmlAttributes.MergeAttribute("data-for", fullName + ".TextValue");
 
             //From
             var fromName = fullName + ".From";
