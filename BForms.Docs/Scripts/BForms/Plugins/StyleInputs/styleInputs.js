@@ -137,7 +137,7 @@
 
                         $elem.bDatepicker($.extend(true, {}, self._getOptions(this), {
                             type: 'timepicker',
-                            Is12Hours: true,
+                            is12Hours: true,
                             altFields: [{
                                 selector: $valueField
                             }],
@@ -161,7 +161,7 @@
 
                         $elem.bDatepicker($.extend(true, {}, self._getOptions(this), {
                             type: 'datetimepicker',
-                            Is12Hours: true,
+                            is12Hours: true,
                             altFields: [{
                                 selector: $valueField
                             }],

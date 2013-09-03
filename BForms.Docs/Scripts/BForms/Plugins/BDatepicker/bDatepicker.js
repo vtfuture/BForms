@@ -117,7 +117,7 @@
                 break;
         }
 
-        this.renderModel.ShowClose = this.options.ShowClose || false;
+        this.renderModel.ShowClose = this.options.showClose || false;
 
         this.renderModel.NowText = this.options.nowText;
         this.renderModel.SetDateText = this.options.setDateText;
@@ -190,7 +190,7 @@
 
                     var $target = $(e.target);
 
-                    if ($target[0] != this.$input[0] && $target.closest('.bs-datetime-picker').length === 0) {
+                    if ($target[0] != this.$element[0] && $target.closest('.bs-datetime-picker').length === 0) {
                         if (!$target.hasClass('glyphicon') || $target.parent()[0] != this.$input.parent()[0]) {
                             
                             var allowHide = true;
@@ -795,7 +795,7 @@
         Years: [],
         Time: {},
 
-        ShowClose: false,
+        showClose: false,
         HideMonths: true
     };
 
@@ -970,7 +970,7 @@
         model.Value = this.value.clone();
 
         $.extend(true, model, {
-            Is12Hours: this.options.Is12Hours,
+            Is12Hours: this.options.is12Hours,
             HeadText: this.getHeadText(model.Value),
             Days: this.getDays(model.Value),
             Months: this.getMonths(model.Value),
@@ -1307,7 +1307,7 @@
         var time = date.clone();
 
         return {
-            hour: time.format(this.options.Is12Hours ? 'h' : 'H'),
+            hour: time.format(this.options.is12Hours ? 'h' : 'H'),
             minute: time.minute(),
             second: time.second(),
             meridiem: time.lang().meridiem(time.clone().add('hour', 12).format('H')),
@@ -1378,8 +1378,8 @@
         closeOnBlur: true,
         closeOnChange: false,
         defaultDate: 'now',
-        Is12Hours: false,
-        ShowClose: false,
+        is12Hours: false,
+        showClose: false,
         inline: false,
         selectOnly: '', //accepted values : year, month, day, year&month, month&day
         selectOnlyFormats: {

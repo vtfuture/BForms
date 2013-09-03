@@ -122,7 +122,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
                 LanguagesList = langListWithSelected,
                 IdeList = ideListWithSelected,
                 GenderList = Lists.AllGenders<int>().ToSelectList().ToList(),
-                Birthday = new BsDateTime() {DateValue = new DateTime(1982, 5, 20)},
+                Birthday = new BsDateTime(),
                 Interval = new BsRange<DateTime?> { From = DateTime.Now.AddDays(-1), To = DateTime.Now.AddDays(12) }
             };
         }
