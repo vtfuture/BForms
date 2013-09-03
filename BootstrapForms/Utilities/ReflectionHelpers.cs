@@ -262,7 +262,7 @@ namespace BootstrapForms.Utilities
             config.Append("{");
             foreach (var item in options)
             {
-                config.AppendFormat(" {0}: {1}{2} ", item.Key, serializer.Serialize(item.Value), options.Last().Equals(item) ? "" : ",");
+                config.AppendFormat(" \"{0}\": {1}{2} ", item.Key, serializer.Serialize(item.Value), options.Last().Equals(item) ? "" : ",");
             }
             config.Append("}");
             return config.ToString();

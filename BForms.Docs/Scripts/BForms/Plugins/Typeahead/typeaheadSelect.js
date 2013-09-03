@@ -44,7 +44,7 @@
                         var tagText = this.options.textTag === true ? $opt.text() : val;
                         settings.local.push(tagText);
 
-                        if ($opt.prop('selected') == true) {
+                        if ($opt.attr('selected')) {
                             settings.value = tagText;
                         }
 
@@ -64,12 +64,22 @@
         var $input = $('<input></input>');
 
         $input.prop('type', 'text');
-
         $input.prop('id', this.$elem.prop('id'));
         $input.prop('name', this.$elem.prop('name'));
         $input.prop('class', this.$elem.prop('class'));
 
         this._settings.name = this.$elem.prop('name');
+
+        var attrs = this.$elem[0].attributes,
+            i = 0,
+            l = attrs.length;
+
+        for (; i < l; i++) {
+            var attr = attrs[i];
+            if (typeof attr.nodeName !== 'undefined' && attr.nodeName.indexOf('data-') === 0) {
+                $input.attr(attr.nodeName, attr.nodeValue);
+            }
+        }
 
         $input.data(this.$elem.data());
 
@@ -79,10 +89,12 @@
         this.$input = $input;
 
         this.$elem.hide()
-                  .before(this.$input);
+            .before(this.$input);
+
     };
 
     typeaheadSelect.prototype._applyTypeahead = function () {
+
         if (typeof this._settings.value !== "undefined") {
             this.$input.val(this._settings.value);
         }
@@ -94,10 +106,14 @@
         }
     };
 
-    typeaheadSelect.prototype._updateTypeahead = function (value, name) {
+    typeaheadSelect.prototype._updateTypeahead = function (value, name, preserveInput) {
+
+        if (preserveInput !== true) {
+            this.$input.val('');
+        }
 
         this.$input.typeahead("destroy");
-        
+
         this.$input.typeahead({
             name: name,
             local: value

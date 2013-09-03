@@ -67,12 +67,18 @@
             this._applyStyles();
         };
 
+
+        StyleInputs.prototype._getOptions = function (elem) {
+            return $.extend(true, {}, $(elem).data('options'));
+        };
+
         StyleInputs.prototype._applyStyles = function () {
+            var self = this;
 
             if (this.options.select2 === true) {
                 if (typeof $.fn.select2 === "function") {
                     this.$elem.find(this.options.select2Selector).each(function () {
-                        $(this).select2();
+                        $(this).select2(self._getOptions(this));
                     });
                 } else {
                     throw "Select2 script must be loaded before calling styleInputs";
@@ -82,7 +88,7 @@
             if (this.options.radioButtons === true) {
                 if (typeof $.fn.radioButtonsList === "function") {
                     this.$elem.find(this.options.radioButtonsSelector).each(function () {
-                        $(this).radioButtonsList();
+                        $(this).radioButtonsList(self._getOptions(this));
                     });
                 } else {
                     throw "radioButtonsList script must be loaded before calling styleInputs";
@@ -92,7 +98,7 @@
             if (this.options.checkBoxList === true) {
                 if (typeof $.fn.checkBoxList === "function") {
                     this.$elem.find(this.options.checkBoxListSelector).each(function () {
-                        $(this).checkBoxList();
+                        $(this).checkBoxList(self._getOptions(this));
                     });
                 } else {
                     throw "CheckBoxList script must be loaded before calling styleInputs";
@@ -107,13 +113,13 @@
 
                         var $valueField = $('.bs-date-iso[data-for="' + $elem.prop('name') + '"]');
 
-                        $elem.bDatepicker({
+                        $elem.bDatepicker($.extend(true, {}, self._getOptions(this), {
                             type: 'datepicker',
                             altFields: [{
                                 selector: $valueField
                             }],
                             initialValue: $valueField.val()
-                        });
+                        }));
                     });
                 }
                 else {
@@ -129,14 +135,14 @@
 
                         var $valueField = $('.bs-date-iso[data-for="' + $elem.prop('name') + '"]');
 
-                        $elem.bDatepicker({
+                        $elem.bDatepicker($.extend(true, {}, self._getOptions(this), {
                             type: 'timepicker',
                             Is12Hours: true,
                             altFields: [{
                                 selector: $valueField
                             }],
                             initialValue: $valueField.val()
-                        });
+                        }));
                     });
                 }
                 else {
@@ -153,14 +159,14 @@
 
                         var $valueField = $('.bs-date-iso[data-for="' + $elem.prop('name') + '"]');
 
-                        $elem.bDatepicker({
+                        $elem.bDatepicker($.extend(true, {}, self._getOptions(this), {
                             type: 'datetimepicker',
                             Is12Hours: true,
                             altFields: [{
                                 selector: $valueField
                             }],
                             initialValue: $valueField.val()
-                        });
+                        }));
                     });
                 }
                 else {
@@ -180,7 +186,7 @@
                         var $startInput = $('.bs-range-from[data-for="' + rangeName + '"]'),
                             $endInput = $('.bs-range-to[data-for="' + rangeName + '"]');
 
-                        $elem.bRangepicker({
+                        $elem.bRangepicker($.extend(true,{},self._getOptions(this),{
                             startOptions: {
                                 type: 'datetimepicker',
                                 initialValue: $startInput.val(),
@@ -194,7 +200,7 @@
 
                             startAltFields: [{ selector: $startInput }],
                             endAltFields: [{ selector: $endInput }]
-                        });
+                        }));
                     });
                 }
                 else {
@@ -212,7 +218,7 @@
                         var $startInput = $('.bs-range-from[data-for="' + rangeName + '"]'),
                            $endInput = $('.bs-range-to[data-for="' + rangeName + '"]');
 
-                        $elem.bRangepicker({
+                        $elem.bRangepicker($.extend(true,{},self._getOptions(this),{
                             startOptions: {
                                 type: 'datepicker',
                                 initialValue: $startInput.val(),
@@ -225,7 +231,7 @@
                             },
                             startAltFields: [{ selector: $startInput }],
                             endAltFields: [{ selector: $endInput }]
-                        });
+                        }));
                     });
                 }
                 else {
@@ -243,7 +249,7 @@
                         var $startInput = $('.bs-range-from[data-for="' + rangeName + '"]'),
                            $endInput = $('.bs-range-to[data-for="' + rangeName + '"]');
 
-                        $elem.bRangepicker({
+                        $elem.bRangepicker($.extend(true,{},self._getOptions(this),{
                             startOptions: {
                                 type: 'timepicker',
                                 language: 'ro',
@@ -259,7 +265,7 @@
 
                             startAltFields: [{ selector: $startInput }],
                             endAltFields: [{ selector: $endInput }]
-                        });
+                        }));
                     });
                 }
                 else {
@@ -270,7 +276,7 @@
             if (this.options.tagList === true && this.$elem.find(this.options.tagListSelector).length) {
                 if (typeof $.fn.selectInput2 === "function") {
                     this.$elem.find(this.options.tagListSelector).each(function () {
-                        $(this).selectInput2();
+                        $(this).selectInput2(self._getOptions(this));
                     });
                 } else {
                     throw "SelectInput2 script must be loaded before calling styleInputs";
@@ -280,9 +286,9 @@
             if (this.options.multiSelect2 === true && this.$elem.find(this.options.multiSelect2Selector).length) {
                 if (typeof $.fn.selectInput2 === "function") {
                     this.$elem.find(this.options.multiSelect2Selector).each(function () {
-                        $(this).selectInput2({
+                        $(this).selectInput2($.extend(true,{},{
                             tags: false
-                        });
+                        },self._getOptions(this)));
                     });
                 } else {
                     throw "SelectInput2 script must be loaded before calling styleInputs";
@@ -292,7 +298,7 @@
             if (this.options.autocomplete === true && this.$elem.find(this.options.autocompleteSelector).length) {
                 if (typeof $.fn.typeaheadSelect === "function") {
                     this.$elem.find(this.options.autocompleteSelector).each(function () {
-                        $(this).typeaheadSelect();
+                        $(this).typeaheadSelect(self._getOptions(this));
                     });
                 } else {
                     throw "TypeaheadSelect script must be loaded before calling styleInputs";

@@ -511,8 +511,6 @@
             this._currentDisplay = this.enums.Display.Days;
             this._updateDateView();
         }
-
-
     };
 
     bDatepicker.prototype.yearValueClick = function (e) {
@@ -545,7 +543,9 @@
             this._setCurrentValue(moment().lang(this.options.language));
             this.value = this.currentValue;
 
-            this._currentDisplay = this.enums.Display.Days;
+            if(typeof this._selectOn === "undefined" || this._selectOn === this.enums.Display.Days) {
+                this._currentDisplay = this.enums.Display.Days;
+            }
 
             this._updateDateView();
         }
@@ -560,7 +560,9 @@
             this._setCurrentValue(moment().lang(this.options.language));
             this.value = this.currentValue;
 
-            this._currentDisplay = this.enums.Display.Days;
+            if (typeof this._selectOn === "undefined" || this._selectOn === this.enums.Display.Days) {
+                this._currentDisplay = this.enums.Display.Days;
+            }
 
             this._updateTimeView();
         }
@@ -1344,7 +1346,6 @@
         Is12Hours: false,
         ShowClose: true,
         inline: false,
-        timeFormat: 'HH:mm',
         selectOnly: '', //accepted values : year, month, day, year&month, month&day
         selectOnlyFormats: {
             'year': 'YYYY',
