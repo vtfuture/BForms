@@ -99,6 +99,8 @@ namespace BForms.Docs.Areas.Demo.Controllers
             var enumWithSelected = BsSelectList<NotificationType?>.FromEnum(typeof(NotificationType));
             enumWithSelected.SelectedValues = NotificationType.Monthly;
 
+            enumWithSelected.ItemsFromEnum(typeof(NotificationType));
+
             var ddlWithSelected = Lists.AllCounties<string>();
             ddlWithSelected.SelectedValues = "ROU";
 

@@ -66,6 +66,51 @@ namespace BootstrapForms.Models
         }
 
         /// <summary>
+        /// Filla BsSelectList.Items with enum vals
+        /// </summary>
+        public void ItemsFromEnum(Type myEnum, params Enum[] excludedVals)
+        {
+            var enumType = myEnum;
+            if (!enumType.IsEnum)
+            {
+                throw new ArgumentException("myEnum is not of type enum", "myEnum");
+            }
+
+            List<string> excludedList = new List<string>();
+            foreach (Enum val in excludedVals)
+            {
+                excludedList.Add(Enum.GetName(val.GetType(), val));
+            }
+
+            foreach (var item in Enum.GetValues(enumType))
+            {
+                //get Description Name from resources
+                var name = Enum.GetName(enumType, item);
+
+                if (excludedList.Contains(name))
+                {
+                    continue;
+                }
+
+                var text = enumType.GetMember(name)
+                    .First()
+                    .GetCustomAttributes(false)
+                    .OfType<DescriptionAttribute>()
+                    .LastOrDefault();
+                
+
+                var textValue = text == null ? name : text.Description;
+
+                this.Items.Add(new BsSelectListItem
+                {
+                    Selected = false,
+                    Text = textValue,
+                    Value = Convert.ChangeType(item, Enum.GetUnderlyingType(myEnum)).ToString()
+                });
+            }
+        }
+
+        /// <summary>
         /// Returns a BsSelectList from 
         /// </summary>
         public static BsSelectList<T> FromSelectList(IEnumerable<SelectListItem> list)
