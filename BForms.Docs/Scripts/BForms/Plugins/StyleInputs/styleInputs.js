@@ -165,7 +165,8 @@
                             altFields: [{
                                 selector: $valueField
                             }],
-                            initialValue: $valueField.val()
+                            initialValue: $valueField.val(),
+                            toggleButtons: [{ event: 'click', selector: '.glyphicon-calendar' }]
                         }));
                     });
                 }

@@ -192,7 +192,21 @@
 
                     if ($target[0] != this.$input[0] && $target.closest('.bs-datetime-picker').length === 0) {
                         if (!$target.hasClass('glyphicon') || $target.parent()[0] != this.$input.parent()[0]) {
-                            this.hide();
+                            
+                            var allowHide = true;
+
+                            if (typeof this.options.toggleButtons !== "undefined") {
+                                for (var toggle in this.options.toggleButtons) {
+                                    var $toggleElement = $(this.options.toggleButtons[toggle].selector);
+                                    if ($target.closest($toggleElement).length > 0) {
+                                        allowHide = false;
+                                    }
+                                }
+                            }
+
+                            if (allowHide) {
+                                this.hide();
+                            }
                         }
                     }
 
@@ -224,6 +238,23 @@
 
                     $('body').on(currentCloseOn.event, currentCloseOn.selector, $.proxy(function (e) {
                         this.hide();
+                    }, this));
+                }
+            }
+            
+            if (typeof this.options.toggleButtons !== "undefined" && $.isArray(this.options.toggleButtons)) {
+                for (var idxT in this.options.toggleButtons) {
+
+                    var currentTogle = this.options.toggleButtons[idxT];
+
+                    $('body').on(currentTogle.event, currentTogle.selector, $.proxy(function (e) {
+                        
+                        if(this._visible) {
+                            this.hide();
+                        }else {
+                            this.show();
+                        }
+
                     }, this));
                 }
             }
@@ -906,6 +937,10 @@
         }
 
         this._updateDisplays();
+
+        if(typeof this.$input !== "undefined" && typeof this.$input.valid === "function") {
+            this.$input.valid();
+        }
 
         this._trigger('onChange', {
             date: this.currentValue.clone(),
