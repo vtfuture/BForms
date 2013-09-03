@@ -61,7 +61,7 @@
         <div class="col-12 col-sm-6 col-lg-6 form-group">
                 @Html.BsLabelFor(m => m.Birthday)
             <div class="input-group">
-                @Html.BsInputFor(m => m.Birthday,null,new Dictionary<string, object>{{"readonly","readonly"}}, new Dictionary<string, object>{{"selectOnly","year"}})
+                @Html.BsInputFor(m => m.Birthday,null,new Dictionary<string, object>{{"readonly","readonly"}})
                 @Html.BsValidationFor(m => m.Birthday)
             </div>
             </div>

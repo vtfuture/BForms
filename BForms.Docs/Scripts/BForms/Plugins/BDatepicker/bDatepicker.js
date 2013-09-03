@@ -1379,7 +1379,7 @@
         closeOnChange: false,
         defaultDate: 'now',
         Is12Hours: false,
-        ShowClose: true,
+        ShowClose: false,
         inline: false,
         selectOnly: '', //accepted values : year, month, day, year&month, month&day
         selectOnlyFormats: {
