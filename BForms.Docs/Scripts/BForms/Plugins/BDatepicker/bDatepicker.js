@@ -1166,6 +1166,12 @@
             }
         }
     };
+    
+    bDatepicker.prototype.destroy = function () {
+        this.$picker.remove();
+        this.$element.removeData('bDatepicker');
+        this.$element.removeClass('hasDatepicker');
+    };
     //#endregion
 
     //#region helpers
@@ -1249,12 +1255,17 @@
 
         var it = date.clone(),
             i = 0,
-            months = [];
-
+            months = [],
+            dayInMonth = it.date();
+        
         it.month(0);
-
         for (; i < 12; i++) {
-            it.month(i);
+            it.add(1, 'month');
+            
+            if (it.date() !== dayInMonth) {
+                it.date(dayInMonth);
+            }
+
             months.push({
                 month: it.format('MMM'),
                 value: it.format(),

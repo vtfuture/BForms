@@ -427,6 +427,12 @@
 
         this.applyRange(val);
     };
+
+    bRangePicker.prototype.destroy = function() {
+        this.$element.removeData('bRangepicker');
+        this.$element.removeClass('hasRangepicker');
+        this.$container.remove();
+    };
     //#endregion
 
     $.fn.bRangepickerDefaults = {
