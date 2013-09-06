@@ -116,7 +116,7 @@ namespace BootstrapForms.Html
         public static MvcHtmlString BsSelectFor<TModel, TKey>(this HtmlHelper<TModel> htmlHelper,
             Expression<Func<TModel, BsSelectList<TKey>>> expression)
         {
-            return htmlHelper.BsSelectFor(expression, null);
+            return htmlHelper.BsSelectFor(expression, null, null);
         }
 
         /// <summary>
@@ -125,15 +125,23 @@ namespace BootstrapForms.Html
         public static MvcHtmlString BsSelectFor<TModel, TKey>(this HtmlHelper<TModel> htmlHelper,
             Expression<Func<TModel, BsSelectList<TKey>>> expression, object htmlAttributes)
         {
-            return htmlHelper.BsSelectFor(expression, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+            return htmlHelper.BsSelectFor(expression, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes), null);
         }
 
         /// <summary>
         /// Returns a BForms select element based on BsControlAttribute
         /// </summary>
         public static MvcHtmlString BsSelectFor<TModel, TKey>(this HtmlHelper<TModel> htmlHelper,
-            Expression<Func<TModel, BsSelectList<TKey>>> expression, IDictionary<string, object> htmlAttributes)
+            Expression<Func<TModel, BsSelectList<TKey>>> expression, IDictionary<string, object> htmlAttributes, IDictionary<string, object> dataOptions = null)
         {
+            if (htmlAttributes == null)
+            {
+                htmlAttributes = new Dictionary<string, object>();
+            }
+            if (dataOptions == null)
+            {
+                dataOptions = new Dictionary<string, object>();
+            }
 
             var metadata = ModelMetadata.FromLambdaExpression(expression, htmlHelper.ViewData);
             var name = ExpressionHelper.GetExpressionText(expression);
@@ -177,12 +185,23 @@ namespace BootstrapForms.Html
                 optionLabel = metadata.Watermark;
             }
 
+            //set data- options
+            if (dataOptions.Any())
+            {
+                htmlAttributes.MergeAttribute("data-options", dataOptions.ToJsonString());
+            }
+
             //determine the select type
             BsControlAttribute bsControl = null;
             if (ReflectionHelpers.TryGetControlAttribute(name, typeof(TModel), out bsControl))
             {
                 //add bs- control type
                 var bsCssClass = bsControl.ControlType.GetDescription();
+
+                if (bsControl.IsReadonly)
+                {
+                    htmlAttributes.MergeAttribute("readonly", "readonly");
+                }
 
                 switch (bsControl.ControlType)
                 {
