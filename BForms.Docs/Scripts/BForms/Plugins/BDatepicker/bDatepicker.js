@@ -28,7 +28,7 @@
         }
 
         this.newMoment = moment().lang(this.options.language);
-
+        
         switch (this.options.type) {
             case 'datepicker':
             default:
@@ -50,6 +50,7 @@
         this._visible = false;
         this._getInitialValue();
         this._initRenderModel();
+        this._initLang(this.options.language);
         this._initOptions();
 
         if (this.$input != null && this.$input.val() != '') {
@@ -61,6 +62,8 @@
 
         this.$element.addClass('hasDatepicker');
         this.$element.data('bDatepicker', this);
+
+        this._timeoutHandler = null;
     };
 
     bDatepicker.prototype._getInitialValue = function () {
@@ -72,9 +75,15 @@
             this._updateDisplays();
 
         } else if (this.$element.is('input')) {
-            var value = this.$element.val();
-            if (value != '') {
-                this.currentValue = moment(value).lang(this.options.language);
+            var value = this.$element.val(),
+                valueMoment = moment(value);
+            
+            if(valueMoment != null ) {
+                valueMoment.lang(this.options.language);
+            }
+            
+            if (valueMoment != null && valueMoment.isValid()) {
+                this.currentValue = valueMoment.lang(this.options.language);
             } else {
                 this.currentValue = this._getDefaultDate().lang(this.options.language);
             }
@@ -118,10 +127,6 @@
         }
 
         this.renderModel.ShowClose = this.options.showClose || false;
-
-        this.renderModel.NowText = this.options.nowText;
-        this.renderModel.SetDateText = this.options.setDateText;
-        this.renderModel.SetTimeText = this.options.setTimeText;
     };
 
     bDatepicker.prototype._initOptions = function () {
@@ -180,6 +185,12 @@
         this.isInline = this.options.inline || false;
     };
 
+    bDatepicker.prototype._initLang = function(lang) {
+        this.renderModel.NowText = $.fn.bDatepickerLang[lang].nowText;
+        this.renderModel.SetDateText = $.fn.bDatepickerLang[lang].setDateText;
+        this.renderModel.SetTimeText = $.fn.bDatepickerLang[lang].setTimeText;
+    };
+
     bDatepicker.prototype._addHandlers = function () {
 
         if (!this.isInline) {
@@ -191,7 +202,7 @@
                     var $target = $(e.target);
 
                     if ($target[0] != this.$element[0] && $target.closest('.bs-datetime-picker').length === 0) {
-                        if (!$target.hasClass('glyphicon') || $target.parent()[0] != this.$input.parent()[0]) {
+                        if ((!$target.hasClass('glyphicon') || $target.parent()[0] != this.$input.parent()[0]) && !$target.hasClass(this.options.ignoreBlurClass)) {
                             
                             var allowHide = true;
 
@@ -260,7 +271,10 @@
             }
 
             $(window).on('scroll', $.proxy(function () {
-                this._positionPicker();
+                if (this._visible) {
+                    window.clearTimeout(this._timeoutHandler);
+                    this._timeoutHandler = window.setTimeout($.proxy(this._positionPicker, this),20);
+                }
             }, this));
 
             $(window).on('resize', $.proxy(function () {
@@ -273,7 +287,7 @@
             }, this));
         }
 
-        if (typeof this.$input !== "undefined" && this.$input.length) {
+        if (typeof this.$input !== "undefined" && this.$input.length && this.options.forceParse === true) {
             this.$input.on('change', $.proxy(this.onInputChange, this));
         }
 
@@ -875,7 +889,7 @@
 
         if (yOrient == 'below') {
             this.$picker.css({
-                top: elemOffset.top + this.$element.height() + 20
+                top: elemOffset.top + this.$element.height() + this.options.heightPosition
             });
 
             this.$picker.removeClass('open-above');
@@ -938,7 +952,7 @@
 
         this._updateDisplays();
 
-        if(typeof this.$input !== "undefined" && typeof this.$input.valid === "function") {
+        if(typeof this.$input !== "undefined" && typeof this.$input.valid === "function" && this.$input.parents('form').length) {
             this.$input.valid();
         }
 
@@ -1082,6 +1096,8 @@
 
             this._trigger('beforeShow');
 
+            this._positionPicker();
+
             this.$picker.show();
             this._visible = true;
 
@@ -1171,6 +1187,12 @@
         this.$picker.remove();
         this.$element.removeData('bDatepicker');
         this.$element.removeClass('hasDatepicker');
+        if(this.options.readonlyInput) {
+            this.$element.removeProp('readonly');
+        }
+        if (this.options.openOnFocus) {
+            this.$element.off('focus');
+        }
     };
     //#endregion
 
@@ -1412,7 +1434,24 @@
         nowText: 'Now',
         setDateText: 'Set date',
         setTimeText: 'Set time',
-        readonlyInput: false
+        readonlyInput: false,
+        throwExceptions: false,
+        ignoreClass: '',
+        forceParse: true,
+        heightPosition : 20
+    };
+
+    $.fn.bDatepickerLang = {
+        'en': {
+            nowText: 'Now',
+            setDateText: 'Set date',
+            setTimeText: 'Set time'
+        },
+        'ro': {
+            nowText: 'Acum',
+            setDateText: 'Setează data',
+            setTimeText: 'Setează ora'
+        }
     };
 
     $.fn.bDatepicker = function () {
@@ -1425,8 +1464,11 @@
             return new bDatepicker($(this), $.extend(true, {}, $.fn.bDatepickerDefaults, options));
         } else if (typeof options === "string") {
             var instance = (this).data('bDatepicker');
-            if (typeof instance === "undefined") throw 'Cannot call method ' + options + ' before initializing plugin';
-            else {
+            if (typeof instance === "undefined") {
+                if ($.fn.bDatepickerDefaults.throwExceptions === true) {
+                    throw 'Cannot call method ' + options + ' before initializing plugin';
+                }
+            } else {
                 return instance[options].apply(instance, methodParams);
             }
         }

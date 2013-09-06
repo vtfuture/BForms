@@ -139,8 +139,8 @@
                                 '<input type="text" class="bs-rangeEndLabel" value="" disabled="disabled">' +
                             '</div>' +
                             '</div>' +
-                            '<button class="btn btn-default bs-applyRange">Apply</button>&nbsp;' +
-                            '<button class="btn bs-cancelRange">Cancel</button>' +
+                            '<button class="btn btn-default bs-applyRange">{{ApplyText}}</button>&nbsp;' +
+                            '<button class="btn bs-cancelRange">{{CancelText}}</button>' +
                             '</div>' +
             
                         '<div class="bs-start-replace"></div>' +

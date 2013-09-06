@@ -73,7 +73,15 @@
         };
 
         StyleInputs.prototype._applyStyles = function () {
-            var self = this;
+            var self = this,
+                datepickerLanguage = 'en';
+            if (requireConfig && requireConfig.websiteOptions) {
+                var locale = requireConfig.websiteOptions.locale;
+
+                if (typeof moment.langData(locale) !== "undefined") {
+                    datepickerLanguage = locale;
+                }
+            }
 
             if (this.options.select2 === true) {
                 if (typeof $.fn.select2 === "function") {
@@ -118,7 +126,8 @@
                             altFields: [{
                                 selector: $valueField
                             }],
-                            initialValue: $valueField.val()
+                            initialValue: $valueField.val(),
+                            language: datepickerLanguage
                         }));
                     });
                 }
@@ -141,7 +150,8 @@
                             altFields: [{
                                 selector: $valueField
                             }],
-                            initialValue: $valueField.val()
+                            initialValue: $valueField.val(),
+                            language: datepickerLanguage
                         }));
                     });
                 }
@@ -166,7 +176,7 @@
                                 selector: $valueField
                             }],
                             initialValue: $valueField.val(),
-                            toggleButtons: [{ event: 'click', selector: '.glyphicon-calendar' }]
+                            language: datepickerLanguage
                         }));
                     });
                 }
@@ -187,20 +197,23 @@
                         var $startInput = $('.bs-range-from[data-for="' + rangeName + '"]'),
                             $endInput = $('.bs-range-to[data-for="' + rangeName + '"]');
 
-                        $elem.bRangepicker($.extend(true,{},self._getOptions(this),{
+                        $elem.bRangepicker($.extend(true, {}, self._getOptions(this), {
                             startOptions: {
                                 type: 'datetimepicker',
                                 initialValue: $startInput.val(),
                                 defaultDate: (typeof $endInput.val() !== "undefined" && $endInput.val() != '') ? "-1d" : "now",
-                                defaultDateValue: (typeof $endInput.val() !== "undefined" && $endInput.val() != '') ? $endInput.val() : false
+                                defaultDateValue: (typeof $endInput.val() !== "undefined" && $endInput.val() != '') ? $endInput.val() : false,
+                                language: datepickerLanguage
                             },
                             endOptions: {
                                 type: 'datetimepicker',
-                                initialValue: $endInput.val()
+                                initialValue: $endInput.val(),
+                                language: datepickerLanguage
                             },
 
                             startAltFields: [{ selector: $startInput }],
-                            endAltFields: [{ selector: $endInput }]
+                            endAltFields: [{ selector: $endInput }],
+                            language: locale
                         }));
                     });
                 }
@@ -219,19 +232,22 @@
                         var $startInput = $('.bs-range-from[data-for="' + rangeName + '"]'),
                            $endInput = $('.bs-range-to[data-for="' + rangeName + '"]');
 
-                        $elem.bRangepicker($.extend(true,{},self._getOptions(this),{
+                        $elem.bRangepicker($.extend(true, {}, self._getOptions(this), {
                             startOptions: {
                                 type: 'datepicker',
                                 initialValue: $startInput.val(),
                                 defaultDate: (typeof $endInput.val() !== "undefined" && $endInput.val() != '') ? "-1d" : "now",
-                                defaultDateValue: (typeof $endInput.val() !== "undefined" && $endInput.val() != '') ? $endInput.val() : false
+                                defaultDateValue: (typeof $endInput.val() !== "undefined" && $endInput.val() != '') ? $endInput.val() : false,
+                                language: datepickerLanguage
                             },
                             endOptions: {
                                 type: 'datepicker',
-                                initialValue: $endInput.val()
+                                initialValue: $endInput.val(),
+                                language: datepickerLanguage
                             },
                             startAltFields: [{ selector: $startInput }],
-                            endAltFields: [{ selector: $endInput }]
+                            endAltFields: [{ selector: $endInput }],
+                            language: locale
                         }));
                     });
                 }
@@ -250,22 +266,23 @@
                         var $startInput = $('.bs-range-from[data-for="' + rangeName + '"]'),
                            $endInput = $('.bs-range-to[data-for="' + rangeName + '"]');
 
-                        $elem.bRangepicker($.extend(true,{},self._getOptions(this),{
+                        $elem.bRangepicker($.extend(true, {}, self._getOptions(this), {
                             startOptions: {
                                 type: 'timepicker',
-                                language: 'ro',
                                 initialValue: $startInput.val(),
                                 defaultDate: (typeof $endInput.val() !== "undefined" && $endInput.val() != '') ? "-1h" : "now",
-                                defaultDateValue: (typeof $endInput.val() !== "undefined" && $endInput.val() != '') ? $endInput.val() : false
+                                defaultDateValue: (typeof $endInput.val() !== "undefined" && $endInput.val() != '') ? $endInput.val() : false,
+                                language: datepickerLanguage
                             },
                             endOptions: {
                                 type: 'timepicker',
-                                language: 'ro',
+                                language: datepickerLanguage,
                                 initialValue: $endInput.val()
                             },
 
                             startAltFields: [{ selector: $startInput }],
-                            endAltFields: [{ selector: $endInput }]
+                            endAltFields: [{ selector: $endInput }],
+                            language: locale
                         }));
                     });
                 }
@@ -287,9 +304,9 @@
             if (this.options.multiSelect2 === true && this.$elem.find(this.options.multiSelect2Selector).length) {
                 if (typeof $.fn.selectInput2 === "function") {
                     this.$elem.find(this.options.multiSelect2Selector).each(function () {
-                        $(this).selectInput2($.extend(true,{},{
+                        $(this).selectInput2($.extend(true, {}, {
                             tags: false
-                        },self._getOptions(this)));
+                        }, self._getOptions(this)));
                     });
                 } else {
                     throw "SelectInput2 script must be loaded before calling styleInputs";

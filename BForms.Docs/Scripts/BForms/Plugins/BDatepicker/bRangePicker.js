@@ -23,16 +23,22 @@
             this.$input = this.$element;
         }
 
+        this._initLang(this.options.language);
         this._buildElement();
         this._addHandlers();
 
         this.$element.data('bRangepicker', this);
         this.$element.addClass('hasRangepicker');
+
+        this._timeoutHandler = null;
     };
 
     bRangePicker.prototype._buildElement = function () {
 
-        this.$container = this.renderer.renderRangeContainer();
+        this.$container = this.renderer.renderRangeContainer({
+            ApplyText: this.options.applyText,
+            CancelText : this.options.cancelText
+        });
 
         this.$start = this.$container.find('.bs-start-replace');
         this.$end = this.$container.find('.bs-end-replace');
@@ -81,13 +87,20 @@
             $('body').append(this.$container);
             this._positionRange();
         }
+        
+        if(this.options.startOptions.initialValue && this.options.endOptions.initialValue) {
+            this.applyRange();
+        }
     };
 
     bRangePicker.prototype._addHandlers = function () {
 
         if (!this.isInline) {
             $(window).on('scroll', $.proxy(function () {
-                this._positionRange();
+                if (this._visible) {
+                    window.clearTimeout(this._timeoutHandler);
+                    this._timeoutHandler = window.setTimeout($.proxy(this._positionRange, this), 20);
+                }
             }, this));
 
             $(window).on('resize', $.proxy(function () {
@@ -153,7 +166,10 @@
         }, this));
         this.$container.on('click', '.bs-cancelRange', $.proxy(this.cancelRange, this));
     };
-
+    
+    bRangePicker.prototype._initLang = function (lang) {
+        $.extend(true, this.options, $.fn.bRangepickerLang[lang]);
+    };
     //#region events
     bRangePicker.prototype.onInputChange = function (e) {
         var $target = $(e.currentTarget);
@@ -216,7 +232,7 @@
 
         if (typeof this.$input !== "undefined") {
             this.$input.val(val);
-            if (typeof this.$input.valid === "function") {
+            if (typeof this.$input.valid === "function" && this.$input.parents('form').length) {
                 this.$input.valid();
             }
         }
@@ -381,7 +397,9 @@
     //#region public methods
     bRangePicker.prototype.show = function () {
         if (this._visible !== true) {
-            
+
+            this._positionRange();
+
             this._trigger('beforeShow');
 
             this.$container.show();
@@ -447,6 +465,18 @@
         endOptions: {
             inline: true,
             ShowClose: false
+        },
+        language : 'en'
+    };
+
+    $.fn.bRangepickerLang = {
+        'en': {
+            applyText: 'Apply',
+            cancelText: 'Cancel'
+        },
+        'ro': {
+            applyText: 'Setează',
+            cancelText: 'Anulare'
         }
     };
 
