@@ -137,6 +137,9 @@ textarea {
 		padding: 5px 8px;
 	}
 }
+.select2-display-none .select2-results {
+	margin: 0;
+}
 .custom_select-multi {
 	
 	&.form-control {
