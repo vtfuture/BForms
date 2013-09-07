@@ -137,10 +137,14 @@
     </Compile>
     <Content Include="Content\Images\Docs\autocomplete-select.jpg" />
     <Content Include="Content\Images\Docs\checkboxlist-select.jpg" />
+    <Content Include="Content\Images\Docs\datepicker-input.jpg" />
+    <Content Include="Content\Images\Docs\datepicker-year-month-input.jpg" />
+    <Content Include="Content\Images\Docs\datetimepicker-input.jpg" />
     <Content Include="Content\Images\Docs\dropdown-search-select.jpg" />
     <Content Include="Content\Images\Docs\listbox-search-select.jpg" />
     <Content Include="Content\Images\Docs\radiolist-select.jpg" />
     <Content Include="Content\Images\Docs\taglist-search-select.jpg" />
+    <Content Include="Content\Images\Docs\timepicker-input.jpg" />
     <Content Include="Scripts\BForms\Plugins\BDatepicker\bDatepicker.js" />
     <Content Include="Scripts\BForms\Plugins\BDatepicker\bDatepickerRenderer.js" />
     <Content Include="Scripts\BForms\Plugins\BDatepicker\bRangePicker.js" />
@@ -475,6 +479,27 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\BForms\Stylesheets\bforms-datetimepicker.scss" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\InputExtensions\_InputDatePicker.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\InputExtensions\Source\InputDatePickerModel.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\InputExtensions\Source\InputDatePickerView.cshtml.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\InputExtensions\Source\InputDateTimePickerModel.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\InputExtensions\_InputTimePicker.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\InputExtensions\Source\InputTimePickerView.cshtml.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\InputExtensions\Source\InputTimePickerModel.cs.embed" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

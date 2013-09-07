@@ -1,0 +1,8 @@
+﻿public class RegisterModel
+{
+    [Display(Name = "Receive emails at specified time")]
+    [BsControl(BsControlType.TimePicker)]
+    public BsDateTime NotificationTime { get; set; }
+    
+    ...
+}

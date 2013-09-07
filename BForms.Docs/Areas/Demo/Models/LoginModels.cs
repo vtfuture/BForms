@@ -79,6 +79,10 @@ namespace BForms.Docs.Areas.Demo.Models
         [BsControl(BsControlType.RadioButtonList)]
         public BsSelectList<NotificationType?> NotificationList { get; set; }
 
+        [Display(Name = "Receive emails at specified time")]
+        [BsControl(BsControlType.TimePicker)]
+        public BsDateTime NotificationTime { get; set; }
+
         [Display(Name = "What ASP.NET flavors do you use")]
         [BsControl(BsControlType.CheckBoxList)]
         public BsSelectList<List<int>> TechnologiesCheckboxList { get; set; }    

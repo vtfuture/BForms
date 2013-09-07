@@ -1,0 +1,9 @@
+﻿public class RegisterModel
+{
+    [Required]
+    [Display(Name = "Birthday")]
+    [BsControl(BsControlType.DatePicker)]
+    public BsDateTime Birthday { get; set; }
+    
+    ...
+}

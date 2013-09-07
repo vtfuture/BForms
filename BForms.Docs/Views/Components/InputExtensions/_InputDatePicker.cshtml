@@ -1,0 +1,35 @@
+﻿@using BForms.Docs.Helpers
+<h3 id="Input-DatePicker">Date and DateTime Picker</h3>
+
+<p>        
+    In order to render a text input of type date or datetime you will need to use the 
+    <code>@@Html.BsInputFor</code> helper extension and 
+    decorate your model property of type <code>BsDateTime</code> with <code>[BsControl(BsControlType.DatePicker)]</code> or <code>BsControlType.DateTimePicker</code>.
+    Using <code>BsControlType.DatePicker</code> will enforce datetime validation on both client and server side using the specified culture.
+</p>
+
+<h4 class="sub_title">Example</h4>    
+<div class="bs-example bs-img-example">
+    <img src="@Url.Content("~/Content/images/docs/datepicker-input.jpg")">
+</div>
+
+<h4 class="sub_title">Year and Month browsing</h4>
+<div class="bs-example bs-img-example">
+    <img src="@Url.Content("~/Content/images/docs/datepicker-year-month-input.jpg")">
+</div>
+
+<h4 class="sub_title">Datetime Picker</h4>
+<div class="bs-example bs-img-example">
+    <img src="@Url.Content("~/Content/images/docs/datetimepicker-input.jpg")">
+</div>
+
+<h4 class="sub_title">Model</h4>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Components/InputExtensions/Source/InputDatePickerModel.cs.embed")
+</pre>
+
+<h4 class="sub_title">View</h4>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Components/InputExtensions/Source/InputDatePickerView.cshtml.embed")
+</pre>
+

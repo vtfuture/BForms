@@ -84,6 +84,15 @@
         </div>
 
         <div class="col-12 col-sm-6 col-lg-6 form-group">
+            @Html.BsLabelFor(m => m.NotificationTime)
+            <div class="input-group">
+                @Html.BsGlyphiconAddon(Glyphicon.Time)
+                @Html.BsInputFor(m => m.NotificationTime)
+                @Html.BsValidationFor(m => m.NotificationTime)
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-lg-6 form-group">
             @Html.BsLabelFor(m => m.CountriesList)
             <div class="input-group">
                 @Html.BsSelectFor(m => m.CountriesList)

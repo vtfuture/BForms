@@ -1,0 +1,7 @@
+﻿  <div class="form-group">
+    @Html.BsLabelFor(m => m.Birthday)
+    <div class="input-group">
+      @Html.BsInputFor(m => m.Birthday)
+      @Html.BsValidationFor(m => m.Birthday)
+    </div>
+  </div>
