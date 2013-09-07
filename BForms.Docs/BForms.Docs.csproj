@@ -341,9 +341,6 @@
     <Content Include="Views\Shared\_Tracking.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="RequireJS.Release.config" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Components\InputExtensions\Source\InputCheckboxSpecializedModel.cs.embed" />
     <Content Include="Views\Components\InputExtensions\Source\InputCheckboxSpecializedView.cshtml.embed" />
     <Content Include="Views\Components\InputExtensions\Source\InputEmailSpecializedModel.cs.embed" />
