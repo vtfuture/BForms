@@ -19,97 +19,6 @@ namespace BootstrapForms.Html
     /// </summary>
     public static class SelectExtensions
     {
-        #region RadioGroup
-
-        /// <summary>
-        /// Returns a a list of radio buttons
-        /// </summary>
-        public static MvcHtmlString BsRadioButtonList(this HtmlHelper htmlHelper, string name,
-            IEnumerable<SelectListItem> radioList)
-        {
-            return BsRadioButtonList(htmlHelper, name, radioList, htmlAttributes: (object)null);
-        }
-
-        /// <summary>
-        /// Returns a a list of radio buttons
-        /// </summary>
-        public static MvcHtmlString BsRadioButtonList(this HtmlHelper htmlHelper, string name,
-            IEnumerable<SelectListItem> radioList, object htmlAttributes)
-        {
-            return BsRadioButtonList(htmlHelper, name, radioList,
-                HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
-        }
-
-        /// <summary>
-        /// Returns a a list of radio buttons
-        /// </summary>
-        public static MvcHtmlString BsRadioButtonList(this HtmlHelper htmlHelper, string name,
-            IEnumerable<SelectListItem> radioList, IDictionary<string, object> htmlAttributes)
-        {
-            var metadata = ModelMetadata.FromStringExpression(name, htmlHelper.ViewData);
-            return htmlHelper.BsRadioButtonListInternal(metadata, name, radioList, "", htmlAttributes, "bs-radio-list");
-        }
-
-        /// <summary>
-        /// Returns a list of radio buttons
-        /// </summary>
-        public static MvcHtmlString BsRadioButtonListFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper,
-            Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> radioList)
-        {
-            return BsRadioButtonListFor(htmlHelper, expression, radioList, (object)null);
-        }
-
-        /// <summary>
-        /// Returns a list of radio buttons
-        /// </summary>
-        public static MvcHtmlString BsRadioButtonListFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper,
-            Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> radioList, object htmlAttributes)
-        {
-            return BsRadioButtonListFor(htmlHelper, expression, radioList,
-                HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
-        }
-
-        /// <summary>
-        /// Returns a list of radio buttons
-        /// </summary>
-        public static MvcHtmlString BsRadioButtonListFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper,
-            Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> radioList,
-            IDictionary<string, object> htmlAttributes)
-        {
-            var metadata = ModelMetadata.FromLambdaExpression(expression, htmlHelper.ViewData);
-
-            //add bs- control type
-            BsControlAttribute bsControl = null;
-            var bsCssClass = string.Empty;
-            if (ReflectionHelpers.TryGetControlAttribute(ExpressionHelper.GetExpressionText(expression), typeof(TModel), out bsControl))
-            {
-                bsCssClass = bsControl.ControlType.GetDescription();
-            }
-
-            return htmlHelper.BsRadioButtonListInternal(metadata, metadata.PropertyName, radioList, "", htmlAttributes, bsCssClass);
-        }
-
-        private static MvcHtmlString BsRadioButtonListInternal(this HtmlHelper htmlHelper, ModelMetadata metadata,
-            string name, IEnumerable<SelectListItem> radioList, string optionLabel, IDictionary<string, object> htmlAttributes, string bsCssClass)
-        {
-            var propertyName = htmlHelper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name);
-            var bsList = BsSelectList<List<string>>.FromSelectList(radioList.ToList());
-
-            var htmlList = htmlHelper.BsRadioListInternal<List<string>>(name, bsList, htmlAttributes, false, bsCssClass);
-
-            //add info tooltip
-            var description = new MvcHtmlString("");
-            if (!string.IsNullOrEmpty(metadata.Description))
-            {
-                description = htmlHelper.BsDescription(name);
-            }
-
-            return MvcHtmlString.Create(htmlList.ToHtmlString() + description);
-        }
-
-        #endregion
-
-        #region BsSelectList
         /// <summary>
         /// Returns a BForms select element based on BsControlAttribute
         /// </summary>
@@ -249,7 +158,7 @@ namespace BootstrapForms.Html
                         optionLabel, htmlAttributes, allowMultiple, bsCssClass).ToHtmlString();
                         break;
                     default:
-                        throw new ArgumentException(bsControl.ControlType.GetDescription() + " does not match a select element");
+                        throw new ArgumentException("The " + name + " of type " + bsControl.ControlType.GetDescription() + " does not match a select element");
                         
                 }
             }
@@ -643,6 +552,5 @@ namespace BootstrapForms.Html
 
             tagBuilder.MergeAttributes(attributes);
         }
-        #endregion
     }
 }

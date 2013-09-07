@@ -145,22 +145,34 @@ namespace BootstrapForms.Html
                     case BsControlType.DatePicker:
                     case BsControlType.DateTimePicker:
                     case BsControlType.TimePicker:
+                        if(typeof(TProperty) != typeof(BsDateTime))
+                        {
+                            throw new ArgumentException("The " + name + " property must be of type BsDateTime");
+                        }
                         var dateExpression = (Expression<Func<TModel, BsDateTime>>)(object)expression;
                         inputHtml = htmlHelper.DateTimeForInternal(dateExpression, htmlAttributes, dataOptions);
                         break;
                     case BsControlType.CheckBox:
-                        var checkExpression = (Expression<Func<TModel, bool>>) (object) expression;
+                        if (typeof(TProperty) != typeof(bool))
+                        {
+                            throw new ArgumentException("The " + name + " property must be of type bool");
+                        }
+                        var checkExpression = (Expression<Func<TModel, bool>>)(object)expression;
                         inputHtml = htmlHelper.CheckBoxForInternal(checkExpression, htmlAttributes);
                         break;
                     case BsControlType.RadioButton:
-                        var radioExpression = (Expression<Func<TModel, bool>>) (object) expression;
+                        if (typeof(TProperty) != typeof(bool))
+                        {
+                            throw new ArgumentException("The " + name + " property must be of type bool");
+                        }
+                        var radioExpression = (Expression<Func<TModel, bool>>)(object)expression;
                         inputHtml = htmlHelper.RadioButtonForInternal(radioExpression, htmlAttributes);
                         break;
                     case BsControlType.ColorPicker:
                         inputHtml = htmlHelper.TextBoxForInternal(expression, format, htmlAttributes);
                         break;
                     default:
-                        throw new ArgumentException(bsControl.ControlType.GetDescription() + " does not match an input element");
+                        throw new ArgumentException("The " + name + " of type " + bsControl.ControlType.GetDescription() + " does not match an input element");
                 }
             }
             else

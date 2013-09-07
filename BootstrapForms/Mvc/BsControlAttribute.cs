@@ -10,12 +10,12 @@ namespace BootstrapForms.Mvc
     public class BsControlAttribute : Attribute
     {
         /// <summary>
-        /// Specifies the control type for BFroms HTML input and select elements
+        /// Specifies the name of an BFroms control type to associate with an input HTML field
         /// </summary>
         public BsControlType ControlType { get; set; }
 
         /// <summary>
-        /// Let's you specify custom css classes for each input
+        /// Sets custom css
         /// </summary>
         public string CssClass { get; set; }
 
