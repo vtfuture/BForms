@@ -4,7 +4,6 @@
          'bootstrap',
          'validate',
          'validate-bootstrap',
-         'bootstrap-datepicker',
          'select2',
          'radioButtonsList',
          'styleInputs',
@@ -17,7 +16,6 @@
     if (requireConfig.websiteOptions.locale == 'ro') {
         require([
             'validate-ro',
-            'bootstrap-datepicker-ro',
             'select2-ro'
         ]);
     }
