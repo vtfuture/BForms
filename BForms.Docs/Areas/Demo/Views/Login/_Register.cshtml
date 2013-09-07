@@ -59,13 +59,22 @@
         </div>
 
         <div class="col-12 col-sm-6 col-lg-6 form-group">
-                @Html.BsLabelFor(m => m.Birthday)
+            @Html.BsLabelFor(m => m.Interval)
             <div class="input-group">
-                @Html.BsInputFor(m => m.Birthday,null,new Dictionary<string, object>{{"readonly","readonly"}})
+                @Html.BsGlyphiconAddon(Glyphicon.Calendar)
+                @Html.BsRangeFor(m => m.Interval)
+                @Html.BsValidationFor(m => m.Interval)
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-lg-6 form-group">
+            @Html.BsLabelFor(m => m.Birthday)
+            <div class="input-group">
+                @Html.BsInputFor(m => m.Birthday)
                 @Html.BsValidationFor(m => m.Birthday)
             </div>
-            </div>
-        
+        </div>
+
         <div class="col-12 col-sm-6 col-lg-6 form-group">
             @Html.BsLabelFor(m => m.NotificationList)
             <div class="input-group">
@@ -134,15 +143,6 @@
         <div class="col-12 col-sm-6 col-lg-6 form-group checkbox">
             @Html.BsInputFor(m => m.ConsentAgreement)
             @Html.BsValidationFor(m => m.ConsentAgreement)
-        </div>
-
-        <div class="col-12 col-sm-6 col-lg-6 form-group">
-            @Html.BsLabelFor(m => m.Interval)
-            <div class="input-group">
-                @Html.BsGlyphiconAddon(Glyphicon.Calendar)
-                @Html.BsRangeFor(m => m.Interval, null, null)
-                @Html.BsValidationFor(m => m.Interval)
-            </div>
         </div>
 
         <div class="clearfix"></div>
