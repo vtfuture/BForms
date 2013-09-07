@@ -2,12 +2,9 @@
          'jquery',
          'jquery-ui-core',
          'bootstrap',
-         'validate',
          'validate-bootstrap',
-         'select2',
-         'radioButtonsList',
-         'styleInputs',
-         'resetInput',
+         'bforms-styleInputs',
+         'bforms-resetInput',
 
          'BForms/plugins/bforms-jquery/bforms-jquery'
 ], function () {

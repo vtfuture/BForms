@@ -1,0 +1,22 @@
+﻿public static MvcHtmlString BsSelectFor<TModel, TKey>(
+	this HtmlHelper<TModel> htmlHelper,
+	Expression<Func<TModel, BsSelectList<TKey>>> expression)
+	
+public static MvcHtmlString BsSelectFor<TModel, TKey>(
+	this HtmlHelper<TModel> htmlHelper,
+	Expression<Func<TModel, BsSelectList<TKey>>> expression, 
+	object htmlAttributes)
+	
+public static MvcHtmlString BsSelectFor<TModel, TKey>(
+	this HtmlHelper<TModel> htmlHelper,
+	Expression<Func<TModel, BsSelectList<TKey>>> expression, 
+	object htmlAttributes, 
+	object dataOptions)
+		
+public static MvcHtmlString BsSelectFor<TModel, TKey>(
+	this HtmlHelper<TModel> htmlHelper,
+	Expression<Func<TModel, BsSelectList<TKey>>> expression, 
+	IDictionary<string, object> htmlAttributes,
+	IDictionary<string, object> dataOptions)
+
+		

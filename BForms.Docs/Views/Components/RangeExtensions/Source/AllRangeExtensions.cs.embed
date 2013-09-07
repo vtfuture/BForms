@@ -1,0 +1,22 @@
+﻿public static MvcHtmlString BsRangeFor<TModel, TKey>(
+	this HtmlHelper<TModel> htmlHelper,
+	Expression<Func<TModel, BsRange<TKey>>> expression)
+	
+public static MvcHtmlString BsRangeFor<TModel, TKey>(
+	this HtmlHelper<TModel> htmlHelper,
+	Expression<Func<TModel, BsRange<TKey>>> expression, 
+	object htmlAttributes)
+	
+public static MvcHtmlString BsRangeFor<TModel, TKey>(
+	this HtmlHelper<TModel> htmlHelper,
+	Expression<Func<TModel, BsRange<TKey>>> expression, 
+	object htmlAttributes, 
+	object dataOptions)
+		
+public static MvcHtmlString BsRangeFor<TModel, TKey>(
+	this HtmlHelper<TModel> htmlHelper,
+	Expression<Func<TModel, BsRange<TKey>>> expression, 
+	IDictionary<string, object> htmlAttributes,
+	IDictionary<string, object> dataOptions)
+
+		

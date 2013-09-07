@@ -1,0 +1,38 @@
+﻿@using BForms.Docs.Helpers
+@{
+    ViewBag.Title = "Range controls";
+}
+
+<div class="row">
+    <div class="hidden-xs hidden-sm col-md-3 col-lg-3">
+        <div class="bs-sidebar">
+            <ul class="nav bs-sidenav">
+                <li>
+                    <a href="#range-section">Range inputs</a>
+                    <ul class="nav">
+                        <li><a href="#Range">Range helper</a></li>
+                        <li><a href="#Range-DatePicker">Date & Datetime Picker Range</a></li>
+                        <li><a href="#Range-TimePicker">Time Range</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <main class="col-md-9 col-lg-9" role="main">
+        <div class="bs-docs-section">
+            <div class="page-header">
+                <h1 id="range-section">Range inputs</h1>
+            </div>
+            <p>
+                BForms contains range controls for date, datetime, time and number that get rendered by using <code>BsControlAttribute</code> in combination with
+                <code>BsRangeFor</code> helper.
+            </p>
+
+            @Html.Partial("RangeExtensions/_RangeHelper")
+            @Html.Partial("RangeExtensions/_DateRange")
+            @Html.Partial("RangeExtensions/_TimeRange")
+        </div>
+
+    </main>
+</div>

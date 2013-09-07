@@ -1,7 +1,6 @@
 ﻿(function (factory) {
     if (typeof define === "function" && define.amd) {
         define(['jquery',
-        'select2',
         'selectInput2',
         'typeaheadSelect',
         'radioButtonsList',

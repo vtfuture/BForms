@@ -19,9 +19,9 @@ namespace BForms.Docs.Controllers
             return View("InputExtensions/InputExtensions");
         }
 
-        public ActionResult DatetimeExtensions()
+        public ActionResult RangeExtensions()
         {
-            return View();
+            return View("RangeExtensions/RangeExtensions");
         }
 
         public ActionResult FileExtensions()

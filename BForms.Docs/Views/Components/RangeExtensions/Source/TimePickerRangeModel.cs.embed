@@ -1,0 +1,8 @@
+﻿public class RegisterModel
+{
+    [Display(Name = "Interval", Prompt = "Time range")]
+    [BsControl(BsControlType.TimePickerRange, IsReadonly = true)]
+    public BsRange<DateTime?> Interval { get; set; }
+    
+    ...
+}

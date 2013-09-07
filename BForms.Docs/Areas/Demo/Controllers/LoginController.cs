@@ -108,6 +108,9 @@ namespace BForms.Docs.Areas.Demo.Controllers
             var langListWithSelected = Lists.AllLanguages<List<string>>();
             langListWithSelected.SelectedValues = new List<string> { "C#" };
 
+            var from = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 10, 30, 0);
+            var to = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.AddDays(12).Day, 20, 00, 0);
+
             return new RegisterModel()
             {
                 CountriesList = ddlWithSelected,
@@ -118,7 +121,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
                 IdeList = ideListWithSelected,
                 GenderList = Lists.AllGenders<int>().ToSelectList().ToList(),
                 Birthday = new BsDateTime(),
-                Interval = new BsRange<DateTime?> { From = DateTime.Now.AddDays(-1), To = DateTime.Now.AddDays(12) }
+                Interval = new BsRange<DateTime?> { From = from, To = to }
             };
         }
     }

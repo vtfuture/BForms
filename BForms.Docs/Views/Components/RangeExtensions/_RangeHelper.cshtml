@@ -1,0 +1,25 @@
+﻿@using BForms.Docs.Helpers
+
+<h3 id="Range">Range helper</h3>
+
+<p>        
+    In order to render range inputs you will need to use the 
+    <code>@@Html.BsRangeFor</code> helper extension and 
+    decorate your model property of type <code>BsRange</code> with <code>BsControlAttribute</code> and <code>DisplayAttribute</code>.
+</p>
+
+<p>
+    All the text inputs rendered by <code>@@Html.BsRangeFor</code> support placeholder and description tooltip.
+    The placeholder text is extracted from the <code>Prompt</code> property of the <code>Display</code> attribute,
+    while the description tooltip uses the <code>Description</code> propery.
+</p>
+
+<p>        
+    For date, datetime and time range the model property should be of type <code>BsRange&lt;DateTime?&gt;</code> 
+    for number range the <code>T</code> should be of nullable type like <code>int?</code> or <code>double?</code>.
+</p>
+
+<h4 class="sub_title">Range Extensions</h4>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Components/RangeExtensions/Source/AllRangeExtensions.cs.embed")
+</pre>

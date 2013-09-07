@@ -138,8 +138,10 @@
     <Content Include="Content\Images\Docs\autocomplete-select.jpg" />
     <Content Include="Content\Images\Docs\checkboxlist-select.jpg" />
     <Content Include="Content\Images\Docs\datepicker-input.jpg" />
+    <Content Include="Content\Images\Docs\datepicker-range.jpg" />
     <Content Include="Content\Images\Docs\datepicker-year-month-input.jpg" />
     <Content Include="Content\Images\Docs\datetimepicker-input.jpg" />
+    <Content Include="Content\Images\Docs\datetimepicker-range.jpg" />
     <Content Include="Content\Images\Docs\dropdown-search-select.jpg" />
     <Content Include="Content\Images\Docs\listbox-search-select.jpg" />
     <Content Include="Content\Images\Docs\radiolist-select.jpg" />
@@ -160,6 +162,7 @@
     <Content Include="Scripts\BForms\Stylesheets\Images\icn-calendar.png" />
     <Content Include="Scripts\BForms\Stylesheets\Images\icn-remove.png" />
     <Content Include="Scripts\BForms\Stylesheets\Images\icn-time.png" />
+    <Content Include="Scripts\Controllers\Root\Components\components-rangeextensions.js" />
     <Content Include="Views\Components\InputExtensions\Source\InputPasswordSpecializedView.cshtml.embed" />
     <Content Include="Views\Components\InputExtensions\Source\InputUrlSpecializedModel.cs.embed" />
     <Content Include="Views\Components\InputExtensions\Source\InputUrlSpecializedView.cshtml.embed" />
@@ -196,14 +199,14 @@
     <Content Include="Scripts\BForms\Plugins\CheckBoxList\checkBoxList.js" />
     <Content Include="Scripts\BForms\Plugins\NavScroll\navScroll.js" />
     <Content Include="Scripts\BForms\Plugins\RadioButtonsList\radioButtonsList.js" />
-    <Content Include="Scripts\BForms\Plugins\ResetInput\resetInput.js" />
+    <Content Include="Scripts\BForms\Plugins\ResetInput\bforms.resetInput.js" />
     <Content Include="Scripts\BForms\Plugins\Select2\css\select2-spinner.gif" />
     <Content Include="Scripts\BForms\Plugins\Select2\css\select2.css" />
     <Content Include="Scripts\BForms\Plugins\Select2\css\select2.png" />
     <Content Include="Scripts\BForms\Plugins\Select2\js\i18n\select2-ro.js" />
     <Content Include="Scripts\BForms\Plugins\Select2\js\select2.js" />
     <Content Include="Scripts\BForms\Plugins\Select2\js\selectInput2.js" />
-    <Content Include="Scripts\BForms\Plugins\StyleInputs\styleInputs.js" />
+    <Content Include="Scripts\BForms\Plugins\StyleInputs\bforms.styleInputs.js" />
     <Content Include="Scripts\BForms\Plugins\Typeahead\typeahead.js" />
     <Content Include="Scripts\BForms\Plugins\Typeahead\typeaheadSelect.js" />
     <Content Include="Scripts\BForms\Plugins\Validation\i18n\jquery.validate-ro.js" />
@@ -304,9 +307,6 @@
     <Content Include="Scripts\BForms\Components\Bootstrap\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Scripts\BForms\Components\Bootstrap\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Scripts\BForms\Components\Bootstrap\fonts\glyphicons-halflings-regular.woff" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Shared\_Stylesheets.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Components\InputExtensions\_InputEmail.cshtml" />
@@ -500,6 +500,36 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Components\InputExtensions\Source\InputTimePickerModel.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\RangeExtensions\RangeExtensions.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\RangeExtensions\_DateRange.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\RangeExtensions\Source\DatePickerRangeModel.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\RangeExtensions\Source\DatePickerRangeView.cshtml.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\RangeExtensions\Source\DateTimePickerRangeModel.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\RangeExtensions\_RangeHelper.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\RangeExtensions\Source\AllRangeExtensions.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\RangeExtensions\Source\TimePickerRangeModel.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\RangeExtensions\_TimeRange.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\SelectExtensions\Source\AllSelectExtensions.cs.embed" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
