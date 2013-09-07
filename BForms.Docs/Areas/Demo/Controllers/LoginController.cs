@@ -99,13 +99,8 @@ namespace BForms.Docs.Areas.Demo.Controllers
             var enumWithSelected = BsSelectList<NotificationType?>.FromEnum(typeof(NotificationType));
             enumWithSelected.SelectedValues = NotificationType.Monthly;
 
-            enumWithSelected.ItemsFromEnum(typeof(NotificationType));
-
             var ddlWithSelected = Lists.AllCounties<string>();
             ddlWithSelected.SelectedValues = "ROU";
-
-            var enumListWithSelected = BsSelectList<List<NotificationType?>>.FromEnum(typeof(NotificationType));
-            enumListWithSelected.SelectedValues = new List<NotificationType?>() {NotificationType.Monthly, NotificationType.Daily};
 
             var ideListWithSelected = Lists.AllIde<string>();
             ideListWithSelected.SelectedValues = "Visual Studio";

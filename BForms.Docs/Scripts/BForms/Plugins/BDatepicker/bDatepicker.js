@@ -1489,6 +1489,4 @@
             $start.bDatepicker('option', 'maxDate', data.date);
         });
     };
-
-    var range = $('#RegisterModel_RangeDate');
 }));

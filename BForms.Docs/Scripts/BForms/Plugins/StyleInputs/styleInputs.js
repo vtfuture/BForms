@@ -2,13 +2,13 @@
     if (typeof define === "function" && define.amd) {
         define(['jquery',
         'select2',
-        'radioButtonsList',
         'selectInput2',
         'typeaheadSelect',
+        'radioButtonsList',
+        'checkBoxList',
         'bDatepicker',
         'bRangepicker',
-        'checkBoxList',
-        'bforms/plugins/bdatepicker/lang/lang.bundle'], factory);
+        'bDatepicker-i18n'], factory);
     } else {
         factory(window.jQuery);
     }
@@ -17,6 +17,21 @@
     $.fn.styleInputsDefaults = {
         select2: true,
         select2Selector: '.bs-dropdown:not(.no-select2), .bs-dropdown-grouped:not(.no-select2)',
+
+        multiSelect2: true,
+        multiSelect2Selector: '.bs-listbox:not(.no-select2), .bs-listbox-grouped:not(.no-select2)',
+
+        autocomplete: true,
+        autocompleteSelector: '.bs-autocomplete',
+
+        radioButtons: true,
+        radioButtonsSelector: '.bs-radio-list',
+
+        checkBoxList: true,
+        checkBoxListSelector: '.bs-checkbox-list',
+
+        tagList: true,
+        tagListSelector: '.bs-tag-list',
 
         datepicker: true,
         datepickerSelector: '.bs-date',
@@ -35,21 +50,6 @@
 
         timerange: true,
         timerangeSelector: '.bs-time-range',
-
-        radioButtons: true,
-        radioButtonsSelector: '.bs-radio-list',
-
-        checkBoxList: true,
-        checkBoxListSelector: '.bs-checkbox-list',
-
-        tagList: true,
-        tagListSelector: '.bs-tag-list',
-
-        multiSelect2: true,
-        multiSelect2Selector: '.bs-listbox:not(.no-select2), .bs-listbox-grouped:not(.no-select2)',
-
-        autocomplete: true,
-        autocompleteSelector: '.bs-autocomplete',
 
         loadingSelector: '.loading',
         loadingClass: 'loading'
@@ -90,6 +90,38 @@
                     });
                 } else {
                     throw "Select2 script must be loaded before calling styleInputs";
+                }
+            }
+
+            if (this.options.tagList === true && this.$elem.find(this.options.tagListSelector).length) {
+                if (typeof $.fn.selectInput2 === "function") {
+                    this.$elem.find(this.options.tagListSelector).each(function () {
+                        $(this).selectInput2(self._getOptions(this));
+                    });
+                } else {
+                    throw "SelectInput2 script must be loaded before calling styleInputs";
+                }
+            }
+
+            if (this.options.multiSelect2 === true && this.$elem.find(this.options.multiSelect2Selector).length) {
+                if (typeof $.fn.selectInput2 === "function") {
+                    this.$elem.find(this.options.multiSelect2Selector).each(function () {
+                        $(this).selectInput2($.extend(true, {}, {
+                            tags: false
+                        }, self._getOptions(this)));
+                    });
+                } else {
+                    throw "SelectInput2 script must be loaded before calling styleInputs";
+                }
+            }
+
+            if (this.options.autocomplete === true && this.$elem.find(this.options.autocompleteSelector).length) {
+                if (typeof $.fn.typeaheadSelect === "function") {
+                    this.$elem.find(this.options.autocompleteSelector).each(function () {
+                        $(this).typeaheadSelect(self._getOptions(this));
+                    });
+                } else {
+                    throw "TypeaheadSelect script must be loaded before calling styleInputs";
                 }
             }
 
@@ -290,39 +322,6 @@
                     throw "bRangepicker script must be loaded before calling styleInputs";
                 }
             }
-
-            if (this.options.tagList === true && this.$elem.find(this.options.tagListSelector).length) {
-                if (typeof $.fn.selectInput2 === "function") {
-                    this.$elem.find(this.options.tagListSelector).each(function () {
-                        $(this).selectInput2(self._getOptions(this));
-                    });
-                } else {
-                    throw "SelectInput2 script must be loaded before calling styleInputs";
-                }
-            }
-
-            if (this.options.multiSelect2 === true && this.$elem.find(this.options.multiSelect2Selector).length) {
-                if (typeof $.fn.selectInput2 === "function") {
-                    this.$elem.find(this.options.multiSelect2Selector).each(function () {
-                        $(this).selectInput2($.extend(true, {}, {
-                            tags: false
-                        }, self._getOptions(this)));
-                    });
-                } else {
-                    throw "SelectInput2 script must be loaded before calling styleInputs";
-                }
-            }
-
-            if (this.options.autocomplete === true && this.$elem.find(this.options.autocompleteSelector).length) {
-                if (typeof $.fn.typeaheadSelect === "function") {
-                    this.$elem.find(this.options.autocompleteSelector).each(function () {
-                        $(this).typeaheadSelect(self._getOptions(this));
-                    });
-                } else {
-                    throw "TypeaheadSelect script must be loaded before calling styleInputs";
-                }
-            }
-
 
             //remove loading
             var timeoutHandler = window.setTimeout($.proxy(function () {

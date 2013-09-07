@@ -144,13 +144,10 @@
     <Content Include="Scripts\BForms\Plugins\BDatepicker\bDatepicker.js" />
     <Content Include="Scripts\BForms\Plugins\BDatepicker\bDatepickerRenderer.js" />
     <Content Include="Scripts\BForms\Plugins\BDatepicker\bRangePicker.js" />
-    <Content Include="Scripts\BForms\Plugins\BDatepicker\ICanHaz.js" />
-    <Content Include="Scripts\BForms\Plugins\BDatepicker\lang\es.js" />
-    <Content Include="Scripts\BForms\Plugins\BDatepicker\lang\fr.js" />
-    <Content Include="Scripts\BForms\Plugins\BDatepicker\lang\lang.bundle.js" />
-    <Content Include="Scripts\BForms\Plugins\BDatepicker\lang\ro.js" />
-    <Content Include="Scripts\BForms\Plugins\BDatepicker\moment.isocalendar.js" />
-    <Content Include="Scripts\BForms\Plugins\BDatepicker\moment.js" />
+    <Content Include="Scripts\BForms\Plugins\BDatepicker\lib\ICanHaz.js" />
+    <Content Include="Scripts\BForms\Plugins\BDatepicker\i18n\lang.bundle.js" />
+    <Content Include="Scripts\BForms\Plugins\BDatepicker\lib\moment.isocalendar.js" />
+    <Content Include="Scripts\BForms\Plugins\BDatepicker\lib\moment.js" />
     <Content Include="Scripts\BForms\Stylesheets\bforms-datetimepicker.css" />
     <Content Include="Scripts\BForms\Stylesheets\Images\icn-arr-down.png" />
     <Content Include="Scripts\BForms\Stylesheets\Images\icn-arr-left.png" />
