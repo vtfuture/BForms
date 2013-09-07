@@ -125,14 +125,29 @@ namespace BootstrapForms.Html
         public static MvcHtmlString BsSelectFor<TModel, TKey>(this HtmlHelper<TModel> htmlHelper,
             Expression<Func<TModel, BsSelectList<TKey>>> expression, object htmlAttributes)
         {
-            return htmlHelper.BsSelectFor(expression, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes), null);
+            return htmlHelper.BsSelectFor(expression,
+                HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes),
+                null);
         }
 
         /// <summary>
         /// Returns a BForms select element based on BsControlAttribute
         /// </summary>
         public static MvcHtmlString BsSelectFor<TModel, TKey>(this HtmlHelper<TModel> htmlHelper,
-            Expression<Func<TModel, BsSelectList<TKey>>> expression, IDictionary<string, object> htmlAttributes, IDictionary<string, object> dataOptions = null)
+            Expression<Func<TModel, BsSelectList<TKey>>> expression, object htmlAttributes, object dataOptions)
+        {
+            return htmlHelper.BsSelectFor(expression,
+                HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes),
+                HtmlHelper.AnonymousObjectToHtmlAttributes(dataOptions));
+        }
+
+        /// <summary>
+        /// Returns a BForms select element based on BsControlAttribute
+        /// </summary>
+        public static MvcHtmlString BsSelectFor<TModel, TKey>(this HtmlHelper<TModel> htmlHelper,
+            Expression<Func<TModel, BsSelectList<TKey>>> expression, 
+            IDictionary<string, object> htmlAttributes, 
+            IDictionary<string, object> dataOptions)
         {
             if (htmlAttributes == null)
             {
@@ -234,13 +249,13 @@ namespace BootstrapForms.Html
                         optionLabel, htmlAttributes, allowMultiple, bsCssClass).ToHtmlString();
                         break;
                     default:
-                        throw new Exception(bsControl.ControlType.GetDescription() + " does not match a select element");
+                        throw new ArgumentException(bsControl.ControlType.GetDescription() + " does not match a select element");
                         
                 }
             }
             else
             {
-                throw new Exception("The " + name + " property is not decorated with a BsControlAttribute");
+                throw new InvalidOperationException("The " + name + " property is not decorated with a BsControlAttribute");
             }
 
 

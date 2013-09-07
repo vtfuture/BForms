@@ -34,7 +34,20 @@ namespace BootstrapForms.Html
         public static MvcHtmlString BsInputFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper,
             Expression<Func<TModel, TProperty>> expression, object htmlAttributes)
         {
-            return BsInputFor(htmlHelper, expression, null, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes), null);
+            return BsInputFor(htmlHelper, expression, null, 
+                HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes), 
+                null);
+        }
+
+        /// <summary>
+        /// Returns an input element based on BsControlType with placeholder and info tooltip
+        /// </summary>
+        public static MvcHtmlString BsInputFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper,
+            Expression<Func<TModel, TProperty>> expression, object htmlAttributes, object dataOptions)
+        {
+            return BsInputFor(htmlHelper, expression, null,
+                HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes),
+                HtmlHelper.AnonymousObjectToHtmlAttributes(dataOptions));
         }
 
         /// <summary>
@@ -61,17 +74,33 @@ namespace BootstrapForms.Html
         public static MvcHtmlString BsInputFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, 
             Expression<Func<TModel, TProperty>> expression, string format, object htmlAttributes)
         {
-            return BsInputFor(htmlHelper, expression, null, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes), null);
+            return BsInputFor(htmlHelper, expression, null, 
+                HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes), 
+                null);
         }
 
         /// <summary>
         /// Returns an input element based on BsControlType with placeholder and info tooltip
         /// </summary>
         public static MvcHtmlString BsInputFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper,
-            Expression<Func<TModel, TProperty>> expression, string format, IDictionary<string, object> htmlAttributes, IDictionary<string, object> dataOptions)
+            Expression<Func<TModel, TProperty>> expression, string format, object htmlAttributes, object dataOptions)
+        {
+            return BsInputFor(htmlHelper, expression, null, 
+                HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes), 
+                HtmlHelper.AnonymousObjectToHtmlAttributes(dataOptions));
+        }
+
+        /// <summary>
+        /// Returns an input element based on BsControlType with placeholder and info tooltip
+        /// </summary>
+        public static MvcHtmlString BsInputFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper,
+            Expression<Func<TModel, TProperty>> expression, string format, 
+            IDictionary<string, object> htmlAttributes, 
+            IDictionary<string, object> dataOptions)
         {
             var inputHtml = new MvcHtmlString("");
             var metadata = ModelMetadata.FromLambdaExpression(expression, htmlHelper.ViewData);
+            var name = ExpressionHelper.GetExpressionText(expression);
 
             if (htmlAttributes == null)
             {
@@ -131,8 +160,12 @@ namespace BootstrapForms.Html
                         inputHtml = htmlHelper.TextBoxForInternal(expression, format, htmlAttributes);
                         break;
                     default:
-                        throw new Exception(bsControl.ControlType.GetDescription() + " does not match an input element");
+                        throw new ArgumentException(bsControl.ControlType.GetDescription() + " does not match an input element");
                 }
+            }
+            else
+            {
+                throw new InvalidOperationException("The " + name + " property is not decorated with a BsControlAttribute");
             }
 
             //add info tooltip

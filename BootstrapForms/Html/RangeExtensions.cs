@@ -34,14 +34,29 @@ namespace BootstrapForms.Html
         public static MvcHtmlString BsRangeFor<TModel, TKey>(this HtmlHelper<TModel> htmlHelper,
             Expression<Func<TModel, BsRange<TKey>>> expression, object htmlAttributes)
         {
-            return htmlHelper.BsRangeFor(expression, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes), null);
+            return htmlHelper.BsRangeFor(expression, 
+                HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes), 
+                null);
         }
 
         /// <summary>
         /// Returns a BForms range element based on BsControlAttribute
         /// </summary>
         public static MvcHtmlString BsRangeFor<TModel, TKey>(this HtmlHelper<TModel> htmlHelper,
-            Expression<Func<TModel, BsRange<TKey>>> expression, IDictionary<string, object> htmlAttributes, IDictionary<string, object> dataOptions)
+            Expression<Func<TModel, BsRange<TKey>>> expression, object htmlAttributes, object dataOptions)
+        {
+            return htmlHelper.BsRangeFor(expression,
+                HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes),
+                HtmlHelper.AnonymousObjectToHtmlAttributes(dataOptions));
+        }
+
+        /// <summary>
+        /// Returns a BForms range element based on BsControlAttribute
+        /// </summary>
+        public static MvcHtmlString BsRangeFor<TModel, TKey>(this HtmlHelper<TModel> htmlHelper,
+            Expression<Func<TModel, BsRange<TKey>>> expression, 
+            IDictionary<string, object> htmlAttributes,
+            IDictionary<string, object> dataOptions)
         {
             var metadata = ModelMetadata.FromLambdaExpression(expression, htmlHelper.ViewData);
             var name = ExpressionHelper.GetExpressionText(expression);
@@ -69,6 +84,10 @@ namespace BootstrapForms.Html
                     htmlAttributes.MergeAttribute("readonly", "readonly");
                 }
             }
+            else
+            {
+                throw new InvalidOperationException("The " + name + " property is not decorated with a BsControlAttribute");
+            }
 
             //add info tooltip
             var description = new MvcHtmlString("");
@@ -86,7 +105,9 @@ namespace BootstrapForms.Html
         /// Returns a BForms range element based on BsControlAttribute
         /// </summary>
         internal static MvcHtmlString BsRangeForInternal<TModel, TKey>(this HtmlHelper<TModel> htmlHelper,
-            Expression<Func<TModel, BsRange<TKey>>> expression, IDictionary<string, object> htmlAttributes, IDictionary<string, object> dataOptions)
+            Expression<Func<TModel, BsRange<TKey>>> expression, 
+            IDictionary<string, object> htmlAttributes, 
+            IDictionary<string, object> dataOptions)
         {
             var inputHtml = new StringBuilder();
             var name = ExpressionHelper.GetExpressionText(expression);
