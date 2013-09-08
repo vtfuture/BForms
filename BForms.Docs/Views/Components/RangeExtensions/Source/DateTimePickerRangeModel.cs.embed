@@ -1,6 +1,5 @@
 ﻿public class RegisterModel
 {
-	[Required]
     [Display(Name = "Interval", Prompt = "Choose dates")]
     [BsControl(BsControlType.DateTimePickerRange, IsReadonly = true)]
     public BsRange<DateTime> Interval { get; set; }

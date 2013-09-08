@@ -1,13 +1,13 @@
 ﻿(function (factory) {
     if (typeof define === "function" && define.amd) {
         define(['jquery',
-        'selectInput2',
-        'typeaheadSelect',
-        'radioButtonsList',
-        'checkBoxList',
-        'bDatepicker',
-        'bRangepicker',
-        'bDatepicker-i18n'], factory);
+        'bforms-select2',
+        'bforms-typeahead',
+        'bforms-radioButtonsList',
+        'bforms-checkBoxList',
+        'bforms-datepicker',
+        'bforms-datepicker-range',
+        'bforms-datepicker-i18n'], factory);
     } else {
         factory(window.jQuery);
     }

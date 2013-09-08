@@ -2,11 +2,10 @@
          'jquery',
          'jquery-ui-core',
          'bootstrap',
-         'validate-bootstrap',
+         'bforms-validate-unobtrusive',
          'bforms-styleInputs',
          'bforms-resetInput',
-
-         'BForms/plugins/bforms-jquery/bforms-jquery'
+         'bforms-extensions'
 ], function () {
 
     //load i18n external plugins
