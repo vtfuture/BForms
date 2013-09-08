@@ -2,7 +2,7 @@
     if (typeof define !== "undefined" && define.amd) {
         define(['jquery', 'bforms-datepicker-tmpl', 'moment', 'moment-calendar'], factory);
     } else {
-        factory(window.jQuery, window.bDatepickerRenderer, moment);
+        factory(window.jQuery, window.bsDatepickerRenderer, moment);
     }
 }(function ($, bDatepickerRenderer, moment) {
 
@@ -186,9 +186,9 @@
     };
 
     bDatepicker.prototype._initLang = function(lang) {
-        this.renderModel.NowText = $.fn.bDatepickerLang[lang].nowText;
-        this.renderModel.SetDateText = $.fn.bDatepickerLang[lang].setDateText;
-        this.renderModel.SetTimeText = $.fn.bDatepickerLang[lang].setTimeText;
+        this.renderModel.NowText = $.fn.bsDatepickerLang[lang].nowText;
+        this.renderModel.SetDateText = $.fn.bsDatepickerLang[lang].setDateText;
+        this.renderModel.SetTimeText = $.fn.bsDatepickerLang[lang].setTimeText;
     };
 
     bDatepicker.prototype._addHandlers = function () {
@@ -1403,7 +1403,7 @@
     };
     //#endregion
 
-    $.fn.bDatepickerDefaults = {
+    $.fn.bsDatepickerDefaults = {
         type: 'datepicker',
         language: 'en',
         startView: 'days',
@@ -1441,7 +1441,7 @@
         heightPosition : 20
     };
 
-    $.fn.bDatepickerLang = {
+    $.fn.bsDatepickerLang = {
         'en': {
             nowText: 'Now',
             setDateText: 'Set date',
@@ -1454,18 +1454,18 @@
         }
     };
 
-    $.fn.bDatepicker = function () {
+    $.fn.bsDatepicker = function () {
 
         var args = Array.prototype.slice.call(arguments, 0),
             options = args[0],
             methodParams = args.splice(1);
 
         if (typeof options === "undefined" || typeof options === "object") {
-            return new bDatepicker($(this), $.extend(true, {}, $.fn.bDatepickerDefaults, options));
+            return new bDatepicker($(this), $.extend(true, {}, $.fn.bsDatepickerDefaults, options));
         } else if (typeof options === "string") {
             var instance = (this).data('bDatepicker');
             if (typeof instance === "undefined") {
-                if ($.fn.bDatepickerDefaults.throwExceptions === true) {
+                if ($.fn.bsDatepickerDefaults.throwExceptions === true) {
                     throw 'Cannot call method ' + options + ' before initializing plugin';
                 }
             } else {
@@ -1478,15 +1478,15 @@
         var $start = $(start),
             $end = $(end);
 
-        $start.bDatepicker(startOptions);
-        $end.bDatepicker(endOptions || startOptions);
+        $start.bsDatepicker(startOptions);
+        $end.bsDatepicker(endOptions || startOptions);
 
         $start.on('onChange', function (e, data) {
-            $end.bDatepicker('option', 'minDate', data.date);
+            $end.bsDatepicker('option', 'minDate', data.date);
         });
 
         $end.on('onChange', function (e, data) {
-            $start.bDatepicker('option', 'maxDate', data.date);
+            $start.bsDatepicker('option', 'maxDate', data.date);
         });
     };
 }));

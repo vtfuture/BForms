@@ -248,7 +248,7 @@
     };
 
     //attach to global scope
-    window.bDatepickerRenderer = bDatepickerRenderer;
+    window.bsDatepickerRenderer = bDatepickerRenderer;
 
     if (typeof module !== "undefined" && module.exports) {
         module.exports = bDatepickerRenderer;

@@ -224,6 +224,7 @@
             ignore: '',
             selectedSuffix: '.SelectedValues',
             checklistClass: 'bs-checkbox',
+            bsDropdownClass : 'bs-dropdown',
             validationSummaryKey: 'BsFormError',
             scrollToError: true,
             ignoreTitle: false,
@@ -260,7 +261,7 @@
                     this.element(element.parentNode);
                 } else {
                     var $elem = $(element);
-                    if ($elem.hasClass(this.settings.checklistClass)) {
+                    if ($elem.hasClass(this.settings.checklistClass) || $elem.hasClass(this.settings.bsDropdownClass)) {
                         this.element(element);
                     }
                 }
@@ -426,14 +427,16 @@
                     this.successList = $.grep(this.successList, function (element) {
                         return !(element.name in errors);
                     });
-                }else {
-                    this.removeSummaryError();
                 }
                 
                 if (this.settings.showErrors) {
                     this.settings.showErrors.call(this, this.errorMap, this.errorList);
                 } else {
                     this.defaultShowErrors();
+                }
+
+                if (this.errorList.length === 0) {
+                    this.removeSummaryError();
                 }
 
                 if (scrollToFirst && this.settings.scrollToError === true && (this.errorList[0] != null || typeof summaryError !== "undefined")) {
@@ -489,7 +492,7 @@
                 };
             },
 
-            removeSummaryError : function() {
+            removeSummaryError: function () {
                 var $errorContainer = $(this.currentForm).find('.bs-validationSummaryContainer');
                 if($errorContainer.length) {
                     $errorContainer.html('');

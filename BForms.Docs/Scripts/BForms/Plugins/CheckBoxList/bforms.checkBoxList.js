@@ -7,7 +7,7 @@
 })(function ($) {
 
     $.fn.extend({
-        checkBoxList: function () {
+        bsCheckBoxList: function () {
             return $(this).each(function () {
                 if (!$(this).hasClass("checkBoxList-done")) {
                     return new CheckBoxList($(this));
@@ -17,7 +17,7 @@
     });
 
     $.fn.extend({
-        checkBoxListUpdateSelf: function (value) {
+        bsCheckBoxListUpdateSelf: function (value) {
             return $(this).each(function () {
                 if ($(this).hasClass("checkBoxList-done")) {
                     return new CheckBoxListUpdateSelf($(this), value);
@@ -27,7 +27,7 @@
     });
 
     $.fn.extend({
-        resetCheckboxList: function () {
+        bsResetCheckboxList: function () {
             var $elem = $(this);
             if ($elem.hasClass('checkBoxList-done')) {
                 return new CheckBoxListUpdateSelf($elem, $elem.data('initialvalue'));
@@ -35,7 +35,7 @@
         }
     });
 
-    $.fn.parseCheckList = function() {
+    $.fn.bsParseCheckList = function() {
         var $elem = $(this);
         if ($elem.hasClass('checkBoxList-done')) {
             return new CheckBoxListParse($elem);
@@ -106,7 +106,7 @@
 
             wrapper.on("click", "a.option", { self: self }, function (e) {
                 e.preventDefault();
-                e.data.self.checkBoxListUpdateSelf($(this).data("value"));
+                e.data.self.bsCheckBoxListUpdateSelf($(this).data("value"));
                 $(this).focus();
             });
             //#endregion

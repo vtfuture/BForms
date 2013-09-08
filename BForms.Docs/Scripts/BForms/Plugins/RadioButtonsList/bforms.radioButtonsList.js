@@ -7,7 +7,7 @@
 })(function ($) {
     
     $.fn.extend({
-        radioButtonsList: function () {
+        bsRadioButtonsList: function () {
             return $(this).each(function () {
                 if (!$(this).hasClass("radioButtonsList-done")) {
                     return new RadioButtonsList($(this));
@@ -17,7 +17,7 @@
     });
 
     $.fn.extend({
-        radioButtonsListUpdateSelf: function (value) {
+        bsRadioButtonsListUpdateSelf: function (value) {
             return $(this).each(function () {
                 if ($(this).hasClass("radioButtonsList-done")) {
                     return new RadioButtonsListUpdateSelf($(this), value);
@@ -27,7 +27,7 @@
     });
 
     $.fn.extend({
-        resetRadioButtons: function () {
+        bsResetRadioButtons: function () {
             var $elem = $(this);
             if ($elem.hasClass('radioButtonsList-done')) {
                 return new RadioButtonsListUpdateSelf($elem, $elem.data('initialvalue'));
@@ -75,7 +75,7 @@
                     nextOption = self.children(":first");
                 }
                 var radioFromNextOption = nextOption.find("input[type='radio']");
-                self.radioButtonsListUpdateSelf(radioFromNextOption.val());
+                self.bsRadioButtonsListUpdateSelf(radioFromNextOption.val());
             }
             //#endregion
 
@@ -99,7 +99,7 @@
 
             wrapper.on("click", "a.option", { self: self }, function (e) {
                 e.preventDefault();
-                e.data.self.radioButtonsListUpdateSelf($(this).data("value"));
+                e.data.self.bsRadioButtonsListUpdateSelf($(this).data("value"));
                 $(this).focus();
             });
 

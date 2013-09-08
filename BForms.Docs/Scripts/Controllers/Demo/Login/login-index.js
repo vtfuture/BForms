@@ -3,7 +3,7 @@
          'jquery-ui-core',
          'bootstrap',
          'bforms-validate-unobtrusive',
-         'bforms-styleInputs',
+         'bforms-initUI',
          'bforms-resetInput',
          'bforms-extensions'
 ], function () {
@@ -24,8 +24,8 @@
         this.$loginForm = $('.js-loginForm');
         this.$registerForm = $('.js-registerForm');
 
-        this.$loginForm.styleInputs(this.options.styleInputs);
-        this.$registerForm.styleInputs(this.options.styleInputs);
+        this.$loginForm.bsInitUI(this.options.styleInputs);
+        this.$registerForm.bsInitUI(this.options.styleInputs);
 
         this.addHandlers();
     };

@@ -162,7 +162,7 @@
         this.$element.find('.' + this.options.activeClass).removeClass(this.options.activeClass);
     };
 
-    $.fn.navScrollDefaults = {
+    $.fn.bsNavScrollDefaults = {
         container : '.hidden-sm',
         sidebar: '.bs-sidebar',
         sidebarTopClass: 'affix-top',
@@ -172,7 +172,7 @@
         receiver: 'li'
     };
 
-    $.fn.navScroll = function (options) {
-        return new navScroll($(this), $.extend(true, {}, options, $.fn.navScrollDefaults));
+    $.fn.bsNavScroll = function (options) {
+        return new navScroll($(this), $.extend(true, {}, options, $.fn.bsNavScrollDefaults));
     };
 }));

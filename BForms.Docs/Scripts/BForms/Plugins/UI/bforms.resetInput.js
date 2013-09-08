@@ -9,7 +9,7 @@
 })(function($) {
 
     $.fn.extend({
-        resetInput: function() {
+        bsResetInput: function() {
             return $(this).each(function() {
                 if (!$(this).hasClass('hasResetInput')) {
                     return new ResetInput($(this));

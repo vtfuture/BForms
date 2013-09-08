@@ -34,7 +34,7 @@
 
                     //custom value provider?
                     if (jqEl.hasClass('checkBoxList-done')) {
-                        $.extend(true, data, jqEl.parseCheckList());
+                        $.extend(true, data, jqEl.bsParseCheckList());
                     } else {
 
                         var name = jqEl.data('formname') || jqEl.attr('name');

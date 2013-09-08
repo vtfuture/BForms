@@ -3,7 +3,7 @@
     if (typeof define === "function" && define.amd) {
         define(['jquery', 'bforms-datepicker', 'bforms-datepicker-tmpl'], factory);
     } else {
-        factory(window.jQuery, window.bDatepicker, window.bDatepickerRenderer);
+        factory(window.jQuery, window.bsDatepicker, window.bsDatepickerRenderer);
     }
 
 }(function ($, bDatepicker, bDatepickerRenderer) {
@@ -48,7 +48,7 @@
 
         var startOptions = this.options.startOptions;
 
-        this.$start.bDatepicker($.extend(true, {}, {
+        this.$start.bsDatepicker($.extend(true, {}, {
             onChange: $.proxy(this.onStartChange, this),
             onDayMouseOver: $.proxy(this.onStartDaysMouseOver, this),
             onDaysMouseOut: $.proxy(this.onStartDaysMouseOut, this),
@@ -59,24 +59,24 @@
 
         var endOptions = this.options.endOptions;
 
-        this.$end.bDatepicker($.extend(true, {}, {
-            defaultDateValue: this.$start.bDatepicker('getUnformattedValue'),
+        this.$end.bsDatepicker($.extend(true, {}, {
+            defaultDateValue: this.$start.bsDatepicker('getUnformattedValue'),
             defaultDate: endOptions.type == 'timepicker' ? '+1h' : '+1d',
             onChange: $.proxy(this.onEndChange, this),
             onDayMouseOver: $.proxy(this.onEndDaysMouseOver, this),
             onDaysMouseOut: $.proxy(this.onEndDaysMouseOut, this),
-            minDate: this.$start.bDatepicker('getUnformattedValue'),
+            minDate: this.$start.bsDatepicker('getUnformattedValue'),
         }, endOptions, {
             inline: true,
             ShowClose: false,
         }));
 
-        this.$start.bDatepicker('option', 'maxDate', this.$end.bDatepicker('getUnformattedValue'));
-        this.$start.bDatepicker('option', 'beforeShowDay', $.proxy(this.beforeShowDay, this));
-        this.$end.bDatepicker('option', 'beforeShowDay', $.proxy(this.beforeShowDay, this));
+        this.$start.bsDatepicker('option', 'maxDate', this.$end.bsDatepicker('getUnformattedValue'));
+        this.$start.bsDatepicker('option', 'beforeShowDay', $.proxy(this.beforeShowDay, this));
+        this.$end.bsDatepicker('option', 'beforeShowDay', $.proxy(this.beforeShowDay, this));
 
-        this._setStartLabel(this.$start.bDatepicker('getValue'));
-        this._setEndLabel(this.$end.bDatepicker('getValue'));
+        this._setStartLabel(this.$start.bsDatepicker('getValue'));
+        this._setEndLabel(this.$end.bsDatepicker('getValue'));
 
         if (this.isInline) {
 
@@ -168,7 +168,7 @@
     };
     
     bRangePicker.prototype._initLang = function (lang) {
-        $.extend(true, this.options, $.fn.bRangepickerLang[lang]);
+        $.extend(true, this.options, $.fn.bsDateRangeLang[lang]);
     };
     //#region events
     bRangePicker.prototype.onInputChange = function (e) {
@@ -180,15 +180,15 @@
             var startVal = values[0],
                 endVal = values[1];
 
-            var startDate = moment(startVal, this.$start.bDatepicker('getFormat'), this.$start.bDatepicker('option', 'language')),
-                endDate = moment(endVal, this.$end.bDatepicker('getFormat'), this.$end.bDatepicker('option', 'language'));
+            var startDate = moment(startVal, this.$start.bsDatepicker('getFormat'), this.$start.bsDatepicker('option', 'language')),
+                endDate = moment(endVal, this.$end.bsDatepicker('getFormat'), this.$end.bsDatepicker('option', 'language'));
 
-            if (startDate.isValid() && this.$start.bDatepicker('isValidDate', startDate)) {
-                this.$start.bDatepicker('setValue', startDate);
+            if (startDate.isValid() && this.$start.bsDatepicker('isValidDate', startDate)) {
+                this.$start.bsDatepicker('setValue', startDate);
             }
 
-            if (endDate.isValid() && this.$end.bDatepicker('isValidDate', endDate)) {
-                this.$end.bDatepicker('setValue', endDate);
+            if (endDate.isValid() && this.$end.bsDatepicker('isValidDate', endDate)) {
+                this.$end.bsDatepicker('setValue', endDate);
             }
 
             this.applyRange();
@@ -204,13 +204,13 @@
     };
 
     bRangePicker.prototype.onStartChange = function (data) {
-        this.$end.bDatepicker('option', 'minDate', data.date);
+        this.$end.bsDatepicker('option', 'minDate', data.date);
         this._setStartLabel(data.formattedDate);
         this.$startLabel.data('value', data.date);
     };
 
     bRangePicker.prototype.onEndChange = function (data) {
-        this.$start.bDatepicker('option', 'maxDate', data.date);
+        this.$start.bsDatepicker('option', 'maxDate', data.date);
         this._setEndLabel(data.formattedDate);
         this.$endLabel.data('value', data.date);
     };
@@ -219,13 +219,13 @@
         this._startValue = this.$startLabel.data('value');
 
         if (typeof this._startValue === "undefined") {
-            this._startValue = this.$start.bDatepicker('getUnformattedValue');
+            this._startValue = this.$start.bsDatepicker('getUnformattedValue');
             this.$startLabel.data(this._startValue);
         }
 
         this._endValue = this.$endLabel.data('value');
         if (typeof this._endValue === "undefined") {
-            this._endValue = this.$end.bDatepicker('getUnformattedValue');
+            this._endValue = this.$end.bsDatepicker('getUnformattedValue');
             this.$endLabel.data(this._endValue);
         }
         var val = typeof value === "string" ? value : this.getStartValue() + ' ' + this.options.delimiter + ' ' + this.getEndValue();
@@ -244,11 +244,11 @@
         this.hide();
 
         if (typeof this._startValue !== "undefined") {
-            this.$start.bDatepicker('setValue', this._startValue);
+            this.$start.bsDatepicker('setValue', this._startValue);
         }
 
         if (typeof this._endValaue !== "undefined") {
-            this.$end.bDatepicker('setValue', this._endValue);
+            this.$end.bsDatepicker('setValue', this._endValue);
         }
     };
 
@@ -273,8 +273,8 @@
     };
 
     bRangePicker.prototype.beforeShowDay = function (val) {
-        var endValue = this.$end.bDatepicker('getUnformattedValue'),
-            startValue = this.$start.bDatepicker('getUnformattedValue'),
+        var endValue = this.$end.bsDatepicker('getUnformattedValue'),
+            startValue = this.$start.bsDatepicker('getUnformattedValue'),
             date = moment(val);
 
         if (date.isSame(endValue, 'day') || date.isBefore(endValue) && date.isAfter(startValue) || date.isSame(startValue, 'day')) {
@@ -436,12 +436,12 @@
     bRangePicker.prototype.resetRange = function (val) {
 
         this.$startLabel.data('value', this._startValue);
-        this.$startLabel.val(this.$start.bDatepicker('format', this._startValue));
-        this.$start.bDatepicker('setValue', this._startValue);
+        this.$startLabel.val(this.$start.bsDatepicker('format', this._startValue));
+        this.$start.bsDatepicker('setValue', this._startValue);
 
         this.$endLabel.data('value', this._endValue);
-        this.$endLabel.val(this.$end.bDatepicker('format', this._endValue));
-        this.$end.bDatepicker('setValue', this._endValue);
+        this.$endLabel.val(this.$end.bsDatepicker('format', this._endValue));
+        this.$end.bsDatepicker('setValue', this._endValue);
 
         this.applyRange(val);
     };
@@ -453,7 +453,7 @@
     };
     //#endregion
 
-    $.fn.bRangepickerDefaults = {
+    $.fn.bsDateRangeDefaults = {
         openOnFocus: true,
         closeOnBlur: true,
         time: false,
@@ -469,7 +469,7 @@
         language : 'en'
     };
 
-    $.fn.bRangepickerLang = {
+    $.fn.bsDateRangeLang = {
         'en': {
             applyText: 'Apply',
             cancelText: 'Cancel'
@@ -480,13 +480,13 @@
         }
     };
 
-    $.fn.bRangepicker = function () {
+    $.fn.bsDateRange = function () {
         var args = Array.prototype.slice.call(arguments, 0),
            options = args[0],
            methodParams = args.splice(1);
 
         if (typeof options === "undefined" || typeof options === "object") {
-            return new bRangePicker($(this), $.extend(true, {}, $.fn.bRangepickerDefaults, options));
+            return new bRangePicker($(this), $.extend(true, {}, $.fn.bsDateRangeDefaults, options));
         } else if (typeof options === "string") {
             var instance = (this).data('bRangepicker');
             if (typeof instance === "undefined") throw 'Cannot call method ' + options + ' before initializing plugin';

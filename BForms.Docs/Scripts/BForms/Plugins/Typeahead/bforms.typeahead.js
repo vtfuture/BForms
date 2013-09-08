@@ -132,11 +132,11 @@
         textTag: true
     };
 
-    $.fn.typeaheadSelect = function (opts) {
+    $.fn.bsTypeahead = function (opts) {
         return new typeaheadSelect($(this), $.extend(true, {}, $.fn.typeaheadSelectDefaults, opts));
     };
 
-    $.fn.typeaheadSelectUpdate = function () {
+    $.fn.bsTypeaheadUpdate = function () {
         var instance = $(this).data('typeaheadSelect');
 
         if (typeof instance !== "undefined") {

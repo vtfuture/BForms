@@ -5,10 +5,10 @@
 ], function () {
     var HomeContact = function (options) {
         this.options = $.extend(true, {}, options);
+    };
+    
+    HomeContact.prototype.init = function () {
 
-        HomeContact.prototype.init = function () {
-
-        };
     };
 
     $(document).ready(function () {

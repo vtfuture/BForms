@@ -14,7 +14,7 @@
         this.init();
     };
 
-    jQuery.fn.selectInput2Defaults = {
+    jQuery.fn.bsSelectInputDefaults = {
         textTag: true,
         select2TagsOpts: {
             tokenSeparators: [",", " "],
@@ -109,8 +109,8 @@
         $target.select2(this._selectSettings);
     };
 
-    $.fn.selectInput2 = function (opts) {
-        return new selectInput2($(this), $.extend(true, {}, $.fn.selectInput2Defaults, opts));
+    $.fn.bsSelectInput = function (opts) {
+        return new selectInput2($(this), $.extend(true, {}, $.fn.bsSelectInputDefaults, opts));
     };
 
 });

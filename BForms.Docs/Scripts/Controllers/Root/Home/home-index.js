@@ -5,10 +5,10 @@
 ], function () {
     var HomeIndex = function (options) {
         this.options = $.extend(true, {}, options);
+    };
+    
+    HomeIndex.prototype.init = function () {
 
-        HomeIndex.prototype.init = function () {
-
-        };
     };
 
     $(document).ready(function () {

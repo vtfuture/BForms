@@ -2,14 +2,14 @@
          'jquery',
          'jquery-ui-core',
          'bootstrap',
-         'navscroll'
+         'bforms-navscroll'
 ], function () {
     var ComponentsIndex = function (options) {
         this.options = $.extend(true, {}, options);
     };
 
     ComponentsIndex.prototype.init = function () {
-        $('.bs-sidenav').navScroll({
+        $('.bs-sidenav').bsNavScroll({
             topBreak: $('#body').offset().top,
             bottomBreak: $('#body').offset().top + $('#body').outerHeight(),
             relativeElement: '#body'
