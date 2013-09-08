@@ -72,14 +72,24 @@
         };
 
         InitUI.prototype._applyStyles = function () {
-            var self = this,
-                datepickerLanguage = 'en';
-            if (requireConfig && requireConfig.websiteOptions) {
-                var locale = requireConfig.websiteOptions.locale;
 
+            var self = this;
+
+            //set ui i18n
+            var uiLocale = $('html').attr('lang') !== "undefined" ?  $('html').attr('lang') : 'en';
+            if (requireConfig && requireConfig.websiteOptions && requireConfig.websiteOptions.locale) {
+                var locale = requireConfig.websiteOptions.locale;
                 if (typeof moment.langData(locale) !== "undefined") {
-                    datepickerLanguage = locale;
+                    uiLocale = locale;
                 }
+            }
+
+            if (uiLocale != 'en') {
+                //load external i18n files
+                require([
+                    'validate-' + uiLocale,
+                    'select2-' + uiLocale
+                ]);
             }
 
             if (this.options.select2 === true) {
@@ -158,7 +168,7 @@
                                 selector: $valueField
                             }],
                             initialValue: $valueField.val(),
-                            language: datepickerLanguage
+                            language: uiLocale
                         }));
                     });
                 }
@@ -182,7 +192,7 @@
                                 selector: $valueField
                             }],
                             initialValue: $valueField.val(),
-                            language: datepickerLanguage
+                            language: uiLocale
                         }));
                     });
                 }
@@ -207,7 +217,7 @@
                                 selector: $valueField
                             }],
                             initialValue: $valueField.val(),
-                            language: datepickerLanguage
+                            language: uiLocale
                         }));
                     });
                 }
@@ -234,12 +244,12 @@
                                 initialValue: $startInput.val(),
                                 defaultDate: (typeof $endInput.val() !== "undefined" && $endInput.val() != '') ? "-1d" : "now",
                                 defaultDateValue: (typeof $endInput.val() !== "undefined" && $endInput.val() != '') ? $endInput.val() : false,
-                                language: datepickerLanguage
+                                language: uiLocale
                             },
                             endOptions: {
                                 type: 'datetimepicker',
                                 initialValue: $endInput.val(),
-                                language: datepickerLanguage
+                                language: uiLocale
                             },
 
                             startAltFields: [{ selector: $startInput }],
@@ -269,12 +279,12 @@
                                 initialValue: $startInput.val(),
                                 defaultDate: (typeof $endInput.val() !== "undefined" && $endInput.val() != '') ? "-1d" : "now",
                                 defaultDateValue: (typeof $endInput.val() !== "undefined" && $endInput.val() != '') ? $endInput.val() : false,
-                                language: datepickerLanguage
+                                language: uiLocale
                             },
                             endOptions: {
                                 type: 'datepicker',
                                 initialValue: $endInput.val(),
-                                language: datepickerLanguage
+                                language: uiLocale
                             },
                             startAltFields: [{ selector: $startInput }],
                             endAltFields: [{ selector: $endInput }],
@@ -303,11 +313,11 @@
                                 initialValue: $startInput.val(),
                                 defaultDate: (typeof $endInput.val() !== "undefined" && $endInput.val() != '') ? "-1h" : "now",
                                 defaultDateValue: (typeof $endInput.val() !== "undefined" && $endInput.val() != '') ? $endInput.val() : false,
-                                language: datepickerLanguage
+                                language: uiLocale
                             },
                             endOptions: {
                                 type: 'timepicker',
-                                language: datepickerLanguage,
+                                language: uiLocale,
                                 initialValue: $endInput.val()
                             },
 

@@ -210,7 +210,7 @@
     <Content Include="Scripts\BForms\Plugins\UI\bforms.initUI.js" />
     <Content Include="Scripts\BForms\Plugins\Typeahead\typeahead.js" />
     <Content Include="Scripts\BForms\Plugins\Typeahead\bforms.typeahead.js" />
-    <Content Include="Scripts\BForms\Plugins\Validation\i18n\jquery.validate-ro.js" />
+    <Content Include="Scripts\BForms\Plugins\Validation\i18n\bforms.validate-ro.js" />
     <Content Include="Scripts\BForms\Plugins\Validation\bforms.validate.js" />
     <Content Include="Scripts\BForms\Plugins\Validation\bforms.validate.unobtrusive.js" />
     <Content Include="Scripts\BForms\Stylesheets\bforms.css" />

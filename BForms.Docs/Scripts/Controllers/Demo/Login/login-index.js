@@ -8,14 +8,6 @@
          'bforms-extensions'
 ], function () {
 
-    //load i18n external plugins
-    if (requireConfig.websiteOptions.locale == 'ro') {
-        require([
-            'validate-ro',
-            'select2-ro'
-        ]);
-    }
-
     var LoginIndex = function (options) {
         this.options = $.extend(true, {}, options);
     };
