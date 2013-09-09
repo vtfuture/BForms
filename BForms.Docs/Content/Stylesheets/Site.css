@@ -111,6 +111,9 @@ h1 {
   h1 span {
     color: #45ada8; }
 
+h5 {
+  color: #45ada8; }
+
 .gray {
   color: #989898; }
 
@@ -121,6 +124,10 @@ h1 {
   line-height: 24px; }
 .docs_page table {
   min-width: 700px; }
+
+code {
+  white-space: normal;
+  word-break: break-word; }
 
 /* Main page */
 .bs-docs-section .jumbotron {
