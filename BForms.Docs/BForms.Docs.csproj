@@ -532,6 +532,12 @@
   <ItemGroup>
     <Content Include="Views\Components\SelectExtensions\Source\AllSelectExtensions.cs.embed" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\SelectExtensions\_BsSelectList.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\SelectExtensions\Source\ListItem-data.cshtml.embed" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

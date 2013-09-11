@@ -9,6 +9,7 @@
                 <li>
                     <a href="#select-section">Select inputs</a>
                     <ul class="nav">
+                        <li><a href="#BsSelectList">BsSelectList&lt;T&gt;</a></li>
                         <li><a href="#Select">Select helper</a></li>
                         <li><a href="#Select-DropDownList">DropDownList</a></li>
                         <li><a href="#Select-ListBox">ListBox</a></li>
@@ -33,7 +34,7 @@
                 <code>BsControlType</code> enum. 
                 Another way is to use the specialized helpers like <code>BsDropDownListFor</code>, <code>BsListBoxFor</code> and so on.
             </p>
-
+            @Html.Partial("SelectExtensions/_BsSelectList")
             @Html.Partial("SelectExtensions/_SelectHelper")
             @Html.Partial("SelectExtensions/_DropdownList")
             @Html.Partial("SelectExtensions/_Listbox")
