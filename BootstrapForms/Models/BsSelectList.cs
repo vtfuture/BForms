@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -95,11 +96,11 @@ namespace BootstrapForms.Models
                 var text = enumType.GetMember(name)
                     .First()
                     .GetCustomAttributes(false)
-                    .OfType<DescriptionAttribute>()
+                    .OfType<DisplayAttribute>()
                     .LastOrDefault();
                 
 
-                var textValue = text == null ? name : text.Description;
+                var textValue = text == null ? name : text.GetName();
 
                 this.Items.Add(new BsSelectListItem
                 {
@@ -147,10 +148,10 @@ namespace BootstrapForms.Models
                 var text = enumType.GetMember(name)
                     .First()
                     .GetCustomAttributes(false)
-                    .OfType<DescriptionAttribute>()
+                    .OfType<DisplayAttribute>()
                     .LastOrDefault();
 
-                var textValue = text == null ? name : text.Description;
+                var textValue = text == null ? name : text.GetName();
 
                 bsList.Items.Add(new BsSelectListItem
                                  {
