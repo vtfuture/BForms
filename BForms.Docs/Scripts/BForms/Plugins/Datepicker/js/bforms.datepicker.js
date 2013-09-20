@@ -28,7 +28,7 @@
         }
 
         this.newMoment = moment().lang(this.options.language);
-        
+
         switch (this.options.type) {
             case 'datepicker':
             default:
@@ -69,7 +69,7 @@
     bDatepicker.prototype._getInitialValue = function () {
 
         if (typeof this.options.initialValue !== "undefined" && this.options.initialValue != '') {
-            
+
             var initialValue = moment(this.options.initialValue).lang(this.options.language);
             this.currentValue = initialValue.clone();
             this._updateDisplays();
@@ -77,11 +77,11 @@
         } else if (this.$element.is('input')) {
             var value = this.$element.val(),
                 valueMoment = moment(value);
-            
-            if(valueMoment != null ) {
+
+            if (valueMoment != null) {
                 valueMoment.lang(this.options.language);
             }
-            
+
             if (valueMoment != null && valueMoment.isValid()) {
                 this.currentValue = valueMoment.lang(this.options.language);
             } else {
@@ -185,7 +185,7 @@
         this.isInline = this.options.inline || false;
     };
 
-    bDatepicker.prototype._initLang = function(lang) {
+    bDatepicker.prototype._initLang = function (lang) {
         this.renderModel.NowText = $.fn.bsDatepickerLang[lang].nowText;
         this.renderModel.SetDateText = $.fn.bsDatepickerLang[lang].setDateText;
         this.renderModel.SetTimeText = $.fn.bsDatepickerLang[lang].setTimeText;
@@ -203,7 +203,7 @@
 
                     if ($target[0] != this.$element[0] && $target.closest('.bs-datetime-picker').length === 0) {
                         if ((!$target.hasClass('glyphicon') || $target.parent()[0] != this.$input.parent()[0]) && !$target.hasClass(this.options.ignoreBlurClass)) {
-                            
+
                             var allowHide = true;
 
                             if (typeof this.options.toggleButtons !== "undefined") {
@@ -252,17 +252,17 @@
                     }, this));
                 }
             }
-            
+
             if (typeof this.options.toggleButtons !== "undefined" && $.isArray(this.options.toggleButtons)) {
                 for (var idxT in this.options.toggleButtons) {
 
                     var currentTogle = this.options.toggleButtons[idxT];
 
                     $('body').on(currentTogle.event, currentTogle.selector, $.proxy(function (e) {
-                        
-                        if(this._visible) {
+
+                        if (this._visible) {
                             this.hide();
-                        }else {
+                        } else {
                             this.show();
                         }
 
@@ -273,7 +273,7 @@
             $(window).on('scroll', $.proxy(function () {
                 if (this._visible) {
                     window.clearTimeout(this._timeoutHandler);
-                    this._timeoutHandler = window.setTimeout($.proxy(this._positionPicker, this),20);
+                    this._timeoutHandler = window.setTimeout($.proxy(this._positionPicker, this), 20);
                 }
             }, this));
 
@@ -396,27 +396,27 @@
     //#endregion
 
     //#region events
-    bDatepicker.prototype.onInputChange = function(e) {
+    bDatepicker.prototype.onInputChange = function (e) {
         this._stopEvent(e);
-        
+
         var $target = $(e.currentTarget),
                   val = $target.val();
 
-       if(val != '') {
-           var date = moment(val, this._displayFormat, this.options.language);
+        if (val != '') {
+            var date = moment(val, this._displayFormat, this.options.language);
 
-           if (date.isValid() && this.isValidDate(date)) {
-               this._setCurrentValue(date);
-               this.value = this.currentValue.clone();
+            if (date.isValid() && this.isValidDate(date)) {
+                this._setCurrentValue(date);
+                this.value = this.currentValue.clone();
 
-               this._updateDateView();
-               this._updateTimeView();
-           }
+                this._updateDateView();
+                this._updateTimeView();
+            }
 
-           this._updateDisplays();
-       } else {
-           this.resetValue();
-       }
+            this._updateDisplays();
+        } else {
+            this.resetValue();
+        }
     };
 
     bDatepicker.prototype.showTimeClick = function (e) {
@@ -547,10 +547,11 @@
             value = $target.data('value');
 
         if (this._selectOn === this.enums.Display.Months) {
-
-            this._setCurrentValue(moment(value).lang(this.options.language));
-            this.value = this.currentValue.clone();
-            this._updateDateView();
+            if (this.isValidDate(moment(value).lang(this.options.language))) {
+                this._setCurrentValue(moment(value).lang(this.options.language));
+                this.value = this.currentValue.clone();
+                this._updateDateView();
+            }
         } else {
             this.value = moment(value).lang(this.options.language);
             this._currentDisplay = this.enums.Display.Days;
@@ -566,10 +567,11 @@
 
 
         if (this._selectOn === this.enums.Display.Years) {
-
-            this._setCurrentValue(moment(value).lang(this.options.language));
-            this.value = this.currentValue.clone();
-            this._updateDateView();
+            if (this.isValidDate(moment(value).lang(this.options.language))) {
+                this._setCurrentValue(moment(value).lang(this.options.language));
+                this.value = this.currentValue.clone();
+                this._updateDateView();
+            }
 
         } else {
             this.value = moment(value).lang(this.options.language);
@@ -588,7 +590,7 @@
             this._setCurrentValue(moment().lang(this.options.language));
             this.value = this.currentValue;
 
-            if(typeof this._selectOn === "undefined" || this._selectOn === this.enums.Display.Days) {
+            if (typeof this._selectOn === "undefined" || this._selectOn === this.enums.Display.Days) {
                 this._currentDisplay = this.enums.Display.Days;
             }
 
@@ -814,7 +816,7 @@
     };
 
     bDatepicker.prototype._stopEvent = function (e) {
-        if(typeof e !== "undefined") {
+        if (typeof e !== "undefined") {
             e.preventDefault();
             e.stopPropagation();
         }
@@ -854,7 +856,7 @@
                     if ($toUpdate.is('input')) {
                         $toUpdate.val(typeof value !== "undefined" ? value : (this.currentValue.format(typeof current.format !== "undefined" ? current.format : '')));
                     } else {
-                        $toUpdate.text(typeof value !=="undefined" ? value : (this.currentValue.format(typeof current.format !== "undefined" ? current.format : '')));
+                        $toUpdate.text(typeof value !== "undefined" ? value : (this.currentValue.format(typeof current.format !== "undefined" ? current.format : '')));
                     }
                 }
             }
@@ -952,7 +954,7 @@
 
         this._updateDisplays();
 
-        if(typeof this.$input !== "undefined" && typeof this.$input.valid === "function" && this.$input.parents('form').length) {
+        if (typeof this.$input !== "undefined" && typeof this.$input.valid === "function" && this.$input.parents('form').length) {
             this.$input.valid();
         }
 
@@ -1013,7 +1015,7 @@
             } else {
 
                 var now = moment(this.options.defaultDateValue).clone() || moment();
-                
+
                 var pairs = value.split(' '),
                     i = 0,
                     l = pairs.length;
@@ -1131,7 +1133,7 @@
 
         this._updateDisplays('');
     };
-    
+
     bDatepicker.prototype.getValue = function () {
         return this.currentValue.format(this._displayFormat);
     };
@@ -1157,14 +1159,14 @@
         }
     };
 
-    bDatepicker.prototype.getFormat = function() {
+    bDatepicker.prototype.getFormat = function () {
         return this._displayFormat;
     };
 
-    bDatepicker.prototype.format = function(date) {
+    bDatepicker.prototype.format = function (date) {
 
         var fDate = moment(date).lang(this.options.language);
-        
+
         if (fDate.isValid())
             return fDate.format(this._displayFormat);
     };
@@ -1182,12 +1184,12 @@
             }
         }
     };
-    
+
     bDatepicker.prototype.destroy = function () {
         this.$picker.remove();
         this.$element.removeData('bDatepicker');
         this.$element.removeClass('hasDatepicker');
-        if(this.options.readonlyInput) {
+        if (this.options.readonlyInput) {
             this.$element.removeProp('readonly');
         }
         if (this.options.openOnFocus) {
@@ -1279,11 +1281,10 @@
             i = 0,
             months = [],
             dayInMonth = it.date();
-        
+
         it.month(0);
+
         for (; i < 12; i++) {
-            it.add(1, 'month');
-            
             if (it.date() !== dayInMonth) {
                 it.date(dayInMonth);
             }
@@ -1293,6 +1294,8 @@
                 value: it.format(),
                 selected: it.isSame(this.currentValue, 'month') && it.isSame(this.currentValue, 'year')
             });
+
+            it.add(1, 'month');
         }
 
         return months;
@@ -1394,7 +1397,6 @@
         if (withMin) {
             isValid = date.isAfter(minDate, format) && isValid;
         }
-
         if (withMax) {
             isValid = date.isBefore(maxDate, format) && isValid;
         }
@@ -1438,7 +1440,7 @@
         throwExceptions: false,
         ignoreClass: '',
         forceParse: true,
-        heightPosition : 20
+        heightPosition: 20
     };
 
     $.fn.bsDatepickerLang = {
