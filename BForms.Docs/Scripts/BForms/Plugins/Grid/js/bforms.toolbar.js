@@ -14,7 +14,7 @@
                 validate: false,
                 parse: true,
                 handler: $.proxy(function (data) {
-                    var widget = $toolbar.data('indacoIToolbar');
+                    var widget = $toolbar.data('bformsBsToolbar');
                     for (var i = 0; i < widget.subscribers.length; i++) {
                         widget.subscribers[i].bsGrid('search', data);
                     }
@@ -27,7 +27,7 @@
                 handler: function () {
                     this.reset();
                     var data = this._parse();
-                    var widget = $toolbar.data('indacoIToolbar');
+                    var widget = $toolbar.data('bformsBsToolbar');
                     for (var i = 0; i < widget.subscribers.length; i++) {
                         widget.subscribers[i].bsGrid('reset', data);
                     }
@@ -45,7 +45,7 @@
                 validate: true,
                 parse: true,
                 handler: $.proxy(function (data, response, context) {
-                    var widget = $toolbar.data('indacoIToolbar');
+                    var widget = $toolbar.data('bformsBsToolbar');
                     for (var i = 0; i < widget.subscribers.length; i++) {
                         widget.subscribers[i].bsGrid('add', response.Row);
                     }
@@ -118,7 +118,7 @@
         uniqueName: null,
 
         bsInitUIOptions: {                                   // default form elements styles
-            select2: true,                                      // for a full list of options see lib/classes/indaco-styleInputs
+            select2: true,                                      // for a full list of options see bsInitUi
             checkbox: true,                                     // line ~40 StyleInputs.prototype._styleInputsDefaults
             radiobuttons: true
         },
@@ -234,7 +234,7 @@
                 var triggerOpt = tabOpts.triggeredBy[i];
                 triggerOpt.container.on('click', triggerOpt.selector, $.proxy(function (e) {
                     e.preventDefault();
-                    $.indaco.scrollToElement(this.element);
+                    $.bforms.scrollToElement(this.element);
                     $btn.trigger('click', tab);
                 }, this));
             }

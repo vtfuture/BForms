@@ -113,7 +113,7 @@
         }
 
         if (buttonOpt.url) {
-            $.indaco.ajax({
+            $.bforms.ajax({
                 name: this.options.uniqueName,
                 url: buttonOpt.url,
                 data: data,

@@ -27,7 +27,7 @@
         Success: 1,
         ValidationError: 2,
         Denied: 3,
-        ServerError: 4,
+        ServerError: 4
     };
 
     AjaxWrapper.prototype.getAjaxOptions = function () {

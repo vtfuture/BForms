@@ -594,7 +594,7 @@
         var $html = $(data.Html);
 
         //update rows
-        this.$rowsContainer.html($html.closest('.rows_wrapper'));
+        this.$rowsContainer.html($html.closest('.row_wrapper'));
 
         if (this._currentResultsCount) {
             this.$rowsContainer.removeClass('no_results');

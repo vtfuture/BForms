@@ -132,8 +132,14 @@
   <data name="Enabled" xml:space="preserve">
     <value>Activat</value>
   </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Prenume</value>
+  </data>
   <data name="IsEnabled" xml:space="preserve">
     <value>Este activat</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Nume</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>Nume</value>
@@ -155,6 +161,9 @@
   </data>
   <data name="Search" xml:space="preserve">
     <value>Caută</value>
+  </data>
+  <data name="ServerError" xml:space="preserve">
+    <value>Eroare de server</value>
   </data>
   <data name="UserName" xml:space="preserve">
     <value>Utilizator</value>

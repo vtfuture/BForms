@@ -29,8 +29,14 @@ namespace BForms.Docs.Areas.Demo.Models
     public class UsersGridRowModel
     {
         public int Id { get; set; }
+
+        [BsGridColumn(Width = 5)]
         public string Name { get; set; }
+
+        [BsGridColumn(Width = 4)]
         public DateTime RegisterDate { get; set; }
+
+        [BsGridColumn(Width = 3, IsEditable = false)]
         public bool Enabled { get; set; }
     }
 
@@ -65,11 +71,11 @@ namespace BForms.Docs.Areas.Demo.Models
             IsEnabled.SelectedValues = YesNoValueTypes.Yes;
         }
 
-        [Display(Name = "Name", ResourceType = typeof(Resource))]
+        [Display(Name = "FirstName", ResourceType = typeof(Resource))]
         [BsControl(BsControlType.TextBox)]
         public string FirstName { get; set; }
 
-        [Display(Name = "Name", ResourceType = typeof(Resource))]
+        [Display(Name = "LastName", ResourceType = typeof(Resource))]
         [BsControl(BsControlType.TextBox)]
         public string LastName { get; set; }
 

@@ -108,9 +108,27 @@ namespace BForms.Docs.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string FirstName {
+            get {
+                return ResourceManager.GetString("FirstName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string IsEnabled {
             get {
                 return ResourceManager.GetString("IsEnabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string LastName {
+            get {
+                return ResourceManager.GetString("LastName", resourceCulture);
             }
         }
         
@@ -174,6 +192,15 @@ namespace BForms.Docs.Resources {
         public static string Search {
             get {
                 return ResourceManager.GetString("Search", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string ServerError {
+            get {
+                return ResourceManager.GetString("ServerError", resourceCulture);
             }
         }
         

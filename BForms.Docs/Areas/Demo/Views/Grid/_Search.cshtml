@@ -9,33 +9,33 @@
         <div class="basic">
             <div class="row form-container">
 
-                <div class="col-12 col-sm-4 col-lg-2 form-group">
+                <div class="col-12 col-sm-4 col-lg-5 form-group">
                     @Html.BsLabelFor(m => m.Name)
                     <div class="input-group">
                         @Html.BsInputFor(m => m.Name)
                     </div>
                 </div>
 
-                <div class="col-12 col-sm-4 col-lg-2 form-group">
-                    @Html.BsLabelFor(m => m.IsEnabled)
-                    <div class="input-group">
-                        @Html.BsSelectFor(model => model.IsEnabled)
-                    </div>
-                </div>
-
-                <div class="col-12 col-sm-4 col-lg-2 form-group">
+                <div class="col-12 col-sm-4 col-lg-4 form-group">
                     @Html.BsLabelFor(m => m.RegisterDate)
                     <div class="input-group">
                         @Html.BsGlyphiconAddon(Glyphicon.Calendar)
                         @Html.BsRangeFor(m => m.RegisterDate)
                     </div>
                 </div>
+
+                <div class="col-12 col-sm-4 col-lg-3 form-group">
+                    @Html.BsLabelFor(m => m.IsEnabled)
+                    <div class="input-group">
+                        @Html.BsSelectFor(model => model.IsEnabled)
+                    </div>
+                </div>
             </div>
         </div>
-      
-        <div class="grids_header_submit">
-            <button type="submit" class="btn btn-default js-btn-search">@Resource.Search</button>
-            <a href="#" class="js-btn-reset">@Resource.Reset</a>
-        </div>
+
+    <div class="grids_header_submit">
+        <button type="submit" class="btn btn-default js-btn-search">@Resource.Search</button>
+        <a href="#" class="js-btn-reset">@Resource.Reset</a>
+    </div>
     }
 </div>

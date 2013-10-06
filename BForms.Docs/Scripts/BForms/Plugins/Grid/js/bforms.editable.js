@@ -149,7 +149,7 @@
         // add part type
         data.Type = this.element.data('type');
 
-        var ajaxOptions = $.extend(true, $.indaco.getAjaxOptions(), {
+        var ajaxOptions = {
             name: this.options.uniqueName,
             url: this.options.url,
             data: data,
@@ -161,9 +161,9 @@
             error: $.proxy(this._saveAjaxError, this),
             loadingElement: this.element,
             loadingClass: 'loading'
-        });
+        };
 
-        $.indaco.ajax(ajaxOptions);
+        $.bforms.ajax(ajaxOptions);
 
     };
 

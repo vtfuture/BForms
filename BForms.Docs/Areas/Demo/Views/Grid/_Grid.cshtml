@@ -8,15 +8,15 @@
         .ConfigureColumns(cf =>
         {
             cf.Add(c => c.Name).Name(Resource.Name)
-                                    .SetWidth(3)
+                                    .SetWidth(5)
                                     .Sortable();
+            cf.Add(c => c.RegisterDate).Name(Resource.RegisterDate)
+                                .SetWidth(4)
+                                .Sortable()
+                                .Text(x => x.RegisterDate.ToShortDateString());
             cf.Add(c => c.Enabled).Name(Resource.Enable)
                                 .SetWidth(3)
                                 .Sortable()
                                 .Text(x => x.Enabled ? Resource.Yes : Resource.No);
-            cf.Add(c => c.RegisterDate).Name(Resource.RegisterDate)
-                                .SetWidth(3)
-                                .Sortable()
-                                .Text(x => x.RegisterDate.ToShortDateString());
         })
 )

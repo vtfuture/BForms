@@ -132,8 +132,14 @@
   <data name="Enable" xml:space="preserve">
     <value>Enabled</value>
   </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Firstname</value>
+  </data>
   <data name="IsEnabled" xml:space="preserve">
     <value>Is enabled</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Lastname</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>Name</value>
@@ -155,6 +161,9 @@
   </data>
   <data name="Search" xml:space="preserve">
     <value>Search</value>
+  </data>
+  <data name="ServerError" xml:space="preserve">
+    <value>Server error</value>
   </data>
   <data name="UserName" xml:space="preserve">
     <value>Username</value>
