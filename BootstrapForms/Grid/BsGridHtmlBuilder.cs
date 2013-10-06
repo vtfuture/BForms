@@ -133,6 +133,7 @@ namespace BootstrapForms.Grid
         private string RenderIndex()
         {
             var gridBuilder = new TagBuilder("div");
+            gridBuilder.MergeAttribute("id", this.fullName.Split('.').Last().ToLower());
             gridBuilder.MergeAttribute("class", "grid_view");
 
             #region header builder

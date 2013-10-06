@@ -50,7 +50,7 @@ namespace BootstrapForms.Grid
         public MvcHtmlString Render()
         {
             var toolbarBuilder = new TagBuilder("div");
-            toolbarBuilder.MergeAttribute("id", "_toolbar");
+            toolbarBuilder.MergeAttribute("id", this.fullName.Split('.').Last().ToLower());
             toolbarBuilder.MergeAttribute("class", "grids_header_bar");
 
             var headerBulder = new TagBuilder("h1");
