@@ -1,4 +1,5 @@
 ﻿define([
+    'bforms-namespace',
     'jquery'
 ], function () {
 

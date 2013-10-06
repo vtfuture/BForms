@@ -103,6 +103,7 @@ a.btn {
       margin: 0;
       padding: 8px 10px; }
     .grids_container .grids_header_bar .grids_controls {
+      line-height: normal;
       position: absolute;
       right: 0;
       top: 0; }

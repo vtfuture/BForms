@@ -7,10 +7,12 @@
     .ConfigureActions(ca =>
     {
         ca.Add(BsToolbarActionType.Add)
-            .Text("Adauga")
+            .Text(Resource.Add)
             .Tab(Html.BsPartialPrefixed(x => x.Toolbar.New, "_New", Model).ToString());
-        ca.Add(BsToolbarActionType.Refresh);
+        ca.Add(BsToolbarActionType.Refresh)
+            .Text(Resource.Reset);
         ca.Add(BsToolbarActionType.Search)
+            .Text(Resource.Search)
             .Tab(Html.BsPartialPrefixed(x => x.Toolbar.Search, "_Search", Model).ToString());
     })
     .Render()

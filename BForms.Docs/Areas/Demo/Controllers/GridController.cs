@@ -12,21 +12,22 @@ namespace BForms.Docs.Areas.Demo.Controllers
 {
     public class GridController : BaseController
     {
+        #region Properties and Constructor
         private readonly GridRepository _gridRepository;
 
         public GridController()
         {
             _gridRepository = new GridRepository(db);
         }
+        #endregion
 
+        #region Pages
         public ActionResult Index()
         {
-
             var gridModel = _gridRepository.ToBsGridViewModel(new BsGridRepositorySettings<UsersSearchModel>
             {
                 Page = 1,
-                PageSize = 5,
-                Search = new UsersSearchModel(),
+                PageSize = 5
             });
 
             var model = new UsersViewModel
@@ -36,5 +37,10 @@ namespace BForms.Docs.Areas.Demo.Controllers
 
             return View(model);
         }
+        #endregion
+
+        #region Ajax
+
+        #endregion
     }
 }

@@ -13,11 +13,6 @@ namespace BForms.Docs.Areas.Demo.Repositories
         #region Properties and Constructor
         private BFormsContext db;
 
-        public class GridSettings : BsGridRepositorySettings<UsersSearchModel>
-        {
-            public int? OrganizationId { get; set; }
-        }
-
         public BsGridRepositorySettings<UsersSearchModel> Settings
         {
             get

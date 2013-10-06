@@ -3,7 +3,8 @@
     'jquery-ui-core',
     'bforms-pager',
     'bforms-editable',
-    'bforms-ajax'
+    'bforms-ajax',
+    'bforms-namespace'
 ], function () {
 
     //var Grid = (function (_super) { this.prototype._super = _super })(Animal);
@@ -85,11 +86,11 @@
         this.refreshModel = this._refreshModel;
         this._currentResultsCount = this.$gridCountContainer.text();
                 
-        this.$pager = this.element.find('.grid_pager').iPager({
+        this.$pager = this.element.find('.grid_pager').bsPager({
             pagerUpdate: $.proxy(this._evOnPageChange, this)
         });
 
-        this.refreshModel.pageSize = this.$pager.iPager("getPageSize");
+        this.refreshModel.pageSize = parseInt(this.$pager.bsPager("getPageSize"), 10) || this.refreshModel.pageSize;
 
         // when an action made on grid generates a refresh then this.needsRefresh is set to true
         this.needsRefresh = false;
@@ -222,7 +223,7 @@
         
         this.$rowsContainer.prepend(row);
 
-        this.$pager.iPager('updateTotal', this._currentResultsCount);
+        this.$pager.bsPager('updateTotal', this._currentResultsCount);
     };
 
     //#region Grid details
@@ -278,7 +279,7 @@
             objId: $row.data('objid')
         };
 
-        var ajaxOptions = $.extend(true, $.indaco.getAjaxOptions(), {
+        var ajaxOptions = {
             name: this.options.uniqueName + '|details|' + data.objId,
             url: this.options.detailsUrl,
             data: data,
@@ -291,9 +292,9 @@
             error: $.proxy(this._detailsAjaxError, this),
             loadingElement: $row,
             loadingClass: 'loading'
-        });
+        };
         
-        $.indaco.ajax(ajaxOptions);
+        $.bforms.ajax(ajaxOptions);
 
     };
 
@@ -301,14 +302,14 @@
 
         var $row = callbackData.row;
 
+        data.$html = $(data.Html);
+        
         if (typeof this.options.rowDetailsSuccessHandler === 'function') {
-            this.options.rowDetailsSuccessHandler.call(this, $row);
+            this.options.rowDetailsSuccessHandler.call(this, $row, data);
         }
 
-        var $html = $(data.Html);
-
         //insert details to dom
-        $row.append($html);
+        $row.append(data.$html);
 
         this._handleDetails($row);
                 
@@ -363,7 +364,7 @@
             this._expandGridRow($row);
 
             //scroll to row
-            $.indaco.scrollToElement($row);
+            $.bforms.scrollToElement($row);
 
             expanded = true;            
         }
@@ -568,32 +569,6 @@
             this.options.onRefresh.call(this, data);
         }
 
-        data.editedCells = {};
-
-        var rows = [];
-
-        var item = {};
-        item.Id = 33;
-        item.Data = {
-            Name: 'ION',
-            EnableDropdown: {
-                SelectedValues: 1
-            }
-        };
-        rows.push(item);
-
-        var item = {};
-        item.Id = 34;
-        item.Data = {
-            Description: 'Gheorghe',
-            EnableDropdown: {
-                SelectedValues: 0
-            }
-        };
-        rows.push(item);
-
-        data.editedCells.Rows = rows;
-        
         //ajax
         var ajaxOptions = {
             name: this.options.uniqueName + '|pager',
@@ -609,7 +584,7 @@
             loadingClass: 'loading'
         };
 
-        $.indaco.ajax(ajaxOptions);
+        $.bforms.ajax(ajaxOptions);
     };
 
     Grid.prototype._pagerAjaxSuccess = function (data) {
@@ -627,7 +602,7 @@
             this.$rowsContainer.addClass('no_results');
         }
 
-        this.$pager.iPager('update', $html.closest('.js-pages'));
+        this.$pager.bsPager('update', $html.closest('.js-pages'));
 
         if (this._currentResultsCount == 0) {
             this.$gridContainer.hide();
@@ -668,7 +643,7 @@
             objId: row.data('objid')
         };
 
-        var ajaxOptions = $.extend(true, $.indaco.getAjaxOptions(), {
+        var ajaxOptions = {
             name: this.options.uniqueName + '|UpdateRow|' + data.objId,
             url: this.options.updateRowUrl,
             data: data,
@@ -681,9 +656,9 @@
             error: $.proxy(this._updateRowAjaxError, this),
             loadingElement: row,
             loadingClass: 'loading'
-        });
+        };
 
-        $.indaco.ajax(ajaxOptions);
+        $.bforms.ajax(ajaxOptions);
 
     };
 

@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Add" xml:space="preserve">
-    <value>Adauga</value>
+    <value>Adaugă</value>
   </data>
   <data name="All" xml:space="preserve">
     <value>Toate</value>
@@ -145,16 +145,16 @@
     <value>Parola</value>
   </data>
   <data name="RegisterDate" xml:space="preserve">
-    <value>Data inregistrarii</value>
+    <value>Data inregistrării</value>
   </data>
   <data name="RequiredField" xml:space="preserve">
     <value>Acest câmp este obligatoriu</value>
   </data>
   <data name="Reset" xml:space="preserve">
-    <value>Reseteaza</value>
+    <value>Resetează</value>
   </data>
   <data name="Search" xml:space="preserve">
-    <value>Cauta</value>
+    <value>Caută</value>
   </data>
   <data name="UserName" xml:space="preserve">
     <value>Utilizator</value>

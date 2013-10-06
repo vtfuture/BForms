@@ -152,6 +152,7 @@
     <Content Include="Content\Images\Docs\taglist-search-select.jpg" />
     <Content Include="Content\Images\Docs\timepicker-input.jpg" />
     <Content Include="Content\Images\Docs\timepicker-range.jpg" />
+    <Content Include="Scripts\BForms\Components\Amplify\amplify.store.min.js" />
     <Content Include="Scripts\BForms\Plugins\Datepicker\js\bforms.datepicker.js" />
     <Content Include="Scripts\BForms\Plugins\Datepicker\js\bforms.datepicker.tmpl.js" />
     <Content Include="Scripts\BForms\Plugins\Datepicker\js\bforms.datepicker.range.js" />
@@ -170,9 +171,11 @@
     <Content Include="Scripts\BForms\Plugins\Grid\js\bforms.editable.js" />
     <Content Include="Scripts\BForms\Plugins\Grid\js\bforms.form.js" />
     <Content Include="Scripts\BForms\Plugins\Grid\js\bforms.grid.js" />
-    <Content Include="Scripts\BForms\Plugins\Grid\js\bfroms.pager.js" />
+    <Content Include="Scripts\BForms\Plugins\Grid\js\bforms.pager.js" />
     <Content Include="Scripts\BForms\Plugins\Grid\js\bforms.toolbar.js" />
     <Content Include="Scripts\BForms\Plugins\Grid\css\grid.css" />
+    <Content Include="Scripts\BForms\Plugins\Utils\bforms.namespace.js" />
+    <Content Include="Scripts\Controllers\Demo\Grid\grid-index.js" />
     <Content Include="Scripts\Controllers\Root\Components\components-rangeextensions.js" />
     <Content Include="Views\Components\InputExtensions\Source\InputPasswordSpecializedView.cshtml.embed" />
     <Content Include="Views\Components\InputExtensions\Source\InputUrlSpecializedModel.cs.embed" />
@@ -549,7 +552,7 @@
     <Content Include="Views\Components\SelectExtensions\Source\ListItem-data.cshtml.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Scripts\BForms\Plugins\Grid\js\bforms.ajax.js" />
+    <Content Include="Scripts\BForms\Plugins\Utils\bforms.ajax.js" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\BForms\Plugins\Grid\css\grid.scss" />

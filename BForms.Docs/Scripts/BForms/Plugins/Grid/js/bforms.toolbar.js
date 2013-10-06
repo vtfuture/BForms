@@ -1,9 +1,113 @@
 ﻿define('bforms-toolbar', [
     'jquery',
     'jquery-ui-core',
+    'amplify-store',
     'bforms-form'
 ], function () {
 
+    //#region Defaults
+    $.fn.bsToolbarDefaults_Search = function ($toolbar) {
+        return {
+            actions: [{
+                name: 'search',
+                selector: '.js-btn-search',
+                validate: false,
+                parse: true,
+                handler: $.proxy(function (data) {
+                    var widget = $toolbar.data('indacoIToolbar');
+                    for (var i = 0; i < widget.subscribers.length; i++) {
+                        widget.subscribers[i].bsGrid('search', data);
+                    }
+                }, this),
+            }, {
+                name: 'reset',
+                selector: '.js-btn-reset',
+                validate: false,
+                parse: false,
+                handler: function () {
+                    this.reset();
+                    var data = this._parse();
+                    var widget = $toolbar.data('indacoIToolbar');
+                    for (var i = 0; i < widget.subscribers.length; i++) {
+                        widget.subscribers[i].bsGrid('reset', data);
+                    }
+                }
+            }]
+        };
+    };
+
+    $.fn.bsToolbarDefaults_Add = function ($toolbar, options) {
+        return {
+            actions: [{
+                name: 'add',
+                selector: '.js-btn-add',
+                url: options.newUrl,
+                validate: true,
+                parse: true,
+                handler: $.proxy(function (data, response, context) {
+                    var widget = $toolbar.data('indacoIToolbar');
+                    for (var i = 0; i < widget.subscribers.length; i++) {
+                        widget.subscribers[i].bsGrid('add', response.Row);
+                    }
+                    context.reset();
+                }, this),
+            }, {
+                name: 'reset',
+                selector: '.js-btn-reset',
+                validate: false,
+                parse: false,
+                handler: function () {
+                    this.reset();
+                }
+            }]
+        };
+    };
+
+    $.fn.bsToolbarDefaults_Tabs = function ($toolbar, $grid, options) {
+        return [{
+            name: 'search',
+            btnSelector: '.btn-search',
+            container: '#toolbar_search',
+            component: {
+                type: 'bsForm',
+                container: '#toolbar_search',
+                options: $.fn.bsToolbarDefaults_Search($toolbar)
+            }
+        }, {
+            name: 'add',
+            btnSelector: '.btn-add',
+            container: '#toolbar_add',
+            triggeredBy: [{
+                container: $grid,
+                selector: '.js-add'
+            }],
+            component: {
+                type: 'bsForm',
+                container: '#toolbar_add',
+                options: $.fn.bsToolbarDefaults_Add($toolbar, options)
+            }
+        }];
+    };
+
+    $.fn.bsToolbarDefaults = function ($toolbar, $grid, options) {
+        return {
+            uniqueName: options.uniqueName || 'toolbar',
+            subscribers: [$grid],
+            actions: [{
+                name: 'refresh',
+                selector: '.btn-refresh',
+                handler: function () {
+                    for (var i = 0; i < this.subscribers.length; i++) {
+                        this.subscribers[i].bsGrid('refresh');
+                    }
+                }
+            }],
+            tabs: $.fn.bsToolbarDefaults_Tabs($toolbar, $grid, options)
+        };
+    };
+    //#endregion
+    
+    //#region Toolbar
     var Toolbar = function (opt) {
         this.options = opt;
         this._create();
@@ -201,7 +305,8 @@
         amplify.store('slide|' + this.options.uniqueName + '|' + tab.opt.btnSelector, tab.button.hasClass('selected'));
     
     };
-
+    //#endregion
+    
     $.widget('bforms.bsToolbar', Toolbar.prototype);
        
     return Toolbar;

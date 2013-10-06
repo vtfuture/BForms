@@ -36,7 +36,7 @@
 
         this.element.on('click', this.options.pageSelector, $.proxy(this._evPageChanged, this));
 
-        this.element.on('change', this.options.pageSizeSelector, $.proxy(this._evPageSizeChanged, this))
+        this.element.on('change', this.options.pageSizeSelector, $.proxy(this._evPageSizeChanged, this));
 
     };
 
@@ -86,7 +86,7 @@
     
     Pager.prototype.update = function (pagesHtml) {
 
-        this.$pagesContainer.html(pagesHtml);
+        this.$pagesContainer.html($(pagesHtml).children());
 
     };
 
