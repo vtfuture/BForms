@@ -1,0 +1,42 @@
+﻿@using BForms.Docs.Resources
+@using BootstrapForms.Html
+@model BForms.Docs.Areas.Demo.Models.UsersDetailsModel
+
+<div class="row row_more">
+    <div class="col-lg-4">
+        <div id="holiday_info" class="grid_details description js-holiday_info js-editable">
+            <h3 class="editable">@Resource.Info</h3>
+
+            <div class="js-readonly">
+                <dl>
+                    <dt>@Resource.Job:</dt>
+                    <dd>@Model.Job</dd>
+                </dl>
+            </div>
+
+            @*@Html.BsPartialPrefixed(x => x, "Grid/Details/_Readonly", Model, Model.Id.ToString(), false)
+
+            @Html.BsPartialPrefixed(x => x, "Grid/Details/_Editable", Model, Model.Id.ToString(), false)*@
+            
+        </div>
+    </div>
+
+    <div class="col-lg-12">
+        <hr />
+        @{
+            var stateText = Model.Enabled ? Resource.Disable : Resource.Enable;
+            var enabled = Model.Enabled;
+        }
+        <button type="button" class="btn btn-default js-btn_state" data-enabled="@enabled.ToString().ToLower()">@stateText</button>
+        <button type="button" class="btn btn-default js-btn_delete">@Resource.Delete</button>
+        <div class="popover fade bottom in">
+            <div class="arrow"></div>
+            <div class="popover-content">
+                <p>@Resource.DeleteQuestion</p>
+                <hr />
+                <button type="button" class="btn btn-primary js-confirm">@Resource.Yes</button>
+                <button type="button" class="btn btn-default js-cancel">@Resource.No</button>
+            </div>
+        </div>
+    </div>
+</div>

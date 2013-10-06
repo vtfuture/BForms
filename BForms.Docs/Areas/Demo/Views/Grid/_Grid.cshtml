@@ -4,7 +4,7 @@
                                             
 @(Html.BsGridFor(m => m.Grid)
         .RowHighlighter(row => row.Enabled ? "#59b444" : "#dd3131")
-        .RowData(row => new Dictionary<string, object> {{ "data-id", row.Id }, { "data-active", row.Enabled }})
+        .RowData(row => new Dictionary<string, object> {{ "data-objid", row.Id }, { "data-active", row.Enabled }})
         .ConfigureColumns(cf =>
         {
             cf.Add(c => c.Name).Name(Resource.Name)

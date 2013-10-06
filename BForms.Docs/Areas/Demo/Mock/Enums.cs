@@ -22,10 +22,10 @@ namespace BForms.Docs.Areas.Demo.Mock
     public enum YesNoValueTypes
     {
         [Display(Name = "All", ResourceType = typeof(Resource))]
-        Both = 0,
+        Both = 1,
         [Display(Name = "Yes", ResourceType = typeof(Resource))]
-        Yes = 1,
+        Yes = 2,
         [Display(Name = "No", ResourceType = typeof(Resource))]
-        No = 2,
+        No = 3,
     }
 }

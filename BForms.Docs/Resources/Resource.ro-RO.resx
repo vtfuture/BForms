@@ -126,8 +126,23 @@
   <data name="Both" xml:space="preserve">
     <value>Ambele</value>
   </data>
+  <data name="Choose" xml:space="preserve">
+    <value>Alegeți</value>
+  </data>
   <data name="ChooseInterval" xml:space="preserve">
-    <value>Alegeti intervalul</value>
+    <value>Alegeți intervalul</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Șterge</value>
+  </data>
+  <data name="DeleteQuestion" xml:space="preserve">
+    <value>Ești sigur?</value>
+  </data>
+  <data name="Disable" xml:space="preserve">
+    <value>Dezactivează</value>
+  </data>
+  <data name="Enable" xml:space="preserve">
+    <value>Activează</value>
   </data>
   <data name="Enabled" xml:space="preserve">
     <value>Activat</value>
@@ -135,8 +150,14 @@
   <data name="FirstName" xml:space="preserve">
     <value>Prenume</value>
   </data>
+  <data name="Info" xml:space="preserve">
+    <value>Informații</value>
+  </data>
   <data name="IsEnabled" xml:space="preserve">
     <value>Este activat</value>
+  </data>
+  <data name="Job" xml:space="preserve">
+    <value>Funcție</value>
   </data>
   <data name="LastName" xml:space="preserve">
     <value>Nume</value>
@@ -164,6 +185,9 @@
   </data>
   <data name="ServerError" xml:space="preserve">
     <value>Eroare de server</value>
+  </data>
+  <data name="Unemployed" xml:space="preserve">
+    <value>Șomer</value>
   </data>
   <data name="UserName" xml:space="preserve">
     <value>Utilizator</value>

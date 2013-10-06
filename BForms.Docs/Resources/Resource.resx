@@ -126,16 +126,37 @@
   <data name="Both" xml:space="preserve">
     <value />
   </data>
+  <data name="Choose" xml:space="preserve">
+    <value />
+  </data>
   <data name="ChooseInterval" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DeleteQuestion" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Disable" xml:space="preserve">
     <value />
   </data>
   <data name="Enable" xml:space="preserve">
     <value />
   </data>
+  <data name="Enabled" xml:space="preserve">
+    <value />
+  </data>
   <data name="FirstName" xml:space="preserve">
     <value />
   </data>
+  <data name="Info" xml:space="preserve">
+    <value />
+  </data>
   <data name="IsEnabled" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Job" xml:space="preserve">
     <value />
   </data>
   <data name="LastName" xml:space="preserve">
@@ -163,6 +184,9 @@
     <value />
   </data>
   <data name="ServerError" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Unemployed" xml:space="preserve">
     <value />
   </data>
   <data name="UserName" xml:space="preserve">

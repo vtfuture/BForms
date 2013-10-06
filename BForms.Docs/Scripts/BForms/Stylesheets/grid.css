@@ -11,10 +11,10 @@ a.btn {
 
 /* Custom UI*/
 .custom-checkbox label {
-  background: url(../images/icons/checkbox.gif) no-repeat; }
+  background: url(images/icons/checkbox.gif) no-repeat; }
 
 .custom-radio label {
-  background: url(../images/icons/radiobutton.gif) no-repeat; }
+  background: url(images/icons/radiobutton.gif) no-repeat; }
 
 .custom-checkbox,
 .custom-radio {
@@ -60,7 +60,7 @@ a.btn {
       outline: 1px dotted #ccc; }
     .custom-checkbox label.loading:after,
     .custom-radio label.loading:after {
-      content: url(../images/ui-anim_basic_16x16.gif);
+      content: url(images/ui-anim_basic_16x16.gif);
       margin-left: 6px;
       margin-top: 3px;
       position: absolute; }
@@ -75,7 +75,7 @@ a.btn {
     margin-top: -8px; }
 
 .ui-sortable .grippy {
-  background: url(../images/icons/grippy.png) 0 0 no-repeat;
+  background: url(images/icons/grippy.png) 0 0 no-repeat;
   margin-top: 6px;
   float: left;
   display: inline-block;
@@ -165,15 +165,15 @@ a.btn {
       text-decoration: underline;
       color: #333; }
       .grids_container .grid_view .grid_row a.sort_asc {
-        background: url(../images/icons/icn-order_up.png) 100% 50% no-repeat;
+        background: url(images/icons/icn-order_up.png) 100% 50% no-repeat;
         padding-right: 15px; }
       .grids_container .grid_view .grid_row a.sort_desc {
-        background: url(../images/icons/icn-order_down.png) 100% 50% no-repeat;
+        background: url(images/icons/icn-order_down.png) 100% 50% no-repeat;
         padding-right: 15px; }
     .grids_container .grid_view .grid_row .edit_col:hover {
       cursor: pointer;
       border-bottom: 1px dashed #559ed6;
-      background: url(../images/icons/pencil-small.png) right 50% no-repeat;
+      background: url(images/icons/pencil-small.png) right 50% no-repeat;
       padding-right: 20px; }
     .grids_container .grid_view .grid_row header input[type="checkbox"] {
       float: right; }
@@ -208,7 +208,7 @@ a.btn {
         bottom: -16px; }
       .grids_container .grid_view .row_wrapper .grid_row .expand {
         display: inline-block;
-        background: url(../images/icons/icn-down_arrow-small.png) center center no-repeat;
+        background: url(images/icons/icn-down_arrow-small.png) center center no-repeat;
         width: 17px;
         height: 17px;
         margin-right: 5px;
@@ -261,7 +261,7 @@ a.btn {
               bottom: 0;
               display: none;
               width: 16px;
-              background: url(../images/icons/edit-pencil.gif) right 50% no-repeat; }
+              background: url(images/icons/edit-pencil.gif) right 50% no-repeat; }
           .grids_container .grid_view .row_wrapper .row_more .grid_details h3:hover {
             border-color: #58b4fe; }
             .grids_container .grid_view .row_wrapper .row_more .grid_details h3:hover:after {

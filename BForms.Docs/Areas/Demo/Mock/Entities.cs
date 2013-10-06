@@ -28,15 +28,17 @@ namespace BForms.Docs.Areas.Demo.Mock
                                        FirstName = "George",
                                        LastName = "Clooney",
                                        Enabled = true,
-                                       RegisterDate = new DateTime(2013, 6, 14)
+                                       RegisterDate = new DateTime(2013, 6, 14),
+                                       IdJob = 1
                                    },
                                 new User()
                                    {
                                        Id = 3,
-                                       FirstName = "Sandra",
-                                       LastName = "Bullock",
+                                       FirstName = "Scott",
+                                       LastName = "Guthrie",
                                        Enabled = true,
-                                       RegisterDate = new DateTime(2013, 2, 24)
+                                       RegisterDate = new DateTime(2013, 2, 24),
+                                       IdJob = 3
                                    },
                                    new User()
                                    {
@@ -44,15 +46,17 @@ namespace BForms.Docs.Areas.Demo.Mock
                                        FirstName = "Emma",
                                        LastName = "Watson",
                                        Enabled = true,
-                                       RegisterDate = new DateTime(2013, 2, 8)
+                                       RegisterDate = new DateTime(2013, 2, 8),
+                                       IdJob = 1
                                    },
                                 new User()
                                    {
                                        Id = 5,
-                                       FirstName = "Jamie",
-                                       LastName = "Chung",
+                                       FirstName = "Sheldon",
+                                       LastName = "Cooper",
                                        Enabled = true,
-                                       RegisterDate = new DateTime(2013, 4, 4)
+                                       RegisterDate = new DateTime(2013, 4, 4),
+                                       IdJob = 2
                                    },
                                 new User()
                                    {
@@ -60,59 +64,100 @@ namespace BForms.Docs.Areas.Demo.Mock
                                        FirstName = "Jeremy",
                                        LastName = "Sisto",
                                        Enabled = false,
-                                       RegisterDate = new DateTime(2013, 6, 14)
+                                       RegisterDate = new DateTime(2013, 6, 14),
+                                       IdJob = 1
                                    },
                                    new User()
                                    {
                                        Id = 7,
-                                       FirstName = "Ioan",
-                                       LastName = "Gruffudd",
+                                       FirstName = "Steve",
+                                       LastName = "Jobs",
                                        Enabled = true,
                                        RegisterDate = new DateTime(2013, 6, 14)
                                    },
                                 new User()
                                    {
                                        Id = 8,
-                                       FirstName = "Olivia",
-                                       LastName = "Thirlby",
+                                       FirstName = "Scott",
+                                       LastName = "Hanselman",
                                        Enabled = true,
-                                       RegisterDate = new DateTime(2013, 2, 4)
+                                       RegisterDate = new DateTime(2013, 2, 4),
+                                       IdJob = 3
                                    },
                                 new User()
                                    {
-                                       Id = 3,
+                                       Id = 9,
                                        FirstName = "Elisabeth",
                                        LastName = "Shue",
                                        Enabled = false,
-                                       RegisterDate = new DateTime(2011, 5, 27)
+                                       RegisterDate = new DateTime(2011, 5, 27),
+                                       IdJob = 1
                                    },
                                    new User()
                                    {
-                                       Id = 1,
+                                       Id = 10,
                                        FirstName = "Rachel",
                                        LastName = "McAdams",
                                        Enabled = false,
-                                       RegisterDate = new DateTime(2013, 5, 13)
+                                       RegisterDate = new DateTime(2013, 5, 13),
+                                       IdJob = 1
                                    },
                                 new User()
                                    {
-                                       Id = 2,
+                                       Id = 11,
                                        FirstName = "Jennifer",
                                        LastName = "Lawrence",
                                        Enabled = true,
-                                       RegisterDate = new DateTime(2012, 9, 14)
+                                       RegisterDate = new DateTime(2012, 9, 14),
+                                       IdJob = 1
                                    },
                                 new User()
                                    {
-                                       Id = 3,
+                                       Id = 12,
                                        FirstName = "Christian",
                                        LastName = "Bale",
                                        Enabled = true,
-                                       RegisterDate = new DateTime(2012, 9, 22)
+                                       RegisterDate = new DateTime(2012, 9, 22),
+                                       IdJob = 4
                                    }
 
                            };
             }
+        }
+
+        public List<Job> Jobs
+        {
+            get
+            {
+                return new List<Job>()
+                {
+                    new Job()
+                    {
+                        Id = 1,
+                        Name = "Actor"
+                    },
+                    new Job()
+                    {
+                        Id = 2,
+                        Name = "Scientist"
+                    },
+                    new Job()
+                    {
+                        Id = 3,
+                        Name = "Programmer"
+                    },
+                    new Job()
+                    {
+                        Id = 4,
+                        Name = "Batman"
+                    }
+                };
+            }
+        }
+
+        public void SaveChanges()
+        {
+            
         }
     }
 
@@ -123,5 +168,20 @@ namespace BForms.Docs.Areas.Demo.Mock
         public string LastName { get; set; }
         public bool Enabled { get; set; }
         public DateTime RegisterDate { get; set; }
+        public int? IdJob { get; set; }
+
+        public Job Job
+        {
+            get
+            {
+                return IdJob.HasValue ? (new BFormsContext()).Jobs.FirstOrDefault(x => x.Id == IdJob) : null;
+            }
+        }
+    }
+
+    public class Job
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
     }
 }

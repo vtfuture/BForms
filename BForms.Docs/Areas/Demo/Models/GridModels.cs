@@ -18,7 +18,7 @@ namespace BForms.Docs.Areas.Demo.Models
 
     public class UsersViewModel
     {
-        [BsGrid(HasDetails = false)]
+        [BsGrid(HasDetails = true)]
         [Display(Name = "Users", ResourceType = typeof(Resource))]
         public BsGridModel<UsersGridRowModel> Grid { get; set; }
 
@@ -60,6 +60,10 @@ namespace BForms.Docs.Areas.Demo.Models
         [BsControl(BsControlType.RadioButtonList)]
         [Display(Name = "IsEnabled", ResourceType = typeof(Resource))]
         public BsSelectList<YesNoValueTypes?> IsEnabled { get; set; }
+
+        [Display(Name = "Job", ResourceType = typeof(Resource), Prompt = "Choose")]
+        [BsControl(BsControlType.DropDownList)]
+        public BsSelectList<int?> Jobs { get; set; }
     }
 
     public class UsersNewModel
@@ -82,5 +86,16 @@ namespace BForms.Docs.Areas.Demo.Models
         [BsControl(BsControlType.RadioButtonList)]
         [Display(Name = "IsEnabled", ResourceType = typeof(Resource))]
         public BsSelectList<YesNoValueTypes?> IsEnabled { get; set; }
+
+        [Display(Name = "Job", ResourceType = typeof(Resource), Prompt = "Choose")]
+        [BsControl(BsControlType.DropDownList)]
+        public BsSelectList<int?> Jobs { get; set; }
+    }
+
+    public class UsersDetailsModel
+    {
+        public int Id { get; set; }
+        public string Job { get; set; }
+        public bool Enabled { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿@using BForms.Docs.Resources
+﻿@using BForms.Docs.Areas.Demo.Mock
+@using BForms.Docs.Resources
 @using BootstrapForms.Html
 @model BForms.Docs.Areas.Demo.Models.UsersNewModel
 
@@ -8,24 +9,31 @@
         <div class="basic">
             <div class="row form-container">
 
-                <div class="col-12 col-sm-4 col-lg-5 form-group">
+                <div class="col-12 col-sm-4 col-lg-3 form-group">
                     @Html.BsLabelFor(m => m.FirstName)
                     <div class="input-group">
                         @Html.BsInputFor(m => m.FirstName)
                     </div>
                 </div>
 
-                <div class="col-12 col-sm-4 col-lg-5 form-group">
+                <div class="col-12 col-sm-4 col-lg-3 form-group">
                     @Html.BsLabelFor(m => m.LastName)
                     <div class="input-group">
                         @Html.BsInputFor(m => m.LastName)
                     </div>
                 </div>
+                
+                <div class="col-12 col-sm-4 col-lg-3 form-group">
+                    @Html.BsLabelFor(m => m.Jobs)
+                    <div class="input-group">
+                        @Html.BsSelectFor(m => m.Jobs)
+                    </div>
+                </div>
 
-                <div class="col-12 col-sm-4 col-lg-2 form-group">
+                <div class="col-12 col-sm-4 col-lg-3 form-group">
                     @Html.BsLabelFor(m => m.IsEnabled)
                     <div class="input-group">
-                        @Html.BsSelectFor(model => model.IsEnabled)
+                        @Html.BsSelectFor(model => model.IsEnabled, new Dictionary<string, object>(){ { "data-initialvalue", (byte)YesNoValueTypes.Yes } }, null)
                     </div>
                 </div>
 

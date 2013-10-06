@@ -4,7 +4,9 @@ using System.Linq;
 using System.Web;
 using BForms.Docs.Areas.Demo.Mock;
 using BForms.Docs.Areas.Demo.Models;
+using BForms.Docs.Resources;
 using BootstrapForms.Grid;
+using BootstrapForms.Models;
 
 namespace BForms.Docs.Areas.Demo.Repositories
 {
@@ -36,8 +38,17 @@ namespace BForms.Docs.Areas.Demo.Repositories
                 Name = x.FirstName + " " + x.LastName,
                 RegisterDate = x.RegisterDate
             };
+
+        public Func<User, UsersDetailsModel> MapUser_UsersDetailsModel = x =>
+            new UsersDetailsModel
+            {
+                Id = x.Id,
+                Job = x.Job != null ? x.Job.Name : Resource.Unemployed,
+                Enabled = x.Enabled
+            };
         #endregion
 
+        #region Filter/Order/Map
         public override IQueryable<User> Query()
         {
             var query = db.Users.AsQueryable();
@@ -97,6 +108,70 @@ namespace BForms.Docs.Areas.Demo.Repositories
             }
 
             return query;
-        } 
+        }
+        #endregion
+
+        #region CRUD
+        public UsersDetailsModel ReadDetails(int objId)
+        {
+            return db.Users.Where(x => x.Id == objId).Select(MapUser_UsersDetailsModel).FirstOrDefault();
+        }
+
+        public void Delete(int objId)
+        {
+            var entity = db.Users.FirstOrDefault(x => x.Id == objId);
+
+            if (entity != null)
+            {
+                db.Users.Remove(entity);
+                db.SaveChanges();
+            }
+        }
+        #endregion
+
+        #region Helpers
+        public UsersSearchModel GetSearchForm()
+        {
+            return new UsersSearchModel()
+            {
+                Jobs = GetJobsDropdown()
+            };
+        }
+
+        public UsersNewModel GetNewForm()
+        {
+            return new UsersNewModel()
+            {
+                Jobs = GetJobsDropdown()
+            };
+        }
+
+        public void EnableDisable(int objId)
+        {
+            var entity = db.Users.FirstOrDefault(x => x.Id == objId);
+
+            if (entity != null)
+            {
+                entity.Enabled = !entity.Enabled;
+                db.SaveChanges();
+            }
+        }
+
+        public BsSelectList<int?> GetJobsDropdown(int? selected = null)
+        {
+            return new BsSelectList<int?>
+            {
+                Items = (from d in db.Jobs
+                         orderby d.Name
+                         select new BsSelectListItem
+                         {
+                             Text = d.Name,
+                             Selected = selected.HasValue && selected.Value == d.Id,
+                             Value = d.Id.ToString()
+                         }).ToList(),
+                SelectedValues = selected
+            };
+        }
+        #endregion
     }
 }

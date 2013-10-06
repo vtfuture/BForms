@@ -35,10 +35,24 @@ namespace BForms.Docs.Areas.Demo.Controllers
 
             var model = new UsersViewModel
             {
-                Grid = gridModel
+                Grid = gridModel,
+                Toolbar = new Toolbar<UsersSearchModel, UsersNewModel>
+                {
+                    Search = _gridRepository.GetSearchForm(),
+                    New = _gridRepository.GetNewForm()
+                }
             };
 
-            RequireJsOptions.Add("pagerUrl", Url.Action("Pager"));
+            var options = new Dictionary<string, string>
+            {
+                {"pagerUrl", Url.Action("Pager")},
+                {"detailsUrl", Url.Action("Details")},
+                {"getRowUrl", Url.Action("GetRow")},
+                {"enableDisableUrl", Url.Action("EnableDisable")},
+                {"deleteUrl", Url.Action("Delete")}
+            };
+
+            RequireJsOptions.Add("index", options);
 
             return View(model);
         }
@@ -80,6 +94,122 @@ namespace BForms.Docs.Areas.Demo.Controllers
                     Count = count,
                     Html = html
                 }
+            });
+        }
+
+        public JsonResult GetRow(int objId, bool getDetails = false)
+        {
+            var msg = string.Empty;
+            var msgToolTip = string.Empty;
+            var status = StatusInfo.Success;
+            var row = string.Empty;
+            var details = string.Empty;
+
+            try
+            {
+                if (getDetails)
+                {
+                    var model = _gridRepository.ReadDetails(objId);
+
+                    details = this.BsRenderPartialView("_Details", model);
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                msg = Resource.ServerError;
+                status = StatusInfo.ServerError;
+            }
+
+            return Json(new
+            {
+                Data = new
+                {
+                    Row = row,
+                    Details = details
+                },
+                Status = status,
+                Message = msg,
+                MessageToolTip = msgToolTip,
+            });
+        }
+
+        public JsonResult Details(int objId)
+        {
+            var msg = string.Empty;
+            var msgToolTip = string.Empty;
+            var status = StatusInfo.Success;
+            var html = string.Empty;
+
+            try
+            {
+                var model = _gridRepository.ReadDetails(objId);
+
+                html = this.BsRenderPartialView("_Details", model);
+            }
+            catch (Exception ex)
+            {
+                msg = Resource.ServerError;
+                status = StatusInfo.ServerError;
+            }
+
+            return Json(new
+            {
+                Data = new
+                {
+                    Html = html
+                },
+                Status = status,
+                Message = msg,
+                MessageToolTip = msgToolTip,
+            });
+        }
+
+        public JsonResult Delete(int objId)
+        {
+            var msg = string.Empty;
+            var msgToolTip = string.Empty;
+            var status = StatusInfo.Success;
+
+            try
+            {
+                _gridRepository.Delete(objId);
+            }
+            catch (Exception ex)
+            {
+                msg = Resource.ServerError;
+                status = StatusInfo.ServerError;
+            }
+
+            return Json(new
+            {
+                Status = status,
+                Message = msg,
+                MessageToolTip = msgToolTip,
+            });
+        }
+
+        public JsonResult EnableDisable(int objId)
+        {
+            var msg = string.Empty;
+            var msgToolTip = string.Empty;
+            var status = StatusInfo.Success;
+
+            try
+            {
+                _gridRepository.EnableDisable(objId);
+            }
+            catch (Exception ex)
+            {
+                msg = Resource.ServerError;
+                status = StatusInfo.ServerError;
+            }
+
+            return Json(new
+            {
+                Status = status,
+                Message = msg,
+                MessageToolTip = msgToolTip,
             });
         }
         #endregion

@@ -1,4 +1,5 @@
-﻿@using BForms.Docs.Resources
+﻿@using BForms.Docs.Areas.Demo.Mock
+@using BForms.Docs.Resources
 @using BootstrapForms.Html
 @using BootstrapForms.Models
 @model BForms.Docs.Areas.Demo.Models.UsersSearchModel
@@ -9,14 +10,21 @@
         <div class="basic">
             <div class="row form-container">
 
-                <div class="col-12 col-sm-4 col-lg-5 form-group">
+                <div class="col-12 col-sm-4 col-lg-3 form-group">
                     @Html.BsLabelFor(m => m.Name)
                     <div class="input-group">
                         @Html.BsInputFor(m => m.Name)
                     </div>
                 </div>
 
-                <div class="col-12 col-sm-4 col-lg-4 form-group">
+                <div class="col-12 col-sm-4 col-lg-3 form-group">
+                    @Html.BsLabelFor(m => m.Jobs)
+                    <div class="input-group">
+                        @Html.BsSelectFor(m => m.Jobs)
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-4 col-lg-3 form-group">
                     @Html.BsLabelFor(m => m.RegisterDate)
                     <div class="input-group">
                         @Html.BsGlyphiconAddon(Glyphicon.Calendar)
@@ -27,7 +35,7 @@
                 <div class="col-12 col-sm-4 col-lg-3 form-group">
                     @Html.BsLabelFor(m => m.IsEnabled)
                     <div class="input-group">
-                        @Html.BsSelectFor(model => model.IsEnabled)
+                        @Html.BsSelectFor(model => model.IsEnabled, new Dictionary<string, object>(){ { "data-initialvalue", (byte)YesNoValueTypes.Both } }, null)
                     </div>
                 </div>
             </div>

@@ -86,5 +86,66 @@
         return data;
     };
     //#endregion
+    
+    //#region $.fn.resetForm
+    $.fn.resetForm = function (focus) {
+
+        //#region input, textarea
+        $(this).find("input, textarea").each(function () {
+            switch (this.type) {
+                case 'password':
+                case 'select-multiple':
+                case 'select-one':
+                case 'text':
+                case 'textarea':
+                    if ($(this).hasClass("tag_counter")) {
+                        $(this).val('0');
+                    } else {
+                        $(this).val('');
+                    }
+                    break;
+                case 'checkbox':
+                    if ($(this).hasClass("checkBox-done")) {
+                        $(this).attr("checked", $(this).data("initialvalue"));
+                        $(this).trigger("change");
+                    } else {
+                        $(this).attr('checked', false);
+                    }
+                    break;
+                case 'radio':
+                    this.checked = false;
+                    break;
+                case 'range':
+                    $(this).val(0);
+                    break;
+                case 'file':
+                    $(this).val('');
+                    break;
+            }
+        });
+        //#endregion
+
+        //#region chosen
+        $(this).find("select").each(function () {
+            $(this).val('');
+            if ($(this).hasClass("chzn-done"))
+                $(this).trigger("liszt:updated");
+        });
+        //#endregion
+
+        //#region radio buttons
+        $(this).find(".bs-radio-list").each(function () {
+            if ($(this).data("initialvalue") != undefined) {
+                $(this).bsRadioButtonsListUpdateSelf($(this).data("initialvalue"));
+            }
+        });
+        //#endregion
+
+        if (focus !== false)
+            $(this).find("input:first").focus();
+
+        return $(this);
+    };
+    //#endregion
 
 });

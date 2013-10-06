@@ -174,8 +174,17 @@
     <Content Include="Scripts\BForms\Plugins\Grid\js\bforms.grid.js" />
     <Content Include="Scripts\BForms\Plugins\Grid\js\bforms.pager.js" />
     <Content Include="Scripts\BForms\Plugins\Grid\js\bforms.toolbar.js" />
-    <Content Include="Scripts\BForms\Plugins\Grid\css\grid.css" />
+    <Content Include="Scripts\BForms\Stylesheets\grid.css" />
     <Content Include="Scripts\BForms\Plugins\Utils\bforms.namespace.js" />
+    <Content Include="Scripts\BForms\Stylesheets\Images\icons\checkbox.gif" />
+    <Content Include="Scripts\BForms\Stylesheets\Images\icons\edit-pencil.gif" />
+    <Content Include="Scripts\BForms\Stylesheets\Images\icons\grippy.png" />
+    <Content Include="Scripts\BForms\Stylesheets\Images\icons\icn-down_arrow-small.png" />
+    <Content Include="Scripts\BForms\Stylesheets\Images\icons\icn-order_down.png" />
+    <Content Include="Scripts\BForms\Stylesheets\Images\icons\icn-order_up.png" />
+    <Content Include="Scripts\BForms\Stylesheets\Images\icons\icn-right_arrow-small.png" />
+    <Content Include="Scripts\BForms\Stylesheets\Images\icons\pencil-small.png" />
+    <Content Include="Scripts\BForms\Stylesheets\Images\icons\ui-anim_basic_16x16.gif" />
     <Content Include="Scripts\Controllers\Demo\Grid\grid-index.js" />
     <Content Include="Scripts\Controllers\Root\Components\components-rangeextensions.js" />
     <Content Include="Views\Components\InputExtensions\Source\InputPasswordSpecializedView.cshtml.embed" />
@@ -556,7 +565,7 @@
     <Content Include="Scripts\BForms\Plugins\Utils\bforms.ajax.js" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Scripts\BForms\Plugins\Grid\css\grid.scss" />
+    <Content Include="Scripts\BForms\Stylesheets\grid.scss" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Demo\Views\Grid\Index.cshtml" />
@@ -568,6 +577,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Demo\Views\Grid\_Search.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Demo\Views\Grid\_Details.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
