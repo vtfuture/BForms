@@ -163,11 +163,12 @@
     <Content Include="Scripts\BForms\Plugins\Datepicker\css\images\icn-calendar.png" />
     <Content Include="Scripts\BForms\Plugins\Datepicker\css\images\icn-remove.png" />
     <Content Include="Scripts\BForms\Plugins\Datepicker\css\images\icn-time.png" />
-    <Content Include="Scripts\BForms\Plugins\Grid\bforms.editable.js" />
-    <Content Include="Scripts\BForms\Plugins\Grid\bforms.form.js" />
-    <Content Include="Scripts\BForms\Plugins\Grid\bforms.grid.js" />
-    <Content Include="Scripts\BForms\Plugins\Grid\bfroms.pager.js" />
-    <Content Include="Scripts\BForms\Plugins\Grid\bforms.toolbar.js" />
+    <Content Include="Scripts\BForms\Plugins\Grid\js\bforms.editable.js" />
+    <Content Include="Scripts\BForms\Plugins\Grid\js\bforms.form.js" />
+    <Content Include="Scripts\BForms\Plugins\Grid\js\bforms.grid.js" />
+    <Content Include="Scripts\BForms\Plugins\Grid\js\bfroms.pager.js" />
+    <Content Include="Scripts\BForms\Plugins\Grid\js\bforms.toolbar.js" />
+    <Content Include="Scripts\BForms\Plugins\Grid\css\grid.css" />
     <Content Include="Scripts\Controllers\Root\Components\components-rangeextensions.js" />
     <Content Include="Views\Components\InputExtensions\Source\InputPasswordSpecializedView.cshtml.embed" />
     <Content Include="Views\Components\InputExtensions\Source\InputUrlSpecializedModel.cs.embed" />
@@ -544,7 +545,10 @@
     <Content Include="Views\Components\SelectExtensions\Source\ListItem-data.cshtml.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Scripts\BForms\Plugins\Grid\bforms.ajax.js" />
+    <Content Include="Scripts\BForms\Plugins\Grid\js\bforms.ajax.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\BForms\Plugins\Grid\css\grid.scss" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
