@@ -56,11 +56,11 @@ namespace BootstrapForms.Grid
                 //apply default order based on order type
                 if (defaultOrderType == BsOrderType.Ascending)
                 {
-                    orderedQuery = orderedQuery.OrderBy(defaultPropName);
+                    orderedQuery = query.OrderBy(defaultPropName);
                 }
                 else
                 {
-                    orderedQuery = orderedQuery.OrderByDescending(defaultPropName);
+                    orderedQuery = query.OrderByDescending(defaultPropName);
                 }
 
                 if (this.columnsOrder != null && this.columnsOrder.Any())
