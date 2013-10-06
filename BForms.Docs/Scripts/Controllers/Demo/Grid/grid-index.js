@@ -11,10 +11,10 @@
     };
 
     GridIndex.prototype.init = function () {
-        this.$grid = $('.grid_view');
+        this.$grid = $('#grid');
         this.initGrid();
 
-        this.$toolbar = $('#_toolbar');
+        this.$toolbar = $('#toolbar');
         this.initToolbar();
     };
     
