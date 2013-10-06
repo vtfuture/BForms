@@ -138,7 +138,9 @@ namespace BootstrapForms.Grid
                 var finalQuery = this.MapQuery(pagedQuery);
 
                 result.Items = finalQuery.ToList();
-                result.Pager.CurrentPageRecords = result.Items.Count();
+
+                pager.CurrentPageRecords = result.Items.Count();
+                result.Pager = pager;
             }
             else
             {

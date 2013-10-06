@@ -116,12 +116,16 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Demo\Controllers\GridController.cs" />
     <Compile Include="Areas\Demo\Controllers\LoginController.cs" />
     <Compile Include="Areas\Demo\DemoAreaRegistration.cs" />
     <Compile Include="Areas\Demo\Helpers\Utils.cs" />
+    <Compile Include="Areas\Demo\Mock\Entities.cs" />
     <Compile Include="Areas\Demo\Mock\Enums.cs" />
     <Compile Include="Areas\Demo\Mock\Lists.cs" />
+    <Compile Include="Areas\Demo\Models\GridModels.cs" />
     <Compile Include="Areas\Demo\Models\LoginModels.cs" />
+    <Compile Include="Areas\Demo\Repositories\GridRepository.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ComponentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -549,6 +553,17 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\BForms\Plugins\Grid\css\grid.scss" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Demo\Views\Grid\Index.cshtml" />
+    <Content Include="Areas\Demo\Views\Grid\_Grid.cshtml" />
+    <Content Include="Areas\Demo\Views\Grid\_Toolbar.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Demo\Views\Grid\_New.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Demo\Views\Grid\_Search.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

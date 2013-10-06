@@ -1,0 +1,17 @@
+﻿@model BForms.Docs.Areas.Demo.Models.UsersViewModel
+
+@using BForms.Docs.Resources
+@using BootstrapForms.Html
+
+@{
+    ViewBag.Title = Resource.Users;
+}
+
+@using (Html.BsGridWrapper())
+{        
+    @Html.Partial("_Toolbar", Model)
+                                            
+    @Html.Partial("_Grid", Model)
+}
+
+

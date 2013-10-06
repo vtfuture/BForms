@@ -1,0 +1,17 @@
+﻿@model BForms.Docs.Areas.Demo.Models.UsersViewModel
+@using BForms.Docs.Resources
+@using BootstrapForms.Grid
+@using BootstrapForms.Html
+
+@(Html.BsToolbarFor(x => x.Toolbar).DisplayName(Resource.Users)
+    .ConfigureActions(ca =>
+    {
+        ca.Add(BsToolbarActionType.Add)
+            .Text("Adauga")
+            .Tab(Html.BsPartialPrefixed(x => x.Toolbar.New, "_New", Model).ToString());
+        ca.Add(BsToolbarActionType.Refresh);
+        ca.Add(BsToolbarActionType.Search)
+            .Tab(Html.BsPartialPrefixed(x => x.Toolbar.Search, "_Search", Model).ToString());
+    })
+    .Render()
+)
