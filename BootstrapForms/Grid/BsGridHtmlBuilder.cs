@@ -1,5 +1,6 @@
 ﻿using BootstrapForms.Models;
 using BootstrapForms.Mvc;
+using BootstrapForms.Utilities;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,12 +11,11 @@ using System.Web.Mvc;
 
 namespace BootstrapForms.Grid
 {
-    public class BsGridHtmlBuilder<TModel, TRow>:BaseComponent where TRow : new()
+    public class BsGridHtmlBuilder<TModel, TRow> : BaseComponent where TRow : new()
     {
         private readonly BsGridModel<TRow> model;
         private readonly ModelMetadata metadata;
         private readonly string fullName;
-        private readonly ViewContext viewContext;
 
         private string multipleSelectActionsHtml;
         private Func<TRow, string> rowHighlighter;
@@ -27,18 +27,18 @@ namespace BootstrapForms.Grid
         private string noResultsTemplate;
 
 
-        public BsGridHtmlBuilder(string fullName, BsGridModel<TRow> model, ModelMetadata metadata, ViewContext viewContext):base(viewContext)
+        public BsGridHtmlBuilder(string fullName, BsGridModel<TRow> model, ModelMetadata metadata, ViewContext viewContext)
+            : base(viewContext)
         {
             this.fullName = fullName;
             this.model = model;
             this.metadata = metadata;
-            this.viewContext = viewContext;
 
             Type type = typeof(TRow);
             PropertyInfo[] properties = type.GetProperties();
 
             BsGridAttribute gridAttr = null;
-            if (TryGetControlAttribute(fullName, typeof(TModel), out gridAttr))
+            if (ReflectionHelpers.TryGetAttribute(fullName, typeof(TModel), out gridAttr))
             {
                 this.hasDetails = gridAttr.HasDetails;
             }
@@ -155,8 +155,6 @@ namespace BootstrapForms.Grid
             gridBuilder.InnerHtml += headerBuilder.ToString();
             #endregion
 
-
-
             var wrapper = new TagBuilder("div");
             wrapper.MergeAttribute("class", "grid_wrapper");
 
@@ -167,30 +165,7 @@ namespace BootstrapForms.Grid
 
             foreach (var column in this.columns)
             {
-                var columnBuilder = new TagBuilder("div");
-                if (column.IsSortable)
-                {
-                    var linkBuilder = new TagBuilder("a");
-                    linkBuilder.MergeAttribute("data-name", "Order." + column.Property.Name);
-                    linkBuilder.MergeAttribute("href", "#");
-                    linkBuilder.InnerHtml = column.DisplayName;
-
-                    columnBuilder.InnerHtml += linkBuilder.ToString();
-                }
-                else
-                {
-                    columnBuilder.InnerHtml += column.DisplayName;
-                }
-
-                if (column.IsEditable)
-                {
-                    columnBuilder.InnerHtml += column.EditableContent;
-                }
-
-                columnBuilder.MergeAttribute("class", "col-lg-" + column.Width);
-
-                columnsBuilder.InnerHtml += columnBuilder.ToString();
-
+                columnsBuilder.InnerHtml += column.Render();
                 wrapper.InnerHtml = columnsBuilder.ToString();
             }
             #endregion
@@ -220,6 +195,7 @@ namespace BootstrapForms.Grid
                     divBuilder.MergeAttribute("class", "pull-right");
 
                     TagBuilder spanBuilder = new TagBuilder("span");
+                    //TODO:
                     spanBuilder.InnerHtml += "Rezultate per pagina";
 
                     divBuilder.InnerHtml += spanBuilder.ToString();
@@ -302,19 +278,28 @@ namespace BootstrapForms.Grid
                             }
                         }
 
-                        var val = column.Property.GetValue(row);
+                        var text = string.Empty;
+
+                        if (column.CellText == null)
+                        {
+                            text = column.Property.GetValue(row).ToString();
+                        }
+                        else
+                        {
+                            text = column.CellText(row).ToString();
+                        }
 
                         if (column.IsEditable)
                         {
                             var editBuilder = new TagBuilder("span");
                             editBuilder.MergeAttribute("class", "edit_col");
-                            editBuilder.InnerHtml = val.ToString();
+                            editBuilder.InnerHtml = text;
 
                             cellBuilder.InnerHtml += editBuilder.ToString();
                         }
                         else
                         {
-                            cellBuilder.InnerHtml += val.ToString();
+                            cellBuilder.InnerHtml += text;
                         }
 
                         if (i == this.columns.Count - 1 && !string.IsNullOrEmpty(this.multipleSelectActionsHtml))
@@ -344,6 +329,7 @@ namespace BootstrapForms.Grid
                 var infoBuilder = new TagBuilder("div");
                 infoBuilder.MergeAttribute("class", "alert alert-info");
 
+                //TODO:
                 if (true/*searched*/)
                 {
                     infoBuilder.InnerHtml += "Cautarea ta nu a generat rezultate. Modifica criteriile de cautare";
@@ -485,6 +471,7 @@ namespace BootstrapForms.Grid
 
                 var firstIdx = (this.model.Pager.CurrentPage - 1) * this.model.Pager.PageSize + 1;
                 var lastIdx = this.model.Pager.CurrentPage == this.model.Pager.TotalPages ? this.model.Pager.TotalRecords : this.model.Pager.CurrentPage * this.model.Pager.PageSize;
+                //TODO:
                 textBuilder.InnerHtml += "Rezultate" + firstIdx + "–" + lastIdx + " din";
 
                 var totalCountBuilder = new TagBuilder("span");
@@ -501,49 +488,6 @@ namespace BootstrapForms.Grid
         private string RenderAjax()
         {
             return this.RenderRows() + this.RenderPages();
-        }
-
-        static bool TryGetControlAttribute<T>(string name, Type modelType, out T attribute) where T : Attribute
-        {
-            var hasAttribute = false;
-            attribute = default(T);
-
-            PropertyInfo property = null;
-
-            foreach (var prop in name.Split('.'))
-            {
-                property = modelType.GetProperty(prop);
-                modelType = property != null ? property.PropertyType : null;
-            }
-            if (property != null)
-            {
-                hasAttribute = Attribute.IsDefined(property, typeof(T));
-
-                if (hasAttribute)
-                {
-                    attribute = (T)Attribute.GetCustomAttribute(property, typeof(T));
-                }
-            }
-
-            return hasAttribute;
-        }
-
-        static bool TryGetControlAttribute<T>(PropertyInfo property, out T attribute) where T : Attribute
-        {
-            var hasAttribute = false;
-            attribute = default(T);
-
-            if (property != null)
-            {
-                hasAttribute = Attribute.IsDefined(property, typeof(T));
-
-                if (hasAttribute)
-                {
-                    attribute = (T)Attribute.GetCustomAttribute(property, typeof(T));
-                }
-            }
-
-            return hasAttribute;
         }
 
         public override string Render()

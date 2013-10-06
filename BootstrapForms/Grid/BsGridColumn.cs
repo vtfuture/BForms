@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Web;
+using System.Web.Mvc;
 
 namespace BootstrapForms.Grid
 {
-    public class BsGridColumn<TRow> where TRow : new()
+    public class BsGridColumn<TRow> : BaseComponent where TRow : new()
     {
         public PropertyInfo Property { get; set; }
 
@@ -20,11 +21,9 @@ namespace BootstrapForms.Grid
 
         public int Width { get; set; }
 
-        public Func<TRow, string> CellText { get; set; }
+        public Func<TRow, object> CellText { get; set; }
 
-        public BsGridColumn()
-        {
-        }
+        public BsGridColumn(ViewContext viewContext) : base(viewContext) { }
 
         public BsGridColumn(PropertyInfo property)
         {
@@ -56,10 +55,37 @@ namespace BootstrapForms.Grid
             return this;
         }
 
-        public BsGridColumn<TRow> Text(Func<TRow, string> cellText)
+        public BsGridColumn<TRow> Text(Func<TRow, object> cellText)
         {
             this.CellText = cellText;
             return this;
+        }
+
+        public override string Render()
+        {
+            var columnBuilder = new TagBuilder("div");
+            if (this.IsSortable)
+            {
+                var linkBuilder = new TagBuilder("a");
+                linkBuilder.MergeAttribute("data-name", "Order." + this.Property.Name);
+                linkBuilder.MergeAttribute("href", "#");
+                linkBuilder.InnerHtml = this.DisplayName;
+
+                columnBuilder.InnerHtml += linkBuilder.ToString();
+            }
+            else
+            {
+                columnBuilder.InnerHtml += this.DisplayName;
+            }
+
+            if (this.IsEditable)
+            {
+                columnBuilder.InnerHtml += this.EditableContent;
+            }
+
+            columnBuilder.MergeAttribute("class", "col-lg-" + this.Width);
+
+            return columnBuilder.ToString();
         }
     }
 }

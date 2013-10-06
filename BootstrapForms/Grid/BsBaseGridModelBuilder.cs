@@ -116,6 +116,24 @@ namespace BootstrapForms.Grid
 
         public abstract IEnumerable<TRow> MapQuery(IQueryable<TEntity> query);
 
+        public BsGridModel<TRow> ToBsGridViewModel()
+        {
+            var settings = new BsGridRepositorySettings<TSearch>();
+            settings.Page = 1;
+            settings.PageSize = 5;
+
+            return this.ToBsGridViewModel(settings);
+        }
+
+        public BsGridModel<TRow> ToBsGridViewModel(int page, int pageSize)
+        {
+            var settings = new BsGridRepositorySettings<TSearch>();
+            settings.Page = page;
+            settings.PageSize = pageSize;
+
+            return this.ToBsGridViewModel(settings);
+        }
+
         public virtual BsGridModel<TRow> ToBsGridViewModel(BsGridRepositorySettings<TSearch> settings)
         {
             this.settings = settings;

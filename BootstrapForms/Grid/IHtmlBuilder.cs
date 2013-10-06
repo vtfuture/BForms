@@ -11,20 +11,20 @@ namespace BootstrapForms.Grid
         MvcHtmlString Render();
     }
 
-    public interface IComponent: IHtmlString
+    public interface IComponent : IHtmlString
     {
         string Render();
     }
 
     public abstract class BaseComponent : IComponent
     {
-        private ViewContext _viewContext;
+        protected ViewContext viewContext;
 
         public BaseComponent() { }
 
         public BaseComponent(ViewContext viewContext)
         {
-            this._viewContext = viewContext;
+            this.viewContext = viewContext;
         }
 
         public abstract string Render();
@@ -32,7 +32,7 @@ namespace BootstrapForms.Grid
         public virtual string ToHtmlString()
         {
             var writer = new System.IO.StringWriter();
-            this._viewContext.Writer.Write(this.Render());
+            this.viewContext.Writer.Write(this.Render());
             return writer.ToString();
         }
     }
