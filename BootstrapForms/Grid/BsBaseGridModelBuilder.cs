@@ -65,10 +65,12 @@ namespace BootstrapForms.Grid
 
                 if (this.columnsOrder != null && this.columnsOrder.Any())
                 {
+                    this.columnsOrder.Reverse();
+
                     //order dict desc and order query based on Order priority
-                    foreach (var item in this.columnsOrder.OrderByDescending(x => x.Order))
+                    foreach (var item in this.columnsOrder)
                     {
-                        var name = item.Column;
+                        var name = item.Name;
 
                         if (this.expressionSettings.ContainsKey(name))
                         {

@@ -67,7 +67,7 @@ namespace BootstrapForms.Grid
             if (this.IsSortable)
             {
                 var linkBuilder = new TagBuilder("a");
-                linkBuilder.MergeAttribute("data-name", "Order." + this.Property.Name);
+                linkBuilder.MergeAttribute("data-name", this.Property.Name);
                 linkBuilder.MergeAttribute("href", "#");
                 linkBuilder.InnerHtml = this.DisplayName;
 

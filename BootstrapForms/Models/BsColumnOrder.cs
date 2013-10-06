@@ -14,7 +14,7 @@ namespace BootstrapForms.Grid
 
     public class BsColumnOrder
     {
-        public string Column { get; set; }
+        public string Name { get; set; }
         public BsOrderType Type { get; set; }
         public int Order { get; set; }
     }

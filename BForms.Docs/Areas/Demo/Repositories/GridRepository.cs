@@ -47,7 +47,9 @@ namespace BForms.Docs.Areas.Demo.Repositories
 
         public override IOrderedQueryable<User> OrderQuery(IQueryable<User> query)
         {
-            return query.OrderBy(x => x.FirstName + " " + x.LastName);
+            this.orderedQueryBuilder.OrderFor(x => x.Name, y => y.FirstName + " " + y.LastName);
+            var orderedQuery = this.orderedQueryBuilder.Order(query, x => x.Id, BsOrderType.Descending);
+            return orderedQuery;
         }
 
         public override IEnumerable<UsersGridRowModel> MapQuery(IQueryable<User> query)

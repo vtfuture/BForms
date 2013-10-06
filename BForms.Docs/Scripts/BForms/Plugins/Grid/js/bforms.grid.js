@@ -23,7 +23,7 @@
         hasOrder: true,
         orderContainerSelector: '.title',
         orderElemSelector: 'a',
-        orderPrefix: 'Order.',
+        multipleOrder: false,
 
         defaultPage: 1,
         currentPage: 1,
@@ -63,7 +63,7 @@
     };
 
     Grid.prototype._refreshModel = {
-        Order: {},
+        OrderColumns: [],
         Search: {},
         page: 1,
         pageSize: 5
@@ -387,6 +387,8 @@
     
     Grid.prototype._evOnOrderChange = function (e) {
 
+        e.preventDefault();
+
         if (!this._currentResultsCount) {
             return;
         }
@@ -396,21 +398,55 @@
         var toRemoveClass = "";
         var type = 0;
 
-        if (!elem.hasClass('sort_asc') && !elem.hasClass('sort_desc')) {
+        if (elem.hasClass('sort_asc')) {
+            toAddClass = 'sort_desc';
+            type = 2;
+        } else if (!elem.hasClass('sort_desc')) {
             toAddClass = 'sort_asc';
             type = 1;
         }
-        else if (elem.hasClass('sort_asc')) {
-            toAddClass = 'sort_desc';
-            type = 2;
+
+        var name = elem.data('name');
+
+        var orderColumn = {
+            Name: elem.data('name'),
+            Type: type
         }
 
-        this.element.find(this.options.orderContainerSelector + ' ' + this.options.orderElemSelector).removeClass('sort_asc').removeClass('sort_desc');
+        if (this.options.multipleOrder) {
 
-        elem.addClass(toAddClass);
-        
-        this.refreshModel.Order = {};
-        this.refreshModel.Order[elem.data('name')] = type;
+            var alreadyOrdered = false;
+
+            for (var i = 0; i < this.refreshModel.OrderColumns.length; i++) {
+                var item = this.refreshModel.OrderColumns[i];
+                if (item.Name == name) {
+                    if (type == 0) {
+                        this.refreshModel.OrderColumns.splice(i, 1);
+                    } else {
+                        item.Type = type;
+                    }
+                    alreadyOrdered = true;
+                    break;
+                }
+            }
+
+            if (!alreadyOrdered) {
+                this.refreshModel.OrderColumns.push(orderColumn);
+            }
+
+            elem.removeClass('sort_asc').removeClass('sort_desc')
+
+        } else {
+
+            this.element.find(this.options.orderContainerSelector + ' ' + this.options.orderElemSelector).removeClass('sort_asc').removeClass('sort_desc');
+
+            this.refreshModel.OrderColumns = [];
+            this.refreshModel.OrderColumns.push(orderColumn);
+        }
+
+        if (type != 0) {
+            elem.addClass(toAddClass);
+        }
 
         this._getPage();
         
@@ -553,14 +589,14 @@
                 var val;
                 var prop = this.refreshModel[k];
 
-                if (typeof (prop) === 'object') {
+                if (prop instanceof Array || typeof (prop) !== 'object') {
+                    data[k] = this.refreshModel[k];
+                } else {
                     for (var j in prop) {
                         if (j in prop) {
                             data[j] = prop[j];
                         }
                     }
-                } else {
-                    data[k] = this.refreshModel[k];
                 }
             }
         }

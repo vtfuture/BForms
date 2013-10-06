@@ -33,6 +33,8 @@ namespace BootstrapForms.Grid
 
         private string text;
 
+        private string href;
+
         private string tabHtml;
         public string TabHtml
         {
@@ -124,6 +126,12 @@ namespace BootstrapForms.Grid
             return this;
         }
 
+        public BsToolbarAction Action(string action)
+        {
+            this.href = action;
+            return this;
+        }
+
         public MvcHtmlString Render()
         {
             var actionBuilder = new TagBuilder("a");
@@ -140,7 +148,7 @@ namespace BootstrapForms.Grid
 
             actionBuilder.MergeAttribute("class", classes);
 
-            actionBuilder.MergeAttribute("href", "#");
+            actionBuilder.MergeAttribute("href", this.href ?? "#");
 
             if (!string.IsNullOrEmpty(this.title))
             {
