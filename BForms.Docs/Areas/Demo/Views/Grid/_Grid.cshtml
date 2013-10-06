@@ -16,6 +16,7 @@
                                 .Text(x => x.Enabled ? Resource.Yes : Resource.No);
             cf.Add(c => c.RegisterDate).Name(Resource.RegisterDate)
                                 .SetWidth(3)
-                                .Sortable();
+                                .Sortable()
+                                .Text(x => x.RegisterDate.ToShortDateString());
         })
 )

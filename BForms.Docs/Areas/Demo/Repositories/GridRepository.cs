@@ -38,8 +38,8 @@ namespace BForms.Docs.Areas.Demo.Repositories
             {
                 Id = x.Id,
                 Enabled = x.Enabled,
-                Name =
-                    x.FirstName + " " + x.LastName
+                Name = x.FirstName + " " + x.LastName,
+                RegisterDate = x.RegisterDate
             };
         #endregion
 
