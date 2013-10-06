@@ -1,0 +1,60 @@
+﻿using System;
+using BootstrapForms.Models;
+
+namespace BootstrapForms.Mvc
+{
+    /// <summary>
+    /// BForms grid column descriptor
+    /// </summary>
+    [AttributeUsage(AttributeTargets.Method | AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Parameter, AllowMultiple = false)]
+    public class BsGridColumnAttribute : Attribute
+    {
+        private bool hasOrder = true;
+
+        /// <summary>
+        /// Wraps column header in a html node. Default is true
+        /// </summary>
+        public bool HasOrder
+        {
+            get
+            {
+                return this.hasOrder;
+            }
+            set
+            {
+                this.hasOrder = value;
+            }
+        }
+
+        private bool isEditable = true;
+
+        /// <summary>
+        /// Wraps cell in editable container
+        /// </summary>
+        public bool IsEditable
+        {
+            get
+            {
+                return this.isEditable;
+            }
+            set
+            {
+                this.isEditable = value;
+            }
+        }
+
+        public string DisplayName { get; set; }
+
+        public int Order { get; set; }
+
+        public int Width { get; set; }
+
+        /// <summary>
+        /// Empty ctor
+        /// </summary>
+        public BsGridColumnAttribute()
+        {
+
+        }
+    }
+}
