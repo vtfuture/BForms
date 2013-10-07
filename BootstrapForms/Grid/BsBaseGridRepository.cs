@@ -204,6 +204,14 @@ namespace BootstrapForms.Grid
             return this.ToBsGridViewModel(settings);
         }
 
+        /// <summary>
+        /// Creates GridModel based on Query, OrderQuery and MapQuery and wrapps it for further use
+        /// </summary>
+        /// <typeparam name="TModel">Wrapper model type</typeparam>
+        /// <param name="expression">Grid selector targeted for wrapping</param>
+        /// <param name="settings">Settings</param>
+        /// <param name="count">Total records</param>
+        /// <returns>Wrapper model</returns>
         public TModel ToBsGridViewModel<TModel>(Expression<Func<TModel, BsGridModel<TRow>>> expression, BsGridRepositorySettings<TSearch> settings, out int count) where TModel : new()
         {
             var grid = this.ToBsGridViewModel(settings);
@@ -213,6 +221,13 @@ namespace BootstrapForms.Grid
             return SetGridProperty(expression, grid);
         }
 
+        /// <summary>
+        /// Creates GridModel based on Query, OrderQuery and MapQuery and wrapps it for further use
+        /// </summary>
+        /// <typeparam name="TModel">Wrapper model type</typeparam>
+        /// <param name="expression">Grid selector targeted for wrapping</param>
+        /// <param name="settings">Settings</param>
+        /// <returns>Wrapper model</returns>
         public TModel ToBsGridViewModel<TModel>(Expression<Func<TModel, BsGridModel<TRow>>> expression, BsGridRepositorySettings<TSearch> settings) where TModel : new()
         {
             var grid = this.ToBsGridViewModel(settings);
@@ -220,6 +235,13 @@ namespace BootstrapForms.Grid
             return SetGridProperty(expression, grid);
         }
 
+        /// <summary>
+        /// Creates GridModel for added row
+        /// </summary>
+        /// <typeparam name="TModel">Wrapper model type</typeparam>
+        /// <param name="expression">Grid selector targeted for wrapping</param>
+        /// <param name="row">Added row</param>
+        /// <returns>Wrapper model</returns>
         public TModel ToBsGridViewModel<TModel>(Expression<Func<TModel, BsGridModel<TRow>>> expression, TRow row) where TModel : new()
         {
             var grid = new BsGridModel<TRow>
@@ -233,6 +255,12 @@ namespace BootstrapForms.Grid
             return SetGridProperty(expression, grid);
         }
 
+        /// <summary>
+        /// Creates GridModel based on Query, OrderQuery and MapQuery
+        /// </summary>
+        /// <param name="settings">Settings</param>
+        /// <param name="count">Total records</param>
+        /// <returns>Wrapper model</returns>
         public BsGridModel<TRow> ToBsGridViewModel(BsGridRepositorySettings<TSearch> settings, out int count)
         {
             var model = ToBsGridViewModel(settings);
@@ -294,28 +322,13 @@ namespace BootstrapForms.Grid
             return result;
         }
 
-        public virtual BsGridModel<TRow> ToBsGridViewModel(IQueryable<TEntity> basicQuery, IOrderedQueryable<TRow> finalQuery)
-        {
-            var result = new BsGridModel<TRow>();
-
-            var totalRecords = basicQuery.Select(x => false).Count();
-
-            if (totalRecords > 0)
-            {
-                var pager = new BsPagerModel(totalRecords, this.settings.PageSize, this.settings.Page);
-                var pagedQuery = basicQuery.Skip(pager.PageSize * (pager.CurrentPage - 1)).Take(pager.PageSize);
-
-                result.Items = finalQuery.ToList();
-                result.Pager.CurrentPageRecords = result.Items.Count();
-            }
-            else
-            {
-                result.Items = new List<TRow>();
-            }
-
-            return result;
-        }
-
+        /// <summary>
+        /// Helper for wrapping grid
+        /// </summary>
+        /// <typeparam name="TModel">Wrapper model type</typeparam>
+        /// <param name="expression">Grid selector targeted for wrapping</param>
+        /// <param name="grid">Grid object</param>
+        /// <returns>Wrapper model</returns>
         private TModel SetGridProperty<TModel>(Expression<Func<TModel, BsGridModel<TRow>>> expression, BsGridModel<TRow> grid) where TModel : new()
         {
             var model = new TModel();
