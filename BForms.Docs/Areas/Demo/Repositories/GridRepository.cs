@@ -117,6 +117,11 @@ namespace BForms.Docs.Areas.Demo.Repositories
             return db.Users.Where(x => x.Id == objId).Select(MapUser_UsersDetailsModel).FirstOrDefault();
         }
 
+        public UsersGridRowModel ReadRow(int objId)
+        {
+            return db.Users.Where(x => x.Id == objId).Select(MapUser_UserGridRowModel).FirstOrDefault();
+        }
+
         public void Delete(int objId)
         {
             var entity = db.Users.FirstOrDefault(x => x.Id == objId);

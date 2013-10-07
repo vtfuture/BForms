@@ -9,6 +9,7 @@ using BForms.Docs.Controllers;
 using BForms.Docs.Helpers;
 using BForms.Docs.Resources;
 using BootstrapForms.Grid;
+using BootstrapForms.Models;
 using BootstrapForms.Mvc;
 
 namespace BForms.Docs.Areas.Demo.Controllers
@@ -69,14 +70,9 @@ namespace BForms.Docs.Areas.Demo.Controllers
 
             try
             {
-                var gridModel = _gridRepository.ToBsGridViewModel(model);
+                var viewModel = _gridRepository.ToBsGridViewModel<UsersViewModel>(x => x.Grid, model, out count);
 
-                count = gridModel.Pager.TotalRecords;
-
-                html = this.BsRenderPartialView("_Grid", new UsersViewModel
-                {
-                    Grid = gridModel
-                });
+                html = this.BsRenderPartialView("_Grid", viewModel);
             }
             catch (Exception ex)
             {
@@ -107,11 +103,26 @@ namespace BForms.Docs.Areas.Demo.Controllers
 
             try
             {
+                var rowModel = _gridRepository.ReadRow(objId);
+
+                var gridModel = new BsGridModel<UsersGridRowModel>
+                                    {
+                                        Items = new List<UsersGridRowModel>
+                                                    {
+                                                        rowModel
+                                                    }
+                                    };
+
+                row = this.BsRenderPartialView("_Grid", new UsersViewModel
+                                                            {
+                                                                Grid = gridModel
+                                                            });
+
                 if (getDetails)
                 {
-                    var model = _gridRepository.ReadDetails(objId);
+                    var detailsModel = _gridRepository.ReadDetails(objId);
 
-                    details = this.BsRenderPartialView("_Details", model);
+                    details = this.BsRenderPartialView("_Details", detailsModel);
                 }
                 
             }

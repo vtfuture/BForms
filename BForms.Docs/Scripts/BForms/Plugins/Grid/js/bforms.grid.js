@@ -307,9 +307,8 @@
         if (typeof this.options.rowDetailsSuccessHandler === 'function') {
             this.options.rowDetailsSuccessHandler.call(this, $row, data);
         }
-
         //insert details to dom
-        $row.append(data.$html);
+        $row.append(data.$html.hide()).slideDown(800);
 
         this._handleDetails($row);
                 

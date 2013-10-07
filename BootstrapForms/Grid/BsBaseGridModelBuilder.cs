@@ -136,6 +136,31 @@ namespace BootstrapForms.Grid
             return this.ToBsGridViewModel(settings);
         }
 
+        public TModel ToBsGridViewModel<TModel>(Expression<Func<TModel, BsGridModel<TRow>>> expression, BsGridRepositorySettings<TSearch> settings, out int count) where TModel : new()
+        {
+            var grid = this.ToBsGridViewModel(settings);
+
+            count = grid.Pager.TotalRecords;
+
+            return SetGridProperty(expression, grid);
+        }
+
+        public TModel ToBsGridViewModel<TModel>(Expression<Func<TModel, BsGridModel<TRow>>> expression, BsGridRepositorySettings<TSearch> settings) where TModel : new()
+        {
+            var grid = this.ToBsGridViewModel(settings);
+
+            return SetGridProperty(expression, grid);
+        }
+
+        public virtual BsGridModel<TRow> ToBsGridViewModel(BsGridRepositorySettings<TSearch> settings, out int count)
+        {
+            var model = ToBsGridViewModel(settings);
+
+            count = model.Pager.TotalRecords;
+
+            return model;
+        }
+
         public virtual BsGridModel<TRow> ToBsGridViewModel(BsGridRepositorySettings<TSearch> settings)
         {
             this.settings = settings;
@@ -190,6 +215,14 @@ namespace BootstrapForms.Grid
             }
 
             return result;
+        }
+
+        private TModel SetGridProperty<TModel>(Expression<Func<TModel, BsGridModel<TRow>>> expression, BsGridModel<TRow> grid) where TModel : new()
+        {
+            var model = new TModel();
+            var gridProp = expression.GetPropertyInfo();
+            gridProp.SetValue(model, grid);
+            return model;
         }
     }
 }
