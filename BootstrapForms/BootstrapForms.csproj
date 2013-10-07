@@ -74,7 +74,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Grid\BsBaseGridModelBuilder.cs" />
+    <Compile Include="Grid\BsBaseGridRepository.cs" />
     <Compile Include="Grid\BsButtonType.cs" />
     <Compile Include="Grid\BsGridColumn.cs" />
     <Compile Include="Grid\BsGridColumnFactory.cs" />
