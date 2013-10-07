@@ -6,11 +6,6 @@ using System.Web.Mvc;
 
 namespace BootstrapForms.Grid
 {
-    public interface IHtmlBuilder
-    {
-        MvcHtmlString Render();
-    }
-
     public interface IComponent : IHtmlString
     {
         string Render();
@@ -20,13 +15,15 @@ namespace BootstrapForms.Grid
     {
         protected ViewContext viewContext;
 
+        private Dictionary<string, object> htmlAttributes;
+
         public BaseComponent() { }
 
         public BaseComponent(ViewContext viewContext)
         {
             this.viewContext = viewContext;
         }
-
+        
         public abstract string Render();
 
         public virtual string ToHtmlString()

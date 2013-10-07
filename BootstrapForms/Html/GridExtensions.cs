@@ -14,13 +14,31 @@ namespace BootstrapForms.Html
         public static BsGridHtmlBuilder<TModel, TRow> BsGridFor<TModel, TRow>(this HtmlHelper<TModel> htmlHelper,
             Expression<Func<TModel, BsGridModel<TRow>>> expression) where TRow : new()
         {
+            return htmlHelper.BsGridFor(expression, null);
+        }
+
+        public static BsGridHtmlBuilder<TModel, TRow> BsGridFor<TModel, TRow>(this HtmlHelper<TModel> htmlHelper,
+            Expression<Func<TModel, BsGridModel<TRow>>> expression,
+            BsGridHtmlBuilder<TModel, TRow> baseBuilder) where TRow : new()
+        {
             var grid = expression.Compile().Invoke(htmlHelper.ViewData.Model);
 
             var metadata = ModelMetadata.FromLambdaExpression(expression, htmlHelper.ViewData);
 
             var fullName = ExpressionHelper.GetExpressionText(expression);
 
-            return new BsGridHtmlBuilder<TModel, TRow>(fullName, grid, metadata, htmlHelper.ViewContext);
+            if (baseBuilder == null)
+            {
+                baseBuilder = new BsGridHtmlBuilder<TModel, TRow>(fullName, grid, metadata, htmlHelper.ViewContext);
+            }
+            else
+            {
+                baseBuilder.Model = grid;
+                baseBuilder.FullName = fullName;
+                baseBuilder.Metadata = metadata;
+            }
+
+            return baseBuilder;
         }
 
         public static BsHtmlTag BsGridWrapper<TModel>(this HtmlHelper<TModel> htmlHelper)

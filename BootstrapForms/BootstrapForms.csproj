@@ -128,6 +128,7 @@
     <Compile Include="Utilities\QueryableExtensions.cs" />
     <Compile Include="Utilities\ReflectionHelpers.cs" />
     <Compile Include="Mvc\RenderViewHelpers.cs" />
+    <Compile Include="Utilities\TagBuilderExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

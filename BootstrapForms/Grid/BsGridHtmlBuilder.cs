@@ -13,19 +13,43 @@ namespace BootstrapForms.Grid
 {
     public class BsGridHtmlBuilder<TModel, TRow> : BaseComponent where TRow : new()
     {
-        private readonly BsGridModel<TRow> model;
-        private readonly ModelMetadata metadata;
-        private readonly string fullName;
+        private BsGridModel<TRow> model;
 
+        internal BsGridModel<TRow> Model
+        {
+            set
+            {
+                this.model = value;
+            }
+        }
+
+        private ModelMetadata metadata;
+
+        public ModelMetadata Metadata
+        {
+            get { return metadata; }
+            set { metadata = value; }
+        }
+
+        private string fullName;
+
+        public string FullName
+        {
+            get { return fullName; }
+            set { fullName = value; }
+        }
+
+        private Dictionary<string, object> htmlAttributes;
         private string multipleSelectActionsHtml;
         private Func<TRow, string> rowHighlighter;
-        Func<TRow, Dictionary<string, object>> rowData;
+        private Func<TRow, Dictionary<string, object>> rowData;
         private bool hasDetails;
         private List<BsGridColumn<TRow>> columns;
         private BsPagerSettings pagerSettings = new BsPagerSettings();
         private string noRecordsTemplate;
         private string noResultsTemplate;
 
+        public BsGridHtmlBuilder() { }
 
         public BsGridHtmlBuilder(string fullName, BsGridModel<TRow> model, ModelMetadata metadata, ViewContext viewContext)
             : base(viewContext)
@@ -34,8 +58,7 @@ namespace BootstrapForms.Grid
             this.model = model;
             this.metadata = metadata;
 
-            Type type = typeof(TRow);
-            PropertyInfo[] properties = type.GetProperties();
+
 
             BsGridAttribute gridAttr = null;
             if (ReflectionHelpers.TryGetAttribute(fullName, typeof(TModel), out gridAttr))
@@ -44,7 +67,7 @@ namespace BootstrapForms.Grid
             }
 
             #region set columns
-            this.columns = new List<BsGridColumn<TRow>>(properties.Length);
+            this.columns = new List<BsGridColumn<TRow>>();
 
             //foreach (PropertyInfo property in properties)
             //{
@@ -74,15 +97,15 @@ namespace BootstrapForms.Grid
 
             #endregion
         }
-
-        public void AddColumn(BsGridColumn<TRow> column)
+        public BsGridHtmlBuilder<TModel, TRow> HtmlAttributes(Dictionary<string, object> htmlAttributes)
         {
-            this.columns.Add(column);
+            this.htmlAttributes = htmlAttributes;
+            return this;
         }
 
         public BsGridHtmlBuilder<TModel, TRow> ConfigureColumns(Action<BsGridColumnFactory<TRow>> configurator)
         {
-            var columnFactory = new BsGridColumnFactory<TRow>();
+            var columnFactory = new BsGridColumnFactory<TRow>(this.viewContext);
             configurator(columnFactory);
             this.columns = columnFactory.Columns;
 
@@ -134,7 +157,8 @@ namespace BootstrapForms.Grid
         {
             var gridBuilder = new TagBuilder("div");
             gridBuilder.MergeAttribute("id", this.fullName.Split('.').Last().ToLower());
-            gridBuilder.MergeAttribute("class", "grid_view");
+            gridBuilder.MergeClassAttribute("grid_view", this.htmlAttributes);
+            gridBuilder.MergeAttributes(this.htmlAttributes, true);
 
             #region header builder
             var headerBuilder = new TagBuilder("h2");
@@ -163,6 +187,16 @@ namespace BootstrapForms.Grid
             var columnsBuilder = new TagBuilder("div");
 
             columnsBuilder.MergeAttribute("class", "row grid_row title");
+
+            if (!this.columns.Any())
+            {
+                this.SetColumnsFromModel();
+            }
+
+            if (!this.columns.Any())
+            {
+                throw new NotImplementedException("You must define your grid columns either in model as data attributes or in the view");
+            }
 
             foreach (var column in this.columns)
             {
@@ -411,7 +445,7 @@ namespace BootstrapForms.Grid
                 #region pages buttons
 
                 var startPage = this.model.Pager.GetStartPage(this.pagerSettings.Size);
-                int nr = this.model.Pager.TotalPages%this.pagerSettings.Size;
+                int nr = this.model.Pager.TotalPages % this.pagerSettings.Size;
                 for (int i = 0; i < nr; i++)
                 {
                     var page = i + startPage;
@@ -485,10 +519,10 @@ namespace BootstrapForms.Grid
                     var textBuilder = new TagBuilder("div");
                     textBuilder.MergeAttribute("class", "results_number");
 
-                    var firstIdx = (this.model.Pager.CurrentPage - 1)*this.model.Pager.PageSize + 1;
+                    var firstIdx = (this.model.Pager.CurrentPage - 1) * this.model.Pager.PageSize + 1;
                     var lastIdx = this.model.Pager.CurrentPage == this.model.Pager.TotalPages
                                       ? this.model.Pager.TotalRecords
-                                      : this.model.Pager.CurrentPage*this.model.Pager.PageSize;
+                                      : this.model.Pager.CurrentPage * this.model.Pager.PageSize;
                     //TODO:
                     textBuilder.InnerHtml += "Rezultate" + firstIdx + "–" + lastIdx + " din";
 
@@ -520,6 +554,36 @@ namespace BootstrapForms.Grid
                 this.RenderAjax() :
                 this.RenderIndex();
             return result;
+        }
+
+        private void SetColumnsFromModel()
+        {
+            Type type = typeof(TRow);
+            PropertyInfo[] properties = type.GetProperties();
+
+            foreach (PropertyInfo property in properties)
+            {
+                BsGridColumnAttribute columnAttr = null;
+                if (ReflectionHelpers.TryGetAttribute(property, out columnAttr))
+                {
+                    var column = new BsGridColumn<TRow>(property, this.viewContext);
+
+                    column.IsSortable = columnAttr.HasOrder;
+                    column.Width = columnAttr.Width;
+
+                    System.ComponentModel.DataAnnotations.DisplayAttribute displayAttribute = null;
+                    if (ReflectionHelpers.TryGetAttribute(property, out displayAttribute))
+                    {
+                        column.DisplayName = displayAttribute.GetName();
+                    }
+                    else
+                    {
+                        column.DisplayName = property.Name;
+                    }
+
+                    this.columns.Add(column);
+                }
+            }
         }
     }
 }

@@ -25,7 +25,8 @@ namespace BootstrapForms.Grid
 
         public BsGridColumn(ViewContext viewContext) : base(viewContext) { }
 
-        public BsGridColumn(PropertyInfo property)
+        public BsGridColumn(PropertyInfo property, ViewContext viewContext)
+            : base(viewContext)
         {
             this.Property = property;
         }

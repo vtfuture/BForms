@@ -38,6 +38,15 @@ namespace BForms.Docs.Areas.Demo.Models
 
         [BsGridColumn(Width = 3, IsEditable = false)]
         public bool Enabled { get; set; }
+
+        public Dictionary<string, object> RowData()
+        {
+            return new Dictionary<string, object> 
+            {
+                { "data-objid", this.Id },
+                { "data-active", this.Enabled }
+            };
+        }
     }
 
     public class UsersSearchModel

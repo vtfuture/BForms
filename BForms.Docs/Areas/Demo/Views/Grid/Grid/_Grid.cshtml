@@ -1,11 +1,19 @@
-﻿@model BForms.Docs.Areas.Demo.Models.UsersViewModel
+﻿@model UsersViewModel
 @using BForms.Docs.Resources
 @using BootstrapForms.Html
-                                            
+@using BootstrapForms.Grid
+@using BootstrapForms.Models
+@using BForms.Docs.Areas.Demo.Models
+       
+@{
+    var baseBuilder = new BsGridHtmlBuilder<UsersViewModel, UsersGridRowModel>().HtmlAttributes(new Dictionary<string, object> { { "class", "cutom" } });
+}
+                                     
 @(Html.BsGridFor(m => m.Grid)
         .MultipleSelectActions(Html.Partial("Grid/_Actions").ToString())
+        .HtmlAttributes(new Dictionary<string, object>() { { "class", "custom_class" } })
         .RowHighlighter(row => row.Enabled ? "#59b444" : "#dd3131")
-        .RowData(row => new Dictionary<string, object> {{ "data-objid", row.Id }, { "data-active", row.Enabled }})
+        .RowData(row => new Dictionary<string, object> { { "data-objid", row.Id }, { "data-active", row.Enabled } })
         .ConfigureColumns(cf =>
         {
             cf.Add(c => c.Name).Name(Resource.Name)

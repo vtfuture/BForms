@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using BootstrapForms.Utilities;
 
 namespace BootstrapForms.Grid
 {
     public class BsToolbarHtmlBuilder<TToolbar> : BaseComponent
     {
         private string displayName;
-        private string classes { get; set; }
+        private Dictionary<string, object> htmlAttributes;
+
         private BsToolbarActionsFactory<TToolbar> ActionsFactory { get; set; }
 
         private readonly string fullName;
@@ -33,9 +35,9 @@ namespace BootstrapForms.Grid
             return this;
         }
 
-        public BsToolbarHtmlBuilder<TToolbar> Classes(string classes)
+        public BsToolbarHtmlBuilder<TToolbar> HtmlAttributes(Dictionary<string, object> htmlAttributes)
         {
-            this.classes = classes;
+            this.htmlAttributes = htmlAttributes;
             return this;
         }
 
@@ -51,7 +53,8 @@ namespace BootstrapForms.Grid
         {
             var toolbarBuilder = new TagBuilder("div");
             toolbarBuilder.MergeAttribute("id", this.fullName.Split('.').Last().ToLower());
-            toolbarBuilder.MergeAttribute("class", "grids_header_bar");
+            toolbarBuilder.MergeClassAttribute("grids_header_bar", this.htmlAttributes);
+            toolbarBuilder.MergeAttributes(this.htmlAttributes, true);
 
             var headerBulder = new TagBuilder("h1");
             headerBulder.InnerHtml += this.displayName;
