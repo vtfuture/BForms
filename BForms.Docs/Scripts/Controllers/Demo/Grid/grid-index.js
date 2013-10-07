@@ -67,7 +67,7 @@
                 var enabled = callbackData.sent.isEnabled;
                 $me.data('enabled', enabled);
                 $me.html(enabled ? 'Disable' : 'Enable');
-                this.updateRow(row);
+                this.updateRow(row, true);
             }, this),
             error: $.proxy(function (response) {
                 this._rowActionAjaxError(response, arguments[4].row);

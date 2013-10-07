@@ -6,13 +6,13 @@ using System.Data.Entity;
 
 namespace BForms.Docs.Areas.Demo.Mock
 {
+    [Serializable]
     public class BFormsContext
     {
-        public List<User> Users
+        public BFormsContext()
         {
-            get
-            {
-                return new List<User>()
+            #region Users
+            Users = new List<User>()
                            {
                                new User()
                                    {
@@ -122,14 +122,10 @@ namespace BForms.Docs.Areas.Demo.Mock
                                    }
 
                            };
-            }
-        }
+            #endregion
 
-        public List<Job> Jobs
-        {
-            get
-            {
-                return new List<Job>()
+            #region Jobs
+            Jobs = new List<Job>()
                 {
                     new Job()
                     {
@@ -152,12 +148,30 @@ namespace BForms.Docs.Areas.Demo.Mock
                         Name = "Batman"
                     }
                 };
-            }
+            #endregion
         }
+
+        public List<User> Users { get; set; }
+
+        public List<Job> Jobs { get; set; }
 
         public void SaveChanges()
         {
-            
+            HttpContext.Current.Session["DbContext"] = this;
+        }
+
+        public static BFormsContext Get()
+        {
+            var sessionContext = (BFormsContext)HttpContext.Current.Session["DbContext"];
+
+            if (sessionContext == null)
+            {
+                sessionContext = new BFormsContext();
+
+                HttpContext.Current.Session["DbContext"] = sessionContext;
+            }
+
+            return sessionContext;
         }
     }
 
@@ -174,7 +188,7 @@ namespace BForms.Docs.Areas.Demo.Mock
         {
             get
             {
-                return IdJob.HasValue ? (new BFormsContext()).Jobs.FirstOrDefault(x => x.Id == IdJob) : null;
+                return IdJob.HasValue ? BFormsContext.Get().Jobs.FirstOrDefault(x => x.Id == IdJob) : null;
             }
         }
     }

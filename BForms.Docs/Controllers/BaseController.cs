@@ -10,7 +10,14 @@ namespace BForms.Docs.Controllers
 {
     public class BaseController : RequireJS.RequireJsController
     {
-        public BFormsContext db = new BFormsContext();
+        public BFormsContext Db 
+        {
+            get
+            {
+                return BFormsContext.Get();
+            }
+            
+        }
 
         public override void RegisterGlobalOptions()
         {

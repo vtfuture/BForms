@@ -672,10 +672,11 @@
         }
     };
 
-    Grid.prototype.updateRow = function (row) {
+    Grid.prototype.updateRow = function (row, getDetails) {
 
         var data = {
-            objId: row.data('objid')
+            objId: row.data('objid'),
+            getDetails: getDetails || false
         };
 
         var ajaxOptions = {
@@ -698,12 +699,23 @@
     };
 
     Grid.prototype._updateRowAjaxSuccess = function (data, callbackData) {
+        var $html = $(data.Row),
+            $row = callbackData.row,
+            $newRow = $html.find(this.options.rowSelector);
 
-        var $html = $(data.Row);
-        
+        if (callbackData.sent.getDetails) {
+            $newRow.addClass('open');
+            $newRow.data('hasdetails', true);
+            $newRow.append($(data.Details));
+            this._createActions(this.options.rowActions, $newRow);
+        }
+
+        if (typeof this.options.rowDetailsSuccessHandler === 'function') {
+            this.options.rowDetailsSuccessHandler.call(this, $newRow);
+        }
+
         // replace row header with the updated one
-        callbackData.row.find(this.options.rowHeaderSelector).replaceWith($html.find(this.options.rowHeaderSelector));
-
+        $row.replaceWith($newRow);
     };
 
     Grid.prototype._updateRowAjaxError = function (data) {

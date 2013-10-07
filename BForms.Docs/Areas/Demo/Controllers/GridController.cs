@@ -21,7 +21,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
 
         public GridController()
         {
-            _gridRepository = new GridRepository(db);
+            _gridRepository = new GridRepository(Db);
         }
         #endregion
 
@@ -105,18 +105,9 @@ namespace BForms.Docs.Areas.Demo.Controllers
             {
                 var rowModel = _gridRepository.ReadRow(objId);
 
-                var gridModel = new BsGridModel<UsersGridRowModel>
-                                    {
-                                        Items = new List<UsersGridRowModel>
-                                                    {
-                                                        rowModel
-                                                    }
-                                    };
+                var viewModel = _gridRepository.ToBsGridViewModel<UsersViewModel>(x => x.Grid, rowModel);
 
-                row = this.BsRenderPartialView("_Grid", new UsersViewModel
-                                                            {
-                                                                Grid = gridModel
-                                                            });
+                row = this.BsRenderPartialView("_Grid", viewModel);
 
                 if (getDetails)
                 {

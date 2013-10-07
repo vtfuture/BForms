@@ -152,7 +152,20 @@ namespace BootstrapForms.Grid
             return SetGridProperty(expression, grid);
         }
 
-        public virtual BsGridModel<TRow> ToBsGridViewModel(BsGridRepositorySettings<TSearch> settings, out int count)
+        public TModel ToBsGridViewModel<TModel>(Expression<Func<TModel, BsGridModel<TRow>>> expression, TRow row) where TModel : new()
+        {
+            var grid = new BsGridModel<TRow>
+                           {
+                               Items = new List<TRow>
+                                           {
+                                               row
+                                           }
+                           };
+
+            return SetGridProperty(expression, grid);
+        }
+
+        public BsGridModel<TRow> ToBsGridViewModel(BsGridRepositorySettings<TSearch> settings, out int count)
         {
             var model = ToBsGridViewModel(settings);
 
@@ -175,12 +188,21 @@ namespace BootstrapForms.Grid
             {
                 var pager = new BsPagerModel(totalRecords, this.settings.PageSize, this.settings.Page);
 
-                this.orderedQueryBuilder = new OrderedQueryBuilder<TRow>(this.settings.OrderColumns);
-                var orderedQuery = this.OrderQuery(basicQuery);
+                IEnumerable<TRow> finalQuery = null;
 
-                var pagedQuery = orderedQuery.Skip(pager.PageSize * (pager.CurrentPage - 1)).Take(pager.PageSize);
+                if (totalRecords > 1)
+                {
+                    this.orderedQueryBuilder = new OrderedQueryBuilder<TRow>(this.settings.OrderColumns);
+                    var orderedQuery = this.OrderQuery(basicQuery);
 
-                var finalQuery = this.MapQuery(pagedQuery);
+                    var pagedQuery = orderedQuery.Skip(pager.PageSize*(pager.CurrentPage - 1)).Take(pager.PageSize);
+
+                    finalQuery = this.MapQuery(pagedQuery);
+                }
+                else
+                {
+                    finalQuery = this.MapQuery(basicQuery);
+                }
 
                 result.Items = finalQuery.ToList();
 
@@ -194,7 +216,7 @@ namespace BootstrapForms.Grid
 
             return result;
         }
-
+        
         public virtual BsGridModel<TRow> ToBsGridViewModel(IQueryable<TEntity> basicQuery, IOrderedQueryable<TRow> finalQuery)
         {
             var result = new BsGridModel<TRow>();
