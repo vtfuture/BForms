@@ -153,7 +153,7 @@
 
     Form.prototype._btnClickAjaxSuccess = function (data, callbackData) {
         if (typeof callbackData.handler === 'function') {
-            callbackData.handler.call(this, callbackData.sent, data);
+            callbackData.handler.call(this, callbackData.sent, data, this);
         }
     };
 

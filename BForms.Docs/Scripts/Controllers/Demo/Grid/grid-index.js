@@ -128,7 +128,7 @@
                 this.$grid,
                 $.extend(true, {
                     uniqueName: 'usersToolbar',
-                    newUrl: this.options.newTypeUrl
+                    newUrl: this.options.newUrl
                 }, this.options))
         );
     };

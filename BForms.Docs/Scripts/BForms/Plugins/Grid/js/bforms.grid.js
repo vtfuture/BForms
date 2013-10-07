@@ -211,6 +211,7 @@
     };
 
     Grid.prototype.add = function (row) {
+        var $row = $(row);
 
         this._currentResultsCount++;
 
@@ -220,8 +221,8 @@
             this.$rowsContainer.removeClass('no_results');
             this.$rowsContainer.children().remove();
         }
-        
-        this.$rowsContainer.prepend(row);
+
+        this.$rowsContainer.prepend($row.find(this.options.rowSelector));
 
         this.$pager.bsPager('updateTotal', this._currentResultsCount);
     };
@@ -629,7 +630,7 @@
         var $html = $(data.Html);
 
         //update rows
-        this.$rowsContainer.html($html.closest('.row_wrapper'));
+        this.$rowsContainer.html($html.html());
 
         if (this._currentResultsCount) {
             this.$rowsContainer.removeClass('no_results');

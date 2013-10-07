@@ -50,6 +50,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
                 {"detailsUrl", Url.Action("Details")},
                 {"getRowUrl", Url.Action("GetRow")},
                 {"enableDisableUrl", Url.Action("EnableDisable")},
+                {"newUrl", Url.Action("New")},
                 {"deleteUrl", Url.Action("Delete")}
             };
 
@@ -90,6 +91,39 @@ namespace BForms.Docs.Areas.Demo.Controllers
                     Count = count,
                     Html = html
                 }
+            });
+        }
+
+        public JsonResult New(Toolbar<UsersSearchModel, UsersNewModel> model)
+        {
+            var msg = string.Empty;
+            var msgToolTip = string.Empty;
+            var status = StatusInfo.Success;
+            var row = string.Empty;
+
+            try
+            {
+                var rowModel = _gridRepository.Create(model.New);
+
+                var viewModel = _gridRepository.ToBsGridViewModel<UsersViewModel>(x => x.Grid, rowModel);
+
+                row = this.BsRenderPartialView("_Grid", viewModel);
+            }
+            catch (Exception ex)
+            {
+                msg = Resource.ServerError;
+                status = StatusInfo.ServerError;
+            }
+
+            return Json(new
+            {
+                Data = new
+                {
+                    Row = row
+                },
+                Status = status,
+                Message = msg,
+                MessageToolTip = msgToolTip,
             });
         }
 

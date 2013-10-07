@@ -140,7 +140,7 @@ namespace BootstrapForms.Grid
         {
             var grid = this.ToBsGridViewModel(settings);
 
-            count = grid.Pager.TotalRecords;
+            count = grid.Pager != null ? grid.Pager.TotalRecords : 0;
 
             return SetGridProperty(expression, grid);
         }
@@ -169,7 +169,7 @@ namespace BootstrapForms.Grid
         {
             var model = ToBsGridViewModel(settings);
 
-            count = model.Pager.TotalRecords;
+            count = model.Pager != null ? model.Pager.TotalRecords : 0;
 
             return model;
         }

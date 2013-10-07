@@ -93,16 +93,25 @@ namespace BForms.Docs.Areas.Demo.Repositories
                 #region Name
                 if (!string.IsNullOrEmpty(Settings.Search.Name))
                 {
-                    query = query.Where(x => (x.FirstName + " " + x.LastName).Contains(Settings.Search.Name));
+                    var name = Settings.Search.Name.ToLower();
+                    query = query.Where(x => x.FirstName.ToLower().Contains(name) ||
+                                             x.LastName.ToLower().Contains(name));
                 }
                 #endregion
 
                 #region Enabled
                 if (Settings.Search.IsEnabled.SelectedValues.HasValue)
                 {
-                    var enabled = Settings.Search.IsEnabled.SelectedValues.Value == YesNoValueTypes.Yes;
+                    var isEnabled = Settings.Search.IsEnabled.SelectedValues.Value;
 
-                    query = query.Where(x => x.Enabled == enabled);
+                    if (isEnabled == YesNoValueTypes.Yes)
+                    {
+                        query = query.Where(x => x.Enabled);
+                    }
+                    else if (isEnabled == YesNoValueTypes.No)
+                    {
+                        query = query.Where(x => !x.Enabled);
+                    }
                 }
                 #endregion
             }
@@ -112,6 +121,23 @@ namespace BForms.Docs.Areas.Demo.Repositories
         #endregion
 
         #region CRUD
+        public UsersGridRowModel Create(UsersNewModel model)
+        {
+            var entity = new User();
+            entity.Enabled = model.IsEnabled == YesNoValueTypes.Yes;
+            entity.FirstName = model.FirstName;
+            entity.LastName = model.LastName;
+            if (model.Jobs != null && model.Jobs.SelectedValues.HasValue)
+            {
+                entity.IdJob = model.Jobs.SelectedValues.Value;
+            }
+            entity.RegisterDate = DateTime.Now;
+            db.Users.Add(entity);
+            db.SaveChanges();
+
+            return MapUser_UserGridRowModel(entity);
+        }
+
         public UsersDetailsModel ReadDetails(int objId)
         {
             return db.Users.Where(x => x.Id == objId).Select(MapUser_UsersDetailsModel).FirstOrDefault();
