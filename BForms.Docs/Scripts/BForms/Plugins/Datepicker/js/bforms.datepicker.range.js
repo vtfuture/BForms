@@ -48,6 +48,8 @@
 
         var startOptions = this.options.startOptions;
 
+        this.options.allowInvalidMinMax = this.options.allowInvalidMinMax && !this.options.startOptions.defaultDateValue && !this.options.endOptions.defaultDate;
+
         this.$start.bsDatepicker($.extend(true, {}, {
             onChange: $.proxy(this.onStartChange, this),
             onDayMouseOver: $.proxy(this.onStartDaysMouseOver, this),
@@ -58,20 +60,22 @@
         }));
 
         var endOptions = this.options.endOptions;
-
         this.$end.bsDatepicker($.extend(true, {}, {
             defaultDateValue: this.$start.bsDatepicker('getUnformattedValue'),
             defaultDate: endOptions.type == 'timepicker' ? '+1h' : '+1d',
             onChange: $.proxy(this.onEndChange, this),
             onDayMouseOver: $.proxy(this.onEndDaysMouseOver, this),
-            onDaysMouseOut: $.proxy(this.onEndDaysMouseOut, this),
-            minDate: this.$start.bsDatepicker('getUnformattedValue'),
+            onDaysMouseOut: $.proxy(this.onEndDaysMouseOut, this)
         }, endOptions, {
             inline: true,
             ShowClose: false,
         }));
 
-        this.$start.bsDatepicker('option', 'maxDate', this.$end.bsDatepicker('getUnformattedValue'));
+        if (!this.options.allowInvalidMinMax) {
+            this.$start.bsDatepicker('option', 'maxDate', this.$end.bsDatepicker('getUnformattedValue'));
+            this.$end.bsDatepicker('option', 'minDate', this.$start.bsDatepicker('getUnformattedValue'));
+        }
+        
         this.$start.bsDatepicker('option', 'beforeShowDay', $.proxy(this.beforeShowDay, this));
         this.$end.bsDatepicker('option', 'beforeShowDay', $.proxy(this.beforeShowDay, this));
 
@@ -203,15 +207,28 @@
     };
 
     bRangePicker.prototype.onStartChange = function (data) {
+        
         this.$end.bsDatepicker('option', 'minDate', data.date);
         this._setStartLabel(data.formattedDate);
         this.$startLabel.data('value', data.date);
+
+        var endValue = this.$end.bsDatepicker('getUnformattedValue');
+        
+        if (!this.$end.bsDatepicker('isValidDate', endValue)) {
+            this.$end.bsDatepicker('setValue', data.date.clone().add('days', 1));
+        }
     };
 
     bRangePicker.prototype.onEndChange = function (data) {
         this.$start.bsDatepicker('option', 'maxDate', data.date);
         this._setEndLabel(data.formattedDate);
         this.$endLabel.data('value', data.date);
+        
+        var startValue = this.$start.bsDatepicker('getUnformattedValue');
+
+        if (!this.$start.bsDatepicker('isValidDate', startValue)) {
+            this.$start.bsDatepicker('setValue', data.date.clone().subtract('days', 1));
+        }
     };
 
     bRangePicker.prototype.applyRange = function (value) {
@@ -491,7 +508,8 @@
             inline: true,
             ShowClose: false
         },
-        language : 'en'
+        language: 'en',
+        allowInvalidMinMax : true
     };
 
     $.fn.bsDateRangeLang = {

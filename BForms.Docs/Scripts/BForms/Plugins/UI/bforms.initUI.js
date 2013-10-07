@@ -462,7 +462,7 @@
                                 endOptions: {
                                     type: 'datetimepicker',
                                     initialValue: $endInput.val(),
-                                    language: uiLocale
+                                    language: uiLocale,
                                 },
 
                                 startAltFields: [{ selector: $startInput }],
@@ -489,7 +489,7 @@
                                 startOptions: {
                                     type: 'datetimepicker',
                                     initialValue: $startInput.val(),
-                                    defaultDate: (typeof $endInput.val() !== "undefined" && $endInput.val() != '') ? "-1d" : "now",
+                                    defaultDate: (typeof $endInput.val() !== "undefined" && $endInput.val() != '') ? "-1d" : "none",
                                     defaultDateValue: (typeof $endInput.val() !== "undefined" && $endInput.val() != '') ? $endInput.val() : false,
                                     language: uiLocale
                                 },
