@@ -39,20 +39,20 @@
         var $input = $('<input></input>');
 
         $input.prop('type', 'hidden');
-        
+
         $input.prop('id', this.$elem.prop('id'));
         $input.prop('name', this.$elem.prop('name'));
         $input.prop('class', this.$elem.prop('class'));
         $input.prop('value', this._selectSettings.selectedValues);
 
         $input.data(this.$elem.data());
-      
+
         this.$elem.prop('id', 'tag_' + $input.prop('id'));
         this.$elem.prop('name', 'tag_' + $input.prop('name'));
 
         this.$input = $input;
 
-        this.$input.on('change', function() {
+        this.$input.on('change', function () {
             if (typeof $(this).valid === "function") {
                 $(this).valid();
             }
@@ -82,7 +82,7 @@
                 } else {
                     settings.placeholder = $opt.text();
                 }
-                
+
             }, this));
         }
 

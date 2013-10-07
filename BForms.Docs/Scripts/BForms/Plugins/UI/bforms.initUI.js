@@ -1,12 +1,6 @@
 ﻿(function (factory) {
     if (typeof define === "function" && define.amd) {
         define(['jquery',
-        'bforms-select2',
-        'bforms-typeahead',
-        'bforms-radioButtonsList',
-        'bforms-checkBoxList',
-        'bforms-datepicker',
-        'bforms-datepicker-range',
         'bforms-datepicker-i18n'], factory);
     } else {
         factory(window.jQuery);
@@ -55,7 +49,7 @@
     };
 
     $.fn.bsInitUI = function (opts) {
-        return new initUI($(this), $.extend(true, {}, $.fn.bsInitUIDefaults, opts));
+        return (new initUI($(this), $.extend(true, {}, $.fn.bsInitUIDefaults, opts))).promise;
     };
 
     var initUI = (function ($, undefined) {
@@ -63,7 +57,18 @@
         var InitUI = function ($elem, opts) {
             this.$elem = $elem;
             this.options = opts;
+            
+            this.deferredList = [];
+            this.loadAMD = (typeof define === "function" && typeof define.amd !== "undefined");
+            
+            this.loadAllDeferred = $.Deferred();
+            this.promise = this.loadAllDeferred.promise();
+            
             this._applyStyles();
+
+            $.when.apply(this,this.deferredList).done($.proxy(function () {
+                this.loadAllDeferred.resolve();
+            }, this));
         };
 
 
@@ -76,7 +81,7 @@
             var self = this;
 
             //set ui i18n
-            var uiLocale = $('html').attr('lang') !== "undefined" ?  $('html').attr('lang') : 'en';
+            var uiLocale = $('html').attr('lang') !== "undefined" ? $('html').attr('lang') : 'en';
             if (requireConfig && requireConfig.websiteOptions && requireConfig.websiteOptions.locale) {
                 var locale = requireConfig.websiteOptions.locale;
                 if (typeof moment.langData(locale) !== "undefined") {
@@ -86,263 +91,587 @@
 
             if (uiLocale != 'en') {
                 //load external i18n files
+                var localeDeferred = $.Deferred();
+                this.deferredList.push(localeDeferred);
                 require([
                     'validate-' + uiLocale,
                     'select2-' + uiLocale
-                ]);
+                ], function () {
+                    localeDeferred.resolve();
+                });
             }
 
             if (this.options.select2 === true) {
-                if (typeof $.fn.select2 === "function") {
-                    this.$elem.find(this.options.select2Selector).each(function () {
-                        $(this).select2(self._getOptions(this));
+                if (self.loadAMD) {
+                    var select2Deferred = $.Deferred();
+                    this.deferredList.push(select2Deferred);
+
+                    require(['bforms-select2'], function () {
+                        self.$elem.find(self.options.select2Selector).each(function () {
+                            $(this).select2(self._getOptions(this));
+                        });
+
+                        select2Deferred.resolve();
                     });
                 } else {
-                    throw "Select2 script must be loaded before calling initUI";
+                    if (typeof $.fn.select2 === "function") {
+                        this.$elem.find(this.options.select2Selector).each(function () {
+                            $(this).select2(self._getOptions(this));
+                        });
+                    } else {
+                        throw "bforms.select2 script must be loaded before calling initUI";
+                    }
                 }
             }
 
             if (this.options.tagList === true && this.$elem.find(this.options.tagListSelector).length) {
-                if (typeof $.fn.bsSelectInput === "function") {
-                    this.$elem.find(this.options.tagListSelector).each(function () {
-                        $(this).bsSelectInput(self._getOptions(this));
+
+                if (self.loadAMD) {
+                    var tagListDeferred = $.Deferred();
+                    this.deferredList.push(tagListDeferred);
+
+                    require(['bforms-select2'], function () {
+                        self.$elem.find(self.options.tagListSelector).each(function () {
+                            $(this).bsSelectInput(self._getOptions(this));
+                        });
+
+                        tagListDeferred.resolve();
                     });
+
                 } else {
-                    throw "bforms.select2 script must be loaded before calling initUI";
+                    if (typeof $.fn.bsSelectInput === "function") {
+                        this.$elem.find(self.options.tagListSelector).each(function () {
+                            $(this).bsSelectInput(self._getOptions(this));
+                        });
+                    } else {
+                        throw "bforms.select2 script must be loaded before calling initUI";
+                    }
                 }
             }
 
             if (this.options.multiSelect2 === true && this.$elem.find(this.options.multiSelect2Selector).length) {
-                if (typeof $.fn.bsSelectInput === "function") {
-                    this.$elem.find(this.options.multiSelect2Selector).each(function () {
-                        $(this).bsSelectInput($.extend(true, {}, {
-                            tags: false
-                        }, self._getOptions(this)));
+
+                if (this.loadAMD) {
+
+                    var multiSelectDeferred = $.Deferred();
+                    this.deferredList.push(multiSelectDeferred);
+
+                    require(['bforms-select2'], function () {
+                        self.$elem.find(self.options.multiSelect2Selector).each(function () {
+                            $(this).bsSelectInput($.extend(true, {}, {
+                                tags: false
+                            }, self._getOptions(this)));
+                        });
+
+                        multiSelectDeferred.resolve();
+
                     });
+
                 } else {
-                    throw "bforms.select2 script must be loaded before calling initUI";
+                    if (typeof $.fn.bsSelectInput === "function") {
+                        this.$elem.find(self.options.multiSelect2Selector).each(function () {
+                            $(this).bsSelectInput($.extend(true, {}, {
+                                tags: false
+                            }, self._getOptions(this)));
+                        });
+                    } else {
+                        throw "bforms.select2 script must be loaded before calling initUI";
+                    }
                 }
             }
 
             if (this.options.autocomplete === true && this.$elem.find(this.options.autocompleteSelector).length) {
-                if (typeof $.fn.bsTypeahead === "function") {
-                    this.$elem.find(this.options.autocompleteSelector).each(function () {
-                        $(this).bsTypeahead(self._getOptions(this));
+
+                if (this.loadAMD) {
+
+                    var typeaheadDeferred = $.Deferred();
+                    this.deferredList.push(typeaheadDeferred);
+
+                    require(['bforms-typeahead'], function () {
+                        self.$elem.find(self.options.autocompleteSelector).each(function () {
+                            $(this).bsTypeahead(self._getOptions(this));
+                        });
+
+                        typeaheadDeferred.resolve();
                     });
+
                 } else {
-                    throw "bforms.typeahead script must be loaded before calling initUI";
+                    if (typeof $.fn.bsTypeahead === "function") {
+                        this.$elem.find(this.options.autocompleteSelector).each(function () {
+                            $(this).bsTypeahead(self._getOptions(this));
+                        });
+                    } else {
+                        throw "bforms.typeahead script must be loaded before calling initUI";
+                    }
+
                 }
             }
 
-            if (this.options.radioButtons === true) {
-                if (typeof $.fn.bsRadioButtonsList === "function") {
-                    this.$elem.find(this.options.radioButtonsSelector).each(function () {
-                        $(this).bsRadioButtonsList(self._getOptions(this));
+            if (this.options.radioButtons === true && this.$elem.find(this.options.radioButtonsSelector).length) {
+
+                if (this.loadAMD) {
+                    var radioButtonsDeferred = $.Deferred();
+                    this.deferredList.push(radioButtonsDeferred);
+
+                    require(['bforms-radioButtonsList'], function () {
+                        self.$elem.find(self.options.radioButtonsSelector).each(function () {
+                            $(this).bsRadioButtonsList(self._getOptions(this));
+                        });
+
+                        radioButtonsDeferred.resolve();
                     });
+
                 } else {
-                    throw "radioButtonsList script must be loaded before calling initUI";
+                    if (typeof $.fn.bsRadioButtonsList === "function") {
+                        this.$elem.find(this.options.radioButtonsSelector).each(function () {
+                            $(this).bsRadioButtonsList(self._getOptions(this));
+                        });
+                    } else {
+                        throw "radioButtonsList script must be loaded before calling initUI";
+                    }
+
                 }
             }
 
             if (this.options.checkBoxList === true) {
-                if (typeof $.fn.bsCheckBoxList === "function") {
-                    this.$elem.find(this.options.checkBoxListSelector).each(function () {
-                        $(this).bsCheckBoxList(self._getOptions(this));
+                if (this.loadAMD === true) {
+                    var checkBoxListDeferred = $.Deferred();
+                    this.deferredList.push(checkBoxListDeferred);
+
+                    require(['bforms-checkBoxList'], function () {
+                        self.$elem.find(self.options.checkBoxListSelector).each(function () {
+                            $(this).bsCheckBoxList(self._getOptions(this));
+                        });
+
+                        checkBoxListDeferred.resolve();
                     });
+
                 } else {
-                    throw "CheckBoxList script must be loaded before calling initUI";
+                    if (typeof $.fn.bsCheckBoxList === "function") {
+                        this.$elem.find(this.options.checkBoxListSelector).each(function () {
+                            $(this).bsCheckBoxList(self._getOptions(this));
+                        });
+                    } else {
+                        throw "CheckBoxList script must be loaded before calling initUI";
+                    }
                 }
             }
 
             if (this.options.datepicker === true && this.$elem.find(this.options.datepickerSelector).length) {
-                if (typeof $.fn.bsDatepicker === "function") {
-                    this.$elem.find(this.options.datepickerSelector).each(function (idx, elem) {
-                        var $elem = $(elem);
-                        $elem.attr('type', 'text');
 
-                        var $valueField = $('.bs-date-iso[data-for="' + $elem.prop('name') + '"]');
+                if (this.loadAMD) {
 
-                        $elem.bsDatepicker($.extend(true, {}, self._getOptions(this), {
-                            type: 'datepicker',
-                            altFields: [{
-                                selector: $valueField
-                            }],
-                            initialValue: $valueField.val(),
-                            language: uiLocale
-                        }));
+                    var datepickerDeferred = $.Deferred();
+                    this.deferredList.push(datepickerDeferred);
+
+                    require(['bforms-datepicker'], function () {
+                        self.$elem.find(self.options.datepickerSelector).each(function (idx, elem) {
+                            var $elem = $(elem);
+                            
+                            var isMsie = typeof $.browser !== "undefined" && $.browser.msie;
+                            if (!isMsie) {
+                                $elem.prop('type', 'text');
+                            }
+
+                            var $valueField = self.$elem.find('.bs-date-iso[data-for="' + $elem.prop('name') + '"]');
+
+                            $elem.bsDatepicker($.extend(true, {}, self._getOptions(this), {
+                                type: 'datepicker',
+                                altFields: [{
+                                    selector: $valueField
+                                }],
+                                initialValue: $valueField.val(),
+                                language: uiLocale
+                            }));
+                        });
+
+                        datepickerDeferred.resolve();
                     });
-                }
-                else {
-                    throw "bDatepicker script must be loaded before calling initUI";
+                } else {
+                    if (typeof $.fn.bsDatepicker === "function") {
+                        this.$elem.find(self.options.datepickerSelector).each(function (idx, elem) {
+                            var $elem = $(elem);
+                            
+                            var isMsie = typeof $.browser !== "undefined" && $.browser.msie;
+                            if (!isMsie) {
+                                $elem.prop('type', 'text');
+                            };
+
+                            var $valueField = self.$elem.find('.bs-date-iso[data-for="' + $elem.prop('name') + '"]');
+
+                            $elem.bsDatepicker($.extend(true, {}, self._getOptions(this), {
+                                type: 'datepicker',
+                                altFields: [{
+                                    selector: $valueField
+                                }],
+                                initialValue: $valueField.val(),
+                                language: uiLocale
+                            }));
+                        });
+                    }
+                    else {
+                        throw "bDatepicker script must be loaded before calling initUI";
+                    }
                 }
             }
 
             if (this.options.timepicker === true && this.$elem.find(this.options.timepickerSelector).length) {
-                if (typeof $.fn.bsDatepicker === "function") {
-                    this.$elem.find(this.options.timepickerSelector).each(function (idx, elem) {
-                        var $elem = $(elem);
-                        $elem.attr('type', 'text');
+                if (this.loadAMD) {
 
-                        var $valueField = $('.bs-date-iso[data-for="' + $elem.prop('name') + '"]');
+                    var timepickerDeferred = $.Deferred();
+                    this.deferredList.push(timepickerDeferred);
 
-                        $elem.bsDatepicker($.extend(true, {}, self._getOptions(this), {
-                            type: 'timepicker',
-                            is12Hours: true,
-                            altFields: [{
-                                selector: $valueField
-                            }],
-                            initialValue: $valueField.val(),
-                            language: uiLocale
-                        }));
+                    require(['bforms-datepicker'], function () {
+                        self.$elem.find(self.options.timepickerSelector).each(function (idx, elem) {
+                            var $elem = $(elem);
+                            
+                            var isMsie = typeof $.browser !== "undefined" && $.browser.msie;
+                            if (!isMsie) {
+                                $elem.prop('type', 'text');
+                            }
+                            
+                            var $valueField = self.$elem.find('.bs-date-iso[data-for="' + $elem.prop('name') + '"]');
+
+                            $elem.bsDatepicker($.extend(true, {}, self._getOptions(this), {
+                                type: 'timepicker',
+                                is12Hours: true,
+                                altFields: [{
+                                    selector: $valueField
+                                }],
+                                initialValue: $valueField.val(),
+                                language: uiLocale
+                            }));
+                        });
+
+                        timepickerDeferred.resolve();
                     });
-                }
-                else {
-                    throw "bDatepicker script must be loaded before calling initUI";
+
+                } else {
+                    if (typeof $.fn.bsDatepicker === "function") {
+                        self.$elem.find(self.options.timepickerSelector).each(function (idx, elem) {
+                            var $elem = $(elem);
+                            
+                            var isMsie = typeof $.browser !== "undefined" && $.browser.msie;
+                            if (!isMsie) {
+                                $elem.prop('type', 'text');
+                            }
+                            
+                            var $valueField = self.$elem.find('.bs-date-iso[data-for="' + $elem.prop('name') + '"]');
+
+                            $elem.bsDatepicker($.extend(true, {}, self._getOptions(this), {
+                                type: 'timepicker',
+                                is12Hours: true,
+                                altFields: [{
+                                    selector: $valueField
+                                }],
+                                initialValue: $valueField.val(),
+                                language: uiLocale
+                            }));
+                        });
+                    }
+                    else {
+                        throw "bDatepicker script must be loaded before calling initUI";
+                    }
                 }
             }
 
             if (this.options.datetimepicker === true && this.$elem.find(this.options.datetimepickerSelector).length) {
-                if (typeof $.fn.bsDatepicker === "function") {
-                    this.$elem.find(this.options.datetimepickerSelector).each(function (idx, elem) {
-                        var $elem = $(elem);
 
-                        $elem.attr('type', 'text');
+                if (this.loadAMD) {
 
-                        var $valueField = $('.bs-date-iso[data-for="' + $elem.prop('name') + '"]');
+                    var datetimepickerDeferred = $.Deferred();
+                    this.deferredList.push(datetimepickerDeferred);
 
-                        $elem.bsDatepicker($.extend(true, {}, self._getOptions(this), {
-                            type: 'datetimepicker',
-                            is12Hours: true,
-                            altFields: [{
-                                selector: $valueField
-                            }],
-                            initialValue: $valueField.val(),
-                            language: uiLocale
-                        }));
+                    require(['bforms-datepicker'], function () {
+                        this.$elem.find(this.options.datetimepickerSelector).each(function (idx, elem) {
+                            var $elem = $(elem);
+
+                            $elem.attr('type', 'text');
+
+                            var $valueField = self.$elem.find('.bs-date-iso[data-for="' + $elem.prop('name') + '"]');
+
+                            $elem.bsDatepicker($.extend(true, {}, self._getOptions(this), {
+                                type: 'datetimepicker',
+                                is12Hours: true,
+                                altFields: [{
+                                    selector: $valueField
+                                }],
+                                initialValue: $valueField.val(),
+                                language: uiLocale
+                            }));
+                        });
+
+                        datetimepickerDeferred.resolve();
                     });
-                }
-                else {
-                    throw "bDatepicker script must be loaded before calling initUI";
+
+                } else {
+
+                    if (typeof $.fn.bsDatepicker === "function") {
+                        this.$elem.find(this.options.datetimepickerSelector).each(function (idx, elem) {
+                            var $elem = $(elem);
+
+                            var isMsie = typeof $.browser !== "undefined" && $.browser.msie;
+                            if (!isMsie) {
+                                $elem.prop('type', 'text');
+                            }
+                            var $valueField = self.$elem.find('.bs-date-iso[data-for="' + $elem.prop('name') + '"]');
+
+                            $elem.bsDatepicker($.extend(true, {}, self._getOptions(this), {
+                                type: 'datetimepicker',
+                                is12Hours: true,
+                                altFields: [{
+                                    selector: $valueField
+                                }],
+                                initialValue: $valueField.val(),
+                                language: uiLocale
+                            }));
+                        });
+                    }
+                    else {
+                        throw "bDatepicker script must be loaded before calling initUI";
+                    }
                 }
             }
 
             if (this.options.datetimerange === true && this.$elem.find(this.options.datetimerangeSelector).length) {
-                if (typeof $.fn.bsDateRange === "function") {
-                    this.$elem.find(this.options.datetimerangeSelector).each(function (idx, elem) {
 
-                        var $elem = $(elem);
-                        var rangeName = $elem.prop('name');
+                if (this.loadAMD) {
+                    var datetimerangeDeferred = $.Deferred();
+                    this.deferredList.push(datetimerangeDeferred);
 
-                        $elem.attr('type', 'text');
+                    require(['bforms-datepicker-range'], function () {
+                        self.$elem.find(self.options.datetimerangeSelector).each(function (idx, elem) {
+                            var $elem = $(elem);
+                            var rangeName = $elem.prop('name');
 
-                        var $startInput = $('.bs-range-from[data-for="' + rangeName + '"]'),
-                            $endInput = $('.bs-range-to[data-for="' + rangeName + '"]');
+                            var isMsie = typeof $.browser !== "undefined" && $.browser.msie;
+                            if (!isMsie) {
+                                $elem.prop('type', 'text');
+                            }
+                            var $startInput = self.$elem.find('.bs-range-from[data-for="' + rangeName + '"]'),
+                                $endInput = self.$elem.find('.bs-range-to[data-for="' + rangeName + '"]');
 
-                        $elem.bsDateRange($.extend(true, {}, self._getOptions(this), {
-                            startOptions: {
-                                type: 'datetimepicker',
-                                initialValue: $startInput.val(),
-                                defaultDate: (typeof $endInput.val() !== "undefined" && $endInput.val() != '') ? "-1d" : "now",
-                                defaultDateValue: (typeof $endInput.val() !== "undefined" && $endInput.val() != '') ? $endInput.val() : false,
-                                language: uiLocale
-                            },
-                            endOptions: {
-                                type: 'datetimepicker',
-                                initialValue: $endInput.val(),
-                                language: uiLocale
-                            },
+                            $elem.bsDateRange($.extend(true, {}, self._getOptions(this), {
+                                startOptions: {
+                                    type: 'datetimepicker',
+                                    initialValue: $startInput.val(),
+                                    defaultDate: (typeof $endInput.val() !== "undefined" && $endInput.val() != '') ? "-1d" : "now",
+                                    defaultDateValue: (typeof $endInput.val() !== "undefined" && $endInput.val() != '') ? $endInput.val() : false,
+                                    language: uiLocale
+                                },
+                                endOptions: {
+                                    type: 'datetimepicker',
+                                    initialValue: $endInput.val(),
+                                    language: uiLocale
+                                },
 
-                            startAltFields: [{ selector: $startInput }],
-                            endAltFields: [{ selector: $endInput }],
-                            language: locale
-                        }));
+                                startAltFields: [{ selector: $startInput }],
+                                endAltFields: [{ selector: $endInput }],
+                                language: locale
+                            }));
+                        });
+
+                        datetimerangeDeferred.resolve();
                     });
-                }
-                else {
-                    throw "bRangepicker script must be loaded before calling initUI";
+
+                } else {
+                    if (typeof $.fn.bsDateRange === "function") {
+                        this.$elem.find(this.options.datetimerangeSelector).each(function (idx, elem) {
+                            var $elem = $(elem);
+                            var rangeName = $elem.prop('name');
+
+                            $elem.attr('type', 'text');
+
+                            var $startInput = self.$elem.find('.bs-range-from[data-for="' + rangeName + '"]'),
+                                $endInput = self.$elem.find('.bs-range-to[data-for="' + rangeName + '"]');
+
+                            $elem.bsDateRange($.extend(true, {}, self._getOptions(this), {
+                                startOptions: {
+                                    type: 'datetimepicker',
+                                    initialValue: $startInput.val(),
+                                    defaultDate: (typeof $endInput.val() !== "undefined" && $endInput.val() != '') ? "-1d" : "now",
+                                    defaultDateValue: (typeof $endInput.val() !== "undefined" && $endInput.val() != '') ? $endInput.val() : false,
+                                    language: uiLocale
+                                },
+                                endOptions: {
+                                    type: 'datetimepicker',
+                                    initialValue: $endInput.val(),
+                                    language: uiLocale
+                                },
+
+                                startAltFields: [{ selector: $startInput }],
+                                endAltFields: [{ selector: $endInput }],
+                                language: locale
+                            }));
+                        });
+                    }
+                    else {
+                        throw "bRangepicker script must be loaded before calling initUI";
+                    }
                 }
             }
 
             if (this.options.daterange === true && this.$elem.find(this.options.daterangeSelector).length) {
-                if (typeof $.fn.bsDateRange === "function") {
-                    this.$elem.find(this.options.daterangeSelector).each(function (idx, elem) {
 
-                        var $elem = $(elem);
-                        var rangeName = $elem.prop('name');
+                if (this.loadAMD) {
 
-                        var $startInput = $('.bs-range-from[data-for="' + rangeName + '"]'),
-                           $endInput = $('.bs-range-to[data-for="' + rangeName + '"]');
+                    var dateRangeDeferred = $.Deferred();
+                    this.deferredList.push(dateRangeDeferred);
 
-                        $elem.bsDateRange($.extend(true, {}, self._getOptions(this), {
-                            startOptions: {
-                                type: 'datepicker',
-                                initialValue: $startInput.val(),
-                                defaultDate: (typeof $endInput.val() !== "undefined" && $endInput.val() != '') ? "-1d" : "now",
-                                defaultDateValue: (typeof $endInput.val() !== "undefined" && $endInput.val() != '') ? $endInput.val() : false,
-                                language: uiLocale
-                            },
-                            endOptions: {
-                                type: 'datepicker',
-                                initialValue: $endInput.val(),
-                                language: uiLocale
-                            },
-                            startAltFields: [{ selector: $startInput }],
-                            endAltFields: [{ selector: $endInput }],
-                            language: locale
-                        }));
+                    require(['bforms-datepicker-range'], function () {
+                        this.$elem.find(this.options.daterangeSelector).each(function (idx, elem) {
+
+                            var $elem = $(elem);
+                            var rangeName = $elem.prop('name');
+
+                            var $startInput = self.$elem.find('.bs-range-from[data-for="' + rangeName + '"]'),
+                               $endInput = self.$elem.find('.bs-range-to[data-for="' + rangeName + '"]');
+
+                            $elem.bsDateRange($.extend(true, {}, self._getOptions(this), {
+                                startOptions: {
+                                    type: 'datepicker',
+                                    initialValue: $startInput.val(),
+                                    defaultDate: (typeof $endInput.val() !== "undefined" && $endInput.val() != '') ? "-1d" : "now",
+                                    defaultDateValue: (typeof $endInput.val() !== "undefined" && $endInput.val() != '') ? $endInput.val() : false,
+                                    language: uiLocale
+                                },
+                                endOptions: {
+                                    type: 'datepicker',
+                                    initialValue: $endInput.val(),
+                                    language: uiLocale
+                                },
+                                startAltFields: [{ selector: $startInput }],
+                                endAltFields: [{ selector: $endInput }],
+                                language: locale
+                            }));
+                        });
+
+                        dateRangeDeferred.resolve();
                     });
-                }
-                else {
-                    throw "bRangepicker script must be loaded before calling initUI";
+
+                } else {
+                    if (typeof $.fn.bsDateRange === "function") {
+                        this.$elem.find(this.options.daterangeSelector).each(function (idx, elem) {
+
+                            var $elem = $(elem);
+                            var rangeName = $elem.prop('name');
+
+                            var $startInput = self.$elem.find('.bs-range-from[data-for="' + rangeName + '"]'),
+                               $endInput = self.$elem.find('.bs-range-to[data-for="' + rangeName + '"]');
+
+                            $elem.bsDateRange($.extend(true, {}, self._getOptions(this), {
+                                startOptions: {
+                                    type: 'datepicker',
+                                    initialValue: $startInput.val(),
+                                    defaultDate: (typeof $endInput.val() !== "undefined" && $endInput.val() != '') ? "-1d" : "now",
+                                    defaultDateValue: (typeof $endInput.val() !== "undefined" && $endInput.val() != '') ? $endInput.val() : false,
+                                    language: uiLocale
+                                },
+                                endOptions: {
+                                    type: 'datepicker',
+                                    initialValue: $endInput.val(),
+                                    language: uiLocale
+                                },
+                                startAltFields: [{ selector: $startInput }],
+                                endAltFields: [{ selector: $endInput }],
+                                language: locale
+                            }));
+                        });
+                    }
+                    else {
+                        throw "bRangepicker script must be loaded before calling initUI";
+                    }
                 }
             }
 
             if (this.options.timerange === true && this.$elem.find(this.options.timerangeSelector).length) {
-                if (typeof $.fn.bsDateRange === "function") {
-                    this.$elem.find(this.options.timerangeSelector).each(function (idx, elem) {
 
-                        var $elem = $(elem);
-                        var rangeName = $elem.prop('name');
+                if (this.loadAMD) {
 
-                        var $startInput = $('.bs-range-from[data-for="' + rangeName + '"]'),
-                           $endInput = $('.bs-range-to[data-for="' + rangeName + '"]');
+                    var timeRangeDeferred = $.Deferred();
+                    this.deferredList.push(timeRangeDeferred);
+                    require(['bforms-datepicker-range'], function () {
+                        this.$elem.find(this.options.timerangeSelector).each(function (idx, elem) {
 
-                        $elem.bsDateRange($.extend(true, {}, self._getOptions(this), {
-                            startOptions: {
-                                type: 'timepicker',
-                                initialValue: $startInput.val(),
-                                defaultDate: (typeof $endInput.val() !== "undefined" && $endInput.val() != '') ? "-1h" : "now",
-                                defaultDateValue: (typeof $endInput.val() !== "undefined" && $endInput.val() != '') ? $endInput.val() : false,
-                                language: uiLocale
-                            },
-                            endOptions: {
-                                type: 'timepicker',
-                                language: uiLocale,
-                                initialValue: $endInput.val()
-                            },
+                            var $elem = $(elem);
+                            var rangeName = $elem.prop('name');
 
-                            startAltFields: [{ selector: $startInput }],
-                            endAltFields: [{ selector: $endInput }],
-                            language: locale
-                        }));
+                            var $startInput = self.$elem.find('.bs-range-from[data-for="' + rangeName + '"]'),
+                               $endInput = self.$elem.find('.bs-range-to[data-for="' + rangeName + '"]');
+
+                            $elem.bsDateRange($.extend(true, {}, self._getOptions(this), {
+                                startOptions: {
+                                    type: 'timepicker',
+                                    initialValue: $startInput.val(),
+                                    defaultDate: (typeof $endInput.val() !== "undefined" && $endInput.val() != '') ? "-1h" : "now",
+                                    defaultDateValue: (typeof $endInput.val() !== "undefined" && $endInput.val() != '') ? $endInput.val() : false,
+                                    language: uiLocale
+                                },
+                                endOptions: {
+                                    type: 'timepicker',
+                                    language: uiLocale,
+                                    initialValue: $endInput.val()
+                                },
+
+                                startAltFields: [{ selector: $startInput }],
+                                endAltFields: [{ selector: $endInput }],
+                                language: locale
+                            }));
+                        });
+
+                        timeRangeDeferred.resolve();
                     });
-                }
-                else {
-                    throw "bRangepicker script must be loaded before calling initUI";
+
+                } else {
+
+                    if (typeof $.fn.bsDateRange === "function") {
+                        this.$elem.find(this.options.timerangeSelector).each(function (idx, elem) {
+
+                            var $elem = $(elem);
+                            var rangeName = $elem.prop('name');
+
+                            var $startInput = self.$elem.find('.bs-range-from[data-for="' + rangeName + '"]'),
+                               $endInput = self.$elem.find('.bs-range-to[data-for="' + rangeName + '"]');
+
+                            $elem.bsDateRange($.extend(true, {}, self._getOptions(this), {
+                                startOptions: {
+                                    type: 'timepicker',
+                                    initialValue: $startInput.val(),
+                                    defaultDate: (typeof $endInput.val() !== "undefined" && $endInput.val() != '') ? "-1h" : "now",
+                                    defaultDateValue: (typeof $endInput.val() !== "undefined" && $endInput.val() != '') ? $endInput.val() : false,
+                                    language: uiLocale
+                                },
+                                endOptions: {
+                                    type: 'timepicker',
+                                    language: uiLocale,
+                                    initialValue: $endInput.val()
+                                },
+
+                                startAltFields: [{ selector: $startInput }],
+                                endAltFields: [{ selector: $endInput }],
+                                language: locale
+                            }));
+                        });
+                    }
+                    else {
+                        throw "bRangepicker script must be loaded before calling initUI";
+                    }
                 }
             }
 
             //remove loading
-            var timeoutHandler = window.setTimeout($.proxy(function () {
+            this.promise.done($.proxy(function() {
+                var timeoutHandler = window.setTimeout($.proxy(function () {
 
-                if (this.$elem.hasClass(this.options.loadingClass)) {
-                    this.$elem.removeClass(this.options.loadingClass);
-                } else {
-                    this.$elem.find(this.options.loadingSelector).removeClass(this.options.loadingClass);
-                }
+                    if (this.$elem.hasClass(this.options.loadingClass)) {
+                        this.$elem.removeClass(this.options.loadingClass);
+                    } else {
+                        this.$elem.find(this.options.loadingSelector).removeClass(this.options.loadingClass);
+                    }
 
-                window.clearTimeout(timeoutHandler);
-            }, this), 0);
+                    window.clearTimeout(timeoutHandler);
+                }, this), 0);
+            }, this));
         };
 
         return InitUI;

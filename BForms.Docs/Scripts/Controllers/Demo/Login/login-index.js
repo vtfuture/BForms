@@ -18,7 +18,7 @@
 
         this.$loginForm.bsInitUI(this.options.styleInputs);
         this.$registerForm.bsInitUI(this.options.styleInputs);
-
+        
         this.addHandlers();
     };
 

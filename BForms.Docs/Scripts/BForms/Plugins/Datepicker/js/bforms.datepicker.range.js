@@ -96,14 +96,14 @@
     bRangePicker.prototype._addHandlers = function () {
 
         if (!this.isInline) {
-            $(window).on('scroll', $.proxy(function () {
+            $(document).on('scroll', $.proxy(function () {
                 if (this._visible) {
                     window.clearTimeout(this._timeoutHandler);
                     this._timeoutHandler = window.setTimeout($.proxy(this._positionRange, this), 20);
                 }
             }, this));
 
-            $(window).on('resize', $.proxy(function () {
+            $(document).on('resize', $.proxy(function () {
                 this._positionRange();
             }, this));
 
@@ -114,7 +114,7 @@
             }
 
             if (this.options.closeOnBlur === true) {
-                $(window).on('click', $.proxy(function (e) {
+                $(document).on('mouseup', $.proxy(function (e) {
 
                     var $target = $(e.target);
 
@@ -149,7 +149,8 @@
                 for (var idxT in this.options.toggleButtons) {
 
                     var currentTogle = this.options.toggleButtons[idxT];
-
+                    this.unbindEvent(currentTogle.selector, currentTogle.event);
+                    
                     $('body').on(currentTogle.event, currentTogle.selector, $.proxy(function (e) {
                         if (this._visible) {
                             this.hide();
@@ -161,9 +162,7 @@
             }
         }
 
-        this.$container.on('click', '.bs-applyRange', $.proxy(function () {
-            this.applyRange();
-        }, this));
+        this.$container.on('click', '.bs-applyRange', $.proxy(this.applyRangeClick, this));
         this.$container.on('click', '.bs-cancelRange', $.proxy(this.cancelRange, this));
     };
     
@@ -240,6 +239,13 @@
         this._updateAltFields();
     };
 
+    bRangePicker.prototype.applyRangeClick = function() {
+        this.applyRange();
+        if (this.options.allowHideOnApply) {
+            this.hide();
+        }
+    };
+
     bRangePicker.prototype.cancelRange = function (e) {
         this.hide();
 
@@ -304,8 +310,8 @@
 
         if (yOrient != 'below' && yOrient != 'above') {
 
-            var windowHeight = $(window).innerHeight(),
-                scrollTop = $(window).scrollTop(),
+            var windowHeight = $(document).innerHeight(),
+                scrollTop = $(document).scrollTop(),
                 elemHeight = this.$element.outerHeight(true);
 
             var topOverflow = -scrollTop + elemOffset.top - rangeHeight,
@@ -405,7 +411,11 @@
             this.$container.show();
             this._visible = true;
 
-            this._trigger('afterShow');
+            this._trigger('afterShow', {
+                datepicker: this.$container,
+                element: this.$element,
+                datepickerType: this._type
+            });
         }
 
         return this;
@@ -419,7 +429,11 @@
             this.$container.hide();
             this._visible = false;
 
-            this._trigger('afterHide');
+            this._trigger('afterHide', {
+                datepicker: this.$container,
+                element: this.$element,
+                datepickerType: this._type
+            });
         }
 
         return this;
@@ -451,6 +465,16 @@
         this.$element.removeClass('hasRangepicker');
         this.$container.remove();
     };
+    
+    bRangePicker.prototype.unbindEvent = function (selector, event, $context) {
+        if (typeof selector !== "undefined" && typeof event !== "undefined") {
+
+            if (typeof $context === "undefined") {
+                $context = $('body');
+            }
+            $context.off(event, selector);
+        }
+    };
     //#endregion
 
     $.fn.bsDateRangeDefaults = {
@@ -458,6 +482,7 @@
         closeOnBlur: true,
         time: false,
         delimiter: '-',
+        allowHideOnApply: true,
         startOptions: {
             inline: true,
             ShowClose: false
