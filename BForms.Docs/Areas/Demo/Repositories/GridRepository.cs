@@ -148,6 +148,17 @@ namespace BForms.Docs.Areas.Demo.Repositories
             return db.Users.Where(x => x.Id == objId).Select(MapUser_UserGridRowModel).FirstOrDefault();
         }
 
+        public void EnableDisable(int objId)
+        {
+            var entity = db.Users.FirstOrDefault(x => x.Id == objId);
+
+            if (entity != null)
+            {
+                entity.Enabled = !entity.Enabled;
+                db.SaveChanges();
+            }
+        }
+
         public void Delete(int objId)
         {
             var entity = db.Users.FirstOrDefault(x => x.Id == objId);
@@ -175,17 +186,6 @@ namespace BForms.Docs.Areas.Demo.Repositories
             {
                 Jobs = GetJobsDropdown()
             };
-        }
-
-        public void EnableDisable(int objId)
-        {
-            var entity = db.Users.FirstOrDefault(x => x.Id == objId);
-
-            if (entity != null)
-            {
-                entity.Enabled = !entity.Enabled;
-                db.SaveChanges();
-            }
         }
 
         public BsSelectList<int?> GetJobsDropdown(int? selected = null)

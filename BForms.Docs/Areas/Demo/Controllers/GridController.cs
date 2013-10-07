@@ -72,7 +72,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
             {
                 var viewModel = _gridRepository.ToBsGridViewModel<UsersViewModel>(x => x.Grid, model, out count);
 
-                html = this.BsRenderPartialView("_Grid", viewModel);
+                html = this.BsRenderPartialView("Grid/_Grid", viewModel);
             }
             catch (Exception ex)
             {
@@ -99,7 +99,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
 
                 var viewModel = _gridRepository.ToBsGridViewModel<UsersViewModel>(x => x.Grid, rowModel);
 
-                row = this.BsRenderPartialView("_Grid", viewModel);
+                row = this.BsRenderPartialView("Grid/_Grid", viewModel);
             }
             catch (Exception ex)
             {
@@ -126,13 +126,13 @@ namespace BForms.Docs.Areas.Demo.Controllers
 
                 var viewModel = _gridRepository.ToBsGridViewModel<UsersViewModel>(x => x.Grid, rowModel);
 
-                row = this.BsRenderPartialView("_Grid", viewModel);
+                row = this.BsRenderPartialView("Grid/_Grid", viewModel);
 
                 if (getDetails)
                 {
                     var detailsModel = _gridRepository.ReadDetails(objId);
 
-                    details = this.BsRenderPartialView("_Details", detailsModel);
+                    details = this.BsRenderPartialView("Grid/_Details", detailsModel);
                 }
 
             }
@@ -159,7 +159,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
             {
                 var model = _gridRepository.ReadDetails(objId);
 
-                html = this.BsRenderPartialView("_Details", model);
+                html = this.BsRenderPartialView("Grid/_Details", model);
             }
             catch (Exception ex)
             {
