@@ -125,6 +125,8 @@
 
                     grid.$actionsContainer.on('click', opts.btnSelector, $.proxy(function (e) {
 
+                        e.preventDefault();
+
                         this.$rowsContainer.find(grid.options.rowSelector).each($.proxy(function (k, el) {
                             var $el = $(el);
                             var checked = opts.filter.call(this, $el);
@@ -720,7 +722,8 @@
         }
 
         if (typeof this.options.rowDetailsSuccessHandler === 'function') {
-            this.options.rowDetailsSuccessHandler.call(this, $newRow);
+            data.$html = $newRow;
+            this.options.rowDetailsSuccessHandler.call(this, $newRow, data);
         }
 
         // replace row header with the updated one

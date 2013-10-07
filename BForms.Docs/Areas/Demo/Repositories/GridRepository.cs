@@ -43,7 +43,8 @@ namespace BForms.Docs.Areas.Demo.Repositories
             new UsersDetailsModel
             {
                 Id = x.Id,
-                Job = x.Job != null ? x.Job.Name : Resource.Unemployed,
+                IdJob = x.IdJob,
+                Job = x.IdJob.HasValue ? x.Job.Name : Resource.Unemployed,
                 Enabled = x.Enabled
             };
         #endregion
@@ -146,6 +147,26 @@ namespace BForms.Docs.Areas.Demo.Repositories
         public UsersGridRowModel ReadRow(int objId)
         {
             return db.Users.Where(x => x.Id == objId).Select(MapUser_UserGridRowModel).FirstOrDefault();
+        }
+
+        public UsersDetailsModel Update(UsersDetailsModel model, int objId)
+        {
+            var entity = db.Users.FirstOrDefault(x => x.Id == objId);
+
+            if (entity != null)
+            {
+                if (model.Jobs != null && model.Jobs.SelectedValues.HasValue)
+                {
+                    entity.IdJob = model.Jobs.SelectedValues.Value;
+                }
+                else
+                {
+                    entity.IdJob = null;
+                }
+                db.SaveChanges();
+            }
+
+            return MapUser_UsersDetailsModel(entity);
         }
 
         public void EnableDisable(int objId)

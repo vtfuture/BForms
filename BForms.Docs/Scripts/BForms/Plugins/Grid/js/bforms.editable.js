@@ -73,7 +73,6 @@
     };
 
     Editable.prototype._addDelegates = function () {
-
         if (this.options.toggles) {
             this.$header.on('click', $.proxy(this._evOnHeaderClick, this));
         }
@@ -107,7 +106,6 @@
     };
 
     Editable.prototype._evOnHeaderClick = function (e) {
-
         e.preventDefault();
 
         var $me = $(e.currentTarget);

@@ -51,6 +51,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
                 {"getRowUrl", Url.Action("GetRow")},
                 {"enableDisableUrl", Url.Action("EnableDisable")},
                 {"newUrl", Url.Action("New")},
+                {"updateUrl", Url.Action("Update")},
                 {"deleteUrl", Url.Action("Delete")}
             };
 
@@ -113,6 +114,32 @@ namespace BForms.Docs.Areas.Demo.Controllers
             }, status, msg);
         }
 
+        public BsJsonResult Update(UsersDetailsModel model, int objId)
+        {
+            var msg = string.Empty;
+            var status = BsResponseStatus.Success;
+            var html = string.Empty;
+
+            try
+            {
+                var detailsModel = _gridRepository.Update(model, objId);
+
+                detailsModel.Jobs = _gridRepository.GetJobsDropdown(detailsModel.IdJob);
+
+                html = this.BsRenderPartialView("Grid/Details/_Readonly", detailsModel);
+            }
+            catch (Exception ex)
+            {
+                msg = Resource.ServerError;
+                status = BsResponseStatus.ServerError;
+            }
+
+            return new BsJsonResult(new
+            {
+                Html = html
+            }, status, msg);
+        }
+
         public BsJsonResult GetRow(int objId, bool getDetails = false)
         {
             var msg = string.Empty;
@@ -132,7 +159,9 @@ namespace BForms.Docs.Areas.Demo.Controllers
                 {
                     var detailsModel = _gridRepository.ReadDetails(objId);
 
-                    details = this.BsRenderPartialView("Grid/_Details", detailsModel);
+                    detailsModel.Jobs = _gridRepository.GetJobsDropdown(detailsModel.IdJob);
+
+                    details = this.BsRenderPartialView("Grid/Details/_Index", detailsModel);
                 }
 
             }
@@ -159,7 +188,9 @@ namespace BForms.Docs.Areas.Demo.Controllers
             {
                 var model = _gridRepository.ReadDetails(objId);
 
-                html = this.BsRenderPartialView("Grid/_Details", model);
+                model.Jobs = _gridRepository.GetJobsDropdown(model.IdJob);
+
+                html = this.BsRenderPartialView("Grid/Details/_Index", model);
             }
             catch (Exception ex)
             {

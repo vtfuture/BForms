@@ -95,7 +95,12 @@ namespace BForms.Docs.Areas.Demo.Models
     public class UsersDetailsModel
     {
         public int Id { get; set; }
+        public int? IdJob { get; set; }
         public string Job { get; set; }
         public bool Enabled { get; set; }
+
+        [Display(Name = "Job", ResourceType = typeof(Resource), Prompt = "Choose")]
+        [BsControl(BsControlType.DropDownList)]
+        public BsSelectList<int?> Jobs { get; set; }
     }
 }

@@ -6,6 +6,7 @@
         'bforms-ajax'
 ], function () {
 
+    //#region Constructor and Properties
     var GridIndex = function (options) {
         this.options = $.extend(true, {}, options);
         this.init();
@@ -18,7 +19,8 @@
         this.$toolbar = $('#toolbar');
         this.initToolbar();
     };
-    
+    //#endregion
+
     //#region Grid
     GridIndex.prototype.initGrid = function () {
         this.$grid.bsGrid({
@@ -67,10 +69,22 @@
         });
     };
 
+    //#region DetailsHandler
     GridIndex.prototype._detailsSuccessHandler = function ($row, response) {
-        // TODO
+        response.$html.find('.js-editable').bsEditable({
+            url: this.options.updateUrl,
+            prefix: $row.data('objid') + '.',
+            additionalData: {
+                objId: $row.data('objid')
+            },
+            editSuccessHandler: $.proxy(function (editResponse) {
+                this.$grid.bsGrid('updateRow', $row);
+            }, this)
+        });
     };
+    //#endregion
 
+    //#region EnableDisableHandler
     GridIndex.prototype._enableDisableHandler = function (e, options, row) {
 
         var $me = $(e.currentTarget);
@@ -103,7 +117,9 @@
         };
         $.bforms.ajax(ajaxOptions);
     };
-    
+    //#endregion
+
+    //#region DeleteHandler
     GridIndex.prototype._deleteHandler = function (options, $row) {
         var $me = $row.find(options.btnSelector);
         $me.popover({
@@ -146,6 +162,8 @@
     };
     //#endregion
 
+    //#endregion
+
     //#region Toolbar
     GridIndex.prototype.initToolbar = function() {
         this.$toolbar.bsToolbar(
@@ -160,7 +178,9 @@
     };
     //#endregion
 
+    //#region Dom Ready
     $(document).ready(function () {
         var ctrl = new GridIndex(window.requireConfig.pageOptions.index);
     });
+    //#endregion
 });

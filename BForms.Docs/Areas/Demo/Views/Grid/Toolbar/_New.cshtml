@@ -9,40 +9,41 @@
         <div class="basic">
             <div class="row form-container">
 
-                <div class="col-12 col-sm-4 col-lg-3 form-group">
+                <div class="col-12 col-sm-4 col-lg-3 form-group @Html.BsValidationCssFor(m => m.FirstName)">
                     @Html.BsLabelFor(m => m.FirstName)
                     <div class="input-group">
                         @Html.BsInputFor(m => m.FirstName)
                     </div>
                 </div>
 
-                <div class="col-12 col-sm-4 col-lg-3 form-group">
+                <div class="col-12 col-sm-4 col-lg-3 form-group @Html.BsValidationCssFor(m => m.LastName)">>
                     @Html.BsLabelFor(m => m.LastName)
                     <div class="input-group">
                         @Html.BsInputFor(m => m.LastName)
                     </div>
                 </div>
-                
-                <div class="col-12 col-sm-4 col-lg-3 form-group">
+
+                <div class="col-12 col-sm-4 col-lg-3 form-group @Html.BsValidationCssFor(m => m.Jobs)">
+  >
                     @Html.BsLabelFor(m => m.Jobs)
                     <div class="input-group">
                         @Html.BsSelectFor(m => m.Jobs)
                     </div>
                 </div>
 
-                <div class="col-12 col-sm-4 col-lg-3 form-group">
+                <div class="col-12 col-sm-4 col-lg-3 form-group @Html.BsValidationCssFor(m => m.IsEnabled)">
                     @Html.BsLabelFor(m => m.IsEnabled)
                     <div class="input-group">
-                        @Html.BsSelectFor(model => model.IsEnabled, new Dictionary<string, object>(){ { "data-initialvalue", (byte)YesNoValueTypes.Yes } }, null)
+                        @Html.BsSelectFor(model => model.IsEnabled, new Dictionary<string, object>() { { "data-initialvalue", (byte)YesNoValueTypes.Yes } }, null)
                     </div>
                 </div>
 
             </div>
         </div>
 
-    <div class="grids_header_submit">
-        <button type="submit" class="btn btn-default js-btn-add">@Resource.Add</button>
-        <a href="#" class="js-btn-reset">@Resource.Reset</a>
-    </div>
+        <div class="grids_header_submit">
+            <button type="submit" class="btn btn-default js-btn-add">@Resource.Add</button>
+            <a href="#" class="js-btn-reset">@Resource.Reset</a>
+        </div>
     }
 </div>

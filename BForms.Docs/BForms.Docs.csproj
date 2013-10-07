@@ -178,6 +178,8 @@
     <Content Include="Scripts\BForms\Stylesheets\Images\icons\checkbox.gif" />
     <Content Include="Scripts\BForms\Stylesheets\Images\icons\edit-pencil.gif" />
     <Content Include="Scripts\BForms\Stylesheets\Images\icons\grippy.png" />
+    <Content Include="Scripts\BForms\Stylesheets\Images\icons\icn-cancel.png" />
+    <Content Include="Scripts\BForms\Stylesheets\Images\icons\icn-check.png" />
     <Content Include="Scripts\BForms\Stylesheets\Images\icons\icn-down_arrow-small.png" />
     <Content Include="Scripts\BForms\Stylesheets\Images\icons\icn-order_down.png" />
     <Content Include="Scripts\BForms\Stylesheets\Images\icons\icn-order_up.png" />
@@ -578,10 +580,16 @@
     <Content Include="Areas\Demo\Views\Grid\Toolbar\_Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Demo\Views\Grid\Grid\_Details.cshtml" />
+    <Content Include="Areas\Demo\Views\Grid\Grid\Details\_Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Demo\Views\Grid\Grid\_Actions.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Demo\Views\Grid\Grid\Details\_Editable.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Demo\Views\Grid\Grid\Details\_Readonly.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

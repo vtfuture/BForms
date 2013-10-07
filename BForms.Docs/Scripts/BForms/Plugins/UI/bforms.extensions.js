@@ -9,7 +9,7 @@
 })(function ($, undefined) {
 
     //#region parse form
-    $.fn.parseForm = function () {
+    $.fn.parseForm = function (prefix) {
 
         // don't change the element sent, we allow jq objects or selectors too
         var $elem = $(this);
@@ -38,6 +38,9 @@
                     } else {
 
                         var name = jqEl.data('formname') || jqEl.attr('name');
+                        if (prefix && name) {
+                            name = name.replace(prefix, "");
+                        }
                         var value = jqEl.data('select2') != null ? jqEl.select2('val') : jqEl.val();
 
                         if ('undefined' !== typeof (name)) {

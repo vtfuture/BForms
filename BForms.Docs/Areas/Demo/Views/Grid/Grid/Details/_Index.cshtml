@@ -4,19 +4,12 @@
 
 <div class="row row_more">
     <div class="col-lg-4">
-        <div id="holiday_info" class="grid_details description js-holiday_info js-editable">
+        <div id="holiday_info" class="grid_details description js-editable">
             <h3 class="editable">@Resource.Info</h3>
 
-            <div class="js-readonly">
-                <dl>
-                    <dt>@Resource.Job:</dt>
-                    <dd>@Model.Job</dd>
-                </dl>
-            </div>
+            @Html.BsPartialPrefixed(x => x, "Grid/Details/_Readonly", Model, Model.Id.ToString())
 
-            @*@Html.BsPartialPrefixed(x => x, "Grid/Details/_Readonly", Model, Model.Id.ToString(), false)
-
-            @Html.BsPartialPrefixed(x => x, "Grid/Details/_Editable", Model, Model.Id.ToString(), false)*@
+            @Html.BsPartialPrefixed(x => x, "Grid/Details/_Editable", Model, Model.Id.ToString())
             
         </div>
     </div>
