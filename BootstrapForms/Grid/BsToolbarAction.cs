@@ -3,20 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Mvc.Html;
 
 namespace BootstrapForms.Grid
 {
-    public class BsToolbarAction : IHtmlBuilder
+    public class BsToolbarAction<TToolbar> : BaseComponent
     {
-        private readonly HtmlHelper htmlHelper;
-        public HtmlHelper HtmlHelper
-        {
-            get
-            {
-                return this.htmlHelper;
-            }
-        }
-
         private string descriptorClass;
 
         private BsButtonType buttonType;
@@ -35,18 +27,20 @@ namespace BootstrapForms.Grid
 
         private string href;
 
-        private string tabHtml;
-        public string TabHtml
+        private Func<TToolbar, MvcHtmlString> tabDelegate;
+        public Func<TToolbar, MvcHtmlString> TabDelegate
         {
             get
             {
-                return this.tabHtml;
+                return this.tabDelegate;
             }
         }
 
-        public BsToolbarAction() { }
+        public BsToolbarAction(ViewContext viewContext)
+            :base(viewContext) { }
 
-        public BsToolbarAction(BsToolbarActionType type)
+        public BsToolbarAction(BsToolbarActionType type, ViewContext viewContext)
+            : base(viewContext)
         {
             switch (type)
             {
@@ -85,54 +79,55 @@ namespace BootstrapForms.Grid
             }
         }
 
-        public BsToolbarAction(string descriptorClass)
+        public BsToolbarAction(string descriptorClass, ViewContext viewContext)
+            : base(viewContext)
         {
             this.descriptorClass = descriptorClass;
         }
 
-        public BsToolbarAction DescriptorClass(string descriptorClass)
+        public BsToolbarAction<TToolbar> DescriptorClass(string descriptorClass)
         {
             this.descriptorClass = descriptorClass;
             return this;
         }
 
-        public BsToolbarAction ButtonType(BsButtonType btnType)
+        public BsToolbarAction<TToolbar> ButtonType(BsButtonType btnType)
         {
             this.buttonType = btnType;
             return this;
         }
 
-        public BsToolbarAction StyleClasses(string styleClasses)
+        public BsToolbarAction<TToolbar> StyleClasses(string styleClasses)
         {
             this.styleClasses = styleClasses;
             return this;
         }
 
-        public BsToolbarAction Title(string title)
+        public BsToolbarAction<TToolbar> Title(string title)
         {
             this.title = title;
             return this;
         }
 
-        public BsToolbarAction Text(string text)
+        public BsToolbarAction<TToolbar> Text(string text)
         {
             this.text = text;
             return this;
         }
 
-        public BsToolbarAction Tab(string html)
+        public BsToolbarAction<TToolbar> Tab(Func<TToolbar, MvcHtmlString> tabDelegate)
         {
-            this.tabHtml = html;
+            this.tabDelegate = tabDelegate;
             return this;
         }
 
-        public BsToolbarAction Action(string action)
+        public BsToolbarAction<TToolbar> Action(string action)
         {
             this.href = action;
             return this;
         }
 
-        public MvcHtmlString Render()
+        public override string Render()
         {
             var actionBuilder = new TagBuilder("a");
 
@@ -157,7 +152,7 @@ namespace BootstrapForms.Grid
 
             actionBuilder.InnerHtml += this.text;
 
-            return new MvcHtmlString(actionBuilder.ToString());
+            return actionBuilder.ToString();
         }
     }
 }

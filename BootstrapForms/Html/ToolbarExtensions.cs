@@ -31,8 +31,8 @@ namespace BootstrapForms.Html
             var metadata = ModelMetadata.FromLambdaExpression(expression, htmlHelper.ViewData);
 
             var fullName = ExpressionHelper.GetExpressionText(expression);
-
-            return new BsToolbarHtmlBuilder<TToolbar>(fullName, toolbar, metadata);
+           
+            return new BsToolbarHtmlBuilder<TToolbar>(fullName, toolbar, metadata, htmlHelper.ViewContext);
         }
     }
 }

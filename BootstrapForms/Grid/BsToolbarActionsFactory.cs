@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace BootstrapForms.Grid
 {
-    public class BsToolbarActionsFactory
+    public class BsToolbarActionsFactory<TToolbar>
     {
-        private List<BsToolbarAction> actions = new List<BsToolbarAction>();
+        private List<BsToolbarAction<TToolbar>> actions = new List<BsToolbarAction<TToolbar>>();
+        private readonly ViewContext viewContext;
 
-        internal List<BsToolbarAction> Actions
+        internal List<BsToolbarAction<TToolbar>> Actions
         {
             get
             {
@@ -17,17 +19,22 @@ namespace BootstrapForms.Grid
             }
         }
 
-        public BsToolbarAction Add(BsToolbarActionType actionType)
+        public BsToolbarActionsFactory(ViewContext viewContext)
         {
-            var toolbarAction = new BsToolbarAction(actionType);
+            this.viewContext = viewContext;
+        }
+
+        public BsToolbarAction<TToolbar> Add(BsToolbarActionType actionType)
+        {
+            var toolbarAction = new BsToolbarAction<TToolbar>(actionType, this.viewContext);
             actions.Add(toolbarAction);
 
             return toolbarAction;
         }
 
-        public BsToolbarAction Add(string descriptorClass)
+        public BsToolbarAction<TToolbar> Add(string descriptorClass)
         {
-            var toolbarAction = new BsToolbarAction(descriptorClass);
+            var toolbarAction = new BsToolbarAction<TToolbar>(descriptorClass, this.viewContext);
             actions.Add(toolbarAction);
 
             return toolbarAction;

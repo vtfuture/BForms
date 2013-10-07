@@ -6,11 +6,11 @@ using System.Web.Mvc;
 
 namespace BootstrapForms.Grid
 {
-    public class BsToolbarHtmlBuilder<TToolbar> : IHtmlBuilder
+    public class BsToolbarHtmlBuilder<TToolbar> : BaseComponent
     {
         private string displayName;
         private string classes { get; set; }
-        private BsToolbarActionsFactory ActionsFactory { get; set; }
+        private BsToolbarActionsFactory<TToolbar> ActionsFactory { get; set; }
 
         private readonly string fullName;
         private readonly TToolbar model;
@@ -18,7 +18,7 @@ namespace BootstrapForms.Grid
 
         public BsToolbarHtmlBuilder() { }
 
-        public BsToolbarHtmlBuilder(string fullName, TToolbar model, ModelMetadata metadata)
+        public BsToolbarHtmlBuilder(string fullName, TToolbar model, ModelMetadata metadata, ViewContext viewContext): base(viewContext)
         {
             this.fullName = fullName;
             this.model = model;
@@ -39,15 +39,15 @@ namespace BootstrapForms.Grid
             return this;
         }
 
-        public BsToolbarHtmlBuilder<TToolbar> ConfigureActions(Action<BsToolbarActionsFactory> configurator)
+        public BsToolbarHtmlBuilder<TToolbar> ConfigureActions(Action<BsToolbarActionsFactory<TToolbar>> configurator)
         {
-            this.ActionsFactory = new BsToolbarActionsFactory();
+            this.ActionsFactory = new BsToolbarActionsFactory<TToolbar>(this.viewContext);
             configurator(this.ActionsFactory);
 
             return this;
         }
 
-        public MvcHtmlString Render()
+        public override string Render()
         {
             var toolbarBuilder = new TagBuilder("div");
             toolbarBuilder.MergeAttribute("id", this.fullName.Split('.').Last().ToLower());
@@ -66,12 +66,15 @@ namespace BootstrapForms.Grid
             {
                 controlsBuilder.InnerHtml += action.Render();
 
-                tabs += action.TabHtml;
+                if (action.TabDelegate != null)
+                {
+                    tabs += action.TabDelegate(this.model);
+                }
             }
             toolbarBuilder.InnerHtml += controlsBuilder.ToString();
             toolbarBuilder.InnerHtml += tabs;
 
-            return new MvcHtmlString(toolbarBuilder.ToString());
+            return toolbarBuilder.ToString();
         }
     }
 }
