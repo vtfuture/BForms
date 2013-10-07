@@ -3,6 +3,7 @@
 @using BootstrapForms.Html
                                             
 @(Html.BsGridFor(m => m.Grid)
+        .MultipleSelectActions(Html.Partial("_MultipleSelectActions").ToString())
         .RowHighlighter(row => row.Enabled ? "#59b444" : "#dd3131")
         .RowData(row => new Dictionary<string, object> {{ "data-objid", row.Id }, { "data-active", row.Enabled }})
         .ConfigureColumns(cf =>

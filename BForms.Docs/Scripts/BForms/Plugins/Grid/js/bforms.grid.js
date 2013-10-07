@@ -125,15 +125,15 @@
 
                     grid.$actionsContainer.on('click', opts.btnSelector, $.proxy(function (e) {
 
-                        this.$rowsContainer.find(grid.options.rowSelector).each(function (k, el) {
+                        this.$rowsContainer.find(grid.options.rowSelector).each($.proxy(function (k, el) {
                             var $el = $(el);
                             var checked = opts.filter.call(this, $el);
                             $el.find(this.options.rowCheckSelector).prop('checked', checked);
                             checked ? $el.addClass('selected') : $el.removeClass('selected');
 
-                        }, this);
+                        }, this));
 
-                        this._evOnRowCheckChange();
+                        this._evOnRowCheckChange($(e.currentTarget));
 
                     }, grid));
                 })(opts, this);
@@ -182,7 +182,7 @@
             }
 
             if (typeof action.handler === 'function') {
-                this.element.on('click', action.btnSelector, { options: action }, $.proxy(function (e) {
+                this.element.one('click', action.btnSelector, { options: action }, $.proxy(function (e) {
                     var options = e.data.options;
                     options.handler.call(this, e, options, $(e.target).closest(this.options.rowSelector));
                 }, this));
@@ -264,7 +264,7 @@
         if ($row.hasClass('open')) {
 
             $row.removeClass('open');
-            $row.children(this.options.rowDetailsSelector).slideUp(400);
+            $row.children(this.options.rowDetailsSelector).stop(true, true).slideUp(400);
 
             return;
         }
@@ -309,7 +309,7 @@
             this.options.rowDetailsSuccessHandler.call(this, $row, data);
         }
         //insert details to dom
-        $row.append(data.$html.hide()).slideDown(800);
+        $row.append(data.$html.hide()).stop(true, true).slideDown(800);
 
         this._handleDetails($row);
                 
@@ -336,7 +336,7 @@
     Grid.prototype._expandGridRow = function ($row) {
                 
         $row.addClass('open');
-        $row.find(this.options.rowDetailsSelector).slideDown(800);
+        $row.find(this.options.rowDetailsSelector).stop(true, true).slideDown(800);
 
     };
 
@@ -475,14 +475,22 @@
 
     };
 
-    Grid.prototype._evOnRowCheckChange = function (e) {
+    Grid.prototype._evOnRowCheckChange = function (e, $target) {
+        var $me;
 
-        var $me = $(e.currentTarget);
+        if (e) {
+            $me = $(e.currentTarget);
+        }else {
+            $me = $target;
+        }
         var $row = $me.closest(this.options.rowSelector)
 
         if ($me.prop('checked')) {
+
             $row.addClass('selected');
+
         } else {
+
             $row.removeClass('selected');
         }
 

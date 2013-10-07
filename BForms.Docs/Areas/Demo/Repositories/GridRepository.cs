@@ -10,7 +10,7 @@ using BootstrapForms.Models;
 
 namespace BForms.Docs.Areas.Demo.Repositories
 {
-    public class GridRepository : BsBaseGridModelBuilder<User, UsersGridRowModel, UsersSearchModel>
+    public class GridRepository : BsBaseGridRepository<User, UsersGridRowModel, UsersSearchModel>
     {
         #region Properties and Constructor
         private BFormsContext db;

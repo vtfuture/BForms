@@ -132,6 +132,9 @@
   <data name="ChooseInterval" xml:space="preserve">
     <value>Choose interval</value>
   </data>
+  <data name="Default" xml:space="preserve">
+    <value>Default</value>
+  </data>
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
   </data>
@@ -140,6 +143,9 @@
   </data>
   <data name="Disable" xml:space="preserve">
     <value>Disable</value>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>Disabled</value>
   </data>
   <data name="Enable" xml:space="preserve">
     <value>Enable</value>

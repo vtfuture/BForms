@@ -24,8 +24,33 @@
         this.$grid.bsGrid({
             uniqueName: 'usersGrid',
             pagerUrl: this.options.pagerUrl,
-            filterButtons: [],
-            gridActions: [],
+            filterButtons: [{
+                btnSelector: '.js-actives',
+                filter: function ($el) {
+                    return $el.data('active');
+                }
+            }, {
+                btnSelector: '.js-inactives',
+                filter: function ($el) {
+                    return !$el.data('active');
+                }
+            }],
+            gridActions: [{
+                btnSelector: '.js-btn-enable_selected',
+                handler: function ($rows) {
+                    console.log($rows);
+                }
+            }, {
+                btnSelector: '.js-btn-disable_selected',
+                handler: function ($rows) {
+                    console.log($rows);
+                }
+            }, {
+                btnSelector: '.js-btn-delete_selected',
+                handler: function ($rows) {
+                    console.log($rows);
+                }
+            }],
             updateRowUrl: this.options.getRowUrl,
             detailsUrl: this.options.detailsUrl,
             rowDetailsSuccessHandler: $.proxy(this._detailsSuccessHandler, this),
@@ -47,6 +72,7 @@
     };
 
     GridIndex.prototype._enableDisableHandler = function (e, options, row) {
+
         var $me = $(e.currentTarget);
         var data = {
             objId: row.data('objid'),

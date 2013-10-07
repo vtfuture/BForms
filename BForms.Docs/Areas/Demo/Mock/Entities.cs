@@ -6,6 +6,7 @@ using System.Data.Entity;
 
 namespace BForms.Docs.Areas.Demo.Mock
 {
+    #region Context
     [Serializable]
     public class BFormsContext
     {
@@ -174,7 +175,9 @@ namespace BForms.Docs.Areas.Demo.Mock
             return sessionContext;
         }
     }
+    #endregion
 
+    #region User
     public class User
     {
         public int Id { get; set; }
@@ -192,10 +195,13 @@ namespace BForms.Docs.Areas.Demo.Mock
             }
         }
     }
+    #endregion
 
+    #region Job
     public class Job
     {
         public int Id { get; set; }
         public string Name { get; set; }
     }
+    #endregion
 }

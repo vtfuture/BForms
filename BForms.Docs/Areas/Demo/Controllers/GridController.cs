@@ -61,11 +61,10 @@ namespace BForms.Docs.Areas.Demo.Controllers
         #endregion
 
         #region Ajax
-        public JsonResult Pager(BsGridRepositorySettings<UsersSearchModel> model)
+        public BsJsonResult Pager(BsGridRepositorySettings<UsersSearchModel> model)
         {
             var msg = string.Empty;
-            var msgToolTip = string.Empty;
-            var status = StatusInfo.Success;
+            var status = BsResponseStatus.Success;
             var html = string.Empty;
             var count = 0;
 
@@ -78,27 +77,20 @@ namespace BForms.Docs.Areas.Demo.Controllers
             catch (Exception ex)
             {
                 msg = Resource.ServerError;
-                status = StatusInfo.ServerError;
+                status = BsResponseStatus.ServerError;
             }
 
-            return Json(new
+            return new BsJsonResult(new
             {
-                Status = status,
-                Message = msg,
-                MessageToolTip = msgToolTip,
-                Data = new
-                {
-                    Count = count,
-                    Html = html
-                }
-            });
+                Count = count,
+                Html = html
+            }, status, msg);
         }
 
-        public JsonResult New(Toolbar<UsersSearchModel, UsersNewModel> model)
+        public BsJsonResult New(Toolbar<UsersSearchModel, UsersNewModel> model)
         {
             var msg = string.Empty;
-            var msgToolTip = string.Empty;
-            var status = StatusInfo.Success;
+            var status = BsResponseStatus.Success;
             var row = string.Empty;
 
             try
@@ -112,26 +104,19 @@ namespace BForms.Docs.Areas.Demo.Controllers
             catch (Exception ex)
             {
                 msg = Resource.ServerError;
-                status = StatusInfo.ServerError;
+                status = BsResponseStatus.ServerError;
             }
 
-            return Json(new
+            return new BsJsonResult(new
             {
-                Data = new
-                {
-                    Row = row
-                },
-                Status = status,
-                Message = msg,
-                MessageToolTip = msgToolTip,
-            });
+                Row = row
+            }, status, msg);
         }
 
-        public JsonResult GetRow(int objId, bool getDetails = false)
+        public BsJsonResult GetRow(int objId, bool getDetails = false)
         {
             var msg = string.Empty;
-            var msgToolTip = string.Empty;
-            var status = StatusInfo.Success;
+            var status = BsResponseStatus.Success;
             var row = string.Empty;
             var details = string.Empty;
 
@@ -149,32 +134,25 @@ namespace BForms.Docs.Areas.Demo.Controllers
 
                     details = this.BsRenderPartialView("_Details", detailsModel);
                 }
-                
+
             }
             catch (Exception ex)
             {
                 msg = Resource.ServerError;
-                status = StatusInfo.ServerError;
+                status = BsResponseStatus.ServerError;
             }
 
-            return Json(new
+            return new BsJsonResult(new
             {
-                Data = new
-                {
-                    Row = row,
-                    Details = details
-                },
-                Status = status,
-                Message = msg,
-                MessageToolTip = msgToolTip,
-            });
+                Row = row,
+                Details = details
+            }, status, msg);
         }
 
-        public JsonResult Details(int objId)
+        public BsJsonResult Details(int objId)
         {
             var msg = string.Empty;
-            var msgToolTip = string.Empty;
-            var status = StatusInfo.Success;
+            var status = BsResponseStatus.Success;
             var html = string.Empty;
 
             try
@@ -186,26 +164,19 @@ namespace BForms.Docs.Areas.Demo.Controllers
             catch (Exception ex)
             {
                 msg = Resource.ServerError;
-                status = StatusInfo.ServerError;
+                status = BsResponseStatus.ServerError;
             }
 
-            return Json(new
+            return new BsJsonResult(new
             {
-                Data = new
-                {
-                    Html = html
-                },
-                Status = status,
-                Message = msg,
-                MessageToolTip = msgToolTip,
-            });
+                Html = html
+            }, status, msg);
         }
 
-        public JsonResult Delete(int objId)
+        public BsJsonResult Delete(int objId)
         {
             var msg = string.Empty;
-            var msgToolTip = string.Empty;
-            var status = StatusInfo.Success;
+            var status = BsResponseStatus.Success;
 
             try
             {
@@ -214,22 +185,16 @@ namespace BForms.Docs.Areas.Demo.Controllers
             catch (Exception ex)
             {
                 msg = Resource.ServerError;
-                status = StatusInfo.ServerError;
+                status = BsResponseStatus.ServerError;
             }
 
-            return Json(new
-            {
-                Status = status,
-                Message = msg,
-                MessageToolTip = msgToolTip,
-            });
+            return new BsJsonResult(null, status, msg);
         }
 
-        public JsonResult EnableDisable(int objId)
+        public BsJsonResult EnableDisable(int objId)
         {
             var msg = string.Empty;
-            var msgToolTip = string.Empty;
-            var status = StatusInfo.Success;
+            var status = BsResponseStatus.Success;
 
             try
             {
@@ -238,15 +203,10 @@ namespace BForms.Docs.Areas.Demo.Controllers
             catch (Exception ex)
             {
                 msg = Resource.ServerError;
-                status = StatusInfo.ServerError;
+                status = BsResponseStatus.ServerError;
             }
 
-            return Json(new
-            {
-                Status = status,
-                Message = msg,
-                MessageToolTip = msgToolTip,
-            });
+            return new BsJsonResult(null, status, msg);
         }
         #endregion
     }

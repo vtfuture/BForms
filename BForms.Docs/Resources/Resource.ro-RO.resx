@@ -132,6 +132,9 @@
   <data name="ChooseInterval" xml:space="preserve">
     <value>Alegeți intervalul</value>
   </data>
+  <data name="Default" xml:space="preserve">
+    <value>Implicit</value>
+  </data>
   <data name="Delete" xml:space="preserve">
     <value>Șterge</value>
   </data>
@@ -140,6 +143,9 @@
   </data>
   <data name="Disable" xml:space="preserve">
     <value>Dezactivează</value>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>Dezactivat</value>
   </data>
   <data name="Enable" xml:space="preserve">
     <value>Activează</value>
