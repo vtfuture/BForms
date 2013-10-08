@@ -135,7 +135,7 @@
 
                         }, this));
 
-                        this._evOnRowCheckChange($(e.currentTarget));
+                        this._evOnRowCheckChange(null, $(e.currentTarget));
 
                     }, grid));
                 })(opts, this);
@@ -510,8 +510,8 @@
                 this.$headerCheck.prop('indeterminate', false);
             } else {
                 this.$headerCheck.prop('indeterminate', true);
-                this.$headerCheck.prop('checked', true);
             }
+            this.$headerCheck.prop('checked', true);
 
         } else {
 
