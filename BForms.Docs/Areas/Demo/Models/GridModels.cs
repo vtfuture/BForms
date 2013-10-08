@@ -99,6 +99,10 @@ namespace BForms.Docs.Areas.Demo.Models
         [Display(Name = "Job", ResourceType = typeof(Resource), Prompt = "Choose")]
         [BsControl(BsControlType.DropDownList)]
         public BsSelectList<int?> Jobs { get; set; }
+
+        [Display(Description = "Birthday")]
+        [BsControl(BsControlType.DatePicker)]
+        public BsDateTime Birthday { get; set; }
     }
 
     public class UsersDetailsModel

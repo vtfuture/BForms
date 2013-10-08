@@ -359,7 +359,7 @@
 
     };
 
-    bRangePicker.prototype._updateAltFields = function () {
+    bRangePicker.prototype._updateAltFields = function (startValue, endValue) {
 
         if (typeof this.options.startAltFields !== "undefined" && $.isArray(this.options.startAltFields)) {
             for (var idxS in this.options.startAltFields) {
@@ -368,7 +368,7 @@
 
                 if ($toUpdateS.length > 0) {
                     if ($toUpdateS.is('input')) {
-                        $toUpdateS.val(moment.isMoment(this._startValue) ? this._startValue.format() : '');
+                        $toUpdateS.val(typeof startValue === "undefined" ? moment.isMoment(this._startValue) ? this._startValue.format() : '' : startValue);
                     } else {
                         $toUpdateS.text(moment.isMoment(this._startValue) ? this._startValue.format() : '');
                     }
@@ -383,7 +383,7 @@
                 var $toUpdateE = $(currentE.selector);
                 if ($toUpdateE.length > 0) {
                     if ($toUpdateE.is('input')) {
-                        $toUpdateE.val(moment.isMoment(this._endValue) ? this._endValue.format() : '');
+                        $toUpdateE.val(typeof endValue === "undefined" ? moment.isMoment(this._endValue) ? this._endValue.format() : '' : '');
                     } else {
                         $toUpdateE.text(moment.isMoment(this._endValue) ? this._endValue.format() : '');
                     }
@@ -434,6 +434,17 @@
     };
 
     bRangePicker.prototype.resetRange = function (val) {
+        this.$startLabel.data('value', this._startValue);
+        this.$startLabel.val(this.$start.bsDatepicker('format', this._startValue));
+        this.$start.bsDatepicker('setValue', this._startValue);
+
+        this.$endLabel.data('value', this._endValue);
+        this.$endLabel.val(this.$end.bsDatepicker('format', this._endValue));
+        this.$end.bsDatepicker('setValue', this._endValue);
+        this.applyRange(val);
+    };
+
+    bRangePicker.prototype.resetValue = function () {
 
         this.$startLabel.data('value', this._startValue);
         this.$startLabel.val(this.$start.bsDatepicker('format', this._startValue));
@@ -442,8 +453,22 @@
         this.$endLabel.data('value', this._endValue);
         this.$endLabel.val(this.$end.bsDatepicker('format', this._endValue));
         this.$end.bsDatepicker('setValue', this._endValue);
+        this.applyRange('');
 
-        this.applyRange(val);
+
+        if (typeof this.$input !== "undefined") {
+            this.$input.val('');
+        }
+
+        if (this.options.startOptions.defaultDateValue) {
+            this.$start.bsDatepicker('resetValue');
+        }
+
+        if (this.options.endOptions.defaultDateValue) {
+            this.$end.bsDatepicker('resetValue');
+        }
+
+        this._updateAltFields('', '');
     };
 
     bRangePicker.prototype.destroy = function() {
