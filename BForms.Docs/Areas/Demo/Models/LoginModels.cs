@@ -17,7 +17,7 @@ namespace BForms.Docs.Areas.Demo.Models
     public class LoginModel
     {
         [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
-        [Display(Name = "Email", Prompt = "Email")]
+        [Display(Name = "Email", Prompt = "Email", ResourceType = typeof(Resource))]
         [BsControl(BsControlType.Email)]
         public string Email { get; set; }
 
@@ -26,7 +26,7 @@ namespace BForms.Docs.Areas.Demo.Models
         [BsControl(BsControlType.Password)]
         public string Password { get; set; }
 
-        [Display(Name = "RememberMe")]
+        [Display(Name = "RememberMe", ResourceType = typeof(Resource))]
         [BsControl(BsControlType.CheckBox)]
         public bool RememberMe { get; set; }
     }
@@ -34,17 +34,17 @@ namespace BForms.Docs.Areas.Demo.Models
     public class RegisterModel
     {
         [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
-        [Display(Name = "Name", Prompt = "Surname and name")]
+        [Display(Name = "Name", Prompt = "NamePrompt", ResourceType = typeof(Resource))]
         [BsControl(BsControlType.TextBox)]
         public string Name { get; set; }
 
         [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
-        [Display(Name = "Email address", Prompt = "email@example.com")]
+        [Display(Name = "Email", Prompt = "EmailPrompt", ResourceType = typeof(Resource))]
         [BsControl(BsControlType.Email)]
         public string Email { get; set; }
 
-        
-        [Display(Name = "Personal website", Prompt = "http://www.mysite.com")]
+
+        [Display(Name = "PersonalWebsite", Prompt = "SitePrompt", ResourceType = typeof(Resource))]
         [BsControl(BsControlType.Url)]
         public string Website { get; set; }
 
@@ -54,67 +54,67 @@ namespace BForms.Docs.Areas.Demo.Models
         public string Password { get; set; }
 
         [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
-        [Display(Name = "Retype password")]
+        [Display(Name = "RetypePassword", ResourceType = typeof(Resource))]
         [Compare("Password")]
         [BsControl(BsControlType.Password)]
         public string PasswordRetyped { get; set; }
 
         [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
-        [Display(Name = "Birthday")]
+        [Display(Name = "Birthday", ResourceType = typeof(Resource))]
         [BsControl(BsControlType.DatePicker)]
         public BsDateTime Birthday { get; set; }
 
         [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
-        [Display(Name = "Annual income")]
+        [Display(Name = "AnnualIncome", ResourceType = typeof(Resource))]
         [BsControl(BsControlType.Number)]
         public decimal? AnnualIncome { get; set; }
 
         [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
-        [Display(Name = "Location", Prompt = "Choose your country")]
+        [Display(Name = "Location", Prompt = "PromptLocation", ResourceType = typeof(Resource))]
         [BsControl(BsControlType.DropDownList)]
         public BsSelectList<string> CountriesList { get; set; }
 
         [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
-        [Display(Name = "Receive email notifications", Description = "Your register email address will be used")]
+        [Display(Name = "EmailNotifications", Description = "EmailNotificationsPrompt", ResourceType = typeof(Resource))]
         [BsControl(BsControlType.RadioButtonList)]
         public BsSelectList<NotificationType?> NotificationList { get; set; }
 
-        [Display(Name = "Receive emails at specified time")]
+        [Display(Name = "ReceiveEmailsAtSpecifiedTime", ResourceType = typeof(Resource))]
         [BsControl(BsControlType.TimePicker)]
         public BsDateTime NotificationTime { get; set; }
 
-        [Display(Name = "What ASP.NET flavors do you use")]
+        [Display(Name = "AspTechnologiesQuestion", ResourceType = typeof(Resource))]
         [BsControl(BsControlType.CheckBoxList)]
         public BsSelectList<List<int>> TechnologiesCheckboxList { get; set; }    
 
         [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
-        [Display(Name = "Technologies", Prompt = "Choose your favorite technologies")]
+        [Display(Name = "Technologies", Prompt = "TechnologiesPrompt", ResourceType = typeof(Resource))]
         [BsControl(BsControlType.ListBox)]
         public BsSelectList<List<int>> TechnologiesList { get; set; }
 
         [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
-        [Display(Name = "Programming languages", Prompt = "Type your favorite programming languages")]
+        [Display(Name = "ProgrammingLanguages", Prompt = "ProgrammingLanguagesPrompt", ResourceType = typeof(Resource))]
         [BsControl(BsControlType.TagList)]
         public BsSelectList<List<string>> LanguagesList { get; set; }
 
         [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
-        [Display(Name = "Programming IDE", Prompt = "Type your favorite IDE")]
+        [Display(Name = "ProgrammingIDE", Prompt = "ProgrammingIDEPrompt", ResourceType = typeof(Resource))]
         [BsControl(BsControlType.Autocomplete)]
         public BsSelectList<string> IdeList { get; set; }
 
         [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
-        [Display(Name = "Gender", Prompt = "Choose your gender")]
+        [Display(Name = "Gender", Prompt = "GenderPrompt", ResourceType = typeof(Resource))]
         [BsControl(BsControlType.DropDownList)]
         public int? Gender { get; set; }
         public List<System.Web.Mvc.SelectListItem> GenderList { get; set; }
 
         [BsMandatory(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
-        [Display(Name = "I agree with Terms & Conditions")]
+        [Display(Name = "ConsentAgreement", ResourceType = typeof(Resource))]
         [BsControl(BsControlType.CheckBox)]
         public bool ConsentAgreement { get; set; }
 
         [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
-        [Display(Name = "Interval", Prompt = "Choose dates")]
+        [Display(Name = "Interval", Prompt = "IntervalPrompt", ResourceType = typeof(Resource))]
         [BsControl(BsControlType.DateTimePickerRange, IsReadonly = true)]
         public BsRange<DateTime?> Interval { get; set; }
     }
