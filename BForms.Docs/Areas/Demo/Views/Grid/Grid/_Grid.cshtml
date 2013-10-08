@@ -28,8 +28,8 @@
                                 .Sortable()
                                 .Text(x => x.Enabled ? Resource.Yes : Resource.No);
 
-            cf.Remove(c => c.Enabled);
-            
-            cf.For(c => c.Name).Name("Custom Name");
+            //cf.Remove(c => c.Enabled);
+
+            cf.For(c => c.Name).Name(Resource.Name);
         })
 )

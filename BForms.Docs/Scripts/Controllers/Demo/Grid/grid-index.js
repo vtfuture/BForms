@@ -29,13 +29,23 @@
             filterButtons: [{
                 btnSelector: '.js-actives',
                 filter: function ($el) {
-                    return $el.data('active');
+                    return $el.data('active') == 'True';
                 }
             }, {
                 btnSelector: '.js-inactives',
                 filter: function ($el) {
-                    return !$el.data('active');
-                }
+                    return $el.data('active') != 'True';
+                },
+            }, {
+                btnSelector: '.js-all',
+                filter: function ($el) {
+                    return true;
+                },
+            }, {
+                btnSelector: '.js-none',
+                filter: function ($el) {
+                    return false;
+                },
             }],
             gridActions: [{
                 btnSelector: '.js-btn-enable_selected',

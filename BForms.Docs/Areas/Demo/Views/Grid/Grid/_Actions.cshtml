@@ -5,10 +5,12 @@
     <button class="btn btn-default js-btn-disable_selected" style="display:none" title="Disable"><span class="glyphicon glyphicon-remove-circle"></span></button>
     <button class="btn btn-default js-btn-delete_selected" style="display:none" title="Delete"><span class="glyphicon glyphicon-trash"></span></button>
     <div class="btn-group check_all">
-        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">@Resource.Default<span class="caret"></span></button>
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
         <ul class="dropdown-menu pull-right" role="menu">
+            <li><a href="#" class="js-all">@Resource.All</a></li>
             <li><a href="#" class="js-actives">@Resource.Enabled</a></li>
             <li><a href="#" class="js-inactives">@Resource.Disabled</a></li>
+            <li><a href="#" class="js-none">@Resource.None</a></li>
         </ul>
         <input type="checkbox">
     </div>
