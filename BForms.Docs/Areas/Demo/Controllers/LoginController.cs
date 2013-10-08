@@ -121,7 +121,11 @@ namespace BForms.Docs.Areas.Demo.Controllers
                 IdeList = ideListWithSelected,
                 GenderList = Lists.AllGenders<int>().ToSelectList().ToList(),
                 Birthday = new BsDateTime(),
-                Interval = new BsRange<DateTime?> { From = from, To = to }
+                Interval = new BsRange<DateTime?>
+                {
+                    From = from,
+                    To = to
+                }
             };
         }
     }

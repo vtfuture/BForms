@@ -1,5 +1,5 @@
 ﻿(function (factory) {
-    if (typeof define !== "undefined" && define.amd) {
+    if (typeof define === "function" && define.amd) {
         define(['jquery', 'bforms-datepicker-tmpl', 'moment', 'moment-calendar'], factory);
     } else {
         factory(window.jQuery, window.bsDatepickerRenderer, moment);
@@ -197,7 +197,7 @@
 
             if (this.options.closeOnBlur) {
 
-                $(window).on('click', $.proxy(function (e) {
+                $(document).on('mouseup', $.proxy(function (e) {
 
                     var $target = $(e.target);
 
@@ -235,7 +235,8 @@
                 for (var idxO in this.options.openOn) {
 
                     var currentOpenOn = this.options.openOn[idxO];
-
+                    this.unbindEvent(currentOpenOn.selector, currentOpenOn.event);
+                    
                     $('body').on(currentOpenOn.event, currentOpenOn.selector, $.proxy(function (e) {
                         this.show();
                     }, this));
@@ -246,6 +247,7 @@
                 for (var idxC in this.options.closeOn) {
 
                     var currentCloseOn = this.options.closeOn[idxC];
+                    this.unbindEvent(currentCloseOn.selector, currentCloseOn.event);
 
                     $('body').on(currentCloseOn.event, currentCloseOn.selector, $.proxy(function (e) {
                         this.hide();
@@ -257,7 +259,8 @@
                 for (var idxT in this.options.toggleButtons) {
 
                     var currentTogle = this.options.toggleButtons[idxT];
-
+                    
+                    this.unbindEvent(currentTogle.selector, currentTogle.event);
                     $('body').on(currentTogle.event, currentTogle.selector, $.proxy(function (e) {
 
                         if (this._visible) {
@@ -270,14 +273,14 @@
                 }
             }
 
-            $(window).on('scroll', $.proxy(function () {
+            $(document).on('scroll', $.proxy(function () {
                 if (this._visible) {
                     window.clearTimeout(this._timeoutHandler);
                     this._timeoutHandler = window.setTimeout($.proxy(this._positionPicker, this), 20);
                 }
             }, this));
 
-            $(window).on('resize', $.proxy(function () {
+            $(document).on('resize', $.proxy(function () {
                 this._positionPicker();
             }, this));
 
@@ -874,8 +877,8 @@
 
         if (yOrient != 'below' && yOrient != 'above') {
 
-            var windowHeight = $(window).innerHeight(),
-                scrollTop = $(window).scrollTop(),
+            var windowHeight = $(document).innerHeight(),
+                scrollTop = $(document).scrollTop(),
                 elemHeight = this.$element.outerHeight(true);
 
             var topOverflow = -scrollTop + elemOffset.top - pickerHeight,
@@ -995,7 +998,7 @@
             HideMonths: !this.isActiveView(this.enums.Display.Months),
             HideYears: !this.isActiveView(this.enums.Display.Years),
             Time: this.getTime(model.Value),
-
+            WrapperClass: this.options.wrapperClass,
             DaysNames: this.getDaysNames()
         });
 
@@ -1103,7 +1106,11 @@
             this.$picker.show();
             this._visible = true;
 
-            this._trigger('afterShow');
+            this._trigger('afterShow', {
+                datepicker: this.$picker,
+                element: this.$element,
+                datepickerType: this._type
+            });
         }
 
         return this;
@@ -1118,7 +1125,11 @@
             this.$picker.hide();
             this._visible = false;
 
-            this._trigger('afterHide');
+            this._trigger('afterHide', {
+                datepicker: this.$picker,
+                element: this.$element,
+                datepickerType: this._type
+            });
         }
 
         return this;
@@ -1403,6 +1414,17 @@
 
         return isValid;
     };
+    
+    bDatepicker.prototype.unbindEvent = function (selector, event, $context) {
+
+        if (typeof selector !== "undefined" && typeof event !== "undefined") {
+
+            if (typeof $context === "undefined") {
+                $context = $('body');
+            }
+            $context.off(event, selector);
+        }
+    };
     //#endregion
 
     $.fn.bsDatepickerDefaults = {
@@ -1424,15 +1446,6 @@
             'year&month': 'YYYY MM',
             'month&date': 'MMMM DD'
         },
-        openOn: [{
-            selector: '#RegisterModel_Password',
-            event: 'click'
-        }],
-
-        closeOn: [{
-            selector: '#RegisterModel_Email',
-            event: 'click'
-        }],
         nowText: 'Now',
         setDateText: 'Set date',
         setTimeText: 'Set time',

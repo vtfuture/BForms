@@ -177,8 +177,77 @@
   <data name="None" xml:space="preserve">
     <value>Niciuna</value>
   </data>
+  <data name="AnnualIncome" xml:space="preserve">
+    <value>Venit anual</value>
+  </data>
+  <data name="AspTechnologiesQuestion" xml:space="preserve">
+    <value>Ce componente ASP.NET folosești</value>
+  </data>
+  <data name="Birthday" xml:space="preserve">
+    <value>Data nașterii</value>
+  </data>
+  <data name="ConsentAgreement" xml:space="preserve">
+    <value>Sunt de acord cu Termeni si Condiții</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Adresă mail</value>
+  </data>
+  <data name="EmailNotifications" xml:space="preserve">
+    <value>Primește notificări prin mail</value>
+  </data>
+  <data name="EmailNotificationsPrompt" xml:space="preserve">
+    <value>Vom folosi adresa ta de mail</value>
+  </data>
+  <data name="EmailPrompt" xml:space="preserve">
+    <value>email@exemplu.ro</value>
+  </data>
+  <data name="Gender" xml:space="preserve">
+    <value>Sex</value>
+  </data>
+  <data name="GenderPrompt" xml:space="preserve">
+    <value>Alege-ți sexul</value>
+  </data>
+  <data name="Interval" xml:space="preserve">
+    <value>Interval</value>
+  </data>
+  <data name="IntervalPrompt" xml:space="preserve">
+    <value>Alege datele</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>Locație</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Nume</value>
+  </data>
+  <data name="NamePrompt" xml:space="preserve">
+    <value>Nume de familie și prenume</value>
+  </data>
   <data name="Password" xml:space="preserve">
     <value>Parola</value>
+  </data>
+  <data name="PersonalWebsite" xml:space="preserve">
+    <value>Site personal</value>
+  </data>
+  <data name="ProgrammingIDE" xml:space="preserve">
+    <value>Mediu de dezvoltare</value>
+  </data>
+  <data name="ProgrammingIDEPrompt" xml:space="preserve">
+    <value>Scrie mediul tău preferat de dezvoltare</value>
+  </data>
+  <data name="ProgrammingLanguages" xml:space="preserve">
+    <value>Limbaje de programare</value>
+  </data>
+  <data name="ProgrammingLanguagesPrompt" xml:space="preserve">
+    <value>Scrie limbajele tale preferate de programare</value>
+  </data>
+  <data name="PromptLocation" xml:space="preserve">
+    <value>Alege-ți țara</value>
+  </data>
+  <data name="ReceiveEmailsAtSpecifiedTime" xml:space="preserve">
+    <value>Primește mail-uri la ora specificată</value>
+  </data>
+  <data name="RememberMe" xml:space="preserve">
+    <value>Păstrează-mă autentificat</value>
   </data>
   <data name="Refresh" xml:space="preserve">
     <value>Refresh</value>
@@ -200,6 +269,18 @@
   </data>
   <data name="Unemployed" xml:space="preserve">
     <value>Șomer</value>
+  </data>
+  <data name="RetypePassword" xml:space="preserve">
+    <value>Rescrie parolă</value>
+  </data>
+  <data name="SitePrompt" xml:space="preserve">
+    <value>http://www.situlmeu.ro</value>
+  </data>
+  <data name="Technologies" xml:space="preserve">
+    <value>Tehnologii</value>
+  </data>
+  <data name="TechnologiesPrompt" xml:space="preserve">
+    <value>Alege-ți tehnologiile preferate</value>
   </data>
   <data name="UserName" xml:space="preserve">
     <value>Utilizator</value>

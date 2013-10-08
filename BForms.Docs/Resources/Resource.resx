@@ -177,7 +177,76 @@
   <data name="None" xml:space="preserve">
     <value />
   </data>
+  <data name="AnnualIncome" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AspTechnologiesQuestion" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Birthday" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ConsentAgreement" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EmailNotifications" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EmailNotificationsPrompt" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EmailPrompt" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Gender" xml:space="preserve">
+    <value />
+  </data>
+  <data name="GenderPrompt" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Interval" xml:space="preserve">
+    <value />
+  </data>
+  <data name="IntervalPrompt" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value />
+  </data>
+  <data name="NamePrompt" xml:space="preserve">
+    <value />
+  </data>
   <data name="Password" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PersonalWebsite" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ProgrammingIDE" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ProgrammingIDEPrompt" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ProgrammingLanguages" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ProgrammingLanguagesPrompt" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PromptLocation" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ReceiveEmailsAtSpecifiedTime" xml:space="preserve">
+    <value />
+  </data>
+  <data name="RememberMe" xml:space="preserve">
     <value />
   </data>
   <data name="Refresh" xml:space="preserve">
@@ -187,6 +256,18 @@
     <value />
   </data>
   <data name="RequiredField" xml:space="preserve">
+    <value />
+  </data>
+  <data name="RetypePassword" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SitePrompt" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Technologies" xml:space="preserve">
+    <value />
+  </data>
+  <data name="TechnologiesPrompt" xml:space="preserve">
     <value />
   </data>
   <data name="Reset" xml:space="preserve">

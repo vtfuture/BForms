@@ -243,9 +243,216 @@ namespace BForms.Docs.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string AnnualIncome {
+            get {
+                return ResourceManager.GetString("AnnualIncome", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string AspTechnologiesQuestion {
+            get {
+                return ResourceManager.GetString("AspTechnologiesQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string Birthday {
+            get {
+                return ResourceManager.GetString("Birthday", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string ConsentAgreement {
+            get {
+                return ResourceManager.GetString("ConsentAgreement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string Email {
+            get {
+                return ResourceManager.GetString("Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string EmailNotifications {
+            get {
+                return ResourceManager.GetString("EmailNotifications", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string EmailNotificationsPrompt {
+            get {
+                return ResourceManager.GetString("EmailNotificationsPrompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string EmailPrompt {
+            get {
+                return ResourceManager.GetString("EmailPrompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string Gender {
+            get {
+                return ResourceManager.GetString("Gender", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string GenderPrompt {
+            get {
+                return ResourceManager.GetString("GenderPrompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string Interval {
+            get {
+                return ResourceManager.GetString("Interval", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string IntervalPrompt {
+            get {
+                return ResourceManager.GetString("IntervalPrompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string Location {
+            get {
+                return ResourceManager.GetString("Location", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string Name {
+            get {
+                return ResourceManager.GetString("Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string NamePrompt {
+            get {
+                return ResourceManager.GetString("NamePrompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string Password {
             get {
                 return ResourceManager.GetString("Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string PersonalWebsite {
+            get {
+                return ResourceManager.GetString("PersonalWebsite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string ProgrammingIDE {
+            get {
+                return ResourceManager.GetString("ProgrammingIDE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string ProgrammingIDEPrompt {
+            get {
+                return ResourceManager.GetString("ProgrammingIDEPrompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string ProgrammingLanguages {
+            get {
+                return ResourceManager.GetString("ProgrammingLanguages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string ProgrammingLanguagesPrompt {
+            get {
+                return ResourceManager.GetString("ProgrammingLanguagesPrompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string PromptLocation {
+            get {
+                return ResourceManager.GetString("PromptLocation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string ReceiveEmailsAtSpecifiedTime {
+            get {
+                return ResourceManager.GetString("ReceiveEmailsAtSpecifiedTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string RememberMe {
+            get {
+                return ResourceManager.GetString("RememberMe", resourceCulture);
             }
         }
         
@@ -273,6 +480,42 @@ namespace BForms.Docs.Resources {
         public static string RequiredField {
             get {
                 return ResourceManager.GetString("RequiredField", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string RetypePassword {
+            get {
+                return ResourceManager.GetString("RetypePassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string SitePrompt {
+            get {
+                return ResourceManager.GetString("SitePrompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string Technologies {
+            get {
+                return ResourceManager.GetString("Technologies", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string TechnologiesPrompt {
+            get {
+                return ResourceManager.GetString("TechnologiesPrompt", resourceCulture);
             }
         }
         

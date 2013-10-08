@@ -177,8 +177,77 @@
   <data name="None" xml:space="preserve">
     <value>None</value>
   </data>
+  <data name="AnnualIncome" xml:space="preserve">
+    <value>Annual income</value>
+  </data>
+  <data name="AspTechnologiesQuestion" xml:space="preserve">
+    <value>What ASP.NET flavors do you use</value>
+  </data>
+  <data name="Birthday" xml:space="preserve">
+    <value>Birthday</value>
+  </data>
+  <data name="ConsentAgreement" xml:space="preserve">
+    <value>I agree with Terms &amp; Conditions</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email address</value>
+  </data>
+  <data name="EmailNotifications" xml:space="preserve">
+    <value>Receive email notifications</value>
+  </data>
+  <data name="EmailNotificationsPrompt" xml:space="preserve">
+    <value>Your register email address will be used</value>
+  </data>
+  <data name="EmailPrompt" xml:space="preserve">
+    <value>email@example.com</value>
+  </data>
+  <data name="Gender" xml:space="preserve">
+    <value>Gender</value>
+  </data>
+  <data name="GenderPrompt" xml:space="preserve">
+    <value>Choose your gender</value>
+  </data>
+  <data name="Interval" xml:space="preserve">
+    <value>Interval</value>
+  </data>
+  <data name="IntervalPrompt" xml:space="preserve">
+    <value>Choose dates</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>Location</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="NamePrompt" xml:space="preserve">
+    <value>Surname and name</value>
+  </data>
   <data name="Password" xml:space="preserve">
     <value>Password</value>
+  </data>
+  <data name="PersonalWebsite" xml:space="preserve">
+    <value>Personal website</value>
+  </data>
+  <data name="ProgrammingIDE" xml:space="preserve">
+    <value>Programming IDE</value>
+  </data>
+  <data name="ProgrammingIDEPrompt" xml:space="preserve">
+    <value>Type your favorite IDE</value>
+  </data>
+  <data name="ProgrammingLanguages" xml:space="preserve">
+    <value>Programming languages</value>
+  </data>
+  <data name="ProgrammingLanguagesPrompt" xml:space="preserve">
+    <value>Type your favorite programming languages</value>
+  </data>
+  <data name="PromptLocation" xml:space="preserve">
+    <value>Choose your country</value>
+  </data>
+  <data name="ReceiveEmailsAtSpecifiedTime" xml:space="preserve">
+    <value>Receive emails at specified time</value>
+  </data>
+  <data name="RememberMe" xml:space="preserve">
+    <value>Remember me</value>
   </data>
   <data name="Refresh" xml:space="preserve">
     <value>Refresh</value>
@@ -188,6 +257,18 @@
   </data>
   <data name="RequiredField" xml:space="preserve">
     <value>This field is required</value>
+  </data>
+  <data name="RetypePassword" xml:space="preserve">
+    <value>Retype password</value>
+  </data>
+  <data name="SitePrompt" xml:space="preserve">
+    <value>http://www.mysite.com</value>
+  </data>
+  <data name="Technologies" xml:space="preserve">
+    <value>Technologies</value>
+  </data>
+  <data name="TechnologiesPrompt" xml:space="preserve">
+    <value>Choose your favorite technologies</value>
   </data>
   <data name="Reset" xml:space="preserve">
     <value>Reset</value>
