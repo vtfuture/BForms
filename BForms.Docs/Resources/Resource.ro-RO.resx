@@ -177,6 +177,9 @@
   <data name="Password" xml:space="preserve">
     <value>Parola</value>
   </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
   <data name="RegisterDate" xml:space="preserve">
     <value>Data inregistrării</value>
   </data>

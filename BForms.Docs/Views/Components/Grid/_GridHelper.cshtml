@@ -1,0 +1,74 @@
+﻿@using BForms.Docs.Helpers
+<h3 id="GridHelper">Grid helper</h3>
+
+<p>
+    
+</p>
+
+<p><code>Html.BsGridFor</code> helper returns a <code>BsGridHtmlBuilder</code> used to build the html of the grid. This way, you can configure your grid adding attributes, properties and columns.</p>
+
+<p>
+    <code>HtmlAttributes</code>
+</p>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Components/Grid/Source/_HtmlAttributes.cs.embed")
+</pre>
+<br />
+
+<p>
+    <code>RowHighlighter</code>
+</p>
+<p>
+    Defines the row color.
+</p>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Components/Grid/Source/_RowHighlighter.cs.embed")
+</pre>
+<br />
+
+<p>
+    <code>RowData</code>
+</p>
+<p>
+    The html attributes placed on the a grid row can be specified via the model's <code>BsGridColumnAttribute</code> or using this method.
+</p>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Components/Grid/Source/_RowData.cs.embed")
+</pre>
+<br />
+
+<p>
+    <code>ConfigureColumns</code>
+</p>
+<p>
+    Add columns to grid, based on TRow model.
+</p>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Components/Grid/Source/_ConfigureColumns.cs.embed")
+</pre>
+<br />
+<p>
+    You can also configure <code>BsGridColumn&#60;TRow&#62;</code> or use the <code>BsGridColumnAttribute</code>.
+</p>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Components/Grid/Source/_ConfigureColumnsExample.cs.embed")
+</pre>
+<br />
+
+<p>
+    <code>MultipleSelectActions</code>
+</p>
+<p>
+    Builder adds a checkbox to each row and renders the specified grid actions partial above the grid.
+</p>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Components/Grid/Source/_Actions.cs.embed")
+</pre>
+<br />
+
+<h4 class="sub_title">Example</h4>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Components/Grid/Source/_GridHelper.cs.embed")
+</pre>
+<br/>
+

@@ -14,7 +14,7 @@ namespace BootstrapForms.Mvc
         /// <summary>
         /// Wraps column header in a html node. Default is true
         /// </summary>
-        public bool HasOrder
+        public bool IsSortable
         {
             get
             {
@@ -42,8 +42,6 @@ namespace BootstrapForms.Mvc
                 this.isEditable = value;
             }
         }
-
-        public string DisplayName { get; set; }
 
         public int Order { get; set; }
 

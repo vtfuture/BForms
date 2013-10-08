@@ -1,0 +1,1 @@
+﻿BsGridHtmlBuilder<TModel, TRow> HtmlAttributes(Dictionary<string, object> htmlAttributes)

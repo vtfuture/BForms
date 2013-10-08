@@ -188,6 +188,7 @@
     <Content Include="Scripts\BForms\Stylesheets\Images\icons\ui-anim_basic_16x16.gif" />
     <Content Include="Scripts\Controllers\Demo\Grid\grid-index.js" />
     <Content Include="Scripts\Controllers\Root\Components\components-rangeextensions.js" />
+    <Content Include="Scripts\Controllers\Root\Components\components-grid.js" />
     <Content Include="Views\Components\InputExtensions\Source\InputPasswordSpecializedView.cshtml.embed" />
     <Content Include="Views\Components\InputExtensions\Source\InputUrlSpecializedModel.cs.embed" />
     <Content Include="Views\Components\InputExtensions\Source\InputUrlSpecializedView.cshtml.embed" />
@@ -590,6 +591,91 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Demo\Views\Grid\Grid\Details\_Readonly.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\Grid\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\Grid\_Models.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\Grid\_GridHelper.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\Grid\Source\_ViewModel.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\Grid\Source\_Attributes.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\Grid\Source\_GridHelper.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\Grid\Source\_ToolbarHelper.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\Grid\Source\_HtmlAttributes.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\Grid\Source\_RowHighlighter.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\Grid\Source\_RowData.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\Grid\Source\_ConfigureColumns.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\Grid\Source\_ConfigureColumnsExample.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\Grid\Source\_Actions.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\Grid\_ToolbarHelper.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\Grid\Source\_HtmlAttributesToolbar.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\Grid\Source\_ConfigureActions.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\Grid\Source\_ConfigureActionsExample.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\Grid\Source\_ActionTypes.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\Grid\_Repository.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\Grid\Source\_Query.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\Grid\Source\_OrderQuery.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\Grid\Source\_MapQuery.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\Grid\Source\_RepositoryExample.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\Grid\Source\_ToViewModel.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\Grid\Source\_ToViewModelExtensions.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\Grid\Source\_ControllerExample.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\Grid\_Javascript.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\Grid\Source\_JavascriptToolbar.cs.embed" />
+    <None Include="Views\Components\Grid\Source\_JavascriptGrid.cs.embed" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

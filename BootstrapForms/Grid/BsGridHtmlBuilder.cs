@@ -536,7 +536,7 @@ namespace BootstrapForms.Grid
                 {
                     var column = new BsGridColumn<TRow>(property, this.viewContext);
 
-                    column.IsSortable = columnAttr.HasOrder;
+                    column.IsSortable = columnAttr.IsSortable;
                     column.Width = columnAttr.Width;
 
                     System.ComponentModel.DataAnnotations.DisplayAttribute displayAttribute = null;

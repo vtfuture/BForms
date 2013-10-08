@@ -1,0 +1,41 @@
+﻿@{
+    ViewBag.Title = "Grid control";
+}
+
+<div class="row">
+    <div class="hidden-xs hidden-sm col-md-3 col-lg-3">
+        <div class="bs-sidebar">
+            <ul class="nav bs-sidenav">
+                <li>
+                    <a href="#select-section">Grid control</a>
+                    <ul class="nav">
+                        <li><a href="#Models">Models</a></li>
+                        <li><a href="#GridHelper">Grid Helper</a></li>
+                        <li><a href="#ToolbarHelper">Toolbar Helper</a></li>
+                        <li><a href="#Repository">Repository</a></li>
+                        <li><a href="#Javascript">Javascript</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <main class="col-md-9 col-lg-9" role="main">
+        <div class="bs-docs-section">
+            <div class="page-header">
+                <h1 id="select-section">Grid</h1>
+            </div>
+            <p>
+                BForms exposes a way of building a grid using Razor HTML extensions, via <code>BsGridFor</code> and <code>BsToolbarFor</code> helpers.
+            </p>
+            @Html.Partial("Grid/_Models")
+            @Html.Partial("Grid/_GridHelper")
+            @Html.Partial("Grid/_ToolbarHelper")
+            @Html.Partial("Grid/_Repository")
+            @Html.Partial("Grid/_Javascript")
+
+
+        </div>
+
+    </main>
+</div>

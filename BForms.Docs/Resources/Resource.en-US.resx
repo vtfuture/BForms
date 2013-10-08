@@ -177,6 +177,9 @@
   <data name="Password" xml:space="preserve">
     <value>Password</value>
   </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
   <data name="RegisterDate" xml:space="preserve">
     <value>Registration date</value>
   </data>

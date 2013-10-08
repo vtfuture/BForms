@@ -7,10 +7,11 @@
     ViewBag.Title = Resource.Users;
 }
 
+
 @using (Html.BsGridWrapper())
-{        
+{
     @Html.Partial("Toolbar/_Toolbar", Model)
-                                            
+
     @Html.Partial("Grid/_Grid", Model)
 }
 

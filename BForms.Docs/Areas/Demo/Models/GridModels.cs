@@ -10,12 +10,6 @@ using BootstrapForms.Mvc;
 
 namespace BForms.Docs.Areas.Demo.Models
 {
-    public class Toolbar<TSearch, TNew>
-    {
-        public TSearch Search { get; set; }
-        public TNew New { get; set; }
-    }
-
     public class UsersViewModel
     {
         [BsGrid(HasDetails = true)]
@@ -23,7 +17,7 @@ namespace BForms.Docs.Areas.Demo.Models
         public BsGridModel<UsersGridRowModel> Grid { get; set; }
 
         [Display(Name = "Users", ResourceType = typeof(Resource))]
-        public Toolbar<UsersSearchModel, UsersNewModel> Toolbar { get; set; }
+        public BsToolbarModel<UsersSearchModel, UsersNewModel> Toolbar { get; set; }
     }
 
     public class UsersGridRowModel

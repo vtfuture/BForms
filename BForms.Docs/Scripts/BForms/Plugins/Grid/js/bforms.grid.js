@@ -458,7 +458,7 @@
 
         var checked = $(e.currentTarget).prop('checked');
 
-        this.$rowChecks.prop('checked', checked);
+        this.element.find(this.options.rowCheckSelector).prop('checked', checked);
 
         var $rows = this.element.find(this.options.rowsContainerSelector + '>' + this.options.rowSelector);
         if (checked) {
@@ -496,7 +496,7 @@
             $row.removeClass('selected');
         }
 
-        var checked = this.$rowChecks.filter(function () {
+        var checked = this.element.find(this.options.rowCheckSelector).filter(function () {
             return $(this).prop('checked');
         }).length;
 
@@ -506,7 +506,7 @@
 
             buttons.show();
 
-            if (checked == this.$rowChecks.length) {
+            if (checked == this.element.find(this.options.rowCheckSelector).length) {
                 this.$headerCheck.prop('indeterminate', false);
             } else {
                 this.$headerCheck.prop('indeterminate', true);
@@ -724,6 +724,11 @@
         if (typeof this.options.rowDetailsSuccessHandler === 'function') {
             data.$html = $newRow;
             this.options.rowDetailsSuccessHandler.call(this, $newRow, data);
+        }
+
+        if (this.options.hasRowCheck) {
+            var checked = $row.find(this.options.rowCheckSelector).prop('checked');
+            $newRow.find(this.options.rowCheckSelector).prop('checked', checked);
         }
 
         // replace row header with the updated one

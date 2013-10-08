@@ -37,7 +37,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
             var model = new UsersViewModel
             {
                 Grid = gridModel,
-                Toolbar = new Toolbar<UsersSearchModel, UsersNewModel>
+                Toolbar = new BsToolbarModel<UsersSearchModel, UsersNewModel>
                 {
                     Search = _gridRepository.GetSearchForm(),
                     New = _gridRepository.GetNewForm()
@@ -88,7 +88,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
             }, status, msg);
         }
 
-        public BsJsonResult New(Toolbar<UsersSearchModel, UsersNewModel> model)
+        public BsJsonResult New(BsToolbarModel<UsersSearchModel, UsersNewModel> model)
         {
             var msg = string.Empty;
             var status = BsResponseStatus.Success;

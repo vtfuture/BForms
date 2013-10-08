@@ -97,6 +97,7 @@
     <Compile Include="Models\BsPager.cs" />
     <Compile Include="Models\BsRange.cs" />
     <Compile Include="Models\BsSelectList.cs" />
+    <Compile Include="Models\BsToolbar.cs" />
     <Compile Include="Mvc\BsControlAttribute.cs" />
     <Compile Include="Html\CheckBoxExtensions.cs" />
     <Compile Include="Html\TagListExtensions.cs" />
