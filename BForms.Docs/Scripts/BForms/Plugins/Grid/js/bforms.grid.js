@@ -43,7 +43,7 @@
         rowActions: [],
         updateRowUrl: null,
 
-        //hasRowCheck: true,
+        hasRowCheck: true,
         rowCheckSelector: '.js-row_check',
         headerCheckSelector: '.check_all > input',
         groupActionsSelector: '.js-group_actions',
