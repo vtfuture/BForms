@@ -78,14 +78,17 @@ namespace BForms.Docs.Areas.Demo.Models
             IsEnabled.SelectedValues = YesNoValueTypes.Yes;
         }
 
+        [Required]
         [Display(Name = "FirstName", ResourceType = typeof(Resource))]
         [BsControl(BsControlType.TextBox)]
         public string FirstName { get; set; }
 
+        [Required]
         [Display(Name = "LastName", ResourceType = typeof(Resource))]
         [BsControl(BsControlType.TextBox)]
         public string LastName { get; set; }
 
+        [Required]
         [BsControl(BsControlType.RadioButtonList)]
         [Display(Name = "IsEnabled", ResourceType = typeof(Resource))]
         public BsSelectList<YesNoValueTypes?> IsEnabled { get; set; }
@@ -93,10 +96,6 @@ namespace BForms.Docs.Areas.Demo.Models
         [Display(Name = "Job", ResourceType = typeof(Resource), Prompt = "Choose")]
         [BsControl(BsControlType.DropDownList)]
         public BsSelectList<int?> Jobs { get; set; }
-
-        [Display(Description = "Birthday")]
-        [BsControl(BsControlType.DatePicker)]
-        public BsDateTime Birthday { get; set; }
     }
 
     public class UsersDetailsModel

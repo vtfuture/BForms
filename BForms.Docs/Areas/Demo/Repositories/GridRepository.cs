@@ -115,6 +115,15 @@ namespace BForms.Docs.Areas.Demo.Repositories
                     }
                 }
                 #endregion
+
+                #region Job
+                if (Settings.Search.Jobs != null && Settings.Search.Jobs.SelectedValues.HasValue)
+                {
+                    var jobId = Settings.Search.Jobs.SelectedValues.Value;
+
+                    query = query.Where(x => x.IdJob == jobId);
+                }
+                #endregion
             }
 
             return query;

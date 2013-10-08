@@ -196,6 +196,7 @@
         } else {
             if (values[0] == '') {
                 this.resetRange('');
+                this._updateAltFields('', '');
             } else {
                 this.applyRange();
             }

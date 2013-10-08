@@ -224,7 +224,7 @@
             ignore: '',
             selectedSuffix: '.SelectedValues',
             checklistClass: 'bs-checkbox',
-            bsDropdownClass : 'bs-dropdown',
+            bsDropdownClass: 'bs-dropdown',
             validationSummaryKey: 'BsFormError',
             scrollToError: true,
             ignoreTitle: false,
@@ -428,7 +428,7 @@
                         return !(element.name in errors);
                     });
                 }
-                
+
                 if (this.settings.showErrors) {
                     this.settings.showErrors.call(this, this.errorMap, this.errorList);
                 } else {
@@ -457,16 +457,20 @@
                         }
                     }
 
-                    var $elem = $(firstError.element).parents('.has-error, .bs-validationSummaryContainer').first(),
-                        elemTop = $elem.offset().top,
-                        elemBottom = elemTop + $elem.height(),
-                        docTop = $(document).scrollTop(),
-                        docBottom = docTop + $(window).height();
+                    var $elem = $(firstError.element).parents('.has-error, .bs-validationSummaryContainer').first();
 
-                    if (elemTop < docTop || elemBottom > docBottom) {
-                        $('html, body').animate({
-                            scrollTop: $elem.offset().top - 200
-                        });
+                    if ($elem.offset() != null && typeof $elem.offset() !== "undefined") {
+
+                        var elemTop = $elem.offset().top;
+                        var elemBottom = elemTop + $elem.height();
+                        var docTop = $(document).scrollTop();
+                        var docBottom = docTop + $(window).height();
+
+                        if (elemTop < docTop || elemBottom > docBottom) {
+                            $('html, body').animate({
+                                scrollTop: $elem.offset().top - 200
+                            });
+                        }
                     }
                 }
             },
@@ -494,7 +498,7 @@
 
             removeSummaryError: function () {
                 var $errorContainer = $(this.currentForm).find('.bs-validationSummaryContainer');
-                if($errorContainer.length) {
+                if ($errorContainer.length) {
                     $errorContainer.html('');
                 }
             },

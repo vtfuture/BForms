@@ -96,11 +96,20 @@ namespace BForms.Docs.Areas.Demo.Controllers
 
             try
             {
-                var rowModel = _gridRepository.Create(model.New);
+                if (ModelState.IsValid)
+                {
+                    var rowModel = _gridRepository.Create(model.New);
 
-                var viewModel = _gridRepository.ToBsGridViewModel<UsersViewModel>(x => x.Grid, rowModel);
+                    var viewModel = _gridRepository.ToBsGridViewModel<UsersViewModel>(x => x.Grid, rowModel);
 
-                row = this.BsRenderPartialView("Grid/_Grid", viewModel);
+                    row = this.BsRenderPartialView("Grid/_Grid", viewModel);
+                }
+                else
+                {
+                    return new BsJsonResult(
+                        new Dictionary<string, object> { { "Errors", ModelState.GetErrors() } }, 
+                        BsResponseStatus.ValidationError);
+                }
             }
             catch (Exception ex)
             {

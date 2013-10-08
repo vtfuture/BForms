@@ -13,6 +13,7 @@
                     @Html.BsLabelFor(m => m.FirstName)
                     <div class="input-group">
                         @Html.BsInputFor(m => m.FirstName)
+                        @Html.BsValidationFor(m => m.FirstName)
                     </div>
                 </div>
 
@@ -20,6 +21,7 @@
                     @Html.BsLabelFor(m => m.LastName)
                     <div class="input-group">
                         @Html.BsInputFor(m => m.LastName)
+                        @Html.BsValidationFor(m => m.LastName)
                     </div>
                 </div>
 
@@ -34,6 +36,8 @@
                     @Html.BsLabelFor(m => m.IsEnabled)
                     <div class="input-group">
                         @Html.BsSelectFor(model => model.IsEnabled, new Dictionary<string, object>() { { "data-initialvalue", (byte)YesNoValueTypes.Yes } }, null)
+                        @Html.BsValidationFor(m => m.IsEnabled)
+
                     </div>
                 </div>
 
