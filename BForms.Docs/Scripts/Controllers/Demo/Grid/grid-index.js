@@ -180,10 +180,10 @@
             $.fn.bsToolbarDefaults(
                 this.$toolbar,
                 this.$grid,
-                $.extend(true, {
+                {
                     uniqueName: 'usersToolbar',
                     newUrl: this.options.newUrl
-                }, this.options))
+                })
         );
     };
     //#endregion

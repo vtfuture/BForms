@@ -36,12 +36,12 @@
         };
     };
 
-    $.fn.bsToolbarDefaults_Add = function ($toolbar, options) {
+    $.fn.bsToolbarDefaults_Add = function ($toolbar, url) {
         return {
             actions: [{
                 name: 'add',
                 selector: '.js-btn-add',
-                url: options.newUrl,
+                url: url,
                 validate: true,
                 parse: true,
                 handler: $.proxy(function (data, response, context) {
@@ -63,7 +63,7 @@
         };
     };
 
-    $.fn.bsToolbarDefaults_Tabs = function ($toolbar, $grid, options) {
+    $.fn.bsToolbarDefaults_Tabs = function ($toolbar, $grid, newUrl) {
         return [{
             name: 'search',
             btnSelector: '.btn-search',
@@ -84,7 +84,7 @@
             component: {
                 type: 'bsForm',
                 container: '#toolbar_add',
-                options: $.fn.bsToolbarDefaults_Add($toolbar, options)
+                options: $.fn.bsToolbarDefaults_Add($toolbar, newUrl)
             }
         }];
     };
@@ -102,7 +102,7 @@
                     }
                 }
             }],
-            tabs: $.fn.bsToolbarDefaults_Tabs($toolbar, $grid, options)
+            tabs: $.fn.bsToolbarDefaults_Tabs($toolbar, $grid, options.newUrl)
         };
     };
     //#endregion

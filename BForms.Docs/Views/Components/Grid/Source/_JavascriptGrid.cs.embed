@@ -1,1 +1,21 @@
-﻿
+﻿var $grid = $('#grid');
+
+$grid.bsGrid({
+    uniqueName: 'usersGrid',
+    pagerUrl: this.options.pagerUrl,
+    filterButtons: [],
+    gridActions: [],
+    updateRowUrl: this.options.getRowUrl,
+    detailsUrl: this.options.detailsUrl,
+    rowDetailsSuccessHandler: $.proxy(this._detailsSuccessHandler, this),
+    rowActions: [{
+        btnSelector: '.js-btn_state',
+        url: this.options.enableDisableUrl,
+        handler: this._enableDisableHandler,
+    },{
+        btnSelector: '.js-btn_delete',
+        url: this.options.deleteUrl,
+        init: this._deleteHandler,
+        context: this
+    }]
+});
