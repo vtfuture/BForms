@@ -43,10 +43,10 @@
         rowActions: [],
         updateRowUrl: null,
 
-        hasRowCheck: true,
+        //hasRowCheck: true,
         rowCheckSelector: '.js-row_check',
         headerCheckSelector: '.check_all > input',
-        actionsContainerSelector: '.action_buttons',
+        groupActionsSelector: '.js-group_actions',
 
         pager: null,
         pagerUrl: null,
@@ -90,7 +90,10 @@
             pagerUpdate: $.proxy(this._evOnPageChange, this)
         });
 
+        //set default page size
         this.refreshModel.pageSize = parseInt(this.$pager.bsPager("getPageSize"), 10) || this.refreshModel.pageSize;
+
+        this.options.hasRowCheck = this.$actionsContainer.length > 0;
 
         // when an action made on grid generates a refresh then this.needsRefresh is set to true
         this.needsRefresh = false;
@@ -112,7 +115,6 @@
             //cache rows, they will be recached on page change
             this.$rowChecks = this.element.find(this.options.rowCheckSelector);
             this.$headerCheck = this.element.find(this.options.headerCheckSelector);
-            this.$actionsContainer = this.element.find(this.options.actionsContainerSelector);
 
             this.element.on('change', this.options.rowCheckSelector, $.proxy(this._evOnRowCheckChange, this));
             this.element.on('change', this.options.headerCheckSelector, $.proxy(this._evOnHeaderCheckSelector, this));
@@ -167,6 +169,7 @@
         this.$gridCountContainer = this.element.find(this.options.gridCountContainerSelector);
         this.$filterIcon = this.element.find(this.options.filterSelector);
         this.$gridHeader = this.element.find(this.options.orderContainerSelector);
+        this.$actionsContainer = this.element.find(this.options.groupActionsSelector);
     };
 
     Grid.prototype._createActions = function (rowActions, $row) {
@@ -651,9 +654,9 @@
         this.$pager.bsPager('update', $html.closest('.js-pages'));
 
         if (this._currentResultsCount == 0) {
-            this.$gridContainer.hide();
+            this.$actionsContainer.hide();
         } else {
-            this.$gridContainer.show();
+            this.$actionsContainer.show();
         }
 
         this._changeCount();

@@ -32,7 +32,7 @@
     Utils.prototype.scrollToElement = function (id) {
         var el = $(id);
         if (el.length > 0) {
-            var viewport = jQuery.indaco.getViewport();
+            var viewport = jQuery.bforms.getViewport();
 
             var offsetTop = $(id).offset().top;
             var middle = viewport.height / 2;
@@ -46,6 +46,14 @@
             }
             $('html,body').animate({ scrollTop: goTo }, 500);
         }
+    };
+    //#endregion
+
+    //#region getViewport
+    Utils.prototype.getViewport = function () {
+        var w = window, d = document, e = d.documentElement, g = d.getElementsByTagName('body')[0], x = w.innerWidth || e.clientWidth || g.clientWidth, y = w.innerHeight || e.clientHeight || g.clientHeight;
+
+        return { width: x, height: y };
     };
     //#endregion
 

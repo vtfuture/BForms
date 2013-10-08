@@ -197,7 +197,7 @@ namespace BootstrapForms.Grid
 
                     TagBuilder spanBuilder = new TagBuilder("span");
                     //TODO:
-                    spanBuilder.InnerHtml += "Rezultate per pagina";
+                    spanBuilder.InnerHtml += "Results per page";
 
                     divBuilder.InnerHtml += spanBuilder.ToString();
 
@@ -334,25 +334,21 @@ namespace BootstrapForms.Grid
                 var infoBuilder = new TagBuilder("div");
                 infoBuilder.MergeAttribute("class", "alert alert-info");
 
+
+                infoBuilder.InnerHtml += "There are no results.";//"Nu sunt inregistrari";
+
+                var addBtnBuilder = new TagBuilder("button");
+                addBtnBuilder.MergeAttribute("type", "button");
+                addBtnBuilder.MergeAttribute("class", "btn btn-primary js-add");
                 //TODO:
-                if (true/*searched*/)
-                {
-                    infoBuilder.InnerHtml += "Your search generated no results. Modify your search.";//"Cautarea ta nu a generat rezultate. Modifica criteriile de cautare";
-                }
-                else
-                {
-                    infoBuilder.InnerHtml += "There are no records.";//"Nu sunt inregistrari";
+                addBtnBuilder.InnerHtml += "Add";
 
-                    var addBtnBuilder = new TagBuilder("button");
-                    addBtnBuilder.MergeAttribute("type", "button");
-                    addBtnBuilder.MergeAttribute("class", "btn btn-primary js-add");
-                    addBtnBuilder.InnerHtml += "Adauga";
-
-                    infoBuilder.InnerHtml += addBtnBuilder.ToString();
-                }
+                infoBuilder.InnerHtml += addBtnBuilder.ToString();
 
                 divBuilder.InnerHtml += infoBuilder.ToString();
                 rowBuilder.InnerHtml += divBuilder.ToString();
+
+                result += rowBuilder.ToString();
             }
 
             return result;
