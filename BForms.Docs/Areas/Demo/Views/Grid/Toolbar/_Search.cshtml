@@ -38,13 +38,6 @@
                         @Html.BsSelectFor(model => model.IsEnabled, new Dictionary<string, object>(){ { "data-initialvalue", (byte)YesNoValueTypes.Both } }, null)
                     </div>
                 </div>
-
-                <div class="col-12 col-sm-4 col-lg-3 form-group">
-                    @Html.BsLabelFor(m => m.Birthday)
-                    <div class="input-group">
-                        @Html.BsInputFor(x=>x.Birthday)
-                    </div>
-                </div>
             </div>
         </div>
 
