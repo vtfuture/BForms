@@ -360,15 +360,6 @@ namespace BForms.Docs.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string Name {
-            get {
-                return ResourceManager.GetString("Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
         public static string NamePrompt {
             get {
                 return ResourceManager.GetString("NamePrompt", resourceCulture);
