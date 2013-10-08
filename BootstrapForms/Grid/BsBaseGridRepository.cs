@@ -216,7 +216,7 @@ namespace BootstrapForms.Grid
         {
             var grid = this.ToBsGridViewModel(settings);
 
-            count = grid.Pager.TotalRecords;
+            count = grid.Pager == null ? 0 : grid.Pager.TotalRecords;
 
             return SetGridProperty(expression, grid);
         }
@@ -263,11 +263,11 @@ namespace BootstrapForms.Grid
         /// <returns>Wrapper model</returns>
         public BsGridModel<TRow> ToBsGridViewModel(BsGridRepositorySettings<TSearch> settings, out int count)
         {
-            var model = ToBsGridViewModel(settings);
+            var grid = ToBsGridViewModel(settings);
 
-            count = model.Pager.TotalRecords;
+            count = grid.Pager == null ? 0 : grid.Pager.TotalRecords;
 
-            return model;
+            return grid;
         }
 
         /// <summary>

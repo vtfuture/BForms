@@ -14,7 +14,8 @@
         pageSizeSelector: '.rowsPerPageSelector',
         currentPageSelector: 'active',
         disabledPageSelector: 'disabled',
-        totalsContainerSelector: '.results_number span'
+        totalsContainerSelector: '.results_number span',
+        pageSizeContainerSelector: '.results_per_page'
     };
     
     Pager.prototype._create = function () {
@@ -29,6 +30,7 @@
 
         this.$pagesContainer = this.element.find(this.options.pagesContainerSelector);
         this.$totalContainer = this.element.find(this.options.totalsContainerSelector);
+        this.$pageSizeContainer = this.element.find(this.options.pageSizeContainerSelector);
 
     };
 
@@ -52,12 +54,10 @@
             return;
         }
         
-        if (typeof this.options.pagerUpdate === 'function') {
-            this._trigger('pagerUpdate', e, {
-                page: $me.data('page'),
-                pageSize: this.element.find(this.options.pageSizeSelector).val()
-            });
-        }
+        this._trigger('pagerUpdate', e, {
+            page: $me.data('page'),
+            pageSize: this.element.find(this.options.pageSizeSelector).val()
+        });
 
     };
 
@@ -65,12 +65,10 @@
 
         e.preventDefault();
 
-        if (typeof this.options.pagerUpdate === 'function') {
-            this._trigger('pagerUpdate', e, {
-                page: 1,
-                pageSize: $(e.currentTarget).val()
-            });
-        }
+        this._trigger('pagerUpdate', e, {
+            page: 1,
+            pageSize: $(e.currentTarget).val()
+        });
 
     };
 
@@ -84,9 +82,11 @@
         throw 'not implemented error handler';
     };
     
-    Pager.prototype.update = function (pagesHtml) {
+    Pager.prototype.update = function ($pagesHtml) {
 
-        this.$pagesContainer.html($(pagesHtml).children());
+        this.$pagesContainer.html($pagesHtml.children());
+
+        $pagesHtml.length == 0 ? this.$pageSizeContainer.hide() : this.$pageSizeContainer.show();
 
     };
 

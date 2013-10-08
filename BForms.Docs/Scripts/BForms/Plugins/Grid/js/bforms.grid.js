@@ -381,7 +381,7 @@
 
     Grid.prototype._evOnPageChange = function (e, data) {
         this.refreshModel.page = data.page;
-        if (data.pgeSize) {
+        if (data.pageSize) {
             this.refreshModel.pageSize = data.pageSize;
         }
         this._getPage();

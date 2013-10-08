@@ -176,7 +176,7 @@ namespace BootstrapForms.Grid
             gridBuilder.InnerHtml += wrapper.ToString();
 
             #region pager builder
-            if (this.model.Pager.TotalRecords > 0)
+            if (this.model.Pager != null && this.model.Pager.TotalRecords > 0)
             {
                 var pagerWrapper = new TagBuilder("div");
                 pagerWrapper.MergeAttribute("class", "row grid_pager");
@@ -202,7 +202,7 @@ namespace BootstrapForms.Grid
                     divBuilder.InnerHtml += spanBuilder.ToString();
 
                     var selectBuilder = new TagBuilder("select");
-                    selectBuilder.MergeAttribute("class", "rowsPerPageSeelctor");
+                    selectBuilder.MergeAttribute("class", "rowsPerPageSelector");
 
                     var selectedVal = this.model.Pager.PageSize;
 
@@ -249,6 +249,8 @@ namespace BootstrapForms.Grid
                     {
                         rowBuilder.MergeAttributes(rowData(row));
                     }
+
+                    var headerBuilder = new TagBuilder("header");
 
                     for (var i = 0; i < this.columns.Count; i++)
                     {
@@ -312,8 +314,10 @@ namespace BootstrapForms.Grid
                             cellBuilder.InnerHtml += checkBuilder.ToString(TagRenderMode.SelfClosing);
                         }
 
-                        rowBuilder.InnerHtml += cellBuilder.ToString();
+                        headerBuilder.InnerHtml += cellBuilder.ToString();
                     }
+
+                    rowBuilder.InnerHtml += headerBuilder.ToString();
 
                     rowsBuilder.InnerHtml += rowBuilder.ToString();
                 }
@@ -333,11 +337,11 @@ namespace BootstrapForms.Grid
                 //TODO:
                 if (true/*searched*/)
                 {
-                    infoBuilder.InnerHtml += "Cautarea ta nu a generat rezultate. Modifica criteriile de cautare";
+                    infoBuilder.InnerHtml += "Your search generated no results. Modify your search.";//"Cautarea ta nu a generat rezultate. Modifica criteriile de cautare";
                 }
                 else
                 {
-                    infoBuilder.InnerHtml += "Nu sunt inregistrari";
+                    infoBuilder.InnerHtml += "There are no records.";//"Nu sunt inregistrari";
 
                     var addBtnBuilder = new TagBuilder("button");
                     addBtnBuilder.MergeAttribute("type", "button");
@@ -489,12 +493,15 @@ namespace BootstrapForms.Grid
                     var lastIdx = this.model.Pager.CurrentPage == this.model.Pager.TotalPages
                                       ? this.model.Pager.TotalRecords
                                       : this.model.Pager.CurrentPage * this.model.Pager.PageSize;
-                    //TODO:
-                    textBuilder.InnerHtml += "Rezultate" + firstIdx + "–" + lastIdx + " din";
 
                     var totalCountBuilder = new TagBuilder("span");
                     totalCountBuilder.InnerHtml += this.model.Pager.TotalRecords;
-                    textBuilder.InnerHtml += " " + totalCountBuilder.ToString();
+                    
+                    //TODO:
+                    var template = "{0}-{1} of {2} items";
+                    var result = string.Format(template, firstIdx, lastIdx, totalCountBuilder.ToString()); //"Rezultate " + firstIdx + "–" + lastIdx + " din";
+
+                    textBuilder.InnerHtml += result;
 
                     pagesBuilder.InnerHtml += textBuilder.ToString();
                 }
