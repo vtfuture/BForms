@@ -116,14 +116,14 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Areas\Demo\Controllers\GridController.cs" />
+    <Compile Include="Areas\Demo\Controllers\ContributorsController.cs" />
     <Compile Include="Areas\Demo\Controllers\LoginController.cs" />
     <Compile Include="Areas\Demo\DemoAreaRegistration.cs" />
     <Compile Include="Areas\Demo\Helpers\Utils.cs" />
     <Compile Include="Areas\Demo\Mock\Entities.cs" />
     <Compile Include="Areas\Demo\Mock\Enums.cs" />
     <Compile Include="Areas\Demo\Mock\Lists.cs" />
-    <Compile Include="Areas\Demo\Models\GridModels.cs" />
+    <Compile Include="Areas\Demo\Models\ContributorsModels.cs" />
     <Compile Include="Areas\Demo\Models\LoginModels.cs" />
     <Compile Include="Areas\Demo\Repositories\GridRepository.cs" />
     <Compile Include="Controllers\BaseController.cs" />
@@ -186,7 +186,7 @@
     <Content Include="Scripts\BForms\Stylesheets\Images\icons\icn-right_arrow-small.png" />
     <Content Include="Scripts\BForms\Stylesheets\Images\icons\pencil-small.png" />
     <Content Include="Scripts\BForms\Stylesheets\Images\icons\ui-anim_basic_16x16.gif" />
-    <Content Include="Scripts\Controllers\Demo\Grid\grid-index.js" />
+    <Content Include="Scripts\Controllers\Demo\Contributors\contributors-index.js" />
     <Content Include="Scripts\Controllers\Root\Components\components-rangeextensions.js" />
     <Content Include="Scripts\Controllers\Root\Components\components-grid.js" />
     <Content Include="Views\Components\InputExtensions\Source\InputPasswordSpecializedView.cshtml.embed" />
@@ -570,27 +570,27 @@
     <Content Include="Scripts\BForms\Stylesheets\grid.scss" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Demo\Views\Grid\Index.cshtml" />
-    <Content Include="Areas\Demo\Views\Grid\Grid\_Grid.cshtml" />
-    <Content Include="Areas\Demo\Views\Grid\Toolbar\_Toolbar.cshtml" />
+    <Content Include="Areas\Demo\Views\Contributors\Index.cshtml" />
+    <Content Include="Areas\Demo\Views\Contributors\Grid\_Grid.cshtml" />
+    <Content Include="Areas\Demo\Views\Contributors\Toolbar\_Toolbar.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Demo\Views\Grid\Toolbar\_New.cshtml" />
+    <Content Include="Areas\Demo\Views\Contributors\Toolbar\_New.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Demo\Views\Grid\Toolbar\_Search.cshtml" />
+    <Content Include="Areas\Demo\Views\Contributors\Toolbar\_Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Demo\Views\Grid\Grid\Details\_Index.cshtml" />
+    <Content Include="Areas\Demo\Views\Contributors\Grid\Details\_Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Demo\Views\Grid\Grid\_Actions.cshtml" />
+    <Content Include="Areas\Demo\Views\Contributors\Grid\_Actions.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Demo\Views\Grid\Grid\Details\_Editable.cshtml" />
+    <Content Include="Areas\Demo\Views\Contributors\Grid\Details\_Editable.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Demo\Views\Grid\Grid\Details\_Readonly.cshtml" />
+    <Content Include="Areas\Demo\Views\Contributors\Grid\Details\_Readonly.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Components\Grid\Index.cshtml" />

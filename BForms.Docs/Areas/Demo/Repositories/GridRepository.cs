@@ -178,13 +178,13 @@ namespace BForms.Docs.Areas.Demo.Repositories
             return MapUser_UsersDetailsModel(entity);
         }
 
-        public void EnableDisable(int objId)
+        public void EnableDisable(int objId, bool? enable)
         {
             var entity = db.Users.FirstOrDefault(x => x.Id == objId);
 
             if (entity != null)
             {
-                entity.Enabled = !entity.Enabled;
+                entity.Enabled = enable.HasValue ? enable.Value : !entity.Enabled;
                 db.SaveChanges();
             }
         }

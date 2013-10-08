@@ -151,7 +151,7 @@
 
                     grid.$actionsContainer.on('click', opts.btnSelector, $.proxy(function (e) {
 
-                        opts.handler.call(this, this.element.find(this.options.rowSelector + '.selected'));
+                        opts.handler.call(this, this.element.find(this.options.rowSelector + '.selected'), this);
 
                     }, grid));
                 })(opts, this);
@@ -183,13 +183,13 @@
             }
 
             if (typeof action.init === 'function') {
-                action.init.call(this, action, $row);
+                action.init.call(this, action, $row, this);
             }
 
             if (typeof action.handler === 'function') {
                 this.element.one('click', action.btnSelector, { options: action }, $.proxy(function (e) {
                     var options = e.data.options;
-                    options.handler.call(this, e, options, $(e.target).closest(this.options.rowSelector));
+                    options.handler.call(this, e, options, $(e.target).closest(this.options.rowSelector), this);
                 }, this));
             }
         }
@@ -732,6 +732,7 @@
         if (this.options.hasRowCheck) {
             var checked = $row.find(this.options.rowCheckSelector).prop('checked');
             $newRow.find(this.options.rowCheckSelector).prop('checked', checked);
+            $newRow.addClass('selected');
         }
 
         // replace row header with the updated one

@@ -109,4 +109,55 @@ namespace BForms.Docs.Areas.Demo.Models
         [BsControl(BsControlType.DropDownList)]
         public BsSelectList<int?> Jobs { get; set; }
     }
+
+    public class ContributorModel
+    {
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
+        [Display(Name = "FirstName", ResourceType = typeof(Resource))]
+        [BsControl(BsControlType.TextBox)]
+        public string FirstName { get; set; }
+
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
+        [Display(Name = "LastName", ResourceType = typeof(Resource))]
+        [BsControl(BsControlType.TextBox)]
+        public string LastName { get; set; }
+
+        [Display(Name = "Web address", Prompt = "http://mysite.com or http://twitter.com/id")]
+        [BsControl(BsControlType.Url)]
+        public string Url { get; set; }
+
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
+        [Display(Name = "Contributor since")]
+        [BsControl(BsControlType.DatePicker)]
+        public BsDateTime StartDate { get; set; }
+
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
+        [Display(Name = "Location", Prompt = "Choose your country")]
+        [BsControl(BsControlType.DropDownList)]
+        public BsSelectList<string> CountriesList { get; set; }
+
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
+        [Display(Name = "Role", Description = "Your main role in project")]
+        [BsControl(BsControlType.RadioButtonList)]
+        public BsSelectList<ProjectRole?> RoleList { get; set; }
+
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
+        [Display(Name = "Programming languages", Prompt = "Type your favorite programming languages")]
+        [BsControl(BsControlType.TagList)]
+        public BsSelectList<List<string>> LanguagesList { get; set; }
+
+        [Display(Name = "Contributions")]
+        [BsControl(BsControlType.TextArea)]
+        public string Contributions { get; set; }
+    }
+
+    public enum ProjectRole
+    {
+        [Display(Name = "Team leader")]
+        TeamLeader = 1,
+        [Display(Name = "Developer")]
+        Developer = 2,
+        [Display(Name = "Tester")]
+        Tester = 3
+    }
 }

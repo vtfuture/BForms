@@ -14,12 +14,12 @@ using BootstrapForms.Mvc;
 
 namespace BForms.Docs.Areas.Demo.Controllers
 {
-    public class GridController : BaseController
+    public class ContributorsController : BaseController
     {
         #region Properties and Constructor
         private readonly GridRepository _gridRepository;
 
-        public GridController()
+        public ContributorsController()
         {
             _gridRepository = new GridRepository(Db);
         }
@@ -213,14 +213,17 @@ namespace BForms.Docs.Areas.Demo.Controllers
             }, status, msg);
         }
 
-        public BsJsonResult Delete(int objId)
+        public BsJsonResult Delete(List<int> ids)
         {
             var msg = string.Empty;
             var status = BsResponseStatus.Success;
 
             try
             {
-                _gridRepository.Delete(objId);
+                foreach (var id in ids)
+                {
+                    _gridRepository.Delete(id);
+                }
             }
             catch (Exception ex)
             {
@@ -231,14 +234,17 @@ namespace BForms.Docs.Areas.Demo.Controllers
             return new BsJsonResult(null, status, msg);
         }
 
-        public BsJsonResult EnableDisable(int objId)
+        public BsJsonResult EnableDisable(List<int> ids, bool? enable)
         {
             var msg = string.Empty;
             var status = BsResponseStatus.Success;
 
             try
             {
-                _gridRepository.EnableDisable(objId);
+                foreach (var id in ids)
+                {
+                    _gridRepository.EnableDisable(id, enable);
+                }
             }
             catch (Exception ex)
             {
