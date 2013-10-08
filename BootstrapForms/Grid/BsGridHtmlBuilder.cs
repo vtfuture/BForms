@@ -59,43 +59,13 @@ namespace BootstrapForms.Grid
             this.metadata = metadata;
 
 
-
             BsGridAttribute gridAttr = null;
             if (ReflectionHelpers.TryGetAttribute(fullName, typeof(TModel), out gridAttr))
             {
                 this.hasDetails = gridAttr.HasDetails;
             }
 
-            #region set columns
-            this.columns = new List<BsGridColumn<TRow>>();
-
-            //foreach (PropertyInfo property in properties)
-            //{
-            //    BsGridColumnAttribute columnAttr = null;
-            //    if (TryGetControlAttribute(property, out columnAttr))
-            //    {
-            //        var column = new GridColumn<TKey>
-            //        {
-            //            Property = property,
-            //            IsSortable = columnAttr.HasOrder,
-            //            Width = columnAttr.Width
-            //        };
-
-            //        System.ComponentModel.DataAnnotations.DisplayAttribute displayAttribute = null;
-            //        if (TryGetControlAttribute(property, out displayAttribute))
-            //        {
-            //            column.DisplayName = displayAttribute.GetName();
-            //        }
-            //        else
-            //        {
-            //            column.DisplayName = property.Name;
-            //        }
-
-            //        this.columns.Add(column);
-            //    }
-            //}
-
-            #endregion
+            this.SetColumnsFromModel();
         }
         public BsGridHtmlBuilder<TModel, TRow> HtmlAttributes(Dictionary<string, object> htmlAttributes)
         {
@@ -105,7 +75,7 @@ namespace BootstrapForms.Grid
 
         public BsGridHtmlBuilder<TModel, TRow> ConfigureColumns(Action<BsGridColumnFactory<TRow>> configurator)
         {
-            var columnFactory = new BsGridColumnFactory<TRow>(this.viewContext);
+            var columnFactory = new BsGridColumnFactory<TRow>(this.viewContext, this.columns);
             configurator(columnFactory);
             this.columns = columnFactory.Columns;
 
@@ -184,19 +154,15 @@ namespace BootstrapForms.Grid
             wrapper.MergeAttribute("class", "grid_wrapper");
 
             #region columns builder
-            var columnsBuilder = new TagBuilder("div");
-
-            columnsBuilder.MergeAttribute("class", "row grid_row title");
-
-            if (!this.columns.Any())
-            {
-                this.SetColumnsFromModel();
-            }
 
             if (!this.columns.Any())
             {
                 throw new NotImplementedException("You must define your grid columns either in model as data attributes or in the view");
             }
+
+            var columnsBuilder = new TagBuilder("div");
+
+            columnsBuilder.MergeAttribute("class", "row grid_row title");
 
             foreach (var column in this.columns)
             {
@@ -558,6 +524,8 @@ namespace BootstrapForms.Grid
 
         private void SetColumnsFromModel()
         {
+            this.columns = new List<BsGridColumn<TRow>>();
+
             Type type = typeof(TRow);
             PropertyInfo[] properties = type.GetProperties();
 
