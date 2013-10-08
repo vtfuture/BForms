@@ -383,7 +383,7 @@
                     this.deferredList.push(datetimepickerDeferred);
 
                     require(['bforms-datepicker'], function () {
-                        this.$elem.find(this.options.datetimepickerSelector).each(function (idx, elem) {
+                        self.$elem.find(self.options.datetimepickerSelector).each(function (idx, elem) {
                             var $elem = $(elem);
 
                             $elem.attr('type', 'text');
@@ -407,7 +407,7 @@
                 } else {
 
                     if (typeof $.fn.bsDatepicker === "function") {
-                        this.$elem.find(this.options.datetimepickerSelector).each(function (idx, elem) {
+                        self.$elem.find(self.options.datetimepickerSelector).each(function (idx, elem) {
                             var $elem = $(elem);
 
                             var isMsie = typeof $.browser !== "undefined" && $.browser.msie;
@@ -519,7 +519,7 @@
                     this.deferredList.push(dateRangeDeferred);
 
                     require(['bforms-datepicker-range'], function () {
-                        this.$elem.find(this.options.daterangeSelector).each(function (idx, elem) {
+                        self.$elem.find(self.options.daterangeSelector).each(function (idx, elem) {
 
                             var $elem = $(elem);
                             var rangeName = $elem.prop('name');
@@ -591,7 +591,7 @@
                     var timeRangeDeferred = $.Deferred();
                     this.deferredList.push(timeRangeDeferred);
                     require(['bforms-datepicker-range'], function () {
-                        this.$elem.find(this.options.timerangeSelector).each(function (idx, elem) {
+                        self.$elem.find(self.options.timerangeSelector).each(function (idx, elem) {
 
                             var $elem = $(elem);
                             var rangeName = $elem.prop('name');
