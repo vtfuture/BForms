@@ -100,6 +100,60 @@ namespace BForms.Docs.Areas.Demo.Repositories
                     }
                 }
                 #endregion
+
+                #region Contributor since range
+                if (Settings.Search.StartDateRange != null)
+                {
+                    var fromDate = Settings.Search.StartDateRange.From;
+                    var toDate = Settings.Search.StartDateRange.To;
+
+                    if (fromDate.HasValue)
+                    {
+                        query = query.Where(x => x.StartDate >= fromDate.Value);
+                    }
+
+                    if (toDate.HasValue)
+                    {
+                        query = query.Where(x => x.StartDate <= toDate.Value);
+                    }
+                }
+                #endregion
+
+                #region Location
+                if (Settings.Search.CountriesList != null)
+                {
+                    var country = Settings.Search.CountriesList.SelectedValues;
+
+                    if (!string.IsNullOrEmpty(country))
+                    {
+                        query = query.Where(x => x.Country == country);
+                    }
+                }
+                #endregion
+
+                #region Role
+                if (Settings.Search.RoleList != null)
+                {
+                    var role = Settings.Search.RoleList.SelectedValues;
+
+                    if (role.HasValue)
+                    {
+                        query = query.Where(x => x.Role == role);
+                    }
+                }
+                #endregion
+
+                #region Programming Languages
+                if (Settings.Search.LanguagesList != null)
+                {
+                    var languages = Settings.Search.LanguagesList.SelectedValues;
+
+                    if (languages != null)
+                    {
+                        query = query.Where(x => x.Languages != null && x.Languages.Any(y => languages.Contains(y)));   
+                    }
+                }
+                #endregion
             }
 
             return query;
@@ -111,6 +165,7 @@ namespace BForms.Docs.Areas.Demo.Repositories
         {
             var entity = new Contributor
             {
+                Id = db.Contributors.Count() + 1,
                 Enabled = model.IsEnabled == YesNoValueTypes.Yes,
                 FirstName = model.FirstName,
                 LastName = model.LastName,

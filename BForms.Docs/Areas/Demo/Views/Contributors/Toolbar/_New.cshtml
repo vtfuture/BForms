@@ -25,17 +25,19 @@
                     </div>
                 </div>
 
-                <div class="col-12 col-sm-4 col-lg-4 form-group">
+                <div class="col-12 col-sm-4 col-lg-4 form-group @Html.BsValidationCssFor(m => m.Url)">
                     @Html.BsLabelFor(m => m.Url)
                     <div class="input-group">
                         @Html.BsInputFor(model => model.Url)
+                        @Html.BsValidationFor(m => m.Url)
                     </div>
                 </div>
 
-                <div class="col-12 col-sm-4 col-lg-3 form-group">
+                <div class="col-12 col-sm-4 col-lg-3 form-group @Html.BsValidationCssFor(m => m.StartDate)">
                     @Html.BsLabelFor(m => m.StartDate)
                     <div class="input-group">
                         @Html.BsInputFor(model => model.StartDate)
+                        @Html.BsValidationFor(m => m.StartDate)
                     </div>
                 </div>
 

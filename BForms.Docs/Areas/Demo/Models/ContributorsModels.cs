@@ -76,8 +76,8 @@ namespace BForms.Docs.Areas.Demo.Models
         public ContributorSearchModel()
         {
             IsEnabled = new BsSelectList<YesNoValueTypes?>();
-            IsEnabled.ItemsFromEnum(typeof(YesNoValueTypes), YesNoValueTypes.Both);
-            IsEnabled.SelectedValues = YesNoValueTypes.Yes;
+            IsEnabled.ItemsFromEnum(typeof(YesNoValueTypes));
+            IsEnabled.SelectedValues = YesNoValueTypes.Both;
 
             RoleList = new BsSelectList<ProjectRole?>();
             RoleList.ItemsFromEnum(typeof(ProjectRole));
@@ -85,7 +85,7 @@ namespace BForms.Docs.Areas.Demo.Models
 
         [Display(Name = "ChooseInterval", ResourceType = typeof(Resource))]
         [BsControl(BsControlType.DatePickerRange)]
-        public BsRange<BsDateTime> StartDateRange { get; set; }
+        public BsRange<DateTime?> StartDateRange { get; set; }
 
         [Display(Name = "Name", ResourceType = typeof(Resource))]
         [BsControl(BsControlType.TextBox)]
