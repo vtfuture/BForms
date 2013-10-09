@@ -1,11 +1,12 @@
 ﻿@using BForms.Docs.Resources
 @using BootstrapForms.Html
+@using BootstrapForms.Models
 @model BForms.Docs.Areas.Demo.Models.ContributorDetailsModel
 
 <div class="row row_more">
-    <div class="col-lg-4">
+    <div class="col-lg-12">
         <div id="contributor_info" class="grid_details description js-editable">
-            <h3 class="editable">@Resource.Info</h3>
+            <h3 class="editable">@Html.BsGlyphicon(Glyphicon.User) @Resource.Info</h3>
 
             @Html.BsPartialPrefixed(x => x, "Grid/Details/_Readonly", Model, Model.Id.ToString())
 

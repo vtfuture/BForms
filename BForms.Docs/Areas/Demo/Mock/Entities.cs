@@ -25,7 +25,8 @@ namespace BForms.Docs.Areas.Demo.Mock
                             Country = "Romania",
                             Role = ProjectRole.TeamLeader,
                             StartDate = new DateTime(2013, 8, 1),
-                            Url = "http://www.stefanprodan.eu/"
+                            Url = "http://www.stefanprodan.eu/",
+                            Contributions = "concept, api, razor helpers, documentation, c# bug fixing, testing"
                         },
                         new Contributor()
                         {
@@ -35,7 +36,8 @@ namespace BForms.Docs.Areas.Demo.Mock
                             LastName = "P.",
                             Country = "Romania",
                             Role = ProjectRole.Developer,
-                            StartDate = new DateTime(2013, 9, 1)
+                            StartDate = new DateTime(2013, 9, 1),
+                            Contributions = "grid component, razor helpers, c# & js bug fixing"
                         },
                         
                         new Contributor()
@@ -47,7 +49,8 @@ namespace BForms.Docs.Areas.Demo.Mock
                             Country = "Romania",
                             Role = ProjectRole.Developer,
                             Languages = new List<string>() { "C#", "Javascript" },
-                            StartDate = new DateTime(2013, 8, 1)
+                            StartDate = new DateTime(2013, 8, 15),
+                            Contributions = "documentation, razor helpers"
                         },
                         new Contributor()
                         {
@@ -57,7 +60,8 @@ namespace BForms.Docs.Areas.Demo.Mock
                             LastName = "C.",
                             Country = "Romania",
                             Role = ProjectRole.Developer,
-                            StartDate = new DateTime(2013, 9, 1)
+                            StartDate = new DateTime(2013, 8, 10),
+                            Contributions = "bforms js framework, datetime picker, automated tests for js"
                         },
                         new Contributor()
                         {
@@ -68,7 +72,20 @@ namespace BForms.Docs.Areas.Demo.Mock
                             Country = "Romania",
                             Role = ProjectRole.Developer,
                             StartDate = new DateTime(2013, 10, 1),
-                            Languages = new List<string>() { "C#", "Javascript" }
+                            Languages = new List<string>() { "C#", "Javascript" },
+                            Contributions = "grid component, c# & js bug fixing"
+                        },
+                        new Contributor()
+                        {
+                            Id = 6,
+                            Enabled = true,
+                            FirstName = "Oana",
+                            LastName = "M.",
+                            Country = "Romania",
+                            Role = ProjectRole.Developer,
+                            StartDate = new DateTime(2013, 8, 5),
+                            Languages = new List<string>() { "CSS", "HTML", "SASS" },
+                            Contributions = "UI & UX, css master"
                         },
                     };
             #endregion
