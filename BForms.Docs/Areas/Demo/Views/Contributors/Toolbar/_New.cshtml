@@ -1,6 +1,7 @@
 ﻿@using BForms.Docs.Areas.Demo.Mock
 @using BForms.Docs.Resources
 @using BootstrapForms.Html
+@using BootstrapForms.Models
 @model BForms.Docs.Areas.Demo.Models.ContributorNewModel
 
 <div id="toolbar_add" class="grids_header_expand" style="display: none;">
@@ -12,6 +13,7 @@
                 <div class="col-12 col-sm-4 col-lg-4 form-group @Html.BsValidationCssFor(m => m.FirstName)">
                     @Html.BsLabelFor(m => m.FirstName)
                     <div class="input-group">
+                        @Html.BsGlyphiconAddon(Glyphicon.User)
                         @Html.BsInputFor(m => m.FirstName)
                         @Html.BsValidationFor(m => m.FirstName)
                     </div>
@@ -20,6 +22,7 @@
                 <div class="col-12 col-sm-4 col-lg-4 form-group @Html.BsValidationCssFor(m => m.LastName)">
                     @Html.BsLabelFor(m => m.LastName)
                     <div class="input-group">
+                        @Html.BsGlyphiconAddon(Glyphicon.User)
                         @Html.BsInputFor(m => m.LastName)
                         @Html.BsValidationFor(m => m.LastName)
                     </div>
@@ -28,6 +31,7 @@
                 <div class="col-12 col-sm-4 col-lg-4 form-group @Html.BsValidationCssFor(m => m.Url)">
                     @Html.BsLabelFor(m => m.Url)
                     <div class="input-group">
+                        @Html.BsGlyphiconAddon(Glyphicon.Link)
                         @Html.BsInputFor(model => model.Url)
                         @Html.BsValidationFor(m => m.Url)
                     </div>
@@ -36,6 +40,7 @@
                 <div class="col-12 col-sm-4 col-lg-3 form-group @Html.BsValidationCssFor(m => m.StartDate)">
                     @Html.BsLabelFor(m => m.StartDate)
                     <div class="input-group">
+                        @Html.BsGlyphiconAddon(Glyphicon.Calendar)
                         @Html.BsInputFor(model => model.StartDate)
                         @Html.BsValidationFor(m => m.StartDate)
                     </div>
@@ -44,6 +49,7 @@
                 <div class="col-12 col-sm-4 col-lg-4 form-group @Html.BsValidationCssFor(m => m.CountriesList)">
                     @Html.BsLabelFor(m => m.CountriesList)
                     <div class="input-group">
+                        @Html.BsGlyphiconAddon(Glyphicon.MapMarker)
                         @Html.BsSelectFor(model => model.CountriesList)
                         @Html.BsValidationFor(m => m.CountriesList)
                     </div>
@@ -52,6 +58,7 @@
                 <div class="col-12 col-sm-4 col-lg-4 form-group @Html.BsValidationCssFor(m => m.RoleList)">
                     @Html.BsLabelFor(m => m.RoleList)
                     <div class="input-group">
+                        @Html.BsGlyphiconAddon(Glyphicon.Star)
                         @Html.BsSelectFor(model => model.RoleList)
                         @Html.BsValidationFor(m => m.RoleList)
                     </div>
@@ -60,6 +67,7 @@
                 <div class="col-12 col-sm-4 col-lg-4 form-group @Html.BsValidationCssFor(m => m.LanguagesList)">
                     @Html.BsLabelFor(m => m.LanguagesList)
                     <div class="input-group">
+                        @Html.BsGlyphiconAddon(Glyphicon.Tags)
                         @Html.BsSelectFor(model => model.LanguagesList)
                         @Html.BsValidationFor(m => m.LanguagesList)
                     </div>
@@ -68,6 +76,7 @@
                 <div class="col-12 col-sm-4 col-lg-4 form-group">
                     @Html.BsLabelFor(m => m.Contributions)
                     <div class="input-group">
+                        @Html.BsGlyphiconAddon(Glyphicon.Stats)
                         @Html.BsInputFor(model => model.Contributions)
                     </div>
                 </div>

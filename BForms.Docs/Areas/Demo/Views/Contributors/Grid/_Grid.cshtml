@@ -3,6 +3,7 @@
 @using BootstrapForms.Html
 @using BootstrapForms.Grid
 @using BootstrapForms.Models
+@using BForms.Docs.Areas.Demo.Helpers
 @using BForms.Docs.Areas.Demo.Models
        
 @{
@@ -22,7 +23,7 @@
             cf.Add(c => c.Role).Name("Role")
                                 .SetWidth(3)
                                 .Sortable()
-                                .Text(x => x.Role.ToString());
+                                .Text(x => "<span class='just_icon " + Html.GetRoleIcon(x.Role) + "' title='" + x.Role.ToString() + "'></span> " + x.Role.ToString());
             cf.Add(c => c.Languages).Name("Languages")
                                 .SetWidth(2)
                                 .Sortable()

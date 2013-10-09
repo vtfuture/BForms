@@ -13,6 +13,7 @@
                 <div class="col-12 col-sm-4 col-lg-3 form-group">
                     @Html.BsLabelFor(m => m.Name)
                     <div class="input-group">
+                        @Html.BsGlyphiconAddon(Glyphicon.User)
                         @Html.BsInputFor(m => m.Name)
                     </div>
                 </div>
@@ -20,6 +21,7 @@
                 <div class="col-12 col-sm-4 col-lg-3 form-group">
                     @Html.BsLabelFor(m => m.StartDateRange)
                     <div class="input-group">
+                        @Html.BsGlyphiconAddon(Glyphicon.Calendar)
                         @Html.BsRangeFor(model => model.StartDateRange)
                     </div>
                 </div>
@@ -27,6 +29,7 @@
                 <div class="col-12 col-sm-4 col-lg-3 form-group">
                     @Html.BsLabelFor(m => m.CountriesList)
                     <div class="input-group">
+                        @Html.BsGlyphiconAddon(Glyphicon.MapMarker)
                         @Html.BsSelectFor(model => model.CountriesList)
                     </div>
                 </div>
@@ -41,6 +44,7 @@
                 <div class="col-12 col-sm-4 col-lg-4 form-group">
                     @Html.BsLabelFor(m => m.RoleList)
                     <div class="input-group">
+                        @Html.BsGlyphiconAddon(Glyphicon.Star)
                         @Html.BsSelectFor(model => model.RoleList)
                     </div>
                 </div>
@@ -48,6 +52,7 @@
                 <div class="col-12 col-sm-4 col-lg-4 form-group">
                     @Html.BsLabelFor(m => m.LanguagesList)
                     <div class="input-group">
+                        @Html.BsGlyphiconAddon(Glyphicon.Tags)
                         @Html.BsSelectFor(model => model.LanguagesList)
                     </div>
                 </div>
