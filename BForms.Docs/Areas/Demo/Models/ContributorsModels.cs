@@ -79,7 +79,7 @@ namespace BForms.Docs.Areas.Demo.Models
         [BsControl(BsControlType.DatePickerRange)]
         public BsRange<BsDateTime> StartDateRange { get; set; }
 
-        [Display(Name = "FirstName", ResourceType = typeof(Resource))]
+        [Display(Name = "Name", ResourceType = typeof(Resource))]
         [BsControl(BsControlType.TextBox)]
         public string Name { get; set; }
 
