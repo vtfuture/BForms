@@ -205,7 +205,7 @@ a.btn {
         position: absolute;
         top: -10px;
         left: 0;
-        bottom: -16px; }
+        bottom: -10px; }
       .grids_container .grid_view .row_wrapper .grid_row .expand {
         display: inline-block;
         background: url(images/icons/icn-down_arrow-small.png) center center no-repeat;
