@@ -10,7 +10,7 @@
         <div class="basic">
             <div class="row form-container">
 
-                <div class="col-12 col-sm-4 col-lg-3 form-group">
+                <div class="col-12 col-sm-6 col-lg-6 form-group">
                     @Html.BsLabelFor(m => m.Name)
                     <div class="input-group">
                         @Html.BsGlyphiconAddon(Glyphicon.User)
@@ -18,7 +18,7 @@
                     </div>
                 </div>
 
-                <div class="col-12 col-sm-4 col-lg-3 form-group">
+                <div class="col-12 col-sm-6 col-lg-6 form-group">
                     @Html.BsLabelFor(m => m.StartDateRange)
                     <div class="input-group">
                         @Html.BsGlyphiconAddon(Glyphicon.Calendar)
@@ -26,7 +26,7 @@
                     </div>
                 </div>
 
-                <div class="col-12 col-sm-4 col-lg-3 form-group">
+                <div class="col-12 col-sm-6 col-lg-6 form-group">
                     @Html.BsLabelFor(m => m.CountriesList)
                     <div class="input-group">
                         @Html.BsGlyphiconAddon(Glyphicon.MapMarker)
@@ -34,14 +34,14 @@
                     </div>
                 </div>
 
-                <div class="col-12 col-sm-4 col-lg-2 form-group">
+                <div class="col-12 col-sm-6 col-lg-6 form-group">
                     @Html.BsLabelFor(m => m.IsEnabled)
                     <div class="input-group">
                         @Html.BsSelectFor(model => model.IsEnabled, new Dictionary<string, object>() { { "data-initialvalue", (byte)YesNoValueTypes.Yes } }, null)
                     </div>
                 </div>
 
-                <div class="col-12 col-sm-4 col-lg-4 form-group">
+                <div class="col-12 col-sm-6 col-lg-6 form-group">
                     @Html.BsLabelFor(m => m.RoleList)
                     <div class="input-group">
                         @Html.BsGlyphiconAddon(Glyphicon.Star)
@@ -49,7 +49,7 @@
                     </div>
                 </div>
 
-                <div class="col-12 col-sm-4 col-lg-4 form-group">
+                <div class="col-12 col-sm-6 col-lg-6 form-group">
                     @Html.BsLabelFor(m => m.LanguagesList)
                     <div class="input-group">
                         @Html.BsGlyphiconAddon(Glyphicon.Tags)
@@ -60,9 +60,9 @@
             </div>
         </div>
 
-    <div class="grids_header_submit">
-        <button type="submit" class="btn btn-default js-btn-search">@Resource.Search</button>
-        <a href="#" class="js-btn-reset">@Resource.Reset</a>
-    </div>
+        <div class="grids_header_submit">
+            <button type="submit" class="btn btn-default js-btn-search">@Resource.Search</button>
+            <a href="#" class="js-btn-reset">@Resource.Reset</a>
+        </div>
     }
 </div>

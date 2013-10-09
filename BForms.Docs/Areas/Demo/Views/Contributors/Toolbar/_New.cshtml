@@ -10,7 +10,7 @@
         <div class="basic">
             <div class="row form-container">
 
-                <div class="col-12 col-sm-4 col-lg-4 form-group @Html.BsValidationCssFor(m => m.FirstName)">
+                <div class="col-12 col-sm-6 col-lg-6 form-group @Html.BsValidationCssFor(m => m.FirstName)">
                     @Html.BsLabelFor(m => m.FirstName)
                     <div class="input-group">
                         @Html.BsGlyphiconAddon(Glyphicon.User)
@@ -19,7 +19,7 @@
                     </div>
                 </div>
 
-                <div class="col-12 col-sm-4 col-lg-4 form-group @Html.BsValidationCssFor(m => m.LastName)">
+                <div class="col-12 col-sm-6 col-lg-6 form-group @Html.BsValidationCssFor(m => m.LastName)">
                     @Html.BsLabelFor(m => m.LastName)
                     <div class="input-group">
                         @Html.BsGlyphiconAddon(Glyphicon.User)
@@ -28,7 +28,7 @@
                     </div>
                 </div>
 
-                <div class="col-12 col-sm-4 col-lg-4 form-group @Html.BsValidationCssFor(m => m.Url)">
+                <div class="col-12 col-sm-6 col-lg-6 form-group @Html.BsValidationCssFor(m => m.Url)">
                     @Html.BsLabelFor(m => m.Url)
                     <div class="input-group">
                         @Html.BsGlyphiconAddon(Glyphicon.Link)
@@ -37,7 +37,7 @@
                     </div>
                 </div>
 
-                <div class="col-12 col-sm-4 col-lg-3 form-group @Html.BsValidationCssFor(m => m.StartDate)">
+                <div class="col-12 col-sm-6 col-lg-4 form-group @Html.BsValidationCssFor(m => m.StartDate)">
                     @Html.BsLabelFor(m => m.StartDate)
                     <div class="input-group">
                         @Html.BsGlyphiconAddon(Glyphicon.Calendar)
@@ -46,7 +46,15 @@
                     </div>
                 </div>
 
-                <div class="col-12 col-sm-4 col-lg-4 form-group @Html.BsValidationCssFor(m => m.CountriesList)">
+                <div class="col-12 col-sm-6 col-lg-2 form-group @Html.BsValidationCssFor(m => m.IsEnabled)">
+                    @Html.BsLabelFor(m => m.IsEnabled)
+                    <div class="input-group">
+                        @Html.BsSelectFor(model => model.IsEnabled, new Dictionary<string, object>() { { "data-initialvalue", (byte)YesNoValueTypes.Yes } }, null)
+                        @Html.BsValidationFor(m => m.IsEnabled)
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-6 col-lg-6 form-group @Html.BsValidationCssFor(m => m.CountriesList)">
                     @Html.BsLabelFor(m => m.CountriesList)
                     <div class="input-group">
                         @Html.BsGlyphiconAddon(Glyphicon.MapMarker)
@@ -55,7 +63,7 @@
                     </div>
                 </div>
 
-                <div class="col-12 col-sm-4 col-lg-4 form-group @Html.BsValidationCssFor(m => m.RoleList)">
+                <div class="col-12 col-sm-6 col-lg-6 form-group @Html.BsValidationCssFor(m => m.RoleList)">
                     @Html.BsLabelFor(m => m.RoleList)
                     <div class="input-group">
                         @Html.BsGlyphiconAddon(Glyphicon.Star)
@@ -64,7 +72,7 @@
                     </div>
                 </div>
 
-                <div class="col-12 col-sm-4 col-lg-4 form-group @Html.BsValidationCssFor(m => m.LanguagesList)">
+                <div class="col-12 col-sm-6 col-lg-6 form-group @Html.BsValidationCssFor(m => m.LanguagesList)">
                     @Html.BsLabelFor(m => m.LanguagesList)
                     <div class="input-group">
                         @Html.BsGlyphiconAddon(Glyphicon.Tags)
@@ -73,19 +81,11 @@
                     </div>
                 </div>
 
-                <div class="col-12 col-sm-4 col-lg-4 form-group">
+                <div class="col-12 col-sm-6 col-lg-6 form-group">
                     @Html.BsLabelFor(m => m.Contributions)
                     <div class="input-group">
                         @Html.BsGlyphiconAddon(Glyphicon.Stats)
                         @Html.BsInputFor(model => model.Contributions)
-                    </div>
-                </div>
-
-                <div class="col-12 col-sm-4 col-lg-2 form-group @Html.BsValidationCssFor(m => m.IsEnabled)">
-                    @Html.BsLabelFor(m => m.IsEnabled)
-                    <div class="input-group">
-                        @Html.BsSelectFor(model => model.IsEnabled, new Dictionary<string, object>() { { "data-initialvalue", (byte)YesNoValueTypes.Yes } }, null)
-                        @Html.BsValidationFor(m => m.IsEnabled)
                     </div>
                 </div>
 

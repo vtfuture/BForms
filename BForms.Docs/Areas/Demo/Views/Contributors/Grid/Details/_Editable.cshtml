@@ -4,13 +4,13 @@
 
 @using (Html.BeginForm())
 {
-    <div class="col-12 col-sm-4 col-lg-12 form-group @Html.BsValidationCssFor(m => m.Url)">
+    <div class="col-12 col-sm-12 col-lg-12 form-group @Html.BsValidationCssFor(m => m.Url)">
         @Html.BsLabelFor(m => m.Url)
         <div class="input-group">
             @Html.BsInputFor(m => m.Url)
         </div>
     </div>
-    <div class="col-12 col-sm-4 col-lg-12 form-group @Html.BsValidationCssFor(m => m.Contributions)">
+    <div class="col-12 col-sm-12 col-lg-12 form-group @Html.BsValidationCssFor(m => m.Contributions)">
         @Html.BsLabelFor(m => m.Contributions)
         <div class="input-group">
             @Html.BsInputFor(m => m.Contributions)
