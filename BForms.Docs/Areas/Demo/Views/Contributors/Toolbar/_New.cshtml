@@ -1,7 +1,7 @@
 ﻿@using BForms.Docs.Areas.Demo.Mock
 @using BForms.Docs.Resources
 @using BootstrapForms.Html
-@model BForms.Docs.Areas.Demo.Models.UsersNewModel
+@model BForms.Docs.Areas.Demo.Models.ContributorNewModel
 
 <div id="toolbar_add" class="grids_header_expand" style="display: none;">
     @using (Html.BeginForm())
@@ -9,7 +9,7 @@
         <div class="basic">
             <div class="row form-container">
 
-                <div class="col-12 col-sm-4 col-lg-3 form-group @Html.BsValidationCssFor(m => m.FirstName)">
+                <div class="col-12 col-sm-4 col-lg-4 form-group @Html.BsValidationCssFor(m => m.FirstName)">
                     @Html.BsLabelFor(m => m.FirstName)
                     <div class="input-group">
                         @Html.BsInputFor(m => m.FirstName)
@@ -17,7 +17,7 @@
                     </div>
                 </div>
 
-                <div class="col-12 col-sm-4 col-lg-3 form-group @Html.BsValidationCssFor(m => m.LastName)">
+                <div class="col-12 col-sm-4 col-lg-4 form-group @Html.BsValidationCssFor(m => m.LastName)">
                     @Html.BsLabelFor(m => m.LastName)
                     <div class="input-group">
                         @Html.BsInputFor(m => m.LastName)
@@ -25,19 +25,56 @@
                     </div>
                 </div>
 
-                <div class="col-12 col-sm-4 col-lg-3 form-group @Html.BsValidationCssFor(m => m.Jobs)">
-                    @Html.BsLabelFor(m => m.Jobs)
+                <div class="col-12 col-sm-4 col-lg-4 form-group">
+                    @Html.BsLabelFor(m => m.Url)
                     <div class="input-group">
-                        @Html.BsSelectFor(m => m.Jobs)
+                        @Html.BsInputFor(model => model.Url)
                     </div>
                 </div>
 
-                <div class="col-12 col-sm-4 col-lg-3 form-group @Html.BsValidationCssFor(m => m.IsEnabled)">
+                <div class="col-12 col-sm-4 col-lg-3 form-group">
+                    @Html.BsLabelFor(m => m.StartDate)
+                    <div class="input-group">
+                        @Html.BsInputFor(model => model.StartDate)
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-4 col-lg-4 form-group @Html.BsValidationCssFor(m => m.CountriesList)">
+                    @Html.BsLabelFor(m => m.CountriesList)
+                    <div class="input-group">
+                        @Html.BsSelectFor(model => model.CountriesList)
+                        @Html.BsValidationFor(m => m.CountriesList)
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-4 col-lg-4 form-group @Html.BsValidationCssFor(m => m.RoleList)">
+                    @Html.BsLabelFor(m => m.RoleList)
+                    <div class="input-group">
+                        @Html.BsSelectFor(model => model.RoleList)
+                        @Html.BsValidationFor(m => m.RoleList)
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-4 col-lg-4 form-group @Html.BsValidationCssFor(m => m.LanguagesList)">
+                    @Html.BsLabelFor(m => m.LanguagesList)
+                    <div class="input-group">
+                        @Html.BsSelectFor(model => model.LanguagesList)
+                        @Html.BsValidationFor(m => m.LanguagesList)
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-4 col-lg-4 form-group">
+                    @Html.BsLabelFor(m => m.Contributions)
+                    <div class="input-group">
+                        @Html.BsInputFor(model => model.Contributions)
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-4 col-lg-2 form-group @Html.BsValidationCssFor(m => m.IsEnabled)">
                     @Html.BsLabelFor(m => m.IsEnabled)
                     <div class="input-group">
                         @Html.BsSelectFor(model => model.IsEnabled, new Dictionary<string, object>() { { "data-initialvalue", (byte)YesNoValueTypes.Yes } }, null)
                         @Html.BsValidationFor(m => m.IsEnabled)
-
                     </div>
                 </div>
 

@@ -2,7 +2,7 @@
 @using BForms.Docs.Resources
 @using BootstrapForms.Html
 @using BootstrapForms.Models
-@model BForms.Docs.Areas.Demo.Models.UsersSearchModel
+@model BForms.Docs.Areas.Demo.Models.ContributorSearchModel
 
 <div id="toolbar_search" class="grids_header_expand" style="display: none;">
     @using (Html.BeginForm())
@@ -18,26 +18,40 @@
                 </div>
 
                 <div class="col-12 col-sm-4 col-lg-3 form-group">
-                    @Html.BsLabelFor(m => m.Jobs)
+                    @Html.BsLabelFor(m => m.StartDateRange)
                     <div class="input-group">
-                        @Html.BsSelectFor(m => m.Jobs)
+                        @Html.BsRangeFor(model => model.StartDateRange)
                     </div>
                 </div>
 
                 <div class="col-12 col-sm-4 col-lg-3 form-group">
-                    @Html.BsLabelFor(m => m.RegisterDate)
+                    @Html.BsLabelFor(m => m.CountriesList)
                     <div class="input-group">
-                        @Html.BsGlyphiconAddon(Glyphicon.Calendar)
-                        @Html.BsRangeFor(m => m.RegisterDate)
+                        @Html.BsSelectFor(model => model.CountriesList)
                     </div>
                 </div>
 
-                <div class="col-12 col-sm-4 col-lg-3 form-group">
+                <div class="col-12 col-sm-4 col-lg-2 form-group">
                     @Html.BsLabelFor(m => m.IsEnabled)
                     <div class="input-group">
-                        @Html.BsSelectFor(model => model.IsEnabled, new Dictionary<string, object>(){ { "data-initialvalue", (byte)YesNoValueTypes.Both } }, null)
+                        @Html.BsSelectFor(model => model.IsEnabled, new Dictionary<string, object>() { { "data-initialvalue", (byte)YesNoValueTypes.Yes } }, null)
                     </div>
                 </div>
+
+                <div class="col-12 col-sm-4 col-lg-4 form-group">
+                    @Html.BsLabelFor(m => m.RoleList)
+                    <div class="input-group">
+                        @Html.BsSelectFor(model => model.RoleList)
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-4 col-lg-4 form-group">
+                    @Html.BsLabelFor(m => m.LanguagesList)
+                    <div class="input-group">
+                        @Html.BsSelectFor(model => model.LanguagesList)
+                    </div>
+                </div>
+
             </div>
         </div>
 

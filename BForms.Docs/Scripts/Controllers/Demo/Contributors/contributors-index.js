@@ -26,6 +26,7 @@
         this.$grid.bsGrid({
             uniqueName: 'usersGrid',
             pagerUrl: this.options.pagerUrl,
+
             //#region filterButtons
             filterButtons: [{
                 btnSelector: '.js-actives',
@@ -146,14 +147,14 @@
         this._ajaxEnableDisable($row, data, options.url, function (response) {
             context.updateRow($row, true);
         }, function (response) {
-            context._rowActionAjaxError(response, arguments[4].row);
+            context._rowActionAjaxError(response, $row);
         });
 
     };
 
     GridIndex.prototype._ajaxEnableDisable = function ($html, data, url, success, error) {
         var ajaxOptions = {
-            name: '|enableDisable|' + data,
+            name: '|enableDisable|' + $html.data('objid'),
             url: url,
             data: data,
             context: this,

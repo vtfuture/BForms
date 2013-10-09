@@ -10,12 +10,12 @@ using BootstrapForms.Models;
 
 namespace BForms.Docs.Areas.Demo.Repositories
 {
-    public class GridRepository : BsBaseGridRepository<User, UsersGridRowModel, UsersSearchModel>
+    public class GridRepository : BsBaseGridRepository<Contributor, ContributorRowModel, ContributorSearchModel>
     {
         #region Properties and Constructor
         private BFormsContext db;
 
-        public BsGridRepositorySettings<UsersSearchModel> Settings
+        public BsGridRepositorySettings<ContributorSearchModel> Settings
         {
             get
             {
@@ -30,67 +30,50 @@ namespace BForms.Docs.Areas.Demo.Repositories
         #endregion
 
         #region Mappers
-        public Func<User, UsersGridRowModel> MapUser_UserGridRowModel = x => 
-            new UsersGridRowModel
+        public Func<Contributor, ContributorRowModel> MapContributor_ContributorRowModel = x =>
+            new ContributorRowModel
             {
                 Id = x.Id,
                 Enabled = x.Enabled,
                 Name = x.FirstName + " " + x.LastName,
-                RegisterDate = x.RegisterDate
+                Country = x.Country,
+                Role = x.Role,
+                Languages = x.Languages,
+                StartDate = x.StartDate
             };
 
-        public Func<User, UsersDetailsModel> MapUser_UsersDetailsModel = x =>
-            new UsersDetailsModel
+        public Func<Contributor, ContributorDetailsModel> MapContributor_ContributorDetailsModel = x =>
+            new ContributorDetailsModel
             {
                 Id = x.Id,
-                IdJob = x.IdJob,
-                Job = x.IdJob.HasValue ? x.Job.Name : Resource.Unemployed,
                 Enabled = x.Enabled
             };
         #endregion
 
         #region Filter/Order/Map
-        public override IQueryable<User> Query()
+        public override IQueryable<Contributor> Query()
         {
-            var query = db.Users.AsQueryable();
+            var query = db.Contributors.AsQueryable();
 
             return Filter(query);
         }
 
-        public override IOrderedQueryable<User> OrderQuery(IQueryable<User> query)
+        public override IOrderedQueryable<Contributor> OrderQuery(IQueryable<Contributor> query)
         {
             this.orderedQueryBuilder.OrderFor(x => x.Name, y => y.FirstName + " " + y.LastName);
-            var orderedQuery = this.orderedQueryBuilder.Order(query, x => x.Id, BsOrderType.Descending);
+            var orderedQuery = this.orderedQueryBuilder.Order(query, x => x.Id, BsOrderType.Ascending);
             return orderedQuery;
         }
 
-        public override IEnumerable<UsersGridRowModel> MapQuery(IQueryable<User> query)
+        public override IEnumerable<ContributorRowModel> MapQuery(IQueryable<Contributor> query)
         {
-            return query.Select(MapUser_UserGridRowModel);
+            return query.Select(MapContributor_ContributorRowModel);
         }
 
-        public IQueryable<User> Filter(IQueryable<User> query)
+        public IQueryable<Contributor> Filter(IQueryable<Contributor> query)
         {
             if (Settings.Search != null)
             {
-                #region Register Date
-                if (Settings.Search.RegisterDate != null)
-                {
-                    if (Settings.Search.RegisterDate.From.HasValue)
-                    {
-                        var fromDate = Settings.Search.RegisterDate.From.Value;
-
-                        query = query.Where(x => x.RegisterDate >= fromDate);
-                    }
-                    if (Settings.Search.RegisterDate.To.HasValue)
-                    {
-                        var toDate = Settings.Search.RegisterDate.To.Value;
-
-                        query = query.Where(x => x.RegisterDate >= toDate);
-                    }
-                }
-                #endregion
-
                 #region Name
                 if (!string.IsNullOrEmpty(Settings.Search.Name))
                 {
@@ -115,15 +98,6 @@ namespace BForms.Docs.Areas.Demo.Repositories
                     }
                 }
                 #endregion
-
-                #region Job
-                if (Settings.Search.Jobs != null && Settings.Search.Jobs.SelectedValues.HasValue)
-                {
-                    var jobId = Settings.Search.Jobs.SelectedValues.Value;
-
-                    query = query.Where(x => x.IdJob == jobId);
-                }
-                #endregion
             }
 
             return query;
@@ -131,56 +105,52 @@ namespace BForms.Docs.Areas.Demo.Repositories
         #endregion
 
         #region CRUD
-        public UsersGridRowModel Create(UsersNewModel model)
+        public ContributorRowModel Create(ContributorNewModel model)
         {
-            var entity = new User();
-            entity.Enabled = model.IsEnabled == YesNoValueTypes.Yes;
-            entity.FirstName = model.FirstName;
-            entity.LastName = model.LastName;
-            if (model.Jobs != null && model.Jobs.SelectedValues.HasValue)
+            var entity = new Contributor
             {
-                entity.IdJob = model.Jobs.SelectedValues.Value;
-            }
-            entity.RegisterDate = DateTime.Now;
-            db.Users.Add(entity);
+                Enabled = model.IsEnabled == YesNoValueTypes.Yes,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                Country = model.CountriesList.SelectedValues,
+                Contributions = model.Contributions,
+                Role = model.RoleList.SelectedValues.Value,
+                Languages = model.LanguagesList.SelectedValues,
+                StartDate = model.StartDate.DateValue.Value,
+                Url = model.Url
+            };
+            db.Contributors.Add(entity);
             db.SaveChanges();
 
-            return MapUser_UserGridRowModel(entity);
+            return MapContributor_ContributorRowModel(entity);
         }
 
-        public UsersDetailsModel ReadDetails(int objId)
+        public ContributorDetailsModel ReadDetails(int objId)
         {
-            return db.Users.Where(x => x.Id == objId).Select(MapUser_UsersDetailsModel).FirstOrDefault();
+            return db.Contributors.Where(x => x.Id == objId).Select(MapContributor_ContributorDetailsModel).FirstOrDefault();
         }
 
-        public UsersGridRowModel ReadRow(int objId)
+        public ContributorRowModel ReadRow(int objId)
         {
-            return db.Users.Where(x => x.Id == objId).Select(MapUser_UserGridRowModel).FirstOrDefault();
+            return db.Contributors.Where(x => x.Id == objId).Select(MapContributor_ContributorRowModel).FirstOrDefault();
         }
 
-        public UsersDetailsModel Update(UsersDetailsModel model, int objId)
+        public ContributorDetailsModel Update(ContributorDetailsModel model, int objId)
         {
-            var entity = db.Users.FirstOrDefault(x => x.Id == objId);
+            var entity = db.Contributors.FirstOrDefault(x => x.Id == objId);
 
             if (entity != null)
             {
-                if (model.Jobs != null && model.Jobs.SelectedValues.HasValue)
-                {
-                    entity.IdJob = model.Jobs.SelectedValues.Value;
-                }
-                else
-                {
-                    entity.IdJob = null;
-                }
+                
                 db.SaveChanges();
             }
 
-            return MapUser_UsersDetailsModel(entity);
+            return MapContributor_ContributorDetailsModel(entity);
         }
 
         public void EnableDisable(int objId, bool? enable)
         {
-            var entity = db.Users.FirstOrDefault(x => x.Id == objId);
+            var entity = db.Contributors.FirstOrDefault(x => x.Id == objId);
 
             if (entity != null)
             {
@@ -191,46 +161,32 @@ namespace BForms.Docs.Areas.Demo.Repositories
 
         public void Delete(int objId)
         {
-            var entity = db.Users.FirstOrDefault(x => x.Id == objId);
+            var entity = db.Contributors.FirstOrDefault(x => x.Id == objId);
 
             if (entity != null)
             {
-                db.Users.Remove(entity);
+                db.Contributors.Remove(entity);
                 db.SaveChanges();
             }
         }
         #endregion
 
         #region Helpers
-        public UsersSearchModel GetSearchForm()
+        public ContributorSearchModel GetSearchForm()
         {
-            return new UsersSearchModel()
+            return new ContributorSearchModel()
             {
-                Jobs = GetJobsDropdown()
+                CountriesList = Lists.AllCounties<string>(),
+                LanguagesList = Lists.AllLanguages<List<string>>()
             };
         }
 
-        public UsersNewModel GetNewForm()
+        public ContributorNewModel GetNewForm()
         {
-            return new UsersNewModel()
+            return new ContributorNewModel()
             {
-                Jobs = GetJobsDropdown()
-            };
-        }
-
-        public BsSelectList<int?> GetJobsDropdown(int? selected = null)
-        {
-            return new BsSelectList<int?>
-            {
-                Items = (from d in db.Jobs
-                         orderby d.Name
-                         select new BsSelectListItem
-                         {
-                             Text = d.Name,
-                             Selected = selected.HasValue && selected.Value == d.Id,
-                             Value = d.Id.ToString()
-                         }).ToList(),
-                SelectedValues = selected
+                CountriesList = Lists.AllCounties<string>(),
+                LanguagesList = Lists.AllLanguages<List<string>>()
             };
         }
         #endregion

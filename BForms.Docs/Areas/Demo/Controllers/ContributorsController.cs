@@ -28,16 +28,16 @@ namespace BForms.Docs.Areas.Demo.Controllers
         #region Pages
         public ActionResult Index()
         {
-            var gridModel = _gridRepository.ToBsGridViewModel(new BsGridRepositorySettings<UsersSearchModel>
+            var gridModel = _gridRepository.ToBsGridViewModel(new BsGridRepositorySettings<ContributorSearchModel>
             {
                 Page = 1,
                 PageSize = 5
             });
 
-            var model = new UsersViewModel
+            var model = new ContributorsViewModel
             {
                 Grid = gridModel,
-                Toolbar = new BsToolbarModel<UsersSearchModel, UsersNewModel>
+                Toolbar = new BsToolbarModel<ContributorSearchModel, ContributorNewModel>
                 {
                     Search = _gridRepository.GetSearchForm(),
                     New = _gridRepository.GetNewForm()
@@ -62,7 +62,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
         #endregion
 
         #region Ajax
-        public BsJsonResult Pager(BsGridRepositorySettings<UsersSearchModel> model)
+        public BsJsonResult Pager(BsGridRepositorySettings<ContributorSearchModel> model)
         {
             var msg = string.Empty;
             var status = BsResponseStatus.Success;
@@ -71,7 +71,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
 
             try
             {
-                var viewModel = _gridRepository.ToBsGridViewModel<UsersViewModel>(x => x.Grid, model, out count);
+                var viewModel = _gridRepository.ToBsGridViewModel<ContributorsViewModel>(x => x.Grid, model, out count);
 
                 html = this.BsRenderPartialView("Grid/_Grid", viewModel);
             }
@@ -88,7 +88,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
             }, status, msg);
         }
 
-        public BsJsonResult New(BsToolbarModel<UsersSearchModel, UsersNewModel> model)
+        public BsJsonResult New(BsToolbarModel<ContributorSearchModel, ContributorNewModel> model)
         {
             var msg = string.Empty;
             var status = BsResponseStatus.Success;
@@ -100,7 +100,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
                 {
                     var rowModel = _gridRepository.Create(model.New);
 
-                    var viewModel = _gridRepository.ToBsGridViewModel<UsersViewModel>(x => x.Grid, rowModel);
+                    var viewModel = _gridRepository.ToBsGridViewModel<ContributorsViewModel>(x => x.Grid, rowModel);
 
                     row = this.BsRenderPartialView("Grid/_Grid", viewModel);
                 }
@@ -123,7 +123,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
             }, status, msg);
         }
 
-        public BsJsonResult Update(UsersDetailsModel model, int objId)
+        public BsJsonResult Update(ContributorDetailsModel model, int objId)
         {
             var msg = string.Empty;
             var status = BsResponseStatus.Success;
@@ -132,8 +132,6 @@ namespace BForms.Docs.Areas.Demo.Controllers
             try
             {
                 var detailsModel = _gridRepository.Update(model, objId);
-
-                detailsModel.Jobs = _gridRepository.GetJobsDropdown(detailsModel.IdJob);
 
                 html = this.BsRenderPartialView("Grid/Details/_Readonly", detailsModel);
             }
@@ -160,15 +158,13 @@ namespace BForms.Docs.Areas.Demo.Controllers
             {
                 var rowModel = _gridRepository.ReadRow(objId);
 
-                var viewModel = _gridRepository.ToBsGridViewModel<UsersViewModel>(x => x.Grid, rowModel);
+                var viewModel = _gridRepository.ToBsGridViewModel<ContributorsViewModel>(x => x.Grid, rowModel);
 
                 row = this.BsRenderPartialView("Grid/_Grid", viewModel);
 
                 if (getDetails)
                 {
                     var detailsModel = _gridRepository.ReadDetails(objId);
-
-                    detailsModel.Jobs = _gridRepository.GetJobsDropdown(detailsModel.IdJob);
 
                     details = this.BsRenderPartialView("Grid/Details/_Index", detailsModel);
                 }
@@ -196,8 +192,6 @@ namespace BForms.Docs.Areas.Demo.Controllers
             try
             {
                 var model = _gridRepository.ReadDetails(objId);
-
-                model.Jobs = _gridRepository.GetJobsDropdown(model.IdJob);
 
                 html = this.BsRenderPartialView("Grid/Details/_Index", model);
             }

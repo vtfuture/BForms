@@ -216,9 +216,6 @@
   <data name="Location" xml:space="preserve">
     <value>Location</value>
   </data>
-  <data name="Name" xml:space="preserve">
-    <value>Name</value>
-  </data>
   <data name="NamePrompt" xml:space="preserve">
     <value>Surname and name</value>
   </data>
@@ -290,5 +287,8 @@
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Yes</value>
+  </data>
+  <data name="Contributors" xml:space="preserve">
+    <value>Contributors</value>
   </data>
 </root>
