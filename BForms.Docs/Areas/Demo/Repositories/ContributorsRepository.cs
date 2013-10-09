@@ -36,9 +36,8 @@ namespace BForms.Docs.Areas.Demo.Repositories
                 Id = x.Id,
                 Enabled = x.Enabled,
                 Name = x.FirstName + " " + x.LastName,
-                Country = x.Country,
                 Role = x.Role,
-                Languages = x.Languages,
+                Contributions = x.Contributions,
                 StartDate = x.StartDate
             };
 
@@ -235,7 +234,12 @@ namespace BForms.Docs.Areas.Demo.Repositories
             return new ContributorSearchModel()
             {
                 CountriesList = Lists.AllCounties<string>(),
-                LanguagesList = Lists.AllLanguages<List<string>>()
+                LanguagesList = Lists.AllLanguages<List<string>>(),
+                StartDateRange = new BsRange<DateTime?>()
+                {
+                    From = new DateTime(2013, 8, 1),
+                    To = DateTime.Now
+                }
             };
         }
 

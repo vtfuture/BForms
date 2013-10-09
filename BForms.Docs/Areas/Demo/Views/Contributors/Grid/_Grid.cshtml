@@ -24,17 +24,14 @@
                                 .SetWidth(3)
                                 .Sortable()
                                 .Text(x => "<span class='just_icon " + Html.GetRoleIcon(x.Role) + "' title='" + x.Role.ToString() + "'></span> " + x.Role.ToString());
-            cf.Add(c => c.Languages).Name("Languages")
-                                .SetWidth(2)
-                                .Sortable()
-                                .Text(x => x.Languages != null ? String.Join(", ", x.Languages) : "");
             cf.Add(c => c.StartDate).Name("Contributor since")
-                                .SetWidth(2)
+                                .SetWidth(3)
                                 .Sortable()
-                                .Text(x => "<span class='glyphicon glyphicon-calendar'></span> " + x.StartDate.ToShortDateString());
-            cf.Add(c => c.Country).Name("Country")
-                                .SetWidth(2)
-                                .Sortable();
+                                .Text(x => "<span class='glyphicon glyphicon-calendar'></span> " + x.StartDate.ToMonthNameDate());
+            cf.Add(c => c.Contributions).Name("Contributions")
+                                .SetWidth(3)
+                                .Sortable()
+                                .Text(x => string.IsNullOrEmpty(x.Contributions) ? "" : String.Join(" ", x.Contributions.Split(new[] { ',', ' ' }).Take(5)));
 
             //cf.Remove(c => c.Enabled);
 

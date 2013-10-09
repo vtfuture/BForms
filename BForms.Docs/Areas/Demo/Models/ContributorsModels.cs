@@ -142,17 +142,14 @@ namespace BForms.Docs.Areas.Demo.Models
         [BsGridColumn(Width = 3)]
         public string Name { get; set; }
 
-        [BsGridColumn(Width = 2)]
+        [BsGridColumn(Width = 3)]
         public DateTime StartDate { get; set; }
-
-        [BsGridColumn(Width = 2)]
-        public string Country { get; set; }
 
         [BsGridColumn(Width = 3)]
         public ProjectRole Role { get; set; }
 
-        [BsGridColumn(Width = 2)]
-        public List<string> Languages { get; set; }
+        [BsGridColumn(Width = 3)]
+        public string Contributions { get; set; }
 
         public Dictionary<string, object> RowData()
         {
