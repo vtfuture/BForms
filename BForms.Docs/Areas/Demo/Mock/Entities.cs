@@ -24,7 +24,8 @@ namespace BForms.Docs.Areas.Demo.Mock
                             LastName = "P.",
                             Country = "Romania",
                             Role = ProjectRole.TeamLeader,
-                            StartDate = new DateTime(2013, 8, 1)
+                            StartDate = new DateTime(2013, 8, 1),
+                            Url = "http://www.stefanprodan.eu/"
                         },
                         new Contributor()
                         {
@@ -96,7 +97,7 @@ namespace BForms.Docs.Areas.Demo.Mock
     }
     #endregion
 
-    #region User
+    #region Contributor
     public class Contributor
     {
         public int Id { get; set; }

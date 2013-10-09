@@ -30,7 +30,7 @@
             cf.Add(c => c.StartDate).Name("Contributor since")
                                 .SetWidth(2)
                                 .Sortable()
-                                .Text(x => x.StartDate.ToShortDateString());
+                                .Text(x => "<span class='glyphicon glyphicon-calendar'></span> " + x.StartDate.ToShortDateString());
             cf.Add(c => c.Country).Name("Country")
                                 .SetWidth(2)
                                 .Sortable();

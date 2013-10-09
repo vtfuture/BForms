@@ -17,11 +17,11 @@ namespace BForms.Docs.Areas.Demo.Controllers
     public class ContributorsController : BaseController
     {
         #region Properties and Constructor
-        private readonly GridRepository _gridRepository;
+        private readonly ContributorsRepository _gridRepository;
 
         public ContributorsController()
         {
-            _gridRepository = new GridRepository(Db);
+            _gridRepository = new ContributorsRepository(Db);
         }
         #endregion
 
@@ -131,9 +131,12 @@ namespace BForms.Docs.Areas.Demo.Controllers
 
             try
             {
-                var detailsModel = _gridRepository.Update(model, objId);
+                if (ModelState.IsValid)
+                {
+                    var detailsModel = _gridRepository.Update(model, objId);
 
-                html = this.BsRenderPartialView("Grid/Details/_Readonly", detailsModel);
+                    html = this.BsRenderPartialView("Grid/Details/_Readonly", detailsModel);
+                }
             }
             catch (Exception ex)
             {

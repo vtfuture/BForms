@@ -125,7 +125,7 @@
     <Compile Include="Areas\Demo\Mock\Lists.cs" />
     <Compile Include="Areas\Demo\Models\ContributorsModels.cs" />
     <Compile Include="Areas\Demo\Models\LoginModels.cs" />
-    <Compile Include="Areas\Demo\Repositories\GridRepository.cs" />
+    <Compile Include="Areas\Demo\Repositories\ContributorsRepository.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ComponentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />

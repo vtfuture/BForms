@@ -3,8 +3,18 @@
 @model BForms.Docs.Areas.Demo.Models.ContributorDetailsModel
 
 <div class="js-readonly">
-    <dl>
-        <dt>@Resource.Job:</dt>
-        <dd>@Model.Job</dd>
-    </dl>
+    @if (!string.IsNullOrEmpty(Model.Url))
+    {
+        <dl>
+            <dt>Url:</dt>
+            <dd><a href="@Model.Url" target="_blank" title="@Model.Url">@Model.Url</a></dd>
+        </dl>
+    }
+    @if (!string.IsNullOrEmpty(Model.Contributions))
+    {
+        <dl>
+            <dt>Contributions:</dt>
+            <dd>@Model.Contributions</dd>
+        </dl>
+    }
 </div>

@@ -132,7 +132,7 @@
                 objId: $row.data('objid')
             },
             editSuccessHandler: $.proxy(function (editResponse) {
-                this.$grid.bsGrid('updateRow', $row);
+                this.$grid.bsGrid('updateRow', $row, true);
             }, this)
         });
     };

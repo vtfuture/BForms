@@ -10,7 +10,7 @@ using BootstrapForms.Models;
 
 namespace BForms.Docs.Areas.Demo.Repositories
 {
-    public class GridRepository : BsBaseGridRepository<Contributor, ContributorRowModel, ContributorSearchModel>
+    public class ContributorsRepository : BsBaseGridRepository<Contributor, ContributorRowModel, ContributorSearchModel>
     {
         #region Properties and Constructor
         private BFormsContext db;
@@ -23,7 +23,7 @@ namespace BForms.Docs.Areas.Demo.Repositories
             }
         }
 
-        public GridRepository(BFormsContext _db)
+        public ContributorsRepository(BFormsContext _db)
         {
             db = _db;
         }
@@ -46,7 +46,9 @@ namespace BForms.Docs.Areas.Demo.Repositories
             new ContributorDetailsModel
             {
                 Id = x.Id,
-                Enabled = x.Enabled
+                Enabled = x.Enabled,
+                Contributions = x.Contributions,
+                Url = x.Url
             };
         #endregion
 
@@ -141,7 +143,8 @@ namespace BForms.Docs.Areas.Demo.Repositories
 
             if (entity != null)
             {
-                
+                entity.Contributions = model.Contributions;
+                entity.Url = model.Url;
                 db.SaveChanges();
             }
 
