@@ -84,7 +84,7 @@ namespace BForms.Grid
                 columnBuilder.InnerHtml += this.EditableContent;
             }
 
-            columnBuilder.MergeAttribute("class", "col-lg-" + this.Width);
+            columnBuilder.MergeAttribute("class", "col-lg-" + this.Width + " col-md-" + this.Width);
 
             return columnBuilder.ToString();
         }

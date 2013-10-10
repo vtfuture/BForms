@@ -266,8 +266,7 @@ namespace BForms.Grid
                         var column = this.columns.ElementAt(i);
 
                         var cellBuilder = new TagBuilder("div");
-                        cellBuilder.MergeAttribute("class", "col-lg-" + column.Width);
-                        cellBuilder.MergeAttribute("class", "col-md-" + column.Width);
+                        cellBuilder.MergeAttribute("class", "col-lg-" + column.Width + " col-md-" + column.Width);
 
                         if (i == 0)
                         {
