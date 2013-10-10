@@ -197,36 +197,36 @@ a.btn {
       float: right; }
     .grid_container .grid_view .grid_row .alert {
       margin: 10px 0 0; }
-  .grid_container .grid_view .grid_row_wrapper {
+  .grid_container .grid_view .grid_rows_wrapper {
     border: 1px solid #e8e8e8;
     position: relative; }
-    .grid_container .grid_view .grid_row_wrapper.no_results {
+    .grid_container .grid_view .grid_rows_wrapper.no_results {
       border: none; }
-      .grid_container .grid_view .grid_row_wrapper.no_results .grid_row {
+      .grid_container .grid_view .grid_rows_wrapper.no_results .grid_row {
         background: transparent;
         min-height: 10px;
         padding: 0; }
-        .grid_container .grid_view .grid_row_wrapper.no_results .grid_row .alert {
+        .grid_container .grid_view .grid_rows_wrapper.no_results .grid_row .alert {
           margin: 10px -15px 0; }
-    .grid_container .grid_view .grid_row_wrapper .grid_row {
+    .grid_container .grid_view .grid_rows_wrapper .grid_row {
       background: #f6f6f6;
       min-height: 44px; }
-      .grid_container .grid_view .grid_row_wrapper .grid_row:nth-child(even) {
+      .grid_container .grid_view .grid_rows_wrapper .grid_row:nth-child(even) {
         background: #EEE; }
-      .grid_container .grid_view .grid_row_wrapper .grid_row:hover {
+      .grid_container .grid_view .grid_rows_wrapper .grid_row:hover {
         background: #fff; }
-      .grid_container .grid_view .grid_row_wrapper .grid_row.open {
+      .grid_container .grid_view .grid_rows_wrapper .grid_row.open {
         background: #fff;
         border-bottom: 1px solid #e8e8e8; }
-        .grid_container .grid_view .grid_row_wrapper .grid_row.open .expand {
+        .grid_container .grid_view .grid_rows_wrapper .grid_row.open .expand {
           background: url(images/icons/icn-right_arrow-small.png) center center no-repeat; }
-      .grid_container .grid_view .grid_row_wrapper .grid_row .grid_row_color {
+      .grid_container .grid_view .grid_rows_wrapper .grid_row .grid_row_color {
         width: 4px;
         position: absolute;
         top: 0;
         left: 0;
         bottom: 0; }
-      .grid_container .grid_view .grid_row_wrapper .grid_row .expand {
+      .grid_container .grid_view .grid_rows_wrapper .grid_row .expand {
         display: inline-block;
         background: url(images/icons/icn-down_arrow-small.png) center center no-repeat;
         width: 17px;
@@ -235,44 +235,44 @@ a.btn {
         text-indent: -999em;
         text-decoration: none;
         background-color: #E6E6E6; }
-        .grid_container .grid_view .grid_row_wrapper .grid_row .expand:hover {
+        .grid_container .grid_view .grid_rows_wrapper .grid_row .expand:hover {
           background-color: #e0e0e0; }
-        .grid_container .grid_view .grid_row_wrapper .grid_row .expand + span {
+        .grid_container .grid_view .grid_rows_wrapper .grid_row .expand + span {
           cursor: pointer; }
-      .grid_container .grid_view .grid_row_wrapper .grid_row .btn-group {
+      .grid_container .grid_view .grid_rows_wrapper .grid_row .btn-group {
         vertical-align: top; }
-      .grid_container .grid_view .grid_row_wrapper .grid_row .dropdown-toggle {
+      .grid_container .grid_view .grid_rows_wrapper .grid_row .dropdown-toggle {
         text-decoration: none;
         cursor: pointer; }
-      .grid_container .grid_view .grid_row_wrapper .grid_row .dropdown-menu a {
+      .grid_container .grid_view .grid_rows_wrapper .grid_row .dropdown-menu a {
         text-decoration: none; }
-        .grid_container .grid_view .grid_row_wrapper .grid_row .dropdown-menu a:hover {
+        .grid_container .grid_view .grid_rows_wrapper .grid_row .dropdown-menu a:hover {
           background: #e8e8e8; }
-      .grid_container .grid_view .grid_row_wrapper .grid_row .form-inline {
+      .grid_container .grid_view .grid_rows_wrapper .grid_row .form-inline {
         margin: 0; }
-        .grid_container .grid_view .grid_row_wrapper .grid_row .form-inline .form-control {
+        .grid_container .grid_view .grid_rows_wrapper .grid_row .form-inline .form-control {
           padding: 2px 4px;
           height: 24px; }
-    .grid_container .grid_view .grid_row_wrapper .grid_row_details {
+    .grid_container .grid_view .grid_rows_wrapper .grid_row_details {
       margin: 0;
       padding-top: 20px;
       clear: both; }
-      .grid_container .grid_view .grid_row_wrapper .grid_row_details ul {
+      .grid_container .grid_view .grid_rows_wrapper .grid_row_details ul {
         list-style: none; }
-      .grid_container .grid_view .grid_row_wrapper .grid_row_details .col-lg-12, .grid_container .grid_view .grid_row_wrapper .grid_row_details .col-md-12 {
+      .grid_container .grid_view .grid_rows_wrapper .grid_row_details .col-lg-12, .grid_container .grid_view .grid_rows_wrapper .grid_row_details .col-md-12 {
         clear: both; }
-      .grid_container .grid_view .grid_row_wrapper .grid_row_details .grid_details {
+      .grid_container .grid_view .grid_rows_wrapper .grid_row_details .grid_details {
         position: relative; }
-        .grid_container .grid_view .grid_row_wrapper .grid_row_details .grid_details h3 {
+        .grid_container .grid_view .grid_rows_wrapper .grid_row_details .grid_details h3 {
           margin-bottom: 10px;
           border-bottom: 1px solid #EEE;
           position: relative;
           font-weight: normal;
           font-size: 14px;
           padding: 5px 0; }
-          .grid_container .grid_view .grid_row_wrapper .grid_row_details .grid_details h3.editable {
+          .grid_container .grid_view .grid_rows_wrapper .grid_row_details .grid_details h3.editable {
             cursor: pointer; }
-            .grid_container .grid_view .grid_row_wrapper .grid_row_details .grid_details h3.editable:after {
+            .grid_container .grid_view .grid_rows_wrapper .grid_row_details .grid_details h3.editable:after {
               content: " ";
               position: absolute;
               right: 0;
@@ -281,32 +281,32 @@ a.btn {
               display: none;
               width: 16px;
               background: url(images/icons/edit-pencil.gif) right 50% no-repeat; }
-          .grid_container .grid_view .grid_row_wrapper .grid_row_details .grid_details h3:hover {
+          .grid_container .grid_view .grid_rows_wrapper .grid_row_details .grid_details h3:hover {
             border-color: #58b4fe; }
-            .grid_container .grid_view .grid_row_wrapper .grid_row_details .grid_details h3:hover:after {
+            .grid_container .grid_view .grid_rows_wrapper .grid_row_details .grid_details h3:hover:after {
               display: block; }
-          .grid_container .grid_view .grid_row_wrapper .grid_row_details .grid_details h3.readonly:hover {
+          .grid_container .grid_view .grid_rows_wrapper .grid_row_details .grid_details h3.readonly:hover {
             border-bottom: 1px solid #eee; }
-          .grid_container .grid_view .grid_row_wrapper .grid_row_details .grid_details h3 .controls {
+          .grid_container .grid_view .grid_rows_wrapper .grid_row_details .grid_details h3 .controls {
             position: absolute;
             top: 3px;
             right: 0;
             font-size: 12px;
             min-width: 20px; }
-            .grid_container .grid_view .grid_row_wrapper .grid_row_details .grid_details h3 .controls a {
+            .grid_container .grid_view .grid_rows_wrapper .grid_row_details .grid_details h3 .controls a {
               height: 17px;
               line-height: 17px;
               vertical-align: top;
               text-decoration: none; }
-            .grid_container .grid_view .grid_row_wrapper .grid_row_details .grid_details h3 .controls .field-validation-error,
-            .grid_container .grid_view .grid_row_wrapper .grid_row_details .grid_details h3 .controls .field-validation-success {
+            .grid_container .grid_view .grid_rows_wrapper .grid_row_details .grid_details h3 .controls .field-validation-error,
+            .grid_container .grid_view .grid_rows_wrapper .grid_row_details .grid_details h3 .controls .field-validation-success {
               margin-right: 20px;
               margin-left: 10px; }
-        .grid_container .grid_view .grid_row_wrapper .grid_row_details .grid_details form {
+        .grid_container .grid_view .grid_rows_wrapper .grid_row_details .grid_details form {
           display: none; }
-      .grid_container .grid_view .grid_row_wrapper .grid_row_details .flow ul.flow_steps {
+      .grid_container .grid_view .grid_rows_wrapper .grid_row_details .flow ul.flow_steps {
         display: block; }
-        .grid_container .grid_view .grid_row_wrapper .grid_row_details .flow ul.flow_steps span {
+        .grid_container .grid_view .grid_rows_wrapper .grid_row_details .flow ul.flow_steps span {
           color: #fff;
           background: #245b86;
           border-radius: 30px;
@@ -319,39 +319,39 @@ a.btn {
           vertical-align: top;
           font-weight: bold;
           margin-top: -3px; }
-        .grid_container .grid_view .grid_row_wrapper .grid_row_details .flow ul.flow_steps div {
+        .grid_container .grid_view .grid_rows_wrapper .grid_row_details .flow ul.flow_steps div {
           display: inline-block;
           width: 80%; }
-        .grid_container .grid_view .grid_row_wrapper .grid_row_details .flow ul.flow_steps strong {
+        .grid_container .grid_view .grid_rows_wrapper .grid_row_details .flow ul.flow_steps strong {
           display: block;
           margin-bottom: 10px; }
-        .grid_container .grid_view .grid_row_wrapper .grid_row_details .flow ul.flow_steps p {
+        .grid_container .grid_view .grid_rows_wrapper .grid_row_details .flow ul.flow_steps p {
           margin-left: 36px;
           font-weight: bold;
           font-style: italic;
           margin-top: 5px; }
-          .grid_container .grid_view .grid_row_wrapper .grid_row_details .flow ul.flow_steps p.document_done {
+          .grid_container .grid_view .grid_rows_wrapper .grid_row_details .flow ul.flow_steps p.document_done {
             color: green; }
-        .grid_container .grid_view .grid_row_wrapper .grid_row_details .flow ul.flow_steps li.done div {
+        .grid_container .grid_view .grid_rows_wrapper .grid_row_details .flow ul.flow_steps li.done div {
           color: #999; }
-        .grid_container .grid_view .grid_row_wrapper .grid_row_details .flow ul.flow_steps li.done span {
+        .grid_container .grid_view .grid_rows_wrapper .grid_row_details .flow ul.flow_steps li.done span {
           background: #eee;
           color: #999; }
-        .grid_container .grid_view .grid_row_wrapper .grid_row_details .flow ul.flow_steps li.done .task {
+        .grid_container .grid_view .grid_rows_wrapper .grid_row_details .flow ul.flow_steps li.done .task {
           text-decoration: line-through; }
-      .grid_container .grid_view .grid_row_wrapper .grid_row_details .flow .flow_steps-editable {
+      .grid_container .grid_view .grid_rows_wrapper .grid_row_details .flow .flow_steps-editable {
         clear: both;
         margin: 10px 0 0 0; }
-        .grid_container .grid_view .grid_row_wrapper .grid_row_details .flow .flow_steps-editable h4 {
+        .grid_container .grid_view .grid_rows_wrapper .grid_row_details .flow .flow_steps-editable h4 {
           border-bottom: 1px solid #eee;
           margin: 7px 0;
           padding-bottom: 5px;
           color: #245b86;
           font-size: 14px;
           font-weight: bold; }
-        .grid_container .grid_view .grid_row_wrapper .grid_row_details .flow .flow_steps-editable .btn_minus {
+        .grid_container .grid_view .grid_rows_wrapper .grid_row_details .flow .flow_steps-editable .btn_minus {
           margin-top: 22px; }
-      .grid_container .grid_view .grid_row_wrapper .grid_row_details dl dt {
+      .grid_container .grid_view .grid_rows_wrapper .grid_row_details dl dt {
         float: left;
         width: 160px;
         overflow: hidden;
@@ -361,39 +361,39 @@ a.btn {
         white-space: nowrap;
         font-weight: normal;
         color: #aaa; }
-      .grid_container .grid_view .grid_row_wrapper .grid_row_details dl dd {
+      .grid_container .grid_view .grid_rows_wrapper .grid_row_details dl dd {
         margin-left: 170px; }
-      .grid_container .grid_view .grid_row_wrapper .grid_row_details dl.to-left dt {
+      .grid_container .grid_view .grid_rows_wrapper .grid_row_details dl.to-left dt {
         width: auto;
         text-align: left; }
-      .grid_container .grid_view .grid_row_wrapper .grid_row_details dl.to-left dd {
+      .grid_container .grid_view .grid_rows_wrapper .grid_row_details dl.to-left dd {
         margin-left: 5px;
         float: left; }
-      .grid_container .grid_view .grid_row_wrapper .grid_row_details .profile img {
+      .grid_container .grid_view .grid_rows_wrapper .grid_row_details .profile img {
         max-width: 64px;
         border: 1px solid #e8e8e8; }
-      .grid_container .grid_view .grid_row_wrapper .grid_row_details .profile dl {
+      .grid_container .grid_view .grid_rows_wrapper .grid_row_details .profile dl {
         margin-top: 0; }
-      .grid_container .grid_view .grid_row_wrapper .grid_row_details .profile.large {
+      .grid_container .grid_view .grid_rows_wrapper .grid_row_details .profile.large {
         border: 1px solid #e8e8e8;
         padding: 5px;
         margin-bottom: 15px; }
-        .grid_container .grid_view .grid_row_wrapper .grid_row_details .profile.large .users {
+        .grid_container .grid_view .grid_rows_wrapper .grid_row_details .profile.large .users {
           margin-bottom: 0; }
-          .grid_container .grid_view .grid_row_wrapper .grid_row_details .profile.large .users li {
+          .grid_container .grid_view .grid_rows_wrapper .grid_row_details .profile.large .users li {
             border: none;
             padding: 0; }
-      .grid_container .grid_view .grid_row_wrapper .grid_row_details .users li {
+      .grid_container .grid_view .grid_rows_wrapper .grid_row_details .users li {
         padding: 4px 5px;
         border: 1px solid #e8e8e8; }
-        .grid_container .grid_view .grid_row_wrapper .grid_row_details .users li .username {
+        .grid_container .grid_view .grid_rows_wrapper .grid_row_details .users li .username {
           display: block;
           font-weight: bold; }
-        .grid_container .grid_view .grid_row_wrapper .grid_row_details .users li p {
+        .grid_container .grid_view .grid_rows_wrapper .grid_row_details .users li p {
           margin: 0; }
-          .grid_container .grid_view .grid_row_wrapper .grid_row_details .users li p em {
+          .grid_container .grid_view .grid_rows_wrapper .grid_row_details .users li p em {
             color: #6AABDF; }
-      .grid_container .grid_view .grid_row_wrapper .grid_row_details .check-list label span {
+      .grid_container .grid_view .grid_rows_wrapper .grid_row_details .check-list label span {
         font-size: 11px;
         display: block; }
   .grid_container .grid_view .grid_pager {

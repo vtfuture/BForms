@@ -154,7 +154,7 @@
     <value>Active</value>
   </data>
   <data name="FirstName" xml:space="preserve">
-    <value>Firstname</value>
+    <value>First name</value>
   </data>
   <data name="Info" xml:space="preserve">
     <value>Info</value>
@@ -166,7 +166,7 @@
     <value>Job</value>
   </data>
   <data name="LastName" xml:space="preserve">
-    <value>Lastname</value>
+    <value>Last name</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>Name</value>

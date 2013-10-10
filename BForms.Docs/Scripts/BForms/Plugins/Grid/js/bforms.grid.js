@@ -34,7 +34,7 @@
         filterSelector: '.js-filter',
         addSelector: '.js-add',
 
-        rowsContainerSelector: '.grid_row_wrapper',
+        rowsContainerSelector: '.grid_rows_wrapper',
         rowSelector: '.grid_row',
         rowHeaderSelector: 'header',
         rowDetailsSelector: '.grid_row_details',

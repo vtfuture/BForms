@@ -98,15 +98,15 @@ namespace BForms.Docs.Areas.Demo.Models
         [Display(Name = "IsEnabled", ResourceType = typeof(Resource))]
         public BsSelectList<YesNoValueTypes?> IsEnabled { get; set; }
 
-        [Display(Name = "Location", Prompt = "Choose country")]
+        [Display(Name = "Location", Prompt = "PromptLocation", ResourceType = typeof(Resource))]
         [BsControl(BsControlType.DropDownList)]
         public new BsSelectList<string> CountriesList { get; set; }
 
-        [Display(Name = "Role", Description = "Role in project")]
+        [Display(Name = "Role", Description = "Role in current project")]
         [BsControl(BsControlType.RadioButtonList)]
         public new BsSelectList<ProjectRole?> RoleList { get; set; }
 
-        [Display(Name = "Programming languages", Prompt = "Type programming languages")]
+        [Display(Name = "Programming in", Prompt = "Type languages")]
         [BsControl(BsControlType.TagList)]
         public new BsSelectList<List<string>> LanguagesList { get; set; }
     }

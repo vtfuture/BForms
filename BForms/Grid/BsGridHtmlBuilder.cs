@@ -239,7 +239,7 @@ namespace BForms.Grid
             if (this.model.Items.Any())
             {
                 var rowsBuilder = new TagBuilder("div");
-                rowsBuilder.MergeAttribute("class", "grid_row_wrapper");
+                rowsBuilder.MergeAttribute("class", "grid_rows_wrapper");
 
                 foreach (var row in this.model.Items)
                 {
