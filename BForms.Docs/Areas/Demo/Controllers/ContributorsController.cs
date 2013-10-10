@@ -11,6 +11,7 @@ using BForms.Docs.Resources;
 using BootstrapForms.Grid;
 using BootstrapForms.Models;
 using BootstrapForms.Mvc;
+using RequireJS;
 
 namespace BForms.Docs.Areas.Demo.Controllers
 {
@@ -44,7 +45,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
                 }
             };
 
-            var options = new Dictionary<string, string>
+            var options = new Dictionary<string, object>
             {
                 {"pagerUrl", Url.Action("Pager")},
                 {"detailsUrl", Url.Action("Details")},
@@ -52,7 +53,8 @@ namespace BForms.Docs.Areas.Demo.Controllers
                 {"enableDisableUrl", Url.Action("EnableDisable")},
                 {"newUrl", Url.Action("New")},
                 {"updateUrl", Url.Action("Update")},
-                {"deleteUrl", Url.Action("Delete")}
+                {"deleteUrl", Url.Action("Delete")},
+                {"editComponents", RequireJsHtmlHelpers.ToJsonDictionary<EditComponents>()}
             };
 
             RequireJsOptions.Add("index", options);
@@ -123,19 +125,18 @@ namespace BForms.Docs.Areas.Demo.Controllers
             }, status, msg);
         }
 
-        public BsJsonResult Update(ContributorDetailsModel model, int objId)
+        public BsJsonResult Update(ContributorDetailsModel model, int objId, EditComponents componentId)
         {
             var msg = string.Empty;
             var status = BsResponseStatus.Success;
-            var html = string.Empty;
 
             try
             {
+                ClearModelState(ModelState, componentId);
+
                 if (ModelState.IsValid)
                 {
-                    var detailsModel = _gridRepository.Update(model, objId);
-
-                    html = this.BsRenderPartialView("Grid/Details/_Readonly", detailsModel);
+                    _gridRepository.Update(model, objId, componentId);
                 }
             }
             catch (Exception ex)
@@ -146,7 +147,6 @@ namespace BForms.Docs.Areas.Demo.Controllers
 
             return new BsJsonResult(new
             {
-                Html = html
             }, status, msg);
         }
 
@@ -250,6 +250,25 @@ namespace BForms.Docs.Areas.Demo.Controllers
             }
 
             return new BsJsonResult(null, status, msg);
+        }
+        #endregion
+
+        #region Helpers
+        [NonAction]
+        public void ClearModelState(ModelStateDictionary ms, EditComponents componentId)
+        {
+            switch (componentId)
+            {
+                case EditComponents.Identity:
+                    ms.ClearModelState(new List<string>() { "FirstName", "LastName", "Url", "CountriesList"});
+                    break;
+                case EditComponents.Contributions:
+                    ms.ClearModelState("Contributions");
+                    break;
+                case EditComponents.ProjectRelated:
+                    ms.ClearModelState(new List<string>() { "RoleList", "StartDate", "LanguagesList" });
+                    break;
+            }
         }
         #endregion
     }

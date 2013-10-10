@@ -20,18 +20,21 @@ namespace BForms.Docs.Areas.Demo.Models
         public BsToolbarModel<ContributorSearchModel, ContributorNewModel> Toolbar { get; set; }
     }
 
-    public class ContributorDetailsModel
+    public class ContributorDetailsModel : ContributorNewModel
     {
+        public ContributorDetailsModel()
+            : base() {}
+
         public int Id { get; set; }
         public bool Enabled { get; set; }
 
-        [Display(Name = "Contributions")]
-        [BsControl(BsControlType.TextArea)]
-        public string Contributions { get; set; }
+        public string Country { get; set; }
 
-        [Display(Name = "Web address", Prompt = "http://mysite.com or http://twitter.com/id")]
-        [BsControl(BsControlType.Url)]
-        public string Url { get; set; }
+        public ProjectRole Role { get; set; }
+
+        public List<string> Languages { get; set; }
+
+        public DateTime ContributorSince { get; set; }
     }
 
     public class ContributorModel
@@ -169,5 +172,12 @@ namespace BForms.Docs.Areas.Demo.Models
         Developer = 2,
         [Display(Name = "Tester")]
         Tester = 3
+    }
+
+    public enum EditComponents
+    {
+        Identity = 1,
+        ProjectRelated = 2,
+        Contributions = 3
     }
 }

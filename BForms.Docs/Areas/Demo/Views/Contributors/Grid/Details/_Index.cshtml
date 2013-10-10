@@ -4,14 +4,36 @@
 @model BForms.Docs.Areas.Demo.Models.ContributorDetailsModel
 
 <div class="row row_more">
-    <div class="col-lg-12">
-        <div id="contributor_info" class="grid_details description js-editable">
-            <h3 class="editable">@Html.BsGlyphicon(Glyphicon.User) @Resource.Info</h3>
+    <div class="col-lg-3">
+        <div id="contributor_identity" class="grid_details description js-editableIdentity">
+            <h3 class="editable">@Html.BsGlyphicon(Glyphicon.User) Identity</h3>
 
-            @Html.BsPartialPrefixed(x => x, "Grid/Details/_Readonly", Model, Model.Id.ToString())
+            @Html.BsPartialPrefixed(x => x, "Grid/Details/_IdentityReadonly", Model, "x" + Model.Id.ToString())
 
-            @Html.BsPartialPrefixed(x => x, "Grid/Details/_Editable", Model, Model.Id.ToString())
+            @Html.BsPartialPrefixed(x => x, "Grid/Details/_IdentityEditable", Model, "x" + Model.Id.ToString())
             
+        </div>
+    </div>
+
+    <div class="col-lg-5">
+        <div id="contributor_project" class="grid_details description js-editableProject">
+            <h3 class="editable">@Html.BsGlyphicon(Glyphicon.Tags) Project related</h3>
+
+            @Html.BsPartialPrefixed(x => x, "Grid/Details/_ProjectRelatedReadonly", Model, "x" + Model.Id.ToString())
+
+            @Html.BsPartialPrefixed(x => x, "Grid/Details/_ProjectRelatedEditable", Model, "x" + Model.Id.ToString())
+
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div id="contributor_contributions" class="grid_details description js-editableContributions">
+            <h3 class="editable">@Html.BsGlyphicon(Glyphicon.Stats) Contributions</h3>
+
+            @Html.BsPartialPrefixed(x => x, "Grid/Details/_ContributionsReadonly", Model, "x" + Model.Id.ToString())
+
+            @Html.BsPartialPrefixed(x => x, "Grid/Details/_ContributionsEditable", Model, "x" + Model.Id.ToString())
+
         </div>
     </div>
 

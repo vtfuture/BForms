@@ -1,0 +1,23 @@
+﻿@using BForms.Docs.Resources
+@using BootstrapForms.Html
+@using BForms.Docs.Areas.Demo.Helpers
+@using BForms.Docs.Areas.Demo.Models
+@model BForms.Docs.Areas.Demo.Models.ContributorDetailsModel
+
+<div class="js-readonly">
+    <dl>
+        <dt>role &nbsp;</dt>
+        <dd><span class="just_icon @Html.GetRoleIcon(Model.Role)" title="@Model.Role.ToString()"></span> @Model.Role.ToString()</dd>
+    </dl>
+    <dl>
+        <dt>contributor since &nbsp;</dt>
+        <dd>@Model.ContributorSince.ToShortDateString()</dd>
+    </dl>
+    @if (Model.Languages != null)
+    {
+        <dl>
+            <dt>languages since &nbsp;</dt>
+            <dd>@String.Join(", ", Model.Languages.ToArray())</dd>
+        </dl>
+    }
+</div>

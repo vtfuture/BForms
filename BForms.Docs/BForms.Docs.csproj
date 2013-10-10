@@ -139,6 +139,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
+    <Content Include="Areas\Demo\Views\Contributors\Grid\Details\_IdentityEditable.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Areas\Demo\Views\Contributors\Grid\Details\_IdentityReadonly.cshtml">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="Content\Images\Docs\autocomplete-select.jpg" />
     <Content Include="Content\Images\Docs\checkboxlist-select.jpg" />
     <Content Include="Content\Images\Docs\datepicker-input.jpg" />
@@ -594,12 +600,6 @@
     <Content Include="Areas\Demo\Views\Contributors\Grid\_Actions.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Demo\Views\Contributors\Grid\Details\_Editable.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Demo\Views\Contributors\Grid\Details\_Readonly.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Components\Grid\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -682,6 +682,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Components\Grid\Source\_JavascriptToolbar.cs.embed" />
+    <Content Include="Areas\Demo\Views\Contributors\Grid\Details\_ProjectRelatedEditable.cshtml" />
+    <Content Include="Areas\Demo\Views\Contributors\Grid\Details\_ProjectRelatedReadonly.cshtml" />
+    <Content Include="Areas\Demo\Views\Contributors\Grid\Details\_ContributionsEditable.cshtml" />
+    <Content Include="Areas\Demo\Views\Contributors\Grid\Details\_ContributionsReadonly.cshtml" />
     <None Include="Views\Components\Grid\Source\_JavascriptGrid.cs.embed" />
   </ItemGroup>
   <PropertyGroup>

@@ -46,8 +46,20 @@ namespace BForms.Docs.Areas.Demo.Repositories
             {
                 Id = x.Id,
                 Enabled = x.Enabled,
+                FirstName = x.FirstName,
+                LastName = x.LastName,
+                Languages = x.Languages,
+                Url = x.Url,
+                Country = x.Country,
+                Role = x.Role,
+                ContributorSince = x.StartDate,
                 Contributions = x.Contributions,
-                Url = x.Url
+                LanguagesList = Lists.AllLanguages<List<string>>(),
+                CountriesList = Lists.AllCounties<string>(false),
+                StartDate = new BsDateTime()
+                {
+                    DateValue = x.StartDate
+                }
             };
         #endregion
 
@@ -183,7 +195,9 @@ namespace BForms.Docs.Areas.Demo.Repositories
 
         public ContributorDetailsModel ReadDetails(int objId)
         {
-            return db.Contributors.Where(x => x.Id == objId).Select(MapContributor_ContributorDetailsModel).FirstOrDefault();
+            var detailsModel = db.Contributors.Where(x => x.Id == objId).Select(MapContributor_ContributorDetailsModel).FirstOrDefault();
+
+            return FillDetailsProperties(detailsModel);
         }
 
         public ContributorRowModel ReadRow(int objId)
@@ -191,18 +205,33 @@ namespace BForms.Docs.Areas.Demo.Repositories
             return db.Contributors.Where(x => x.Id == objId).Select(MapContributor_ContributorRowModel).FirstOrDefault();
         }
 
-        public ContributorDetailsModel Update(ContributorDetailsModel model, int objId)
+        public void Update(ContributorDetailsModel model, int objId, EditComponents componentId)
         {
             var entity = db.Contributors.FirstOrDefault(x => x.Id == objId);
 
             if (entity != null)
             {
-                entity.Contributions = model.Contributions;
-                entity.Url = model.Url;
+                switch (componentId)
+                {
+                    case EditComponents.Identity:
+                        entity.FirstName = model.FirstName;
+                        entity.LastName = model.LastName;
+                        entity.Url = model.Url;
+                        entity.Country = model.CountriesList.SelectedValues;
+                        break;
+                    case EditComponents.Contributions:
+                        entity.Contributions = model.Contributions;
+                        break;
+                    case EditComponents.ProjectRelated:
+                        entity.Role = model.RoleList.SelectedValues.Value;
+                        entity.StartDate = model.StartDate.DateValue.Value;
+                        entity.Languages = model.LanguagesList.SelectedValues;
+                        break;
+                }
                 db.SaveChanges();
             }
 
-            return MapContributor_ContributorDetailsModel(entity);
+            //return FillDetailsProperties(MapContributor_ContributorDetailsModel(entity));
         }
 
         public void EnableDisable(int objId, bool? enable)
@@ -229,11 +258,20 @@ namespace BForms.Docs.Areas.Demo.Repositories
         #endregion
 
         #region Helpers
+        public ContributorDetailsModel FillDetailsProperties(ContributorDetailsModel detailsModel)
+        {
+            detailsModel.LanguagesList.SelectedValues = detailsModel.Languages;
+            detailsModel.RoleList.SelectedValues = detailsModel.Role;
+            detailsModel.CountriesList.SelectedValues = detailsModel.Country;
+
+            return detailsModel;
+        }
+
         public ContributorSearchModel GetSearchForm()
         {
             return new ContributorSearchModel()
             {
-                CountriesList = Lists.AllCounties<string>(),
+                CountriesList = Lists.AllCounties<string>(false),
                 LanguagesList = Lists.AllLanguages<List<string>>(),
                 StartDateRange = new BsRange<DateTime?>()
                 {
@@ -247,7 +285,7 @@ namespace BForms.Docs.Areas.Demo.Repositories
         {
             return new ContributorNewModel()
             {
-                CountriesList = Lists.AllCounties<string>(),
+                CountriesList = Lists.AllCounties<string>(false),
                 LanguagesList = Lists.AllLanguages<List<string>>()
             };
         }

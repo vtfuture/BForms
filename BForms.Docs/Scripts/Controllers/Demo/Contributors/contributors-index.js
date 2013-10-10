@@ -125,16 +125,28 @@
 
     //#region DetailsHandler
     GridIndex.prototype._detailsSuccessHandler = function ($row, response) {
-        response.$html.find('.js-editable').bsEditable({
+        var identityOpt = this._editableOptions($row, this.options.editComponents.Identity);
+        response.$html.find('.js-editableIdentity').bsEditable(identityOpt);
+
+        var projectOpt = this._editableOptions($row, this.options.editComponents.ProjectRelated);
+        response.$html.find('.js-editableProject').bsEditable(projectOpt);
+
+        var contributions = this._editableOptions($row, this.options.editComponents.Contributions);
+        response.$html.find('.js-editableContributions').bsEditable(contributions);
+    };
+
+    GridIndex.prototype._editableOptions = function ($row, componentId) {
+        return {
             url: this.options.updateUrl,
-            prefix: $row.data('objid') + '.',
+            prefix: 'x' + $row.data('objid') + '.',
             additionalData: {
-                objId: $row.data('objid')
+                objId: $row.data('objid'),
+                componentId: componentId
             },
             editSuccessHandler: $.proxy(function (editResponse) {
                 this.$grid.bsGrid('updateRow', $row, true);
             }, this)
-        });
+        }
     };
     //#endregion
 

@@ -1,0 +1,41 @@
+﻿@using BForms.Docs.Resources
+@using BootstrapForms.Html
+@model BForms.Docs.Areas.Demo.Models.ContributorDetailsModel
+
+<div class="js-readonly">
+    @if (!string.IsNullOrEmpty(Model.FirstName))
+    {
+        <dl>
+            <dt>firstname &nbsp;</dt>
+            <dd>@Model.FirstName</dd>
+        </dl>
+    }
+    @if (!string.IsNullOrEmpty(Model.LastName))
+    {
+        <dl>
+            <dt>lastname &nbsp;</dt>
+            <dd>@Model.LastName</dd>
+        </dl>
+    }
+    @if (!string.IsNullOrEmpty(Model.Url))
+    {
+        <dl>
+            <dt>url &nbsp;</dt>
+            <dd><a href="@Model.Url" target="_blank" title="@Model.Url">@Model.Url</a></dd>
+        </dl>
+    }
+    @*@if (!string.IsNullOrEmpty(Model.Contributions))
+    {
+        <dl>
+            <dt>contributions &nbsp;</dt>
+            <dd>@Model.Contributions</dd>
+        </dl>
+    }*@
+    @if (!string.IsNullOrEmpty(Model.Country))
+    {
+        <dl>
+            <dt>country &nbsp;</dt>
+            <dd>@Model.Country</dd>
+        </dl>
+    }
+</div>

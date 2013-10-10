@@ -21,7 +21,7 @@ namespace BForms.Docs.Areas.Demo.Mock
 
     public enum YesNoValueTypes
     {
-        [Display(Name = "All", ResourceType = typeof(Resource))]
+        [Display(Name = "Any", ResourceType = typeof(Resource))]
         Both = 1,
         [Display(Name = "Yes", ResourceType = typeof(Resource))]
         Yes = 2,
