@@ -154,7 +154,11 @@ a.btn {
 				}
 				&.selected {
 					background-color: #f6f6f6;
-					color: #333; 
+					color: #333;
+					&:hover {
+						background-color: #f6f6f6 !important;
+						color: #333 !important;
+					}
 				}
 			}
 		}

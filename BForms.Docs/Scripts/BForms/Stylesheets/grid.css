@@ -131,6 +131,9 @@ a.btn {
         .grids_container .grids_header_bar .grids_controls a.selected {
           background-color: #f6f6f6;
           color: #333; }
+          .grids_container .grids_header_bar .grids_controls a.selected:hover {
+            background-color: #f6f6f6 !important;
+            color: #333 !important; }
     .grids_container .grids_header_bar .grids_controls {
       line-height: normal; }
     .grids_container .grids_header_bar .grids_header_expand {
