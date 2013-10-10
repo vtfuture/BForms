@@ -7,14 +7,14 @@
     <id>BForms</id>
     <title>BForms</title>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Bootstrap Forms for ASP.NET MVC</description>
+    <description>BForms for ASP.NET MVC</description>
     <copyright>Copyright Stefan Prodan 2013</copyright>
     <frameworkAssemblies>
       <frameworkAssembly assemblyName="Microsoft.Web.Infrastructure" targetFramework=".NETFramework4.0" />
     </frameworkAssemblies>
   </metadata>
   <files>
-    <file src="BootstrapForms\bin\Debug\BootstrapForms.dll" target="lib\net45\" />
-    <file src="BootstrapForms\bin\Debug\BootstrapForms.xml" target="lib\net45\" />
+    <file src="BForms\bin\Debug\BForms.dll" target="lib\net45\" />
+    <file src="BForms\bin\Debug\BForms.xml" target="lib\net45\" />
   </files>
 </package>

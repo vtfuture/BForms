@@ -5,8 +5,8 @@ using System.Linq;
 using System.Web;
 using BForms.Docs.Areas.Demo.Mock;
 using BForms.Docs.Resources;
-using BootstrapForms.Models;
-using BootstrapForms.Mvc;
+using BForms.Models;
+using BForms.Mvc;
 
 namespace BForms.Docs.Areas.Demo.Models
 {

@@ -5,8 +5,8 @@ using System.Web;
 using BForms.Docs.Areas.Demo.Mock;
 using BForms.Docs.Areas.Demo.Models;
 using BForms.Docs.Resources;
-using BootstrapForms.Grid;
-using BootstrapForms.Models;
+using BForms.Grid;
+using BForms.Models;
 
 namespace BForms.Docs.Areas.Demo.Repositories
 {

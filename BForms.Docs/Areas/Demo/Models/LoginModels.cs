@@ -3,8 +3,8 @@ using BForms.Docs.Resources;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using BootstrapForms.Models;
-using BootstrapForms.Mvc;
+using BForms.Models;
+using BForms.Mvc;
 
 namespace BForms.Docs.Areas.Demo.Models
 {

@@ -8,9 +8,9 @@ using BForms.Docs.Areas.Demo.Repositories;
 using BForms.Docs.Controllers;
 using BForms.Docs.Helpers;
 using BForms.Docs.Resources;
-using BootstrapForms.Grid;
-using BootstrapForms.Models;
-using BootstrapForms.Mvc;
+using BForms.Grid;
+using BForms.Models;
+using BForms.Mvc;
 using RequireJS;
 
 namespace BForms.Docs.Areas.Demo.Controllers

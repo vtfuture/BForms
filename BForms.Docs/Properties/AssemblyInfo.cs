@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("BForms.Docs")]
-[assembly: AssemblyDescription("Bootstrap Forms for ASP.NET MVC Documentation and demos")]
+[assembly: AssemblyDescription("BForms for ASP.NET MVC Documentation and demos")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("stefanprodan.eu")]
 [assembly: AssemblyProduct("BForms.Docs")]

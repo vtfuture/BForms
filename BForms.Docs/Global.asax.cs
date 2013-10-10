@@ -6,7 +6,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using BootstrapForms.Mvc;
+using BForms.Mvc;
 
 
 namespace BForms.Docs

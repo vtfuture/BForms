@@ -298,9 +298,9 @@
     <Content Include="Scripts\BForms\Stylesheets\bforms.scss" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BootstrapForms\BootstrapForms.csproj">
+    <ProjectReference Include="..\BForms\BForms.csproj">
       <Project>{60a6e254-cd66-4c0e-9191-5e95e70001eb}</Project>
-      <Name>BootstrapForms</Name>
+      <Name>BForms</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
