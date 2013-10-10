@@ -135,7 +135,7 @@ namespace BootstrapForms.Grid
 
             var badgeBuilder = new TagBuilder("span");
             badgeBuilder.MergeAttribute("class", "badge");
-            badgeBuilder.InnerHtml += this.model.Pager.TotalRecords;
+            badgeBuilder.InnerHtml += this.model.Pager != null ? this.model.Pager.TotalRecords : 0;
             headerBuilder.InnerHtml += badgeBuilder.ToString();
 
             headerBuilder.InnerHtml += this.metadata.DisplayName;
@@ -335,7 +335,7 @@ namespace BootstrapForms.Grid
                 infoBuilder.MergeAttribute("class", "alert alert-info");
 
 
-                infoBuilder.InnerHtml += "There are no results.";//"Nu sunt inregistrari";
+                infoBuilder.InnerHtml += "There are no results. ";//"Nu sunt inregistrari";
 
                 var addBtnBuilder = new TagBuilder("button");
                 addBtnBuilder.MergeAttribute("type", "button");

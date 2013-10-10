@@ -97,10 +97,13 @@
                     $rows.each(function () {
                         ids.push($(this).data('objid'));
                     });
-                    this._ajaxDelete($rows, ids, this.options.deleteUrl, function () {
+                    this._ajaxDelete($rows, ids, this.options.deleteUrl, $.proxy(function () {
                         $rows.remove();
                         context._evOnRowCheckChange($rows);
-                    }, function (response) {
+                        if (this.$grid.find('.grid_row[data-objid]').length == 0) {
+                            this.$grid.bsGrid('refresh');
+                        }
+                    }, this), function (response) {
                         context._pagerAjaxError(response);
                     });
                 }, this)
