@@ -2,7 +2,7 @@
 a.btn {
   text-decoration: none !important; }
 
-.clear_all, .grids_container .grid_view .grid_row header:after {
+.clear_all, .grid_container .grid_view .grid_row header:after {
   content: ".";
   display: block;
   height: 0;
@@ -88,145 +88,145 @@ a.btn {
   width: 6px;
   height: 14px; }
 
-.grids_container {
+.grid_container {
   font-size: 16px;
   /* Single grid */ }
-  .grids_container label {
+  .grid_container label {
     font-size: 13px;
     font-family: arial, verdana, sans-serif; }
-  .grids_container ul {
+  .grid_container ul {
     padding: 0; }
-  .grids_container .btn-default {
+  .grid_container .btn-default {
     color: #333333;
     background-color: #ffffff;
     border: 1px solid #cccccc; }
-    .grids_container .btn-default:hover, .grids_container .btn-default:focus {
+    .grid_container .btn-default:hover, .grid_container .btn-default:focus {
       background: #ebebeb !important;
       color: #333333;
       text-decoration: none; }
-  .grids_container .grids_header_bar {
+  .grid_container .grid_toolbar {
     background: #559ed6;
     color: #fff;
     position: relative;
     min-height: 15px; }
-    .grids_container .grids_header_bar h1 {
+    .grid_container .grid_toolbar h1 {
       font-size: 15px;
       text-transform: uppercase;
       margin: 0;
       padding: 8px 10px;
       border: none; }
-    .grids_container .grids_header_bar .grids_controls {
+    .grid_container .grid_toolbar .grid_toolbar_controls {
       position: absolute;
       right: 0;
       top: 0; }
-      .grids_container .grids_header_bar .grids_controls a {
+      .grid_container .grid_toolbar .grid_toolbar_controls a {
         padding: 7px 15px;
         float: left;
         border-left: 1px solid #4092d1;
         color: #fff; }
-        .grids_container .grids_header_bar .grids_controls a:hover {
+        .grid_container .grid_toolbar .grid_toolbar_controls a:hover {
           background-color: #4092d1 !important;
           text-decoration: none;
           color: #fff !important; }
-        .grids_container .grids_header_bar .grids_controls a.selected {
+        .grid_container .grid_toolbar .grid_toolbar_controls a.selected {
           background-color: #f6f6f6;
           color: #333; }
-          .grids_container .grids_header_bar .grids_controls a.selected:hover {
+          .grid_container .grid_toolbar .grid_toolbar_controls a.selected:hover {
             background-color: #f6f6f6 !important;
             color: #333 !important; }
-    .grids_container .grids_header_bar .grids_controls {
+    .grid_container .grid_toolbar .grid_toolbar_controls {
       line-height: normal; }
-    .grids_container .grids_header_bar .grids_header_expand {
+    .grid_container .grid_toolbar .grid_toolbar_form {
       background: #f6f6f6;
       padding: 15px 0;
       color: #333;
       position: relative; }
-      .grids_container .grids_header_bar .grids_header_expand .row {
+      .grid_container .grid_toolbar .grid_toolbar_form .row {
         margin: 0; }
-        .grids_container .grids_header_bar .grids_header_expand .row label {
+        .grid_container .grid_toolbar .grid_toolbar_form .row label {
           font-weight: normal; }
-      .grids_container .grids_header_bar .grids_header_expand h3 {
+      .grid_container .grid_toolbar .grid_toolbar_form h3 {
         font-size: 17px;
         padding: 9px 0;
         margin: 0 15px 8px;
         border-bottom: 1px solid #E0E0E0; }
-        .grids_container .grids_header_bar .grids_header_expand h3 .glyphicon {
+        .grid_container .grid_toolbar .grid_toolbar_form h3 .glyphicon {
           font-size: 13px; }
-      .grids_container .grids_header_bar .grids_header_expand .grids_header_submit {
+      .grid_container .grid_toolbar .grid_toolbar_form .grids_header_submit {
         padding: 5px 15px 0; }
-        .grids_container .grids_header_bar .grids_header_expand .grids_header_submit a {
+        .grid_container .grid_toolbar .grid_toolbar_form .grids_header_submit a {
           text-decoration: underline;
           color: #333;
           margin-left: 5px; }
-  .grids_container .grid_view h2 {
+  .grid_container .grid_view h2 {
     font-size: 17px;
     padding: 10px;
     border-bottom: 1px solid #eee; }
-    .grids_container .grid_view h2 .badge {
+    .grid_container .grid_view h2 .badge {
       margin-right: 5px;
       background: #559ed6;
       float: left;
       margin-top: -1px; }
-    .grids_container .grid_view h2 .icon_filter {
+    .grid_container .grid_view h2 .icon_filter {
       display: none; }
-    .grids_container .grid_view h2 .action_buttons {
+    .grid_container .grid_view h2 .grid_bulk_controls {
       float: right;
       margin-top: -10px; }
-  .grids_container .grid_view .grid_wrapper {
+  .grid_container .grid_view .grid_rows {
     position: relative; }
-  .grids_container .grid_view .grid_row {
+  .grid_container .grid_view .grid_row {
     /* bootstrap override */
     margin: 0;
     padding: 10px 0;
     position: relative; }
-    .grids_container .grid_view .grid_row a {
+    .grid_container .grid_view .grid_row a {
       text-decoration: underline;
       color: #333; }
-      .grids_container .grid_view .grid_row a.sort_asc {
+      .grid_container .grid_view .grid_row a.sort_asc {
         background: url(images/icons/icn-order_up.png) 100% 50% no-repeat;
         padding-right: 15px; }
-      .grids_container .grid_view .grid_row a.sort_desc {
+      .grid_container .grid_view .grid_row a.sort_desc {
         background: url(images/icons/icn-order_down.png) 100% 50% no-repeat;
         padding-right: 15px; }
-    .grids_container .grid_view .grid_row .edit_col:hover {
+    .grid_container .grid_view .grid_row .edit_col:hover {
       cursor: pointer;
       border-bottom: 1px dashed #559ed6;
       background: url(images/icons/pencil-small.png) right 50% no-repeat;
       padding-right: 20px; }
-    .grids_container .grid_view .grid_row header input[type="checkbox"] {
+    .grid_container .grid_view .grid_row header input[type="checkbox"] {
       float: right; }
-    .grids_container .grid_view .grid_row .alert {
+    .grid_container .grid_view .grid_row .alert {
       margin: 10px 0 0; }
-  .grids_container .grid_view .row_wrapper {
+  .grid_container .grid_view .grid_row_wrapper {
     border: 1px solid #e8e8e8;
     position: relative; }
-    .grids_container .grid_view .row_wrapper.no_results {
+    .grid_container .grid_view .grid_row_wrapper.no_results {
       border: none; }
-      .grids_container .grid_view .row_wrapper.no_results .grid_row {
+      .grid_container .grid_view .grid_row_wrapper.no_results .grid_row {
         background: transparent;
         min-height: 10px;
         padding: 0; }
-        .grids_container .grid_view .row_wrapper.no_results .grid_row .alert {
+        .grid_container .grid_view .grid_row_wrapper.no_results .grid_row .alert {
           margin: 10px -15px 0; }
-    .grids_container .grid_view .row_wrapper .grid_row {
+    .grid_container .grid_view .grid_row_wrapper .grid_row {
       background: #f6f6f6;
       min-height: 44px; }
-      .grids_container .grid_view .row_wrapper .grid_row:nth-child(even) {
+      .grid_container .grid_view .grid_row_wrapper .grid_row:nth-child(even) {
         background: #EEE; }
-      .grids_container .grid_view .row_wrapper .grid_row:hover {
+      .grid_container .grid_view .grid_row_wrapper .grid_row:hover {
         background: #fff; }
-      .grids_container .grid_view .row_wrapper .grid_row.open {
+      .grid_container .grid_view .grid_row_wrapper .grid_row.open {
         background: #fff;
         border-bottom: 1px solid #e8e8e8; }
-        .grids_container .grid_view .row_wrapper .grid_row.open .expand {
+        .grid_container .grid_view .grid_row_wrapper .grid_row.open .expand {
           background: url(images/icons/icn-right_arrow-small.png) center center no-repeat; }
-      .grids_container .grid_view .row_wrapper .grid_row .row_color {
+      .grid_container .grid_view .grid_row_wrapper .grid_row .grid_row_color {
         width: 4px;
         position: absolute;
         top: 0;
         left: 0;
         bottom: 0; }
-      .grids_container .grid_view .row_wrapper .grid_row .expand {
+      .grid_container .grid_view .grid_row_wrapper .grid_row .expand {
         display: inline-block;
         background: url(images/icons/icn-down_arrow-small.png) center center no-repeat;
         width: 17px;
@@ -235,44 +235,44 @@ a.btn {
         text-indent: -999em;
         text-decoration: none;
         background-color: #E6E6E6; }
-        .grids_container .grid_view .row_wrapper .grid_row .expand:hover {
+        .grid_container .grid_view .grid_row_wrapper .grid_row .expand:hover {
           background-color: #e0e0e0; }
-        .grids_container .grid_view .row_wrapper .grid_row .expand + span {
+        .grid_container .grid_view .grid_row_wrapper .grid_row .expand + span {
           cursor: pointer; }
-      .grids_container .grid_view .row_wrapper .grid_row .btn-group {
+      .grid_container .grid_view .grid_row_wrapper .grid_row .btn-group {
         vertical-align: top; }
-      .grids_container .grid_view .row_wrapper .grid_row .dropdown-toggle {
+      .grid_container .grid_view .grid_row_wrapper .grid_row .dropdown-toggle {
         text-decoration: none;
         cursor: pointer; }
-      .grids_container .grid_view .row_wrapper .grid_row .dropdown-menu a {
+      .grid_container .grid_view .grid_row_wrapper .grid_row .dropdown-menu a {
         text-decoration: none; }
-        .grids_container .grid_view .row_wrapper .grid_row .dropdown-menu a:hover {
+        .grid_container .grid_view .grid_row_wrapper .grid_row .dropdown-menu a:hover {
           background: #e8e8e8; }
-      .grids_container .grid_view .row_wrapper .grid_row .form-inline {
+      .grid_container .grid_view .grid_row_wrapper .grid_row .form-inline {
         margin: 0; }
-        .grids_container .grid_view .row_wrapper .grid_row .form-inline .form-control {
+        .grid_container .grid_view .grid_row_wrapper .grid_row .form-inline .form-control {
           padding: 2px 4px;
           height: 24px; }
-    .grids_container .grid_view .row_wrapper .row_more {
+    .grid_container .grid_view .grid_row_wrapper .grid_row_details {
       margin: 0;
       padding-top: 20px;
       clear: both; }
-      .grids_container .grid_view .row_wrapper .row_more ul {
+      .grid_container .grid_view .grid_row_wrapper .grid_row_details ul {
         list-style: none; }
-      .grids_container .grid_view .row_wrapper .row_more .col-lg-12, .grids_container .grid_view .row_wrapper .row_more .col-md-12 {
+      .grid_container .grid_view .grid_row_wrapper .grid_row_details .col-lg-12, .grid_container .grid_view .grid_row_wrapper .grid_row_details .col-md-12 {
         clear: both; }
-      .grids_container .grid_view .row_wrapper .row_more .grid_details {
+      .grid_container .grid_view .grid_row_wrapper .grid_row_details .grid_details {
         position: relative; }
-        .grids_container .grid_view .row_wrapper .row_more .grid_details h3 {
+        .grid_container .grid_view .grid_row_wrapper .grid_row_details .grid_details h3 {
           margin-bottom: 10px;
           border-bottom: 1px solid #EEE;
           position: relative;
           font-weight: normal;
           font-size: 14px;
           padding: 5px 0; }
-          .grids_container .grid_view .row_wrapper .row_more .grid_details h3.editable {
+          .grid_container .grid_view .grid_row_wrapper .grid_row_details .grid_details h3.editable {
             cursor: pointer; }
-            .grids_container .grid_view .row_wrapper .row_more .grid_details h3.editable:after {
+            .grid_container .grid_view .grid_row_wrapper .grid_row_details .grid_details h3.editable:after {
               content: " ";
               position: absolute;
               right: 0;
@@ -281,32 +281,32 @@ a.btn {
               display: none;
               width: 16px;
               background: url(images/icons/edit-pencil.gif) right 50% no-repeat; }
-          .grids_container .grid_view .row_wrapper .row_more .grid_details h3:hover {
+          .grid_container .grid_view .grid_row_wrapper .grid_row_details .grid_details h3:hover {
             border-color: #58b4fe; }
-            .grids_container .grid_view .row_wrapper .row_more .grid_details h3:hover:after {
+            .grid_container .grid_view .grid_row_wrapper .grid_row_details .grid_details h3:hover:after {
               display: block; }
-          .grids_container .grid_view .row_wrapper .row_more .grid_details h3.readonly:hover {
+          .grid_container .grid_view .grid_row_wrapper .grid_row_details .grid_details h3.readonly:hover {
             border-bottom: 1px solid #eee; }
-          .grids_container .grid_view .row_wrapper .row_more .grid_details h3 .controls {
+          .grid_container .grid_view .grid_row_wrapper .grid_row_details .grid_details h3 .controls {
             position: absolute;
             top: 3px;
             right: 0;
             font-size: 12px;
             min-width: 20px; }
-            .grids_container .grid_view .row_wrapper .row_more .grid_details h3 .controls a {
+            .grid_container .grid_view .grid_row_wrapper .grid_row_details .grid_details h3 .controls a {
               height: 17px;
               line-height: 17px;
               vertical-align: top;
               text-decoration: none; }
-            .grids_container .grid_view .row_wrapper .row_more .grid_details h3 .controls .field-validation-error,
-            .grids_container .grid_view .row_wrapper .row_more .grid_details h3 .controls .field-validation-success {
+            .grid_container .grid_view .grid_row_wrapper .grid_row_details .grid_details h3 .controls .field-validation-error,
+            .grid_container .grid_view .grid_row_wrapper .grid_row_details .grid_details h3 .controls .field-validation-success {
               margin-right: 20px;
               margin-left: 10px; }
-        .grids_container .grid_view .row_wrapper .row_more .grid_details form {
+        .grid_container .grid_view .grid_row_wrapper .grid_row_details .grid_details form {
           display: none; }
-      .grids_container .grid_view .row_wrapper .row_more .flow ul.flow_steps {
+      .grid_container .grid_view .grid_row_wrapper .grid_row_details .flow ul.flow_steps {
         display: block; }
-        .grids_container .grid_view .row_wrapper .row_more .flow ul.flow_steps span {
+        .grid_container .grid_view .grid_row_wrapper .grid_row_details .flow ul.flow_steps span {
           color: #fff;
           background: #245b86;
           border-radius: 30px;
@@ -319,39 +319,39 @@ a.btn {
           vertical-align: top;
           font-weight: bold;
           margin-top: -3px; }
-        .grids_container .grid_view .row_wrapper .row_more .flow ul.flow_steps div {
+        .grid_container .grid_view .grid_row_wrapper .grid_row_details .flow ul.flow_steps div {
           display: inline-block;
           width: 80%; }
-        .grids_container .grid_view .row_wrapper .row_more .flow ul.flow_steps strong {
+        .grid_container .grid_view .grid_row_wrapper .grid_row_details .flow ul.flow_steps strong {
           display: block;
           margin-bottom: 10px; }
-        .grids_container .grid_view .row_wrapper .row_more .flow ul.flow_steps p {
+        .grid_container .grid_view .grid_row_wrapper .grid_row_details .flow ul.flow_steps p {
           margin-left: 36px;
           font-weight: bold;
           font-style: italic;
           margin-top: 5px; }
-          .grids_container .grid_view .row_wrapper .row_more .flow ul.flow_steps p.document_done {
+          .grid_container .grid_view .grid_row_wrapper .grid_row_details .flow ul.flow_steps p.document_done {
             color: green; }
-        .grids_container .grid_view .row_wrapper .row_more .flow ul.flow_steps li.done div {
+        .grid_container .grid_view .grid_row_wrapper .grid_row_details .flow ul.flow_steps li.done div {
           color: #999; }
-        .grids_container .grid_view .row_wrapper .row_more .flow ul.flow_steps li.done span {
+        .grid_container .grid_view .grid_row_wrapper .grid_row_details .flow ul.flow_steps li.done span {
           background: #eee;
           color: #999; }
-        .grids_container .grid_view .row_wrapper .row_more .flow ul.flow_steps li.done .task {
+        .grid_container .grid_view .grid_row_wrapper .grid_row_details .flow ul.flow_steps li.done .task {
           text-decoration: line-through; }
-      .grids_container .grid_view .row_wrapper .row_more .flow .flow_steps-editable {
+      .grid_container .grid_view .grid_row_wrapper .grid_row_details .flow .flow_steps-editable {
         clear: both;
         margin: 10px 0 0 0; }
-        .grids_container .grid_view .row_wrapper .row_more .flow .flow_steps-editable h4 {
+        .grid_container .grid_view .grid_row_wrapper .grid_row_details .flow .flow_steps-editable h4 {
           border-bottom: 1px solid #eee;
           margin: 7px 0;
           padding-bottom: 5px;
           color: #245b86;
           font-size: 14px;
           font-weight: bold; }
-        .grids_container .grid_view .row_wrapper .row_more .flow .flow_steps-editable .btn_minus {
+        .grid_container .grid_view .grid_row_wrapper .grid_row_details .flow .flow_steps-editable .btn_minus {
           margin-top: 22px; }
-      .grids_container .grid_view .row_wrapper .row_more dl dt {
+      .grid_container .grid_view .grid_row_wrapper .grid_row_details dl dt {
         float: left;
         width: 160px;
         overflow: hidden;
@@ -361,65 +361,65 @@ a.btn {
         white-space: nowrap;
         font-weight: normal;
         color: #aaa; }
-      .grids_container .grid_view .row_wrapper .row_more dl dd {
+      .grid_container .grid_view .grid_row_wrapper .grid_row_details dl dd {
         margin-left: 170px; }
-      .grids_container .grid_view .row_wrapper .row_more dl.to-left dt {
+      .grid_container .grid_view .grid_row_wrapper .grid_row_details dl.to-left dt {
         width: auto;
         text-align: left; }
-      .grids_container .grid_view .row_wrapper .row_more dl.to-left dd {
+      .grid_container .grid_view .grid_row_wrapper .grid_row_details dl.to-left dd {
         margin-left: 5px;
         float: left; }
-      .grids_container .grid_view .row_wrapper .row_more .profile img {
+      .grid_container .grid_view .grid_row_wrapper .grid_row_details .profile img {
         max-width: 64px;
         border: 1px solid #e8e8e8; }
-      .grids_container .grid_view .row_wrapper .row_more .profile dl {
+      .grid_container .grid_view .grid_row_wrapper .grid_row_details .profile dl {
         margin-top: 0; }
-      .grids_container .grid_view .row_wrapper .row_more .profile.large {
+      .grid_container .grid_view .grid_row_wrapper .grid_row_details .profile.large {
         border: 1px solid #e8e8e8;
         padding: 5px;
         margin-bottom: 15px; }
-        .grids_container .grid_view .row_wrapper .row_more .profile.large .users {
+        .grid_container .grid_view .grid_row_wrapper .grid_row_details .profile.large .users {
           margin-bottom: 0; }
-          .grids_container .grid_view .row_wrapper .row_more .profile.large .users li {
+          .grid_container .grid_view .grid_row_wrapper .grid_row_details .profile.large .users li {
             border: none;
             padding: 0; }
-      .grids_container .grid_view .row_wrapper .row_more .users li {
+      .grid_container .grid_view .grid_row_wrapper .grid_row_details .users li {
         padding: 4px 5px;
         border: 1px solid #e8e8e8; }
-        .grids_container .grid_view .row_wrapper .row_more .users li .username {
+        .grid_container .grid_view .grid_row_wrapper .grid_row_details .users li .username {
           display: block;
           font-weight: bold; }
-        .grids_container .grid_view .row_wrapper .row_more .users li p {
+        .grid_container .grid_view .grid_row_wrapper .grid_row_details .users li p {
           margin: 0; }
-          .grids_container .grid_view .row_wrapper .row_more .users li p em {
+          .grid_container .grid_view .grid_row_wrapper .grid_row_details .users li p em {
             color: #6AABDF; }
-      .grids_container .grid_view .row_wrapper .row_more .check-list label span {
+      .grid_container .grid_view .grid_row_wrapper .grid_row_details .check-list label span {
         font-size: 11px;
         display: block; }
-  .grids_container .grid_view .grid_pager {
+  .grid_container .grid_view .grid_pager {
     margin: 18px 0;
     font-size: 13px;
     font-family: Arial, Verdana, sans-serif; }
-    .grids_container .grid_view .grid_pager > div {
+    .grid_container .grid_view .grid_pager > div {
       padding: 0; }
-    .grids_container .grid_view .grid_pager .pagination {
+    .grid_container .grid_view .grid_pager .pagination {
       margin: 0;
       float: left; }
-    .grids_container .grid_view .grid_pager .results_number {
+    .grid_container .grid_view .grid_pager .results_number {
       float: left;
       line-height: 29px;
       margin-left: 10px; }
-    .grids_container .grid_view .grid_pager .results_per_page span {
+    .grid_container .grid_view .grid_pager .results_per_page span {
       margin-right: 5px; }
 
 /* Action buttons component */
-.action_buttons .check_all {
+.grid_bulk_controls .check_all {
   position: relative; }
-  .action_buttons .check_all .btn {
+  .grid_bulk_controls .check_all .btn {
     padding-left: 30px; }
-    .action_buttons .check_all .btn .caret {
+    .grid_bulk_controls .check_all .btn .caret {
       margin: -2px 0 0 2px; }
-  .action_buttons .check_all input[type="checkbox"] {
+  .grid_bulk_controls .check_all input[type="checkbox"] {
     position: absolute;
     top: 6px;
     left: 10px;
@@ -439,5 +439,5 @@ a.btn {
   filter: Alpha(opacity=90); }
 
 @media (max-width: 756px) {
-  .grids_header_expand .row {
+  .grid_toolbar_form .row {
     padding: 0 15px; } }

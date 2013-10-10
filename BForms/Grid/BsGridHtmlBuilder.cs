@@ -151,7 +151,7 @@ namespace BForms.Grid
             #endregion
 
             var wrapper = new TagBuilder("div");
-            wrapper.MergeAttribute("class", "grid_wrapper");
+            wrapper.MergeAttribute("class", "grid_rows");
 
             #region columns builder
 
@@ -239,7 +239,7 @@ namespace BForms.Grid
             if (this.model.Items.Any())
             {
                 var rowsBuilder = new TagBuilder("div");
-                rowsBuilder.MergeAttribute("class", "row_wrapper");
+                rowsBuilder.MergeAttribute("class", "grid_row_wrapper");
 
                 foreach (var row in this.model.Items)
                 {
@@ -253,7 +253,7 @@ namespace BForms.Grid
                     if (this.rowHighlighter != null)
                     {
                         var rowHighlighterBuilder = new TagBuilder("span");
-                        rowHighlighterBuilder.MergeAttribute("class", "row_color");
+                        rowHighlighterBuilder.MergeAttribute("class", "grid_row_color");
                         rowHighlighterBuilder.MergeAttribute("style", "background-color: " + rowHighlighter(row) + ";");
 
                         rowBuilder.InnerHtml += rowHighlighterBuilder.ToString();

@@ -53,7 +53,7 @@ namespace BForms.Grid
         {
             var toolbarBuilder = new TagBuilder("div");
             toolbarBuilder.MergeAttribute("id", this.fullName.Split('.').Last().ToLower());
-            toolbarBuilder.MergeClassAttribute("grids_header_bar", this.htmlAttributes);
+            toolbarBuilder.MergeClassAttribute("grid_toolbar", this.htmlAttributes);
             toolbarBuilder.MergeAttributes(this.htmlAttributes, true);
 
             var headerBulder = new TagBuilder("h1");
@@ -61,7 +61,7 @@ namespace BForms.Grid
             toolbarBuilder.InnerHtml += headerBulder.ToString();
 
             var controlsBuilder = new TagBuilder("div");
-            controlsBuilder.MergeAttribute("class", "grids_controls");
+            controlsBuilder.MergeAttribute("class", "grid_toolbar_controls");
 
             string tabs = string.Empty;
 

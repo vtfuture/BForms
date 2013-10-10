@@ -29,15 +29,15 @@
         currentPage: 1,
 
         uniqueName: null,
-        gridContainerSelector: '.grid_wrapper',
+        gridContainerSelector: '.grid_rows',
         gridCountContainerSelector: 'h2 > .badge',
         filterSelector: '.js-filter',
         addSelector: '.js-add',
 
-        rowsContainerSelector: '.row_wrapper',
+        rowsContainerSelector: '.grid_row_wrapper',
         rowSelector: '.grid_row',
         rowHeaderSelector: 'header',
-        rowDetailsSelector: '.row_more',
+        rowDetailsSelector: '.grid_row_details',
         rowActionsContainerSelector: '.footer',
         rowDetailsSuccessHandler: null,
         rowActions: [],

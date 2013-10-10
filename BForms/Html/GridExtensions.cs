@@ -44,7 +44,7 @@ namespace BForms.Html
         public static BsHtmlTag BsGridWrapper<TModel>(this HtmlHelper<TModel> htmlHelper)
         {
             var container = new TagBuilder("div");
-            container.MergeAttribute("class", "grids_container");
+            container.MergeAttribute("class", "grid_container");
 
             htmlHelper.ViewContext.Writer.Write(container.ToString(TagRenderMode.StartTag));
             BsHtmlTag htmlTag = new BsHtmlTag(htmlHelper.ViewContext, "div");

@@ -107,7 +107,7 @@ a.btn {
 
 
 
-.grids_container {	
+.grid_container {	
 	font-size: 16px;
 	label {
 		font-size: 13px;
@@ -126,7 +126,7 @@ a.btn {
 			text-decoration: none;
 		}
 	}
-	.grids_header_bar {
+	.grid_toolbar {
 		background: $lightBlue;
 		color: #fff;
 		position: relative;
@@ -138,7 +138,7 @@ a.btn {
 			padding: 8px 10px;
 			border: none;
 		}
-		.grids_controls {
+		.grid_toolbar_controls {
 			position: absolute;
 			right: 0;
 			top: 0;
@@ -162,10 +162,10 @@ a.btn {
 				}
 			}
 		}
-		.grids_controls{
+		.grid_toolbar_controls{
 			line-height: normal;
 		}
-		.grids_header_expand {
+		.grid_toolbar_form {
 			background: #f6f6f6;
 			padding: 15px 0;
 			color: #333;
@@ -212,12 +212,12 @@ a.btn {
 			.icon_filter {
 				display: none;
 			}
-			.action_buttons {
+			.grid_bulk_controls {
 				float: right;
 				margin-top: -10px;
 			}
 		}
-		.grid_wrapper {
+		.grid_rows {
 			position: relative;
 		}
 		.grid_row { /* bootstrap override */	
@@ -254,7 +254,7 @@ a.btn {
 				margin: 10px 0 0;
 			}
 		}
-		.row_wrapper {
+		.grid_row_wrapper {
 			border: 1px solid $borderColor;
 			position: relative;
 			&.no_results {
@@ -284,7 +284,7 @@ a.btn {
 						background: url(images/icons/icn-right_arrow-small.png) center center no-repeat;
 					}
 				}
-				.row_color {
+				.grid_row_color {
 					width: 4px;
 					position: absolute;
 					top: 0;
@@ -328,7 +328,7 @@ a.btn {
 					}
 				}
 			}
-			.row_more {
+			.grid_row_details {
 				margin: 0;
 				padding-top: 20px;
 				clear: both;
@@ -553,7 +553,7 @@ a.btn {
 
 /* Action buttons component */
 
-.action_buttons {
+.grid_bulk_controls {
 	.check_all {
 		position: relative;
 		.btn {
@@ -588,7 +588,7 @@ a.btn {
 }
 
 @media (max-width: 756px) {
-	.grids_header_expand .row {
+	.grid_toolbar_form .row {
 		padding: 0 15px;
 	}
 }
