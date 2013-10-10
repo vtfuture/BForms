@@ -163,11 +163,13 @@
   .bs-range-picker .bs-datetime-picker {
     position: relative;
     display: inline-block !important;
+    float: left;
     margin-left: 10px; }
   .bs-range-picker .ranges {
     display: inline-block;
     vertical-align: top;
-    width: 160px; }
+    width: 160px;
+    float: left; }
     .bs-range-picker .ranges .form-group {
       margin-bottom: 10px; }
       .bs-range-picker .ranges .form-group label {

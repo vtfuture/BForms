@@ -228,12 +228,14 @@ $borderColor: #e8e8e8;
 	.bs-datetime-picker {
 		position: relative;
 		display: inline-block !important;
+		float: left;
 		margin-left: 10px;
 	}
 	.ranges {
 		display: inline-block;
 		vertical-align: top;
 		width: 160px;
+		float: left;
 		.form-group {
 			margin-bottom: 10px;
 			label {
