@@ -15,7 +15,7 @@
     };
 
     Grid.prototype.options = {
-        
+
         gridItem: '.js-item',
         gridItemDetails: '.js-details',
         gridDetailsContainer: '.js-rowDetails',
@@ -56,7 +56,7 @@
         detailsUrl: null,
         multipleDetails: true,
         removeDetailsOnCollapse: false,
-        
+
         validationSummaryContainer: '.bs-validationSummaryContainer',
         validationRowActionsContainer: '.bs-validationRowActionsContainer',
         errorRowContainer: '.bs-errorRowContainer'
@@ -85,7 +85,7 @@
 
         this.refreshModel = this._refreshModel;
         this._currentResultsCount = this.$gridCountContainer.text();
-                
+
         this.$pager = this.element.find('.grid_pager').bsPager({
             pagerUpdate: $.proxy(this._evOnPageChange, this)
         });
@@ -99,13 +99,13 @@
         this.needsRefresh = false;
 
     };
-    
+
     Grid.prototype._addDelegates = function () {
-        
+
         if (this.options.detailsSelector && this.options.detailsUrl) {
             this.element.on('click', this.options.detailsSelector, $.proxy(this._evOnDetailsClick, this));
         }
-                
+
         if (this.options.hasOrder) {
             this.element.on('click', this.options.orderContainerSelector + ' ' + this.options.orderElemSelector, $.proxy(this._evOnOrderChange, this));
         }
@@ -149,17 +149,54 @@
 
                 (function (opts, grid) {
 
-                    grid.$actionsContainer.on('click', opts.btnSelector, $.proxy(function (e) {
+                    if (opts.popover) {
 
-                        opts.handler.call(this, this.element.find(this.options.rowSelector + '.selected'), this);
+                        var $me = grid.$actionsContainer.find(opts.btnSelector);
 
-                    }, grid));
+                        $me.popover({
+                            html: true,
+                            content: $('.popover-content').html(),
+                            placement: 'bottom'
+                        });
+
+                        $me.on('show.bs.popover', $.proxy(function (e) {
+
+                            var tip = $me.data('bs.popover').tip();
+
+                            tip.one('click', '.js-confirm', $.proxy(function (e) {
+
+                                e.preventDefault();
+
+                                $me.popover('toggle');
+
+                                opts.handler.call(this, this.element.find(this.options.rowSelector + '.selected'), this);
+
+                            }, this));
+
+                            tip.one('click', '.js-cancel', function (e) {
+
+                                e.preventDefault();
+
+                                $me.popover('toggle');
+                            });
+
+                        }, grid));
+
+                    } else {
+
+                        grid.$actionsContainer.on('click', opts.btnSelector, $.proxy(function (e) {
+
+                            opts.handler.call(this, this.element.find(this.options.rowSelector + '.selected'), this);
+
+                        }, grid));
+                    }
+
                 })(opts, this);
             }
         }
 
         this.element.on('click', '.edit_col', $.proxy(this._evOnCellEdit, this));
-        
+
     };
 
     Grid.prototype._initSelectors = function () {
@@ -195,7 +232,7 @@
         }
 
     };
-    
+
     Grid.prototype.search = function (data) {
         this.refreshModel.page = 1;
         this.refreshModel.Search = data;
@@ -221,7 +258,7 @@
         this._currentResultsCount++;
 
         this._changeCount();
-        
+
         if (this.$rowsContainer.hasClass('no_results')) {
             this.$rowsContainer.removeClass('no_results');
             this.$rowsContainer.children().remove();
@@ -265,7 +302,7 @@
         e.preventDefault();
 
         var $row = $(e.currentTarget).closest(this.options.rowSelector);
-     
+
         if ($row.hasClass('open')) {
 
             $row.removeClass('open');
@@ -299,7 +336,7 @@
             loadingElement: $row,
             loadingClass: 'loading'
         };
-        
+
         $.bforms.ajax(ajaxOptions);
 
     };
@@ -309,7 +346,7 @@
         var $row = callbackData.row;
 
         data.$html = $(data.Html);
-        
+
         if (typeof this.options.rowDetailsSuccessHandler === 'function') {
             this.options.rowDetailsSuccessHandler.call(this, $row, data);
         }
@@ -317,11 +354,11 @@
         $row.append(data.$html.hide()).stop(true, true).slideDown(800);
 
         this._handleDetails($row);
-                
+
         $row.data('hasdetails', true);
 
         this._createActions(this.options.rowActions, $row);
-     
+
     };
 
     Grid.prototype._detailsAjaxError = function (data) {
@@ -337,9 +374,9 @@
             this._addError(data.Message, $errorContainer);
         }
     };
-    
+
     Grid.prototype._expandGridRow = function ($row) {
-                
+
         $row.addClass('open');
         $row.find(this.options.rowDetailsSelector).stop(true, true).slideDown(800);
 
@@ -371,7 +408,7 @@
             //scroll to row
             $.bforms.scrollToElement($row);
 
-            expanded = true;            
+            expanded = true;
         }
 
         if (!expanded) {
@@ -389,7 +426,7 @@
         }
         this._getPage();
     };
-    
+
     Grid.prototype._evOnOrderChange = function (e) {
 
         e.preventDefault();
@@ -454,7 +491,7 @@
         }
 
         this._getPage();
-        
+
     };
 
     Grid.prototype._evOnHeaderCheckSelector = function (e) {
@@ -485,7 +522,7 @@
 
         if (e) {
             $me = $(e.currentTarget);
-        }else {
+        } else {
             $me = $target;
         }
         var $row = $me.closest(this.options.rowSelector)
@@ -522,7 +559,7 @@
 
             this._resetHeaderCheck();
         }
-        
+
     };
 
     Grid.prototype._resetHeaderCheck = function () {
@@ -578,13 +615,13 @@
         if (!$form.valid()) {
             return;
         }
-        
+
         var value = $form.parseForm();
 
         //check if value == text, if not get text from control
 
         //add value to save list
-        
+
 
     };
 

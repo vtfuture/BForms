@@ -35,4 +35,13 @@
     @Html.Partial("Grid/_Grid", Model)
 }
 
+<div class="popover fade bottom in">
+    <div class="arrow"></div>
+    <div class="popover-content">
+        <p>@Resource.DeleteQuestion</p>
+        <hr />
+        <button type="button" class="btn btn-primary js-confirm">@Resource.Yes</button>
+        <button type="button" class="btn btn-default js-cancel">@Resource.No</button>
+    </div>
+</div>
 

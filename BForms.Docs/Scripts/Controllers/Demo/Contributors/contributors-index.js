@@ -106,7 +106,8 @@
                     }, this), function (response) {
                         context._pagerAjaxError(response);
                     });
-                }, this)
+                }, this),
+                popover: true
             }],
             //#endregion
 
