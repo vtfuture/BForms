@@ -89,6 +89,10 @@ a.btn {
 		margin-top: -8px;
 	}
 }
+.checkbox_replace a,
+.custom_select a {
+	text-decoration: none !important;
+}
 
 .ui-sortable .grippy {
 	background: url(images/icons/grippy.png) 0 0 no-repeat;
@@ -103,10 +107,11 @@ a.btn {
 
 
 
-.grids_container {
-	padding: 20px; /* do remove */
+.grids_container {	
+	font-size: 16px;
 	label {
 		font-size: 13px;
+		font-family: arial, verdana, sans-serif;
 	}
 	ul {
 		padding: 0;
@@ -121,6 +126,7 @@ a.btn {
 			text-transform: uppercase;
 			margin: 0;
 			padding: 8px 10px;
+			border: none;
 		}
 		.grids_controls {
 			position: absolute;
@@ -259,13 +265,16 @@ a.btn {
 				&.open {
 					background: #fff;
 					border-bottom: 1px solid $borderColor;
+					.expand {
+						background: url(images/icons/icn-right_arrow-small.png) center center no-repeat;
+					}
 				}
 				.row_color {
 					width: 4px;
 					position: absolute;
-					top: -10px;
+					top: 0;
 					left: 0;
-					bottom: -10px;
+					bottom: 0;
 				}				
 				.expand {
 					display: inline-block;
@@ -442,7 +451,7 @@ a.btn {
 						text-overflow: ellipsis;
 						white-space: nowrap;
 						font-weight: normal;
-						color: $lightBlue;
+						color: #aaa;
 					}
 					dd {
 						margin-left: 170px;
@@ -505,6 +514,8 @@ a.btn {
 		}
 		.grid_pager {
 			margin: 18px 0;
+			font-size: 13px;
+			font-family: Arial, Verdana, sans-serif;
 			> div {
 				padding: 0;
 			}
@@ -516,6 +527,11 @@ a.btn {
 				float: left;
 				line-height: 29px;
 				margin-left: 10px;
+			}
+			.results_per_page {
+				span {
+					margin-right: 5px;
+				}
 			}
 		}
 	}	

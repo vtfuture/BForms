@@ -74,6 +74,10 @@ a.btn {
     color: #333;
     margin-top: -8px; }
 
+.checkbox_replace a,
+.custom_select a {
+  text-decoration: none !important; }
+
 .ui-sortable .grippy {
   background: url(images/icons/grippy.png) 0 0 no-repeat;
   margin-top: 6px;
@@ -85,11 +89,11 @@ a.btn {
   height: 14px; }
 
 .grids_container {
-  padding: 20px;
-  /* do remove */
+  font-size: 16px;
   /* Single grid */ }
   .grids_container label {
-    font-size: 13px; }
+    font-size: 13px;
+    font-family: arial, verdana, sans-serif; }
   .grids_container ul {
     padding: 0; }
   .grids_container .grids_header_bar {
@@ -101,9 +105,9 @@ a.btn {
       font-size: 15px;
       text-transform: uppercase;
       margin: 0;
-      padding: 8px 10px; }
+      padding: 8px 10px;
+      border: none; }
     .grids_container .grids_header_bar .grids_controls {
-      line-height: normal;
       position: absolute;
       right: 0;
       top: 0; }
@@ -118,6 +122,8 @@ a.btn {
         .grids_container .grids_header_bar .grids_controls a.selected {
           background-color: #f6f6f6;
           color: #333; }
+    .grids_container .grids_header_bar .grids_controls {
+      line-height: normal; }
     .grids_container .grids_header_bar .grids_header_expand {
       background: #f6f6f6;
       padding: 15px 0;
@@ -200,12 +206,14 @@ a.btn {
       .grids_container .grid_view .row_wrapper .grid_row.open {
         background: #fff;
         border-bottom: 1px solid #e8e8e8; }
+        .grids_container .grid_view .row_wrapper .grid_row.open .expand {
+          background: url(images/icons/icn-right_arrow-small.png) center center no-repeat; }
       .grids_container .grid_view .row_wrapper .grid_row .row_color {
         width: 4px;
         position: absolute;
-        top: -10px;
+        top: 0;
         left: 0;
-        bottom: -10px; }
+        bottom: 0; }
       .grids_container .grid_view .row_wrapper .grid_row .expand {
         display: inline-block;
         background: url(images/icons/icn-down_arrow-small.png) center center no-repeat;
@@ -341,7 +349,7 @@ a.btn {
         text-overflow: ellipsis;
         white-space: nowrap;
         font-weight: normal;
-        color: #559ed6; }
+        color: #aaa; }
       .grids_container .grid_view .row_wrapper .row_more dl dd {
         margin-left: 170px; }
       .grids_container .grid_view .row_wrapper .row_more dl.to-left dt {
@@ -378,7 +386,9 @@ a.btn {
         font-size: 11px;
         display: block; }
   .grids_container .grid_view .grid_pager {
-    margin: 18px 0; }
+    margin: 18px 0;
+    font-size: 13px;
+    font-family: Arial, Verdana, sans-serif; }
     .grids_container .grid_view .grid_pager > div {
       padding: 0; }
     .grids_container .grid_view .grid_pager .pagination {
@@ -388,6 +398,8 @@ a.btn {
       float: left;
       line-height: 29px;
       margin-left: 10px; }
+    .grids_container .grid_view .grid_pager .results_per_page span {
+      margin-right: 5px; }
 
 /* Action buttons component */
 .action_buttons .check_all {
