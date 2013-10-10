@@ -62,7 +62,7 @@ namespace BForms.Docs.Areas.Demo.Repositories
         public override IOrderedQueryable<Contributor> OrderQuery(IQueryable<Contributor> query)
         {
             this.orderedQueryBuilder.OrderFor(x => x.Name, y => y.FirstName + " " + y.LastName);
-            var orderedQuery = this.orderedQueryBuilder.Order(query, x => x.Id, BsOrderType.Ascending);
+            var orderedQuery = this.orderedQueryBuilder.Order(query, x => x.StartDate, BsOrderType.Ascending);
             return orderedQuery;
         }
 

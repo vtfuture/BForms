@@ -27,7 +27,7 @@ namespace BForms.Docs.Areas.Demo.Mock
                             StartDate = new DateTime(2013, 8, 1),
                             Languages = new List<string>() { "C#", "Javascript", "SQL", "Objective-C" },
                             Url = "http://www.stefanprodan.eu/",
-                            Contributions = "concept, api, razor helpers, documentation, c# bug fixing, testing"
+                            Contributions = "concept, api design, razor helpers, documentation, c# bug fixing, testing"
                         },
                         new Contributor()
                         {
