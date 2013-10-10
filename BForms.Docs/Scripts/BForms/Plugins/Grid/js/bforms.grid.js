@@ -686,11 +686,12 @@
         }
     };
 
-    Grid.prototype.updateRow = function (row, getDetails) {
+    Grid.prototype.updateRow = function (row, getDetails, onlyHeader) {
 
         var data = {
             objId: row.data('objid'),
-            getDetails: getDetails || false
+            getDetails: getDetails || false,
+            onlyHeader: onlyHeader || false
         };
 
         var ajaxOptions = {
@@ -736,7 +737,12 @@
         }
 
         // replace row header with the updated one
-        $row.replaceWith($newRow);
+
+        if (callbackData.sent.onlyHeader) {
+            $row.find('header').replaceWith($newRow.find('header'));
+        } else {
+            $row.replaceWith($newRow);
+        }
     };
 
     Grid.prototype._updateRowAjaxError = function (data) {

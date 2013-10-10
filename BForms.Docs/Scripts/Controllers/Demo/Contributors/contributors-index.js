@@ -141,7 +141,7 @@
                 componentId: componentId
             },
             editSuccessHandler: $.proxy(function (editResponse) {
-                //this.$grid.bsGrid('updateRow', $row, true);
+                this.$grid.bsGrid('updateRow', $row, false, true);
             }, this)
         }
     };
@@ -154,7 +154,7 @@
         data.push($row.data('objid'));
 
         this._ajaxEnableDisable($row, data, options.url, function (response) {
-            context.updateRow($row, true);
+            context.updateRow($row, $row.hasClass('open'));
         }, function (response) {
             context._rowActionAjaxError(response, $row);
         });
