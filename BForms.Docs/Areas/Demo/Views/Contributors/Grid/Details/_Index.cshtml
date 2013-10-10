@@ -1,0 +1,41 @@
+﻿@using BForms.Docs.Resources
+@using BootstrapForms.Html
+@using BootstrapForms.Models
+@model BForms.Docs.Areas.Demo.Models.ContributorDetailsModel
+
+<div class="row row_more">
+    <div class="col-lg-6">
+        <div id="contributor_identity" class="grid_details description js-editableIdentity">
+
+            @Html.BsPartialPrefixed(x => x, "Grid/Details/_Identity", Model, "x" + Model.Id.ToString())
+            
+        </div>
+    </div>
+
+    <div class="col-lg-6">
+        <div id="contributor_project" class="grid_details description js-editableProject">
+
+            @Html.BsPartialPrefixed(x => x, "Grid/Details/_ProjectRelated", Model, "x" + Model.Id.ToString())
+
+        </div>
+    </div>
+
+    <div class="col-lg-12">
+        <hr />
+        @{
+            var stateText = Model.Enabled ? Resource.Disable : Resource.Enable;
+            var enabled = Model.Enabled;
+        }
+        <button type="button" class="btn btn-default js-btn_state" data-enabled="@enabled.ToString().ToLower()">@stateText</button>
+        <button type="button" class="btn btn-default js-btn_delete">@Resource.Delete</button>
+        <div class="popover fade bottom in">
+            <div class="arrow"></div>
+            <div class="popover-content">
+                <p>@Resource.DeleteQuestion</p>
+                <hr />
+                <button type="button" class="btn btn-primary js-confirm">@Resource.Yes</button>
+                <button type="button" class="btn btn-default js-cancel">@Resource.No</button>
+            </div>
+        </div>
+    </div>
+</div>

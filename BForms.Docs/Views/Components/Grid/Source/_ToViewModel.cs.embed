@@ -1,0 +1,1 @@
+﻿virtual BsGridModel<TRow> ToBsGridViewModel(BsGridRepositorySettings<TSearch> settings)

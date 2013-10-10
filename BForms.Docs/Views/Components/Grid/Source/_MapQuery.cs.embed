@@ -1,0 +1,1 @@
+﻿abstract IEnumerable<TRow> MapQuery(IQueryable<TEntity> query);

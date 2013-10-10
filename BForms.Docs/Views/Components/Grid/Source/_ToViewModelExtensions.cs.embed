@@ -1,0 +1,6 @@
+﻿//use in Pager context to return the rows
+TModel ToBsGridViewModel<TModel>(Expression<Func<TModel, BsGridModel<TRow>>> expression, 
+	BsGridRepositorySettings<TSearch> settings, out int count)
+
+//use in New context to return the row
+TModel ToBsGridViewModel<TModel>(Expression<Func<TModel, BsGridModel<TRow>>> expression, TRow row)

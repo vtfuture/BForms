@@ -1,0 +1,38 @@
+﻿var $toolbar = $('#toolbar');
+
+$toolbar.bsToolbar({
+    uniqueName: 'usersToolbar',
+    subscribers: [$grid],
+    actions: [{
+        name: 'refresh',
+        selector: '.btn-refresh',
+        handler: function () {
+            for (var i = 0; i < this.subscribers.length; i++) {
+                this.subscribers[i].bsGrid('refresh');
+            }
+        }
+    }],
+    tabs: [{
+            name: 'search',
+            btnSelector: '.btn-search',
+            container: '#toolbar_search',
+            component: {
+                type: 'bsForm',
+                container: '#toolbar_search',
+                options: $.fn.bsToolbarDefaults_Search($toolbar)
+            }
+        }, {
+            name: 'add',
+            btnSelector: '.btn-add',
+            container: '#toolbar_add',
+            triggeredBy: [{
+                container: $grid,
+                selector: '.js-add'
+            }],
+            component: {
+                type: 'bsForm',
+                container: '#toolbar_add',
+                options: $.fn.bsToolbarDefaults_Add($toolbar, this.options.newUrl)
+            }
+    }];
+});

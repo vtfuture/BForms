@@ -27,13 +27,15 @@
                         <li><a href="@Url.Action("InputExtensions", "Components", new { area = "" })">Input controls</a></li>
                         <li><a href="@Url.Action("SelectExtensions", "Components", new { area = "" })">Select controls</a></li>
                         <li><a href="@Url.Action("RangeExtensions", "Components", new { area = "" })">Range controls</a></li>
+                        <li><a href="@Url.Action("Grid", "Components", new { area = "" })">Grid control</a></li>
                     </ul>
                 </li>
                 <li class="dropdown @((area != null && area.ToString().Contains("Demo")) ? "active" : "")">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Examples</a>
                     <ul class="dropdown-menu">
-                        <li><a href="@Url.Action("Index", "Login", new { area = "Demo", mode="login" })">Login form<span class="badge badge-info">post-back</span></a></li>
-                        <li><a href="@Url.Action("Index", "Login", new { area = "Demo", mode="register" })">Register form<span class="badge badge-info">ajax</span></a></li>
+                        <li><a href="@Url.Action("Index", "Login", new { area = "Demo", mode = "login" })">Login form<span class="badge badge-info">post-back</span></a></li>
+                        <li><a href="@Url.Action("Index", "Login", new { area = "Demo", mode = "register" })">Register form<span class="badge badge-info">ajax</span></a></li>
+                        <li><a href="@Url.Action("Index", "Contributors", new { area = "Demo" })">Grid<span class="badge badge-info">master-detail</span></a></li>
                     </ul>
                 </li>
             </ul>

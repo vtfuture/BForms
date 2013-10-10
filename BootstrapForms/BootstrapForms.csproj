@@ -74,11 +74,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Grid\BsBaseGridRepository.cs" />
+    <Compile Include="Grid\BsButtonType.cs" />
+    <Compile Include="Grid\BsGridColumn.cs" />
+    <Compile Include="Grid\BsGridColumnFactory.cs" />
+    <Compile Include="Grid\BsGridHtmlBuilder.cs" />
+    <Compile Include="Grid\BsGridRepositorySettings.cs" />
+    <Compile Include="Grid\BsHtmlTag.cs" />
+    <Compile Include="Grid\BsPagerSettings.cs" />
+    <Compile Include="Grid\BsToolbarAction.cs" />
+    <Compile Include="Grid\BsToolbarActionsFactory.cs" />
+    <Compile Include="Grid\BsToolbarActionType.cs" />
+    <Compile Include="Grid\BsToolbarHtmlBuilder.cs" />
+    <Compile Include="Grid\IHtmlBuilder.cs" />
     <Compile Include="Html\DateTimeExtensions.cs" />
+    <Compile Include="Html\GridExtensions.cs" />
     <Compile Include="Html\RangeExtensions.cs" />
+    <Compile Include="Html\ToolbarExtensions.cs" />
     <Compile Include="Models\BsDateTime.cs" />
+    <Compile Include="Models\BsGrid.cs" />
+    <Compile Include="Models\BsColumnOrder.cs" />
+    <Compile Include="Models\BsPager.cs" />
     <Compile Include="Models\BsRange.cs" />
     <Compile Include="Models\BsSelectList.cs" />
+    <Compile Include="Models\BsToolbar.cs" />
     <Compile Include="Mvc\BsControlAttribute.cs" />
     <Compile Include="Html\CheckBoxExtensions.cs" />
     <Compile Include="Html\TagListExtensions.cs" />
@@ -93,6 +112,8 @@
     <Compile Include="Models\BsResponseStatus.cs" />
     <Compile Include="Models\BsSelectListItem.cs" />
     <Compile Include="Models\Glyphicon.cs" />
+    <Compile Include="Mvc\BsGridAttribute.cs" />
+    <Compile Include="Mvc\BsGridColumnAttribute.cs" />
     <Compile Include="Mvc\BsMandatoryAttribute.cs" />
     <Compile Include="Mvc\BsModelValidatorProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -105,8 +126,10 @@
     <Compile Include="Html\ValidationExtensions.cs" />
     <Compile Include="Utilities\ActionResultHelpers.cs" />
     <Compile Include="Mvc\ModelStateExtensions.cs" />
+    <Compile Include="Utilities\QueryableExtensions.cs" />
     <Compile Include="Utilities\ReflectionHelpers.cs" />
     <Compile Include="Mvc\RenderViewHelpers.cs" />
+    <Compile Include="Utilities\TagBuilderExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

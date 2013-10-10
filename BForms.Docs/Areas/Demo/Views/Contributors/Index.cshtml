@@ -1,0 +1,38 @@
+﻿@model BForms.Docs.Areas.Demo.Models.ContributorsViewModel
+
+@using BForms.Docs.Resources
+@using BootstrapForms.Html
+
+@{
+    ViewBag.Title = Resource.Contributors;
+}
+
+<style>
+    body {
+        font-size: 16px !important;
+    }
+
+    .grids_container .grid_view .row_wrapper .row_more dl dd {
+        margin-left: auto !important;
+    }
+    .grids_container .grid_view .row_wrapper .row_more dl dt {
+        width: auto !important;
+    }
+
+    .row_wrapper .row_more dl dt {
+        color: #B5BEC5 !important;
+    }
+
+    .btn {
+        font-size: 16px !important;
+    }
+</style>
+
+@using (Html.BsGridWrapper())
+{
+    @Html.Partial("Toolbar/_Toolbar", Model)
+
+    @Html.Partial("Grid/_Grid", Model)
+}
+
+

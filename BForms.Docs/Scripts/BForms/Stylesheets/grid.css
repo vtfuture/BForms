@@ -1,0 +1,416 @@
+/* Grid container */
+a.btn {
+  text-decoration: none !important; }
+
+.clear_all, .grids_container .grid_view .grid_row header:after {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden; }
+
+/* Custom UI*/
+.custom-checkbox label {
+  background: url(images/icons/checkbox.gif) no-repeat; }
+
+.custom-radio label {
+  background: url(images/icons/radiobutton.gif) no-repeat; }
+
+.custom-checkbox,
+.custom-radio {
+  position: relative;
+  margin-top: -4px;
+  margin-bottom: 1px;
+  width: 80%;
+  display: inline-block;
+  vertical-align: top; }
+  .custom-checkbox input,
+  .custom-radio input {
+    position: absolute;
+    right: 2px;
+    top: 6px;
+    margin: 0;
+    z-index: 0; }
+    .custom-checkbox input.style-check,
+    .custom-radio input.style-check {
+      display: none; }
+  .custom-checkbox label,
+  .custom-radio label {
+    display: inline-block;
+    position: relative;
+    z-index: 1;
+    padding-right: 1em;
+    line-height: 1.4;
+    padding: 3px 0 1px 30px;
+    margin: 0 0 10px;
+    cursor: pointer;
+    background-position: -10px -14px;
+    word-break: break-all; }
+    .custom-checkbox label.hover,
+    .custom-radio label.hover {
+      background-position: -10px -114px; }
+    .custom-checkbox label.checkedFocus,
+    .custom-radio label.checkedFocus {
+      background-position: -10px -314px; }
+    .custom-checkbox label.checked,
+    .custom-radio label.checked {
+      background-position: -10px -214px; }
+    .custom-checkbox label.focus,
+    .custom-radio label.focus {
+      outline: 1px dotted #ccc; }
+    .custom-checkbox label.loading:after,
+    .custom-radio label.loading:after {
+      content: url(images/ui-anim_basic_16x16.gif);
+      margin-left: 6px;
+      margin-top: 3px;
+      position: absolute; }
+  .custom-checkbox:hover,
+  .custom-radio:hover {
+    background-color: #fff; }
+  .custom-checkbox aside,
+  .custom-radio aside {
+    font-size: 11px;
+    margin-left: 30px;
+    color: #333;
+    margin-top: -8px; }
+
+.ui-sortable .grippy {
+  background: url(images/icons/grippy.png) 0 0 no-repeat;
+  margin-top: 6px;
+  float: left;
+  display: inline-block;
+  margin-left: 3px;
+  cursor: move;
+  width: 6px;
+  height: 14px; }
+
+.grids_container {
+  padding: 20px;
+  /* do remove */
+  /* Single grid */ }
+  .grids_container label {
+    font-size: 13px; }
+  .grids_container ul {
+    padding: 0; }
+  .grids_container .grids_header_bar {
+    background: #559ed6;
+    color: #fff;
+    position: relative;
+    min-height: 15px; }
+    .grids_container .grids_header_bar h1 {
+      font-size: 15px;
+      text-transform: uppercase;
+      margin: 0;
+      padding: 8px 10px; }
+    .grids_container .grids_header_bar .grids_controls {
+      line-height: normal;
+      position: absolute;
+      right: 0;
+      top: 0; }
+      .grids_container .grids_header_bar .grids_controls a {
+        padding: 7px 15px;
+        float: left;
+        border-left: 1px solid #4092d1;
+        color: #fff; }
+        .grids_container .grids_header_bar .grids_controls a:hover {
+          background-color: #4092d1;
+          text-decoration: none; }
+        .grids_container .grids_header_bar .grids_controls a.selected {
+          background-color: #f6f6f6;
+          color: #333; }
+    .grids_container .grids_header_bar .grids_header_expand {
+      background: #f6f6f6;
+      padding: 15px 0;
+      color: #333;
+      position: relative; }
+      .grids_container .grids_header_bar .grids_header_expand .row {
+        margin: 0; }
+        .grids_container .grids_header_bar .grids_header_expand .row label {
+          font-weight: normal; }
+      .grids_container .grids_header_bar .grids_header_expand h3 {
+        font-size: 17px;
+        padding: 9px 0;
+        margin: 0 15px 8px;
+        border-bottom: 1px solid #E0E0E0; }
+        .grids_container .grids_header_bar .grids_header_expand h3 .glyphicon {
+          font-size: 13px; }
+      .grids_container .grids_header_bar .grids_header_expand .grids_header_submit {
+        padding: 5px 15px 0; }
+        .grids_container .grids_header_bar .grids_header_expand .grids_header_submit a {
+          text-decoration: underline;
+          color: #333;
+          margin-left: 5px; }
+  .grids_container .grid_view h2 {
+    font-size: 17px;
+    padding: 10px;
+    border-bottom: 1px solid #eee; }
+    .grids_container .grid_view h2 .badge {
+      margin-right: 5px;
+      background: #559ed6;
+      float: left;
+      margin-top: -1px; }
+    .grids_container .grid_view h2 .icon_filter {
+      display: none; }
+    .grids_container .grid_view h2 .action_buttons {
+      float: right;
+      margin-top: -10px; }
+  .grids_container .grid_view .grid_wrapper {
+    position: relative; }
+  .grids_container .grid_view .grid_row {
+    /* bootstrap override */
+    margin: 0;
+    padding: 10px 0;
+    position: relative; }
+    .grids_container .grid_view .grid_row a {
+      text-decoration: underline;
+      color: #333; }
+      .grids_container .grid_view .grid_row a.sort_asc {
+        background: url(images/icons/icn-order_up.png) 100% 50% no-repeat;
+        padding-right: 15px; }
+      .grids_container .grid_view .grid_row a.sort_desc {
+        background: url(images/icons/icn-order_down.png) 100% 50% no-repeat;
+        padding-right: 15px; }
+    .grids_container .grid_view .grid_row .edit_col:hover {
+      cursor: pointer;
+      border-bottom: 1px dashed #559ed6;
+      background: url(images/icons/pencil-small.png) right 50% no-repeat;
+      padding-right: 20px; }
+    .grids_container .grid_view .grid_row header input[type="checkbox"] {
+      float: right; }
+    .grids_container .grid_view .grid_row .alert {
+      margin: 10px 0 0; }
+  .grids_container .grid_view .row_wrapper {
+    border: 1px solid #e8e8e8;
+    position: relative; }
+    .grids_container .grid_view .row_wrapper.no_results {
+      border: none; }
+      .grids_container .grid_view .row_wrapper.no_results .grid_row {
+        background: transparent;
+        min-height: 10px;
+        padding: 0; }
+        .grids_container .grid_view .row_wrapper.no_results .grid_row .alert {
+          margin: 10px -15px 0; }
+    .grids_container .grid_view .row_wrapper .grid_row {
+      background: #f6f6f6;
+      min-height: 44px; }
+      .grids_container .grid_view .row_wrapper .grid_row:nth-child(even) {
+        background: #EEE; }
+      .grids_container .grid_view .row_wrapper .grid_row:hover {
+        background: #fff; }
+      .grids_container .grid_view .row_wrapper .grid_row.open {
+        background: #fff;
+        border-bottom: 1px solid #e8e8e8; }
+      .grids_container .grid_view .row_wrapper .grid_row .row_color {
+        width: 4px;
+        position: absolute;
+        top: -10px;
+        left: 0;
+        bottom: -10px; }
+      .grids_container .grid_view .row_wrapper .grid_row .expand {
+        display: inline-block;
+        background: url(images/icons/icn-down_arrow-small.png) center center no-repeat;
+        width: 17px;
+        height: 17px;
+        margin-right: 5px;
+        text-indent: -999em;
+        text-decoration: none;
+        background-color: #E6E6E6; }
+        .grids_container .grid_view .row_wrapper .grid_row .expand:hover {
+          background-color: #e0e0e0; }
+        .grids_container .grid_view .row_wrapper .grid_row .expand + span {
+          cursor: pointer; }
+      .grids_container .grid_view .row_wrapper .grid_row .btn-group {
+        vertical-align: top; }
+      .grids_container .grid_view .row_wrapper .grid_row .dropdown-toggle {
+        text-decoration: none;
+        cursor: pointer; }
+      .grids_container .grid_view .row_wrapper .grid_row .dropdown-menu a {
+        text-decoration: none; }
+        .grids_container .grid_view .row_wrapper .grid_row .dropdown-menu a:hover {
+          background: #e8e8e8; }
+      .grids_container .grid_view .row_wrapper .grid_row .form-inline {
+        margin: 0; }
+        .grids_container .grid_view .row_wrapper .grid_row .form-inline .form-control {
+          padding: 2px 4px;
+          height: 24px; }
+    .grids_container .grid_view .row_wrapper .row_more {
+      margin: 0;
+      padding-top: 20px;
+      clear: both; }
+      .grids_container .grid_view .row_wrapper .row_more ul {
+        list-style: none; }
+      .grids_container .grid_view .row_wrapper .row_more .col-lg-12, .grids_container .grid_view .row_wrapper .row_more .col-md-12 {
+        clear: both; }
+      .grids_container .grid_view .row_wrapper .row_more .grid_details {
+        position: relative; }
+        .grids_container .grid_view .row_wrapper .row_more .grid_details h3 {
+          margin-bottom: 10px;
+          border-bottom: 1px solid #EEE;
+          position: relative;
+          font-weight: normal;
+          font-size: 14px;
+          padding: 5px 0;
+          padding-left: 22px; }
+          .grids_container .grid_view .row_wrapper .row_more .grid_details h3.editable {
+            cursor: pointer; }
+            .grids_container .grid_view .row_wrapper .row_more .grid_details h3.editable:after {
+              content: " ";
+              position: absolute;
+              right: 0;
+              top: 0;
+              bottom: 0;
+              display: none;
+              width: 16px;
+              background: url(images/icons/edit-pencil.gif) right 50% no-repeat; }
+          .grids_container .grid_view .row_wrapper .row_more .grid_details h3:hover {
+            border-color: #58b4fe; }
+            .grids_container .grid_view .row_wrapper .row_more .grid_details h3:hover:after {
+              display: block; }
+          .grids_container .grid_view .row_wrapper .row_more .grid_details h3.readonly:hover {
+            border-bottom: 1px solid #eee; }
+          .grids_container .grid_view .row_wrapper .row_more .grid_details h3 .controls {
+            position: absolute;
+            top: 3px;
+            right: 0;
+            font-size: 12px;
+            min-width: 20px; }
+            .grids_container .grid_view .row_wrapper .row_more .grid_details h3 .controls a {
+              height: 17px;
+              line-height: 17px;
+              vertical-align: top;
+              text-decoration: none; }
+            .grids_container .grid_view .row_wrapper .row_more .grid_details h3 .controls .field-validation-error,
+            .grids_container .grid_view .row_wrapper .row_more .grid_details h3 .controls .field-validation-success {
+              margin-right: 20px;
+              margin-left: 10px; }
+        .grids_container .grid_view .row_wrapper .row_more .grid_details form {
+          display: none; }
+      .grids_container .grid_view .row_wrapper .row_more .flow ul.flow_steps {
+        display: block; }
+        .grids_container .grid_view .row_wrapper .row_more .flow ul.flow_steps span {
+          color: #fff;
+          background: #245b86;
+          border-radius: 30px;
+          width: 21px;
+          height: 20px;
+          line-height: 20px;
+          text-align: center;
+          display: inline-block;
+          margin-right: 10px;
+          vertical-align: top;
+          font-weight: bold;
+          margin-top: -3px; }
+        .grids_container .grid_view .row_wrapper .row_more .flow ul.flow_steps div {
+          display: inline-block;
+          width: 80%; }
+        .grids_container .grid_view .row_wrapper .row_more .flow ul.flow_steps strong {
+          display: block;
+          margin-bottom: 10px; }
+        .grids_container .grid_view .row_wrapper .row_more .flow ul.flow_steps p {
+          margin-left: 36px;
+          font-weight: bold;
+          font-style: italic;
+          margin-top: 5px; }
+          .grids_container .grid_view .row_wrapper .row_more .flow ul.flow_steps p.document_done {
+            color: green; }
+        .grids_container .grid_view .row_wrapper .row_more .flow ul.flow_steps li.done div {
+          color: #999; }
+        .grids_container .grid_view .row_wrapper .row_more .flow ul.flow_steps li.done span {
+          background: #eee;
+          color: #999; }
+        .grids_container .grid_view .row_wrapper .row_more .flow ul.flow_steps li.done .task {
+          text-decoration: line-through; }
+      .grids_container .grid_view .row_wrapper .row_more .flow .flow_steps-editable {
+        clear: both;
+        margin: 10px 0 0 0; }
+        .grids_container .grid_view .row_wrapper .row_more .flow .flow_steps-editable h4 {
+          border-bottom: 1px solid #eee;
+          margin: 7px 0;
+          padding-bottom: 5px;
+          color: #245b86;
+          font-size: 14px;
+          font-weight: bold; }
+        .grids_container .grid_view .row_wrapper .row_more .flow .flow_steps-editable .btn_minus {
+          margin-top: 22px; }
+      .grids_container .grid_view .row_wrapper .row_more dl dt {
+        float: left;
+        width: 160px;
+        overflow: hidden;
+        clear: left;
+        text-align: right;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-weight: normal;
+        color: #559ed6; }
+      .grids_container .grid_view .row_wrapper .row_more dl dd {
+        margin-left: 170px; }
+      .grids_container .grid_view .row_wrapper .row_more dl.to-left dt {
+        width: auto;
+        text-align: left; }
+      .grids_container .grid_view .row_wrapper .row_more dl.to-left dd {
+        margin-left: 5px;
+        float: left; }
+      .grids_container .grid_view .row_wrapper .row_more .profile img {
+        max-width: 64px;
+        border: 1px solid #e8e8e8; }
+      .grids_container .grid_view .row_wrapper .row_more .profile dl {
+        margin-top: 0; }
+      .grids_container .grid_view .row_wrapper .row_more .profile.large {
+        border: 1px solid #e8e8e8;
+        padding: 5px;
+        margin-bottom: 15px; }
+        .grids_container .grid_view .row_wrapper .row_more .profile.large .users {
+          margin-bottom: 0; }
+          .grids_container .grid_view .row_wrapper .row_more .profile.large .users li {
+            border: none;
+            padding: 0; }
+      .grids_container .grid_view .row_wrapper .row_more .users li {
+        padding: 4px 5px;
+        border: 1px solid #e8e8e8; }
+        .grids_container .grid_view .row_wrapper .row_more .users li .username {
+          display: block;
+          font-weight: bold; }
+        .grids_container .grid_view .row_wrapper .row_more .users li p {
+          margin: 0; }
+          .grids_container .grid_view .row_wrapper .row_more .users li p em {
+            color: #6AABDF; }
+      .grids_container .grid_view .row_wrapper .row_more .check-list label span {
+        font-size: 11px;
+        display: block; }
+  .grids_container .grid_view .grid_pager {
+    margin: 18px 0; }
+    .grids_container .grid_view .grid_pager > div {
+      padding: 0; }
+    .grids_container .grid_view .grid_pager .pagination {
+      margin: 0;
+      float: left; }
+    .grids_container .grid_view .grid_pager .results_number {
+      float: left;
+      line-height: 29px;
+      margin-left: 10px; }
+
+/* Action buttons component */
+.action_buttons .check_all {
+  position: relative; }
+  .action_buttons .check_all .btn {
+    padding-left: 30px; }
+    .action_buttons .check_all .btn .caret {
+      margin: -2px 0 0 2px; }
+  .action_buttons .check_all input[type="checkbox"] {
+    position: absolute;
+    top: 6px;
+    left: 10px;
+    z-index: 999; }
+
+.loading:after {
+  content: "";
+  display: block !important;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: white url(Images/preloader.gif) center center no-repeat;
+  z-index: 999;
+  opacity: 0.9;
+  filter: Alpha(opacity=90); }

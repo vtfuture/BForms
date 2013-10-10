@@ -1,0 +1,8 @@
+﻿.ConfigureColumns(cf =>
+{
+    cf.Add(c => c.Enabled)
+		.Name(Resource.Enable) //column header 
+		.SetWidth(3) //column width
+		.Sortable() //is sortable?
+		.Text(x => x.Enabled ? Resource.Yes : Resource.No); //text to display
+}

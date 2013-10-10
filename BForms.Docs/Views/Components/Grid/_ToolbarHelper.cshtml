@@ -1,0 +1,42 @@
+﻿@using BForms.Docs.Helpers
+<h3 id="ToolbarHelper">Toolbar helper</h3>
+
+<p><code>Html.BsToolbarFor</code> helper returns a <code>BsToolbarHtmlBuilder</code> used to build the html of the toolbar. This way, you can configure your toolbar adding attributes, properties and actions (with or without tabs).</p>
+<p>
+    <code>HtmlAttributes</code>
+</p>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Components/Grid/Source/_HtmlAttributesToolbar.cs.embed")
+</pre>
+<br />
+
+<p>
+    <code>ConfigureActions</code>
+</p>
+<p>
+    Add actions to toolbar.
+</p>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Components/Grid/Source/_ConfigureActions.cs.embed")
+</pre>
+<br />
+<p>
+    You can also configure <code> BsToolbarAction&#60;TToolbar&#62;</code>.
+</p>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Components/Grid/Source/_ConfigureActionsExample.cs.embed")
+</pre>
+<br />
+
+<p>
+    <code>BsToolbarActionType</code>
+</p>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Components/Grid/Source/_ActionTypes.cs.embed")
+</pre>
+<br />
+
+<h4 class="sub_title">Example</h4>
+<pre class="prettyprint lang-cs bs-example">
+    @Html.InsertFileContentCached("~/Views/Components/Grid/Source/_ToolbarHelper.cs.embed")
+</pre>

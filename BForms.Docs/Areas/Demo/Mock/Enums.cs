@@ -18,4 +18,14 @@ namespace BForms.Docs.Areas.Demo.Mock
         [Display(Name = "Monthly")]
         Monthly = 4
     }
+
+    public enum YesNoValueTypes
+    {
+        [Display(Name = "Any", ResourceType = typeof(Resource))]
+        Both = 1,
+        [Display(Name = "Yes", ResourceType = typeof(Resource))]
+        Yes = 2,
+        [Display(Name = "No", ResourceType = typeof(Resource))]
+        No = 3,
+    }
 }

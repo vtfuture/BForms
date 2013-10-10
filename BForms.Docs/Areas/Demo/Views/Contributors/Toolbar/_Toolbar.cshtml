@@ -1,0 +1,18 @@
+﻿@model BForms.Docs.Areas.Demo.Models.ContributorsViewModel
+@using BForms.Docs.Resources
+@using BootstrapForms.Grid
+@using BootstrapForms.Html
+
+@(Html.BsToolbarFor(x => x.Toolbar).DisplayName("Dev Team")
+    .ConfigureActions(ca =>
+    {
+        ca.Add(BsToolbarActionType.Add)
+            .Text(Resource.Add)
+            .Tab(x => Html.BsPartialPrefixed(y=>y.New, "Toolbar/_New", x));
+        ca.Add(BsToolbarActionType.Refresh)
+            .Text(Resource.Refresh);
+        ca.Add(BsToolbarActionType.Search)
+            .Text(Resource.Search)
+            .Tab(x => Html.BsPartialPrefixed(y=>y.Search, "Toolbar/_Search", x));
+    })
+)

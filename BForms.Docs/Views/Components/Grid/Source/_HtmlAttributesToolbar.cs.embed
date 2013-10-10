@@ -1,0 +1,1 @@
+﻿BsToolbarHtmlBuilder<TToolbar> HtmlAttributes(Dictionary<string, object> htmlAttributes)

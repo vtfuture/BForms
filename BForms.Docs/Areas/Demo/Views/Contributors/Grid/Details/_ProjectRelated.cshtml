@@ -1,0 +1,10 @@
+﻿@using BForms.Docs.Resources
+@using BootstrapForms.Html
+@using BootstrapForms.Models
+@model BForms.Docs.Areas.Demo.Models.ContributorDetailsModel
+
+<h3 class="editable">@Html.BsGlyphicon(Glyphicon.Tags) Project related</h3>
+
+@Html.Partial("Grid/Details/_ProjectRelatedReadonly", Model)
+
+@Html.Partial("Grid/Details/_ProjectRelatedEditable", Model)

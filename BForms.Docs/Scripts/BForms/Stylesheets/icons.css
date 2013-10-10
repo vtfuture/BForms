@@ -1,0 +1,342 @@
+﻿/*
+
+Any button on the site can have an icon.
+
+If the button has an icon it can keep its text and then the
+class'.with_text' will be added - otherwise the
+class '.without_text' is going to join the button icon class.
+
+For a new icon add(to do):
+background: url(images/icn-no_icon.png) no-repeat;
+
+*/
+.btn-calendar
+{
+	background: url(images/icons/icn-calendar.png) no-repeat;
+}
+.btn-contact 
+{
+	background: url(images/icn-email.png) no-repeat;
+}
+.btn-help 
+{
+	background: url(images/icn-info.png) no-repeat;
+}
+.btn-add
+{
+	background: url(images/icn-add_item.png) no-repeat;
+}
+.btn-download
+{
+	background: url(images/icons/folder-secure.png) no-repeat;
+}
+.btn-me
+{
+    background: url(images/icn-person.png) no-repeat;
+}
+.btn-me-slash
+{
+    background: url(images/icn-user.png) no-repeat;
+}
+.btn-delete
+{
+	background: url(images/icn-delete_item.png) no-repeat;
+}
+.btn-edit 
+{
+	background: url(images/icn-edit_item.png) no-repeat;
+}
+.btn-edit-webgrid
+{
+	background: url(images/icn-edit_item.png) no-repeat;
+}
+.btn-duplicate
+{
+	background: url(images/icn-duplicate_item.png) no-repeat;
+}
+.btn-chart
+{
+	background: url(images/icn-chart.png) no-repeat;
+}
+.btn-refresh
+{
+	background: url(images/icn-refresh.png) no-repeat;
+}
+.btn-settings 
+{
+    background: url(images/icn-dark_settings.png) no-repeat;
+}
+.btn-add 
+{
+	background: url(images/icn-add_item.png) no-repeat;
+}
+.btn-expand
+{
+    background: url(images/btn-toggle_pane-closed.png) no-repeat;
+}
+.btn-collapse
+{
+    background: url(images/btn-toggle_pane-open.png) no-repeat;
+}
+.btn-roundplus 
+{
+	background: url(images/icn-add_item.png) no-repeat;
+}
+.btn-list 
+{
+	background: url(images/icn-list.png) no-repeat;
+}
+.btn-design
+{
+	background: url(images/icn-design.png) no-repeat;
+}
+.btn-search
+{
+	background: url(images/icn-search.png) no-repeat;
+}
+.btn-lock
+{
+	background: url(images/icn-lock.png) no-repeat;
+}
+.btn-unlock
+{
+	background: url(images/icn-unlock.png) no-repeat;
+}
+.btn-back
+{
+	background: url(images/icn-back.png) no-repeat;
+}
+.btn-save, .btn-save_project
+{
+	background: url(images/icn-check.png) no-repeat;
+}
+.btn-cancel, .btn-cancelEdit_project
+{
+	background: url(images/icn-cancel.png) no-repeat;
+}
+.btn-pdf
+{
+	background: url(images/icn-pdf.png) no-repeat;
+}
+.btn-print
+{
+	background: url(images/icn-print.png) no-repeat;
+}
+.btn-up
+{
+	background: url(images/icn-move_up.png) no-repeat;
+}
+.btn-down
+{
+	background: url(images/icn-move_down.png) no-repeat;
+}
+.btn-preview
+{
+    background: url(images/icn-see.png) no-repeat;
+}
+.btn-publish
+{
+    background: url(images/icn-check_out.png) no-repeat;
+}
+.btn-go_up {
+	background: url(images/icn-arrow_up.png) no-repeat;
+}
+.icn-undo
+{
+	background: url(images/icn-undo.png) no-repeat;
+}
+
+
+.without_text
+{
+	text-indent: -9999em;
+	width: 17px;
+	background-position: center center;
+}
+.with_text 
+{
+	background-position: 7px center !important;
+	padding-left: 28px !important;
+	width: auto;
+	text-decoration: none;
+}
+.icn-organization
+{
+	background: url(images/icn-organization.png) center center no-repeat;
+}
+.icn-checked_in
+{
+	background: url(images/icn-check_in.png) center center no-repeat;
+}
+.icn-checked_out
+{
+	background: url(images/icn-check_out.png) center center no-repeat;
+}
+.icn-locked 
+{	
+	background: url(images/icn-lock.png) center center no-repeat;
+}
+.icn-unlocked 
+{	
+	background: url(images/icn-unlock.png) center center no-repeat;
+}
+.icn-project 
+{	
+	background: url(images/icn-project.png) center center no-repeat;
+}
+.icn-team 
+{	
+	background: url(images/icn-team.png) center center no-repeat;
+}
+.icn-person 
+{	
+	background: url(images/icn-person.png) center center no-repeat;
+}
+.icn-department 
+{	
+	background: url(images/icn-department.png) center center no-repeat;
+}
+.icn-one_star 
+{	
+	background: url(images/icn-one_star.png) center center no-repeat;
+}
+.icn-two_stars 
+{	
+	background: url(images/icn-two_stars.png) center center no-repeat;
+}
+.icn-three_stars 
+{	
+	background: url(images/icn-three_stars.png) center center no-repeat;
+}
+.icn-four_stars 
+{	
+	background: url(images/icn-four_stars.png) center center no-repeat;
+}
+.icn-started 
+{	
+	background: url(images/icn-started.png) center center no-repeat;
+}
+.icn-late 
+{	
+	background: url(images/icn-late.png) center center no-repeat;
+}
+.icn-not_started 
+{	
+	background: url(images/icn-not_started.png) center center no-repeat;
+}
+.icn-finished 
+{	
+	background: url(images/icn-check.png) center center no-repeat;
+}
+.icn-symbol-error 
+{	
+	background: url(images/icn-symbol-error.png) center center no-repeat;
+}
+.icn-symbol-help 
+{	
+	background: url(images/icn-symbol-help.png) center center no-repeat;
+}
+.icn-symbol-information 
+{	
+	background: url(images/icn-symbol-information.png) center center no-repeat;
+}
+.icn-calendar 
+{
+    background: url(images/icons/date.png) center center no-repeat;
+}
+.icn-new-calendar
+{
+    background: url(images/icons/date_add.png) center center no-repeat;   
+}
+.just_icon 
+{
+	height: 15px;
+	text-indent: -9999em;
+	width: 20px;
+	display: block;
+	border: none;
+	display: inline-block;
+}
+#bbit-cal-buddle-timeshow 
+{
+    font-size: 15px;
+    font-weight: bold;
+    color: #444;
+}
+
+.title-side {
+  background: url(images/icons/history-small.png) 0 50% no-repeat; }
+
+.description-side {
+  background: url(images/icons/fotepad.png) 0 50% no-repeat; }
+
+.checklist-side {
+  background: url(images/icons/format-headings.png) 0 50% no-repeat; }
+
+.tags-side {
+  background: url(images/icons/push-pin-note.png) 0 50% no-repeat; }
+
+.custom-attributes-side {
+  background: url(images/icons/objects.png) 0 50% no-repeat; }
+
+.estimated-date-side {
+  background: url(images/icons/symbol-clock.jpg) 0 50% no-repeat; }
+
+.real-date-side {
+  background: url(images/icons/clock-alarm.jpg) 0 50% no-repeat; }
+
+.context-side {
+  background: url("images/icons/group-by.png") 0 50% no-repeat; }
+
+.repetion-side {
+  background: url(images/icons/restart.png) 0 50% no-repeat; }
+
+.settings-side {
+  background: url(images/icons/settings.png) 0 50% no-repeat; }
+
+.assignee-side {
+  background: url(images/icons/user-group.png) 0 50% no-repeat; }
+
+.supervisors-side {
+  background: url("images/icons/thumbs-up.png") 0 50% no-repeat; }
+
+.attachments-side {
+  background: url(images/icons/network-folder.jpg) 0 50% no-repeat; }
+
+.discussion-side {
+  background: url(images/icons/symbol-chat.png) 0 50% no-repeat; }
+
+.livedoc-side {
+  background: url(images/icons/icn-livedoc.png) 0 50% no-repeat; }
+ 
+/* File system */
+
+.webfs_folder {
+	width: 16px;
+	height: 16px;
+	background: url(images/icons/folder-open.png) 0 0 no-repeat;
+	display: inline-block;
+	margin-left: 20px;
+	float: left;
+}
+.webfs_file {
+	width: 16px;
+	height: 16px;
+	background: url(images/document/document.png) 0 0 no-repeat;
+	display: inline-block;
+	margin-left: 20px;
+	float: left;
+}
+
+ 
+/* Loading general pentru bara cu actiuni */  
+a.loading {
+	background: url(images/loader-header.gif) no-repeat;
+}  
+
+/* Bnt upload tasks*/
+
+.btn-upload {
+	background: #EEE url(images/icn-upload.png) 5px 50% no-repeat !important;
+	padding-left: 25px !important;
+}

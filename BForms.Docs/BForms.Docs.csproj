@@ -116,12 +116,16 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Demo\Controllers\ContributorsController.cs" />
     <Compile Include="Areas\Demo\Controllers\LoginController.cs" />
     <Compile Include="Areas\Demo\DemoAreaRegistration.cs" />
     <Compile Include="Areas\Demo\Helpers\Utils.cs" />
+    <Compile Include="Areas\Demo\Mock\Entities.cs" />
     <Compile Include="Areas\Demo\Mock\Enums.cs" />
     <Compile Include="Areas\Demo\Mock\Lists.cs" />
+    <Compile Include="Areas\Demo\Models\ContributorsModels.cs" />
     <Compile Include="Areas\Demo\Models\LoginModels.cs" />
+    <Compile Include="Areas\Demo\Repositories\ContributorsRepository.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ComponentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -135,6 +139,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
+    <Content Include="Areas\Demo\Views\Contributors\Grid\Details\_IdentityEditable.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Areas\Demo\Views\Contributors\Grid\Details\_IdentityReadonly.cshtml">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="Content\Images\Docs\autocomplete-select.jpg" />
     <Content Include="Content\Images\Docs\checkboxlist-select.jpg" />
     <Content Include="Content\Images\Docs\datepicker-input.jpg" />
@@ -148,6 +158,7 @@
     <Content Include="Content\Images\Docs\taglist-search-select.jpg" />
     <Content Include="Content\Images\Docs\timepicker-input.jpg" />
     <Content Include="Content\Images\Docs\timepicker-range.jpg" />
+    <Content Include="Scripts\BForms\Components\Amplify\amplify.store.min.js" />
     <Content Include="Scripts\BForms\Plugins\Datepicker\js\bforms.datepicker.js" />
     <Content Include="Scripts\BForms\Plugins\Datepicker\js\bforms.datepicker.tmpl.js" />
     <Content Include="Scripts\BForms\Plugins\Datepicker\js\bforms.datepicker.range.js" />
@@ -163,7 +174,34 @@
     <Content Include="Scripts\BForms\Plugins\Datepicker\css\images\icn-calendar.png" />
     <Content Include="Scripts\BForms\Plugins\Datepicker\css\images\icn-remove.png" />
     <Content Include="Scripts\BForms\Plugins\Datepicker\css\images\icn-time.png" />
+    <Content Include="Scripts\BForms\Plugins\Grid\js\bforms.editable.js" />
+    <Content Include="Scripts\BForms\Plugins\Grid\js\bforms.form.js" />
+    <Content Include="Scripts\BForms\Plugins\Grid\js\bforms.grid.js" />
+    <Content Include="Scripts\BForms\Plugins\Grid\js\bforms.pager.js" />
+    <Content Include="Scripts\BForms\Plugins\Grid\js\bforms.toolbar.js" />
+    <Content Include="Scripts\BForms\Stylesheets\grid.css" />
+    <Content Include="Scripts\BForms\Plugins\Utils\bforms.namespace.js" />
+    <Content Include="Scripts\BForms\Stylesheets\icons.css" />
+    <Content Include="Scripts\BForms\Stylesheets\Images\icn-add_item.png" />
+    <Content Include="Scripts\BForms\Stylesheets\Images\icn-one_star.png" />
+    <Content Include="Scripts\BForms\Stylesheets\Images\icn-refresh.png" />
+    <Content Include="Scripts\BForms\Stylesheets\Images\icn-search.png" />
+    <Content Include="Scripts\BForms\Stylesheets\Images\icn-three_stars.png" />
+    <Content Include="Scripts\BForms\Stylesheets\Images\icn-two_stars.png" />
+    <Content Include="Scripts\BForms\Stylesheets\Images\icons\checkbox.gif" />
+    <Content Include="Scripts\BForms\Stylesheets\Images\icons\edit-pencil.gif" />
+    <Content Include="Scripts\BForms\Stylesheets\Images\icons\grippy.png" />
+    <Content Include="Scripts\BForms\Stylesheets\Images\icn-cancel.png" />
+    <Content Include="Scripts\BForms\Stylesheets\Images\icn-check.png" />
+    <Content Include="Scripts\BForms\Stylesheets\Images\icons\icn-down_arrow-small.png" />
+    <Content Include="Scripts\BForms\Stylesheets\Images\icons\icn-order_down.png" />
+    <Content Include="Scripts\BForms\Stylesheets\Images\icons\icn-order_up.png" />
+    <Content Include="Scripts\BForms\Stylesheets\Images\icons\icn-right_arrow-small.png" />
+    <Content Include="Scripts\BForms\Stylesheets\Images\pencil-small.png" />
+    <Content Include="Scripts\BForms\Stylesheets\Images\ui-anim_basic_16x16.gif" />
+    <Content Include="Scripts\Controllers\Demo\Contributors\contributors-index.js" />
     <Content Include="Scripts\Controllers\Root\Components\components-rangeextensions.js" />
+    <Content Include="Scripts\Controllers\Root\Components\components-grid.js" />
     <Content Include="Views\Components\InputExtensions\Source\InputPasswordSpecializedView.cshtml.embed" />
     <Content Include="Views\Components\InputExtensions\Source\InputUrlSpecializedModel.cs.embed" />
     <Content Include="Views\Components\InputExtensions\Source\InputUrlSpecializedView.cshtml.embed" />
@@ -537,6 +575,118 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Components\SelectExtensions\Source\ListItem-data.cshtml.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\BForms\Plugins\Utils\bforms.ajax.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\BForms\Stylesheets\grid.scss" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Demo\Views\Contributors\Index.cshtml" />
+    <Content Include="Areas\Demo\Views\Contributors\Grid\_Grid.cshtml" />
+    <Content Include="Areas\Demo\Views\Contributors\Toolbar\_Toolbar.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Demo\Views\Contributors\Toolbar\_New.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Demo\Views\Contributors\Toolbar\_Search.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Demo\Views\Contributors\Grid\Details\_Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Demo\Views\Contributors\Grid\_Actions.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\Grid\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\Grid\_Models.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\Grid\_GridHelper.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\Grid\Source\_ViewModel.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\Grid\Source\_Attributes.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\Grid\Source\_GridHelper.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\Grid\Source\_ToolbarHelper.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\Grid\Source\_HtmlAttributes.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\Grid\Source\_RowHighlighter.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\Grid\Source\_RowData.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\Grid\Source\_ConfigureColumns.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\Grid\Source\_ConfigureColumnsExample.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\Grid\Source\_Actions.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\Grid\_ToolbarHelper.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\Grid\Source\_HtmlAttributesToolbar.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\Grid\Source\_ConfigureActions.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\Grid\Source\_ConfigureActionsExample.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\Grid\Source\_ActionTypes.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\Grid\_Repository.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\Grid\Source\_Query.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\Grid\Source\_OrderQuery.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\Grid\Source\_MapQuery.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\Grid\Source\_RepositoryExample.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\Grid\Source\_ToViewModel.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\Grid\Source\_ToViewModelExtensions.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\Grid\Source\_ControllerExample.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\Grid\_Javascript.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Components\Grid\Source\_JavascriptToolbar.cs.embed" />
+    <Content Include="Areas\Demo\Views\Contributors\Grid\Details\_ProjectRelatedEditable.cshtml" />
+    <Content Include="Areas\Demo\Views\Contributors\Grid\Details\_ProjectRelatedReadonly.cshtml" />
+    <Content Include="Areas\Demo\Views\Contributors\Grid\Details\_Identity.cshtml" />
+    <Content Include="Areas\Demo\Views\Contributors\Grid\Details\_ProjectRelated.cshtml" />
+    <None Include="Views\Components\Grid\Source\_JavascriptGrid.cs.embed" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
