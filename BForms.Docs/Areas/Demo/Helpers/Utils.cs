@@ -5,22 +5,25 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using BForms.Models;
+using BForms.Html;
 using BForms.Docs.Areas.Demo.Models;
 
 namespace BForms.Docs.Areas.Demo.Helpers
 {
     public static class Utils
     {
-        public static string GetRoleIcon<T>(this HtmlHelper<T> helper, ProjectRole role)
+        public static MvcHtmlString GetRoleIcon<T>(this HtmlHelper<T> helper, ProjectRole role)
         {
+            var star = helper.BsGlyphicon(Glyphicon.Star);
+
             switch (role)
             {
                 case ProjectRole.TeamLeader:
-                    return "icn-three_stars";
+                    return new MvcHtmlString(star.ToString() + star + star);
                 case ProjectRole.Developer:
-                    return "icn-two_stars";
+                    return new MvcHtmlString(star.ToString() + star);
                 default:
-                    return "icn-one_star";
+                    return new MvcHtmlString(star.ToString());
             }
         }
 
