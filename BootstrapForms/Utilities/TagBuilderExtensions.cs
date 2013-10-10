@@ -7,9 +7,9 @@ using System.Web.Mvc;
 
 namespace BootstrapForms.Utilities
 {
-    public static class  TagBuilderExtensions
+    internal static class  TagBuilderExtensions
     {
-        public static void MergeClassAttribute(this TagBuilder tagBuilder, string value, Dictionary<string, object> dictAttr)
+        internal static void MergeClassAttribute(this TagBuilder tagBuilder, string value, Dictionary<string, object> dictAttr)
         {
             var key = "class";
 

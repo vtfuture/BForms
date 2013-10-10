@@ -67,10 +67,6 @@ namespace BootstrapForms.Utilities
         /// <summary>
         /// Gets propertyInfo from expression
         /// </summary>
-        /// <typeparam name="TSource"></typeparam>
-        /// <typeparam name="TProperty"></typeparam>
-        /// <param name="propertyLambda"></param>
-        /// <returns></returns>
         public static PropertyInfo GetPropertyInfo<TSource, TProperty>(this Expression<Func<TSource, TProperty>> propertyLambda)
         {
             Type type = typeof(TSource);

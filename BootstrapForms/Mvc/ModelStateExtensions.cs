@@ -15,6 +15,9 @@ namespace BootstrapForms.Mvc
     /// </summary>
     public static class ModelStateExtensions
     {
+        /// <summary>
+        /// Returns a dictionary will all model state errors
+        /// </summary>
         public static Dictionary<string, string> GetErrors(this ModelStateDictionary modelState, string replaceWith = ".")
         {
             var errorDictionary = new Dictionary<string, string>();
@@ -37,12 +40,18 @@ namespace BootstrapForms.Mvc
             }
         }
 
+        /// <summary>
+        /// Substitute for ValidationSummary
+        /// </summary>
         public static void AddFormError(this ModelStateDictionary modelState, string prefix, string errorMessage)
         {
             var key = string.IsNullOrEmpty(prefix) ? "BsFormError" : prefix + ".BsFormError";
             modelState.AddModelError(key, errorMessage);
         }
 
+        /// <summary>
+        /// Substitute for AddModelError
+        /// </summary>
         public static void AddFieldError(this ModelStateDictionary modelState, string prefix, Type filedType, string errorMessage)
         {
             var key = prefix;

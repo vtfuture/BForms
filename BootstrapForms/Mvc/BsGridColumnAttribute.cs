@@ -43,8 +43,14 @@ namespace BootstrapForms.Mvc
             }
         }
 
+        /// <summary>
+        /// Column order
+        /// </summary>
         public int Order { get; set; }
 
+        /// <summary>
+        /// Column width expected values 1-12
+        /// </summary>
         public int Width { get; set; }
 
         /// <summary>
