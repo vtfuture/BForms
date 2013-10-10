@@ -129,6 +129,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
         {
             var msg = string.Empty;
             var status = BsResponseStatus.Success;
+            var html = string.Empty;
 
             try
             {
@@ -136,7 +137,17 @@ namespace BForms.Docs.Areas.Demo.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    _gridRepository.Update(model, objId, componentId);
+                    var detailsModel = _gridRepository.Update(model, objId, componentId);
+
+                    switch (componentId)
+                    {
+                        case EditComponents.Identity:
+                            html = this.BsRenderPartialView("Grid/Details/_IdentityReadonly", detailsModel);
+                            break;
+                        case EditComponents.ProjectRelated:
+                            html = this.BsRenderPartialView("Grid/Details/_ProjectRelatedReadonly", detailsModel);
+                            break;
+                    }
                 }
             }
             catch (Exception ex)
@@ -147,6 +158,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
 
             return new BsJsonResult(new
             {
+                Html = html
             }, status, msg);
         }
 

@@ -205,7 +205,7 @@ namespace BForms.Docs.Areas.Demo.Repositories
             return db.Contributors.Where(x => x.Id == objId).Select(MapContributor_ContributorRowModel).FirstOrDefault();
         }
 
-        public void Update(ContributorDetailsModel model, int objId, EditComponents componentId)
+        public ContributorDetailsModel Update(ContributorDetailsModel model, int objId, EditComponents componentId)
         {
             var entity = db.Contributors.FirstOrDefault(x => x.Id == objId);
 
@@ -229,7 +229,7 @@ namespace BForms.Docs.Areas.Demo.Repositories
                 db.SaveChanges();
             }
 
-            //return FillDetailsProperties(MapContributor_ContributorDetailsModel(entity));
+            return FillDetailsProperties(MapContributor_ContributorDetailsModel(entity));
         }
 
         public void EnableDisable(int objId, bool? enable)

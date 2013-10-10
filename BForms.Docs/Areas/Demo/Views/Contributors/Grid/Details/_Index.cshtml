@@ -6,22 +6,16 @@
 <div class="row row_more">
     <div class="col-lg-6">
         <div id="contributor_identity" class="grid_details description js-editableIdentity">
-            <h3 class="editable">@Html.BsGlyphicon(Glyphicon.User) Identity</h3>
 
-            @Html.BsPartialPrefixed(x => x, "Grid/Details/_IdentityReadonly", Model, "x" + Model.Id.ToString())
-
-            @Html.BsPartialPrefixed(x => x, "Grid/Details/_IdentityEditable", Model, "x" + Model.Id.ToString())
+            @Html.BsPartialPrefixed(x => x, "Grid/Details/_Identity", Model, "x" + Model.Id.ToString())
             
         </div>
     </div>
 
     <div class="col-lg-6">
         <div id="contributor_project" class="grid_details description js-editableProject">
-            <h3 class="editable">@Html.BsGlyphicon(Glyphicon.Tags) Project related</h3>
 
-            @Html.BsPartialPrefixed(x => x, "Grid/Details/_ProjectRelatedReadonly", Model, "x" + Model.Id.ToString())
-
-            @Html.BsPartialPrefixed(x => x, "Grid/Details/_ProjectRelatedEditable", Model, "x" + Model.Id.ToString())
+            @Html.BsPartialPrefixed(x => x, "Grid/Details/_ProjectRelated", Model, "x" + Model.Id.ToString())
 
         </div>
     </div>

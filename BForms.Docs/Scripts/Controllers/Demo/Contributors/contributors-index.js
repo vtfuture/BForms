@@ -141,7 +141,7 @@
                 componentId: componentId
             },
             editSuccessHandler: $.proxy(function (editResponse) {
-                this.$grid.bsGrid('updateRow', $row, true);
+                //this.$grid.bsGrid('updateRow', $row, true);
             }, this)
         }
     };
