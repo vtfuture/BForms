@@ -160,7 +160,7 @@
     <value>Info</value>
   </data>
   <data name="IsEnabled" xml:space="preserve">
-    <value>Is enabled</value>
+    <value>Is active</value>
   </data>
   <data name="Job" xml:space="preserve">
     <value>Job</value>
