@@ -96,6 +96,14 @@ a.btn {
     font-family: arial, verdana, sans-serif; }
   .grids_container ul {
     padding: 0; }
+  .grids_container .btn-default {
+    color: #333333;
+    background-color: #ffffff;
+    border: 1px solid #cccccc; }
+    .grids_container .btn-default:hover, .grids_container .btn-default:focus {
+      background: #ebebeb !important;
+      color: #333333;
+      text-decoration: none; }
   .grids_container .grids_header_bar {
     background: #559ed6;
     color: #fff;
@@ -117,8 +125,9 @@ a.btn {
         border-left: 1px solid #4092d1;
         color: #fff; }
         .grids_container .grids_header_bar .grids_controls a:hover {
-          background-color: #4092d1;
-          text-decoration: none; }
+          background-color: #4092d1 !important;
+          text-decoration: none;
+          color: #fff !important; }
         .grids_container .grids_header_bar .grids_controls a.selected {
           background-color: #f6f6f6;
           color: #333; }
@@ -257,8 +266,7 @@ a.btn {
           position: relative;
           font-weight: normal;
           font-size: 14px;
-          padding: 5px 0;
-          padding-left: 22px; }
+          padding: 5px 0; }
           .grids_container .grid_view .row_wrapper .row_more .grid_details h3.editable {
             cursor: pointer; }
             .grids_container .grid_view .row_wrapper .row_more .grid_details h3.editable:after {
@@ -426,3 +434,7 @@ a.btn {
   z-index: 999;
   opacity: 0.9;
   filter: Alpha(opacity=90); }
+
+@media (max-width: 756px) {
+  .grids_header_expand .row {
+    padding: 0 15px; } }

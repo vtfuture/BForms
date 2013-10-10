@@ -116,6 +116,16 @@ a.btn {
 	ul {
 		padding: 0;
 	}
+	.btn-default {
+		color: #333333;
+		background-color: #ffffff;
+		border: 1px solid #cccccc;
+		&:hover, &:focus {
+			background: #ebebeb !important;
+			color: #333333;
+			text-decoration: none;
+		}
+	}
 	.grids_header_bar {
 		background: $lightBlue;
 		color: #fff;
@@ -138,8 +148,9 @@ a.btn {
 				border-left: 1px solid darken($lightBlue, 5%);
 				color: #fff;
 				&:hover {
-					background-color: darken($lightBlue, 5%);
+					background-color: darken($lightBlue, 5%) !important;
 					text-decoration: none;
+					color: #fff !important; 
 				}
 				&.selected {
 					background-color: #f6f6f6;
@@ -332,7 +343,6 @@ a.btn {
 						font-weight: normal;
 						font-size: 14px;
 						padding: 5px 0;
-						padding-left: 22px;
 						&.editable {
 							cursor: pointer;
 							&:after {
@@ -570,5 +580,11 @@ a.btn {
 		z-index: 999;
 		opacity: 0.9;
 		filter: Alpha(opacity=90);
+	}
+}
+
+@media (max-width: 756px) {
+	.grids_header_expand .row {
+		padding: 0 15px;
 	}
 }
