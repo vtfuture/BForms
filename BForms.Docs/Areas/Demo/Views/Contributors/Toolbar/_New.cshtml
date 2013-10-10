@@ -1,4 +1,5 @@
 ﻿@using BForms.Docs.Areas.Demo.Mock
+@using BForms.Docs.Areas.Demo.Models
 @using BForms.Docs.Resources
 @using BForms.Html
 @using BForms.Models
@@ -67,7 +68,7 @@
                     @Html.BsLabelFor(m => m.RoleList)
                     <div class="input-group">
                         @Html.BsGlyphiconAddon(Glyphicon.Star)
-                        @Html.BsSelectFor(model => model.RoleList)
+                        @Html.BsSelectFor(model => model.RoleList, new Dictionary<string, object>() { { "data-initialvalue", (byte)ProjectRole.Developer } })
                         @Html.BsValidationFor(m => m.RoleList)
                     </div>
                 </div>

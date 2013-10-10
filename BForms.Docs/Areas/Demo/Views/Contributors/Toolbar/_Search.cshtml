@@ -37,7 +37,7 @@
                 <div class="col-12 col-sm-6 col-lg-6 form-group">
                     @Html.BsLabelFor(m => m.IsEnabled)
                     <div class="input-group">
-                        @Html.BsSelectFor(model => model.IsEnabled, new Dictionary<string, object>() { { "data-initialvalue", (byte)YesNoValueTypes.Yes } }, null)
+                        @Html.BsSelectFor(model => model.IsEnabled, new Dictionary<string, object>() { { "data-initialvalue", (byte)YesNoValueTypes.Both } }, null)
                     </div>
                 </div>
 

@@ -99,7 +99,7 @@ namespace BForms.Grid
                 {
                     orderedQuery = query.OrderBy(defaultPropName);
                 }
-                else
+                else if (defaultOrderType == BsOrderType.Descending)
                 {
                     orderedQuery = query.OrderByDescending(defaultPropName);
                 }
@@ -121,7 +121,7 @@ namespace BForms.Grid
                             {
                                 orderedQuery = orderedQuery.OrderBy(expression);
                             }
-                            else
+                            else if (item.Type == BsOrderType.Descending)
                             {
                                 orderedQuery = orderedQuery.OrderByDescending(expression);
                             }
@@ -140,7 +140,7 @@ namespace BForms.Grid
                         {
                             orderedQuery = orderedQuery.OrderBy(name);
                         }
-                        else
+                        else if (item.Type == BsOrderType.Descending)
                         {
                             orderedQuery = orderedQuery.OrderByDescending(name);
                         }

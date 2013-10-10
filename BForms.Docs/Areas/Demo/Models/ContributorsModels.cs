@@ -118,6 +118,10 @@ namespace BForms.Docs.Areas.Demo.Models
             IsEnabled = new BsSelectList<YesNoValueTypes?>();
             IsEnabled.ItemsFromEnum(typeof(YesNoValueTypes), YesNoValueTypes.Both);
             IsEnabled.SelectedValues = YesNoValueTypes.Yes;
+
+            RoleList = new BsSelectList<ProjectRole?>();
+            RoleList.ItemsFromEnum(typeof(ProjectRole));
+            RoleList.SelectedValues = ProjectRole.Developer;
         }
 
         [Required]
