@@ -104,6 +104,10 @@ namespace BForms.Docs.Areas.Demo.Mock
             list.Items.Add(new BsSelectListItem() { Text = "Ada", Value = "Ada" });
             list.Items.Add(new BsSelectListItem() { Text = "ActionScript", Value = "ActionScript" });
             list.Items.Add(new BsSelectListItem() { Text = "Visual Basic", Value = "Visual Basic" });
+            list.Items.Add(new BsSelectListItem() { Text = "CSS", Value = "CSS" });
+            list.Items.Add(new BsSelectListItem() { Text = "HTML", Value = "HTML" });
+            list.Items.Add(new BsSelectListItem() { Text = "SASS", Value = "SASS" });
+            list.Items.Add(new BsSelectListItem() { Text = "SQL", Value = "SQL" });
 
             return list;
         }
