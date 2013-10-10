@@ -262,11 +262,8 @@ namespace BForms.Docs.Areas.Demo.Controllers
                 case EditComponents.Identity:
                     ms.ClearModelState(new List<string>() { "FirstName", "LastName", "Url", "CountriesList"});
                     break;
-                case EditComponents.Contributions:
-                    ms.ClearModelState("Contributions");
-                    break;
                 case EditComponents.ProjectRelated:
-                    ms.ClearModelState(new List<string>() { "RoleList", "StartDate", "LanguagesList" });
+                    ms.ClearModelState(new List<string>() { "RoleList", "StartDate", "LanguagesList", "Contributions" });
                     break;
             }
         }

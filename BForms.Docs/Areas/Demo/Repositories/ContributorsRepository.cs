@@ -219,13 +219,11 @@ namespace BForms.Docs.Areas.Demo.Repositories
                         entity.Url = model.Url;
                         entity.Country = model.CountriesList.SelectedValues;
                         break;
-                    case EditComponents.Contributions:
-                        entity.Contributions = model.Contributions;
-                        break;
                     case EditComponents.ProjectRelated:
                         entity.Role = model.RoleList.SelectedValues.Value;
                         entity.StartDate = model.StartDate.DateValue.Value;
                         entity.Languages = model.LanguagesList.SelectedValues;
+                        entity.Contributions = model.Contributions;
                         break;
                 }
                 db.SaveChanges();

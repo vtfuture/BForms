@@ -177,7 +177,6 @@ namespace BForms.Docs.Areas.Demo.Models
     public enum EditComponents
     {
         Identity = 1,
-        ProjectRelated = 2,
-        Contributions = 3
+        ProjectRelated = 2
     }
 }

@@ -684,8 +684,6 @@
     <Content Include="Views\Components\Grid\Source\_JavascriptToolbar.cs.embed" />
     <Content Include="Areas\Demo\Views\Contributors\Grid\Details\_ProjectRelatedEditable.cshtml" />
     <Content Include="Areas\Demo\Views\Contributors\Grid\Details\_ProjectRelatedReadonly.cshtml" />
-    <Content Include="Areas\Demo\Views\Contributors\Grid\Details\_ContributionsEditable.cshtml" />
-    <Content Include="Areas\Demo\Views\Contributors\Grid\Details\_ContributionsReadonly.cshtml" />
     <None Include="Views\Components\Grid\Source\_JavascriptGrid.cs.embed" />
   </ItemGroup>
   <PropertyGroup>

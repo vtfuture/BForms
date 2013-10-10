@@ -130,9 +130,6 @@
 
         var projectOpt = this._editableOptions($row, this.options.editComponents.ProjectRelated);
         response.$html.find('.js-editableProject').bsEditable(projectOpt);
-
-        var contributions = this._editableOptions($row, this.options.editComponents.Contributions);
-        response.$html.find('.js-editableContributions').bsEditable(contributions);
     };
 
     GridIndex.prototype._editableOptions = function ($row, componentId) {

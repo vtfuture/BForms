@@ -4,7 +4,7 @@
 @model BForms.Docs.Areas.Demo.Models.ContributorDetailsModel
 
 <div class="row row_more">
-    <div class="col-lg-3">
+    <div class="col-lg-6">
         <div id="contributor_identity" class="grid_details description js-editableIdentity">
             <h3 class="editable">@Html.BsGlyphicon(Glyphicon.User) Identity</h3>
 
@@ -15,24 +15,13 @@
         </div>
     </div>
 
-    <div class="col-lg-5">
+    <div class="col-lg-6">
         <div id="contributor_project" class="grid_details description js-editableProject">
             <h3 class="editable">@Html.BsGlyphicon(Glyphicon.Tags) Project related</h3>
 
             @Html.BsPartialPrefixed(x => x, "Grid/Details/_ProjectRelatedReadonly", Model, "x" + Model.Id.ToString())
 
             @Html.BsPartialPrefixed(x => x, "Grid/Details/_ProjectRelatedEditable", Model, "x" + Model.Id.ToString())
-
-        </div>
-    </div>
-
-    <div class="col-lg-4">
-        <div id="contributor_contributions" class="grid_details description js-editableContributions">
-            <h3 class="editable">@Html.BsGlyphicon(Glyphicon.Stats) Contributions</h3>
-
-            @Html.BsPartialPrefixed(x => x, "Grid/Details/_ContributionsReadonly", Model, "x" + Model.Id.ToString())
-
-            @Html.BsPartialPrefixed(x => x, "Grid/Details/_ContributionsEditable", Model, "x" + Model.Id.ToString())
 
         </div>
     </div>

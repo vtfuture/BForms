@@ -29,4 +29,12 @@
             @Html.BsValidationFor(m => m.LanguagesList)
         </div>
     </div>
+    <div class="col-12 col-sm-12 col-lg-12 form-group @Html.BsValidationCssFor(m => m.Contributions)">
+        @Html.BsLabelFor(m => m.Contributions)
+        <div class="input-group">
+            @Html.BsGlyphiconAddon(Glyphicon.Stats)
+            @Html.BsInputFor(m => m.Contributions)
+            @Html.BsValidationFor(m => m.Contributions)
+        </div>
+    </div>
 }

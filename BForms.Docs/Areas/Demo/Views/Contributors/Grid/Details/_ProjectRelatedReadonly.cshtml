@@ -20,4 +20,11 @@
             <dd>@String.Join(", ", Model.Languages.ToArray())</dd>
         </dl>
     }
+    @if (!string.IsNullOrEmpty(Model.Contributions))
+    {
+        <dl>
+            <dt>contributions &nbsp;</dt>
+            <dd>@Model.Contributions</dd>
+        </dl>
+    }
 </div>
