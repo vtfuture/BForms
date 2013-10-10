@@ -22,6 +22,31 @@ namespace BForms.Grid
         /// </summary>
         protected BsGridRepositorySettings<TSearch> settings;
 
+        public interface IQueryCriteria<TEntity>
+        {
+            IOrderedQueryable<TEntity> OrderBy(IQueryable<TEntity> query);
+
+            IOrderedQueryable<TEntity> OrderByDescending(IQueryable<TEntity> query);
+        }
+
+        public class QueryCriteria<TEntity, TReturn> : IQueryCriteria<TEntity>
+        {
+            public QueryCriteria(Expression<Func<TEntity, TReturn>> expression)
+            {
+                storedExpression = expression;
+            }
+            private static Expression<Func<TEntity, TReturn>> storedExpression { get; set; }
+            public IOrderedQueryable<TEntity> OrderBy(IQueryable<TEntity> query)
+            {
+                return query.OrderBy(storedExpression);
+            }
+
+            public IOrderedQueryable<TEntity> OrderByDescending(IQueryable<TEntity> query)
+            {
+                return query.OrderByDescending(storedExpression);
+            }
+        }
+
         /// <summary>
         /// Builder for generic ordered query
         /// </summary>
@@ -30,7 +55,7 @@ namespace BForms.Grid
         {
             List<BsColumnOrder> columnsOrder;
             Dictionary<string, Func<IQueryable<TEntity>, BsOrderType, IOrderedQueryable<TEntity>>> delegateSettings = new Dictionary<string, Func<IQueryable<TEntity>, BsOrderType, IOrderedQueryable<TEntity>>>();
-            Dictionary<string, Expression<Func<TEntity, object>>> expressionSettings = new Dictionary<string, Expression<Func<TEntity, object>>>();
+            Dictionary<string, IQueryCriteria<TEntity>> expressionSettings = new Dictionary<string, IQueryCriteria<TEntity>>();
 
             /// <summary>
             /// .ctor
@@ -49,11 +74,14 @@ namespace BForms.Grid
             /// <typeparam name="TKey">Row property type</typeparam>
             /// <param name="columnSelector">Row column selector</param>
             /// <param name="orderDelegate">Order expression</param>
-            public void OrderFor<TKey>(Expression<Func<TRow, TKey>> columnSelector, Expression<Func<TEntity, object>> orderDelegate)
+            public void OrderFor<TKey, TReturn>(Expression<Func<TRow, TKey>> columnSelector, Expression<Func<TEntity, TReturn>> orderDelegate)
             {
+
                 var fullName = ExpressionHelper.GetExpressionText(columnSelector);
                 var columnName = fullName.Split('.').Last();
-                expressionSettings.Add(columnName, orderDelegate);
+
+                IQueryCriteria<TEntity> criteria = new QueryCriteria<TEntity, TReturn>(orderDelegate);
+                expressionSettings.Add(columnName, criteria);
             }
 
             /// <summary>
@@ -65,6 +93,7 @@ namespace BForms.Grid
             /// <param name="orderDelegate">Order delegate</param>
             public void OrderFor<TKey>(Expression<Func<TRow, TKey>> columnSelector, Func<IQueryable<TEntity>, BsOrderType, IOrderedQueryable<TEntity>> orderDelegate)
             {
+
                 var fullName = ExpressionHelper.GetExpressionText(columnSelector);
                 var columnName = fullName.Split('.').Last();
 
@@ -115,15 +144,15 @@ namespace BForms.Grid
 
                         if (this.expressionSettings.ContainsKey(name))
                         {
-                            var expression = this.expressionSettings[name];
+                            var criteria = this.expressionSettings[name];
 
                             if (item.Type == BsOrderType.Ascending)
                             {
-                                orderedQuery = orderedQuery.OrderBy(expression);
+                                orderedQuery = criteria.OrderBy(orderedQuery);
                             }
                             else if (item.Type == BsOrderType.Descending)
                             {
-                                orderedQuery = orderedQuery.OrderByDescending(expression);
+                                orderedQuery = criteria.OrderByDescending(orderedQuery);
                             }
 
                             continue;
