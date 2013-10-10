@@ -145,13 +145,13 @@
     <value>Dezactivează</value>
   </data>
   <data name="Disabled" xml:space="preserve">
-    <value>Dezactivat</value>
+    <value>Inactiv</value>
   </data>
   <data name="Enable" xml:space="preserve">
     <value>Activează</value>
   </data>
   <data name="Enabled" xml:space="preserve">
-    <value>Activat</value>
+    <value>Activ</value>
   </data>
   <data name="FirstName" xml:space="preserve">
     <value>Prenume</value>

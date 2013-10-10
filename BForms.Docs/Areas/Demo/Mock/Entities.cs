@@ -25,6 +25,7 @@ namespace BForms.Docs.Areas.Demo.Mock
                             Country = "Romania",
                             Role = ProjectRole.TeamLeader,
                             StartDate = new DateTime(2013, 8, 1),
+                            Languages = new List<string>() { "C#", "Javascript", "SQL", "Objective-C" },
                             Url = "http://www.stefanprodan.eu/",
                             Contributions = "concept, api, razor helpers, documentation, c# bug fixing, testing"
                         },
@@ -37,7 +38,8 @@ namespace BForms.Docs.Areas.Demo.Mock
                             Country = "Romania",
                             Role = ProjectRole.Developer,
                             StartDate = new DateTime(2013, 9, 1),
-                            Contributions = "grid component, razor helpers, c# & js bug fixing"
+                            Languages = new List<string>() { "C#", "Javascript", "SQL" },
+                            Contributions = "grid component, razor helpers, bug fixing"
                         },
                         
                         new Contributor()
@@ -48,7 +50,7 @@ namespace BForms.Docs.Areas.Demo.Mock
                             LastName = "C.",
                             Country = "Romania",
                             Role = ProjectRole.Developer,
-                            Languages = new List<string>() { "C#", "Javascript" },
+                            Languages = new List<string>() { "C#", "Javascript", "SQL", "PHP" },
                             StartDate = new DateTime(2013, 8, 15),
                             Contributions = "documentation, razor helpers"
                         },
@@ -61,6 +63,7 @@ namespace BForms.Docs.Areas.Demo.Mock
                             Country = "Romania",
                             Role = ProjectRole.Developer,
                             StartDate = new DateTime(2013, 8, 10),
+                            Languages = new List<string>() { "Javascript", "C#" },
                             Contributions = "bforms js framework, datetime picker, automated tests for js"
                         },
                         new Contributor()
@@ -73,7 +76,7 @@ namespace BForms.Docs.Areas.Demo.Mock
                             Role = ProjectRole.Developer,
                             StartDate = new DateTime(2013, 10, 1),
                             Languages = new List<string>() { "C#", "Javascript" },
-                            Contributions = "grid component, c# & js bug fixing"
+                            Contributions = "grid component, bug fixing"
                         },
                         new Contributor()
                         {
@@ -86,6 +89,114 @@ namespace BForms.Docs.Areas.Demo.Mock
                             StartDate = new DateTime(2013, 8, 5),
                             Languages = new List<string>() { "CSS", "HTML", "SASS" },
                             Contributions = "UI & UX, css master"
+                        },
+                        new Contributor()
+                        {
+                            Id = 7,
+                            Enabled = true,
+                            FirstName = "Mihai",
+                            LastName = "P.",
+                            Country = "Romania",
+                            Role = ProjectRole.Tester,
+                            StartDate = new DateTime(2013, 10, 14),
+                            Languages = new List<string>() { "C#", "Javascript" },
+                            Contributions = "testing, bug fixing"
+                        },
+                        new Contributor()
+                        {
+                            Id = 8,
+                            Enabled = false,
+                            FirstName = "Andrei",
+                            LastName = "F.",
+                            Country = "Romania",
+                            Role = ProjectRole.Tester,
+                            StartDate = new DateTime(2013, 10, 14),
+                            Languages = new List<string>() { "C#", "Javascript" },
+                            Contributions = "testing, bug fixing"
+                        },
+                        new Contributor()
+                        {
+                            Id = 9,
+                            Enabled = false,
+                            FirstName = "Bogdan",
+                            LastName = "T.",
+                            Country = "Romania",
+                            Role = ProjectRole.Tester,
+                            StartDate = new DateTime(2013, 10, 14),
+                            Languages = new List<string>() { "C#", "Javascript" },
+                            Contributions = "testing, bug fixing"
+                        },
+                        new Contributor()
+                        {
+                            Id = 10,
+                            Enabled = false,
+                            FirstName = "Cosmin",
+                            LastName = "G.",
+                            Country = "Romania",
+                            Role = ProjectRole.Tester,
+                            StartDate = new DateTime(2013, 10, 14),
+                            Languages = new List<string>() { "C#", "Javascript" },
+                            Contributions = "testing, bug fixing"
+                        },
+                        new Contributor()
+                        {
+                            Id = 11,
+                            Enabled = false,
+                            FirstName = "Marina",
+                            LastName = "C.",
+                            Country = "Romania",
+                            Role = ProjectRole.Tester,
+                            StartDate = new DateTime(2013, 10, 14),
+                            Languages = new List<string>() { "C#", "Javascript" },
+                            Contributions = "testing, bug fixing"
+                        },
+                        new Contributor()
+                        {
+                            Id = 12,
+                            Enabled = false,
+                            FirstName = "Marin",
+                            LastName = "V.",
+                            Country = "Romania",
+                            Role = ProjectRole.Tester,
+                            StartDate = new DateTime(2013, 10, 14),
+                            Languages = new List<string>() { "C#", "Javascript" },
+                            Contributions = "testing, bug fixing"
+                        },
+                        new Contributor()
+                        {
+                            Id = 13,
+                            Enabled = false,
+                            FirstName = "Sorin",
+                            LastName = "S.",
+                            Country = "Romania",
+                            Role = ProjectRole.Tester,
+                            StartDate = new DateTime(2013, 10, 14),
+                            Languages = new List<string>() { "C#", "Javascript" },
+                            Contributions = "testing, bug fixing"
+                        },
+                        new Contributor()
+                        {
+                            Id = 14,
+                            Enabled = false,
+                            FirstName = "Alessandro",
+                            LastName = "M.",
+                            Country = "Romania",
+                            Role = ProjectRole.Tester,
+                            StartDate = new DateTime(2013, 10, 14),
+                            Languages = new List<string>() { "C#", "Javascript" },
+                            Contributions = "testing, bug fixing"
+                        },
+                        new Contributor()
+                        {
+                            Id = 15,
+                            Enabled = false,
+                            FirstName = "Razvan",
+                            LastName = "D.",
+                            Country = "Romania",
+                            Role = ProjectRole.Tester,
+                            StartDate = new DateTime(2013, 10, 14),
+                            Languages = new List<string>() { "C#", "Javascript" },
+                            Contributions = "testing, bug fixing"
                         },
                     };
             #endregion
