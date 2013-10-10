@@ -84,14 +84,14 @@
 
             var $save = $('<a></a>').addClass(this.options.saveClass)
                                     .addClass('with_text')
-                                    .html('Save')
+                                    .html('<span class="glyphicon glyphicon-ok"></span> save ')
                                     .attr('href', '#')
                                     .on('click', $.proxy(this._evOnSaveClick, this));
 
             if (this.options.toggles) {
                 var $cancel = $('<a></a>').addClass(this.options.cancelClass)
                                         .addClass('with_text')
-                                        .html('cancel')
+                                        .html('<span class="glyphicon glyphicon-remove"></span> cancel ')
                                         .attr('href', '#')
                                         .on('click', $.proxy(this._evOnCancelClick, this));
             }

@@ -8,11 +8,9 @@
     {
         ca.Add(BsToolbarActionType.Add)
             .Text(Resource.Add)
-            .Tab(x => Html.BsPartialPrefixed(y=>y.New, "Toolbar/_New", x));
-        ca.Add(BsToolbarActionType.Refresh)
-            .Text(Resource.Refresh);
+            .Tab(x => Html.BsPartialPrefixed(y => y.New, "Toolbar/_New", x));
+        ca.Add(BsToolbarActionType.Refresh);
         ca.Add(BsToolbarActionType.Search)
-            .Text(Resource.Search)
-            .Tab(x => Html.BsPartialPrefixed(y=>y.Search, "Toolbar/_Search", x));
+            .Tab(x => Html.BsPartialPrefixed(y => y.Search, "Toolbar/_Search", x));
     })
 )

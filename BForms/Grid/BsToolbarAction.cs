@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
+using BForms.Models;
 
 namespace BForms.Grid
 {
@@ -24,6 +25,8 @@ namespace BForms.Grid
         private string title;
 
         private string text;
+
+        private Glyphicon glyphIcon;
 
         private string href;
 
@@ -48,24 +51,24 @@ namespace BForms.Grid
                     {
                         this.descriptorClass = "btn-add";
                         this.buttonType = BsButtonType.WithText;
+                        this.glyphIcon = Glyphicon.Plus;
                         this.text = "Add";
-
                         break;
                     }
                 case BsToolbarActionType.Refresh:
                     {
                         this.descriptorClass = "btn-refresh";
                         this.buttonType = BsButtonType.WithoutText;
-                        this.text = this.title = "Refresh";
-
+                        this.title = "Refresh";
+                        this.glyphIcon = Glyphicon.Refresh;
                         break;
                     }
                 case BsToolbarActionType.Search:
                     {
                         this.descriptorClass = "btn-search";
                         this.buttonType = BsButtonType.WithoutText;
-                        this.text = this.title = "Search";
-
+                        this.title = "Search";
+                        this.glyphIcon = Glyphicon.Search;
                         break;
                     }
                 case BsToolbarActionType.Print:
@@ -73,7 +76,6 @@ namespace BForms.Grid
                         this.descriptorClass = "btn-print";
                         this.buttonType = BsButtonType.WithoutText;
                         this.text = this.title = "Print";
-
                         break;
                     }
             }
@@ -115,6 +117,12 @@ namespace BForms.Grid
             return this;
         }
 
+        public BsToolbarAction<TToolbar> GlyphIcon(Glyphicon icon)
+        {
+            this.glyphIcon = icon;
+            return this;
+        }
+
         public BsToolbarAction<TToolbar> Tab(Func<TToolbar, MvcHtmlString> tabDelegate)
         {
             this.tabDelegate = tabDelegate;
@@ -150,9 +158,17 @@ namespace BForms.Grid
                 actionBuilder.MergeAttribute("title", this.title);
             }
 
-            actionBuilder.InnerHtml += this.text;
+            actionBuilder.InnerHtml += (this.glyphIcon != null ? GetGlyphcon(this.glyphIcon) + " " : "") + this.text;
 
             return actionBuilder.ToString();
+        }
+
+        private string GetGlyphcon(Glyphicon icon)
+        {
+            var spanTag = new TagBuilder("span");
+            spanTag.AddCssClass(Utilities.ReflectionHelpers.GetDescription(icon));
+            spanTag.AddCssClass("glyphicon");
+            return spanTag.ToString(TagRenderMode.Normal);
         }
     }
 }
