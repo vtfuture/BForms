@@ -116,7 +116,7 @@ namespace BootstrapForms.Html
 
             //set html5 input type based on BsControlType attribute
             BsControlAttribute bsControl = null;
-            if (ReflectionHelpers.TryGetControlAttribute(ExpressionHelper.GetExpressionText(expression), typeof(TModel), out bsControl))
+            if (ReflectionHelpers.TryGetAttribute(ExpressionHelper.GetExpressionText(expression), typeof(TModel), out bsControl))
             {
                 htmlAttributes.MergeAttribute("type", bsControl.ControlType.GetHtml5Type(), true);
                 htmlAttributes.MergeAttribute("class", bsControl.ControlType.GetDescription());

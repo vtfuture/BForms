@@ -1,0 +1,40 @@
+﻿@using BForms.Docs.Resources
+@using BootstrapForms.Html
+@using BootstrapForms.Models
+@model BForms.Docs.Areas.Demo.Models.ContributorDetailsModel
+
+@using (Html.BeginForm())
+{
+    <div class="col-12 col-sm-12 col-lg-12 form-group @Html.BsValidationCssFor(m => m.RoleList)">
+        @Html.BsLabelFor(m => m.RoleList)
+        <div class="input-group">
+            @Html.BsGlyphiconAddon(Glyphicon.Star)
+            @Html.BsSelectFor(model => model.RoleList)
+            @Html.BsValidationFor(m => m.RoleList)
+        </div>
+    </div>
+    <div class="col-12 col-sm-12 col-lg-12 form-group @Html.BsValidationCssFor(m => m.StartDate)">
+        @Html.BsLabelFor(m => m.StartDate)
+        <div class="input-group">
+            @Html.BsGlyphiconAddon(Glyphicon.Calendar)
+            @Html.BsInputFor(m => m.StartDate)
+            @Html.BsValidationFor(m => m.StartDate)
+        </div>
+    </div>
+    <div class="col-12 col-sm-12 col-lg-12 form-group @Html.BsValidationCssFor(m => m.LanguagesList)">
+        @Html.BsLabelFor(m => m.LanguagesList)
+        <div class="input-group">
+            @Html.BsGlyphiconAddon(Glyphicon.Tags)
+            @Html.BsSelectFor(m => m.LanguagesList)
+            @Html.BsValidationFor(m => m.LanguagesList)
+        </div>
+    </div>
+    <div class="col-12 col-sm-12 col-lg-12 form-group @Html.BsValidationCssFor(m => m.Contributions)">
+        @Html.BsLabelFor(m => m.Contributions)
+        <div class="input-group">
+            @Html.BsGlyphiconAddon(Glyphicon.Stats)
+            @Html.BsInputFor(m => m.Contributions)
+            @Html.BsValidationFor(m => m.Contributions)
+        </div>
+    </div>
+}

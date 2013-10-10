@@ -16,12 +16,12 @@ namespace BootstrapForms.Utilities
     internal static class ReflectionHelpers
     {
         /// <summary>
-        /// Retuns BsControlAttribute
+        /// Retuns Attribute
         /// </summary>
-        internal static bool TryGetControlAttribute(string name, Type modelType, out BsControlAttribute attribute)
+        public static bool TryGetAttribute<T>(string name, Type modelType, out T attribute) where T : Attribute
         {
             var hasAttribute = false;
-            attribute = null;
+            attribute = default(T);
 
             PropertyInfo property = null;
 
@@ -32,15 +32,54 @@ namespace BootstrapForms.Utilities
             }
             if (property != null)
             {
-                hasAttribute = Attribute.IsDefined(property, typeof (BsControlAttribute));
-                
+                hasAttribute = Attribute.IsDefined(property, typeof(T));
+
                 if (hasAttribute)
                 {
-                    attribute = (BsControlAttribute) Attribute.GetCustomAttribute(property, typeof (BsControlAttribute));
+                    attribute = (T)Attribute.GetCustomAttribute(property, typeof(T));
                 }
             }
 
             return hasAttribute;
+        }
+
+        /// <summary>
+        /// Retuns Attribute
+        /// </summary>
+        public static bool TryGetAttribute<T>(PropertyInfo property, out T attribute) where T : Attribute
+        {
+            var hasAttribute = false;
+            attribute = default(T);
+
+            if (property != null)
+            {
+                hasAttribute = Attribute.IsDefined(property, typeof(T));
+
+                if (hasAttribute)
+                {
+                    attribute = (T)Attribute.GetCustomAttribute(property, typeof(T));
+                }
+            }
+
+            return hasAttribute;
+        }
+
+        /// <summary>
+        /// Gets propertyInfo from expression
+        /// </summary>
+        public static PropertyInfo GetPropertyInfo<TSource, TProperty>(this Expression<Func<TSource, TProperty>> propertyLambda)
+        {
+            Type type = typeof(TSource);
+            MemberExpression memberExpression = propertyLambda.Body as MemberExpression;
+            if (memberExpression == null)
+                throw new ArgumentException(string.Format("Expression '{0}' refers to a method, not a property.", (object)propertyLambda.ToString()));
+            PropertyInfo propertyInfo = memberExpression.Member as PropertyInfo;
+            if (propertyInfo == (PropertyInfo)null)
+                throw new ArgumentException(string.Format("Expression '{0}' refers to a field, not a property.", (object)propertyLambda.ToString()));
+            if (type != propertyInfo.ReflectedType && !type.IsSubclassOf(propertyInfo.ReflectedType))
+                throw new ArgumentException(string.Format("Expresion '{0}' refers to a property that is not from type {1}.", (object)propertyLambda.ToString(), (object)type));
+            else
+                return propertyInfo;
         }
 
         /// <summary>

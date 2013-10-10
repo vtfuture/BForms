@@ -1,0 +1,43 @@
+﻿@model ContributorsViewModel
+@using BForms.Docs.Resources
+@using BootstrapForms.Html
+@using BootstrapForms.Grid
+@using BootstrapForms.Models
+@using BForms.Docs.Areas.Demo.Helpers
+@using BForms.Docs.Areas.Demo.Models
+       
+@{
+    var baseBuilder = new BsGridHtmlBuilder<ContributorsViewModel, ContributorRowModel>().HtmlAttributes(new Dictionary<string, object> { { "class", "cutom" } });
+}
+                                     
+@(Html.BsGridFor(m => m.Grid)
+       .MultipleSelectActions(Html.Partial("Grid/_Actions").ToString())
+       .HtmlAttributes(new Dictionary<string, object>() { { "class", "custom_class" } })
+       .RowHighlighter(row => row.Enabled ? "#59b444" : "#dd3131")
+        .RowData(row => new Dictionary<string, object> { { "data-objid", row.Id }, { "data-active", row.Enabled } })
+        .ConfigureColumns(cf =>
+        {
+            cf.Add(c => c.Name).Name(Resource.Name)
+                                .SetWidth(2)
+                                .Sortable();
+            
+            cf.Add(c => c.Role).Name("Role")
+                                .SetWidth(2)
+                                .Sortable()
+                                .Text(x => "<span class='just_icon " + Html.GetRoleIcon(x.Role) + "' title='" + x.Role.ToString() + "'></span> " + x.Role.ToString());
+            
+            cf.Add(c => c.StartDate).Name("Contributor since")
+                                .SetWidth(3)
+                                .Sortable()
+                                .Text(x => Html.BsGlyphicon(Glyphicon.Calendar) + " " + x.StartDate.ToMonthNameDate());
+            
+            cf.Add(c => c.Contributions).Name("Contributions")
+                                .SetWidth(5)
+                                .Sortable()
+                                .Text(x => string.IsNullOrEmpty(x.Contributions) ? "" : String.Join(", ", x.Contributions.Split(new[] { ',' }).Take(2)));
+
+            //cf.Remove(c => c.Enabled);
+
+            cf.For(c => c.Name).Name(Resource.Name);
+        })
+)

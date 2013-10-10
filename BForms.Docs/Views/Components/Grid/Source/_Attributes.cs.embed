@@ -1,0 +1,5 @@
+﻿[BsGrid(HasDetails = true)]
+public BsGridModel<UsersGridRowModel> Grid { get; set; }
+
+[BsGridColumn(Width = 5, DisplayName = "Name", IsSortable = true, Order = 1)]
+public string Name { get; set; }

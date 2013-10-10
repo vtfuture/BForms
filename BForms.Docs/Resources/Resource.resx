@@ -117,6 +117,66 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Add" xml:space="preserve">
+    <value />
+  </data>
+  <data name="All" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Both" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Choose" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ChooseInterval" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Default" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DeleteQuestion" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Disable" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Enable" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Info" xml:space="preserve">
+    <value />
+  </data>
+  <data name="IsEnabled" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Job" xml:space="preserve">
+    <value />
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value />
+  </data>
+  <data name="No" xml:space="preserve">
+    <value />
+  </data>
+  <data name="None" xml:space="preserve">
+    <value />
+  </data>
   <data name="AnnualIncome" xml:space="preserve">
     <value />
   </data>
@@ -156,9 +216,6 @@
   <data name="Location" xml:space="preserve">
     <value />
   </data>
-  <data name="Name" xml:space="preserve">
-    <value />
-  </data>
   <data name="NamePrompt" xml:space="preserve">
     <value />
   </data>
@@ -189,6 +246,12 @@
   <data name="RememberMe" xml:space="preserve">
     <value />
   </data>
+  <data name="Refresh" xml:space="preserve">
+    <value />
+  </data>
+  <data name="RegisterDate" xml:space="preserve">
+    <value />
+  </data>
   <data name="RequiredField" xml:space="preserve">
     <value />
   </data>
@@ -204,7 +267,31 @@
   <data name="TechnologiesPrompt" xml:space="preserve">
     <value />
   </data>
+  <data name="Reset" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ServerError" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Unemployed" xml:space="preserve">
+    <value />
+  </data>
   <data name="UserName" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Users" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Contributors" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Any" xml:space="preserve">
     <value />
   </data>
 </root>

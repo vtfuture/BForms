@@ -1,0 +1,90 @@
+﻿public class GridController : BaseController
+{
+    private readonly GridRepository _gridRepository;
+
+    public GridController()
+    {
+        _gridRepository = new GridRepository(Db);
+    }
+
+    public ActionResult Index()
+    {
+        var gridModel = _gridRepository.ToBsGridViewModel(
+			new BsGridRepositorySettings<UsersSearchModel>
+			{
+				Page = 1,
+				PageSize = 5
+			});
+
+        var model = new UsersViewModel
+        {
+            Grid = gridModel
+        };
+
+        var options = new Dictionary<string, string>
+        {
+            {"pagerUrl", Url.Action("Pager")},
+            {"newUrl", Url.Action("New")},
+        };
+
+        RequireJsOptions.Add("index", options);
+
+        return View(model);
+    }
+
+    public BsJsonResult Pager(BsGridRepositorySettings<UsersSearchModel> settings)
+    {
+        var msg = string.Empty;
+        var status = BsResponseStatus.Success;
+        var html = string.Empty;
+        var count = 0;
+
+        try
+        {
+            var viewModel = _gridRepository.ToBsGridViewModel<UsersViewModel>(
+                                            x => x.Grid, 
+                                            settings, out count);
+
+            html = this.BsRenderPartialView("Grid/_Grid", viewModel);
+        }
+        catch (Exception ex)
+        {
+            msg = Resource.ServerError;
+            status = BsResponseStatus.ServerError;
+        }
+
+        return new BsJsonResult(new
+        {
+            Count = count,
+            Html = html
+        }, status, msg);
+    }
+
+    public BsJsonResult New(BsToolbarModel<UsersSearchModel, UsersNewModel> model)
+    {
+        var msg = string.Empty;
+        var status = BsResponseStatus.Success;
+        var row = string.Empty;
+
+        try
+        {
+            var rowModel = _gridRepository.Create(model.New);
+
+            var viewModel = _gridRepository.ToBsGridViewModel<UsersViewModel>(
+                                            x => x.Grid, 
+                                            rowModel);
+
+            row = this.BsRenderPartialView("Grid/_Grid", viewModel);
+        }
+        catch (Exception ex)
+        {
+            msg = Resource.ServerError;
+            status = BsResponseStatus.ServerError;
+        }
+
+        return new BsJsonResult(new
+        {
+            Row = row
+        }, status, msg);
+    }
+}

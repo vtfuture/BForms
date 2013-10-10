@@ -117,7 +117,7 @@ namespace BootstrapForms.Html
 
             //determine the select type
             BsControlAttribute bsControl = null;
-            if (ReflectionHelpers.TryGetControlAttribute(name, typeof(TModel), out bsControl))
+            if (ReflectionHelpers.TryGetAttribute(name, typeof(TModel), out bsControl))
             {
                 //add bs- control type
                 var bsCssClass = bsControl.ControlType.GetDescription();

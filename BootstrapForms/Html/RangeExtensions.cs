@@ -74,7 +74,7 @@ namespace BootstrapForms.Html
             htmlAttributes.ApplyBFormsAttributes(metadata, dataOptions);
 
             BsControlAttribute bsControl = null;
-            if (ReflectionHelpers.TryGetControlAttribute(ExpressionHelper.GetExpressionText(expression), typeof(TModel), out bsControl))
+            if (ReflectionHelpers.TryGetAttribute(ExpressionHelper.GetExpressionText(expression), typeof(TModel), out bsControl))
             {
                 htmlAttributes.MergeAttribute("type", bsControl.ControlType.GetHtml5Type(), true);
                 htmlAttributes.MergeAttribute("class", bsControl.ControlType.GetDescription());

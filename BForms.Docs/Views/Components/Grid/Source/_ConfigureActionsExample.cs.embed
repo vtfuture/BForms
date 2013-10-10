@@ -1,0 +1,7 @@
+﻿.ConfigureActions(ca =>
+{
+    ca.Add(BsToolbarActionType.Search) //action type
+    .Text(Resource.Search) // button text
+    .Tab(x => 
+		Html.BsPartialPrefixed(y => y.Search, "Toolbar/_Search", x)); //render tab
+});

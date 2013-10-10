@@ -10,7 +10,7 @@ namespace BForms.Docs.Areas.Demo.Mock
 {
     public static class Lists
     {
-        public static BsSelectList<T> AllCounties<T>()
+        public static BsSelectList<T> AllCounties<T>(bool isoKey = true)
         {
             var countryList = new SortedDictionary<string, string>();
             // Iterate the Framework Cultures...
@@ -28,7 +28,7 @@ namespace BForms.Docs.Areas.Demo.Mock
                     continue;
                 }
                 // Create new country dictionary entry.
-                var newKeyValuePair = new KeyValuePair<string, string>(ri.EnglishName, ri.ThreeLetterISORegionName);
+                var newKeyValuePair = new KeyValuePair<string, string>(ri.EnglishName, isoKey ? ri.ThreeLetterISORegionName : ri.EnglishName);
 
                 // If the country is not alreayd in the countryList add it...
                 if (!(countryList.ContainsKey(ri.EnglishName)))
@@ -104,6 +104,10 @@ namespace BForms.Docs.Areas.Demo.Mock
             list.Items.Add(new BsSelectListItem() { Text = "Ada", Value = "Ada" });
             list.Items.Add(new BsSelectListItem() { Text = "ActionScript", Value = "ActionScript" });
             list.Items.Add(new BsSelectListItem() { Text = "Visual Basic", Value = "Visual Basic" });
+            list.Items.Add(new BsSelectListItem() { Text = "CSS", Value = "CSS" });
+            list.Items.Add(new BsSelectListItem() { Text = "HTML", Value = "HTML" });
+            list.Items.Add(new BsSelectListItem() { Text = "SASS", Value = "SASS" });
+            list.Items.Add(new BsSelectListItem() { Text = "SQL", Value = "SQL" });
 
             return list;
         }
