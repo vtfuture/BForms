@@ -298,12 +298,6 @@
     <Content Include="Scripts\BForms\Stylesheets\bforms.scss" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BForms\BForms.csproj">
-      <Project>{60a6e254-cd66-4c0e-9191-5e95e70001eb}</Project>
-      <Name>BForms</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="RequireJS.config" />
   </ItemGroup>
   <ItemGroup>
@@ -687,6 +681,12 @@
     <Content Include="Areas\Demo\Views\Contributors\Grid\Details\_Identity.cshtml" />
     <Content Include="Areas\Demo\Views\Contributors\Grid\Details\_ProjectRelated.cshtml" />
     <None Include="Views\Components\Grid\Source\_JavascriptGrid.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BForms\BForms.csproj">
+      <Project>{60a6e254-cd66-4c0e-9191-5e95e70001eb}</Project>
+      <Name>BForms</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

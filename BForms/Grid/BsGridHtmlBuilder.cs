@@ -250,6 +250,15 @@ namespace BForms.Grid
                         rowBuilder.MergeAttributes(rowData(row));
                     }
 
+                    if (this.rowHighlighter != null)
+                    {
+                        var rowHighlighterBuilder = new TagBuilder("span");
+                        rowHighlighterBuilder.MergeAttribute("class", "row_color");
+                        rowHighlighterBuilder.MergeAttribute("style", "background-color: " + rowHighlighter(row) + ";");
+
+                        rowBuilder.InnerHtml += rowHighlighterBuilder.ToString();
+                    }
+
                     var headerBuilder = new TagBuilder("header");
 
                     for (var i = 0; i < this.columns.Count; i++)
@@ -258,6 +267,7 @@ namespace BForms.Grid
 
                         var cellBuilder = new TagBuilder("div");
                         cellBuilder.MergeAttribute("class", "col-lg-" + column.Width);
+                        cellBuilder.MergeAttribute("class", "col-md-" + column.Width);
 
                         if (i == 0)
                         {
@@ -269,15 +279,6 @@ namespace BForms.Grid
                                 detailsBUilder.InnerHtml += "&nbsp;";
 
                                 cellBuilder.InnerHtml += detailsBUilder.ToString();
-                            }
-
-                            if (this.rowHighlighter != null)
-                            {
-                                var rowHighlighterBuilder = new TagBuilder("span");
-                                rowHighlighterBuilder.MergeAttribute("class", "row_color");
-                                rowHighlighterBuilder.MergeAttribute("style", "background-color: " + rowHighlighter(row) + ";");
-
-                                cellBuilder.InnerHtml += rowHighlighterBuilder.ToString();
                             }
                         }
 
