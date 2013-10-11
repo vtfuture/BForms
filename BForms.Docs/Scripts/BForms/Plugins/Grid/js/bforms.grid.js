@@ -6,9 +6,7 @@
     'bforms-ajax',
     'bforms-namespace'
 ], function () {
-
-    //var Grid = (function (_super) { this.prototype._super = _super })(Animal);
-
+    
     var Grid = function (opt) {
         this.options = opt;
         this._create();
@@ -27,10 +25,12 @@
 
         defaultPage: 1,
         currentPage: 1,
+        goTopElement : null,
 
         uniqueName: null,
         gridContainerSelector: '.grid_rows',
         gridCountContainerSelector: 'h2 > .badge',
+        gridHeaderSelector : 'h2',
         filterSelector: '.js-filter',
         addSelector: '.js-add',
 
@@ -87,7 +87,8 @@
         this._currentResultsCount = this.$gridCountContainer.text();
 
         this.$pager = this.element.find('.grid_pager').bsPager({
-            pagerUpdate: $.proxy(this._evOnPageChange, this)
+            pagerUpdate: $.proxy(this._evOnPageChange, this),
+            pagerGoTop : $.proxy(this._evOnPagerGoTop, this)
         });
 
         //set default page size
@@ -431,6 +432,25 @@
             this.refreshModel.pageSize = data.pageSize;
         }
         this._getPage();
+    };
+
+    Grid.prototype._evOnPagerGoTop = function (e) {
+        var $goTo = $([]);
+
+        if (this.options.goTopElement !== null) {
+            $goTo = $(this.options.goTopElement);
+        } else {
+            $goTo = this.element.find(this.options.gridHeaderSelector);
+        }
+        
+        if ($goTo.length) {
+
+            $.bforms.scrollToElement($goTo);
+
+            //$('body, html').animate({
+            //    scrollTop: $goTo.offset().top
+            //});
+        }
     };
 
     Grid.prototype._evOnOrderChange = function (e) {

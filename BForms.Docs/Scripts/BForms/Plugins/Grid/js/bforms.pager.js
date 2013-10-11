@@ -10,12 +10,14 @@
 
     Pager.prototype.options = {
         pagesContainerSelector: '.js-pages',
-        pageSelector: 'a',
-        pageSizeSelector: '.rowsPerPageSelector',
+        pageSelector: 'a[data-page]',
+        pageSizeSelector: '.bs-perPage',
         currentPageSelector: 'active',
         disabledPageSelector: 'disabled',
         totalsContainerSelector: '.results_number span',
-        pageSizeContainerSelector: '.results_per_page'
+        pageSizeContainerSelector: '.results_per_page',
+        perPageDisplaySelector: '.bs-perPageDisplay',
+        goTopButtonSelector : '.btn-goTop'
     };
     
     Pager.prototype._create = function () {
@@ -38,7 +40,9 @@
 
         this.element.on('click', this.options.pageSelector, $.proxy(this._evPageChanged, this));
 
-        this.element.on('change', this.options.pageSizeSelector, $.proxy(this._evPageSizeChanged, this));
+        this.element.on('click', this.options.pageSizeSelector, $.proxy(this._evPageSizeChanged, this));
+
+        this.element.on('click', this.options.goTopButtonSelector, $.proxy(this._evGoTopClick, this));
 
     };
 
@@ -65,11 +69,19 @@
 
         e.preventDefault();
 
+        var value = $(e.currentTarget).data('value');
+
+        this.element.find(this.options.perPageDisplaySelector).html(value);
+
         this._trigger('pagerUpdate', e, {
             page: 1,
-            pageSize: $(e.currentTarget).val()
+            pageSize: $(e.currentTarget).data('value')
         });
 
+    };
+
+    Pager.prototype._evGoTopClick = function (e) {
+        this._trigger('pagerGoTop', e);
     };
 
     Pager.prototype._btnClickAjaxSuccess = function (data, callbackData) {
