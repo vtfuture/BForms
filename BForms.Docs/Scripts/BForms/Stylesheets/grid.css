@@ -101,45 +101,57 @@ a.btn {
       color: #333333;
       text-decoration: none; }
   .grid_container .grid_toolbar {
-    background: #559ed6;
-    color: #fff;
     position: relative;
     min-height: 15px; }
-    .grid_container .grid_toolbar h1 {
-      font-size: 15px;
-      text-transform: uppercase;
-      margin: 0;
-      padding: 11px 10px 10px;
-      border: none; }
-    .grid_container .grid_toolbar .grid_toolbar_controls {
-      position: absolute;
-      right: 0;
-      top: 0; }
-      .grid_container .grid_toolbar .grid_toolbar_controls a {
-        padding: 10px 15px 9px;
-        float: left;
-        border-left: 1px solid #4092d1;
-        color: #fff; }
-        .grid_container .grid_toolbar .grid_toolbar_controls a:hover {
-          background-color: #4092d1 !important;
-          text-decoration: none;
-          color: #fff !important; }
-        .grid_container .grid_toolbar .grid_toolbar_controls a.selected {
+    .grid_container .grid_toolbar .grid_toolbar_header {
+      background: #559ed6;
+      color: #fff;
+      overflow: hidden; }
+      .grid_container .grid_toolbar .grid_toolbar_header h1 {
+        font-size: 15px;
+        text-transform: uppercase;
+        margin: 0;
+        padding: 11px 10px 10px;
+        border: none;
+        display: inline-block; }
+      .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls {
+        line-height: normal;
+        float: right; }
+        .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls a {
+          padding: 10px 15px 9px;
+          float: left;
+          border-left: 1px solid #4092d1;
+          color: #fff; }
+          .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls a:hover {
+            background-color: #4092d1 !important;
+            text-decoration: none;
+            color: #fff !important; }
+        .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .selected {
           background-color: #f6f6f6;
           color: #333; }
-          .grid_container .grid_toolbar .grid_toolbar_controls a.selected:hover {
+          .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .selected:hover {
             background-color: #f6f6f6 !important;
             color: #333 !important; }
-      .grid_container .grid_toolbar .grid_toolbar_controls .input-group {
-        float: left;
-        width: 150px;
-        color: #333; }
-        .grid_container .grid_toolbar .grid_toolbar_controls .input-group + a {
-          border-left: none; }
-      .grid_container .grid_toolbar .grid_toolbar_controls .glyphicon {
-        font-size: 14px; }
-    .grid_container .grid_toolbar .grid_toolbar_controls {
-      line-height: normal; }
+        .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .input-group {
+          float: left;
+          width: 165px;
+          color: #333;
+          padding: 3px 3px 3px 15px;
+          border-left: 1px solid #4092d1; }
+          .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .input-group input {
+            border: none;
+            -webkit-box-shadow: none;
+            box-shadow: none;
+            height: 32px;
+            border-radius: 20px; }
+          .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .input-group + .btn_advanced_search {
+            border: none; }
+        .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .glyphicon {
+          font-size: 14px; }
+        .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls:after {
+          content: "";
+          display: block;
+          clear: both; }
     .grid_container .grid_toolbar .grid_toolbar_form {
       background: #f6f6f6;
       padding: 15px 0;
@@ -416,6 +428,8 @@ a.btn {
       overflow: visible; }
       .grid_container .grid_view .grid_pager .results_per_page .btn {
         padding: 3px 9px 3px 10px; }
+      .grid_container .grid_view .grid_pager .results_per_page .results_per_page_container {
+        margin-right: 5px; }
       .grid_container .grid_view .grid_pager .results_per_page .dropdown {
         float: left; }
         .grid_container .grid_view .grid_pager .results_per_page .dropdown .caret {
@@ -452,4 +466,10 @@ a.btn {
 
 @media (max-width: 756px) {
   .grid_toolbar_form .row {
-    padding: 0 15px; } }
+    padding: 0 15px; }
+
+  .results_per_page_container {
+    display: none; } }
+@media (max-width: 959px) {
+  .grid_row header div:first-child {
+    margin-bottom: 10px; } }

@@ -65,7 +65,7 @@ namespace BForms.Grid
 
             var controlsBuilder = new TagBuilder("div");
             controlsBuilder.AddCssClass("grid_toolbar_controls");
-            controlsBuilder.AddCssClass("pull_right");
+            //controlsBuilder.AddCssClass("pull-right");
 
             string tabs = string.Empty;
 

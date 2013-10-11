@@ -122,33 +122,36 @@ a.btn {
 			text-decoration: none;
 		}
 	}
-	.grid_toolbar {
-		background: $lightBlue;
-		color: #fff;
+	.grid_toolbar {	
 		position: relative;
 		min-height: 15px;
-		h1 {
-			font-size: 15px;
-			text-transform: uppercase;
-			margin: 0;
-			padding: 11px 10px 10px;
-			border: none;
-		}
-		.grid_toolbar_controls {
-			position: absolute;
-			right: 0;
-			top: 0;
-			a {
-				padding: 10px 15px 9px;
-				float: left;
-				border-left: 1px solid darken($lightBlue, 5%);
-				color: #fff;
-				&:hover {
-					background-color: darken($lightBlue, 5%) !important;
-					text-decoration: none;
-					color: #fff !important; 
+		.grid_toolbar_header {
+			background: $lightBlue;
+			color: #fff;
+			overflow: hidden;
+			h1 {
+				font-size: 15px;
+				text-transform: uppercase;
+				margin: 0;
+				padding: 11px 10px 10px;
+				border: none;
+				display: inline-block;
+			}
+			.grid_toolbar_controls {
+				line-height: normal;
+				float: right;
+				a {
+					padding: 10px 15px 9px;
+					float: left;
+					border-left: 1px solid darken($lightBlue, 5%);
+					color: #fff;
+					&:hover {
+						background-color: darken($lightBlue, 5%) !important;
+						text-decoration: none;
+						color: #fff !important; 
+					}					
 				}
-				&.selected {
+				.selected {
 					background-color: #f6f6f6;
 					color: #333;
 					&:hover {
@@ -156,22 +159,35 @@ a.btn {
 						color: #333 !important;
 					}
 				}
-			}
-			.input-group {
-				float: left;
-				width: 150px;
-				color: #333;
-				+ a {
-					border-left: none;
+				.input-group {
+					float: left;
+					width: 165px;
+					color: #333;
+					padding: 3px 3px 3px 15px;
+					border-left: 1px solid darken($lightBlue, 5%);
+					input {
+						border: none;
+						-webkit-box-shadow: none;
+						box-shadow: none;
+						height: 32px;						
+						border-radius: 20px;
+					}
+					+ .btn_advanced_search {
+						border: none;
+					}					
 				}
-			}
-			.glyphicon {
-				font-size: 14px;
-			}
+				
+				.glyphicon {
+					font-size: 14px;
+				}
+				&:after {
+					content:"";
+					display: block;
+					clear: both;
+				}
+			}																		
 		}
-		.grid_toolbar_controls{
-			line-height: normal;
-		}
+
 		.grid_toolbar_form {
 			background: #f6f6f6;
 			padding: 15px 0;
@@ -554,6 +570,9 @@ a.btn {
 				.btn {
 					padding: 3px 9px 3px 10px;
 				}
+				.results_per_page_container {
+					margin-right: 5px;
+				}
 				.dropdown {
 					float: left;
 					.caret {
@@ -608,5 +627,16 @@ a.btn {
 @media (max-width: 756px) {
 	.grid_toolbar_form .row {
 		padding: 0 15px;
+	}
+	.results_per_page_container {
+		display: none;
+	}
+	
+}
+@media (max-width: 959px) {
+	.grid_row {
+		header div:first-child{
+			margin-bottom: 10px;
+		}
 	}
 }

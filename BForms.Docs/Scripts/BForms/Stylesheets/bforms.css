@@ -197,6 +197,8 @@ textarea {
   text-transform: uppercase;
   font-size: 17px;
   border: none; }
+  .btn:focus {
+    outline: none; }
 
 .btn-default {
   background: #547980;
