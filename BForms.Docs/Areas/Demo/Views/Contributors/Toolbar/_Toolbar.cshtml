@@ -2,6 +2,7 @@
 @using BForms.Docs.Resources
 @using BForms.Grid
 @using BForms.Html
+@using BForms.Models
 
 @(Html.BsToolbarFor(x => x.Toolbar).DisplayName("Dev Team")
     .ConfigureActions(ca =>
@@ -12,6 +13,6 @@
         ca.Add(BsToolbarActionType.Refresh);
         ca.Add(BsToolbarActionType.AdvancedSearch)
             .Tab(x => Html.BsPartialPrefixed(y => y.Search, "Toolbar/_Search", x));
-        ca.Add<BsToolbarQuickSearch>();
+        ca.Add<BsToolbarQuickSearch>().GlyphIcon(Glyphicon.Search);
     })
 )
