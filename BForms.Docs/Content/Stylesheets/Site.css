@@ -321,8 +321,10 @@ code {
     /* Enable use of floated navbar text */
     float: none !important; }
 
-  .navbar .nav-collapse {
-    margin-top: 0; }
+  .navbar {
+    padding: 0; }
+    .navbar .nav-collapse {
+      margin-top: 0; }
 
   .dropdown-menu {
     position: relative;
