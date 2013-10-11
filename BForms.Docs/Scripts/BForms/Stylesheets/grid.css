@@ -113,7 +113,7 @@ a.btn {
         margin: 0;
         padding: 11px 10px 10px;
         border: none;
-        display: inline-block; }
+        float: left; }
       .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls {
         line-height: normal;
         float: right; }
@@ -251,7 +251,8 @@ a.btn {
         margin-right: 5px;
         text-indent: -999em;
         text-decoration: none;
-        background-color: #E6E6E6; }
+        background-color: #E6E6E6;
+        vertical-align: text-bottom; }
         .grid_container .grid_view .grid_rows_wrapper .grid_row .expand:hover {
           background-color: #e0e0e0; }
         .grid_container .grid_view .grid_rows_wrapper .grid_row .expand + span {
@@ -469,11 +470,19 @@ a.btn {
   .grid_toolbar_form .row {
     padding: 0 15px; }
 
-  .grid_toolbar_header h1 {
-    display: block !important;
-    border-bottom: 1px solid #4092d1 !important; }
+  .grid_container .grid_toolbar .grid_toolbar_header h1 {
+    border-bottom: 1px solid #4092d1;
+    float: none; }
+  .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls {
+    float: none; }
+    .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls a:first-child {
+      border-left: none; }
+    .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls a:last-child {
+      border-right: 1px solid #4092d1 !important; }
+      .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls a:last-child + input-group {
+        margin-left: -1px; }
 
-  .results_per_page_container {
+  .results_per_page_container, .results_number {
     display: none; } }
 @media (max-width: 959px) {
   .grid_row header div:first-child {

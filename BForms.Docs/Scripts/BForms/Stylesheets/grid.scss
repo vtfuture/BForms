@@ -137,7 +137,7 @@ a.btn {
 				margin: 0;
 				padding: 11px 10px 10px;
 				border: none;
-				display: inline-block;
+				float: left;
 			}
 			.grid_toolbar_controls {
 				line-height: normal;
@@ -326,6 +326,7 @@ a.btn {
 					text-indent: -999em;
 					text-decoration: none;
 					background-color: #E6E6E6;
+					vertical-align: text-bottom;
 					&:hover {
 						background-color: #e0e0e0;
 					}
@@ -631,11 +632,25 @@ a.btn {
 	.grid_toolbar_form .row {
 		padding: 0 15px;
 	}
-	.grid_toolbar_header h1 {
-		display: block !important;
-		border-bottom: 1px solid darken($lightBlue, 5%) !important;
+	.grid_container .grid_toolbar .grid_toolbar_header {
+		h1 {
+			border-bottom: 1px solid darken($lightBlue, 5%);
+			float: none;
+		}
+		.grid_toolbar_controls {
+			float: none;
+			a:first-child {
+				border-left: none;
+			}
+			a:last-child {
+				border-right: 1px solid darken($lightBlue, 5%) !important;
+				+ input-group {
+					margin-left: -1px;
+				}
+			}
+		}
 	}
-	.results_per_page_container {
+	.results_per_page_container, .results_number {
 		display: none;
 	}
 	

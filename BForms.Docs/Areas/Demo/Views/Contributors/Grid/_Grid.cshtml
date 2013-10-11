@@ -22,7 +22,7 @@
                                 .Sortable();
             
             cf.Add(c => c.Role).Name("Role")
-                                .SetWidth(2)
+                                .SetWidth(3)
                                 .Sortable()
                                 .Text(x => Html.GetRoleIcon(x.Role) + " " + Html.BsEnumDisplayName(x.Role));
             
@@ -32,7 +32,7 @@
                                 .Text(x => Html.BsGlyphicon(Glyphicon.Calendar) + " " + x.StartDate.ToMonthNameDate());
             
             cf.Add(c => c.Contributions).Name("Contributions")
-                                .SetWidth(5)
+                                .SetWidth(4)
                                 .Sortable()
                                 .Text(x => string.IsNullOrEmpty(x.Contributions) ? "" : String.Join(", ", x.Contributions.Split(new[] { ',' }).Take(2)));
                         
