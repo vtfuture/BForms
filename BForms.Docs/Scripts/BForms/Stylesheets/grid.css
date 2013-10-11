@@ -132,9 +132,8 @@ a.btn {
             color: #333 !important; }
       .grid_container .grid_toolbar .grid_toolbar_controls .input-group {
         float: left;
-        width: 150px; }
-        .grid_container .grid_toolbar .grid_toolbar_controls .input-group input {
-          border: 1px solid #559ed6; }
+        width: 150px;
+        color: #333; }
         .grid_container .grid_toolbar .grid_toolbar_controls .input-group + a {
           border-left: none; }
       .grid_container .grid_toolbar .grid_toolbar_controls .glyphicon {
@@ -275,21 +274,17 @@ a.btn {
           font-weight: normal;
           font-size: 14px;
           padding: 5px 0; }
+          .grid_container .grid_view .grid_rows_wrapper .grid_row_details .grid_details h3 .glyphicon-pencil {
+            position: absolute;
+            bottom: 7px;
+            right: 0;
+            display: none; }
           .grid_container .grid_view .grid_rows_wrapper .grid_row_details .grid_details h3.editable {
             cursor: pointer; }
-            .grid_container .grid_view .grid_rows_wrapper .grid_row_details .grid_details h3.editable:after {
-              content: " ";
-              position: absolute;
-              right: 0;
-              top: 0;
-              bottom: 0;
-              display: none;
-              width: 16px;
-              background: url(images/icons/edit-pencil.gif) right 50% no-repeat; }
+            .grid_container .grid_view .grid_rows_wrapper .grid_row_details .grid_details h3.editable:hover .glyphicon-pencil {
+              display: inline-block; }
           .grid_container .grid_view .grid_rows_wrapper .grid_row_details .grid_details h3:hover {
             border-color: #58b4fe; }
-            .grid_container .grid_view .grid_rows_wrapper .grid_row_details .grid_details h3:hover:after {
-              display: block; }
           .grid_container .grid_view .grid_rows_wrapper .grid_row_details .grid_details h3.readonly:hover {
             border-bottom: 1px solid #eee; }
           .grid_container .grid_view .grid_rows_wrapper .grid_row_details .grid_details h3 .controls {

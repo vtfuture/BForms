@@ -160,9 +160,7 @@ a.btn {
 			.input-group {
 				float: left;
 				width: 150px;
-				input {
-					border: 1px solid #559ed6;
-				}
+				color: #333;
 				+ a {
 					border-left: none;
 				}
@@ -356,23 +354,20 @@ a.btn {
 						font-weight: normal;
 						font-size: 14px;
 						padding: 5px 0;
+						.glyphicon-pencil {
+							position: absolute;
+							bottom: 7px;
+							right: 0;
+							display: none;
+						}
 						&.editable {
-							cursor: pointer;
-							&:after {
-								content: " ";
-								position: absolute;
-								right: 0;
-								top: 0;
-								bottom: 0;
-								display: none;
-								width: 16px;
-								background: url(images/icons/edit-pencil.gif) right 50% no-repeat; 
+							cursor: pointer;	
+							&:hover .glyphicon-pencil {
+								display: inline-block; 
 							}
 						}
 						&:hover {
-							border-color: #58b4fe; 
-							&:after {
-								display: block; }
+							border-color: #58b4fe; 							
 						}
 						&.readonly:hover {
 							border-bottom: 1px solid #eee;
