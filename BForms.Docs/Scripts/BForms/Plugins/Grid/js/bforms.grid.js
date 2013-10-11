@@ -372,9 +372,7 @@
     };
 
     Grid.prototype._detailsAjaxError = function (data) {
-
-        console.log('here');
-
+        
         if (data.Message) {
             var $row = arguments[4].row;
             var $errorContainer = $(this.element).find('.bs-errorRowContainer');
@@ -550,7 +548,7 @@
     };
 
     Grid.prototype._evOnRowCheckChange = function (e, $target) {
-        console.log('check click');
+    
         var $me;
 
         if (e) {
@@ -607,8 +605,6 @@
 
         e.preventDefault();
         e.stopPropagation();
-        console.log('edit click');
-        return;
 
         var me = $(e.currentTarget);
 
