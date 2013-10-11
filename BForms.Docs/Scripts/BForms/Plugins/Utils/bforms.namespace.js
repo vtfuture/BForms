@@ -1,5 +1,6 @@
 ﻿define('bforms-namespace', [
-        'jquery'
+        'jquery',
+        'jquery-migrate'
 ], function (jQuery) {
 
     jQuery.nsx = function (ns_string) {
@@ -44,7 +45,13 @@
             } else {
                 goTo = 0;
             }
-            $('html,body').animate({ scrollTop: goTo }, 500);
+
+            if ($.browser.msie && $.browser.mobile) {
+                $('html').scrollTop(goTo);
+            } else {
+               $('html,body').animate({ scrollTop: goTo }, 500);
+            }
+
         }
     };
     //#endregion

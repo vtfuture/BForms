@@ -67,6 +67,7 @@
         return [{
             name: 'search',
             btnSelector: '.btn-search',
+            selectedElements: '.bs-quickSearchContainer',
             container: '#toolbar_search',
             component: {
                 type: 'bsForm',
@@ -213,6 +214,11 @@
     Toolbar.prototype._addTab = function (tabOpts) {
 
         var $btn = this.element.find(tabOpts.btnSelector);
+        var $selectedElements = $([]);
+
+        if (tabOpts.selectedElements !== null) {
+            $selectedElements = this.element.find(tabOpts.selectedElements);
+        }
 
         var component;
         if (typeof tabOpts.component === 'object') {
@@ -223,6 +229,7 @@
             name: tabOpts.name,
             opt: tabOpts,
             button: $btn,
+            selectedElements: $selectedElements,
             container: $(tabOpts.container),
             componennt: component
         };
@@ -297,8 +304,9 @@
     };
 
     Toolbar.prototype._toggleTab = function(tab) {
-    
+
         tab.button.toggleClass('selected');
+        tab.selectedElements.toggleClass('selected');
 
         tab.container.stop(true, false).slideToggle();
 

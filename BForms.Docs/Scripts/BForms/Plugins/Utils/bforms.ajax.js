@@ -138,6 +138,27 @@
                     opts.error.apply(opts.context, args);
                 }
             }
+            
+            if (status === this._statusEnum.ServerError) {
+                if (typeof opts.serverError === "function") {
+                    opts.serverError.apply(opts.context, args);
+                }
+
+                if (typeof opts.error === "function") {
+                    opts.error.apply(opts.context, args);
+                }
+            }
+            
+            if (status === this._statusEnum.Denied) {
+                if (typeof opts.denied === "function") {
+                    opts.denied.apply(opts.context, args);
+                }
+
+                if (typeof opts.error === "function") {
+                    opts.error.apply(opts.context, args);
+                }
+            }
+
         }, this));
 
         deferredXHR.fail($.proxy(function (status, args) {

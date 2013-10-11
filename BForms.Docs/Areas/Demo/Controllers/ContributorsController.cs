@@ -207,7 +207,6 @@ namespace BForms.Docs.Areas.Demo.Controllers
             try
             {
                 var model = _gridRepository.ReadDetails(objId);
-
                 html = this.BsRenderPartialView("Grid/Details/_Index", model);
             }
             catch (Exception ex)

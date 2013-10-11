@@ -21,7 +21,7 @@ namespace BForms.Grid
         public override string Render()
         {
             var inputGroupBuilder = new TagBuilder("div");
-            inputGroupBuilder.MergeAttribute("class", "input-group");
+            inputGroupBuilder.MergeAttribute("class", "input-group bs-quickSearchContainer");
 
 
             var inputBuilder = new TagBuilder("input");

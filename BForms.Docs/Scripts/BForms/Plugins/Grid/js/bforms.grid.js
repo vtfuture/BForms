@@ -374,6 +374,9 @@
     };
 
     Grid.prototype._detailsAjaxError = function (data) {
+
+        console.log('here');
+
         if (data.Message) {
             var $row = arguments[4].row;
             var $errorContainer = $(this.element).find('.bs-errorRowContainer');
