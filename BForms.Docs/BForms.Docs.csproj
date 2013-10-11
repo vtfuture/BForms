@@ -183,6 +183,8 @@
     <Content Include="Scripts\BForms\Plugins\Utils\bforms.namespace.js" />
     <Content Include="Scripts\BForms\Stylesheets\Images\icons\edit-pencil.gif" />
     <Content Include="Scripts\BForms\Stylesheets\Images\icons\icn-down_arrow-small.png" />
+    <Content Include="Scripts\BForms\Stylesheets\Images\icons\icn-order_down.png" />
+    <Content Include="Scripts\BForms\Stylesheets\Images\icons\icn-order_up.png" />
     <Content Include="Scripts\BForms\Stylesheets\Images\icons\icn-right_arrow-small.png" />
     <Content Include="Scripts\BForms\Stylesheets\Images\ui-anim_basic_16x16.gif" />
     <Content Include="Scripts\Controllers\Demo\Contributors\contributors-index.js" />
