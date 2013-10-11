@@ -93,7 +93,10 @@ textarea {
 			}
 		}
 	}
-
+	a {
+		text-decoration: none !important;
+		word-wrap: break-word;
+	}
 	&.form-control {
 		padding: 0;
 		border: none;
@@ -187,7 +190,8 @@ textarea {
 .checkbox_replace {
 	.option {
 		height: 36px;
-		
+		text-decoration: none !important;
+		word-wrap: break-word;
 		padding: 0 8px;
 		border-left: 1px solid #ccc;
 		background: #FFF;

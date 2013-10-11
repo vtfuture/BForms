@@ -89,10 +89,6 @@ a.btn {
 		margin-top: -8px;
 	}
 }
-.checkbox_replace a,
-.custom_select a {
-	text-decoration: none !important;
-}
 
 .ui-sortable .grippy {
 	background: url(images/icons/grippy.png) 0 0 no-repeat;
@@ -135,7 +131,7 @@ a.btn {
 			font-size: 15px;
 			text-transform: uppercase;
 			margin: 0;
-			padding: 8px 10px;
+			padding: 11px 10px 10px;
 			border: none;
 		}
 		.grid_toolbar_controls {
@@ -143,7 +139,7 @@ a.btn {
 			right: 0;
 			top: 0;
 			a {
-				padding: 7px 15px;
+				padding: 10px 15px 9px;
 				float: left;
 				border-left: 1px solid darken($lightBlue, 5%);
 				color: #fff;
@@ -160,6 +156,19 @@ a.btn {
 						color: #333 !important;
 					}
 				}
+			}
+			.input-group {
+				float: left;
+				width: 150px;
+				input {
+					border: 1px solid #559ed6;
+				}
+				+ a {
+					border-left: none;
+				}
+			}
+			.glyphicon {
+				font-size: 14px;
 			}
 		}
 		.grid_toolbar_controls{
@@ -287,9 +296,9 @@ a.btn {
 				.grid_row_color {
 					width: 4px;
 					position: absolute;
-					top: 0;
+					top: -1px;
 					left: 0;
-					bottom: 0;
+					bottom: -1px;
 				}				
 				.expand {
 					display: inline-block;
@@ -458,7 +467,7 @@ a.btn {
 				dl {
 					dt {
 						float: left;
-						width: 160px;
+						width: 30%;
 						overflow: hidden;
 						clear: left;
 						text-align: right;
@@ -468,7 +477,8 @@ a.btn {
 						color: #aaa;
 					}
 					dd {
-						margin-left: 170px;
+						margin-left: 30%;
+						word-wrap: break-word;
 					}
 					&.to-left {
 						dt {
@@ -527,11 +537,13 @@ a.btn {
 			}
 		}
 		.grid_pager {
-			margin: 18px 0;
+			margin: 0;
 			font-size: 13px;
 			font-family: Arial, Verdana, sans-serif;
 			> div {
 				padding: 0;
+				overflow: hidden;
+				margin: 18px 0;
 			}
 			.pagination {
 				margin: 0;
@@ -543,6 +555,7 @@ a.btn {
 				margin-left: 10px;
 			}
 			.results_per_page {
+				overflow: visible;
 				span {
 					margin-right: 5px;
 				}

@@ -74,10 +74,6 @@ a.btn {
     color: #333;
     margin-top: -8px; }
 
-.checkbox_replace a,
-.custom_select a {
-  text-decoration: none !important; }
-
 .ui-sortable .grippy {
   background: url(images/icons/grippy.png) 0 0 no-repeat;
   margin-top: 6px;
@@ -113,14 +109,14 @@ a.btn {
       font-size: 15px;
       text-transform: uppercase;
       margin: 0;
-      padding: 8px 10px;
+      padding: 11px 10px 10px;
       border: none; }
     .grid_container .grid_toolbar .grid_toolbar_controls {
       position: absolute;
       right: 0;
       top: 0; }
       .grid_container .grid_toolbar .grid_toolbar_controls a {
-        padding: 7px 15px;
+        padding: 10px 15px 9px;
         float: left;
         border-left: 1px solid #4092d1;
         color: #fff; }
@@ -134,6 +130,15 @@ a.btn {
           .grid_container .grid_toolbar .grid_toolbar_controls a.selected:hover {
             background-color: #f6f6f6 !important;
             color: #333 !important; }
+      .grid_container .grid_toolbar .grid_toolbar_controls .input-group {
+        float: left;
+        width: 150px; }
+        .grid_container .grid_toolbar .grid_toolbar_controls .input-group input {
+          border: 1px solid #559ed6; }
+        .grid_container .grid_toolbar .grid_toolbar_controls .input-group + a {
+          border-left: none; }
+      .grid_container .grid_toolbar .grid_toolbar_controls .glyphicon {
+        font-size: 14px; }
     .grid_container .grid_toolbar .grid_toolbar_controls {
       line-height: normal; }
     .grid_container .grid_toolbar .grid_toolbar_form {
@@ -223,9 +228,9 @@ a.btn {
       .grid_container .grid_view .grid_rows_wrapper .grid_row .grid_row_color {
         width: 4px;
         position: absolute;
-        top: 0;
+        top: -1px;
         left: 0;
-        bottom: 0; }
+        bottom: -1px; }
       .grid_container .grid_view .grid_rows_wrapper .grid_row .expand {
         display: inline-block;
         background: url(images/icons/icn-down_arrow-small.png) center center no-repeat;
@@ -353,7 +358,7 @@ a.btn {
           margin-top: 22px; }
       .grid_container .grid_view .grid_rows_wrapper .grid_row_details dl dt {
         float: left;
-        width: 160px;
+        width: 30%;
         overflow: hidden;
         clear: left;
         text-align: right;
@@ -362,7 +367,8 @@ a.btn {
         font-weight: normal;
         color: #aaa; }
       .grid_container .grid_view .grid_rows_wrapper .grid_row_details dl dd {
-        margin-left: 170px; }
+        margin-left: 30%;
+        word-wrap: break-word; }
       .grid_container .grid_view .grid_rows_wrapper .grid_row_details dl.to-left dt {
         width: auto;
         text-align: left; }
@@ -397,11 +403,13 @@ a.btn {
         font-size: 11px;
         display: block; }
   .grid_container .grid_view .grid_pager {
-    margin: 18px 0;
+    margin: 0;
     font-size: 13px;
     font-family: Arial, Verdana, sans-serif; }
     .grid_container .grid_view .grid_pager > div {
-      padding: 0; }
+      padding: 0;
+      overflow: hidden;
+      margin: 18px 0; }
     .grid_container .grid_view .grid_pager .pagination {
       margin: 0;
       float: left; }
@@ -409,8 +417,10 @@ a.btn {
       float: left;
       line-height: 29px;
       margin-left: 10px; }
-    .grid_container .grid_view .grid_pager .results_per_page span {
-      margin-right: 5px; }
+    .grid_container .grid_view .grid_pager .results_per_page {
+      overflow: visible; }
+      .grid_container .grid_view .grid_pager .results_per_page span {
+        margin-right: 5px; }
 
 /* Action buttons component */
 .grid_bulk_controls .check_all {
