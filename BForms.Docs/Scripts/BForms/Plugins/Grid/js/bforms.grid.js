@@ -105,6 +105,10 @@
 
         if (this.options.detailsSelector && this.options.detailsUrl) {
             this.element.on('click', this.options.detailsSelector, $.proxy(this._evOnDetailsClick, this));
+            this.element.on('click', this.options.rowSelector, $.proxy(function (e) {
+                e.preventDefault();
+                console.log('row click');
+            }, this))
         }
 
         if (this.options.hasOrder) {
@@ -117,7 +121,7 @@
             this.$rowChecks = this.element.find(this.options.rowCheckSelector);
             this.$headerCheck = this.element.find(this.options.headerCheckSelector);
 
-            this.element.on('change', this.options.rowCheckSelector, $.proxy(this._evOnRowCheckChange, this));
+            this.element.on('click', this.options.rowCheckSelector, $.proxy(this._evOnRowCheckChange, this));
             this.element.on('change', this.options.headerCheckSelector, $.proxy(this._evOnHeaderCheckSelector, this));
 
             for (var i = 0; i < this.options.filterButtons.length; i++) {
@@ -301,6 +305,7 @@
     Grid.prototype._evOnDetailsClick = function (e) {
 
         e.preventDefault();
+        e.stopPropagation();
 
         var $row = $(e.currentTarget).closest(this.options.rowSelector);
 
@@ -544,9 +549,11 @@
     };
 
     Grid.prototype._evOnRowCheckChange = function (e, $target) {
+        console.log('check click');
         var $me;
 
         if (e) {
+            e.stopPropagation();
             $me = $(e.currentTarget);
         } else {
             $me = $target;
@@ -598,6 +605,9 @@
     Grid.prototype._evOnCellEdit = function (e) {
 
         e.preventDefault();
+        e.stopPropagation();
+        console.log('edit click');
+        return;
 
         var me = $(e.currentTarget);
 

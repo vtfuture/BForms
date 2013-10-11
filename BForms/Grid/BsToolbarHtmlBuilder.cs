@@ -56,12 +56,16 @@ namespace BForms.Grid
             toolbarBuilder.MergeClassAttribute("grid_toolbar", this.htmlAttributes);
             toolbarBuilder.MergeAttributes(this.htmlAttributes, true);
 
+            var toolbarHeaderBuilder = new TagBuilder("div");
+            toolbarHeaderBuilder.AddCssClass("grid_toolbar_header");
+            
             var headerBulder = new TagBuilder("h1");
             headerBulder.InnerHtml += this.displayName;
-            toolbarBuilder.InnerHtml += headerBulder.ToString();
+            toolbarHeaderBuilder.InnerHtml += headerBulder.ToString();
 
             var controlsBuilder = new TagBuilder("div");
-            controlsBuilder.MergeAttribute("class", "grid_toolbar_controls");
+            controlsBuilder.AddCssClass("grid_toolbar_controls");
+            controlsBuilder.AddCssClass("pull_right");
 
             string tabs = string.Empty;
 
@@ -76,7 +80,9 @@ namespace BForms.Grid
                     tabs += normalAction.TabDelegate(this.model);
                 }
             }
-            toolbarBuilder.InnerHtml += controlsBuilder.ToString();
+            toolbarHeaderBuilder.InnerHtml += controlsBuilder.ToString();
+
+            toolbarBuilder.InnerHtml += toolbarHeaderBuilder.ToString();
             toolbarBuilder.InnerHtml += tabs;
 
             return toolbarBuilder.ToString();
