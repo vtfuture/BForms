@@ -136,13 +136,14 @@ a.btn {
           float: left;
           width: 165px;
           color: #333;
-          padding: 3px 3px 3px 15px;
+          padding: 6px 3px 4px 15px;
           border-left: 1px solid #4092d1; }
           .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .input-group input {
             border: none;
             -webkit-box-shadow: none;
             box-shadow: none;
-            height: 32px;
+            height: 28px;
+            line-height: 8px\9;
             border-radius: 20px; }
           .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .input-group + .btn_advanced_search {
             border: none; }
@@ -467,6 +468,10 @@ a.btn {
 @media (max-width: 756px) {
   .grid_toolbar_form .row {
     padding: 0 15px; }
+
+  .grid_toolbar_header h1 {
+    display: block !important;
+    border-bottom: 1px solid #4092d1 !important; }
 
   .results_per_page_container {
     display: none; } }

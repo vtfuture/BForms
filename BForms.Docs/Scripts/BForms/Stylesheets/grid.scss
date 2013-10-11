@@ -10,6 +10,8 @@ $textGray: #989898;
 $textColor: #212121;
 $borderColor: #e8e8e8;
 
+
+
 a.btn {
 	text-decoration: none !important;
 }
@@ -163,13 +165,14 @@ a.btn {
 					float: left;
 					width: 165px;
 					color: #333;
-					padding: 3px 3px 3px 15px;
+					padding: 6px 3px 4px 15px;
 					border-left: 1px solid darken($lightBlue, 5%);
 					input {
 						border: none;
 						-webkit-box-shadow: none;
 						box-shadow: none;
-						height: 32px;						
+						height: 28px;
+						line-height: 8px\9;
 						border-radius: 20px;
 					}
 					+ .btn_advanced_search {
@@ -627,6 +630,10 @@ a.btn {
 @media (max-width: 756px) {
 	.grid_toolbar_form .row {
 		padding: 0 15px;
+	}
+	.grid_toolbar_header h1 {
+		display: block !important;
+		border-bottom: 1px solid darken($lightBlue, 5%) !important;
 	}
 	.results_per_page_container {
 		display: none;
