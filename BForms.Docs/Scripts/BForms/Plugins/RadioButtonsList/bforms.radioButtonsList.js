@@ -1,11 +1,11 @@
 ﻿(function (factory) {
-    if(typeof define === "function" && define.amd) {
+    if (typeof define === "function" && define.amd) {
         define(['jquery'], factory);
-    }else {
+    } else {
         factory(window.jQuery);
     }
 })(function ($) {
-    
+
     $.fn.extend({
         bsRadioButtonsList: function () {
             return $(this).each(function () {
@@ -29,9 +29,11 @@
     $.fn.extend({
         bsResetRadioButtons: function () {
             var $elem = $(this);
-            if ($elem.hasClass('radioButtonsList-done')) {
-                return new RadioButtonsListUpdateSelf($elem, $elem.data('initialvalue'));
-            }
+            return $(this).each(function() {
+                if ($elem.hasClass('radioButtonsList-done')) {
+                    return new RadioButtonsListUpdateSelf($elem, $elem.data('initialvalue'));
+                }
+            });
         }
     });
 
@@ -127,19 +129,19 @@
                     wasChecked = $current.prop("checked"),
                     newVal = $current.val() == value ? true : false;
 
-                if(newVal && wasChecked) {
+                if (newVal && wasChecked) {
                     newVal = false;
                 }
 
                 $current.prop("checked", newVal);
-                
+
                 if ($current.val() == value)
                     self.data('value', value);
 
-                if(typeof $current.valid === "function") {
+                if (typeof $current.valid === "function") {
                     $current.valid();
                 }
-                
+
             });
             self.trigger("change");
         }

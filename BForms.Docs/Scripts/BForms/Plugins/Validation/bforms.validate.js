@@ -512,6 +512,7 @@
                 this.lastElement = null;
                 this.prepareForm();
                 this.hideErrors();
+                this.hideBsErrors();
                 this.elements().removeClass(this.settings.errorClass).removeData("previousValue");
             },
 
@@ -529,6 +530,15 @@
 
             hideErrors: function () {
                 this.addWrapper(this.toHide).hide();
+            },
+            
+            hideBsErrors : function() {
+                var $errorHolders = $(this.currentForm).find('.has-error');
+                
+                $errorHolders.each(function() {
+                    $(this).find('.field-validation-error').removeClass("field-validation-error").addClass('field-validation-valid').end()
+                           .removeClass('has-error');
+                });
             },
 
             valid: function () {

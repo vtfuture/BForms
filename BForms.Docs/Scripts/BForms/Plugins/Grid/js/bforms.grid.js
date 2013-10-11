@@ -346,19 +346,25 @@
         var $row = callbackData.row;
 
         data.$html = $(data.Html);
+        
+        this._trigger('beforeRowDetailsSuccess',0 , {
+            $row: $row,
+            data: data
+        });
 
-        if (typeof this.options.rowDetailsSuccessHandler === 'function') {
-            this.options.rowDetailsSuccessHandler.call(this, $row, data);
-        }
         //insert details to dom
         $row.append(data.$html.hide()).stop(true, true).slideDown(800);
-
+        
         this._handleDetails($row);
 
         $row.data('hasdetails', true);
 
         this._createActions(this.options.rowActions, $row);
 
+        this._trigger('afterRowDetailsSuccess',0,  {
+            $row: $row,
+            data: data
+        });
     };
 
     Grid.prototype._detailsAjaxError = function (data) {

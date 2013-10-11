@@ -89,9 +89,9 @@
         return data;
     };
     //#endregion
-    
+
     //#region $.fn.resetForm
-    $.fn.resetForm = function (focus, ignore, triggerChange) {
+    $.fn.bsResetForm = function (focus, ignore, triggerChange) {
 
         $(this).find('input:not(.hasDatepicker, .hasRangepicker, ' + ignore + '), textarea:not(' + ignore + ')').each(function () {
             switch (this.type) {
@@ -163,21 +163,42 @@
             }
         });
         //#endregion
-        
+
         //#region datePicker
-        $(this).find('.hasDatepicker').each(function() {
+        $(this).find('.hasDatepicker').each(function () {
             $(this).bsDatepicker('resetValue');
         });
         //#endregion
 
         //#region rangePicker
-        $(this).find('.hasRangepicker').each(function() {
+        $(this).find('.hasRangepicker').each(function () {
             $(this).bsDateRange('resetValue');
         });
+        //#endregion
+        
+        //#region radioButtonsList
+        $(this).find('.radioButtonsList-done').bsResetRadioButtons();
         //#endregion
 
         if (focus !== false)
             $(this).find("input:first").focus();
+
+        var $form = $([]);
+
+        if (($(this)).is('form')) {
+            $form = $(this);
+        } else {
+            $form = $(this).find('form');
+        }
+
+        if ($form.length) {
+            $form.each(function() {
+                var validator = $(this).data('validator');
+                if (typeof validator !== "undefined" && typeof validator.resetForm === "function") {
+                    validator.resetForm();
+                }
+            });
+        }
 
         return $(this);
     };

@@ -28,7 +28,7 @@
         editSuccessHandler: null,
         initPlugins: null
     };
-    
+
     Editable.prototype._create = function () {
 
         if (!this.options.uniqueName) {
@@ -42,7 +42,7 @@
         if (!this.options.url) {
             throw 'url must have a value';
         }
-        
+
         this._initSelectors();
 
         this._addDelegates();
@@ -75,6 +75,13 @@
     Editable.prototype._addDelegates = function () {
         if (this.options.toggles) {
             this.$header.on('click', $.proxy(this._evOnHeaderClick, this));
+        }
+    };
+
+    Editable.prototype.initValidation = function () {
+        if (this.$editor.length) {
+            $.validator.unobtrusive.parse(this.$editor);
+            this.$editor.validate();
         }
     };
 
@@ -114,7 +121,7 @@
         if ($me.data('editmode') || e.currentTarget != e.target) {
             return;
         }
-        
+
         this._switchToEditable();
     };
 
@@ -123,7 +130,7 @@
         e.preventDefault();
 
         var $me = $(e.currentTarget);
-        
+
         // validate form
         var $form = this.$editor;
         if ($form.length > 0) {
@@ -140,7 +147,7 @@
         // parse data
         var data = this.options.prefix ?
             $form.parseForm(this.options.prefix) : $form.parseForm();
-       
+
         // add aditional data
         $.extend(true, data, this.options.additionalData);
 
@@ -166,7 +173,7 @@
     };
 
     Editable.prototype._saveAjaxSuccess = function (data, callbackData) {
-        
+
         if (typeof this.options.editSuccessHandler === 'function') {
             this.options.editSuccessHandler.call(this, data);
         }
@@ -179,7 +186,7 @@
         this.$readOnly.html($(data.Html).html());
 
         this._switchToReadOnly();
-        
+
     };
 
     Editable.prototype._saveAjaxError = function (data) {
@@ -193,7 +200,7 @@
     Editable.prototype._evOnCancelClick = function (e) {
 
         e.preventDefault();
-        
+
         this._switchToReadOnly();
 
     };
@@ -227,9 +234,9 @@
         this.$header.addClass('editable');
 
     };
-    
+
     $.widget('bforms.bsEditable', Editable.prototype);
-       
+
     return Editable;
 
 });

@@ -300,7 +300,7 @@
     
         tab.button.toggleClass('selected');
 
-        tab.container.slideToggle();
+        tab.container.stop(true, false).slideToggle();
 
         amplify.store('slide|' + this.options.uniqueName + '|' + tab.opt.btnSelector, tab.button.hasClass('selected'));
     

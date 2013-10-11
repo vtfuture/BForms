@@ -184,7 +184,7 @@
 
     Form.prototype.reset = function (e) {
 
-        this.element.resetForm(true);
+        this.element.bsResetForm(true);
         
     };
     

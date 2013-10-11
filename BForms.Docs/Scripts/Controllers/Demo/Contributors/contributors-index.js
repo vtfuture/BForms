@@ -113,7 +113,8 @@
 
             updateRowUrl: this.options.getRowUrl,
             detailsUrl: this.options.detailsUrl,
-            rowDetailsSuccessHandler: $.proxy(this._detailsSuccessHandler, this),
+            beforeRowDetailsSuccess: $.proxy(this._beforeDetailsSuccessHandler, this),
+            afterRowDetailsSuccess : $.proxy(this._afterDetailsSuccessHandler, this),
             rowActions: [{
                 btnSelector: '.js-btn_state',
                 url: this.options.enableDisableUrl,
@@ -128,7 +129,11 @@
     };
 
     //#region DetailsHandler
-    GridIndex.prototype._detailsSuccessHandler = function ($row, response) {
+    GridIndex.prototype._beforeDetailsSuccessHandler = function (e, data) {
+
+        var $row = data.$row,
+            response = data.data;
+        
         var identityOpt = this._editableOptions($row, this.options.editComponents.Identity);
         response.$html.find('.js-editableIdentity').bsEditable(identityOpt);
 
@@ -136,18 +141,25 @@
         response.$html.find('.js-editableProject').bsEditable(projectOpt);
     };
 
-    GridIndex.prototype._editableOptions = function ($row, componentId) {
-        return {
+    GridIndex.prototype._editableOptions = function($row, componentId) {
+        return $.extend(true, {}, {
             url: this.options.updateUrl,
             prefix: 'x' + $row.data('objid') + '.',
             additionalData: {
                 objId: $row.data('objid'),
                 componentId: componentId
             },
-            editSuccessHandler: $.proxy(function (editResponse) {
+            editSuccessHandler: $.proxy(function(editResponse) {
                 this.$grid.bsGrid('updateRow', $row, false, true);
             }, this)
-        }
+        });
+    };
+
+    GridIndex.prototype._afterDetailsSuccessHandler = function(e, data) {
+        var $row = data.$row;
+
+        $row.find('.js-editableIdentity').bsEditable('initValidation');
+        $row.find('.js-editableProject').bsEditable('initValidation');
     };
     //#endregion
 
