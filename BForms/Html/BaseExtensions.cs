@@ -53,6 +53,11 @@ namespace BForms.Html
         /// <returns></returns>
         public static MvcHtmlString BsEnumDisplayName<TModel, TEnum>(this HtmlHelper<TModel> htmlHelper, TEnum val)
         {
+            if (!typeof(TEnum).IsEnum)
+            {
+                throw new ArgumentException("val is not of type enum", "val");
+            }
+
             return new MvcHtmlString(ReflectionHelpers.EnumDisplayName(typeof(TEnum), val as Enum));
         }
 
