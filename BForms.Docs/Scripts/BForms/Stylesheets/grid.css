@@ -414,8 +414,15 @@ a.btn {
       margin-left: 10px; }
     .grid_container .grid_view .grid_pager .results_per_page {
       overflow: visible; }
-      .grid_container .grid_view .grid_pager .results_per_page span {
-        margin-right: 5px; }
+      .grid_container .grid_view .grid_pager .results_per_page .btn {
+        padding: 3px 9px 3px 10px; }
+      .grid_container .grid_view .grid_pager .results_per_page .dropdown {
+        float: left; }
+        .grid_container .grid_view .grid_pager .results_per_page .dropdown .caret {
+          margin-left: 5px; }
+      .grid_container .grid_view .grid_pager .results_per_page .btn-go_up {
+        float: left;
+        margin-left: 10px; }
 
 /* Action buttons component */
 .grid_bulk_controls .check_all {
