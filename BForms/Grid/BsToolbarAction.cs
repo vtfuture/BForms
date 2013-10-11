@@ -10,6 +10,7 @@ namespace BForms.Grid
 {
     public class BsToolbarAction<TToolbar> : BaseComponent
     {
+        #region Properties and constructors
         private string descriptorClass;
 
         private BsButtonType buttonType;
@@ -26,7 +27,7 @@ namespace BForms.Grid
 
         private string text;
 
-        private Glyphicon glyphIcon;
+        private Glyphicon? glyphIcon;
 
         private string href;
 
@@ -63,19 +64,12 @@ namespace BForms.Grid
                         this.glyphIcon = Glyphicon.Refresh;
                         break;
                     }
-                case BsToolbarActionType.Search:
+                case BsToolbarActionType.AdvancedSearch:
                     {
                         this.descriptorClass = "btn-search";
                         this.buttonType = BsButtonType.WithoutText;
                         this.title = "Search";
                         this.glyphIcon = Glyphicon.Search;
-                        break;
-                    }
-                case BsToolbarActionType.Print:
-                    {
-                        this.descriptorClass = "btn-print";
-                        this.buttonType = BsButtonType.WithoutText;
-                        this.text = this.title = "Print";
                         break;
                     }
             }
@@ -86,6 +80,7 @@ namespace BForms.Grid
         {
             this.descriptorClass = descriptorClass;
         }
+        #endregion
 
         public BsToolbarAction<TToolbar> DescriptorClass(string descriptorClass)
         {
@@ -158,17 +153,9 @@ namespace BForms.Grid
                 actionBuilder.MergeAttribute("title", this.title);
             }
 
-            actionBuilder.InnerHtml += (this.glyphIcon != null ? GetGlyphcon(this.glyphIcon) + " " : "") + this.text;
+            actionBuilder.InnerHtml += (this.glyphIcon.HasValue ? GetGlyphcon(this.glyphIcon.Value) + " " : "") + this.text;
 
             return actionBuilder.ToString();
-        }
-
-        private string GetGlyphcon(Glyphicon icon)
-        {
-            var spanTag = new TagBuilder("span");
-            spanTag.AddCssClass(Utilities.ReflectionHelpers.GetDescription(icon));
-            spanTag.AddCssClass("glyphicon");
-            return spanTag.ToString(TagRenderMode.Normal);
         }
     }
 }

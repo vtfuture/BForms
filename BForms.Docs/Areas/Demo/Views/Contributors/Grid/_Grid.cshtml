@@ -35,7 +35,7 @@
                                 .SetWidth(5)
                                 .Sortable()
                                 .Text(x => string.IsNullOrEmpty(x.Contributions) ? "" : String.Join(", ", x.Contributions.Split(new[] { ',' }).Take(2)));
-
+                        
             cf.For(c => c.Name).Name(Resource.Name);
         })
 )

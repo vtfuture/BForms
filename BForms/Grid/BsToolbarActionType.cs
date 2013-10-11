@@ -8,8 +8,7 @@ namespace BForms.Grid
     public enum BsToolbarActionType
     {
         Refresh = 1,
-        Search = 2,
-        Add = 3,
-        Print = 4
+        AdvancedSearch = 2,
+        Add = 3
     }
 }

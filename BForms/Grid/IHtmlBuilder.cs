@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BForms.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -23,7 +24,7 @@ namespace BForms.Grid
         {
             this.viewContext = viewContext;
         }
-        
+
         public abstract string Render();
 
         public virtual string ToHtmlString()
@@ -31,6 +32,14 @@ namespace BForms.Grid
             var writer = new System.IO.StringWriter();
             this.viewContext.Writer.Write(this.Render());
             return writer.ToString();
+        }
+
+        protected string GetGlyphcon(Glyphicon icon)
+        {
+            var spanTag = new TagBuilder("span");
+            spanTag.AddCssClass(Utilities.ReflectionHelpers.GetDescription(icon));
+            spanTag.AddCssClass("glyphicon");
+            return spanTag.ToString(TagRenderMode.Normal);
         }
     }
 }

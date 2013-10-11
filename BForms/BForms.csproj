@@ -86,6 +86,7 @@
     <Compile Include="Grid\BsToolbarActionsFactory.cs" />
     <Compile Include="Grid\BsToolbarActionType.cs" />
     <Compile Include="Grid\BsToolbarHtmlBuilder.cs" />
+    <Compile Include="Grid\BsToolbarQuickSearch.cs" />
     <Compile Include="Grid\IHtmlBuilder.cs" />
     <Compile Include="Html\DateTimeExtensions.cs" />
     <Compile Include="Html\GridExtensions.cs" />

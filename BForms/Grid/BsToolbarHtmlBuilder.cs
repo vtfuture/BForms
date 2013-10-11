@@ -69,9 +69,11 @@ namespace BForms.Grid
             {
                 controlsBuilder.InnerHtml += action.Render();
 
-                if (action.TabDelegate != null)
+                var normalAction = action as BsToolbarAction<TToolbar>;
+
+                if (normalAction != null && normalAction.TabDelegate != null)
                 {
-                    tabs += action.TabDelegate(this.model);
+                    tabs += normalAction.TabDelegate(this.model);
                 }
             }
             toolbarBuilder.InnerHtml += controlsBuilder.ToString();
