@@ -30,7 +30,7 @@ namespace BForms.Grid
 
             if (this.glyphIcon.HasValue)
             {
-                inputGroupBuilder.InnerHtml += GetGlyphcon(this.glyphIcon.Value);
+                inputGroupBuilder.InnerHtml += GetGlyphcon(this.glyphIcon.Value, true);
             }
 
             var inputBuilder = new TagBuilder("input");

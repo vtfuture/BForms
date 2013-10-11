@@ -3,7 +3,11 @@
 @using BForms.Models
 @model BForms.Docs.Areas.Demo.Models.ContributorDetailsModel
 
-<h3 class="editable">@Html.BsGlyphicon(Glyphicon.User) Identity</h3>
+<h3 class="editable">
+    @Html.BsGlyphicon(Glyphicon.User)
+    Identity
+    @Html.BsGlyphicon(Glyphicon.Edit)
+</h3>
 
 @Html.Partial("Grid/Details/_IdentityReadonly", Model)
 
