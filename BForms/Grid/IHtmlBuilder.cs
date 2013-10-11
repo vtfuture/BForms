@@ -34,11 +34,15 @@ namespace BForms.Grid
             return writer.ToString();
         }
 
-        protected string GetGlyphcon(Glyphicon icon)
+        protected string GetGlyphcon(Glyphicon icon, bool forInput = false)
         {
             var spanTag = new TagBuilder("span");
             spanTag.AddCssClass(Utilities.ReflectionHelpers.GetDescription(icon));
             spanTag.AddCssClass("glyphicon");
+            if (forInput)
+            {
+                spanTag.AddCssClass("input-group-addon");
+            }
             return spanTag.ToString(TagRenderMode.Normal);
         }
     }
