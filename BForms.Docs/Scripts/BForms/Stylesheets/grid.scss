@@ -551,8 +551,18 @@ a.btn {
 			}
 			.results_per_page {
 				overflow: visible;
-				span {
-					margin-right: 5px;
+				.btn {
+					padding: 3px 9px 3px 10px;
+				}
+				.dropdown {
+					float: left;
+					.caret {
+						margin-left: 5px;
+					}
+				}
+				.btn-go_up {
+					float: left;
+					margin-left: 10px;
 				}
 			}
 		}

@@ -198,7 +198,7 @@ namespace BForms.Grid
                     #region right side
                     var selectedVal = this.model.Pager.PageSize;
                     var dropdownContainerBuilder = new TagBuilder("div");
-                    dropdownContainerBuilder.MergeAttribute("class", "dropdown perPageContainer");
+                    dropdownContainerBuilder.MergeAttribute("class", "dropdown");
 
                     var dropdownTriggerBuilder = new TagBuilder("a");
                     dropdownTriggerBuilder.MergeAttribute("data-toggle","dropdown");
@@ -217,15 +217,19 @@ namespace BForms.Grid
                         if (selectedVal == item)
                         {
                             var dropdownCountBuilder = new TagBuilder("span");
-                            dropdownCountBuilder.AddCssClass("bs-perPageDisplay");
-                            dropdownCountBuilder.SetInnerText(item.ToString());
+                            dropdownCountBuilder.AddCssClass("btn btn-default bs-perPageDisplay");          
+                            var caret = new TagBuilder("span");
+                            caret.AddCssClass("caret");
+                            dropdownCountBuilder.InnerHtml += item.ToString() + caret.ToString();
                             dropdownTriggerBuilder.InnerHtml += dropdownCountBuilder.ToString();
+
                             dropdownLiAnchorBuilder.AddCssClass("selected");
                         }
 
                         dropdownLiAnchorBuilder.InnerHtml += item;
                         dropdownLiAnchorBuilder.MergeAttribute("data-value",item.ToString());
                         dropdownLiAnchorBuilder.AddCssClass("bs-perPage");
+                        dropdownLiAnchorBuilder.Attributes.Add("href", "#");
 
                         dropdownLiBuilder.InnerHtml += dropdownLiAnchorBuilder.ToString();
                         dropdownListBuilder.InnerHtml += dropdownLiBuilder.ToString();
@@ -237,7 +241,7 @@ namespace BForms.Grid
                     divBuilder.InnerHtml += dropdownContainerBuilder.ToString();
 
                     var goTopBuilder = new TagBuilder("button");
-                    goTopBuilder.MergeAttribute("class","btn btn-goTop");
+                    goTopBuilder.MergeAttribute("class","btn btn-default btn-go_up btn-goTop");
                     var goTopSpanBuilder = new TagBuilder("span");
                     goTopSpanBuilder.MergeAttribute("class", "glyphicon glyphicon-arrow-up");
 
@@ -391,7 +395,7 @@ namespace BForms.Grid
                 #region pagination
 
                 var paginationBuilder = new TagBuilder("ul");
-                paginationBuilder.MergeAttribute("class", "pagination pagination-sm");
+                paginationBuilder.MergeAttribute("class", "pagination pagination-md");
 
                 #region first page button
 
