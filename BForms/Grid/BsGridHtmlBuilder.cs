@@ -77,6 +77,9 @@ namespace BForms.Grid
         {
             var columnFactory = new BsGridColumnFactory<TRow>(this.viewContext, this.columns);
             configurator(columnFactory);
+
+            columnFactory.Validate();
+
             this.columns = columnFactory.Columns;
 
             return this;
@@ -154,11 +157,6 @@ namespace BForms.Grid
             wrapper.MergeAttribute("class", "grid_rows");
 
             #region columns builder
-
-            if (!this.columns.Any())
-            {
-                throw new NotImplementedException("You must define your grid columns either in model as data attributes or in the view");
-            }
 
             var columnsBuilder = new TagBuilder("div");
 
@@ -305,7 +303,7 @@ namespace BForms.Grid
                         var column = this.columns.ElementAt(i);
 
                         var cellBuilder = new TagBuilder("div");
-                        cellBuilder.MergeAttribute("class", "col-lg-" + column.Width + " col-md-" + column.Width);
+                        cellBuilder.AddCssClass(column.GetWidthClasses());
 
                         if (i == 0)
                         {
@@ -579,7 +577,7 @@ namespace BForms.Grid
                     var column = new BsGridColumn<TRow>(property, this.viewContext);
 
                     column.IsSortable = columnAttr.IsSortable;
-                    column.Width = columnAttr.Width;
+                    column.SetWidth(columnAttr.Width);
 
                     System.ComponentModel.DataAnnotations.DisplayAttribute displayAttribute = null;
                     if (ReflectionHelpers.TryGetAttribute(property, out displayAttribute))

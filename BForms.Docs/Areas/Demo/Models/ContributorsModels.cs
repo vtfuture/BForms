@@ -146,16 +146,16 @@ namespace BForms.Docs.Areas.Demo.Models
 
         public bool Enabled { get; set; }
 
-        [BsGridColumn(Width = 3)]
+        [BsGridColumn(Width = 2, IsEditable= true)]
         public string Name { get; set; }
 
-        [BsGridColumn(Width = 3)]
+        [BsGridColumn(Width = 2)]
         public DateTime StartDate { get; set; }
 
         [BsGridColumn(Width = 3)]
         public ProjectRole Role { get; set; }
 
-        [BsGridColumn(Width = 3)]
+        [BsGridColumn(Width = 5)]
         public string Contributions { get; set; }
 
         public Dictionary<string, object> RowData()
