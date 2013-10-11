@@ -200,14 +200,17 @@ namespace BForms.Grid
                     var dropdownContainerBuilder = new TagBuilder("div");
                     dropdownContainerBuilder.MergeAttribute("class", "dropdown");
 
+                    var resPerPageTagBuilder = new TagBuilder("span");
+                    resPerPageTagBuilder.SetInnerText("results per page");
+                    resPerPageTagBuilder.MergeAttribute("class", "results_per_page_container");
+
+                    dropdownContainerBuilder.InnerHtml += resPerPageTagBuilder.ToString();
+
                     var dropdownTriggerBuilder = new TagBuilder("a");
                     dropdownTriggerBuilder.MergeAttribute("data-toggle","dropdown");
                     dropdownTriggerBuilder.MergeAttribute("href", "#");
 
-                    var resPerPageTagBuilder = new TagBuilder("span");
-                    resPerPageTagBuilder.SetInnerText("Results per page");
-                    resPerPageTagBuilder.MergeAttribute("class", "results_per_page_container");
-                    dropdownTriggerBuilder.InnerHtml += resPerPageTagBuilder.ToString();
+                 
 
                     var dropdownListBuilder = new TagBuilder("ul");
                     dropdownListBuilder.MergeAttribute("class","dropdown-menu");
@@ -246,6 +249,7 @@ namespace BForms.Grid
 
                     var goTopBuilder = new TagBuilder("button");
                     goTopBuilder.MergeAttribute("class","btn btn-default btn-go_up bs-goTop");
+                    goTopBuilder.MergeAttribute("title", "Go top");
                     var goTopSpanBuilder = new TagBuilder("span");
                     goTopSpanBuilder.MergeAttribute("class", "glyphicon glyphicon-arrow-up");
 

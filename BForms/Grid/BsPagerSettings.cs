@@ -41,7 +41,8 @@ namespace BForms.Grid
             5,
             10,
             50,
-            100
+            100,
+            500
           };
                 return list;
             }
