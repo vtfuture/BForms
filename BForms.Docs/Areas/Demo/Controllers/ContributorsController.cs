@@ -170,7 +170,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
             var details = string.Empty;
 
             try
-            {
+            {                
                 var rowModel = _gridRepository.ReadRow(objId);
 
                 var viewModel = _gridRepository.ToBsGridViewModel<ContributorsViewModel>(x => x.Grid, rowModel);
@@ -206,6 +206,10 @@ namespace BForms.Docs.Areas.Demo.Controllers
 
             try
             {
+                if (objId == 1)
+                {
+                    throw new Exception("Testare exceptie");
+                }
                 var model = _gridRepository.ReadDetails(objId);
                 html = this.BsRenderPartialView("Grid/Details/_Index", model);
             }

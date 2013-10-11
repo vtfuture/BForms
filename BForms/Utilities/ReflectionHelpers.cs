@@ -306,5 +306,26 @@ namespace BForms.Utilities
             config.Append("}");
             return config.ToString();
         }
+
+        internal static string EnumDisplayName(Type myEnum, Enum val)
+        {
+            var enumType = myEnum;
+            if (!enumType.IsEnum)
+            {
+                throw new ArgumentException("myEnum is not of type enum", "myEnum");
+            }
+
+            var name = Enum.GetName(enumType, val);
+
+            var text = enumType.GetMember(name)
+                    .First()
+                    .GetCustomAttributes(false)
+                    .OfType<DisplayAttribute>()
+                    .LastOrDefault();
+
+            var textValue = text == null ? name : text.GetName();
+
+            return textValue;
+        }
     }
 }

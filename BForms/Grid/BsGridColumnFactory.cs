@@ -13,6 +13,8 @@ namespace BForms.Grid
     {
         private ViewContext viewContext;
 
+        private readonly int totalColumnWidth = 12;
+
         private List<BsGridColumn<TRow>> columns;
 
         public List<BsGridColumn<TRow>> Columns
@@ -68,6 +70,23 @@ namespace BForms.Grid
             }
 
             return column;
+        }
+
+        internal virtual void Validate()
+        {
+            if (!this.Columns.Any())
+            {
+                throw new NotImplementedException("You must define your grid columns either in model as data attributes or in the view");
+            }
+
+            foreach (BsScreenType item in Enum.GetValues(typeof(BsScreenType)))
+            {
+                var width = this.Columns.Select(x => x.WidthSizes.Where(y => y.ScreenType == item).Select(y => y.Size).FirstOrDefault()).Sum();
+                if (width < this.totalColumnWidth)
+                {
+                    throw new Exception(string.Format("Total sum of grid columns width for {0} must be greater than {1}", item, this.totalColumnWidth));
+                }
+            }
         }
     }
 }

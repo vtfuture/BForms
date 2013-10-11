@@ -11,12 +11,19 @@ namespace BForms.Grid
     public class BsToolbarQuickSearch : BaseComponent
     {
         private Glyphicon? glyphIcon;
+        private string placeholder = "Quick search";
 
         public BsToolbarQuickSearch() { }
 
         public BsToolbarQuickSearch(ViewContext viewContext)
             : base(viewContext) { }
 
+
+        public BsToolbarQuickSearch Placeholder(string placeholder)
+        {
+            this.placeholder = placeholder;
+            return this;
+        } 
 
         public override string Render()
         {
@@ -29,6 +36,7 @@ namespace BForms.Grid
             inputBuilder.MergeAttribute("type", "text");
             inputBuilder.MergeAttribute("placeholder", "search");
             inputBuilder.MergeAttribute("id", "quick_search");
+            inputBuilder.MergeAttribute("placeholder", this.placeholder);
 
             inputGroupBuilder.InnerHtml += inputBuilder.ToString(TagRenderMode.SelfClosing);
 

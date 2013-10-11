@@ -44,6 +44,24 @@ namespace BForms.Html
         }
 
         /// <summary>
+        /// Renders the name of an enum based on DisplayAttribute
+        /// </summary>
+        /// <typeparam name="TModel"></typeparam>
+        /// <typeparam name="TEnum"></typeparam>
+        /// <param name="htmlHelper"></param>
+        /// <param name="val"></param>
+        /// <returns></returns>
+        public static MvcHtmlString BsEnumDisplayName<TModel, TEnum>(this HtmlHelper<TModel> htmlHelper, TEnum val)
+        {
+            if (!typeof(TEnum).IsEnum)
+            {
+                throw new ArgumentException("val is not of type enum", "val");
+            }
+
+            return new MvcHtmlString(ReflectionHelpers.EnumDisplayName(typeof(TEnum), val as Enum));
+        }
+
+        /// <summary>
         /// Appends BForms custom html attribute to an existing collection
         /// </summary>
         internal static void ApplyBFormsAttributes(this IDictionary<string, object> htmlAttributes, ModelMetadata metadata, IDictionary<string, object> dataOptions)

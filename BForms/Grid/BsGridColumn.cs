@@ -7,6 +7,19 @@ using System.Web.Mvc;
 
 namespace BForms.Grid
 {
+    public enum BsScreenType
+    {
+        Large = 1,
+        Medium = 2,
+        Small = 3
+    }
+
+    public class BsColumnWidth
+    {
+        public BsScreenType ScreenType { get; set; }
+        public int Size { get; set; }
+    }
+
     public class BsGridColumn<TRow> : BaseComponent where TRow : new()
     {
         public PropertyInfo Property { get; set; }
@@ -19,7 +32,15 @@ namespace BForms.Grid
 
         public string DisplayName { get; set; }
 
-        public int Width { get; set; }
+        private List<BsColumnWidth> widthSizes = new List<BsColumnWidth>();
+
+        public List<BsColumnWidth> WidthSizes
+        {
+            get
+            {
+                return this.widthSizes;
+            }
+        }
 
         public Func<TRow, object> CellText { get; set; }
 
@@ -52,7 +73,34 @@ namespace BForms.Grid
 
         public BsGridColumn<TRow> SetWidth(int width)
         {
-            this.Width = width;
+            return this.SetWidth(width, width);
+        }
+
+        public BsGridColumn<TRow> SetWidth(int largeWidth, int normalWidth)
+        {
+            return this.SetWidth(largeWidth, normalWidth, normalWidth);
+        }
+
+        public BsGridColumn<TRow> SetWidth(int largeWidth, int mediumWidth, int smallWidth)
+        {
+            this.widthSizes.Add(new BsColumnWidth
+            {
+                ScreenType = BsScreenType.Large,
+                Size = largeWidth
+            });
+
+            this.widthSizes.Add(new BsColumnWidth
+            {
+                ScreenType = BsScreenType.Medium,
+                Size = mediumWidth
+            });
+
+            this.widthSizes.Add(new BsColumnWidth
+            {
+                ScreenType = BsScreenType.Small,
+                Size = smallWidth
+            });
+
             return this;
         }
 
@@ -60,6 +108,39 @@ namespace BForms.Grid
         {
             this.CellText = cellText;
             return this;
+        }
+
+        public virtual string GetWidthClasses()
+        {
+            var classes = string.Empty;
+
+            foreach (var item in this.widthSizes)
+            {
+                var classPrefix = string.Empty;
+
+                switch (item.ScreenType)
+                {
+                    case BsScreenType.Large:
+                        {
+                            classPrefix = "col-lg-";
+                            break;
+                        }
+                    case BsScreenType.Medium:
+                        {
+                            classPrefix = "col-md-";
+                            break;
+                        }
+                    case BsScreenType.Small:
+                        {
+                            classPrefix = "col-sm-";
+                            break;
+                        }
+                }
+
+                classes += " " + classPrefix + item.Size;
+            }
+
+            return classes;
         }
 
         public override string Render()
@@ -84,7 +165,7 @@ namespace BForms.Grid
                 columnBuilder.InnerHtml += this.EditableContent;
             }
 
-            columnBuilder.MergeAttribute("class", "col-lg-" + this.Width + " col-md-" + this.Width);
+            columnBuilder.AddCssClass(this.GetWidthClasses());
 
             return columnBuilder.ToString();
         }

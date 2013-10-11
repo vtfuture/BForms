@@ -46,6 +46,5 @@ namespace BForms.Grid
             actions.Add(toolbarAction as BaseComponent);
             return toolbarAction;
         }
-
     }
 }

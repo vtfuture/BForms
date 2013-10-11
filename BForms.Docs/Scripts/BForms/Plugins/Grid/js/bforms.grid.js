@@ -66,7 +66,8 @@
         OrderColumns: [],
         Search: {},
         page: 1,
-        pageSize: 5
+        pageSize: 5,
+        quickSearch: ''
     };
 
     Grid.prototype._create = function () {
@@ -81,6 +82,9 @@
 
         this._initSelectors();
 
+        this.options.hasRowCheck = this.$actionsContainer.length > 0;
+        this.hasDetails = this.options.detailsSelector && this.options.detailsUrl;
+
         this._addDelegates();
 
         this.refreshModel = this._refreshModel;
@@ -93,9 +97,7 @@
 
         //set default page size
         this.refreshModel.pageSize = parseInt(this.$pager.bsPager("getPageSize"), 10) || this.refreshModel.pageSize;
-
-        this.options.hasRowCheck = this.$actionsContainer.length > 0;
-
+        
         // when an action made on grid generates a refresh then this.needsRefresh is set to true
         this.needsRefresh = false;
 
@@ -103,12 +105,8 @@
 
     Grid.prototype._addDelegates = function () {
 
-        if (this.options.detailsSelector && this.options.detailsUrl) {
+        if (this.hasDetails) {
             this.element.on('click', this.options.detailsSelector, $.proxy(this._evOnDetailsClick, this));
-            this.element.on('click', this.options.rowSelector, $.proxy(function (e) {
-                e.preventDefault();
-                console.log('row click');
-            }, this))
         }
 
         if (this.options.hasOrder) {
