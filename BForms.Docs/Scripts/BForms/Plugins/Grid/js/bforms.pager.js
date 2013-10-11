@@ -17,7 +17,7 @@
         totalsContainerSelector: '.results_number span',
         pageSizeContainerSelector: '.results_per_page',
         perPageDisplaySelector: '.bs-perPageDisplay',
-        goTopButtonSelector : '.btn-goTop'
+        goTopButtonSelector : '.bs-goTop'
     };
     
     Pager.prototype._create = function () {
@@ -70,8 +70,10 @@
         e.preventDefault();
 
         var value = $(e.currentTarget).data('value');
+        this.element.find('.selected').removeClass('selected');
+        $(e.currentTarget).addClass('selected');
 
-        this.element.find(this.options.perPageDisplaySelector).html(value);
+        this.element.find(this.options.perPageDisplaySelector).html(value + '<span class="caret"></span>');
 
         this._trigger('pagerUpdate', e, {
             page: 1,
