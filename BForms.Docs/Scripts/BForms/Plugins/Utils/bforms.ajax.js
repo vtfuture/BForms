@@ -218,7 +218,11 @@
                 if (xhrReq.aborted === true) return;
 
                 try {
-                    deferredXHR.resolve(response.Status, [response.Data, xhrSettings.callbackData]);
+                    if (response.Status == self._statusEnum.Success || self._statusEnum.ValidationError) {
+                        deferredXHR.resolve(response.Status, [response.Data, xhrSettings.callbackData]);
+                    } else {
+                        deferredXHR.resolve(response.Status, [response, xhrSettings.callbackData]);
+                    }
                 } catch (ex) {
                     window.console.log(ex.stack);
                 }
