@@ -24,7 +24,7 @@
             cf.Add(c => c.Role).Name("Role")
                                 .SetWidth(2)
                                 .Sortable()
-                                .Text(x => Html.GetRoleIcon(x.Role) + " " + x.Role.ToString());
+                                .Text(x => Html.GetRoleIcon(x.Role) + " " + Html.BsEnumDisplayName(x.Role));
             
             cf.Add(c => c.StartDate).Name("Contributor since")
                                 .SetWidth(3)

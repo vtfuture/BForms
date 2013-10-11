@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BForms.Utilities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -85,22 +86,8 @@ namespace BForms.Models
 
             foreach (var item in Enum.GetValues(enumType))
             {
-                //get Description Name from resources
-                var name = Enum.GetName(enumType, item);
-
-                if (excludedList.Contains(name))
-                {
-                    continue;
-                }
-
-                var text = enumType.GetMember(name)
-                    .First()
-                    .GetCustomAttributes(false)
-                    .OfType<DisplayAttribute>()
-                    .LastOrDefault();
-                
-
-                var textValue = text == null ? name : text.GetName();
+                //get Display Name from resources
+                var textValue = ReflectionHelpers.EnumDisplayName(myEnum, item as Enum);
 
                 this.Items.Add(new BsSelectListItem
                 {
@@ -143,15 +130,8 @@ namespace BForms.Models
             var bsList = new BsSelectList<T>();
             foreach (var item in Enum.GetValues(enumType))
             {
-                //get Description Name from resources
-                var name = Enum.GetName(enumType, item);
-                var text = enumType.GetMember(name)
-                    .First()
-                    .GetCustomAttributes(false)
-                    .OfType<DisplayAttribute>()
-                    .LastOrDefault();
-
-                var textValue = text == null ? name : text.GetName();
+                //get Display Name from resources
+                var textValue = ReflectionHelpers.EnumDisplayName(myEnum, item as Enum);
 
                 bsList.Items.Add(new BsSelectListItem
                                  {
