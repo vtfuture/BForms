@@ -169,9 +169,9 @@ a.btn {
         border-bottom: 1px solid #E0E0E0; }
         .grid_container .grid_toolbar .grid_toolbar_form h3 .glyphicon {
           font-size: 13px; }
-      .grid_container .grid_toolbar .grid_toolbar_form .grids_header_submit {
+      .grid_container .grid_toolbar .grid_toolbar_form .grid_toolbar_submit {
         padding: 5px 15px 0; }
-        .grid_container .grid_toolbar .grid_toolbar_form .grids_header_submit a {
+        .grid_container .grid_toolbar .grid_toolbar_form .grid_toolbar_submit a {
           text-decoration: underline;
           color: #333;
           margin-left: 5px; }
