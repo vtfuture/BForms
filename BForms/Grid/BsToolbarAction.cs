@@ -13,14 +13,6 @@ namespace BForms.Grid
         #region Properties and constructors
         private string descriptorClass;
 
-        private BsButtonType buttonType;
-        private Dictionary<BsButtonType, string> buttonTypes = new Dictionary<BsButtonType, string>() 
-        { 
-            {BsButtonType.None, "" }, 
-            {BsButtonType.WithoutText, "without_text"}, 
-            {BsButtonType.WithText, "with_text"}
-        };
-
         private string styleClasses;
 
         private string title;
@@ -85,12 +77,6 @@ namespace BForms.Grid
             return this;
         }
 
-        public BsToolbarAction<TToolbar> ButtonType(BsButtonType btnType)
-        {
-            this.buttonType = btnType;
-            return this;
-        }
-
         public BsToolbarAction<TToolbar> StyleClasses(string styleClasses)
         {
             this.styleClasses = styleClasses;
@@ -130,19 +116,8 @@ namespace BForms.Grid
         public override string Render()
         {
             var actionBuilder = new TagBuilder("a");
-
-            var classes = this.descriptorClass;
-            if (this.buttonType != BsButtonType.None)
-            {
-                classes += " " + this.buttonTypes[this.buttonType];
-            }
-            if (!string.IsNullOrEmpty(this.styleClasses))
-            {
-                classes += " " + this.styleClasses;
-            }
-
-            actionBuilder.MergeAttribute("class", classes);
-
+            actionBuilder.AddCssClass(descriptorClass);
+            actionBuilder.AddCssClass(this.styleClasses);
             actionBuilder.MergeAttribute("href", this.href ?? "#");
 
             if (!string.IsNullOrEmpty(this.title))

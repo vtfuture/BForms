@@ -75,7 +75,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Grid\BsBaseGridRepository.cs" />
-    <Compile Include="Grid\BsButtonType.cs" />
     <Compile Include="Grid\BsGridColumn.cs" />
     <Compile Include="Grid\BsGridColumnFactory.cs" />
     <Compile Include="Grid\BsGridHtmlBuilder.cs" />
