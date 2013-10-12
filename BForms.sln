@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.20827.3
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BForms", "BForms\BForms.csproj", "{60A6E254-CD66-4C0E-9191-5E95E70001EB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{FFE46FF4-E0D6-4DBB-9D78-840EC684F58E}"
@@ -13,8 +15,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuspec", ".nuspec", "{FB12F3C3-E98E-4136-8D36-ED2B952082EE}"
 	ProjectSection(SolutionItems) = preProject
 		BForms.MVC.nuspec = BForms.MVC.nuspec
-		BFormsAssembly.nuspec = BFormsAssembly.nuspec
-		BFormsAssembly.symbols.nuspec = BFormsAssembly.symbols.nuspec
+		BForms.nuspec = BForms.nuspec
+		BForms.symbols.nuspec = BForms.symbols.nuspec
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BForms.Docs", "BForms.Docs\BForms.Docs.csproj", "{ACFAD539-59C8-4739-8DA4-6C76F7B1DE97}"

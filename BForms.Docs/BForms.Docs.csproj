@@ -278,6 +278,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Demo\Views\Shared\" />
     <Folder Include="Models\" />
+    <Folder Include="Scripts\BForms\Core\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

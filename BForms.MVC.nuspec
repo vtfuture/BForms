@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
-    <version>1.00</version>
-    <authors>Stefan Prodan, Marius Cosareanu, Oana Mangiurea</authors>
+    <version>1.0.0</version>
+    <authors>BForms Team</authors>
     <owners>Stefan Prodan</owners>
     <id>BForms.MVC</id>
-    <title>BForms</title>
+    <title>BForms.MVC</title>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>BForms for ASP.NET MVC</description>
     <copyright>Copyright Stefan Prodan 2013</copyright>
@@ -19,7 +19,6 @@
   <files>
     <file src="BForms\bin\Debug\BForms.dll" target="lib\net45\" />
     <file src="BForms\bin\Debug\BForms.xml" target="lib\net45\" />
-    <file src="BForms\bin\Debug\BForms.pdb" target="lib\net45\" />
-    <file src="BForms\Scripts\*" target="Scripts\" />
+    <file src="BForms.Docs\Scripts\BForms\*" target="Scripts\BForms\" />
   </files>
 </package>
