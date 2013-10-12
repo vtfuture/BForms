@@ -9,7 +9,7 @@ namespace BForms.Utilities
 {
     internal static class  TagBuilderExtensions
     {
-        internal static void MergeClassAttribute(this TagBuilder tagBuilder, string value, Dictionary<string, object> dictAttr)
+        internal static void MergeClassAttribute(this TagBuilder tagBuilder, string value, IDictionary<string, object> dictAttr)
         {
             var key = "class";
 

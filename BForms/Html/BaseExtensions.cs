@@ -46,11 +46,6 @@ namespace BForms.Html
         /// <summary>
         /// Renders the name of an enum based on DisplayAttribute
         /// </summary>
-        /// <typeparam name="TModel"></typeparam>
-        /// <typeparam name="TEnum"></typeparam>
-        /// <param name="htmlHelper"></param>
-        /// <param name="val"></param>
-        /// <returns></returns>
         public static MvcHtmlString BsEnumDisplayName<TModel, TEnum>(this HtmlHelper<TModel> htmlHelper, TEnum val)
         {
             if (!typeof(TEnum).IsEnum)

@@ -10,7 +10,7 @@ namespace BForms.Grid
     public class BsToolbarHtmlBuilder<TToolbar> : BaseComponent
     {
         private string displayName;
-        private Dictionary<string, object> htmlAttributes;
+        private IDictionary<string, object> htmlAttributes;
 
         private BsToolbarActionsFactory<TToolbar> ActionsFactory { get; set; }
 
@@ -35,9 +35,21 @@ namespace BForms.Grid
             return this;
         }
 
+        /// <summary>
+        /// Appends html attributes to grid_toolbar div element
+        /// </summary>
         public BsToolbarHtmlBuilder<TToolbar> HtmlAttributes(Dictionary<string, object> htmlAttributes)
         {
             this.htmlAttributes = htmlAttributes;
+            return this;
+        }
+
+        /// <summary>
+        /// Appends html attributes to grid_toolbar div element
+        /// </summary>
+        public BsToolbarHtmlBuilder<TToolbar> HtmlAttributes(object htmlAttributes)
+        {
+            this.htmlAttributes = HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes);
             return this;
         }
 
@@ -65,7 +77,6 @@ namespace BForms.Grid
 
             var controlsBuilder = new TagBuilder("div");
             controlsBuilder.AddCssClass("grid_toolbar_controls");
-            //controlsBuilder.AddCssClass("pull-right");
 
             string tabs = string.Empty;
 

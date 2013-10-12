@@ -39,7 +39,7 @@ namespace BForms.Grid
             set { fullName = value; }
         }
 
-        private Dictionary<string, object> htmlAttributes;
+        private IDictionary<string, object> htmlAttributes;
         private string multipleSelectActionsHtml;
         private Func<TRow, string> rowHighlighter;
         private Func<TRow, Dictionary<string, object>> rowData;
@@ -67,9 +67,22 @@ namespace BForms.Grid
 
             this.SetColumnsFromModel();
         }
+
+        /// <summary>
+        /// Appends html attributes to grid_view div element
+        /// </summary>
         public BsGridHtmlBuilder<TModel, TRow> HtmlAttributes(Dictionary<string, object> htmlAttributes)
         {
             this.htmlAttributes = htmlAttributes;
+            return this;
+        }
+
+        /// <summary>
+        /// Appends html attributes to grid_view div element
+        /// </summary>
+        public BsGridHtmlBuilder<TModel, TRow> HtmlAttributes(object htmlAttributes)
+        {
+            this.htmlAttributes = HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes);
             return this;
         }
 
@@ -85,6 +98,9 @@ namespace BForms.Grid
             return this;
         }
 
+        /// <summary>
+        /// Renders bulk action bar 
+        /// </summary>
         public BsGridHtmlBuilder<TModel, TRow> MultipleSelectActions(string multipleSelectActionsHtml)
         {
             this.multipleSelectActionsHtml = multipleSelectActionsHtml;

@@ -7,13 +7,28 @@ using System.Web.Mvc;
 
 namespace BForms.Grid
 {
+    /// <summary>
+    ///  Bootstrap grid system mods
+    /// </summary>
     public enum BsScreenType
     {
+        /// <summary>
+        /// Large devices Desktops and TVs
+        /// </summary>
         Large = 1,
+        /// <summary>
+        /// Medium devices Desktops and Tablets
+        /// </summary>
         Medium = 2,
+        /// <summary>
+        /// Small devices Tablets and Phones
+        /// </summary>
         Small = 3
     }
 
+    /// <summary>
+    /// Grid column width helper class
+    /// </summary>
     public class BsColumnWidth
     {
         public BsScreenType ScreenType { get; set; }
