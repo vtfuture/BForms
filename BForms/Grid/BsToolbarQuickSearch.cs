@@ -8,17 +8,21 @@ using System.Web.Mvc;
 
 namespace BForms.Grid
 {
+    /// <summary>
+    /// Grid toolbar inline search component
+    /// </summary>
     public class BsToolbarQuickSearch : BaseComponent
     {
-        private Glyphicon? glyphIcon;
-        private string placeholder = "Quick search";
+        private string placeholder = "search";
 
         public BsToolbarQuickSearch() { }
 
         public BsToolbarQuickSearch(ViewContext viewContext)
             : base(viewContext) { }
 
-
+        /// <summary>
+        /// Set input placeholder, default is "search"
+        /// </summary>
         public BsToolbarQuickSearch Placeholder(string placeholder)
         {
             this.placeholder = placeholder;
@@ -28,14 +32,12 @@ namespace BForms.Grid
         public override string Render()
         {
             var inputGroupBuilder = new TagBuilder("div");
-            inputGroupBuilder.MergeAttribute("class", "input-group bs-quickSearchContainer");
+            inputGroupBuilder.AddCssClass("input-group bs-quickSearchContainer");
 
 
             var inputBuilder = new TagBuilder("input");
-            inputBuilder.MergeAttribute("class", "form-control bs-text");
-            inputBuilder.MergeAttribute("type", "text");
-            inputBuilder.MergeAttribute("placeholder", "search");
-            inputBuilder.MergeAttribute("id", "quick_search");
+            inputBuilder.AddCssClass("form-control bs-text");
+            inputBuilder.MergeAttribute("type", "search");
             inputBuilder.MergeAttribute("placeholder", this.placeholder);
 
             inputGroupBuilder.InnerHtml += inputBuilder.ToString(TagRenderMode.SelfClosing);

@@ -139,6 +139,12 @@ namespace BForms.Docs.Areas.Demo.Controllers
                 {
                     var detailsModel = _gridRepository.Update(model, objId, componentId);
 
+                    //simulate exception
+                    if (objId == 4)
+                    {
+                        throw new Exception("This is how an exception message is displayed inside row details");
+                    }
+
                     switch (componentId)
                     {
                         case EditComponents.Identity:
@@ -152,7 +158,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
             }
             catch (Exception ex)
             {
-                msg = Resource.ServerError;
+                msg = "<strong>" + Resource.ServerError + "!</strong> " + ex.Message;
                 status = BsResponseStatus.ServerError;
             }
 
@@ -206,16 +212,20 @@ namespace BForms.Docs.Areas.Demo.Controllers
 
             try
             {
+                //simulate exception
                 if (objId == 1)
                 {
-                    throw new Exception("Testare exceptie");
+                    throw new Exception("This is how an exception message is displayed inside a BFroms grid row");
                 }
+
+                //render row details
                 var model = _gridRepository.ReadDetails(objId);
                 html = this.BsRenderPartialView("Grid/Details/_Index", model);
+
             }
             catch (Exception ex)
             {
-                msg = Resource.ServerError;
+                msg = "<strong>" + Resource.ServerError + "!</strong> " + ex.Message;
                 status = BsResponseStatus.ServerError;
             }
 
@@ -234,12 +244,18 @@ namespace BForms.Docs.Areas.Demo.Controllers
             {
                 foreach (var id in ids)
                 {
+                    //simulate exception
+                    if (id == 3)
+                    {
+                        throw new Exception("This is how an exception message is displayed");
+                    }
+
                     _gridRepository.Delete(id);
                 }
             }
             catch (Exception ex)
             {
-                msg = Resource.ServerError;
+                msg = "<strong>" + Resource.ServerError + "!</strong> " + ex.Message;
                 status = BsResponseStatus.ServerError;
             }
 
@@ -255,12 +271,18 @@ namespace BForms.Docs.Areas.Demo.Controllers
             {
                 foreach (var id in ids)
                 {
+                    //simulate exception
+                    if (id == 2)
+                    {
+                        throw new Exception("This is how an exception message is displayed");
+                    }
+
                     _gridRepository.EnableDisable(id, enable);
                 }
             }
             catch (Exception ex)
             {
-                msg = Resource.ServerError;
+                msg = "<strong>" + Resource.ServerError + "!</strong> " + ex.Message;
                 status = BsResponseStatus.ServerError;
             }
 
