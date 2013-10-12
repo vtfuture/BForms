@@ -8,7 +8,7 @@
                                 
 @(Html.BsGridFor(m => m.Grid)
         .MultipleSelectActions(Html.Partial("Grid/_Actions").ToString())
-        .HtmlAttributes(new { @class="custom_class" })
+        .HtmlAttributes(new { @class = "custom_class" })
         .RowHighlighter(row => row.Enabled ? "#59b444" : "#f0ad4e")
         .RowData(row => new Dictionary<string, object> { { "data-objid", row.Id }, { "data-active", row.Enabled } })
         .ConfigureColumns(cols =>
@@ -34,4 +34,5 @@
 
             cols.For(c => c.Name).Name(Resource.Name);
         })
+        .PagerSettings(new BsPagerSettings { DefaultPageSize = 10 })
 )

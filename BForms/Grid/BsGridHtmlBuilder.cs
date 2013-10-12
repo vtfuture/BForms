@@ -42,7 +42,7 @@ namespace BForms.Grid
         private IDictionary<string, object> htmlAttributes;
         private string multipleSelectActionsHtml;
         private Func<TRow, string> rowHighlighter;
-        private Func<TRow, Dictionary<string, object>> rowData;
+        private Func<TRow, IDictionary<string, object>> rowData;
         private bool hasDetails;
         private List<BsGridColumn<TRow>> columns;
         private BsPagerSettings pagerSettings = new BsPagerSettings();
@@ -114,6 +114,9 @@ namespace BForms.Grid
             return this;
         }
 
+        /// <summary>
+        /// Adds data- html attributes
+        /// </summary>
         public BsGridHtmlBuilder<TModel, TRow> RowData(Func<TRow, Dictionary<string, object>> rowData)
         {
             this.rowData = rowData;
@@ -121,9 +124,9 @@ namespace BForms.Grid
             return this;
         }
 
-        public BsGridHtmlBuilder<TModel, TRow> PagerSettings(Func<TRow, Dictionary<string, object>> rowData)
+        public BsGridHtmlBuilder<TModel, TRow> PagerSettings(BsPagerSettings pagerSettings)
         {
-            this.rowData = rowData;
+            this.pagerSettings = pagerSettings;
 
             return this;
         }
@@ -153,14 +156,14 @@ namespace BForms.Grid
             var headerBuilder = new TagBuilder("h2");
 
             var badgeBuilder = new TagBuilder("span");
-            badgeBuilder.MergeAttribute("class", "badge");
+            badgeBuilder.AddCssClass("badge");
             badgeBuilder.InnerHtml += this.model.Pager != null ? this.model.Pager.TotalRecords : 0;
             headerBuilder.InnerHtml += badgeBuilder.ToString();
 
             headerBuilder.InnerHtml += this.metadata.DisplayName;
 
             var filterIconBuilder = new TagBuilder("span");
-            filterIconBuilder.MergeAttribute("class", "glyphicon glyphicon-filter icon_filter js-filter");
+            filterIconBuilder.AddCssClass("glyphicon glyphicon-filter icon_filter js-filter");
             filterIconBuilder.MergeAttribute("title", "");
             headerBuilder.InnerHtml += filterIconBuilder.ToString();
 
@@ -170,13 +173,13 @@ namespace BForms.Grid
             #endregion
 
             var wrapper = new TagBuilder("div");
-            wrapper.MergeAttribute("class", "grid_rows");
+            wrapper.AddCssClass("grid_rows");
 
             #region columns builder
 
             var columnsBuilder = new TagBuilder("div");
 
-            columnsBuilder.MergeAttribute("class", "row grid_row title");
+            columnsBuilder.AddCssClass("row grid_row title");
 
             foreach (var column in this.columns)
             {
@@ -193,7 +196,7 @@ namespace BForms.Grid
             if (this.model.Pager != null && this.model.Pager.TotalRecords > 0)
             {
                 var pagerWrapper = new TagBuilder("div");
-                pagerWrapper.MergeAttribute("class", "row grid_pager");
+                pagerWrapper.AddCssClass("row grid_pager");
 
                 pagerWrapper.InnerHtml += this.RenderPages();
 
@@ -204,30 +207,30 @@ namespace BForms.Grid
                         throw new ArgumentOutOfRangeException("The page size you selected is not in the list");
 
                     var selectWrapperBuilder = new TagBuilder("div");
-                    selectWrapperBuilder.MergeAttribute("class", "col-md-6 col-lg-6 results_per_page");
+                    selectWrapperBuilder.AddCssClass("col-md-6 col-lg-6 results_per_page");
 
                     TagBuilder divBuilder = new TagBuilder("div");
-                    divBuilder.MergeAttribute("class", "pull-right");
+                    divBuilder.AddCssClass("pull-right");
 
                     #region right side
                     var selectedVal = this.model.Pager.PageSize;
                     var dropdownContainerBuilder = new TagBuilder("div");
-                    dropdownContainerBuilder.MergeAttribute("class", "dropdown");
+                    dropdownContainerBuilder.AddCssClass("dropdown");
 
                     var resPerPageTagBuilder = new TagBuilder("span");
                     resPerPageTagBuilder.SetInnerText("results per page");
-                    resPerPageTagBuilder.MergeAttribute("class", "results_per_page_container");
+                    resPerPageTagBuilder.AddCssClass("results_per_page_container");
 
                     dropdownContainerBuilder.InnerHtml += resPerPageTagBuilder.ToString();
 
                     var dropdownTriggerBuilder = new TagBuilder("a");
-                    dropdownTriggerBuilder.MergeAttribute("data-toggle","dropdown");
+                    dropdownTriggerBuilder.MergeAttribute("data-toggle", "dropdown");
                     dropdownTriggerBuilder.MergeAttribute("href", "#");
 
-                 
+
 
                     var dropdownListBuilder = new TagBuilder("ul");
-                    dropdownListBuilder.MergeAttribute("class","dropdown-menu");
+                    dropdownListBuilder.MergeAttribute("class", "dropdown-menu");
                     dropdownListBuilder.MergeAttribute("role", "menu");
 
                     foreach (var item in this.pagerSettings.PageSizeValues)
@@ -238,7 +241,7 @@ namespace BForms.Grid
                         if (selectedVal == item)
                         {
                             var dropdownCountBuilder = new TagBuilder("span");
-                            dropdownCountBuilder.AddCssClass("btn btn-default bs-perPageDisplay");          
+                            dropdownCountBuilder.AddCssClass("btn btn-default bs-perPageDisplay");
                             var caret = new TagBuilder("span");
                             caret.AddCssClass("caret");
                             dropdownCountBuilder.InnerHtml += item.ToString() + caret.ToString();
@@ -248,7 +251,7 @@ namespace BForms.Grid
                         }
 
                         dropdownLiAnchorBuilder.InnerHtml += item;
-                        dropdownLiAnchorBuilder.MergeAttribute("data-value",item.ToString());
+                        dropdownLiAnchorBuilder.MergeAttribute("data-value", item.ToString());
                         dropdownLiAnchorBuilder.AddCssClass("bs-perPage");
                         dropdownLiAnchorBuilder.Attributes.Add("href", "#");
 
@@ -262,10 +265,10 @@ namespace BForms.Grid
                     divBuilder.InnerHtml += dropdownContainerBuilder.ToString();
 
                     var goTopBuilder = new TagBuilder("button");
-                    goTopBuilder.MergeAttribute("class","btn btn-default btn-go_up bs-goTop");
+                    goTopBuilder.AddCssClass("btn btn-default btn-go_up bs-goTop");
                     goTopBuilder.MergeAttribute("title", "Go top");
                     var goTopSpanBuilder = new TagBuilder("span");
-                    goTopSpanBuilder.MergeAttribute("class", "glyphicon glyphicon-arrow-up");
+                    goTopSpanBuilder.AddCssClass("glyphicon glyphicon-arrow-up");
 
                     goTopBuilder.InnerHtml += goTopSpanBuilder.ToString();
 
@@ -412,12 +415,12 @@ namespace BForms.Grid
             if (this.model.Pager != null)
             {
                 var pagesBuilder = new TagBuilder("div");
-                pagesBuilder.MergeAttribute("class", "col-md-6 col-lg-6 js-pages");
+                pagesBuilder.AddCssClass("col-md-6 col-lg-6 js-pages");
 
                 #region pagination
 
                 var paginationBuilder = new TagBuilder("ul");
-                paginationBuilder.MergeAttribute("class", "pagination pagination-md");
+                paginationBuilder.AddCssClass("pagination pagination-md");
 
                 #region first page button
 

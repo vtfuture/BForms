@@ -24,7 +24,7 @@ namespace BForms.Grid
             }
             set
             {
-                if (!this.pageSizeValues.Contains(value))
+                if (!PageSizeValues.Contains(value))
                     throw new ArgumentOutOfRangeException();
                 this.defaultPageSize = value;
             }

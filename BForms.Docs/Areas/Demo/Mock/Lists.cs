@@ -10,6 +10,7 @@ namespace BForms.Docs.Areas.Demo.Mock
 {
     public static class Lists
     {
+        [System.Diagnostics.DebuggerHidden()]
         public static BsSelectList<T> AllCounties<T>(bool isoKey = true)
         {
             var countryList = new SortedDictionary<string, string>();
