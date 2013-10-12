@@ -22,24 +22,34 @@ namespace BForms.Docs.Helpers
 
         public static MvcHtmlString InsertFileContentCached(this HtmlHelper helper, [PathReference] string path, int duration = 0)
         {
-            if (Convert.ToBoolean(ConfigurationManager.AppSettings["IgnoreCacheForInsertFileContentCached"]))
+            var result = new MvcHtmlString(string.Empty);
+
+            try
             {
-                return InsertFileContent(helper, path);
+                if (Convert.ToBoolean(ConfigurationManager.AppSettings["IgnoreCacheForInsertFileContentCached"]))
+                {
+                    return InsertFileContent(helper, path);
+                }
+                var cacheKey = "insertFile|" + path.GetHashCode();
+                var cached = HttpRuntime.Cache.Get(cacheKey) as MvcHtmlString;
+                if (cached != null)
+                {
+                    return cached;
+                }
+                result = InsertFileContent(helper, path);
+                HttpRuntime.Cache.Add(cacheKey,
+                    result,
+                    null /*dependencies*/,
+                    Cache.NoAbsoluteExpiration,
+                    duration == 0 ? Cache.NoSlidingExpiration : TimeSpan.FromSeconds(duration),
+                    CacheItemPriority.Normal,
+                    null /*onRemoveCallback*/);
             }
-            var cacheKey = "insertFile|" + path.GetHashCode();
-            var cached = HttpRuntime.Cache.Get(cacheKey) as MvcHtmlString;
-            if (cached != null)
+            catch (Exception ex)
             {
-                return cached;
+                result = new MvcHtmlString("Exception occured at " + path + " details: " + ex.Message);
             }
-            var result = InsertFileContent(helper, path);
-            HttpRuntime.Cache.Add(cacheKey, 
-                result,
-                null /*dependencies*/,
-                Cache.NoAbsoluteExpiration,
-                duration == 0 ? Cache.NoSlidingExpiration : TimeSpan.FromSeconds(duration),
-                CacheItemPriority.Normal,
-                null /*onRemoveCallback*/);
+
             return result;
         }
     }
