@@ -1,6 +1,6 @@
 (function(factory) {
     if (typeof define === "function" && define.amd) {
-        define(['jquery','jquery-ui-core'], factory);
+        define('bootstrap', ['jquery','jquery-ui-core'], factory);
     } else {
         factory();
     }
