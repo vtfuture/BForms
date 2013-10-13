@@ -254,7 +254,7 @@
         module.exports = bDatepickerRenderer;
     }
 
-    if (typeof define !== "undefined" && define.amd) {
+    if (typeof define === "function" && define.amd) {
         return bDatepickerRenderer;
     }
 

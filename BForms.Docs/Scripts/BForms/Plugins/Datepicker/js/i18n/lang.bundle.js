@@ -1,13 +1,13 @@
 ﻿//Contains es, ro and fr
 (function(factory) {
 
-    if(typeof define !== "undefined" && define.amd) {
+    if(typeof define === "function" && define.amd) {
         define(['moment'], factory);
     }else {
-        factory();
+        factory(window.moment);
     }
 
-}(function() {
+}(function (moment) {
 
     moment.lang('es', {
         months: "enero_febrero_marzo_abril_mayo_junio_julio_agosto_septiembre_octubre_noviembre_diciembre".split("_"),

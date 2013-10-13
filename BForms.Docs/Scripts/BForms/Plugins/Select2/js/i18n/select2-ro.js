@@ -1,9 +1,13 @@
 ﻿/**
  * Select2 Romanian translation.
  */
-(function ($) {
-    "use strict";
-
+(function(factory) {
+    if (typeof define === "function" && define.amd) {
+        define(['jquery', 'select2'], factory);
+    } else {
+        factory(window.jQuery);
+    }
+}(function($) {
     $.extend($.fn.select2.defaults, {
         formatNoMatches: function () { return "Nu a fost găsit nimic"; },
         formatInputTooShort: function (input, min) { var n = min - input.length; return "Vă rugăm să introduceți incă " + n + " caracter" + (n == 1 ? "" : "e"); },
@@ -18,4 +22,4 @@
             return "Salvează " + val;
         },
     });
-})(jQuery);
+}));

@@ -1,7 +1,7 @@
 ﻿define('bforms-toolbar', [
     'jquery',
     'jquery-ui-core',
-    'amplify-store',
+    'amplify',
     'bforms-form'
 ], function () {
 

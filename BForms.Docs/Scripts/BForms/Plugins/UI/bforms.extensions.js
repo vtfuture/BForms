@@ -1,6 +1,6 @@
 ﻿(function (factory) {
 
-    if (typeof define !== "undefined" && define.amd) {
+    if (typeof define === "function" && define.amd) {
         define(['jquery'], factory);
     } else {
         factory(window.jQuery);

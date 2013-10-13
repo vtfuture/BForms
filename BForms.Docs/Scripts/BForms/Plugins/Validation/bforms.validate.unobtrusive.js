@@ -6,7 +6,15 @@
 /*jslint white: true, browser: true, onevar: true, undef: true, nomen: true, eqeqeq: true, plusplus: true, bitwise: true, regexp: true, newcap: true, immed: true, strict: false */
 /*global document: false, jQuery: false */
 
-(function ($) {
+
+(function (factory) {
+    if (typeof define === "function" && define.amd) {
+        define(['jquery', 'bootstrap', 'bforms-validate'], factory);
+    } else {
+        factory(window.jQuery);
+    }
+}(function ($) {
+
     var $jQval = $.validator,
         adapters,
         data_validation = "unobtrusiveValidation";
@@ -210,7 +218,7 @@
 
             //init tooltips
             $('span[data-toggle=tooltip]').tooltip({ container: 'body' });
-            
+
             //transform number inputs into text input (chrome only)
             var numberValidation = $('<input type="number"></input>').val('chrome').val() == 'chrome';
             if (!numberValidation) {
@@ -318,7 +326,7 @@
     adapters.addBool("creditcard").addBool("date").addBool("digits").addBool("email").addBool("number").addBool("url");
     adapters.addMinMax("length", "minlength", "maxlength", "rangelength").addMinMax("range", "min", "max", "range");
 
-    jQuery.validator.addMethod('mandatory', function (value,elem) {
+    jQuery.validator.addMethod('mandatory', function (value, elem) {
         var $elem = $(elem);
         if ($elem.prop('type') == 'checkbox') {
             if (!$elem.prop('checked')) {
@@ -367,4 +375,6 @@
     $(function () {
         $jQval.unobtrusive.parse(document);
     });
-}(jQuery));
+
+}));
+
