@@ -678,6 +678,9 @@
   <ItemGroup>
     <Content Include="Views\Components\Grid\Source\_JavascriptGrid.cs.embed" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="RequireJS.Release.config" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
