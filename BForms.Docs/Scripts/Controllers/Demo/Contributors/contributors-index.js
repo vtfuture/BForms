@@ -197,6 +197,7 @@
         var $me = $row.find(options.btnSelector);
         $me.popover({
             html: true,
+            placement: 'left',
             content: $('.popover-content').html()
         });
         $me.on('show.bs.popover', $.proxy(function (e) {
