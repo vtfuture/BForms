@@ -1,6 +1,6 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <UsingTask TaskName="JavaScriptCompressorTask" AssemblyFile="..\tools\Yahoo.Yui.Compressor.Build.MsBuild.dll" />
-  <Target Name="Minify" AfterTargets="AfterBuild" Condition="'$(Configuration)'=='Release'">
+  <Target Name="ComponentsBundle" AfterTargets="AfterBuild" Condition="'$(Configuration)'=='Release'">
     <ItemGroup>
       <!-- Get a list of all the files you want to minify -->
       <OriginalFiles Include="..\BForms.Docs\Scripts\BForms\Components\jQuery\jquery.js" />
@@ -12,6 +12,18 @@
       <OriginalFiles Include="..\BForms.Docs\Scripts\BForms\Components\Html5shiv\html5shiv.js" />
     </ItemGroup>
     <MakeDir Directories="..\BForms.Docs\Scripts\BForms\Bundles\"/>
-    <JavaScriptCompressorTask LoggingType="Debug" EncodingType="UTF8" SourceFiles="@(OriginalFiles)" OutputFile="..\BForms.Docs\Scripts\BForms\Bundles\Components.js" />
+    <JavaScriptCompressorTask LoggingType="Debug" EncodingType="UTF8" SourceFiles="@(OriginalFiles)" OutputFile="..\BForms.Docs\Scripts\BForms\Bundles\components.js" />
+  </Target>
+  <Target Name="WidgetsBundle" AfterTargets="AfterBuild" Condition="'$(Configuration)'=='Release'">
+    <ItemGroup>
+      <WidgetFiles Include="..\BForms.Docs\Scripts\BForms\Widgets\**\*.js" />
+    </ItemGroup>
+    <JavaScriptCompressorTask LoggingType="Debug" EncodingType="UTF8" SourceFiles="@(WidgetFiles)" OutputFile="..\BForms.Docs\Scripts\BForms\Bundles\widgets.js" />
+  </Target>
+  <Target Name="PluginsBundle" AfterTargets="AfterBuild" Condition="'$(Configuration)'=='Release'">
+    <ItemGroup>
+      <PluginFiles Include="..\BForms.Docs\Scripts\BForms\Plugins\**\*.js" />
+    </ItemGroup>
+    <JavaScriptCompressorTask LoggingType="Debug" EncodingType="UTF8" SourceFiles="@(PluginFiles)" OutputFile="..\BForms.Docs\Scripts\BForms\Bundles\plugins.js" />
   </Target>
 </Project>
