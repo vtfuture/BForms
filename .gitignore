@@ -1,4 +1,9 @@
 #################
+## Bundles
+#################
+BForms.docs/Scripts/BForms/Bundles/*.js
+
+#################
 ## Eclipse
 #################
 
