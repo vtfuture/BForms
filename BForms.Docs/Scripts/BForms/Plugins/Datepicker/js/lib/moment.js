@@ -4,13 +4,13 @@
 // license : MIT
 // momentjs.com
 
-(function(factory) {
+(function (factory) {
     if (typeof define === "function" && define.amd) {
         define('moment', [], factory);
     } else {
         factory();
     }
-}(function() {
+}(function () {
 
     (function (undefined) {
 
@@ -1666,4 +1666,3 @@
 
     return moment;
 }));
-

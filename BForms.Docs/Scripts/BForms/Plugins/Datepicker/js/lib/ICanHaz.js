@@ -3,10 +3,10 @@ ICanHaz.js version 0.10.2 -- by @HenrikJoreteg
 More info at: http://icanhazjs.com
 */
 
-(function(factory) {
+(function (factory) {
 
     if (typeof define === "function" && define.amd) {
-        define('icanhaz',[], factory);
+        define('icanhaz', [], factory);
     } else {
         factory();
     }
@@ -574,6 +574,3 @@ More info at: http://icanhazjs.com
     })();
 
 }));
-
-
-
