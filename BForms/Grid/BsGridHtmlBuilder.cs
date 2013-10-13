@@ -215,7 +215,7 @@ namespace BForms.Grid
                     #region right side
                     var selectedVal = this.model.Pager.PageSize;
                     var dropdownContainerBuilder = new TagBuilder("div");
-                    dropdownContainerBuilder.AddCssClass("dropdown");
+                    dropdownContainerBuilder.AddCssClass("dropdown dropup");
 
                     var resPerPageTagBuilder = new TagBuilder("span");
                     resPerPageTagBuilder.SetInnerText("results per page");

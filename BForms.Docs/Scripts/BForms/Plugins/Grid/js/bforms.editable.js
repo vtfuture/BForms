@@ -18,8 +18,8 @@
         editFirst: false,
         editOnly: false,
         headerSelector: 'h3',
-        saveClass: 'btn-save',
-        cancelClass: 'btn-cancel',
+        saveClass: 'btn-success',
+        cancelClass: 'btn-danger',
         readOnlySelector: '.bs-readonly',
         editorSelector: 'form',
         editModeSelector: 'bs-edit_mode',
@@ -89,16 +89,16 @@
 
         if (this.options.editOnly || this.options.toggles) {
 
-            var $save = $('<a></a>').addClass(this.options.saveClass)
-                                    .addClass('with_text')
-                                    .html('<span class="glyphicon glyphicon-ok"></span> save ')
+            var $save = $('<a title="Save"></a>').addClass(this.options.saveClass)
+                                    .addClass('btn')
+                                    .html('<span class="glyphicon glyphicon-ok"></span> ')
                                     .attr('href', '#')
                                     .on('click', $.proxy(this._evOnSaveClick, this));
 
             if (this.options.toggles) {
-                var $cancel = $('<a></a>').addClass(this.options.cancelClass)
-                                        .addClass('with_text')
-                                        .html('<span class="glyphicon glyphicon-remove"></span> cancel ')
+                var $cancel = $('<a title="Cancel"></a>').addClass(this.options.cancelClass)
+                                        .addClass('btn')
+                                        .html('<span class="glyphicon glyphicon-remove"></span> ')
                                         .attr('href', '#')
                                         .on('click', $.proxy(this._evOnCancelClick, this));
             }

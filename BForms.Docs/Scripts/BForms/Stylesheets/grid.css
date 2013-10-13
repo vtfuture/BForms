@@ -111,7 +111,7 @@ a.btn {
         font-size: 15px;
         text-transform: uppercase;
         margin: 0;
-        padding: 11px 10px 10px;
+        padding: 13px 10px 11px;
         border: none;
         float: left; }
       .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls {
@@ -121,7 +121,8 @@ a.btn {
           padding: 10px 15px 9px;
           float: left;
           border-left: 1px solid #4092d1;
-          color: #fff; }
+          color: #fff;
+          text-transform: capitalize; }
           .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls a:hover {
             background-color: #4092d1 !important;
             text-decoration: none;
@@ -136,7 +137,7 @@ a.btn {
           float: left;
           width: 165px;
           color: #333;
-          padding: 6px 3px 4px 15px;
+          padding: 8px 3px 7px 15px;
           border-left: 1px solid #4092d1; }
           .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .input-group input {
             border: none;
@@ -177,7 +178,7 @@ a.btn {
           margin-left: 5px; }
   .grid_container .grid_view h2 {
     font-size: 17px;
-    padding: 10px;
+    padding: 10px 0;
     border-bottom: 1px solid #eee; }
     .grid_container .grid_view h2 .badge {
       margin-right: 5px;
@@ -295,23 +296,23 @@ a.btn {
             display: none; }
           .grid_container .grid_view .grid_rows_wrapper .grid_row_details .grid_details h3.editable {
             cursor: pointer; }
-            .grid_container .grid_view .grid_rows_wrapper .grid_row_details .grid_details h3.editable:hover .glyphicon-pencil {
+            .grid_container .grid_view .grid_rows_wrapper .grid_row_details .grid_details h3.editable .glyphicon-pencil {
               display: inline-block; }
           .grid_container .grid_view .grid_rows_wrapper .grid_row_details .grid_details h3:hover {
-            border-color: #58b4fe; }
+            border-color: #666; }
           .grid_container .grid_view .grid_rows_wrapper .grid_row_details .grid_details h3.readonly:hover {
             border-bottom: 1px solid #eee; }
           .grid_container .grid_view .grid_rows_wrapper .grid_row_details .grid_details h3 .controls {
             position: absolute;
-            top: 3px;
             right: 0;
+            bottom: 5px;
             font-size: 12px;
             min-width: 20px; }
             .grid_container .grid_view .grid_rows_wrapper .grid_row_details .grid_details h3 .controls a {
-              height: 17px;
-              line-height: 17px;
               vertical-align: top;
-              text-decoration: none; }
+              text-decoration: none;
+              color: #fff;
+              margin-left: 5px; }
             .grid_container .grid_view .grid_rows_wrapper .grid_row_details .grid_details h3 .controls .field-validation-error,
             .grid_container .grid_view .grid_rows_wrapper .grid_row_details .grid_details h3 .controls .field-validation-success {
               margin-right: 20px;
@@ -422,6 +423,12 @@ a.btn {
     .grid_container .grid_view .grid_pager .pagination {
       margin: 0;
       float: left; }
+      .grid_container .grid_view .grid_pager .pagination .active a {
+        background: #559ed6 !important; }
+        .grid_container .grid_view .grid_pager .pagination .active a:hover {
+          background: #559ed6 !important;
+          border: 1px solid #559ed6;
+          color: #fff !important; }
     .grid_container .grid_view .grid_pager .results_number {
       float: left;
       line-height: 29px;
@@ -429,18 +436,25 @@ a.btn {
     .grid_container .grid_view .grid_pager .results_per_page {
       overflow: visible; }
       .grid_container .grid_view .grid_pager .results_per_page .btn {
-        padding: 3px 9px 3px 10px; }
+        padding: 6px 9px 6px 10px;
+        font-size: 13px; }
       .grid_container .grid_view .grid_pager .results_per_page .results_per_page_container {
         margin-right: 5px; }
       .grid_container .grid_view .grid_pager .results_per_page .dropdown {
         float: left; }
         .grid_container .grid_view .grid_pager .results_per_page .dropdown .caret {
           margin-left: 5px; }
+        .grid_container .grid_view .grid_pager .results_per_page .dropdown .dropdown-menu {
+          left: auto;
+          right: 0;
+          min-width: 100px; }
       .grid_container .grid_view .grid_pager .results_per_page .btn-go_up {
         float: left;
         margin-left: 10px; }
 
 /* Action buttons component */
+.grid_bulk_controls .btn {
+  text-transform: none; }
 .grid_bulk_controls .check_all {
   position: relative; }
   .grid_bulk_controls .check_all .btn {

@@ -135,7 +135,7 @@ a.btn {
 				font-size: 15px;
 				text-transform: uppercase;
 				margin: 0;
-				padding: 11px 10px 10px;
+				padding: 13px 10px 11px;
 				border: none;
 				float: left;
 			}
@@ -147,6 +147,7 @@ a.btn {
 					float: left;
 					border-left: 1px solid darken($lightBlue, 5%);
 					color: #fff;
+					text-transform: capitalize;
 					&:hover {
 						background-color: darken($lightBlue, 5%) !important;
 						text-decoration: none;
@@ -165,7 +166,7 @@ a.btn {
 					float: left;
 					width: 165px;
 					color: #333;
-					padding: 6px 3px 4px 15px;
+					padding: 8px 3px 7px 15px;
 					border-left: 1px solid darken($lightBlue, 5%);
 					input {
 						border: none;
@@ -227,7 +228,7 @@ a.btn {
 	.grid_view {
 		h2 {
 			font-size: 17px;
-			padding: 10px;
+			padding: 10px 0;
 			border-bottom: 1px solid #eee;
 			.badge {
 				margin-right: 5px;
@@ -380,29 +381,29 @@ a.btn {
 							right: 0;
 							display: none;
 						}
-						&.editable {
-							cursor: pointer;	
-							&:hover .glyphicon-pencil {
-								display: inline-block; 
+						&.editable  {
+							cursor: pointer;
+							.glyphicon-pencil{
+								display: inline-block;								
 							}
 						}
 						&:hover {
-							border-color: #58b4fe; 							
+							border-color: #666; 							
 						}
 						&.readonly:hover {
 							border-bottom: 1px solid #eee;
 						}
 						.controls {
 							position: absolute;
-							top: 3px;
 							right: 0;
+							bottom: 5px;
 							font-size: 12px;
 							min-width: 20px;
 							a {
-								height: 17px;
-								line-height: 17px;
 								vertical-align: top;
 								text-decoration: none;
+								color: #fff;
+								margin-left: 5px;
 							}
 							.field-validation-error,
 							.field-validation-success {
@@ -563,6 +564,14 @@ a.btn {
 			.pagination {
 				margin: 0;
 				float: left;
+				.active a {
+					background: $lightBlue !important;
+					&:hover {
+						background: $lightBlue !important;
+						border: 1px solid  $lightBlue;
+						color: #fff !important;
+					}
+				}
 			}
 			.results_number {
 				float: left;
@@ -572,7 +581,8 @@ a.btn {
 			.results_per_page {
 				overflow: visible;
 				.btn {
-					padding: 3px 9px 3px 10px;
+					padding: 6px 9px 6px 10px;
+					font-size: 13px;
 				}
 				.results_per_page_container {
 					margin-right: 5px;
@@ -581,6 +591,11 @@ a.btn {
 					float: left;
 					.caret {
 						margin-left: 5px;
+					}
+					.dropdown-menu {
+						left: auto;
+						right: 0;
+						min-width: 100px;
 					}
 				}
 				.btn-go_up {
@@ -595,10 +610,13 @@ a.btn {
 /* Action buttons component */
 
 .grid_bulk_controls {
+	.btn {
+		text-transform: none;
+	}
 	.check_all {
 		position: relative;
 		.btn {
-			padding-left: 30px;
+			padding-left: 30px;			
 			.caret {
 				margin: -2px 0 0 2px;
 			}

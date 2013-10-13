@@ -57,9 +57,9 @@
         multipleDetails: true,
         removeDetailsOnCollapse: false,
 
-        validationSummaryContainer: '.bs-validationSummaryContainer',
-        validationRowActionsContainer: '.bs-validationRowActionsContainer',
-        errorRowContainer: '.bs-errorRowContainer'
+        validationSummaryContainer: '.bs-validation_summary',
+        validationRowActionsContainer: '.bs-validation_row_action',
+        errorRowContainer: '.bs-validation_row'
     };
 
     Grid.prototype._refreshModel = {
@@ -375,10 +375,10 @@
         
         if (data.Message) {
             var $row = arguments[4].row;
-            var $errorContainer = $(this.element).find('.bs-errorRowContainer');
+            var $errorContainer = $(this.element).find('.bs-validation_row');
 
             if ($errorContainer.length == 0) {
-                $errorContainer = $('<div class="col-12 col-sm-12 col-lg-12 bs-errorRowContainer"></div>');
+                $errorContainer = $('<div class="col-12 col-sm-12 col-lg-12 bs-validation_row"></div>');
                 $row.find(this.options.rowHeaderSelector).after($errorContainer);
             }
 
@@ -745,10 +745,10 @@
 
     Grid.prototype._pagerAjaxError = function (data) {
         if (data.Message) {
-            var $errorContainer = $(this.element).find('.bs-validationRowActionsContainer');
+            var $errorContainer = $(this.element).find('.bs-validation_row_action');
 
             if ($errorContainer.length == 0) {
-                $errorContainer = $('<div class="col-12 col-sm-12 col-lg-12 bs-validationRowActionsContainer"></div>');
+                $errorContainer = $('<div class="col-12 col-sm-12 col-lg-12 bs-validation_row_action"></div>');
                 this.element.find('h2').after($errorContainer);
             }
 
@@ -818,10 +818,10 @@
     Grid.prototype._updateRowAjaxError = function (data) {
         if (data.Message) {
             var $row = arguments[4].row;
-            var $errorContainer = $(this.element).find('.bs-errorRowContainer');
+            var $errorContainer = $(this.element).find('.bs-validation_row');
 
             if ($errorContainer.length == 0) {
-                $errorContainer = $('<div class="col-12 col-sm-12 col-lg-12 bs-errorRowContainer"></div>');
+                $errorContainer = $('<div class="col-12 col-sm-12 col-lg-12 bs-validation_row"></div>');
                 $row.find(this.options.rowHeaderSelector).after($errorContainer);
             }
 
@@ -831,10 +831,10 @@
 
     Grid.prototype._rowActionAjaxError = function (data, $row) {
         if (data.Message) {
-            var $errorContainer = $(this.element).find('.bs-validationSummaryContainer');
+            var $errorContainer = $(this.element).find('.bs-validation_summary');
 
             if ($errorContainer.length == 0) {
-                $errorContainer = $('<div class="col-12 col-sm-12 col-lg-12 bs-validationSummaryContainer"></div>');
+                $errorContainer = $('<div class="col-12 col-sm-12 col-lg-12 bs-validation_summary"></div>');
                 $row.find(this.options.rowActionsContainerSelector).before($errorContainer);
             }
 

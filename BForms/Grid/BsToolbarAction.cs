@@ -42,21 +42,21 @@ namespace BForms.Grid
             {
                 case BsToolbarActionType.Add:
                     {
-                        this.descriptorClass = "btn-add";
+                        this.descriptorClass = "btn btn-add";
                         this.glyphIcon = Glyphicon.Plus;
                         this.text = "Add";
                         break;
                     }
                 case BsToolbarActionType.Refresh:
                     {
-                        this.descriptorClass = "btn-refresh";
+                        this.descriptorClass = "btn btn-refresh";
                         this.title = "Refresh";
                         this.glyphIcon = Glyphicon.Refresh;
                         break;
                     }
                 case BsToolbarActionType.AdvancedSearch:
                     {
-                        this.descriptorClass = "btn_advanced_search";
+                        this.descriptorClass = "btn btn_advanced_search";
                         this.title = "Advanced Search";
                         this.glyphIcon = Glyphicon.Filter;
                         break;

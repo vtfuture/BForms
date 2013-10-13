@@ -466,7 +466,7 @@
                             }
                         }
 
-                        var $elem = $(firstError.element).parents('.has-error, .bs-validationSummaryContainer').first();
+                        var $elem = $(firstError.element).parents('.has-error, .bs-validation_summary').first();
 
                         if ($elem.offset() != null && typeof $elem.offset() !== "undefined") {
 
@@ -486,10 +486,10 @@
 
                 showSummaryError: function (message) {
 
-                    var $errorContainer = $(this.currentForm).find('.bs-validationSummaryContainer');
+                    var $errorContainer = $(this.currentForm).find('.bs-validation_summary');
 
                     if ($errorContainer.length == 0) {
-                        $errorContainer = $('<div class="col-12 col-sm-12 col-lg-12 bs-validationSummaryContainer"></div>');
+                        $errorContainer = $('<div class="col-12 col-sm-12 col-lg-12 bs-validation_summary"></div>');
                         $(this.currentForm).prepend($errorContainer);
                     }
 
@@ -506,7 +506,7 @@
                 },
 
                 removeSummaryError: function () {
-                    var $errorContainer = $(this.currentForm).find('.bs-validationSummaryContainer');
+                    var $errorContainer = $(this.currentForm).find('.bs-validation_summary');
                     if ($errorContainer.length) {
                         $errorContainer.html('');
                     }

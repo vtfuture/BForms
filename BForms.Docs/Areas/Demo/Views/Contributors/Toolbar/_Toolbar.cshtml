@@ -11,8 +11,7 @@
             .Text(Resource.Add)
             .Tab(x => Html.BsPartialPrefixed(y => y.New, "Toolbar/_New", x));
         
-        ca.Add(BsToolbarActionType.Refresh)
-            .Text(Resource.Refresh);
+        ca.Add(BsToolbarActionType.Refresh);
         
         ca.Add<BsToolbarQuickSearch>()
             .Placeholder(Resource.Search);
