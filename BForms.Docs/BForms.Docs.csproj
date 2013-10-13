@@ -158,7 +158,7 @@
     <Content Include="Content\Images\Docs\taglist-search-select.jpg" />
     <Content Include="Content\Images\Docs\timepicker-input.jpg" />
     <Content Include="Content\Images\Docs\timepicker-range.jpg" />
-    <Content Include="Scripts\BForms\Components\Amplify\amplify.store.min.js" />
+    <Content Include="Scripts\BForms\Components\Amplify\amplify.js" />
     <Content Include="Scripts\BForms\Plugins\Datepicker\js\bforms.datepicker.js" />
     <Content Include="Scripts\BForms\Plugins\Datepicker\js\bforms.datepicker.tmpl.js" />
     <Content Include="Scripts\BForms\Plugins\Datepicker\js\bforms.datepicker.range.js" />
