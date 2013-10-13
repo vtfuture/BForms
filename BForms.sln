@@ -1,8 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.20827.3
-MinimumVisualStudioVersion = 10.0.40219.1
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BForms", "BForms\BForms.csproj", "{60A6E254-CD66-4C0E-9191-5E95E70001EB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{FFE46FF4-E0D6-4DBB-9D78-840EC684F58E}"
@@ -20,6 +18,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuspec", ".nuspec", "{FB12
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BForms.Docs", "BForms.Docs\BForms.Docs.csproj", "{ACFAD539-59C8-4739-8DA4-6C76F7B1DE97}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{E1ACF7B5-009B-437B-9113-64A6E09E69FF}"
+	ProjectSection(SolutionItems) = preProject
+		tools\EcmaScript.NET.dll = tools\EcmaScript.NET.dll
+		tools\Iesi.Collections.dll = tools\Iesi.Collections.dll
+		tools\minify.proj = tools\minify.proj
+		..\..\Visual Studio 2012\Projects\IndacoCMS-SCJ\IndacoCMS\Lib\Yahoo.Yui.Compressor.Build.MsBuild.dll = ..\..\Visual Studio 2012\Projects\IndacoCMS-SCJ\IndacoCMS\Lib\Yahoo.Yui.Compressor.Build.MsBuild.dll
+		tools\Yahoo.Yui.Compressor.dll = tools\Yahoo.Yui.Compressor.dll
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

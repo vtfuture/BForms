@@ -144,4 +144,5 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <Import Project="..\tools\minify.proj"></Import>
 </Project>

@@ -1,0 +1,17 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <UsingTask TaskName="JavaScriptCompressorTask" AssemblyFile="..\tools\Yahoo.Yui.Compressor.Build.MsBuild.dll" />
+  <Target Name="Minify" AfterTargets="AfterBuild" Condition="'$(Configuration)'=='Release'">
+    <ItemGroup>
+      <!-- Get a list of all the files you want to minify -->
+      <OriginalFiles Include="..\BForms.Docs\Scripts\BForms\Components\jQuery\jquery.js" />
+      <OriginalFiles Include="..\BForms.Docs\Scripts\BForms\Components\jQuery\jquery-migrate.js" />
+      <OriginalFiles Include="..\BForms.Docs\Scripts\BForms\Components\jQuery-ui\jquery-ui.core.js" />
+      <OriginalFiles Include="..\BForms.Docs\Scripts\BForms\Components\Html5shiv\html5shiv.js" />
+      <OriginalFiles Include="..\BForms.Docs\Scripts\BForms\Components\Amplify\amplify.store.min.js" />
+      <OriginalFiles Include="..\BForms.Docs\Scripts\BForms\Components\Bootstrap\js\bootstrap.js" />
+      <OriginalFiles Include="..\BForms.Docs\Scripts\BForms\Components\Respond\respond.js" />
+    </ItemGroup>
+    <MakeDir Directories="..\BForms.Docs\Scripts\BForms\Bundles\Components\"/>
+    <JavaScriptCompressorTask LoggingType="Debug" EncodingType="UTF8" SourceFiles="@(OriginalFiles)" OutputFile="..\BForms.Docs\Scripts\BForms\Bundles\Components\Components.js" />
+  </Target>
+</Project>
