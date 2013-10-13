@@ -9,7 +9,7 @@
     };
 
     Pager.prototype.options = {
-        pagesContainerSelector: '.js-pages',
+        pagesContainerSelector: '.bs-pages',
         pageSelector: 'a[data-page]',
         pageSizeSelector: '.bs-perPage',
         currentPageSelector: 'active',

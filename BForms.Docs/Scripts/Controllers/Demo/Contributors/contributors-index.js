@@ -201,7 +201,7 @@
         });
         $me.on('show.bs.popover', $.proxy(function (e) {
             var tip = $me.data('bs.popover').tip();
-            tip.on('click', '.js-confirm', $.proxy(function (e) {
+            tip.on('click', '.bs-confirm', $.proxy(function (e) {
                 e.preventDefault();
 
                 var data = [];
@@ -215,7 +215,7 @@
 
                 $me.popover('hide');
             }, this));
-            tip.on('click', '.js-cancel', function (e) {
+            tip.on('click', '.bs-cancel', function (e) {
                 e.preventDefault();
                 $me.popover('hide');
             });

@@ -14,9 +14,9 @@
 
     Grid.prototype.options = {
 
-        gridItem: '.js-item',
-        gridItemDetails: '.js-details',
-        gridDetailsContainer: '.js-rowDetails',
+        gridItem: '.bs-item',
+        gridItemDetails: '.bs-details',
+        gridDetailsContainer: '.bs-rowDetails',
 
         hasOrder: true,
         orderContainerSelector: '.title',
@@ -31,8 +31,8 @@
         gridContainerSelector: '.grid_rows',
         gridCountContainerSelector: 'h2 > .badge',
         gridHeaderSelector : 'h2',
-        filterSelector: '.js-filter',
-        addSelector: '.js-add',
+        filterSelector: '.bs-filter',
+        addSelector: '.bs-add',
 
         rowsContainerSelector: '.grid_rows_wrapper',
         rowSelector: '.grid_row',
@@ -44,9 +44,9 @@
         updateRowUrl: null,
 
         hasRowCheck: true,
-        rowCheckSelector: '.js-row_check',
+        rowCheckSelector: '.bs-row_check',
         headerCheckSelector: '.check_all > input',
-        groupActionsSelector: '.js-group_actions',
+        groupActionsSelector: '.bs-group_actions',
 
         pager: null,
         pagerUrl: null,
@@ -166,7 +166,7 @@
 
                             var tip = $me.data('bs.popover').tip();
 
-                            tip.one('click', '.js-confirm', $.proxy(function (e) {
+                            tip.one('click', '.bs-confirm', $.proxy(function (e) {
 
                                 e.preventDefault();
 
@@ -176,7 +176,7 @@
 
                             }, this));
 
-                            tip.one('click', '.js-cancel', function (e) {
+                            tip.one('click', '.bs-cancel', function (e) {
 
                                 e.preventDefault();
 
@@ -721,7 +721,7 @@
             this.$rowsContainer.addClass('no_results');
         }
 
-        this.$pager.bsPager('update', $html.closest('.js-pages'));
+        this.$pager.bsPager('update', $html.closest('.bs-pages'));
 
         if (this._currentResultsCount == 0) {
             this.$actionsContainer.hide();

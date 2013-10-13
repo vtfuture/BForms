@@ -66,7 +66,7 @@
     $.fn.bsToolbarDefaults_Tabs = function ($toolbar, $grid, newUrl) {
         return [{
             name: 'search',
-            btnSelector: '.btn-search',
+            btnSelector: '.btn_advanced_search',
             selectedElements: '.bs-quickSearchContainer',
             container: '#toolbar_search',
             component: {
@@ -80,7 +80,7 @@
             container: '#toolbar_add',
             triggeredBy: [{
                 container: $grid,
-                selector: '.js-add'
+                selector: '.bs-add'
             }],
             component: {
                 type: 'bsForm',

@@ -16,10 +16,10 @@
         uniqueName: null,
         hasGroupToggle: false,
         style: {},
-        groupToggleSelector: '.js-selector',
+        groupToggleSelector: '.bs-selector',
         actions: []         //[{
                             //    name: 'refresh',
-                            //    btnSelector: '.js-refreshBtn',
+                            //    btnSelector: '.bs-refreshBtn',
                             //    url: '',
                             //    handler: '',
                             //    validate: true,

@@ -56,7 +56,7 @@ namespace BForms.Grid
                     }
                 case BsToolbarActionType.AdvancedSearch:
                     {
-                        this.descriptorClass = "btn-search btn_advanced_search";
+                        this.descriptorClass = "btn_advanced_search";
                         this.title = "Advanced Search";
                         this.glyphIcon = Glyphicon.Filter;
                         break;

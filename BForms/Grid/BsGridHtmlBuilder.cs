@@ -163,7 +163,7 @@ namespace BForms.Grid
             headerBuilder.InnerHtml += this.metadata.DisplayName;
 
             var filterIconBuilder = new TagBuilder("span");
-            filterIconBuilder.AddCssClass("glyphicon glyphicon-filter icon_filter js-filter");
+            filterIconBuilder.AddCssClass("glyphicon glyphicon-filter icon_filter bs-filter");
             filterIconBuilder.MergeAttribute("title", "");
             headerBuilder.InnerHtml += filterIconBuilder.ToString();
 
@@ -365,7 +365,7 @@ namespace BForms.Grid
                         {
                             var checkBuilder = new TagBuilder("input");
                             checkBuilder.MergeAttribute("type", "checkbox");
-                            checkBuilder.MergeAttribute("class", "js-row_check");
+                            checkBuilder.MergeAttribute("class", "bs-row_check");
 
                             cellBuilder.InnerHtml += checkBuilder.ToString(TagRenderMode.SelfClosing);
                         }
@@ -395,7 +395,7 @@ namespace BForms.Grid
 
                 var addBtnBuilder = new TagBuilder("button");
                 addBtnBuilder.MergeAttribute("type", "button");
-                addBtnBuilder.MergeAttribute("class", "btn btn-primary js-add");
+                addBtnBuilder.MergeAttribute("class", "btn btn-primary bs-add");
                 //TODO:
                 addBtnBuilder.InnerHtml += "Add";
 
@@ -415,7 +415,7 @@ namespace BForms.Grid
             if (this.model.Pager != null)
             {
                 var pagesBuilder = new TagBuilder("div");
-                pagesBuilder.AddCssClass("col-md-6 col-lg-6 js-pages");
+                pagesBuilder.AddCssClass("col-md-6 col-lg-6 bs-pages");
 
                 #region pagination
 

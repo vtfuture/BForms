@@ -14,7 +14,7 @@ $toolbar.bsToolbar({
     }],
     tabs: [{
             name: 'search',
-            btnSelector: '.btn-search',
+            btnSelector: '.btn_advanced_search',
             container: '#toolbar_search',
             component: {
                 type: 'bsForm',
@@ -27,7 +27,7 @@ $toolbar.bsToolbar({
             container: '#toolbar_add',
             triggeredBy: [{
                 container: $grid,
-                selector: '.js-add'
+                selector: '.bs-add'
             }],
             component: {
                 type: 'bsForm',
