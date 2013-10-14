@@ -1,26 +1,33 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <UsingTask TaskName="JavaScriptCompressorTask" AssemblyFile="..\tools\Yahoo.Yui.Compressor.Build.MsBuild.dll" />
-  <Target Name="ComponentsBundle" AfterTargets="AfterBuild" Condition="'$(Configuration)'=='Release'">
+
+  <Target Name="MinifyForBuild" AfterTargets="AfterBuild" Condition="'$(Configuration)'=='Release'">
+    <MsBuild Projects="$(MSBuildProjectFile)" Targets="MinifyBundles" Properties="DestinationDir=..\BForms.Docs\Scripts\BForms\Bundles\" />
+  </Target>
+  <Target Name="MinifyForDeploy" AfterTargets="CopyAllFilesToSingleFolderForMsdeploy" Condition="'$(Configuration)'=='Release'">
+    <MsBuild Projects="$(MSBuildProjectFile)" Targets="MinifyBundles" Properties="DestinationDir=$(_PackageTempDir)\Scripts\BForms\Bundles\" />
+  </Target>
+  
+  <Target Name="MinifyBundles" AfterTargets="AfterBuild;CopyAllFilesToSingleFolderForMsdeploy" Condition="'$(Configuration)'=='Release'">
+    <Message Text="Minifying"/>
+    <MakeDir Directories="$(DestinationDir)"/>
     <ItemGroup>
       <!-- Get a list of all the files you want to minify -->
-      <OriginalFiles Include="..\BForms.Docs\Scripts\BForms\Components\jQuery\*.js" />
-      <OriginalFiles Include="..\BForms.Docs\Scripts\BForms\Components\jQuery-ui\*.js" />
-      <OriginalFiles Include="..\BForms.Docs\Scripts\BForms\Components\Amplify\*.js" />
-      <OriginalFiles Include="..\BForms.Docs\Scripts\BForms\Components\Bootstrap\js\*.js" />
+      <ComponentsFiles Include="..\BForms.Docs\Scripts\BForms\Components\jQuery\*.js" />
+      <ComponentsFiles Include="..\BForms.Docs\Scripts\BForms\Components\jQuery-ui\*.js" />
+      <ComponentsFiles Include="..\BForms.Docs\Scripts\BForms\Components\Amplify\*.js" />
+      <ComponentsFiles Include="..\BForms.Docs\Scripts\BForms\Components\Bootstrap\js\*.js" />
     </ItemGroup>
-    <MakeDir Directories="..\BForms.Docs\Scripts\BForms\Bundles\"/>
-    <JavaScriptCompressorTask LoggingType="Debug" EncodingType="UTF8" SourceFiles="@(OriginalFiles)" OutputFile="..\BForms.Docs\Scripts\BForms\Bundles\components.js" />
-  </Target>
-  <Target Name="WidgetsBundle" AfterTargets="AfterBuild" Condition="'$(Configuration)'=='Release'">
+    <JavaScriptCompressorTask LoggingType="Debug" EncodingType="UTF8" SourceFiles="@(ComponentsFiles)" OutputFile="$(DestinationDir)components.js" />
+
     <ItemGroup>
       <WidgetFiles Include="..\BForms.Docs\Scripts\BForms\Widgets\**\*.js" />
     </ItemGroup>
-    <JavaScriptCompressorTask LoggingType="Debug" EncodingType="UTF8" SourceFiles="@(WidgetFiles)" OutputFile="..\BForms.Docs\Scripts\BForms\Bundles\widgets.js" />
-  </Target>
-  <Target Name="PluginsBundle" AfterTargets="AfterBuild" Condition="'$(Configuration)'=='Release'">
+    <JavaScriptCompressorTask LoggingType="Debug" EncodingType="UTF8" SourceFiles="@(WidgetFiles)" OutputFile="$(DestinationDir)widgets.js" />
+
     <ItemGroup>
       <PluginFiles Include="..\BForms.Docs\Scripts\BForms\Plugins\**\*.js" />
     </ItemGroup>
-    <JavaScriptCompressorTask LoggingType="Debug" EncodingType="UTF8" SourceFiles="@(PluginFiles)" OutputFile="..\BForms.Docs\Scripts\BForms\Bundles\plugins.js" />
+    <JavaScriptCompressorTask LoggingType="Debug" EncodingType="UTF8" SourceFiles="@(PluginFiles)" OutputFile="$(DestinationDir)plugins.js" />
   </Target>
 </Project>
