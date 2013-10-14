@@ -124,15 +124,15 @@ a.btn {
           color: #fff;
           text-transform: capitalize; }
           .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls a:hover {
-            background-color: #4092d1 !important;
+            background-color: #4092d1;
             text-decoration: none;
-            color: #fff !important; }
+            color: #fff; }
         .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .selected {
           background-color: #f6f6f6;
           color: #333; }
           .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .selected:hover {
-            background-color: #f6f6f6 !important;
-            color: #333 !important; }
+            background-color: #f6f6f6;
+            color: #333; }
         .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .input-group {
           float: left;
           width: 165px;
@@ -424,11 +424,11 @@ a.btn {
       margin: 0;
       float: left; }
       .grid_container .grid_view .grid_pager .pagination .active a {
-        background: #559ed6 !important; }
+        background: #559ed6; }
         .grid_container .grid_view .grid_pager .pagination .active a:hover {
-          background: #559ed6 !important;
+          background: #559ed6;
           border: 1px solid #559ed6;
-          color: #fff !important; }
+          color: #fff; }
     .grid_container .grid_view .grid_pager .results_number {
       float: left;
       line-height: 29px;

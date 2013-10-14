@@ -149,17 +149,17 @@ a.btn {
 					color: #fff;
 					text-transform: capitalize;
 					&:hover {
-						background-color: darken($lightBlue, 5%) !important;
+						background-color: darken($lightBlue, 5%);
 						text-decoration: none;
-						color: #fff !important; 
+						color: #fff; 
 					}					
 				}
 				.selected {
 					background-color: #f6f6f6;
 					color: #333;
 					&:hover {
-						background-color: #f6f6f6 !important;
-						color: #333 !important;
+						background-color: #f6f6f6;
+						color: #333;
 					}
 				}
 				.input-group {
@@ -565,11 +565,11 @@ a.btn {
 				margin: 0;
 				float: left;
 				.active a {
-					background: $lightBlue !important;
+					background: $lightBlue;
 					&:hover {
-						background: $lightBlue !important;
+						background: $lightBlue;
 						border: 1px solid  $lightBlue;
-						color: #fff !important;
+						color: #fff;
 					}
 				}
 			}
