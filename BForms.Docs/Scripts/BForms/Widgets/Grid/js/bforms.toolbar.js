@@ -222,7 +222,17 @@
 
         var component;
         if (typeof tabOpts.component === 'object') {
-            component = this.element.find(tabOpts.component.container)[tabOpts.component.type](tabOpts.component.options);
+
+            var componentOptions = tabOpts.component.options;
+            
+            if (typeof this.options.componentOptions !== "undefined") {
+                var additionalOptions = this._getAdditionalOptions(tabOpts.name);
+                if (additionalOptions != null) {
+                    $.extend(true, componentOptions, additionalOptions);
+                }
+            }
+
+            component = this.element.find(tabOpts.component.container)[tabOpts.component.type](componentOptions);
         }
 
         var tab = {
@@ -231,7 +241,7 @@
             button: $btn,
             selectedElements: $selectedElements,
             container: $(tabOpts.container),
-            componennt: component
+            component: component
         };
 
         $btn.on('click', { tab: tab }, $.proxy(this._evBtnTabClick, this));
@@ -313,6 +323,20 @@
         amplify.store('slide|' + this.options.uniqueName + '|' + tab.opt.btnSelector, tab.button.hasClass('selected'));
     
     };
+    
+
+    //#region helpers
+    Toolbar.prototype._getAdditionalOptions = function (name) {
+        var opts = $.grep(this.options.componentOptions, function (el) {
+            return el.name == name;
+        });
+        
+        if (opts != null && opts[0] != null && opts[0].options != null) return opts[0].options;
+        
+        return null;
+    };
+    //#endregion
+
     //#endregion
     
     $.widget('bforms.bsToolbar', Toolbar.prototype);

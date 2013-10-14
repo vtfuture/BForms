@@ -135,10 +135,10 @@
             response = data.data;
         
         var identityOpt = this._editableOptions($row, this.options.editComponents.Identity);
-        response.$html.find('.js-editableIdentity').bsEditable(identityOpt);
+        response.$detailsHtml.find('.js-editableIdentity').bsEditable(identityOpt);
 
         var projectOpt = this._editableOptions($row, this.options.editComponents.ProjectRelated);
-        response.$html.find('.js-editableProject').bsEditable(projectOpt);
+        response.$detailsHtml.find('.js-editableProject').bsEditable(projectOpt);
     };
 
     GridIndex.prototype._editableOptions = function($row, componentId) {
@@ -194,33 +194,35 @@
 
     //#region DeleteHandler
     GridIndex.prototype._deleteHandler = function (options, $row, context) {
+
+        //add popover widget
         var $me = $row.find(options.btnSelector);
         $me.popover({
             html: true,
             placement: 'left',
             content: $('.popover-content').html()
         });
-        $me.on('show.bs.popover', $.proxy(function (e) {
-            var tip = $me.data('bs.popover').tip();
-            tip.on('click', '.bs-confirm', $.proxy(function (e) {
-                e.preventDefault();
 
-                var data = [];
-                data.push($row.data('objid'));
+        // add delegates to popover buttons
+        var tip = $me.data('bs.popover').tip();
+        tip.on('click', '.bs-confirm', $.proxy(function (e) {
+            e.preventDefault();
 
-                this._ajaxDelete($row, data, options.url, function () {
-                        $row.remove();
-                }, function (response) {
-                    context._pagerAjaxError(response);
-                });
+            var data = [];
+            data.push($row.data('objid'));
 
-                $me.popover('hide');
-            }, this));
-            tip.on('click', '.bs-cancel', function (e) {
-                e.preventDefault();
-                $me.popover('hide');
+            this._ajaxDelete($row, data, options.url, function () {
+                $row.remove();
+            }, function (response) {
+                context._rowActionAjaxError(response, $row);
             });
+
+            $me.popover('hide');
         }, this));
+        tip.on('click', '.bs-cancel', function (e) {
+            e.preventDefault();
+            $me.popover('hide');
+        });
     };
 
     GridIndex.prototype._ajaxDelete = function($html, data, url, success, error){
@@ -243,13 +245,13 @@
     //#region Toolbar
     GridIndex.prototype.initToolbar = function() {
         this.$toolbar.bsToolbar(
-            $.fn.bsToolbarDefaults(
+            $.extend(true,{},$.fn.bsToolbarDefaults(
                 this.$toolbar,
                 this.$grid,
                 {
                     uniqueName: 'usersToolbar',
                     newUrl: this.options.newUrl
-                })
+                }))
         );
     };
     //#endregion

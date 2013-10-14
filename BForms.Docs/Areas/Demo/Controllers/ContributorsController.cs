@@ -73,13 +73,19 @@ namespace BForms.Docs.Areas.Demo.Controllers
 
             try
             {
+                //simulate exception
+                if (model.Page == 3)
+                {
+                    throw new Exception("This is how an exception message is displayed in grid header");
+                }
+
                 var viewModel = _gridRepository.ToBsGridViewModel<ContributorsViewModel>(x => x.Grid, model, out count);
 
                 html = this.BsRenderPartialView("Grid/_Grid", viewModel);
             }
             catch (Exception ex)
             {
-                msg = Resource.ServerError;
+                msg = ex.Message;
                 status = BsResponseStatus.ServerError;
             }
 
@@ -213,7 +219,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
             try
             {
                 //simulate exception
-                if (objId == 1)
+                if (objId == 1 || objId == 2)
                 {
                     throw new Exception("This is how an exception message is displayed inside a BFroms grid row");
                 }
@@ -247,7 +253,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
                     //simulate exception
                     if (id == 3)
                     {
-                        throw new Exception("This is how an exception message is displayed");
+                        throw new Exception("This is how an exception message is displayed when it's triggered on row control");
                     }
 
                     _gridRepository.Delete(id);
@@ -274,7 +280,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
                     //simulate exception
                     if (id == 2)
                     {
-                        throw new Exception("This is how an exception message is displayed");
+                        throw new Exception("This is how an exception message is displayed when it's triggered on row control");
                     }
 
                     _gridRepository.EnableDisable(id, enable);

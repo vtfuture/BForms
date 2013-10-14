@@ -45,8 +45,15 @@
 
         this._addActions(this.options.actions);
 
-        this.$form.bsInitUI(this.options.style);
+        var initUIPromise = this.$form.bsInitUI(this.options.style);
+        initUIPromise.done($.proxy(function() {
+            this._trigger('afterInitUI', 0, {
+                name: this.options.uniqueName,
+                form: this.$form
+            });
+        }, this));
         
+       
     };
 
     Form.prototype._initSelectors = function () {
@@ -102,6 +109,15 @@
 
         if (buttonOpt.validate) {
             $.validator.unobtrusive.parse(this.$form);
+
+            var validatedForm = this.$form.validate();
+
+            this._trigger('beforeFormValidation', 0, {
+                validator: validatedForm,
+                form: this.$form,
+                name: this.options.uniqueName
+            });
+
             if (!this.$form.valid()) {
                 return;
             }
@@ -176,6 +192,14 @@
 
         var form = this.element.find('form');
         $.validator.unobtrusive.parse(form);
+
+        var validatedForm = form.validate();
+        this._trigger('beforeFormValidation', 0, {
+            validator: validatedForm,
+            form: form,
+            name: this.options.uniqueName
+        });
+
         if (form.valid()) {
             data = this.element.parseForm();
         }
