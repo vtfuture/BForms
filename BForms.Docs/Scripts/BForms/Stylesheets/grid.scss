@@ -644,8 +644,10 @@ a.btn {
 	.grid_toolbar_controls {
 		a, .input-group {
 			border-color: darken($Green, 10%) !important;
-		}	
-		
+		}
+		a:hover {
+			background: darken($Green, 10%) !important;
+		}		
 	}
 	
 	@media (max-width: 756px) {
@@ -678,7 +680,9 @@ a.btn {
 		a, .input-group {
 			border-color: darken($Purple, 10%) !important;
 		}	
-		
+		a:hover {
+			background: darken($Purple, 10%) !important;
+		}
 	}
 	
 	@media (max-width: 756px) {
@@ -711,7 +715,9 @@ a.btn {
 		a, .input-group {
 			border-color: darken($Orange, 10%) !important;
 		}	
-		
+		a:hover {
+			background: darken($Orange, 10%) !important;
+		}
 	}
 	
 	@media (max-width: 756px) {
@@ -744,7 +750,9 @@ a.btn {
 		a, .input-group {
 			border-color: darken($Black, 10%) !important;
 		}	
-		
+		a:hover {
+			background: darken($Black, 10%) !important;
+		}
 	}
 	
 	@media (max-width: 756px) {

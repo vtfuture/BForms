@@ -473,6 +473,8 @@ a.btn {
   background: #59b390; }
   .grid_toolbar.green .grid_toolbar_header .grid_toolbar_controls a, .grid_toolbar.green .grid_toolbar_header .grid_toolbar_controls .input-group {
     border-color: #449575 !important; }
+  .grid_toolbar.green .grid_toolbar_header .grid_toolbar_controls a:hover {
+    background: #449575 !important; }
   @media (max-width: 756px) {
     .grid_toolbar.green .grid_toolbar_header .grid_toolbar_controls a:last-child {
       border-right: 1px solid #449575 !important; }
@@ -490,6 +492,8 @@ a.btn {
   background: #703d6f; }
   .grid_toolbar.purple .grid_toolbar_header .grid_toolbar_controls a, .grid_toolbar.purple .grid_toolbar_header .grid_toolbar_controls .input-group {
     border-color: #4f2b4e !important; }
+  .grid_toolbar.purple .grid_toolbar_header .grid_toolbar_controls a:hover {
+    background: #4f2b4e !important; }
   @media (max-width: 756px) {
     .grid_toolbar.purple .grid_toolbar_header .grid_toolbar_controls a:last-child {
       border-right: 1px solid #4f2b4e !important; }
@@ -507,6 +511,8 @@ a.btn {
   background: #f27435; }
   .grid_toolbar.orange .grid_toolbar_header .grid_toolbar_controls a, .grid_toolbar.orange .grid_toolbar_header .grid_toolbar_controls .input-group {
     border-color: #e5560f !important; }
+  .grid_toolbar.orange .grid_toolbar_header .grid_toolbar_controls a:hover {
+    background: #e5560f !important; }
   @media (max-width: 756px) {
     .grid_toolbar.orange .grid_toolbar_header .grid_toolbar_controls a:last-child {
       border-right: 1px solid #e5560f !important; }
@@ -524,6 +530,8 @@ a.btn {
   background: #424141; }
   .grid_toolbar.black .grid_toolbar_header .grid_toolbar_controls a, .grid_toolbar.black .grid_toolbar_header .grid_toolbar_controls .input-group {
     border-color: #282828 !important; }
+  .grid_toolbar.black .grid_toolbar_header .grid_toolbar_controls a:hover {
+    background: #282828 !important; }
   @media (max-width: 756px) {
     .grid_toolbar.black .grid_toolbar_header .grid_toolbar_controls a:last-child {
       border-right: 1px solid #282828 !important; }
