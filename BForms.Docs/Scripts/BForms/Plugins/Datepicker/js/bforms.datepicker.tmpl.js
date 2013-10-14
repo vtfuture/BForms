@@ -1,7 +1,7 @@
 ﻿(function (factory) {
 
     if (typeof define === "function" && define.amd) {
-        define(['jquery', 'icanhaz'], factory);
+        define('bforms-datepicker-tmpl', ['jquery', 'icanhaz'], factory);
     } else {
         factory(window.jQuery, window.ich);
     }

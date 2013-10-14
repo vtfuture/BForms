@@ -9,7 +9,7 @@
 
 (function (factory) {
     if (typeof define === "function" && define.amd) {
-        define(['jquery', 'bootstrap', 'bforms-validate'], factory);
+        define('bforms-validate-unobtrusive', ['jquery', 'bootstrap', 'bforms-validate'], factory);
     } else {
         factory(window.jQuery);
     }

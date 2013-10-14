@@ -2,7 +2,7 @@
 (function(factory) {
 
     if(typeof define === "function" && define.amd) {
-        define(['moment'], factory);
+        define('bforms-datepicker-i18n', ['moment'], factory);
     }else {
         factory(window.moment);
     }

@@ -1,6 +1,6 @@
 ﻿(function (factory) {
     if (typeof define === "function" && define.amd) {
-        define(['jquery', 'select2'], function ($) {
+        define('bforms-select2', ['jquery', 'select2'], function ($) {
             factory($, window.jQuery.fn.select2);
         });
     } else {

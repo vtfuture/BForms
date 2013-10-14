@@ -1,7 +1,6 @@
 ﻿(function (factory) {
     if (typeof define === "function" && define.amd) {
-        define(['jquery',
-        'bforms-datepicker-i18n'], factory);
+        define('bforms-initUI', ['jquery', 'bforms-datepicker-i18n'], factory);
     } else {
         factory(window.jQuery);
     }
@@ -213,7 +212,7 @@
                     var radioButtonsDeferred = $.Deferred();
                     this.deferredList.push(radioButtonsDeferred);
 
-                    require(['bforms-radioButtonsList'], function () {
+                    require(['bforms-radio-list'], function () {
                         self.$elem.find(self.options.radioButtonsSelector).each(function () {
                             $(this).bsRadioButtonsList(self._getOptions(this));
                         });
@@ -238,7 +237,7 @@
                     var checkBoxListDeferred = $.Deferred();
                     this.deferredList.push(checkBoxListDeferred);
 
-                    require(['bforms-checkBoxList'], function () {
+                    require(['bforms-check-list'], function () {
                         self.$elem.find(self.options.checkBoxListSelector).each(function () {
                             $(this).bsCheckBoxList(self._getOptions(this));
                         });

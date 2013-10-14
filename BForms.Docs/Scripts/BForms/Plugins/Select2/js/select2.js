@@ -40,7 +40,7 @@ the specific language governing permissions and limitations under the Apache Lic
 
 (function (factory) {
     if (typeof define === 'function' && define.amd) {
-        define([
+        define('select2', [
             'jquery'
         ], function (jQuery) {
             factory(jQuery);

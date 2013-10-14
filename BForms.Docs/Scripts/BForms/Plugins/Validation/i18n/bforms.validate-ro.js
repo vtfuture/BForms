@@ -6,7 +6,7 @@
 
 (function (factory) {
     if (typeof define === "function" && define.amd) {
-        define(['jquery', 'bforms-validate'], factory);
+        define('validate-ro', ['jquery', 'bforms-validate'], factory);
     } else {
         factory(window.jQuery);
     }

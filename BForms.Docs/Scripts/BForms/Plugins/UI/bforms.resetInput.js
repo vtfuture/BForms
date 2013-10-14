@@ -1,7 +1,7 @@
 ﻿(function(factory) {
 
     if(typeof define === "function" && define.amd) {
-        define(['jquery'], factory);
+        define('bforms-resetInput', ['jquery'], factory);
     }else {
         factory(window.jQuery);
     }

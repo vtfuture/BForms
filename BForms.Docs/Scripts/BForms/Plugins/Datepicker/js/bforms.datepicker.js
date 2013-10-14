@@ -1,6 +1,6 @@
 ﻿(function (factory) {
     if (typeof define === "function" && define.amd) {
-        define(['jquery', 'bforms-datepicker-tmpl', 'moment', 'moment-calendar'], factory);
+        define('bforms-datepicker', ['jquery', 'bforms-datepicker-tmpl', 'moment', 'moment-calendar'], factory);
     } else {
         factory(window.jQuery, window.bsDatepickerRenderer, moment);
     }

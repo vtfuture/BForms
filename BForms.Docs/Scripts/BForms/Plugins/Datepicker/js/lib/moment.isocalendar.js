@@ -1,6 +1,6 @@
 (function(factory) {
     if (typeof define === "function" && define.amd) {
-        define(['moment'], factory);
+        define('moment-calendar', ['moment'], factory);
     } else {
         factory(window.moment);
     }

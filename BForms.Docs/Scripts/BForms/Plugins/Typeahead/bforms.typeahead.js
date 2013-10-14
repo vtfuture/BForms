@@ -1,6 +1,6 @@
 ﻿(function (factory) {
     if (typeof define === "function" && define.amd) {
-        define(['jquery', 'typeahead'], function ($) {
+        define('bforms-typeahead', ['jquery', 'typeahead'], function ($) {
             factory($, window.jQuery.fn.typeahead);
         });
     } else {

@@ -3,7 +3,7 @@
  */
 (function(factory) {
     if (typeof define === "function" && define.amd) {
-        define(['jquery', 'select2'], factory);
+        define('select2-ro', ['jquery', 'select2'], factory);
     } else {
         factory(window.jQuery);
     }

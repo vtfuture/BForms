@@ -1,7 +1,7 @@
 ﻿(function (factory) {
 
     if (typeof define === "function" && define.amd) {
-        define(['jquery', 'bforms-datepicker', 'bforms-datepicker-tmpl'], factory);
+        define('bforms-datepicker-range', ['jquery', 'bforms-datepicker', 'bforms-datepicker-tmpl'], factory);
     } else {
         factory(window.jQuery, window.bsDatepicker, window.bsDatepickerRenderer);
     }
