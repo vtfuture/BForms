@@ -10,6 +10,11 @@ $textGray: #989898;
 $textColor: #212121;
 $borderColor: #e8e8e8;
 
+$Green: #59B390;
+$Purple: #703D6F;
+$Orange: #F27435;
+$Black: #424141;
+
 
 
 a.btn {
@@ -626,6 +631,141 @@ a.btn {
 		z-index: 999;
 		opacity: 0.9;
 		filter: Alpha(opacity=90);
+	}
+}
+
+
+/* Other color schemes */
+
+/* GREEN*/
+.grid_container.green { 
+	.grid_toolbar  .grid_toolbar_header {
+		background: $Green;
+		.grid_toolbar_controls {
+			a, .input-group {
+				border-color: darken($Green, 10%) !important;
+			}	
+			
+		}
+		
+		@media (max-width: 756px) {
+			.grid_toolbar_controls a:last-child {
+				border-right: 1px solid darken($Green, 10%) !important;
+			}
+			h1 {
+				border-bottom: 1px solid darken($Green, 10%) !important;
+			}
+		}
+	}
+	.grid_view {
+		h2 .badge {
+			background: $Green;
+		}
+		.grid_pager .pagination .active {
+			a, a:hover {
+				background: $Green;
+				border: 1px solid $Green;
+			}
+		}	
+	}
+}
+
+/* PURPLE*/
+.grid_container.purple { 
+	.grid_toolbar  .grid_toolbar_header {
+		background: $Purple;
+		.grid_toolbar_controls {
+			a, .input-group {
+				border-color: darken($Purple, 10%) !important;
+			}	
+			
+		}
+		
+		@media (max-width: 756px) {
+			.grid_toolbar_controls a:last-child {
+				border-right: 1px solid darken($Purple, 10%) !important;
+			}
+			h1 {
+				border-bottom: 1px solid darken($Purple, 10%) !important;
+			}
+		}
+	}
+	.grid_view {
+		h2 .badge {
+			background: $Purple;
+		}
+		.grid_pager .pagination .active {
+			a, a:hover {
+				background: $Purple;
+				border: 1px solid $Purple;
+			}
+		}	
+	}
+}
+
+/* ORANGE*/
+.grid_container.orange { 
+	.grid_toolbar  .grid_toolbar_header {
+		background: $Orange;
+		.grid_toolbar_controls {
+			a, .input-group {
+				border-color: darken($Orange, 10%) !important;
+			}	
+			
+		}
+		
+		@media (max-width: 756px) {
+			.grid_toolbar_controls a:last-child {
+				border-right: 1px solid darken($Orange, 10%) !important;
+			}
+			h1 {
+				border-bottom: 1px solid darken($Orange, 10%) !important;
+			}
+		}
+	}
+	.grid_view {
+		h2 .badge {
+			background: $Orange;
+		}
+		.grid_pager .pagination .active {
+			a, a:hover {
+				background: $Orange;
+				border: 1px solid $Orange;
+			}
+		}	
+	}
+}
+
+/* almost BLACK*/
+.grid_container.black { 
+	.grid_toolbar  .grid_toolbar_header {
+		background: $Black;
+		.grid_toolbar_controls {
+			a, .input-group {
+				border-color: darken($Black, 10%) !important;
+			}	
+			
+		}
+		
+		@media (max-width: 756px) {
+			.grid_toolbar_controls a:last-child {
+				border-right: 1px solid darken($Black, 10%) !important;
+			}
+			h1 {
+				border-bottom: 1px solid darken($Black, 10%) !important;
+			}
+		}
+	}
+	.grid_view {
+		h2 .badge {
+			background: $Black;
+		}
+		.grid_pager .pagination .active {
+			a, a:hover {
+				background: $Black;
+				border: 1px solid $Black;
+			}
+		}	
 	}
 }
 
