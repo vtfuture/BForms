@@ -5,6 +5,7 @@
 @using BForms.Models
 
 @(Html.BsToolbarFor(x => x.Toolbar).DisplayName("Dev Team")
+    .Theme(BsTheme.Default)
     .ConfigureActions(ca =>
     {
         ca.Add(BsToolbarActionType.Add)

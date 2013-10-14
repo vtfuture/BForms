@@ -1,4 +1,5 @@
 ﻿using System;
+using BForms.Grid;
 using BForms.Models;
 
 namespace BForms.Mvc
@@ -15,9 +16,9 @@ namespace BForms.Mvc
         public bool HasDetails { get; set; }
 
         /// <summary>
-        /// Pager default size
+        /// BForms Theme
         /// </summary>
-        public int DefaultPageSize { get; set; }
+        public BsTheme Theme { get; set; }
 
         /// <summary>
         /// Empty ctor

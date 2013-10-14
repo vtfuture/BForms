@@ -46,6 +46,7 @@ namespace BForms.Grid
         private bool hasDetails;
         private List<BsGridColumn<TRow>> columns;
         private BsPagerSettings pagerSettings = new BsPagerSettings();
+        private BsTheme theme = BsTheme.Default;
         private string noRecordsTemplate;
         private string noResultsTemplate;
 
@@ -63,6 +64,10 @@ namespace BForms.Grid
             if (ReflectionHelpers.TryGetAttribute(fullName, typeof(TModel), out gridAttr))
             {
                 this.hasDetails = gridAttr.HasDetails;
+                if (gridAttr.Theme > 0)
+                {
+                    this.theme = gridAttr.Theme;
+                }
             }
 
             this.SetColumnsFromModel();
@@ -131,6 +136,13 @@ namespace BForms.Grid
             return this;
         }
 
+        public BsGridHtmlBuilder<TModel, TRow> Theme(BsTheme theme)
+        {
+            this.theme = theme;
+
+            return this;
+        }
+
         public BsGridHtmlBuilder<TModel, TRow> NoRecordsTemplate(string template)
         {
             this.noRecordsTemplate = template;
@@ -151,6 +163,8 @@ namespace BForms.Grid
             gridBuilder.MergeAttribute("id", this.fullName.Split('.').Last().ToLower());
             gridBuilder.MergeClassAttribute("grid_view", this.htmlAttributes);
             gridBuilder.MergeAttributes(this.htmlAttributes, true);
+
+            gridBuilder.AddCssClass(this.theme.GetDescription());
 
             #region header builder
             var headerBuilder = new TagBuilder("h2");

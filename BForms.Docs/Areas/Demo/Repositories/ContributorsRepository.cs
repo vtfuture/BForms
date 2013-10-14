@@ -265,6 +265,7 @@ namespace BForms.Docs.Areas.Demo.Repositories
             return detailsModel;
         }
 
+        [System.Diagnostics.DebuggerHidden()]
         public ContributorSearchModel GetSearchForm()
         {
             return new ContributorSearchModel()

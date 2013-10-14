@@ -79,6 +79,7 @@
     <Compile Include="Grid\BsGridColumnFactory.cs" />
     <Compile Include="Grid\BsGridHtmlBuilder.cs" />
     <Compile Include="Grid\BsGridRepositorySettings.cs" />
+    <Compile Include="Models\BsTheme.cs" />
     <Compile Include="Mvc\BsHtmlTag.cs" />
     <Compile Include="Grid\BsPagerSettings.cs" />
     <Compile Include="Grid\BsToolbarAction.cs" />
@@ -144,7 +145,5 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <Import Project="..\tools\minify.proj">
-  </Import>
-  
+  <Import Project="..\tools\minify.proj" />
 </Project>

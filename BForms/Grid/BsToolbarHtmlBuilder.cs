@@ -15,6 +15,7 @@ namespace BForms.Grid
 
         private BsToolbarActionsFactory<TToolbar> ActionsFactory { get; set; }
 
+        private BsTheme theme = BsTheme.Default;
         private readonly string fullName;
         private readonly TToolbar model;
         private readonly ModelMetadata metadata;
@@ -54,6 +55,13 @@ namespace BForms.Grid
             return this;
         }
 
+        public BsToolbarHtmlBuilder<TToolbar> Theme(BsTheme theme)
+        {
+            this.theme = theme;
+
+            return this;
+        }
+
         public BsToolbarHtmlBuilder<TToolbar> ConfigureActions(Action<BsToolbarActionsFactory<TToolbar>> configurator)
         {
             this.ActionsFactory = new BsToolbarActionsFactory<TToolbar>(this.viewContext);
@@ -68,6 +76,8 @@ namespace BForms.Grid
             toolbarBuilder.MergeAttribute("id", this.fullName.Split('.').Last().ToLower());
             toolbarBuilder.MergeClassAttribute("grid_toolbar", this.htmlAttributes);
             toolbarBuilder.MergeAttributes(this.htmlAttributes, true);
+
+            toolbarBuilder.AddCssClass(this.theme.GetDescription());
 
             var toolbarHeaderBuilder = new TagBuilder("div");
             toolbarHeaderBuilder.AddCssClass("grid_toolbar_header");
