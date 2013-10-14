@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.20827.3
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BForms", "BForms\BForms.csproj", "{60A6E254-CD66-4C0E-9191-5E95E70001EB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{FFE46FF4-E0D6-4DBB-9D78-840EC684F58E}"
@@ -23,7 +25,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{E1ACF7B5
 	ProjectSection(SolutionItems) = preProject
 		tools\EcmaScript.NET.dll = tools\EcmaScript.NET.dll
 		tools\Iesi.Collections.dll = tools\Iesi.Collections.dll
-		tools\minify.proj = tools\minify.proj
+		tools\MinifyBundlesTask.proj = tools\MinifyBundlesTask.proj
 		..\..\Visual Studio 2012\Projects\IndacoCMS-SCJ\IndacoCMS\Lib\Yahoo.Yui.Compressor.Build.MsBuild.dll = ..\..\Visual Studio 2012\Projects\IndacoCMS-SCJ\IndacoCMS\Lib\Yahoo.Yui.Compressor.Build.MsBuild.dll
 		tools\Yahoo.Yui.Compressor.dll = tools\Yahoo.Yui.Compressor.dll
 	EndProjectSection
