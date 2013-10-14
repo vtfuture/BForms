@@ -12,7 +12,8 @@
         this.$element = $element;
         this.options = options;
         this.hash = null;
-
+        this.breakOffset = null;
+        
         this.$container = $(this.options.container);
         this.$sidebar = $(this.options.sidebar);
         this.$relativeElement = $(this.options.relativeElement);
@@ -102,7 +103,7 @@
                 });
 
                 this.$sidebar.addClass('affix-bottom');
-                this.break = scrollTop;
+                this.breakOffset = scrollTop;
             } else if (scrollTop > this.topBreak) {
                 
                 this.$sidebar.removeClass('affix-top');
@@ -121,8 +122,8 @@
                     top: 0
                 });
             }
-        } else if (this.break > scrollTop) {
-            this.break = null;
+        } else if (this.breakOffset > scrollTop) {
+            this.breakOffset = null;
             if (scrollTop > this.topBreak) {
                 this.$sidebar.removeClass('affix-top');
                 this.$sidebar.addClass('affix');

@@ -1,4 +1,4 @@
-﻿define([
+﻿define('bforms-ajax', [
     'bforms-namespace',
     'jquery'
 ], function () {
