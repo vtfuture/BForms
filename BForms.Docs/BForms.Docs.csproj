@@ -223,9 +223,9 @@
     <Content Include="Scripts\BForms\Components\jQuery\jquery-migrate.js" />
     <Content Include="Scripts\BForms\Components\Respond\respond.js" />
     <Content Include="Scripts\BForms\Plugins\UI\bforms.extensions.js" />
-    <Content Include="Scripts\BForms\Plugins\CheckBoxList\bforms.checkBoxList.js" />
+    <Content Include="Scripts\BForms\Plugins\CheckBoxList\bforms.checklist.js" />
     <Content Include="Scripts\BForms\Plugins\NavScroll\bforms.navScroll.js" />
-    <Content Include="Scripts\BForms\Plugins\RadioButtonsList\bforms.radioButtonsList.js" />
+    <Content Include="Scripts\BForms\Plugins\RadioButtonList\bforms.radiolist.js" />
     <Content Include="Scripts\BForms\Plugins\UI\bforms.resetInput.js" />
     <Content Include="Scripts\BForms\Plugins\Select2\css\select2-spinner.gif" />
     <Content Include="Scripts\BForms\Plugins\Select2\css\select2.css" />

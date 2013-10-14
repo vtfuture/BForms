@@ -212,7 +212,7 @@
                     var radioButtonsDeferred = $.Deferred();
                     this.deferredList.push(radioButtonsDeferred);
 
-                    require(['bforms-radio-list'], function () {
+                    require(['bforms-radiolist'], function () {
                         self.$elem.find(self.options.radioButtonsSelector).each(function () {
                             $(this).bsRadioButtonsList(self._getOptions(this));
                         });
@@ -237,7 +237,7 @@
                     var checkBoxListDeferred = $.Deferred();
                     this.deferredList.push(checkBoxListDeferred);
 
-                    require(['bforms-check-list'], function () {
+                    require(['bforms-checklist'], function () {
                         self.$elem.find(self.options.checkBoxListSelector).each(function () {
                             $(this).bsCheckBoxList(self._getOptions(this));
                         });
