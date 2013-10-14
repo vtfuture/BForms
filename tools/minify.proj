@@ -3,11 +3,15 @@
 
   <Target Name="MinifyForBuild" AfterTargets="AfterBuild" Condition="'$(Configuration)'=='Release'">
     <MsBuild Projects="$(MSBuildProjectFile)" Targets="MinifyBundles" Properties="DestinationDir=..\BForms.Docs\Scripts\BForms\Bundles\" />
+    <Message Text="Minifying for build" Importance="high"/>
   </Target>
   <Target Name="MinifyForDeploy" AfterTargets="CopyAllFilesToSingleFolderForMsdeploy" Condition="'$(Configuration)'=='Release'">
     <MsBuild Projects="$(MSBuildProjectFile)" Targets="MinifyBundles" Properties="DestinationDir=$(_PackageTempDir)\Scripts\BForms\Bundles\" />
+    <Message Text="Minifying for deploy" Importance="high"/>
   </Target>
-  
+  <Target Name="TestTask" AfterTargets="CopyAllFilesToSingleFolderForMsdeploy">
+    <Message Text="Minifying for deploy" Importance="high"/>
+  </Target>
   <Target Name="MinifyBundles" Condition="'$(Configuration)'=='Release'">
     <Message Text="Minifying"/>
     <MakeDir Directories="$(DestinationDir)"/>
