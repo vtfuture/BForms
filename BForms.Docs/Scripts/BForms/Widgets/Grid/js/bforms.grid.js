@@ -597,6 +597,7 @@
 
         this.$headerCheck.prop('indeterminate', false);
         this.$headerCheck.prop('checked', false);
+        this.$actionsContainer.children('button').hide();
 
     };
 

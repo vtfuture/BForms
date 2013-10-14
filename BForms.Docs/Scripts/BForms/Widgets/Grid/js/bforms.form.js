@@ -63,11 +63,7 @@
     };
 
     Form.prototype._addDelegates = function () {
-
-        this.element.on('retrieveValidData', $.proxy(this._evRetrieveValidData, this));
-
-        this.element.on('reset', $.proxy(this._evReset, this));
-
+        
         if (this.options.hasGroupToggle) {
             this.element.find(this.options.groupToggleSelector).on('click', $.proxy(this._evToggleGroup, this));
         }
@@ -188,8 +184,8 @@
 
     };
 
-    Form.prototype._evRetrieveValidData = function (e, data) {
-
+    Form.prototype.getFormData = function (data) {
+     
         var form = this.element.find('form');
         $.validator.unobtrusive.parse(form);
 
@@ -203,7 +199,7 @@
         if (form.valid()) {
             data = this.element.parseForm();
         }
-
+       
     };
 
     Form.prototype.reset = function (e) {
