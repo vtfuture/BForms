@@ -231,7 +231,7 @@
             error: function (jqXHR, textStatus, errorThrown) {
                 
                 var xhrReq = self._xhrStack[xhrSettings.name];
-                if (xhrReq.aborted === true) return;
+                if (typeof xhrReq !== 'undefined' && xhrReq != null && xhrReq.aborted === true) return;
 
                 try {
 
