@@ -96,10 +96,6 @@ a.btn {
     color: #333333;
     background-color: #ffffff;
     border: 1px solid #cccccc; }
-    .grid_container .btn-default:hover, .grid_container .btn-default:focus {
-      background: #ebebeb !important;
-      color: #333333;
-      text-decoration: none; }
   .grid_container .grid_toolbar {
     position: relative;
     min-height: 15px; }
@@ -123,16 +119,9 @@ a.btn {
           border-left: 1px solid #4092d1;
           color: #fff;
           text-transform: capitalize; }
-          .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls a:hover {
-            background-color: #4092d1 !important;
-            text-decoration: none;
-            color: #fff !important; }
         .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .selected {
           background-color: #f6f6f6;
           color: #333; }
-          .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .selected:hover {
-            background-color: #f6f6f6 !important;
-            color: #333 !important; }
         .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .input-group {
           float: left;
           width: 165px;
@@ -231,8 +220,6 @@ a.btn {
       min-height: 44px; }
       .grid_container .grid_view .grid_rows_wrapper .grid_row:nth-child(even) {
         background: #EEE; }
-      .grid_container .grid_view .grid_rows_wrapper .grid_row:hover {
-        background: #fff; }
       .grid_container .grid_view .grid_rows_wrapper .grid_row.open {
         background: #fff;
         border-bottom: 1px solid #e8e8e8; }
@@ -424,11 +411,11 @@ a.btn {
       margin: 0;
       float: left; }
       .grid_container .grid_view .grid_pager .pagination .active a {
-        background: #559ed6 !important; }
+        background: #559ed6; }
         .grid_container .grid_view .grid_pager .pagination .active a:hover {
-          background: #559ed6 !important;
+          background: #559ed6;
           border: 1px solid #559ed6;
-          color: #fff !important; }
+          color: #fff; }
     .grid_container .grid_view .grid_pager .results_number {
       float: left;
       line-height: 29px;
@@ -499,5 +486,25 @@ a.btn {
   .results_per_page_container, .results_number {
     display: none; } }
 @media (max-width: 959px) {
+  .grid_container .btn-default:hover, .grid_container .btn-default:focus {
+    background: #fff !important;
+    color: #333333;
+    text-decoration: none; }
+
   .grid_row header div:first-child {
     margin-bottom: 10px; } }
+@media (min-width: 960px) {
+  /* Hover effects for desktop only*/
+  .grid_container .btn-default:hover, .grid_container .btn-default:focus {
+    background: #ebebeb !important;
+    color: #333333;
+    text-decoration: none; }
+  .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls a:hover {
+    background-color: #4092d1;
+    text-decoration: none;
+    color: #fff; }
+  .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .selected:hover {
+    background-color: #f6f6f6;
+    color: #333; }
+  .grid_container .grid_view .grid_rows_wrapper .grid_row:hover {
+    background: #fff; } }

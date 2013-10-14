@@ -46,8 +46,8 @@ a {
 	color: $textColor;
 	&:hover, &:focus {
 		text-decoration: none;
-		color: $navy !important;
-		background-color: transparent !important;
+		color: $navy;
+		background-color: transparent;
 	}
 }
 
@@ -111,7 +111,12 @@ a {
 					margin-left: 10px;
 					background: $navy;
 				}
+				a:hover, a:focus {
+					color: $navy;
+					background: none;
+				}
 			}
+
 		}
 		&:hover, &:focus {
 			background: transparent !important;

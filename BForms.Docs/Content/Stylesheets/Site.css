@@ -27,8 +27,8 @@ a {
   color: #212121; }
   a:hover, a:focus {
     text-decoration: none;
-    color: #547980 !important;
-    background-color: transparent !important; }
+    color: #547980;
+    background-color: transparent; }
 
 /* Global loading */
 .loading-global {
@@ -81,6 +81,9 @@ a {
         .navbar .nav > li .dropdown-menu li .badge-info {
           margin-left: 10px;
           background: #547980; }
+        .navbar .nav > li .dropdown-menu li a:hover, .navbar .nav > li .dropdown-menu li a:focus {
+          color: #547980;
+          background: none; }
     .navbar .nav > li:hover, .navbar .nav > li:focus {
       background: transparent !important; }
   .navbar .nav .open > a,
