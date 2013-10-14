@@ -211,11 +211,13 @@ namespace BForms.Grid
         /// <returns></returns>
         public BsGridModel<TRow> ToBsGridViewModel()
         {
-            var settings = new BsGridRepositorySettings<TSearch>();
-            settings.Page = 1;
-            settings.PageSize = 5;
+            var gridRepositorySettings = new BsGridRepositorySettings<TSearch>
+            {
+                Page = 1, 
+                PageSize = 5
+            };
 
-            return this.ToBsGridViewModel(settings);
+            return this.ToBsGridViewModel(gridRepositorySettings);
         }
 
         /// <summary>
@@ -226,11 +228,13 @@ namespace BForms.Grid
         /// <returns></returns>
         public BsGridModel<TRow> ToBsGridViewModel(int page, int pageSize)
         {
-            var settings = new BsGridRepositorySettings<TSearch>();
-            settings.Page = page;
-            settings.PageSize = pageSize;
+            var gridRepositorySettings = new BsGridRepositorySettings<TSearch>
+            {
+                Page = page, 
+                PageSize = pageSize
+            };
 
-            return this.ToBsGridViewModel(settings);
+            return this.ToBsGridViewModel(gridRepositorySettings);
         }
 
         /// <summary>
@@ -271,14 +275,15 @@ namespace BForms.Grid
         /// <param name="expression">Grid selector targeted for wrapping</param>
         /// <param name="row">Added row</param>
         /// <returns>Wrapper model</returns>
-        public TModel ToBsGridViewModel<TModel>(Expression<Func<TModel, BsGridModel<TRow>>> expression, TRow row) where TModel : new()
+        public TModel ToBsGridViewModel<TModel>(Expression<Func<TModel, BsGridModel<TRow>>> expression, TRow row)
+            where TModel : new()
         {
             var grid = new BsGridModel<TRow>
             {
                 Items = new List<TRow>
-                                           {
-                                               row
-                                           }
+                {
+                    row
+                }
             };
 
             return SetGridProperty(expression, grid);
@@ -358,7 +363,7 @@ namespace BForms.Grid
         /// <param name="expression">Grid selector targeted for wrapping</param>
         /// <param name="grid">Grid object</param>
         /// <returns>Wrapper model</returns>
-        private TModel SetGridProperty<TModel>(Expression<Func<TModel, BsGridModel<TRow>>> expression, BsGridModel<TRow> grid) where TModel : new()
+        private static TModel SetGridProperty<TModel>(Expression<Func<TModel, BsGridModel<TRow>>> expression, BsGridModel<TRow> grid) where TModel : new()
         {
             var model = new TModel();
             var gridProp = expression.GetPropertyInfo();

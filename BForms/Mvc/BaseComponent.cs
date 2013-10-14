@@ -1,17 +1,10 @@
-﻿using BForms.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Web;
 using System.Web.Mvc;
+using BForms.Models;
 
-namespace BForms.Grid
+namespace BForms.Mvc
 {
-    public interface IComponent : IHtmlString
-    {
-        string Render();
-    }
-
     public abstract class BaseComponent : IComponent
     {
         protected ViewContext viewContext;
@@ -45,5 +38,10 @@ namespace BForms.Grid
             }
             return spanTag.ToString(TagRenderMode.Normal);
         }
+    }
+
+    public interface IComponent : IHtmlString
+    {
+        string Render();
     }
 }

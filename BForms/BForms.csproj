@@ -79,14 +79,14 @@
     <Compile Include="Grid\BsGridColumnFactory.cs" />
     <Compile Include="Grid\BsGridHtmlBuilder.cs" />
     <Compile Include="Grid\BsGridRepositorySettings.cs" />
-    <Compile Include="Grid\BsHtmlTag.cs" />
+    <Compile Include="Mvc\BsHtmlTag.cs" />
     <Compile Include="Grid\BsPagerSettings.cs" />
     <Compile Include="Grid\BsToolbarAction.cs" />
     <Compile Include="Grid\BsToolbarActionsFactory.cs" />
     <Compile Include="Grid\BsToolbarActionType.cs" />
     <Compile Include="Grid\BsToolbarHtmlBuilder.cs" />
     <Compile Include="Grid\BsToolbarQuickSearch.cs" />
-    <Compile Include="Grid\IHtmlBuilder.cs" />
+    <Compile Include="Mvc\BaseComponent.cs" />
     <Compile Include="Html\DateTimeExtensions.cs" />
     <Compile Include="Html\GridExtensions.cs" />
     <Compile Include="Html\RangeExtensions.cs" />
@@ -144,5 +144,6 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <Import Project="..\tools\minify.proj"></Import>
+  <Import Project="..\tools\minify.proj">
+  </Import>
 </Project>
