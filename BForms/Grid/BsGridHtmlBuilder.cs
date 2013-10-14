@@ -481,7 +481,7 @@ namespace BForms.Grid
                 #region pages buttons
 
                 var startPage = this.model.Pager.GetStartPage(this.pagerSettings.Size);
-                int nr = this.model.Pager.TotalPages % this.pagerSettings.Size;
+                int nr = this.pagerSettings.Size > this.model.Pager.TotalPages ? this.model.Pager.TotalPages % this.pagerSettings.Size : this.pagerSettings.Size;
                 for (int i = 0; i < nr; i++)
                 {
                     var page = i + startPage;
