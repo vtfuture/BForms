@@ -1,6 +1,6 @@
 ﻿(function (factory) {
     if (typeof define === "function" && define.amd) {
-        define('bforms-initUI', ['jquery', 'bforms-datepicker-i18n'], factory);
+        define('bforms-initUI', ['jquery', 'jquery-migrate', 'bforms-datepicker-i18n'], factory);
     } else {
         factory(window.jQuery);
     }
@@ -56,16 +56,16 @@
         var InitUI = function ($elem, opts) {
             this.$elem = $elem;
             this.options = opts;
-            
+
             this.deferredList = [];
             this.loadAMD = (typeof define === "function" && typeof define.amd !== "undefined");
-            
+
             this.loadAllDeferred = $.Deferred();
             this.promise = this.loadAllDeferred.promise();
-            
+
             this._applyStyles();
 
-            $.when.apply(this,this.deferredList).done($.proxy(function () {
+            $.when.apply(this, this.deferredList).done($.proxy(function () {
                 this.loadAllDeferred.resolve();
             }, this));
         };
@@ -73,6 +73,14 @@
 
         InitUI.prototype._getOptions = function (elem) {
             return $.extend(true, {}, $(elem).data('options'));
+        };
+
+        InitUI.prototype._removePlaceholder = function($elem) {
+            $elem.each(function () {
+                if (typeof $(this).data('val-required') !== "undefined") {
+                    $elem.find('option[value=""]').remove();
+                }
+            });
         };
 
         InitUI.prototype._applyStyles = function () {
@@ -101,80 +109,94 @@
             }
 
             if (this.options.select2 === true) {
-                if (self.loadAMD) {
-                    var select2Deferred = $.Deferred();
-                    this.deferredList.push(select2Deferred);
-
-                    require(['bforms-select2'], function () {
-                        self.$elem.find(self.options.select2Selector).each(function () {
-                            $(this).select2(self._getOptions(this));
-                        });
-
-                        select2Deferred.resolve();
-                    });
+                if ($.browser.mobile) {
+                    this._removePlaceholder(self.$elem.find(self.options.select2Selector));
                 } else {
-                    if (typeof $.fn.select2 === "function") {
-                        this.$elem.find(this.options.select2Selector).each(function () {
-                            $(this).select2(self._getOptions(this));
+                    if (self.loadAMD) {
+                        var select2Deferred = $.Deferred();
+                        this.deferredList.push(select2Deferred);
+
+                        require(['bforms-select2'], function () {
+                            self.$elem.find(self.options.select2Selector).each(function () {
+                                $(this).select2(self._getOptions(this));
+                            });
+
+                            select2Deferred.resolve();
                         });
                     } else {
-                        throw "bforms.select2 script must be loaded before calling initUI";
+                        if (typeof $.fn.select2 === "function") {
+                            this.$elem.find(this.options.select2Selector).each(function () {
+                                $(this).select2(self._getOptions(this));
+                            });
+                        } else {
+                            throw "bforms.select2 script must be loaded before calling initUI";
+                        }
                     }
                 }
             }
 
             if (this.options.tagList === true && this.$elem.find(this.options.tagListSelector).length) {
 
-                if (self.loadAMD) {
-                    var tagListDeferred = $.Deferred();
-                    this.deferredList.push(tagListDeferred);
-
-                    require(['bforms-select2'], function () {
-                        self.$elem.find(self.options.tagListSelector).each(function () {
-                            $(this).bsSelectInput(self._getOptions(this));
-                        });
-
-                        tagListDeferred.resolve();
-                    });
+                if ($.browser.mobile) {
+                    this._removePlaceholder(this.$elem.find(self.options.tagListSelector));
 
                 } else {
-                    if (typeof $.fn.bsSelectInput === "function") {
-                        this.$elem.find(self.options.tagListSelector).each(function () {
-                            $(this).bsSelectInput(self._getOptions(this));
+
+                    if (self.loadAMD) {
+                        var tagListDeferred = $.Deferred();
+                        this.deferredList.push(tagListDeferred);
+
+                        require(['bforms-select2'], function () {
+                            self.$elem.find(self.options.tagListSelector).each(function () {
+                                $(this).bsSelectInput(self._getOptions(this));
+                            });
+
+                            tagListDeferred.resolve();
                         });
+
                     } else {
-                        throw "bforms.select2 script must be loaded before calling initUI";
+                        if (typeof $.fn.bsSelectInput === "function") {
+                            this.$elem.find(self.options.tagListSelector).each(function () {
+                                $(this).bsSelectInput(self._getOptions(this));
+                            });
+                        } else {
+                            throw "bforms.select2 script must be loaded before calling initUI";
+                        }
                     }
                 }
             }
 
             if (this.options.multiSelect2 === true && this.$elem.find(this.options.multiSelect2Selector).length) {
-
-                if (this.loadAMD) {
-
-                    var multiSelectDeferred = $.Deferred();
-                    this.deferredList.push(multiSelectDeferred);
-
-                    require(['bforms-select2'], function () {
-                        self.$elem.find(self.options.multiSelect2Selector).each(function () {
-                            $(this).bsSelectInput($.extend(true, {}, {
-                                tags: false
-                            }, self._getOptions(this)));
-                        });
-
-                        multiSelectDeferred.resolve();
-
-                    });
-
+                if ($.browser.mobile) {
+                    this._removePlaceholder(this.$elem.find(self.options.multiSelect2Selector));
                 } else {
-                    if (typeof $.fn.bsSelectInput === "function") {
-                        this.$elem.find(self.options.multiSelect2Selector).each(function () {
-                            $(this).bsSelectInput($.extend(true, {}, {
-                                tags: false
-                            }, self._getOptions(this)));
+
+                    if (this.loadAMD) {
+
+                        var multiSelectDeferred = $.Deferred();
+                        this.deferredList.push(multiSelectDeferred);
+
+                        require(['bforms-select2'], function () {
+                            self.$elem.find(self.options.multiSelect2Selector).each(function () {
+                                $(this).bsSelectInput($.extend(true, {}, {
+                                    tags: false
+                                }, self._getOptions(this)));
+                            });
+
+                            multiSelectDeferred.resolve();
+
                         });
+
                     } else {
-                        throw "bforms.select2 script must be loaded before calling initUI";
+                        if (typeof $.fn.bsSelectInput === "function") {
+                            this.$elem.find(self.options.multiSelect2Selector).each(function () {
+                                $(this).bsSelectInput($.extend(true, {}, {
+                                    tags: false
+                                }, self._getOptions(this)));
+                            });
+                        } else {
+                            throw "bforms.select2 script must be loaded before calling initUI";
+                        }
                     }
                 }
             }
@@ -266,7 +288,7 @@
                     require(['bforms-datepicker'], function () {
                         self.$elem.find(self.options.datepickerSelector).each(function (idx, elem) {
                             var $elem = $(elem);
-                            
+
                             var isMsie = typeof $.browser !== "undefined" && $.browser.msie;
                             if (!isMsie) {
                                 $elem.prop('type', 'text');
@@ -290,7 +312,7 @@
                     if (typeof $.fn.bsDatepicker === "function") {
                         this.$elem.find(self.options.datepickerSelector).each(function (idx, elem) {
                             var $elem = $(elem);
-                            
+
                             var isMsie = typeof $.browser !== "undefined" && $.browser.msie;
                             if (!isMsie) {
                                 $elem.prop('type', 'text');
@@ -323,12 +345,12 @@
                     require(['bforms-datepicker'], function () {
                         self.$elem.find(self.options.timepickerSelector).each(function (idx, elem) {
                             var $elem = $(elem);
-                            
+
                             var isMsie = typeof $.browser !== "undefined" && $.browser.msie;
                             if (!isMsie) {
                                 $elem.prop('type', 'text');
                             }
-                            
+
                             var $valueField = self.$elem.find('.bs-date-iso[data-for="' + $elem.prop('name') + '"]');
 
                             $elem.bsDatepicker($.extend(true, {}, self._getOptions(this), {
@@ -349,12 +371,12 @@
                     if (typeof $.fn.bsDatepicker === "function") {
                         self.$elem.find(self.options.timepickerSelector).each(function (idx, elem) {
                             var $elem = $(elem);
-                            
+
                             var isMsie = typeof $.browser !== "undefined" && $.browser.msie;
                             if (!isMsie) {
                                 $elem.prop('type', 'text');
                             }
-                            
+
                             var $valueField = self.$elem.find('.bs-date-iso[data-for="' + $elem.prop('name') + '"]');
 
                             $elem.bsDatepicker($.extend(true, {}, self._getOptions(this), {
@@ -659,7 +681,7 @@
             }
 
             //remove loading
-            this.promise.done($.proxy(function() {
+            this.promise.done($.proxy(function () {
                 var timeoutHandler = window.setTimeout($.proxy(function () {
 
                     if (this.$elem.hasClass(this.options.loadingClass)) {
