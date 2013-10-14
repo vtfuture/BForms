@@ -111,7 +111,7 @@
     };
 
     Pager.prototype.getPageSize = function () {
-        return this.element.find(this.options.pageSizeSelector).val();
+        return this.element.find(this.options.pageSizeSelector + '.selected').data('value');
     };
 
     $.widget('bforms.bsPager', Pager.prototype);
