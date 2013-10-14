@@ -118,11 +118,6 @@ a.btn {
 		color: #333333;
 		background-color: #ffffff;
 		border: 1px solid #cccccc;
-		&:hover, &:focus {
-			background: #ebebeb !important;
-			color: #333333;
-			text-decoration: none;
-		}
 	}
 	.grid_toolbar {	
 		position: relative;
@@ -147,20 +142,11 @@ a.btn {
 					float: left;
 					border-left: 1px solid darken($lightBlue, 5%);
 					color: #fff;
-					text-transform: capitalize;
-					&:hover {
-						background-color: darken($lightBlue, 5%);
-						text-decoration: none;
-						color: #fff; 
-					}					
+					text-transform: capitalize;				
 				}
 				.selected {
 					background-color: #f6f6f6;
 					color: #333;
-					&:hover {
-						background-color: #f6f6f6;
-						color: #333;
-					}
 				}
 				.input-group {
 					float: left;
@@ -300,9 +286,6 @@ a.btn {
 				min-height: 44px;				
 				&:nth-child(even) {
 					background: #EEE;
-				}
-				&:hover {
-					background: #fff;
 				}
 				&.open {
 					background: #fff;
@@ -674,9 +657,44 @@ a.btn {
 	
 }
 @media (max-width: 959px) {
+	.grid_container {
+		.btn-default {
+			&:hover, &:focus {
+				background: #fff !important;
+				color: #333333;
+				text-decoration: none;
+			}
+		}
+	}
 	.grid_row {
 		header div:first-child{
 			margin-bottom: 10px;
 		}
 	}
+}
+
+@media (min-width: 960px) { /* Hover effects for desktop only*/
+	.grid_container {
+		.btn-default {
+			&:hover, &:focus {
+				background: #ebebeb !important;
+				color: #333333;
+				text-decoration: none;
+			}
+		}
+		.grid_toolbar .grid_toolbar_header .grid_toolbar_controls {
+			a:hover {
+				background-color: darken($lightBlue, 5%);
+				text-decoration: none;
+				color: #fff;
+			}
+			.selected:hover {
+				background-color: #f6f6f6;
+				color: #333;
+			}
+		}
+		.grid_view .grid_rows_wrapper .grid_row:hover {
+			background: #fff;
+		}
+	}	
 }
