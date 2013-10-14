@@ -469,66 +469,70 @@ a.btn {
 
 /* Other color schemes */
 /* GREEN*/
-.grid_container.green .grid_toolbar .grid_toolbar_header {
+.grid_toolbar.green .grid_toolbar_header {
   background: #59b390; }
-  .grid_container.green .grid_toolbar .grid_toolbar_header .grid_toolbar_controls a, .grid_container.green .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .input-group {
+  .grid_toolbar.green .grid_toolbar_header .grid_toolbar_controls a, .grid_toolbar.green .grid_toolbar_header .grid_toolbar_controls .input-group {
     border-color: #449575 !important; }
   @media (max-width: 756px) {
-    .grid_container.green .grid_toolbar .grid_toolbar_header .grid_toolbar_controls a:last-child {
+    .grid_toolbar.green .grid_toolbar_header .grid_toolbar_controls a:last-child {
       border-right: 1px solid #449575 !important; }
-    .grid_container.green .grid_toolbar .grid_toolbar_header h1 {
+    .grid_toolbar.green .grid_toolbar_header h1 {
       border-bottom: 1px solid #449575 !important; } }
-.grid_container.green .grid_view h2 .badge {
+
+.grid_view.green h2 .badge {
   background: #59b390; }
-.grid_container.green .grid_view .grid_pager .pagination .active a, .grid_container.green .grid_view .grid_pager .pagination .active a:hover {
+.grid_view.green .grid_pager .pagination .active a, .grid_view.green .grid_pager .pagination .active a:hover {
   background: #59b390;
   border: 1px solid #59b390; }
 
 /* PURPLE*/
-.grid_container.purple .grid_toolbar .grid_toolbar_header {
+.grid_toolbar.purple .grid_toolbar_header {
   background: #703d6f; }
-  .grid_container.purple .grid_toolbar .grid_toolbar_header .grid_toolbar_controls a, .grid_container.purple .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .input-group {
+  .grid_toolbar.purple .grid_toolbar_header .grid_toolbar_controls a, .grid_toolbar.purple .grid_toolbar_header .grid_toolbar_controls .input-group {
     border-color: #4f2b4e !important; }
   @media (max-width: 756px) {
-    .grid_container.purple .grid_toolbar .grid_toolbar_header .grid_toolbar_controls a:last-child {
+    .grid_toolbar.purple .grid_toolbar_header .grid_toolbar_controls a:last-child {
       border-right: 1px solid #4f2b4e !important; }
-    .grid_container.purple .grid_toolbar .grid_toolbar_header h1 {
+    .grid_toolbar.purple .grid_toolbar_header h1 {
       border-bottom: 1px solid #4f2b4e !important; } }
-.grid_container.purple .grid_view h2 .badge {
+
+.grid_view.purple h2 .badge {
   background: #703d6f; }
-.grid_container.purple .grid_view .grid_pager .pagination .active a, .grid_container.purple .grid_view .grid_pager .pagination .active a:hover {
+.grid_view.purple .grid_pager .pagination .active a, .grid_view.purple .grid_pager .pagination .active a:hover {
   background: #703d6f;
   border: 1px solid #703d6f; }
 
 /* ORANGE*/
-.grid_container.orange .grid_toolbar .grid_toolbar_header {
+.grid_toolbar.orange .grid_toolbar_header {
   background: #f27435; }
-  .grid_container.orange .grid_toolbar .grid_toolbar_header .grid_toolbar_controls a, .grid_container.orange .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .input-group {
+  .grid_toolbar.orange .grid_toolbar_header .grid_toolbar_controls a, .grid_toolbar.orange .grid_toolbar_header .grid_toolbar_controls .input-group {
     border-color: #e5560f !important; }
   @media (max-width: 756px) {
-    .grid_container.orange .grid_toolbar .grid_toolbar_header .grid_toolbar_controls a:last-child {
+    .grid_toolbar.orange .grid_toolbar_header .grid_toolbar_controls a:last-child {
       border-right: 1px solid #e5560f !important; }
-    .grid_container.orange .grid_toolbar .grid_toolbar_header h1 {
+    .grid_toolbar.orange .grid_toolbar_header h1 {
       border-bottom: 1px solid #e5560f !important; } }
-.grid_container.orange .grid_view h2 .badge {
+
+.grid_view.orange h2 .badge {
   background: #f27435; }
-.grid_container.orange .grid_view .grid_pager .pagination .active a, .grid_container.orange .grid_view .grid_pager .pagination .active a:hover {
+.grid_view.orange .grid_pager .pagination .active a, .grid_view.orange .grid_pager .pagination .active a:hover {
   background: #f27435;
   border: 1px solid #f27435; }
 
 /* almost BLACK*/
-.grid_container.black .grid_toolbar .grid_toolbar_header {
+.grid_toolbar.black .grid_toolbar_header {
   background: #424141; }
-  .grid_container.black .grid_toolbar .grid_toolbar_header .grid_toolbar_controls a, .grid_container.black .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .input-group {
+  .grid_toolbar.black .grid_toolbar_header .grid_toolbar_controls a, .grid_toolbar.black .grid_toolbar_header .grid_toolbar_controls .input-group {
     border-color: #282828 !important; }
   @media (max-width: 756px) {
-    .grid_container.black .grid_toolbar .grid_toolbar_header .grid_toolbar_controls a:last-child {
+    .grid_toolbar.black .grid_toolbar_header .grid_toolbar_controls a:last-child {
       border-right: 1px solid #282828 !important; }
-    .grid_container.black .grid_toolbar .grid_toolbar_header h1 {
+    .grid_toolbar.black .grid_toolbar_header h1 {
       border-bottom: 1px solid #282828 !important; } }
-.grid_container.black .grid_view h2 .badge {
+
+.grid_view.black h2 .badge {
   background: #424141; }
-.grid_container.black .grid_view .grid_pager .pagination .active a, .grid_container.black .grid_view .grid_pager .pagination .active a:hover {
+.grid_view.black .grid_pager .pagination .active a, .grid_view.black .grid_pager .pagination .active a:hover {
   background: #424141;
   border: 1px solid #424141; }
 

@@ -73,9 +73,10 @@
     AjaxWrapper.prototype._killPrevious = function (name) {
         var prevXhr = this._xhrStack[name];
         if (typeof prevXhr !== "undefined" && prevXhr != null && prevXhr.jqXHR != null && typeof prevXhr.jqXHR.abort === 'function' && prevXhr.finished !== true) {
-            prevXhr.jqXHR.abort();
             prevXhr.aborted = true;
             prevXhr.finished = true;
+            prevXhr.jqXHR.abort();
+            
             this._xhrStack[name] = prevXhr;
             this._toggleLoading(prevXhr, true);
         }
@@ -228,6 +229,10 @@
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {
+                
+                var xhrReq = self._xhrStack[xhrSettings.name];
+                if (typeof xhrReq !== 'undefined' && xhrReq != null && xhrReq.aborted === true) return;
+
                 try {
 
                     if (typeof jqXHR.responseText !== "undefined") {
