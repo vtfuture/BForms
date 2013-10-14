@@ -38,7 +38,7 @@
         rowSelector: '.grid_row',
         rowHeaderSelector: 'header',
         rowDetailsSelector: '.grid_row_details',
-        rowActionsContainerSelector: '.footer',
+        rowActionsContainerSelector: '.bs-row_controls',
         rowDetailsSuccessHandler: null,
         rowActions: [],
         updateRowUrl: null,
@@ -115,8 +115,6 @@
 
         if (this.options.hasRowCheck) {
 
-            //cache rows, they will be recached on page change
-            this.$rowChecks = this.element.find(this.options.rowCheckSelector);
             this.$headerCheck = this.element.find(this.options.headerCheckSelector);
 
             this.element.on('click', this.options.rowCheckSelector, $.proxy(this._evOnRowCheckChange, this));
@@ -208,8 +206,9 @@
         this.$gridContainer = this.element.find(this.options.gridContainerSelector);
         this.$gridCountContainer = this.element.find(this.options.gridCountContainerSelector);
         this.$filterIcon = this.element.find(this.options.filterSelector);
-        this.$gridHeader = this.element.find(this.options.orderContainerSelector);
+        this.$gridOrderContainer = this.element.find(this.options.orderContainerSelector);
         this.$actionsContainer = this.element.find(this.options.groupActionsSelector);
+        this.$gridHeader = this.element.find(this.options.gridHeaderSelector);
     };
 
     Grid.prototype._createActions = function (rowActions, $row) {
@@ -227,7 +226,7 @@
             }
 
             if (typeof action.handler === 'function') {
-                this.element.one('click', action.btnSelector, { options: action }, $.proxy(function (e) {
+                $row.on('click', action.btnSelector, { options: action }, $.proxy(function (e) {
                     var options = e.data.options;
                     options.handler.call(this, e, options, $(e.target).closest(this.options.rowSelector), this);
                 }, this));
@@ -349,7 +348,7 @@
 
         var $row = callbackData.row;
 
-        data.$html = $(data.Html);
+        data.$detailsHtml = $(data.Html);
         
         this._trigger('beforeRowDetailsSuccess',0 , {
             $row: $row,
@@ -357,7 +356,7 @@
         });
 
         //insert details to dom
-        $row.append(data.$html.hide()).stop(true, true).slideDown(800);
+        $row.append(data.$detailsHtml.hide()).stop(true, true).slideDown(800);
         
         this._handleDetails($row);
 
@@ -375,14 +374,14 @@
         
         if (data.Message) {
             var $row = arguments[4].row;
-            var $errorContainer = $(this.element).find('.bs-validation_row');
+            var $errorContainer = $row.find('.bs-validation_row');
 
             if ($errorContainer.length == 0) {
                 $errorContainer = $('<div class="col-12 col-sm-12 col-lg-12 bs-validation_row"></div>');
                 $row.find(this.options.rowHeaderSelector).after($errorContainer);
             }
 
-            this._addError(data.Message, $errorContainer);
+            this._addError(data.Message, $errorContainer, true);
         }
     };
 
@@ -431,11 +430,16 @@
     //#endregion
 
     Grid.prototype._evOnPageChange = function (e, data) {
+
         this.refreshModel.page = data.page;
+        var pageChanged = true;
+
         if (data.pageSize) {
             this.refreshModel.pageSize = data.pageSize;
+            pageChanged = false;
         }
-        this._getPage();
+
+        this._getPage(pageChanged);
     };
 
     Grid.prototype._evOnPagerGoTop = function (e) {
@@ -444,16 +448,11 @@
         if (this.options.goTopElement !== null) {
             $goTo = $(this.options.goTopElement);
         } else {
-            $goTo = this.element.find(this.options.gridHeaderSelector);
+            $goTo = this.$gridHeader;
         }
         
         if ($goTo.length) {
-
             $.bforms.scrollToElement($goTo);
-
-            //$('body, html').animate({
-            //    scrollTop: $goTo.offset().top
-            //});
         }
     };
 
@@ -612,7 +611,7 @@
         var idx = me.parent().index();
 
         //gets correct form from column header
-        var $form = this.$gridHeader.children(':eq(' + idx + ')').children('form');
+        var $form = this.$gridOrderContainer.children(':eq(' + idx + ')').children('form');
 
         //clone column
         var $clonedForm = $form.clone();
@@ -658,7 +657,7 @@
 
     };
 
-    Grid.prototype._getPage = function () {
+    Grid.prototype._getPage = function (pageChanged) {
 
         this.needsRefresh = false;
 
@@ -694,7 +693,8 @@
             url: this.options.pagerUrl,
             data: data,
             callbackData: {
-                sent: data
+                sent: data,
+                pageChanged: pageChanged
             },
             context: this,
             success: $.proxy(this._pagerAjaxSuccess, this),
@@ -706,8 +706,8 @@
         $.bforms.ajax(ajaxOptions);
     };
 
-    Grid.prototype._pagerAjaxSuccess = function (data) {
-
+    Grid.prototype._pagerAjaxSuccess = function (data, callbackData) {
+    
         this._currentResultsCount = data.Count || 0;
 
         var $html = $(data.Html);
@@ -730,11 +730,12 @@
         }
 
         this._changeCount();
-
-        // recache rows
-        this.$rowChecks = this.element.find(this.options.rowCheckSelector);
-
+        
         this._resetHeaderCheck();
+
+        if (callbackData.pageChanged) {
+            $.bforms.scrollToElement(this.$gridHeader);
+        }
     };
 
     Grid.prototype._changeCount = function () {
@@ -744,15 +745,20 @@
     };
 
     Grid.prototype._pagerAjaxError = function (data) {
+
         if (data.Message) {
-            var $errorContainer = $(this.element).find('.bs-validation_row_action');
+            var $errorContainer = $(this.element).find('.bs-validation_summary');
 
             if ($errorContainer.length == 0) {
-                $errorContainer = $('<div class="col-12 col-sm-12 col-lg-12 bs-validation_row_action"></div>');
+                $errorContainer = $('<div class="col-12 col-sm-12 col-lg-12 bs-validation_summary"></div>');
                 this.element.find('h2').after($errorContainer);
             }
 
             this._addError(data.Message, $errorContainer);
+        }
+
+        if (arguments[4].pageChanged) {
+            $.bforms.scrollToElement(this.$gridHeader);
         }
     };
 
@@ -784,20 +790,25 @@
     };
 
     Grid.prototype._updateRowAjaxSuccess = function (data, callbackData) {
+
         var $html = $(data.Row),
             $row = callbackData.row,
             $newRow = $html.find(this.options.rowSelector);
 
         if (callbackData.sent.getDetails) {
+
             $newRow.addClass('open');
             $newRow.data('hasdetails', true);
-            $newRow.append($(data.Details));
-            this._createActions(this.options.rowActions, $newRow);
-        }
 
-        if (typeof this.options.rowDetailsSuccessHandler === 'function') {
-            data.$html = $newRow;
-            this.options.rowDetailsSuccessHandler.call(this, $newRow, data);
+            data.$detailsHtml = $(data.Details);
+            $newRow.append(data.$detailsHtml);
+            
+            this._createActions(this.options.rowActions, $newRow);
+                       
+            this._trigger('beforeRowDetailsSuccess', 0, {
+                $row: $newRow,
+                data: data
+            });
         }
 
         if (this.options.hasRowCheck) {
@@ -813,42 +824,53 @@
         } else {
             $row.replaceWith($newRow);
         }
+
+        if (callbackData.sent.getDetails) {
+            this._trigger('afterRowDetailsSuccess', 0, {
+                $row: $newRow,
+                data: data
+            });
+        }
     };
 
     Grid.prototype._updateRowAjaxError = function (data) {
         if (data.Message) {
             var $row = arguments[4].row;
-            var $errorContainer = $(this.element).find('.bs-validation_row');
+            var $errorContainer = $row.find('.bs-validation_row');
 
             if ($errorContainer.length == 0) {
                 $errorContainer = $('<div class="col-12 col-sm-12 col-lg-12 bs-validation_row"></div>');
                 $row.find(this.options.rowHeaderSelector).after($errorContainer);
             }
 
-            this._addError(data.Message, $errorContainer);
+            this._addError(data.Message, $errorContainer, true);
         }
     };
 
     Grid.prototype._rowActionAjaxError = function (data, $row) {
         if (data.Message) {
-            var $errorContainer = $(this.element).find('.bs-validation_summary');
+            var $errorContainer = $row.find('.bs-validation_row_control');
 
             if ($errorContainer.length == 0) {
-                $errorContainer = $('<div class="col-12 col-sm-12 col-lg-12 bs-validation_summary"></div>');
+                $errorContainer = $('<div class="col-12 col-sm-12 col-lg-12 bs-validation_row_control"></div>');
                 $row.find(this.options.rowActionsContainerSelector).before($errorContainer);
             }
 
-            this._addError(data.Message, $errorContainer);
+            this._addError(data.Message, $errorContainer, true);
         }
     };
 
-    Grid.prototype._addError = function (message, $errorContainer) {
+    Grid.prototype._addError = function (message, $errorContainer, replace) {
 
         var $error = $('<div class="bs-form-error alert alert-danger">' +
                             '<button class="close" data-dismiss="alert" type="button">×</button>' +
                                 message +
                         '</div>');
-        $errorContainer.append($error);
+        if (replace) {
+            $errorContainer.html($error);
+        } else {
+            $errorContainer.append($error);
+        }
 
     };
 
