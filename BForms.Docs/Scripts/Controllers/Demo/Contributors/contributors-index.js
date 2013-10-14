@@ -243,13 +243,13 @@
     //#region Toolbar
     GridIndex.prototype.initToolbar = function() {
         this.$toolbar.bsToolbar(
-            $.fn.bsToolbarDefaults(
+            $.extend(true,{},$.fn.bsToolbarDefaults(
                 this.$toolbar,
                 this.$grid,
                 {
                     uniqueName: 'usersToolbar',
                     newUrl: this.options.newUrl
-                })
+                }))
         );
     };
     //#endregion

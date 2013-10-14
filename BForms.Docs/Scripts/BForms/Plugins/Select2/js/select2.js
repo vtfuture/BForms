@@ -18,26 +18,6 @@ Apache License or the GPL Licesnse is distributed on an "AS IS" BASIS, WITHOUT W
 CONDITIONS OF ANY KIND, either express or implied. See the Apache License and the GPL License for
 the specific language governing permissions and limitations under the Apache License and the GPL License.
 */
-(function ($) {
-    if (typeof $.fn.each2 == "undefined") {
-        $.fn.extend({
-            /*
-			* 4-10 times faster .each replacement
-			* use it carefully, as it overrides jQuery context of element on each iteration
-			*/
-            each2: function (c) {
-                var j = $([0]), i = -1, l = this.length;
-                while (
-					++i < l
-					&& (j.context = j[0] = this[i])
-					&& c.call(j[0], i, j) !== false //"this"=DOM, i=index, j=jQuery object
-				);
-                return this;
-            }
-        });
-    }
-})(jQuery);
-
 (function (factory) {
     if (typeof define === 'function' && define.amd) {
         define('select2', [
@@ -51,7 +31,26 @@ the specific language governing permissions and limitations under the Apache Lic
         factory(window.jQuery);
     }
 })((function ($) {
-    "use strict";
+    
+    (function ($) {
+        if (typeof $.fn.each2 == "undefined") {
+            $.fn.extend({
+                /*
+                * 4-10 times faster .each replacement
+                * use it carefully, as it overrides jQuery context of element on each iteration
+                */
+                each2: function (c) {
+                    var j = $([0]), i = -1, l = this.length;
+                    while (
+                        ++i < l
+                        && (j.context = j[0] = this[i])
+                        && c.call(j[0], i, j) !== false //"this"=DOM, i=index, j=jQuery object
+                    );
+                    return this;
+                }
+            });
+        }
+    })(jQuery);
     /*global document, window, jQuery, console */
 
     if (window.Select2 !== undefined) {
