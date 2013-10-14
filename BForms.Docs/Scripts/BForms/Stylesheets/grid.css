@@ -100,7 +100,7 @@ a.btn {
     position: relative;
     min-height: 15px; }
     .grid_container .grid_toolbar .grid_toolbar_header {
-      background: #559ed6;
+      background: #45ada8;
       color: #fff;
       overflow: hidden; }
       .grid_container .grid_toolbar .grid_toolbar_header h1 {
@@ -116,7 +116,7 @@ a.btn {
         .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls a {
           padding: 10px 15px 9px;
           float: left;
-          border-left: 1px solid #4092d1;
+          border-left: 1px solid #3e9b96;
           color: #fff;
           text-transform: capitalize; }
         .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .selected {
@@ -127,7 +127,7 @@ a.btn {
           width: 165px;
           color: #333;
           padding: 8px 3px 7px 15px;
-          border-left: 1px solid #4092d1; }
+          border-left: 1px solid #3e9b96; }
           .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .input-group input {
             border: none;
             -webkit-box-shadow: none;
@@ -171,7 +171,7 @@ a.btn {
     border-bottom: 1px solid #eee; }
     .grid_container .grid_view h2 .badge {
       margin-right: 5px;
-      background: #559ed6;
+      background: #45ada8;
       float: left;
       margin-top: -1px; }
     .grid_container .grid_view h2 .icon_filter {
@@ -197,7 +197,7 @@ a.btn {
         padding-right: 15px; }
     .grid_container .grid_view .grid_row .edit_col:hover {
       cursor: pointer;
-      border-bottom: 1px dashed #559ed6;
+      border-bottom: 1px dashed #45ada8;
       background: url(images/icons/pencil-small.png) right 50% no-repeat;
       padding-right: 20px; }
     .grid_container .grid_view .grid_row header input[type="checkbox"] {
@@ -310,7 +310,7 @@ a.btn {
         display: block; }
         .grid_container .grid_view .grid_rows_wrapper .grid_row_details .flow ul.flow_steps span {
           color: #fff;
-          background: #245b86;
+          background: #45ada8;
           border-radius: 30px;
           width: 21px;
           height: 20px;
@@ -348,7 +348,7 @@ a.btn {
           border-bottom: 1px solid #eee;
           margin: 7px 0;
           padding-bottom: 5px;
-          color: #245b86;
+          color: #45ada8;
           font-size: 14px;
           font-weight: bold; }
         .grid_container .grid_view .grid_rows_wrapper .grid_row_details .flow .flow_steps-editable .btn_minus {
@@ -411,10 +411,10 @@ a.btn {
       margin: 0;
       float: left; }
       .grid_container .grid_view .grid_pager .pagination .active a {
-        background: #559ed6; }
+        background: #45ada8; }
         .grid_container .grid_view .grid_pager .pagination .active a:hover {
-          background: #559ed6;
-          border: 1px solid #559ed6;
+          background: #45ada8;
+          border: 1px solid #45ada8;
           color: #fff; }
     .grid_container .grid_view .grid_pager .results_number {
       float: left;
@@ -468,6 +468,25 @@ a.btn {
   filter: Alpha(opacity=90); }
 
 /* Other color schemes */
+/* BLUE*/
+.grid_toolbar.blue .grid_toolbar_header {
+  background: #559ed6; }
+  .grid_toolbar.blue .grid_toolbar_header .grid_toolbar_controls a, .grid_toolbar.blue .grid_toolbar_header .grid_toolbar_controls .input-group {
+    border-color: #3086c8 !important; }
+  .grid_toolbar.blue .grid_toolbar_header .grid_toolbar_controls a:hover {
+    background: #3086c8 !important; }
+  @media (max-width: 756px) {
+    .grid_toolbar.blue .grid_toolbar_header .grid_toolbar_controls a:last-child {
+      border-right: 1px solid #3086c8 !important; }
+    .grid_toolbar.blue .grid_toolbar_header h1 {
+      border-bottom: 1px solid #3086c8 !important; } }
+
+.grid_view.blue h2 .badge {
+  background: #559ed6; }
+.grid_view.blue .grid_pager .pagination .active a, .grid_view.blue .grid_pager .pagination .active a:hover {
+  background: #559ed6;
+  border: 1px solid #559ed6; }
+
 /* GREEN*/
 .grid_toolbar.green .grid_toolbar_header {
   background: #59b390; }
@@ -549,14 +568,14 @@ a.btn {
     padding: 0 15px; }
 
   .grid_container .grid_toolbar .grid_toolbar_header h1 {
-    border-bottom: 1px solid #4092d1;
+    border-bottom: 1px solid #3e9b96;
     float: none; }
   .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls {
     float: none; }
     .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls a:first-child {
       border-left: none; }
     .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls a:last-child {
-      border-right: 1px solid #4092d1 !important; }
+      border-right: 1px solid #3e9b96 !important; }
       .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls a:last-child + input-group {
         margin-left: -1px; }
 
@@ -577,7 +596,7 @@ a.btn {
     color: #333333;
     text-decoration: none; }
   .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls a:hover {
-    background-color: #4092d1;
+    background-color: #3e9b96;
     text-decoration: none;
     color: #fff; }
   .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .selected:hover {
