@@ -1,3 +1,4 @@
+/* Custom colors for components */
 .input-group {
   width: 100%; }
 
@@ -87,14 +88,12 @@ textarea {
 
 .select2-drop {
   font-size: 14px;
-  border: 1px solid #45ada8;
   border-top: 0;
   border-radius: 0 !important;
   -webkit-box-shadow: none !important;
   -moz-box-shadow: none !important;
   box-shadow: none !important; }
   .select2-drop.select2-drop-above {
-    border: 1px solid #45ada8;
     border-bottom: 0; }
 
 .select2-results {
@@ -155,7 +154,7 @@ textarea {
     background: #f7f7f7 !important; }
   .checkbox_replace .option.selected {
     background: #eee;
-    color: #547980; }
+    color: #368985; }
 .checkbox_replace:focus {
   outline: none; }
 .checkbox_replace.form-control {
@@ -201,11 +200,11 @@ textarea {
     outline: none; }
 
 .btn-default {
-  background: #547980;
+  background: #368985;
   color: #fff; }
   .btn-default:hover, .btn-default:focus {
     background: #45ada8 !important;
-    color: #333 !important; }
+    color: #fff !important; }
 
 .upload-file {
   /* File upload button */
@@ -251,6 +250,82 @@ textarea {
     height: 38px; }
   .form-group.checkbox.has-error label, .form-group.radio.has-error label {
     border: 1px solid #b94a48; }
+
+/* Other color schemes */
+/* BLUE*/
+.form-container.blue .custom_select.select2-container-active .select2-choice,
+.form-container.blue .custom_select.select2-container-active .select2-choices {
+  border-color: #559ed6; }
+.form-container.blue .custom_select-multi.select2-container-active .select2-choice,
+.form-container.blue .custom_select-multi.select2-container-active .select2-choices {
+  border-color: #559ed6; }
+.form-container.blue .form-control:focus,
+.form-container.blue .twitter-typeahead .tt-dropdown-menu {
+  border-color: #559ed6 !important; }
+.form-container.blue .btn-default {
+  background: #3086c8; }
+  .form-container.blue .btn-default:hover, .form-container.blue .btn-default:focus {
+    background: #559ed6 !important; }
+
+/* GREEN*/
+.form-container.green .custom_select.select2-container-active .select2-choice,
+.form-container.green .custom_select.select2-container-active .select2-choices {
+  border-color: #59b390; }
+.form-container.green .custom_select-multi.select2-container-active .select2-choice,
+.form-container.green .custom_select-multi.select2-container-active .select2-choices {
+  border-color: #59b390; }
+.form-container.green .form-control:focus,
+.form-container.green .twitter-typeahead .tt-dropdown-menu {
+  border-color: #59b390 !important; }
+.form-container.green .btn-default {
+  background: #449575; }
+  .form-container.green .btn-default:hover, .form-container.green .btn-default:focus {
+    background: #59b390 !important; }
+
+/* PURPLE*/
+.form-container.purple .custom_select.select2-container-active .select2-choice,
+.form-container.purple .custom_select.select2-container-active .select2-choices {
+  border-color: #703d6f; }
+.form-container.purple .custom_select-multi.select2-container-active .select2-choice,
+.form-container.purple .custom_select-multi.select2-container-active .select2-choices {
+  border-color: #703d6f; }
+.form-container.purple .form-control:focus,
+.form-container.purple .twitter-typeahead .tt-dropdown-menu {
+  border-color: #703d6f !important; }
+.form-container.purple .btn-default {
+  background: #4f2b4e; }
+  .form-container.purple .btn-default:hover, .form-container.purple .btn-default:focus {
+    background: #703d6f !important; }
+
+/* ORANGE*/
+.form-container.orange .custom_select.select2-container-active .select2-choice,
+.form-container.orange .custom_select.select2-container-active .select2-choices {
+  border-color: #f27435; }
+.form-container.orange .custom_select-multi.select2-container-active .select2-choice,
+.form-container.orange .custom_select-multi.select2-container-active .select2-choices {
+  border-color: #f27435; }
+.form-container.orange .form-control:focus,
+.form-container.orange .twitter-typeahead .tt-dropdown-menu {
+  border-color: #f27435 !important; }
+.form-container.orange .btn-default {
+  background: #e5560f; }
+  .form-container.orange .btn-default:hover, .form-container.orange .btn-default:focus {
+    background: #f27435 !important; }
+
+/* almost BLACK*/
+.form-container.black .custom_select.select2-container-active .select2-choice,
+.form-container.black .custom_select.select2-container-active .select2-choices {
+  border-color: #424141; }
+.form-container.black .custom_select-multi.select2-container-active .select2-choice,
+.form-container.black .custom_select-multi.select2-container-active .select2-choices {
+  border-color: #424141; }
+.form-container.black .form-control:focus,
+.form-container.black .twitter-typeahead .tt-dropdown-menu {
+  border-color: #424141 !important; }
+.form-container.black .btn-default {
+  background: #282828; }
+  .form-container.black .btn-default:hover, .form-container.black .btn-default:focus {
+    background: #424141 !important; }
 
 @media (max-width: 756px) {
   .col-12 {

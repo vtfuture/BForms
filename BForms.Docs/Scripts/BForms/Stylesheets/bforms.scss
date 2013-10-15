@@ -1,10 +1,16 @@
 ﻿$turqoise: #45ADA8;
-$navy: #547980;
 $Gray: #dadada;
 $darkGray: #585858;
 $textGray: #989898;
 $textColor: #212121;
 $borderColor: #e8e8e8;
+
+/* Custom colors for components */
+$Blue: #559ed6;
+$Green: #59B390;
+$Purple: #703D6F;
+$Orange: #F27435;
+$Black: #424141;
 
 .input-group {
 	width: 100%;
@@ -118,14 +124,12 @@ textarea {
 }
 .select2-drop {
 	font-size: 14px;
-	border: 1px solid $turqoise;
 	border-top: 0;
 	border-radius: 0 !important;
 	-webkit-box-shadow: none !important;
 	   -moz-box-shadow: none !important;
 		    box-shadow: none !important;
 	&.select2-drop-above {
-		border: 1px solid $turqoise;
 		border-bottom: 0;
 	}
 }
@@ -208,7 +212,7 @@ textarea {
 		}
 		&.selected {
 			background: #eee;
-			color: $navy;
+			color: darken($turqoise, 10%);
 		}
 	}
 	&:focus {
@@ -271,11 +275,11 @@ textarea {
 	}
 }
 .btn-default {
-	background: $navy;
+	background: darken($turqoise, 10%);
 	color: #fff;
 	&:hover, &:focus {
 		background: $turqoise !important;
-		color: #333 !important;
+		color: #fff !important;
 	}
 }
 
@@ -332,6 +336,148 @@ textarea {
 			label {
 				border: 1px solid #b94a48;
 			}
+		}
+	}
+}
+
+
+/* Other color schemes */
+
+/* BLUE*/
+.form-container.blue {
+	.custom_select.select2-container-active {
+		.select2-choice,
+		.select2-choices {
+			border-color: $Blue;
+		}
+	}
+	
+	.custom_select-multi.select2-container-active {
+		.select2-choice,
+		.select2-choices {
+			border-color: $Blue;
+		}
+	}
+	.form-control:focus,
+	.twitter-typeahead	.tt-dropdown-menu {
+		border-color: $Blue !important;
+	}
+	.btn-default {
+		background: darken($Blue, 10%);		
+		&:hover, &:focus {
+			background: $Blue !important;			
+		}
+	}
+}
+
+/* GREEN*/
+.form-container.green {
+	.custom_select.select2-container-active {
+		.select2-choice,
+		.select2-choices {
+			border-color: $Green;
+		}
+	}
+	
+	.custom_select-multi.select2-container-active {
+		.select2-choice,
+		.select2-choices {
+			border-color: $Green;
+		}
+	}
+	.form-control:focus,
+	.twitter-typeahead	.tt-dropdown-menu {
+		border-color: $Green !important;
+	}
+	
+	.btn-default {
+		background: darken($Green, 10%);		
+		&:hover, &:focus {
+			background: $Green !important;			
+		}
+	}
+}
+
+/* PURPLE*/
+.form-container.purple {
+	.custom_select.select2-container-active {
+		.select2-choice,
+		.select2-choices {
+			border-color: $Purple;
+		}
+	}
+	
+	.custom_select-multi.select2-container-active {
+		.select2-choice,
+		.select2-choices {
+			border-color: $Purple;
+		}
+	}
+	.form-control:focus,
+	.twitter-typeahead	.tt-dropdown-menu {
+		border-color: $Purple !important;
+	}
+	
+	.btn-default {
+		background: darken($Purple, 10%);		
+		&:hover, &:focus {
+			background: $Purple !important;			
+		}
+	}
+}
+
+/* ORANGE*/
+.form-container.orange {
+	.custom_select.select2-container-active {
+		.select2-choice,
+		.select2-choices {
+			border-color: $Orange;
+		}
+	}
+	
+	.custom_select-multi.select2-container-active {
+		.select2-choice,
+		.select2-choices {
+			border-color: $Orange;
+		}
+	}
+	.form-control:focus,
+	.twitter-typeahead	.tt-dropdown-menu {
+		border-color: $Orange !important;
+	}
+	
+	.btn-default {
+		background: darken($Orange, 10%);		
+		&:hover, &:focus {
+			background: $Orange !important;			
+		}
+	}
+}
+
+/* almost BLACK*/
+.form-container.black {
+	.custom_select.select2-container-active {
+		.select2-choice,
+		.select2-choices {
+			border-color: $Black;
+		}
+	}
+	
+	.custom_select-multi.select2-container-active {
+		.select2-choice,
+		.select2-choices {
+			border-color: $Black;
+		}
+	}
+	.form-control:focus,
+	.twitter-typeahead	.tt-dropdown-menu {
+		border-color: $Black !important;
+	}
+	
+	.btn-default {
+		background: darken($Black, 10%);		
+		&:hover, &:focus {
+			background: $Black !important;			
 		}
 	}
 }
