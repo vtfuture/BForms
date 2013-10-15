@@ -189,7 +189,7 @@ a.btn {
       display: block;
       clear: both; }
   .grid_container .grid_view .reset-grid {
-    margin: -10px 0 0 5px; }
+    margin: -10px 5px 0 0; }
     .grid_container .grid_view .reset-grid:hover, .grid_container .grid_view .reset-grid:focus {
       color: #333 !important; }
   .grid_container .grid_view .grid_rows {
