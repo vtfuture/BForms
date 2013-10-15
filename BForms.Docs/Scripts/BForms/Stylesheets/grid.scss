@@ -9,7 +9,7 @@ $darkGray: #585858;
 $textGray: #989898;
 $textColor: #212121;
 $borderColor: #e8e8e8;
-$turqoise: #45ADA8;
+$mainColor: #45ADA8; /*turquoise*/
 
 /* Custom colors for components */
 $Blue: #559ed6;
@@ -131,7 +131,7 @@ a.btn {
 		position: relative;
 		min-height: 15px;
 		.grid_toolbar_header {
-			background: $turqoise;
+			background: $mainColor;
 			color: #fff;
 			overflow: hidden;
 			h1 {
@@ -148,7 +148,7 @@ a.btn {
 				a {
 					padding: 10px 15px 9px;
 					float: left;
-					border-left: 1px solid darken($turqoise, 5%);
+					border-left: 1px solid darken($mainColor, 5%);
 					color: #fff;
 					text-transform: capitalize;				
 				}
@@ -161,7 +161,7 @@ a.btn {
 					width: 165px;
 					color: #333;
 					padding: 8px 3px 7px 15px;
-					border-left: 1px solid darken($turqoise, 5%);
+					border-left: 1px solid darken($mainColor, 5%);
 					input {
 						border: none;
 						-webkit-box-shadow: none;
@@ -226,7 +226,7 @@ a.btn {
 			border-bottom: 1px solid #eee;
 			.badge {
 				margin-right: 5px;
-				background: $turqoise;
+				background: $mainColor;
 				float: left;
 				margin-top: -1px;
 			}
@@ -279,7 +279,7 @@ a.btn {
 			}
 			.edit_col:hover {
 				cursor: pointer;
-				border-bottom: 1px dashed $turqoise;
+				border-bottom: 1px dashed $mainColor;
 				background: url(images/icons/pencil-small.png) right 50% no-repeat;
 				padding-right: 20px;
 			}
@@ -416,7 +416,7 @@ a.btn {
 						display: block;
 						span {
 							color: #fff;
-							background: $turqoise;
+							background: $mainColor;
 							border-radius: 30px;
 							width: 21px;
 							height: 20px;
@@ -466,7 +466,7 @@ a.btn {
 							border-bottom: 1px solid #eee;
 							margin: 7px 0;
 							padding-bottom: 5px;
-							color: $turqoise;
+							color: $mainColor;
 							font-size: 14px;
 							font-weight: bold;
 						}
@@ -560,10 +560,10 @@ a.btn {
 				margin: 0;
 				float: left;
 				.active a {
-					background: $turqoise;
+					background: $mainColor;
 					&:hover {
-						background: $turqoise;
-						border: 1px solid  $turqoise;
+						background: $mainColor;
+						border: 1px solid  $mainColor;
 						color: #fff;
 					}
 				}
@@ -824,7 +824,7 @@ a.btn {
 	}
 	.grid_container .grid_toolbar .grid_toolbar_header {
 		h1 {
-			border-bottom: 1px solid darken($turqoise, 5%);
+			border-bottom: 1px solid darken($mainColor, 5%);
 			float: none;
 		}
 		.grid_toolbar_controls {
@@ -833,7 +833,7 @@ a.btn {
 				border-left: none;
 			}
 			a:last-child {
-				border-right: 1px solid darken($turqoise, 5%) !important;
+				border-right: 1px solid darken($mainColor, 5%) !important;
 				+ input-group {
 					margin-left: -1px;
 				}
@@ -873,7 +873,7 @@ a.btn {
 		}
 		.grid_toolbar .grid_toolbar_header .grid_toolbar_controls {
 			a:hover {
-				background-color: darken($turqoise, 5%);
+				background-color: darken($mainColor, 5%);
 				text-decoration: none;
 				color: #fff;
 			}

@@ -1,16 +1,24 @@
-﻿$turqoise: #45ADA8;
-$navy: #547980;
+﻿$mainColor: #45ADA8; /*turquoise*/
 $Gray: #dadada;
 $darkGray: #585858;
 $textGray: #989898;
 $textColor: #212121;
 $borderColor: #e8e8e8;
 
+/* Custom colors for components */
+$Blue: #559ed6;
+$Green: #59B390;
+$Purple: #703D6F;
+$Orange: #F27435;
+$Black: #424141;
+
+
 *, *:before, *:after {
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
 }
+
 
 
 /* Date time picker */
@@ -29,8 +37,13 @@ $borderColor: #e8e8e8;
 	background: #fff;
 	z-index: 9999;
 	a {
+		color: #212121;
 		text-decoration: none;
+		&:hover, &:focus {
+			color: #212121
+		}
 	}
+
 	.btn {
 		padding: 4px 12px;
 		line-height: 1.4;
@@ -44,11 +57,10 @@ $borderColor: #e8e8e8;
 			background-color: #eee !important;
 		}
 		&.btn-default {
-			background: $navy;
+			background: darken($mainColor, 10%);
 			color: #FFF;
 			&:hover, &:focus {
-				background: $turqoise !important;
-				color: #333 !important;
+				background: $mainColor !important;
 			}
 		}
 	}
@@ -123,16 +135,16 @@ $borderColor: #e8e8e8;
 				}
 			}
 			&.in-range a {
-				color: $turqoise !important;
+				color: $mainColor !important;
 			}
 			&.new a {
 				color: $textGray;				
 			}
 			&.active a {
-				background: $turqoise;
+				background: $mainColor;
 				color: #fff !important;
 				&:hover {
-					background: $navy !important;
+					background: darken($mainColor, 10%) !important;
 					color: #fff !important;
 				}
 			}
@@ -192,12 +204,6 @@ $borderColor: #e8e8e8;
 						outline: none;
 					}
 				}
-				.btn-default {
-
-					&:hover {
-						background: $turqoise;
-					}
-				}
 			}
 			&.us-time {
 				li {
@@ -236,6 +242,26 @@ $borderColor: #e8e8e8;
 		vertical-align: top;
 		width: 160px;
 		float: left;
+		.btn {
+			padding: 4px 12px;
+			line-height: 1.4;
+			font-size: 14px;
+			display: inline-block;
+			background: #f1f1f1;
+			color: #333;
+			border: none;
+			text-transform: uppercase;
+			&:hover, &:focus {
+				background-color: #eee !important;
+			}
+			&.btn-default {
+				background: darken($mainColor, 10%);
+				color: #FFF;
+				&:hover, &:focus {
+					background: $mainColor !important;
+				}
+			}
+		}
 		.form-group {
 			margin-bottom: 10px;
 			label {
@@ -247,9 +273,6 @@ $borderColor: #e8e8e8;
 				padding: 3px;
 				border: 1px solid #ccc;
 			}
-		}		
-		.btn {
-			font-size: 14px;
 		}		
 	}
 }
@@ -298,6 +321,159 @@ $borderColor: #e8e8e8;
 		left: 7px;
 	}
 }
+
+/* Other color schemes */
+
+/* BLUE*/
+.bs-datetime-picker.blue {
+	.btn-default {
+		background: darken($Blue, 10%);
+		&:hover, &:focus {
+			background: $Blue !important;
+		}
+	}
+	ul li {
+		&.in-range a {
+			color: $Blue !important;
+		}
+		&.active a {
+			background: $Blue;
+			color: #fff !important;
+			&:hover {
+				background: darken($Blue, 10%) !important;
+			}
+		}
+	}
+}
+.bs-range-picker.blue {
+	.ranges .btn-default {
+		background: darken($Blue, 10%);
+		&:hover, &:focus {
+			background: $Blue !important;
+		}
+	}
+} 
+
+/* GREEN*/
+.bs-datetime-picker.green {
+	.btn-default {
+		background: darken($Green, 10%);
+		&:hover, &:focus {
+			background: $Green !important;
+		}
+	}
+	ul li {
+		&.in-range a {
+			color: $Green !important;
+		}
+		&.active a {
+			background: $Green;
+			color: #fff !important;
+			&:hover {
+				background: darken($Green, 10%) !important;
+			}
+		}
+	}
+}
+.bs-range-picker.green {
+	.ranges .btn-default {
+		background: darken($Green, 10%);
+		&:hover, &:focus {
+			background: $Green !important;
+		}
+	}
+} 
+
+/* PURPLE*/
+.bs-datetime-picker.purple {
+	.btn-default {
+		background: darken($Purple, 10%);
+		&:hover, &:focus {
+			background: $Purple !important;
+		}
+	}
+	ul li {
+		&.in-range a {
+			color: $Purple !important;
+		}
+		&.active a {
+			background: $Purple;
+			color: #fff !important;
+			&:hover {
+				background: darken($Purple, 10%) !important;
+			}
+		}
+	}
+}
+.bs-range-picker.purple {
+	.ranges .btn-default {
+		background: darken($Purple, 10%);
+		&:hover, &:focus {
+			background: $Purple !important;
+		}
+	}
+} 
+
+/* ORANGE*/
+.bs-datetime-picker.orange {
+	.btn-default {
+		background: darken($Orange, 10%);
+		&:hover, &:focus {
+			background: $Orange !important;
+		}
+	}
+	ul li {
+		&.in-range a {
+			color: $Orange !important;
+		}
+		&.active a {
+			background: $Orange;
+			color: #fff !important;
+			&:hover {
+				background: darken($Orange, 10%) !important;
+			}
+		}
+	}
+}
+.bs-range-picker.orange {
+	.ranges .btn-default {
+		background: darken($Orange, 10%);
+		&:hover, &:focus {
+			background: $Orange !important;
+		}
+	}
+} 
+
+/* almost BLACK*/
+
+.bs-datetime-picker.black {
+	.btn-default {
+		background: darken($Black, 10%);
+		&:hover, &:focus {
+			background: $Black !important;
+		}
+	}
+	ul li {
+		&.in-range a {
+			color: $Black !important;
+		}
+		&.active a {
+			background: $Black;
+			color: #fff !important;
+			&:hover {
+				background: darken($Black, 10%) !important;
+			}
+		}
+	}
+}
+.bs-range-picker.black {
+	.ranges .btn-default {
+		background: darken($Black, 10%);
+		&:hover, &:focus {
+			background: $Black !important;
+		}
+	}
+} 
 
 @media (max-width: 700px) {
 	.bs-range-picker {

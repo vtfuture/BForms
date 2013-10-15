@@ -1,4 +1,4 @@
-﻿$turqoise: #45ADA8;
+﻿$mainColor: #45ADA8; /*turquoise*/
 $Gray: #dadada;
 $darkGray: #585858;
 $textGray: #989898;
@@ -113,7 +113,7 @@ textarea {
 	&.select2-container-active {
 		.select2-choice,
 		.select2-choices {
-			border: 1px solid $turqoise;
+			border: 1px solid $mainColor;
 			outline: none;
 			background:#fff;
 			-webkit-box-shadow: none;
@@ -180,7 +180,7 @@ textarea {
 	&.select2-container-active {
 		.select2-choice,
 		.select2-choices {
-			border: 1px solid $turqoise;
+			border: 1px solid $mainColor;
 			outline: none;
 			background: #fff;
 			-webkit-box-shadow: none;
@@ -212,7 +212,7 @@ textarea {
 		}
 		&.selected {
 			background: #eee;
-			color: darken($turqoise, 10%);
+			color: darken($mainColor, 10%);
 		}
 	}
 	&:focus {
@@ -238,7 +238,7 @@ textarea {
 		margin-top: -1px;
 		padding: 4px 0;
 		background-color: #FFF;
-		border: 1px solid $turqoise;
+		border: 1px solid $mainColor;
 		border-top: none;
 	}
 	.tt-suggestion {
@@ -258,7 +258,7 @@ textarea {
 	padding: 8px;
 	&:focus {
 		box-shadow: none;
-		border-color: $turqoise;
+		border-color: $mainColor;
 	}
 	+ .input-group-addon {
 		border-left: none;
@@ -275,10 +275,10 @@ textarea {
 	}
 }
 .btn-default {
-	background: darken($turqoise, 10%);
+	background: darken($mainColor, 10%);
 	color: #fff;
 	&:hover, &:focus {
-		background: $turqoise !important;
+		background: $mainColor !important;
 		color: #fff !important;
 	}
 }

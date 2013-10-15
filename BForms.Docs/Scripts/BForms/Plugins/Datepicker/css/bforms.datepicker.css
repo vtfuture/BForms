@@ -1,3 +1,5 @@
+/*turquoise*/
+/* Custom colors for components */
 *, *:before, *:after {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -18,7 +20,10 @@
   background: #fff;
   z-index: 9999; }
   .bs-datetime-picker a {
+    color: #212121;
     text-decoration: none; }
+    .bs-datetime-picker a:hover, .bs-datetime-picker a:focus {
+      color: #212121; }
   .bs-datetime-picker .btn {
     padding: 4px 12px;
     line-height: 1.4;
@@ -31,11 +36,10 @@
     .bs-datetime-picker .btn:hover, .bs-datetime-picker .btn:focus {
       background-color: #eee !important; }
     .bs-datetime-picker .btn.btn-default {
-      background: #547980;
+      background: #368985;
       color: #FFF; }
       .bs-datetime-picker .btn.btn-default:hover, .bs-datetime-picker .btn.btn-default:focus {
-        background: #45ada8 !important;
-        color: #333 !important; }
+        background: #45ada8 !important; }
   .bs-datetime-picker .btn-close {
     position: absolute;
     right: -10px;
@@ -99,7 +103,7 @@
         background: #45ada8;
         color: #fff !important; }
         .bs-datetime-picker ul li.active a:hover {
-          background: #547980 !important;
+          background: #368985 !important;
           color: #fff !important; }
     .bs-datetime-picker ul.months, .bs-datetime-picker ul.years {
       margin-top: 30px; }
@@ -142,8 +146,6 @@
           height: 30px; }
           .bs-datetime-picker .bs-time-wrapper ul li input[type="text"]:focus {
             outline: none; }
-        .bs-datetime-picker .bs-time-wrapper ul li .btn-default:hover {
-          background: #45ada8; }
       .bs-datetime-picker .bs-time-wrapper ul.us-time li {
         width: 23%; }
     .bs-datetime-picker .bs-time-wrapper .btn-up {
@@ -170,6 +172,22 @@
     vertical-align: top;
     width: 160px;
     float: left; }
+    .bs-range-picker .ranges .btn {
+      padding: 4px 12px;
+      line-height: 1.4;
+      font-size: 14px;
+      display: inline-block;
+      background: #f1f1f1;
+      color: #333;
+      border: none;
+      text-transform: uppercase; }
+      .bs-range-picker .ranges .btn:hover, .bs-range-picker .ranges .btn:focus {
+        background-color: #eee !important; }
+      .bs-range-picker .ranges .btn.btn-default {
+        background: #368985;
+        color: #FFF; }
+        .bs-range-picker .ranges .btn.btn-default:hover, .bs-range-picker .ranges .btn.btn-default:focus {
+          background: #45ada8 !important; }
     .bs-range-picker .ranges .form-group {
       margin-bottom: 10px; }
       .bs-range-picker .ranges .form-group label {
@@ -179,8 +197,6 @@
         font-size: 13px;
         padding: 3px;
         border: 1px solid #ccc; }
-    .bs-range-picker .ranges .btn {
-      font-size: 14px; }
 
 .open-below:before {
   content: '';
@@ -219,6 +235,97 @@
   position: absolute;
   bottom: -6px;
   left: 7px; }
+
+/* Other color schemes */
+/* BLUE*/
+.bs-datetime-picker.blue .btn-default {
+  background: #3086c8; }
+  .bs-datetime-picker.blue .btn-default:hover, .bs-datetime-picker.blue .btn-default:focus {
+    background: #559ed6 !important; }
+.bs-datetime-picker.blue ul li.in-range a {
+  color: #559ed6 !important; }
+.bs-datetime-picker.blue ul li.active a {
+  background: #559ed6;
+  color: #fff !important; }
+  .bs-datetime-picker.blue ul li.active a:hover {
+    background: #3086c8 !important; }
+
+.bs-range-picker.blue .ranges .btn-default {
+  background: #3086c8; }
+  .bs-range-picker.blue .ranges .btn-default:hover, .bs-range-picker.blue .ranges .btn-default:focus {
+    background: #559ed6 !important; }
+
+/* GREEN*/
+.bs-datetime-picker.green .btn-default {
+  background: #449575; }
+  .bs-datetime-picker.green .btn-default:hover, .bs-datetime-picker.green .btn-default:focus {
+    background: #59b390 !important; }
+.bs-datetime-picker.green ul li.in-range a {
+  color: #59b390 !important; }
+.bs-datetime-picker.green ul li.active a {
+  background: #59b390;
+  color: #fff !important; }
+  .bs-datetime-picker.green ul li.active a:hover {
+    background: #449575 !important; }
+
+.bs-range-picker.green .ranges .btn-default {
+  background: #449575; }
+  .bs-range-picker.green .ranges .btn-default:hover, .bs-range-picker.green .ranges .btn-default:focus {
+    background: #59b390 !important; }
+
+/* PURPLE*/
+.bs-datetime-picker.purple .btn-default {
+  background: #4f2b4e; }
+  .bs-datetime-picker.purple .btn-default:hover, .bs-datetime-picker.purple .btn-default:focus {
+    background: #703d6f !important; }
+.bs-datetime-picker.purple ul li.in-range a {
+  color: #703d6f !important; }
+.bs-datetime-picker.purple ul li.active a {
+  background: #703d6f;
+  color: #fff !important; }
+  .bs-datetime-picker.purple ul li.active a:hover {
+    background: #4f2b4e !important; }
+
+.bs-range-picker.purple .ranges .btn-default {
+  background: #4f2b4e; }
+  .bs-range-picker.purple .ranges .btn-default:hover, .bs-range-picker.purple .ranges .btn-default:focus {
+    background: #703d6f !important; }
+
+/* ORANGE*/
+.bs-datetime-picker.orange .btn-default {
+  background: #e5560f; }
+  .bs-datetime-picker.orange .btn-default:hover, .bs-datetime-picker.orange .btn-default:focus {
+    background: #f27435 !important; }
+.bs-datetime-picker.orange ul li.in-range a {
+  color: #f27435 !important; }
+.bs-datetime-picker.orange ul li.active a {
+  background: #f27435;
+  color: #fff !important; }
+  .bs-datetime-picker.orange ul li.active a:hover {
+    background: #e5560f !important; }
+
+.bs-range-picker.orange .ranges .btn-default {
+  background: #e5560f; }
+  .bs-range-picker.orange .ranges .btn-default:hover, .bs-range-picker.orange .ranges .btn-default:focus {
+    background: #f27435 !important; }
+
+/* almost BLACK*/
+.bs-datetime-picker.black .btn-default {
+  background: #282828; }
+  .bs-datetime-picker.black .btn-default:hover, .bs-datetime-picker.black .btn-default:focus {
+    background: #424141 !important; }
+.bs-datetime-picker.black ul li.in-range a {
+  color: #424141 !important; }
+.bs-datetime-picker.black ul li.active a {
+  background: #424141;
+  color: #fff !important; }
+  .bs-datetime-picker.black ul li.active a:hover {
+    background: #282828 !important; }
+
+.bs-range-picker.black .ranges .btn-default {
+  background: #282828; }
+  .bs-range-picker.black .ranges .btn-default:hover, .bs-range-picker.black .ranges .btn-default:focus {
+    background: #424141 !important; }
 
 @media (max-width: 700px) {
   .bs-range-picker {

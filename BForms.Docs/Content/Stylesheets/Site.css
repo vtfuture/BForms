@@ -1,3 +1,4 @@
+/*turquoise*/
 /* Custom colors for site */
 html {
   overflow-y: scroll !important; }
@@ -299,192 +300,192 @@ code {
 
 /* Other color schemes */
 /* BLUE*/
-.blue a:hover, .blue a:focus {
+body.blue a:hover, body.blue a:focus {
   color: #3086c8; }
-.blue .btn-default {
+body.blue .btn-default {
   background: #3086c8; }
-  .blue .btn-default:hover, .blue .btn-default:focus {
+  body.blue .btn-default:hover, body.blue .btn-default:focus {
     background: #559ed6 !important; }
-.blue .navbar .nav > li .dropdown-menu li .badge-info {
+body.blue .navbar .nav > li .dropdown-menu li .badge-info {
   background: #559ed6; }
-.blue .navbar .nav > li .dropdown-menu li a:hover, .blue .navbar .nav > li .dropdown-menu li a:focus {
+body.blue .navbar .nav > li .dropdown-menu li a:hover, body.blue .navbar .nav > li .dropdown-menu li a:focus {
   color: #3086c8; }
-.blue .navbar li.active > a {
+body.blue .navbar li.active > a {
   border-color: #559ed6; }
-.blue h1 {
+body.blue h1 {
   border-color: #559ed6; }
-.blue h5 {
+body.blue h5 {
   color: #559ed6; }
-.blue .bs-docs-section .bs-link-buttons li.current-version {
+body.blue .bs-docs-section .bs-link-buttons li.current-version {
   color: #559ed6; }
-.blue .bs-docs-section .bs-docs-tech {
+body.blue .bs-docs-section .bs-docs-tech {
   background: #559ed6; }
-  .blue .bs-docs-section .bs-docs-tech > div {
+  body.blue .bs-docs-section .bs-docs-tech > div {
     border-right-color: #4092d1;
     border-left-color: #6aaadb; }
-.blue .bs-docs-section .btn:hover, .blue .bs-docs-section .btn:focus {
+body.blue .bs-docs-section .btn:hover, body.blue .bs-docs-section .btn:focus {
   background: #4092d1 !important; }
-.blue .bs-sidebar .bs-sidenav .active > a {
+body.blue .bs-sidebar .bs-sidenav .active > a {
   border-color: #559ed6;
   color: #559ed6; }
-.blue .error_page .btn {
+body.blue .error_page .btn {
   border-bottom-color: #559ed6; }
-  .blue .error_page .btn:last-child {
+  body.blue .error_page .btn:last-child {
     border-bottom-color: #3086c8; }
 @media screen and (max-width: 959px) {
-  .blue .bs-docs-section .bs-docs-tech > div {
+  body.blue .bs-docs-section .bs-docs-tech > div {
     border-bottom-color: #4092d1;
     border-top-color: #6aaadb; } }
 
 /* GREEN*/
-.green a:hover, .green a:focus {
+body.green a:hover, body.green a:focus {
   color: #449575; }
-.green .btn-default {
+body.green .btn-default {
   background: #449575; }
-  .green .btn-default:hover, .green .btn-default:focus {
+  body.green .btn-default:hover, body.green .btn-default:focus {
     background: #59b390 !important; }
-.green .navbar .nav > li .dropdown-menu li .badge-info {
+body.green .navbar .nav > li .dropdown-menu li .badge-info {
   background: #59b390; }
-.green .navbar .nav > li .dropdown-menu li a:hover, .green .navbar .nav > li .dropdown-menu li a:focus {
+body.green .navbar .nav > li .dropdown-menu li a:hover, body.green .navbar .nav > li .dropdown-menu li a:focus {
   color: #449575; }
-.green .navbar li.active > a {
+body.green .navbar li.active > a {
   border-color: #59b390; }
-.green h1 {
+body.green h1 {
   border-color: #59b390; }
-.green h5 {
+body.green h5 {
   color: #59b390; }
-.green .bs-docs-section .bs-link-buttons li.current-version {
+body.green .bs-docs-section .bs-link-buttons li.current-version {
   color: #59b390; }
-.green .bs-docs-section .bs-docs-tech {
+body.green .bs-docs-section .bs-docs-tech {
   background: #59b390; }
-  .green .bs-docs-section .bs-docs-tech > div {
+  body.green .bs-docs-section .bs-docs-tech > div {
     border-right-color: #4ca683;
     border-left-color: #6abb9c; }
-.green .bs-docs-section .btn:hover, .green .bs-docs-section .btn:focus {
+body.green .bs-docs-section .btn:hover, body.green .bs-docs-section .btn:focus {
   background: #4ca683 !important; }
-.green .bs-sidebar .bs-sidenav .active > a {
+body.green .bs-sidebar .bs-sidenav .active > a {
   border-color: #59b390;
   color: #59b390; }
-.green .error_page .btn {
+body.green .error_page .btn {
   border-bottom-color: #59b390; }
-  .green .error_page .btn:last-child {
+  body.green .error_page .btn:last-child {
     border-bottom-color: #449575; }
 @media screen and (max-width: 959px) {
-  .green .bs-docs-section .bs-docs-tech > div {
+  body.green .bs-docs-section .bs-docs-tech > div {
     border-bottom-color: #4ca683;
     border-top-color: #6abb9c; } }
 
 /* PURPLE*/
-.purple a:hover, .purple a:focus {
+body.purple a:hover, body.purple a:focus {
   color: #4f2b4e; }
-.purple .btn-default {
+body.purple .btn-default {
   background: #4f2b4e; }
-  .purple .btn-default:hover, .purple .btn-default:focus {
+  body.purple .btn-default:hover, body.purple .btn-default:focus {
     background: #703d6f !important; }
-.purple .navbar .nav > li .dropdown-menu li .badge-info {
+body.purple .navbar .nav > li .dropdown-menu li .badge-info {
   background: #703d6f; }
-.purple .navbar .nav > li .dropdown-menu li a:hover, .purple .navbar .nav > li .dropdown-menu li a:focus {
+body.purple .navbar .nav > li .dropdown-menu li a:hover, body.purple .navbar .nav > li .dropdown-menu li a:focus {
   color: #4f2b4e; }
-.purple .navbar li.active > a {
+body.purple .navbar li.active > a {
   border-color: #703d6f; }
-.purple h1 {
+body.purple h1 {
   border-color: #703d6f; }
-.purple h5 {
+body.purple h5 {
   color: #703d6f; }
-.purple .bs-docs-section .bs-link-buttons li.current-version {
+body.purple .bs-docs-section .bs-link-buttons li.current-version {
   color: #703d6f; }
-.purple .bs-docs-section .bs-docs-tech {
+body.purple .bs-docs-section .bs-docs-tech {
   background: #703d6f; }
-  .purple .bs-docs-section .bs-docs-tech > div {
+  body.purple .bs-docs-section .bs-docs-tech > div {
     border-right-color: #5f345f;
     border-left-color: #81467f; }
-.purple .bs-docs-section .btn:hover, .purple .bs-docs-section .btn:focus {
+body.purple .bs-docs-section .btn:hover, body.purple .bs-docs-section .btn:focus {
   background: #5f345f !important; }
-.purple .bs-sidebar .bs-sidenav .active > a {
+body.purple .bs-sidebar .bs-sidenav .active > a {
   border-color: #703d6f;
   color: #703d6f; }
-.purple .error_page .btn {
+body.purple .error_page .btn {
   border-bottom-color: #703d6f; }
-  .purple .error_page .btn:last-child {
+  body.purple .error_page .btn:last-child {
     border-bottom-color: #4f2b4e; }
 @media screen and (max-width: 959px) {
-  .purple .bs-docs-section .bs-docs-tech > div {
+  body.purple .bs-docs-section .bs-docs-tech > div {
     border-bottom-color: #5f345f;
     border-top-color: #81467f; } }
 
 /* ORANGE*/
-.orange a:hover, .orange a:focus {
+body.orange a:hover, body.orange a:focus {
   color: #e5560f; }
-.orange .btn-default {
+body.orange .btn-default {
   background: #e5560f; }
-  .orange .btn-default:hover, .orange .btn-default:focus {
+  body.orange .btn-default:hover, body.orange .btn-default:focus {
     background: #f27435 !important; }
-.orange .navbar .nav > li .dropdown-menu li .badge-info {
+body.orange .navbar .nav > li .dropdown-menu li .badge-info {
   background: #f27435; }
-.orange .navbar .nav > li .dropdown-menu li a:hover, .orange .navbar .nav > li .dropdown-menu li a:focus {
+body.orange .navbar .nav > li .dropdown-menu li a:hover, body.orange .navbar .nav > li .dropdown-menu li a:focus {
   color: #e5560f; }
-.orange .navbar li.active > a {
+body.orange .navbar li.active > a {
   border-color: #f27435; }
-.orange h1 {
+body.orange h1 {
   border-color: #f27435; }
-.orange h5 {
+body.orange h5 {
   color: #f27435; }
-.orange .bs-docs-section .bs-link-buttons li.current-version {
+body.orange .bs-docs-section .bs-link-buttons li.current-version {
   color: #f27435; }
-.orange .bs-docs-section .bs-docs-tech {
+body.orange .bs-docs-section .bs-docs-tech {
   background: #f27435; }
-  .orange .bs-docs-section .bs-docs-tech > div {
+  body.orange .bs-docs-section .bs-docs-tech > div {
     border-right-color: #f0641d;
     border-left-color: #f4844d; }
-.orange .bs-docs-section .btn:hover, .orange .bs-docs-section .btn:focus {
+body.orange .bs-docs-section .btn:hover, body.orange .bs-docs-section .btn:focus {
   background: #f0641d !important; }
-.orange .bs-sidebar .bs-sidenav .active > a {
+body.orange .bs-sidebar .bs-sidenav .active > a {
   border-color: #f27435;
   color: #f27435; }
-.orange .error_page .btn {
+body.orange .error_page .btn {
   border-bottom-color: #f27435; }
-  .orange .error_page .btn:last-child {
+  body.orange .error_page .btn:last-child {
     border-bottom-color: #e5560f; }
 @media screen and (max-width: 959px) {
-  .orange .bs-docs-section .bs-docs-tech > div {
+  body.orange .bs-docs-section .bs-docs-tech > div {
     border-bottom-color: #f0641d;
     border-top-color: #f4844d; } }
 
 /* almost BLACK*/
-.black a:hover, .black a:focus {
+body.black a:hover, body.black a:focus {
   color: #282828; }
-.black .btn-default {
+body.black .btn-default {
   background: #282828; }
-  .black .btn-default:hover, .black .btn-default:focus {
+  body.black .btn-default:hover, body.black .btn-default:focus {
     background: #424141 !important; }
-.black .navbar .nav > li .dropdown-menu li .badge-info {
+body.black .navbar .nav > li .dropdown-menu li .badge-info {
   background: #424141; }
-.black .navbar .nav > li .dropdown-menu li a:hover, .black .navbar .nav > li .dropdown-menu li a:focus {
+body.black .navbar .nav > li .dropdown-menu li a:hover, body.black .navbar .nav > li .dropdown-menu li a:focus {
   color: #282828; }
-.black .navbar li.active > a {
+body.black .navbar li.active > a {
   border-color: #424141; }
-.black h1 {
+body.black h1 {
   border-color: #424141; }
-.black h5 {
+body.black h5 {
   color: #424141; }
-.black .bs-docs-section .bs-link-buttons li.current-version {
+body.black .bs-docs-section .bs-link-buttons li.current-version {
   color: #424141; }
-.black .bs-docs-section .bs-docs-tech {
+body.black .bs-docs-section .bs-docs-tech {
   background: #424141; }
-  .black .bs-docs-section .bs-docs-tech > div {
+  body.black .bs-docs-section .bs-docs-tech > div {
     border-right-color: #353434;
     border-left-color: #4f4e4e; }
-.black .bs-docs-section .btn:hover, .black .bs-docs-section .btn:focus {
+body.black .bs-docs-section .btn:hover, body.black .bs-docs-section .btn:focus {
   background: #353434 !important; }
-.black .bs-sidebar .bs-sidenav .active > a {
+body.black .bs-sidebar .bs-sidenav .active > a {
   border-color: #424141;
   color: #424141; }
-.black .error_page .btn {
+body.black .error_page .btn {
   border-bottom-color: #424141; }
-  .black .error_page .btn:last-child {
+  body.black .error_page .btn:last-child {
     border-bottom-color: #282828; }
 @media screen and (max-width: 959px) {
-  .black .bs-docs-section .bs-docs-tech > div {
+  body.black .bs-docs-section .bs-docs-tech > div {
     border-bottom-color: #353434;
     border-top-color: #4f4e4e; } }
 

@@ -1,4 +1,4 @@
-﻿$turqoise: #45ADA8;
+﻿$mainColor: #45ADA8; /*turquoise*/
 $Gray: #dadada;
 $darkGray: #585858;
 $textGray: #989898;
@@ -52,7 +52,7 @@ a {
 	color: $textColor;
 	&:hover, &:focus {
 		text-decoration: none;
-		color: darken($turqoise, 10%);
+		color: darken($mainColor, 10%);
 		background-color: transparent;
 	}
 }
@@ -115,10 +115,10 @@ a {
 				font-size: 14px;
 				.badge-info {
 					margin-left: 10px;
-					background: darken($turqoise, 10%);
+					background: darken($mainColor, 10%);
 				}
 				a:hover, a:focus {
-					color: darken($turqoise, 10%);
+					color: darken($mainColor, 10%);
 					background: none;
 				}
 			}
@@ -135,7 +135,7 @@ a {
 	}
 	li.active {
 		> a {
-			border-bottom: 2px solid $turqoise;
+			border-bottom: 2px solid $mainColor;
 		}
 		.dropdown-toggle {
 			background: #fff;
@@ -158,15 +158,15 @@ h1 {
 	font-size: 20px;
 	line-height: normal;
 	font-weight: normal;
-	border-bottom: 2px solid $turqoise;
+	border-bottom: 2px solid $mainColor;
 	padding-bottom: 10px;
 	margin-bottom: 35px;
 	span {
-		color: $turqoise;
+		color: $mainColor;
 	}
 }
 h5 {
-	color: $turqoise;
+	color: $mainColor;
 }
 .gray {
 	color: $textGray;
@@ -210,19 +210,19 @@ code {
 			display: inline-block; 
 			margin-right: 10px;
 			&.current-version {
-				color: $turqoise;
+				color: $mainColor;
 			}
 		}
 	}
 	.bs-docs-tech {
 		margin: 0;
-		background: $turqoise;
+		background: $mainColor;
 		color: #fff;
 		display: table;
 		position: relative;
 		> div {
-			border-right: 1px solid darken($turqoise, 5%);
-			border-left: 1px solid lighten($turqoise, 5%);
+			border-right: 1px solid darken($mainColor, 5%);
+			border-left: 1px solid lighten($mainColor, 5%);
 			display: table-cell;
 			float: none;
 			
@@ -255,7 +255,7 @@ code {
 			position: absolute;
 			bottom: 10px;
 			&:hover, &:focus {
-				background: darken($turqoise, 5%) !important;
+				background: darken($mainColor, 5%) !important;
 			}
 		}
 	}
@@ -272,8 +272,8 @@ code {
 		text-shadow: 0 1px 0 #fff;
 		background-color: #f7f5fa;
 		.active > a {
-			border-right: 2px solid $turqoise;
-			color: $turqoise;
+			border-right: 2px solid $mainColor;
+			color: $mainColor;
 		}		
 	}
 	.nav li a {
@@ -357,11 +357,11 @@ code {
 		margin-right: 5px;
 		padding: 4px 12px;
 		border: 1px solid #CCC;
-		border-bottom: 2px solid $turqoise;
+		border-bottom: 2px solid $mainColor;
 		text-transform: uppercase;
 		font-size: 17px;
 		&:last-child {
-			border-bottom: 2px solid darken($turqoise, 10%);
+			border-bottom: 2px solid darken($mainColor, 10%);
 		}
 	}
 	.icon {
@@ -418,7 +418,7 @@ code {
 
 /* BLUE*/
 
-.blue {
+body.blue {
 	a:hover, a:focus {
 		color: darken($Blue, 10%);
 	}
@@ -482,7 +482,7 @@ code {
 
 /* GREEN*/
 
-.green {
+body.green {
 	a:hover, a:focus {
 		color: darken($Green, 10%);
 	}
@@ -546,7 +546,7 @@ code {
 
 /* PURPLE*/
 
-.purple {
+body.purple {
 	a:hover, a:focus {
 		color: darken($Purple, 10%);
 	}
@@ -610,7 +610,7 @@ code {
 
 /* ORANGE*/
 
-.orange {
+body.orange {
 	a:hover, a:focus {
 		color: darken($Orange, 10%);
 	}
@@ -674,7 +674,7 @@ code {
 
 /* almost BLACK*/
 
-.black {
+body.black {
 	a:hover, a:focus {
 		color: darken($Black, 10%);
 	}
@@ -758,8 +758,8 @@ code {
 		display: block;
 		> div {
 			border: none;
-			border-bottom: 1px solid darken($turqoise, 5%);
-			border-top: 1px solid lighten($turqoise, 5%);
+			border-bottom: 1px solid darken($mainColor, 5%);
+			border-top: 1px solid lighten($mainColor, 5%);
 			display: block;
 			padding-bottom: 0;
 		}
