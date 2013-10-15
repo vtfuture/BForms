@@ -296,7 +296,7 @@ code {
 	position: fixed;
 	right: 0;
 	top: 50%;
-	margin-top: -95px;
+	margin-top: -109px;
 	background: #f7f5fa;
 	display: table;
 	border-spacing: 10px;
@@ -333,6 +333,9 @@ code {
 			li {
 				font-size: 15px;
 				margin-bottom: 6px; 
+				&.default .color {
+					background: $mainColor;
+				}
 				&.orange .color {
 					background: $Orange;
 				}

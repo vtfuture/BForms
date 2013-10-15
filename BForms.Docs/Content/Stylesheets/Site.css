@@ -212,7 +212,7 @@ code {
   position: fixed;
   right: 0;
   top: 50%;
-  margin-top: -95px;
+  margin-top: -109px;
   background: #f7f5fa;
   display: table;
   border-spacing: 10px; }
@@ -245,6 +245,8 @@ code {
       .select_theme .options ul li {
         font-size: 15px;
         margin-bottom: 6px; }
+        .select_theme .options ul li.default .color {
+          background: #45ada8; }
         .select_theme .options ul li.orange .color {
           background: #f27435; }
         .select_theme .options ul li.green .color {
