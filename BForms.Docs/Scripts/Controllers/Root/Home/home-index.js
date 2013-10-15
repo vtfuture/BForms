@@ -1,7 +1,8 @@
 ﻿require([
          'jquery',
          'jquery-ui-core',
-         'bootstrap'
+         'bootstrap',
+         'main-script'
 ], function () {
     var HomeIndex = function (options) {
         this.options = $.extend(true, {}, options);

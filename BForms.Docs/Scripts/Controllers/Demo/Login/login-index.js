@@ -5,7 +5,8 @@
          'bforms-validate-unobtrusive',
          'bforms-initUI',
          'bforms-resetInput',
-         'bforms-extensions'
+         'bforms-extensions',
+         'main-script'
 ], function () {
 
     var LoginIndex = function (options) {

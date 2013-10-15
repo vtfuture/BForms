@@ -2,7 +2,8 @@
          'jquery',
          'jquery-ui-core',
          'bootstrap',
-         'bforms-navscroll'
+         'bforms-navscroll',
+         'main-script'
 ], function () {
     var ComponentsIndex = function (options) {
         this.options = $.extend(true, {}, options);

@@ -3,7 +3,8 @@
         'bforms-grid',
         'bforms-toolbar',
         'bootstrap',
-        'bforms-ajax'
+        'bforms-ajax',
+        'main-script'
 ], function () {
 
     //#region Constructor and Properties
