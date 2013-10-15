@@ -1,10 +1,16 @@
 ﻿$turqoise: #45ADA8;
-$navy: #547980;
 $Gray: #dadada;
 $darkGray: #585858;
 $textGray: #989898;
 $textColor: #212121;
 $borderColor: #e8e8e8;
+
+/* Custom colors for site */
+$Blue: #559ed6;
+$Green: #59B390;
+$Purple: #703D6F;
+$Orange: #F27435;
+$Black: #424141;
 
 html {
 	overflow-y: scroll !important; 
@@ -46,7 +52,7 @@ a {
 	color: $textColor;
 	&:hover, &:focus {
 		text-decoration: none;
-		color: $navy;
+		color: darken($turqoise, 10%);
 		background-color: transparent;
 	}
 }
@@ -109,10 +115,10 @@ a {
 				font-size: 14px;
 				.badge-info {
 					margin-left: 10px;
-					background: $navy;
+					background: darken($turqoise, 10%);
 				}
 				a:hover, a:focus {
-					color: $navy;
+					color: darken($turqoise, 10%);
 					background: none;
 				}
 			}
@@ -355,7 +361,7 @@ code {
 		text-transform: uppercase;
 		font-size: 17px;
 		&:last-child {
-			border-bottom: 2px solid $navy;
+			border-bottom: 2px solid darken($turqoise, 10%);
 		}
 	}
 	.icon {
@@ -405,6 +411,329 @@ code {
 .bs-sidebar.affix {
 	position: fixed;
 	top: 0;
+}
+
+
+/* Other color schemes */
+
+/* BLUE*/
+
+.blue {
+	a:hover, a:focus {
+		color: darken($Blue, 10%);
+	}
+	.btn-default {
+		background: darken($Blue, 10%);		
+		&:hover, &:focus {
+			background: $Blue !important;			
+		}
+	}
+	.navbar {
+		.nav > li .dropdown-menu li {
+			.badge-info {
+				background: $Blue;
+			}
+			a:hover, a:focus {
+				color: darken($Blue, 10%);
+			}
+		}
+		li.active > a {
+			border-color: $Blue;
+		}
+	}
+	h1 {
+		border-color: $Blue;
+	}
+	h5 {
+		color: $Blue;
+	}
+	.bs-docs-section {
+		.bs-link-buttons li.current-version {
+			color: $Blue;
+		}
+		.bs-docs-tech {
+			background: $Blue;
+			> div {
+				border-right-color: darken($Blue, 5%);
+				border-left-color: lighten($Blue, 5%);
+			}
+		}
+		.btn:hover, .btn:focus {
+			background: darken($Blue, 5%) !important;
+		}
+	}
+	.bs-sidebar .bs-sidenav .active > a {
+		border-color: $Blue;
+		color: $Blue;
+	}
+	.error_page .btn {
+		border-bottom-color: $Blue;
+		&:last-child {
+			border-bottom-color: darken($Blue, 10%);
+		}
+	}
+	@media screen and (max-width: 959px) {
+		.bs-docs-section .bs-docs-tech > div {
+			border-bottom-color: darken($Blue, 5%);
+			border-top-color: lighten($Blue, 5%);
+		}	
+	}	
+}
+
+/* GREEN*/
+
+.green {
+	a:hover, a:focus {
+		color: darken($Green, 10%);
+	}
+	.btn-default {
+		background: darken($Green, 10%);		
+		&:hover, &:focus {
+			background: $Green !important;			
+		}
+	}
+	.navbar {
+		.nav > li .dropdown-menu li {
+			.badge-info {
+				background: $Green;
+			}
+			a:hover, a:focus {
+				color: darken($Green, 10%);
+			}
+		}
+		li.active > a {
+			border-color: $Green;
+		}
+	}
+	h1 {
+		border-color: $Green;
+	}
+	h5 {
+		color: $Green;
+	}
+	.bs-docs-section {
+		.bs-link-buttons li.current-version {
+			color: $Green;
+		}
+		.bs-docs-tech {
+			background: $Green;
+			> div {
+				border-right-color: darken($Green, 5%);
+				border-left-color: lighten($Green, 5%);
+			}
+		}
+		.btn:hover, .btn:focus {
+			background: darken($Green, 5%) !important;
+		}
+	}
+	.bs-sidebar .bs-sidenav .active > a {
+		border-color: $Green;
+		color: $Green;
+	}
+	.error_page .btn {
+		border-bottom-color: $Green;
+		&:last-child {
+			border-bottom-color: darken($Green, 10%);
+		}
+	}
+	@media screen and (max-width: 959px) {
+		.bs-docs-section .bs-docs-tech > div {
+			border-bottom-color: darken($Green, 5%);
+			border-top-color: lighten($Green, 5%);
+		}	
+	}	
+}
+
+/* PURPLE*/
+
+.purple {
+	a:hover, a:focus {
+		color: darken($Purple, 10%);
+	}
+	.btn-default {
+		background: darken($Purple, 10%);		
+		&:hover, &:focus {
+			background: $Purple !important;			
+		}
+	}
+	.navbar {
+		.nav > li .dropdown-menu li {
+			.badge-info {
+				background: $Purple;
+			}
+			a:hover, a:focus {
+				color: darken($Purple, 10%);
+			}
+		}
+		li.active > a {
+			border-color: $Purple;
+		}
+	}
+	h1 {
+		border-color: $Purple;
+	}
+	h5 {
+		color: $Purple;
+	}
+	.bs-docs-section {
+		.bs-link-buttons li.current-version {
+			color: $Purple;
+		}
+		.bs-docs-tech {
+			background: $Purple;
+			> div {
+				border-right-color: darken($Purple, 5%);
+				border-left-color: lighten($Purple, 5%);
+			}
+		}
+		.btn:hover, .btn:focus {
+			background: darken($Purple, 5%) !important;
+		}
+	}
+	.bs-sidebar .bs-sidenav .active > a {
+		border-color: $Purple;
+		color: $Purple;
+	}
+	.error_page .btn {
+		border-bottom-color: $Purple;
+		&:last-child {
+			border-bottom-color: darken($Purple, 10%);
+		}
+	}
+	@media screen and (max-width: 959px) {
+		.bs-docs-section .bs-docs-tech > div {
+			border-bottom-color: darken($Purple, 5%);
+			border-top-color: lighten($Purple, 5%);
+		}	
+	}	
+}
+
+/* ORANGE*/
+
+.orange {
+	a:hover, a:focus {
+		color: darken($Orange, 10%);
+	}
+	.btn-default {
+		background: darken($Orange, 10%);		
+		&:hover, &:focus {
+			background: $Orange !important;			
+		}
+	}
+	.navbar {
+		.nav > li .dropdown-menu li {
+			.badge-info {
+				background: $Orange;
+			}
+			a:hover, a:focus {
+				color: darken($Orange, 10%);
+			}
+		}
+		li.active > a {
+			border-color: $Orange;
+		}
+	}
+	h1 {
+		border-color: $Orange;
+	}
+	h5 {
+		color: $Orange;
+	}
+	.bs-docs-section {
+		.bs-link-buttons li.current-version {
+			color: $Orange;
+		}
+		.bs-docs-tech {
+			background: $Orange;
+			> div {
+				border-right-color: darken($Orange, 5%);
+				border-left-color: lighten($Orange, 5%);
+			}
+		}
+		.btn:hover, .btn:focus {
+			background: darken($Orange, 5%) !important;
+		}
+	}
+	.bs-sidebar .bs-sidenav .active > a {
+		border-color: $Orange;
+		color: $Orange;
+	}
+	.error_page .btn {
+		border-bottom-color: $Orange;
+		&:last-child {
+			border-bottom-color: darken($Orange, 10%);
+		}
+	}
+	@media screen and (max-width: 959px) {
+		.bs-docs-section .bs-docs-tech > div {
+			border-bottom-color: darken($Orange, 5%);
+			border-top-color: lighten($Orange, 5%);
+		}	
+	}	
+}
+
+/* almost BLACK*/
+
+.black {
+	a:hover, a:focus {
+		color: darken($Black, 10%);
+	}
+	.btn-default {
+		background: darken($Black, 10%);		
+		&:hover, &:focus {
+			background: $Black !important;			
+		}
+	}
+	.navbar {
+		.nav > li .dropdown-menu li {
+			.badge-info {
+				background: $Black;
+			}
+			a:hover, a:focus {
+				color: darken($Black, 10%);
+			}
+		}
+		li.active > a {
+			border-color: $Black;
+		}
+	}
+	h1 {
+		border-color: $Black;
+	}
+	h5 {
+		color: $Black;
+	}
+	.bs-docs-section {
+		.bs-link-buttons li.current-version {
+			color: $Black;
+		}
+		.bs-docs-tech {
+			background: $Black;
+			> div {
+				border-right-color: darken($Black, 5%);
+				border-left-color: lighten($Black, 5%);
+			}
+		}
+		.btn:hover, .btn:focus {
+			background: darken($Black, 5%) !important;
+		}
+	}
+	.bs-sidebar .bs-sidenav .active > a {
+		border-color: $Black;
+		color: $Black;
+	}
+	.error_page .btn {
+		border-bottom-color: $Black;
+		&:last-child {
+			border-bottom-color: darken($Black, 10%);
+		}
+	}
+	@media screen and (max-width: 959px) {
+		.bs-docs-section .bs-docs-tech > div {
+			border-bottom-color: darken($Black, 5%);
+			border-top-color: lighten($Black, 5%);
+		}	
+	}	
 }
 
 /* responsive for fixed menu */
