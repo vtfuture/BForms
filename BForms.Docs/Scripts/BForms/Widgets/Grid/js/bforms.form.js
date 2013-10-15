@@ -187,6 +187,9 @@
     Form.prototype.getFormData = function (data) {
      
         var form = this.element.find('form');
+        
+        form.removeData("validator");
+        form.removeData("unobtrusiveValidation");
         $.validator.unobtrusive.parse(form);
 
         var validatedForm = form.validate();
