@@ -96,6 +96,9 @@ a {
 		border: 0;
 		padding: 0;
 	}
+	.navbar-nav {
+		margin: 0;
+	}
 	.nav > li {
 		margin: 10px 15px 10px;
 		text-transform: uppercase;
@@ -300,6 +303,8 @@ code {
 	background: #f7f5fa;
 	display: table;
 	border-spacing: 10px;
+	z-index: 999;
+	display: none;
 	.toogle {
 		position: relative;
 		display: table-cell;
@@ -831,13 +836,14 @@ body.black {
 	.bs-sidebar.affix {
 		width: 229px;
 	}
+	.select_theme {
+		display: block;
+	}
 }
 
 
 @media screen and (max-width: 959px) {
-	.select_theme {
-		display: none;
-	}
+	
 	.bs-docs-section .bs-docs-tech {
 		display: block;
 		> div {
@@ -867,11 +873,7 @@ body.black {
 		}
 	}
 	
-	.dropdown-menu {
-		position: relative;
-		top: auto;
-		right: auto;
-		float: none;
+	.navbar .dropdown-menu {
 		border: 0;
 		a {
 			font-size: 18px;

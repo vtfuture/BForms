@@ -127,6 +127,12 @@ a.btn {
 		background-color: #ffffff;
 		border: 1px solid #cccccc;
 	}
+	.dropdown-menu {
+		a:hover, a:focus {
+			background: none !important;
+			color: $mainColor !important;
+		}
+	}
 	.grid_toolbar {	
 		position: relative;
 		min-height: 15px;
@@ -236,6 +242,18 @@ a.btn {
 			.grid_bulk_controls {
 				float: right;
 				margin-top: -10px;
+				
+			}
+			&:after {
+				content:"";
+				display: block;
+				clear: both;					
+			}
+		}
+		.reset-grid {
+			margin: -10px 0 0 5px;
+			&:hover, &:focus {
+				color: #333 !important;
 			}
 		}
 		.grid_rows {
@@ -684,7 +702,13 @@ a.btn {
 	}
 	.grid_row.selected header {
 		color: $Blue;
-	}	
+	}
+	.dropdown-menu {
+		a:hover, a:focus {
+			background: none !important;
+			color: $Blue !important;
+		}
+	}
 }
 
 /* GREEN*/
@@ -722,6 +746,12 @@ a.btn {
 	.grid_row.selected header {
 		color: $Green;
 	}	
+	.dropdown-menu {
+		a:hover, a:focus {
+			background: none !important;
+			color: $Green !important;
+		}
+	}
 }
 
 
@@ -759,6 +789,12 @@ a.btn {
 	}	
 	.grid_row.selected header {
 		color: $Purple;
+	}
+	.dropdown-menu {
+		a:hover, a:focus {
+			background: none !important;
+			color: $Purple !important;
+		}
 	}
 }
 
@@ -798,6 +834,12 @@ a.btn {
 	.grid_row.selected header {
 		color: $Orange;
 	}
+	.dropdown-menu {
+		a:hover, a:focus {
+			background: none !important;
+			color: $Orange !important;
+		}
+	}
 }
 
 
@@ -836,6 +878,12 @@ a.btn {
 	.grid_row.selected header {
 		color: #000;
 	}	
+	.dropdown-menu {
+		a:hover, a:focus {
+			background: none !important;
+			color: $Black !important;
+		}
+	}
 }
 
 
@@ -866,12 +914,21 @@ a.btn {
 	}
 	
 }
+@media (max-width: 500px) {
+	.grid_container .grid_view {
+		h2 .grid_bulk_controls {
+			clear: both;
+			float: left;
+			margin-top: 10px;
+		}
+	}
+}
 @media (max-width: 959px) {
 	.grid_container {
 		.btn-default {
 			&:hover, &:focus {
 				background: #fff !important;
-				color: #333333;
+				color: #333333 !important;
 				text-decoration: none;
 			}
 		}
@@ -881,6 +938,10 @@ a.btn {
 			margin-bottom: 10px;
 		}
 	}
+	.dropdown-menu {
+		left: 0 !important;
+		right: auto !important;
+	}
 }
 
 @media (min-width: 960px) { /* Hover effects for desktop only*/
@@ -888,7 +949,7 @@ a.btn {
 		.btn-default {
 			&:hover, &:focus {
 				background: #ebebeb !important;
-				color: #333333;
+				color: #333333 !important;
 				text-decoration: none;
 			}
 		}
