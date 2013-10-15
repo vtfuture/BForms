@@ -90,7 +90,7 @@
     };
     //#endregion
 
-    //#region $.fn.resetForm
+    //#region $.fn.bsResetForm
     $.fn.bsResetForm = function (focus, ignore, triggerChange) {
 
         $(this).find('input:not(.hasDatepicker, .hasRangepicker, ' + ignore + '), textarea:not(' + ignore + ')').each(function () {
@@ -137,7 +137,6 @@
         //#region select2
         $(this).find('select' + ':not(' + ignore + ')').each(function () {
             var thisObj = $(this);
-            thisObj.trigger("change");
             if (thisObj.data('initialvalue')) {
                 if (thisObj.data('select2') != null) {
                     thisObj.select2('val', thisObj.data('initialvalue'));
@@ -152,7 +151,8 @@
                     thisObj.val('');
                 }
             }
-            //if (thisObj.hasClass("custom_select"))
+
+            thisObj.trigger('change');
         });
         //#endregion
 
