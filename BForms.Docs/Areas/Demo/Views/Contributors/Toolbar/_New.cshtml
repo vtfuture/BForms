@@ -6,93 +6,92 @@
 @model BForms.Docs.Areas.Demo.Models.ContributorNewModel
 
 <div id="toolbar_add" class="grid_toolbar_form" style="display: none;">
-    @using (Html.BeginForm())
+    
+    @using (Html.BsBeginForm())
     {
-            <div class="row form-container">
-
-                <div class="col-12 col-sm-6 col-lg-6 form-group @Html.BsValidationCssFor(m => m.FirstName)">
-                    @Html.BsLabelFor(m => m.FirstName)
-                    <div class="input-group">
-                        @Html.BsGlyphiconAddon(Glyphicon.User)
-                        @Html.BsInputFor(m => m.FirstName)
-                        @Html.BsValidationFor(m => m.FirstName)
-                    </div>
-                </div>
-
-                <div class="col-12 col-sm-6 col-lg-6 form-group @Html.BsValidationCssFor(m => m.LastName)">
-                    @Html.BsLabelFor(m => m.LastName)
-                    <div class="input-group">
-                        @Html.BsGlyphiconAddon(Glyphicon.User)
-                        @Html.BsInputFor(m => m.LastName)
-                        @Html.BsValidationFor(m => m.LastName)
-                    </div>
-                </div>
-
-                <div class="col-12 col-sm-6 col-lg-6 form-group @Html.BsValidationCssFor(m => m.Url)">
-                    @Html.BsLabelFor(m => m.Url)
-                    <div class="input-group">
-                        @Html.BsGlyphiconAddon(Glyphicon.Link)
-                        @Html.BsInputFor(model => model.Url)
-                        @Html.BsValidationFor(m => m.Url)
-                    </div>
-                </div>
-
-                <div class="col-12 col-sm-6 col-lg-4 form-group @Html.BsValidationCssFor(m => m.StartDate)">
-                    @Html.BsLabelFor(m => m.StartDate)
-                    <div class="input-group">
-                        @Html.BsGlyphiconAddon(Glyphicon.Calendar)
-                        @Html.BsInputFor(model => model.StartDate)
-                        @Html.BsValidationFor(m => m.StartDate)
-                    </div>
-                </div>
-
-                <div class="col-12 col-sm-6 col-lg-2 form-group @Html.BsValidationCssFor(m => m.IsEnabled)">
-                    @Html.BsLabelFor(m => m.IsEnabled)
-                    <div class="input-group">
-                        @Html.BsSelectFor(model => model.IsEnabled, new Dictionary<string, object>() { { "data-initialvalue", (byte)YesNoValueTypes.Yes } }, null)
-                        @Html.BsValidationFor(m => m.IsEnabled)
-                    </div>
-                </div>
-
-                <div class="col-12 col-sm-6 col-lg-6 form-group @Html.BsValidationCssFor(m => m.CountriesList)">
-                    @Html.BsLabelFor(m => m.CountriesList)
-                    <div class="input-group">
-                        @Html.BsGlyphiconAddon(Glyphicon.MapMarker)
-                        @Html.BsSelectFor(model => model.CountriesList)
-                        @Html.BsValidationFor(m => m.CountriesList)
-                    </div>
-                </div>
-
-                <div class="col-12 col-sm-6 col-lg-6 form-group @Html.BsValidationCssFor(m => m.RoleList)">
-                    @Html.BsLabelFor(m => m.RoleList)
-                    <div class="input-group">
-                        @Html.BsGlyphiconAddon(Glyphicon.Star)
-                        @Html.BsSelectFor(model => model.RoleList, new Dictionary<string, object>() { { "data-initialvalue", (byte)ProjectRole.Developer } })
-                        @Html.BsValidationFor(m => m.RoleList)
-                    </div>
-                </div>
-
-                <div class="col-12 col-sm-6 col-lg-6 form-group @Html.BsValidationCssFor(m => m.LanguagesList)">
-                    @Html.BsLabelFor(m => m.LanguagesList)
-                    <div class="input-group">
-                        @Html.BsGlyphiconAddon(Glyphicon.Tags)
-                        @Html.BsSelectFor(model => model.LanguagesList)
-                        @Html.BsValidationFor(m => m.LanguagesList)
-                    </div>
-                </div>
-
-                <div class="col-12 col-sm-6 col-lg-6 form-group">
-                    @Html.BsLabelFor(m => m.Contributions)
-                    <div class="input-group">
-                        @Html.BsGlyphiconAddon(Glyphicon.Stats)
-                        @Html.BsInputFor(model => model.Contributions)
-                    </div>
-                </div>
+        <div class="col-12 col-sm-6 col-lg-6 form-group @Html.BsValidationCssFor(m => m.FirstName)">
+            @Html.BsLabelFor(m => m.FirstName)
+            <div class="input-group">
+                @Html.BsGlyphiconAddon(Glyphicon.User)
+                @Html.BsInputFor(m => m.FirstName)
+                @Html.BsValidationFor(m => m.FirstName)
             </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-lg-6 form-group @Html.BsValidationCssFor(m => m.LastName)">
+            @Html.BsLabelFor(m => m.LastName)
+            <div class="input-group">
+                @Html.BsGlyphiconAddon(Glyphicon.User)
+                @Html.BsInputFor(m => m.LastName)
+                @Html.BsValidationFor(m => m.LastName)
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-lg-6 form-group @Html.BsValidationCssFor(m => m.Url)">
+            @Html.BsLabelFor(m => m.Url)
+            <div class="input-group">
+                @Html.BsGlyphiconAddon(Glyphicon.Link)
+                @Html.BsInputFor(model => model.Url)
+                @Html.BsValidationFor(m => m.Url)
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-lg-4 form-group @Html.BsValidationCssFor(m => m.StartDate)">
+            @Html.BsLabelFor(m => m.StartDate)
+            <div class="input-group">
+                @Html.BsGlyphiconAddon(Glyphicon.Calendar)
+                @Html.BsInputFor(model => model.StartDate)
+                @Html.BsValidationFor(m => m.StartDate)
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-lg-2 form-group @Html.BsValidationCssFor(m => m.IsEnabled)">
+            @Html.BsLabelFor(m => m.IsEnabled)
+            <div class="input-group">
+                @Html.BsSelectFor(model => model.IsEnabled, new Dictionary<string, object>() {{"data-initialvalue", (byte) YesNoValueTypes.Yes}}, null)
+                @Html.BsValidationFor(m => m.IsEnabled)
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-lg-6 form-group @Html.BsValidationCssFor(m => m.CountriesList)">
+            @Html.BsLabelFor(m => m.CountriesList)
+            <div class="input-group">
+                @Html.BsGlyphiconAddon(Glyphicon.MapMarker)
+                @Html.BsSelectFor(model => model.CountriesList)
+                @Html.BsValidationFor(m => m.CountriesList)
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-lg-6 form-group @Html.BsValidationCssFor(m => m.RoleList)">
+            @Html.BsLabelFor(m => m.RoleList)
+            <div class="input-group">
+                @Html.BsGlyphiconAddon(Glyphicon.Star)
+                @Html.BsSelectFor(model => model.RoleList, new Dictionary<string, object>() {{"data-initialvalue", (byte) ProjectRole.Developer}})
+                @Html.BsValidationFor(m => m.RoleList)
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-lg-6 form-group @Html.BsValidationCssFor(m => m.LanguagesList)">
+            @Html.BsLabelFor(m => m.LanguagesList)
+            <div class="input-group">
+                @Html.BsGlyphiconAddon(Glyphicon.Tags)
+                @Html.BsSelectFor(model => model.LanguagesList)
+                @Html.BsValidationFor(m => m.LanguagesList)
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-lg-6 form-group">
+            @Html.BsLabelFor(m => m.Contributions)
+            <div class="input-group">
+                @Html.BsGlyphiconAddon(Glyphicon.Stats)
+                @Html.BsInputFor(model => model.Contributions)
+            </div>
+        </div>
 
         <div class="grid_toolbar_submit">
             <button type="submit" class="btn btn-default js-btn-add">@Resource.Add</button>
             <a href="#" class="js-btn-reset">@Resource.Reset</a>
         </div>
     }
+
 </div>

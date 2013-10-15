@@ -3,7 +3,7 @@
 @using BForms.Models
 @model BForms.Docs.Areas.Demo.Models.ContributorDetailsModel
 
-@using (Html.BeginForm())
+@using (Html.BsBeginForm())
 {
     <div class="col-12 col-sm-12 col-lg-12 form-group @Html.BsValidationCssFor(m => m.FirstName)">
         @Html.BsLabelFor(m => m.FirstName)

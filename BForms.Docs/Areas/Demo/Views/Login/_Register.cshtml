@@ -6,9 +6,8 @@
     <h1>@Html.BsGlyphicon(Glyphicon.StartEmpty) Register form</h1>
 </div>
 
-@using (Html.BeginForm("Register", "Login", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "bs-form js-registerForm" }))
+@using (Html.BsBeginForm("Register", "Login", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "bs-form js-registerForm" }))
 {
-    <div class="form-container loading">
         <div class="col-12 col-sm-12 col-lg-12 bs-validation_summary">
             @Html.BsValidationSummary()
         </div>
@@ -160,8 +159,5 @@
             <button class="btn btn-primary js-registerBtn" type="submit">Register</button>
             <a class="btn btn-danger pull-right" href="@Url.Action("Index", new { mode="login"})">Cancel</a>
         </div>
-
-
-    </div>
 }
 

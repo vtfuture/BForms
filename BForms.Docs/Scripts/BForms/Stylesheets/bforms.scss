@@ -60,7 +60,7 @@ textarea {
 	}
 }
 
-.form-container {
+.form_container {
 	position: relative;
 	clear: both;
 	&.loading {
@@ -344,7 +344,7 @@ textarea {
 /* Other color schemes */
 
 /* BLUE*/
-.form-container.blue {
+.form_container.blue {
 	.custom_select.select2-container-active {
 		.select2-choice,
 		.select2-choices {
@@ -371,7 +371,7 @@ textarea {
 }
 
 /* GREEN*/
-.form-container.green {
+.form_container.green {
 	.custom_select.select2-container-active {
 		.select2-choice,
 		.select2-choices {
@@ -399,7 +399,7 @@ textarea {
 }
 
 /* PURPLE*/
-.form-container.purple {
+.form_container.purple {
 	.custom_select.select2-container-active {
 		.select2-choice,
 		.select2-choices {
@@ -427,7 +427,7 @@ textarea {
 }
 
 /* ORANGE*/
-.form-container.orange {
+.form_container.orange {
 	.custom_select.select2-container-active {
 		.select2-choice,
 		.select2-choices {
@@ -455,7 +455,7 @@ textarea {
 }
 
 /* almost BLACK*/
-.form-container.black {
+.form_container.black {
 	.custom_select.select2-container-active {
 		.select2-choice,
 		.select2-choices {

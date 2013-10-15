@@ -39,12 +39,12 @@ textarea {
   .has-error .select2-search-field input {
     width: 100% !important; }
 
-.form-container {
+.form_container {
   position: relative;
   clear: both; }
-  .form-container.loading .form-group {
+  .form_container.loading .form-group {
     height: 66px; }
-  .form-container.loading:after {
+  .form_container.loading:after {
     content: "";
     position: absolute;
     top: 0;
@@ -254,78 +254,78 @@ textarea {
 
 /* Other color schemes */
 /* BLUE*/
-.form-container.blue .custom_select.select2-container-active .select2-choice,
-.form-container.blue .custom_select.select2-container-active .select2-choices {
+.form_container.blue .custom_select.select2-container-active .select2-choice,
+.form_container.blue .custom_select.select2-container-active .select2-choices {
   border-color: #559ed6; }
-.form-container.blue .custom_select-multi.select2-container-active .select2-choice,
-.form-container.blue .custom_select-multi.select2-container-active .select2-choices {
+.form_container.blue .custom_select-multi.select2-container-active .select2-choice,
+.form_container.blue .custom_select-multi.select2-container-active .select2-choices {
   border-color: #559ed6; }
-.form-container.blue .form-control:focus,
-.form-container.blue .twitter-typeahead .tt-dropdown-menu {
+.form_container.blue .form-control:focus,
+.form_container.blue .twitter-typeahead .tt-dropdown-menu {
   border-color: #559ed6 !important; }
-.form-container.blue .btn-default {
+.form_container.blue .btn-default {
   background: #3086c8; }
-  .form-container.blue .btn-default:hover, .form-container.blue .btn-default:focus {
+  .form_container.blue .btn-default:hover, .form_container.blue .btn-default:focus {
     background: #559ed6 !important; }
 
 /* GREEN*/
-.form-container.green .custom_select.select2-container-active .select2-choice,
-.form-container.green .custom_select.select2-container-active .select2-choices {
+.form_container.green .custom_select.select2-container-active .select2-choice,
+.form_container.green .custom_select.select2-container-active .select2-choices {
   border-color: #59b390; }
-.form-container.green .custom_select-multi.select2-container-active .select2-choice,
-.form-container.green .custom_select-multi.select2-container-active .select2-choices {
+.form_container.green .custom_select-multi.select2-container-active .select2-choice,
+.form_container.green .custom_select-multi.select2-container-active .select2-choices {
   border-color: #59b390; }
-.form-container.green .form-control:focus,
-.form-container.green .twitter-typeahead .tt-dropdown-menu {
+.form_container.green .form-control:focus,
+.form_container.green .twitter-typeahead .tt-dropdown-menu {
   border-color: #59b390 !important; }
-.form-container.green .btn-default {
+.form_container.green .btn-default {
   background: #449575; }
-  .form-container.green .btn-default:hover, .form-container.green .btn-default:focus {
+  .form_container.green .btn-default:hover, .form_container.green .btn-default:focus {
     background: #59b390 !important; }
 
 /* PURPLE*/
-.form-container.purple .custom_select.select2-container-active .select2-choice,
-.form-container.purple .custom_select.select2-container-active .select2-choices {
+.form_container.purple .custom_select.select2-container-active .select2-choice,
+.form_container.purple .custom_select.select2-container-active .select2-choices {
   border-color: #703d6f; }
-.form-container.purple .custom_select-multi.select2-container-active .select2-choice,
-.form-container.purple .custom_select-multi.select2-container-active .select2-choices {
+.form_container.purple .custom_select-multi.select2-container-active .select2-choice,
+.form_container.purple .custom_select-multi.select2-container-active .select2-choices {
   border-color: #703d6f; }
-.form-container.purple .form-control:focus,
-.form-container.purple .twitter-typeahead .tt-dropdown-menu {
+.form_container.purple .form-control:focus,
+.form_container.purple .twitter-typeahead .tt-dropdown-menu {
   border-color: #703d6f !important; }
-.form-container.purple .btn-default {
+.form_container.purple .btn-default {
   background: #4f2b4e; }
-  .form-container.purple .btn-default:hover, .form-container.purple .btn-default:focus {
+  .form_container.purple .btn-default:hover, .form_container.purple .btn-default:focus {
     background: #703d6f !important; }
 
 /* ORANGE*/
-.form-container.orange .custom_select.select2-container-active .select2-choice,
-.form-container.orange .custom_select.select2-container-active .select2-choices {
+.form_container.orange .custom_select.select2-container-active .select2-choice,
+.form_container.orange .custom_select.select2-container-active .select2-choices {
   border-color: #f27435; }
-.form-container.orange .custom_select-multi.select2-container-active .select2-choice,
-.form-container.orange .custom_select-multi.select2-container-active .select2-choices {
+.form_container.orange .custom_select-multi.select2-container-active .select2-choice,
+.form_container.orange .custom_select-multi.select2-container-active .select2-choices {
   border-color: #f27435; }
-.form-container.orange .form-control:focus,
-.form-container.orange .twitter-typeahead .tt-dropdown-menu {
+.form_container.orange .form-control:focus,
+.form_container.orange .twitter-typeahead .tt-dropdown-menu {
   border-color: #f27435 !important; }
-.form-container.orange .btn-default {
+.form_container.orange .btn-default {
   background: #e5560f; }
-  .form-container.orange .btn-default:hover, .form-container.orange .btn-default:focus {
+  .form_container.orange .btn-default:hover, .form_container.orange .btn-default:focus {
     background: #f27435 !important; }
 
 /* almost BLACK*/
-.form-container.black .custom_select.select2-container-active .select2-choice,
-.form-container.black .custom_select.select2-container-active .select2-choices {
+.form_container.black .custom_select.select2-container-active .select2-choice,
+.form_container.black .custom_select.select2-container-active .select2-choices {
   border-color: #424141; }
-.form-container.black .custom_select-multi.select2-container-active .select2-choice,
-.form-container.black .custom_select-multi.select2-container-active .select2-choices {
+.form_container.black .custom_select-multi.select2-container-active .select2-choice,
+.form_container.black .custom_select-multi.select2-container-active .select2-choices {
   border-color: #424141; }
-.form-container.black .form-control:focus,
-.form-container.black .twitter-typeahead .tt-dropdown-menu {
+.form_container.black .form-control:focus,
+.form_container.black .twitter-typeahead .tt-dropdown-menu {
   border-color: #424141 !important; }
-.form-container.black .btn-default {
+.form_container.black .btn-default {
   background: #282828; }
-  .form-container.black .btn-default:hover, .form-container.black .btn-default:focus {
+  .form_container.black .btn-default:hover, .form_container.black .btn-default:focus {
     background: #424141 !important; }
 
 @media (max-width: 756px) {

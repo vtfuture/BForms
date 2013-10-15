@@ -79,6 +79,7 @@
     <Compile Include="Grid\BsGridColumnFactory.cs" />
     <Compile Include="Grid\BsGridHtmlBuilder.cs" />
     <Compile Include="Grid\BsGridRepositorySettings.cs" />
+    <Compile Include="Html\FormExtensions.cs" />
     <Compile Include="Models\BsTheme.cs" />
     <Compile Include="Mvc\BsHtmlTag.cs" />
     <Compile Include="Grid\BsPagerSettings.cs" />
@@ -127,10 +128,10 @@
     <Compile Include="Html\ValidationExtensions.cs" />
     <Compile Include="Utilities\ActionResultHelpers.cs" />
     <Compile Include="Mvc\ModelStateExtensions.cs" />
-    <Compile Include="Utilities\QueryableExtensions.cs" />
+    <Compile Include="Utilities\LinqHelpers.cs" />
     <Compile Include="Utilities\ReflectionHelpers.cs" />
     <Compile Include="Mvc\RenderViewHelpers.cs" />
-    <Compile Include="Utilities\TagBuilderExtensions.cs" />
+    <Compile Include="Utilities\MvcHelpers.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace BForms.Utilities
 {
-    public static class QueryableExtensions
+    public static class LinqHelpers
     {
         public static IOrderedQueryable<T> OrderBy<T>(this IQueryable<T> source, string property)
         {

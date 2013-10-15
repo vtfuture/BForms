@@ -5,59 +5,54 @@
 @model BForms.Docs.Areas.Demo.Models.ContributorSearchModel
 
 <div id="toolbar_search" class="grid_toolbar_form" style="display: none;">
-    @using (Html.BeginForm())
+    @using (Html.BsBeginForm())
     {
-
-            <div class="row form-container">
-
-                <div class="col-12 col-sm-6 col-lg-6 form-group">
-                    @Html.BsLabelFor(m => m.Name)
-                    <div class="input-group">
-                        @Html.BsGlyphiconAddon(Glyphicon.User)
-                        @Html.BsInputFor(m => m.Name)
-                    </div>
-                </div>
-
-                <div class="col-12 col-sm-6 col-lg-6 form-group">
-                    @Html.BsLabelFor(m => m.StartDateRange)
-                    <div class="input-group">
-                        @Html.BsGlyphiconAddon(Glyphicon.Calendar)
-                        @Html.BsRangeFor(model => model.StartDateRange)
-                    </div>
-                </div>
-
-                <div class="col-12 col-sm-6 col-lg-6 form-group">
-                    @Html.BsLabelFor(m => m.CountriesList)
-                    <div class="input-group">
-                        @Html.BsGlyphiconAddon(Glyphicon.MapMarker)
-                        @Html.BsSelectFor(model => model.CountriesList)
-                    </div>
-                </div>
-
-                <div class="col-12 col-sm-6 col-lg-6 form-group">
-                    @Html.BsLabelFor(m => m.IsEnabled)
-                    <div class="input-group">
-                        @Html.BsSelectFor(model => model.IsEnabled, new Dictionary<string, object>() { { "data-initialvalue", (byte)YesNoValueTypes.Both } }, null)
-                    </div>
-                </div>
-
-                <div class="col-12 col-sm-6 col-lg-6 form-group">
-                    @Html.BsLabelFor(m => m.RoleList)
-                    <div class="input-group">
-                        @Html.BsGlyphiconAddon(Glyphicon.Star)
-                        @Html.BsSelectFor(model => model.RoleList)
-                    </div>
-                </div>
-
-                <div class="col-12 col-sm-6 col-lg-6 form-group">
-                    @Html.BsLabelFor(m => m.LanguagesList)
-                    <div class="input-group">
-                        @Html.BsGlyphiconAddon(Glyphicon.Tags)
-                        @Html.BsSelectFor(model => model.LanguagesList)
-                    </div>
-                </div>
-
+        <div class="col-12 col-sm-6 col-lg-6 form-group">
+            @Html.BsLabelFor(m => m.Name)
+            <div class="input-group">
+                @Html.BsGlyphiconAddon(Glyphicon.User)
+                @Html.BsInputFor(m => m.Name)
             </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-lg-6 form-group">
+            @Html.BsLabelFor(m => m.StartDateRange)
+            <div class="input-group">
+                @Html.BsGlyphiconAddon(Glyphicon.Calendar)
+                @Html.BsRangeFor(model => model.StartDateRange)
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-lg-6 form-group">
+            @Html.BsLabelFor(m => m.CountriesList)
+            <div class="input-group">
+                @Html.BsGlyphiconAddon(Glyphicon.MapMarker)
+                @Html.BsSelectFor(model => model.CountriesList)
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-lg-6 form-group">
+            @Html.BsLabelFor(m => m.IsEnabled)
+            <div class="input-group">
+                @Html.BsSelectFor(model => model.IsEnabled, new Dictionary<string, object>() {{"data-initialvalue", (byte) YesNoValueTypes.Both}}, null)
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-lg-6 form-group">
+            @Html.BsLabelFor(m => m.RoleList)
+            <div class="input-group">
+                @Html.BsGlyphiconAddon(Glyphicon.Star)
+                @Html.BsSelectFor(model => model.RoleList)
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-lg-6 form-group">
+            @Html.BsLabelFor(m => m.LanguagesList)
+            <div class="input-group">
+                @Html.BsGlyphiconAddon(Glyphicon.Tags)
+                @Html.BsSelectFor(model => model.LanguagesList)
+            </div>
+        </div>
 
 
         <div class="grid_toolbar_submit">
@@ -65,4 +60,5 @@
             <a href="#" class="js-btn-reset">@Resource.Reset</a>
         </div>
     }
+
 </div>
