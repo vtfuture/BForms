@@ -203,6 +203,61 @@ code {
   font-weight: normal;
   padding: 10px 15px 10px 25px; }
 
+/* Change theme box */
+.select_theme {
+  position: fixed;
+  right: 0;
+  top: 50%;
+  margin-top: -95px;
+  background: #f7f5fa;
+  display: table;
+  border-spacing: 10px; }
+  .select_theme .toogle {
+    position: relative;
+    display: table-cell;
+    width: 20px;
+    vertical-align: middle;
+    padding-left: 5px; }
+    .select_theme .toogle .open {
+      display: none; }
+  .select_theme .options {
+    display: table-cell;
+    vertical-align: top;
+    border-left: 1px dotted #d6d6d6;
+    padding: 0 20px 0 10px; }
+    .select_theme .options p {
+      margin-bottom: 10px;
+      font-size: 16px; }
+    .select_theme .options .color {
+      width: 15px;
+      height: 15px;
+      display: inline-block;
+      margin-right: 5px;
+      border: 2px solid #fff;
+      vertical-align: middle; }
+    .select_theme .options ul {
+      padding: 0;
+      list-style: none; }
+      .select_theme .options ul li {
+        font-size: 15px;
+        margin-bottom: 6px; }
+        .select_theme .options ul li.orange .color {
+          background: #f27435; }
+        .select_theme .options ul li.green .color {
+          background: #59b390; }
+        .select_theme .options ul li.blue .color {
+          background: #559ed6; }
+        .select_theme .options ul li.purple .color {
+          background: #703d6f; }
+        .select_theme .options ul li.black .color {
+          background: #424141; }
+  .select_theme.collapsed {
+    right: -135px; }
+    .select_theme.collapsed .toogle .closed {
+      display: none; }
+    .select_theme.collapsed .toogle .open {
+      display: inline-block; }
+
 /* Example page*/
 .bs-docs-section .page-header {
   padding: 0;
