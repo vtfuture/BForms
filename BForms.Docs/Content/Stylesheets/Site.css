@@ -554,6 +554,9 @@ body.black .error_page .btn {
   .bs-sidebar.affix {
     width: 229px; } }
 @media screen and (max-width: 959px) {
+  .select_theme {
+    display: none; }
+
   .bs-docs-section .bs-docs-tech {
     display: block; }
     .bs-docs-section .bs-docs-tech > div {

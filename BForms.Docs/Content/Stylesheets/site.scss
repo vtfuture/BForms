@@ -827,6 +827,9 @@ body.black {
 
 
 @media screen and (max-width: 959px) {
+	.select_theme {
+		display: none;
+	}
 	.bs-docs-section .bs-docs-tech {
 		display: block;
 		> div {
