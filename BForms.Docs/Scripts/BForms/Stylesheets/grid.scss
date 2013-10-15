@@ -239,6 +239,26 @@ a.btn {
 		}
 		.grid_rows {
 			position: relative;
+			.expand {
+				display: inline-block;
+				background: url(images/icons/icn-down_arrow-small.png) center center no-repeat;
+				width: 17px;
+				height: 17px;
+				margin-right: 5px;
+				text-indent: -999em;
+				text-decoration: none;
+				background-color: #E6E6E6;
+				vertical-align: text-bottom;
+				&:hover {
+					background-color: #e0e0e0;
+				}
+				+ span {
+					cursor: pointer;
+				}
+			}
+			title.open .expand {
+				background: url(images/icons/icn-right_arrow-small.png) center center no-repeat;
+			}
 		}
 		.grid_row { /* bootstrap override */	
 			margin: 0;
@@ -308,23 +328,7 @@ a.btn {
 					left: 0;
 					bottom: -1px;
 				}				
-				.expand {
-					display: inline-block;
-					background: url(images/icons/icn-down_arrow-small.png) center center no-repeat;
-					width: 17px;
-					height: 17px;
-					margin-right: 5px;
-					text-indent: -999em;
-					text-decoration: none;
-					background-color: #E6E6E6;
-					vertical-align: text-bottom;
-					&:hover {
-						background-color: #e0e0e0;
-					}
-					+ span {
-						cursor: pointer;
-					}
-				}
+				
 				.btn-group {
 					vertical-align: top;
 				}

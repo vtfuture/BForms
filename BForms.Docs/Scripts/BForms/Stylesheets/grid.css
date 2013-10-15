@@ -181,6 +181,22 @@ a.btn {
       margin-top: -10px; }
   .grid_container .grid_view .grid_rows {
     position: relative; }
+    .grid_container .grid_view .grid_rows .expand {
+      display: inline-block;
+      background: url(images/icons/icn-down_arrow-small.png) center center no-repeat;
+      width: 17px;
+      height: 17px;
+      margin-right: 5px;
+      text-indent: -999em;
+      text-decoration: none;
+      background-color: #E6E6E6;
+      vertical-align: text-bottom; }
+      .grid_container .grid_view .grid_rows .expand:hover {
+        background-color: #e0e0e0; }
+      .grid_container .grid_view .grid_rows .expand + span {
+        cursor: pointer; }
+    .grid_container .grid_view .grid_rows title.open .expand {
+      background: url(images/icons/icn-right_arrow-small.png) center center no-repeat; }
   .grid_container .grid_view .grid_row {
     /* bootstrap override */
     margin: 0;
@@ -231,20 +247,6 @@ a.btn {
         top: -1px;
         left: 0;
         bottom: -1px; }
-      .grid_container .grid_view .grid_rows_wrapper .grid_row .expand {
-        display: inline-block;
-        background: url(images/icons/icn-down_arrow-small.png) center center no-repeat;
-        width: 17px;
-        height: 17px;
-        margin-right: 5px;
-        text-indent: -999em;
-        text-decoration: none;
-        background-color: #E6E6E6;
-        vertical-align: text-bottom; }
-        .grid_container .grid_view .grid_rows_wrapper .grid_row .expand:hover {
-          background-color: #e0e0e0; }
-        .grid_container .grid_view .grid_rows_wrapper .grid_row .expand + span {
-          cursor: pointer; }
       .grid_container .grid_view .grid_rows_wrapper .grid_row .btn-group {
         vertical-align: top; }
       .grid_container .grid_view .grid_rows_wrapper .grid_row .dropdown-toggle {
