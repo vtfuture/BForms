@@ -110,6 +110,18 @@
 
     };
 
+    Pager.prototype.selectValue = function (value) {
+
+        var $pageSize = this.element.find(this.options.pageSizeSelector + '[data-value="' + value + '"]');
+
+        if ($pageSize.length) {
+            this.element.find('.selected').removeClass('selected');
+            $pageSize.addClass('selected');
+            this.element.find(this.options.perPageDisplaySelector).html(value + '<span class="caret"></span>');
+        }
+
+    };
+
     Pager.prototype.getPageSize = function () {
         return this.element.find(this.options.pageSizeSelector + '.selected').data('value');
     };

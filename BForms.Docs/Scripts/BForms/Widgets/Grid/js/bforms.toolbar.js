@@ -94,6 +94,20 @@
         return {
             uniqueName: options.uniqueName || 'toolbar',
             subscribers: [$grid],
+            reset: function () {
+                var searchTab = this._getTab('search');
+                
+                if (searchTab != null) {
+                    searchTab.component.bsForm('reset');
+                    var data = searchTab.component.bsForm('parse');
+                    
+                    var widget = $toolbar.data('bformsBsToolbar');
+                    for (var i = 0; i < widget.subscribers.length; i++) {
+                        widget.subscribers[i].bsGrid('reset', data, true);
+                    }
+                }
+
+            },
             actions: [{
                 name: 'refresh',
                 selector: '.btn-refresh',
@@ -142,7 +156,7 @@
     };
 
     Toolbar.prototype._create = function () {
-
+        
         if(!this.options.uniqueName){
             this.options.uniqueName = this.element.attr('id');
         }
@@ -165,6 +179,12 @@
 
         if (this.options.subscribers) {
             this._addSubscribers(this.options.subscribers);
+        }
+    };
+
+    Toolbar.prototype.reset = function () {
+        if (typeof this.options.reset === "function") {
+            this.options.reset.apply(this, arguments);
         }
     };
 
@@ -326,6 +346,16 @@
     
 
     //#region helpers
+    Toolbar.prototype._getTab = function(name) {
+        var tab = $.grep(this._tabs, function(el) {
+            return el.name == name;
+        });
+
+        if (tab != null && tab[0] != null) return tab[0];
+
+        return null;
+    };
+
     Toolbar.prototype._getAdditionalOptions = function (name) {
         var opts = $.grep(this.options.componentOptions, function (el) {
             return el.name == name;

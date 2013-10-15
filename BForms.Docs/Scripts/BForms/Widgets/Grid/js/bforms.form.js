@@ -159,7 +159,7 @@
 
     Form.prototype._parse = function () {
 
-        return this.element.parseForm();;
+        return this.element.parseForm();
 
     };
 
@@ -205,10 +205,12 @@
        
     };
 
-    Form.prototype.reset = function (e) {
+    Form.prototype.parse = function(e) {
+        return this._parse();
+    };
 
+    Form.prototype.reset = function (e) {
         this.element.bsResetForm(true);
-        
     };
     
     $.widget('bforms.bsForm', Form.prototype);

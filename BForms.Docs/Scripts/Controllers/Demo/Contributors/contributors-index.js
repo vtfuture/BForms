@@ -14,9 +14,9 @@
 
     GridIndex.prototype.init = function () {
         this.$grid = $('#grid');
-        this.initGrid();
-
         this.$toolbar = $('#toolbar');
+
+        this.initGrid();
         this.initToolbar();
     };
     //#endregion
@@ -24,6 +24,7 @@
     //#region Grid
     GridIndex.prototype.initGrid = function () {
         this.$grid.bsGrid({
+            $toolbar : this.$toolbar,
             uniqueName: 'usersGrid',
             pagerUrl: this.options.pagerUrl,
 
@@ -50,7 +51,7 @@
                 },
             }],
             //#endregion
-
+            
             //#region gridActions TODO - refactor handler to methods
             gridActions: [{
                 btnSelector: '.js-btn-enable_selected',
@@ -245,7 +246,7 @@
     //#region Toolbar
     GridIndex.prototype.initToolbar = function() {
         this.$toolbar.bsToolbar(
-            $.extend(true,{},$.fn.bsToolbarDefaults(
+            $.extend(true, {},$.fn.bsToolbarDefaults(
                 this.$toolbar,
                 this.$grid,
                 {
