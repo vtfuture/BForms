@@ -294,6 +294,9 @@ a.btn {
 			.alert {
 				margin: 10px 0 0;
 			}
+			&.selected header {
+				color: $mainColor;
+			}
 		}
 		.grid_rows_wrapper {
 			border: 1px solid $borderColor;
@@ -675,6 +678,9 @@ a.btn {
 			background: $Blue;
 			border: 1px solid $Blue;
 		}
+	}
+	.grid_row.selected header {
+		color: $Blue;
 	}	
 }
 
@@ -709,6 +715,9 @@ a.btn {
 			background: $Green;
 			border: 1px solid $Green;
 		}
+	}
+	.grid_row.selected header {
+		color: $Green;
 	}	
 }
 
@@ -745,6 +754,9 @@ a.btn {
 			border: 1px solid $Purple;
 		}
 	}	
+	.grid_row.selected header {
+		color: $Purple;
+	}
 }
 
 
@@ -780,6 +792,9 @@ a.btn {
 			border: 1px solid $Orange;
 		}
 	}	
+	.grid_row.selected header {
+		color: $Orange;
+	}
 }
 
 
@@ -814,6 +829,9 @@ a.btn {
 			background: $Black;
 			border: 1px solid $Black;
 		}
+	}
+	.grid_row.selected header {
+		color: #000;
 	}	
 }
 

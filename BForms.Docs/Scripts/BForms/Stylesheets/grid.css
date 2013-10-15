@@ -222,6 +222,8 @@ a.btn {
       float: right; }
     .grid_container .grid_view .grid_row .alert {
       margin: 10px 0 0; }
+    .grid_container .grid_view .grid_row.selected header {
+      color: #45ada8; }
   .grid_container .grid_view .grid_rows_wrapper {
     border: 1px solid #e8e8e8;
     position: relative; }
@@ -490,6 +492,8 @@ a.btn {
 .grid_view.blue .grid_pager .pagination .active a, .grid_view.blue .grid_pager .pagination .active a:hover {
   background: #559ed6;
   border: 1px solid #559ed6; }
+.grid_view.blue .grid_row.selected header {
+  color: #559ed6; }
 
 /* GREEN*/
 .grid_toolbar.green .grid_toolbar_header {
@@ -509,6 +513,8 @@ a.btn {
 .grid_view.green .grid_pager .pagination .active a, .grid_view.green .grid_pager .pagination .active a:hover {
   background: #59b390;
   border: 1px solid #59b390; }
+.grid_view.green .grid_row.selected header {
+  color: #59b390; }
 
 /* PURPLE*/
 .grid_toolbar.purple .grid_toolbar_header {
@@ -528,6 +534,8 @@ a.btn {
 .grid_view.purple .grid_pager .pagination .active a, .grid_view.purple .grid_pager .pagination .active a:hover {
   background: #703d6f;
   border: 1px solid #703d6f; }
+.grid_view.purple .grid_row.selected header {
+  color: #703d6f; }
 
 /* ORANGE*/
 .grid_toolbar.orange .grid_toolbar_header {
@@ -547,6 +555,8 @@ a.btn {
 .grid_view.orange .grid_pager .pagination .active a, .grid_view.orange .grid_pager .pagination .active a:hover {
   background: #f27435;
   border: 1px solid #f27435; }
+.grid_view.orange .grid_row.selected header {
+  color: #f27435; }
 
 /* almost BLACK*/
 .grid_toolbar.black .grid_toolbar_header {
@@ -566,6 +576,8 @@ a.btn {
 .grid_view.black .grid_pager .pagination .active a, .grid_view.black .grid_pager .pagination .active a:hover {
   background: #424141;
   border: 1px solid #424141; }
+.grid_view.black .grid_row.selected header {
+  color: #000; }
 
 @media (max-width: 756px) {
   .grid_toolbar_form .row {
