@@ -602,7 +602,7 @@ a.btn {
     text-decoration: none;
     color: #fff; }
   .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .selected:hover {
-    background-color: #f6f6f6;
+    background-color: #f6f6f6 !important;
     color: #333; }
   .grid_container .grid_view .grid_rows_wrapper .grid_row:hover {
     background: #fff; } }
