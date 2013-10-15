@@ -12,7 +12,7 @@ using BForms.Utilities;
 namespace BForms.Html
 {
     /// <summary>
-    /// Represents bootstrap v3 support for password input control
+    /// Represents bootstrap support for password input control
     /// </summary>
     public static class DropDownListExtensions
     {

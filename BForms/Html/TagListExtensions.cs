@@ -9,7 +9,7 @@ using BForms.Utilities;
 namespace BForms.Html
 {
     /// <summary>
-    /// Represents bootstrap v3 support for tag list input control
+    /// Represents bootstrap support for tag list input control
     /// </summary>
     public static class TagListExtensions
     {

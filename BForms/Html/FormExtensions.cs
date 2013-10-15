@@ -14,130 +14,208 @@ using BForms.Utilities;
 
 namespace BForms.Html
 {
+    /// <summary>
+    /// Represents bootstrap support for form tag
+    /// </summary>
     public static class FormExtensions
     {
+        /// <summary>
+        /// Renders a form suitable for BFroms fields
+        /// </summary>
         public static BsMvcForm BsBeginForm(this HtmlHelper htmlHelper)
         {
             var routeValues = htmlHelper.ExtractRouteValues();
             return BsBeginForm(htmlHelper, routeValues["action"].ToString(), routeValues["controller"].ToString(), routeValues, FormMethod.Post, new RouteValueDictionary(), BsTheme.Default);
         }
 
+        /// <summary>
+        /// Renders a form suitable for BFroms fields
+        /// </summary>
         public static BsMvcForm BsBeginForm(this HtmlHelper htmlHelper, BsTheme theme)
         {
             var routeValues = htmlHelper.ExtractRouteValues();
             return BsBeginForm(htmlHelper, routeValues["action"].ToString(), routeValues["controller"].ToString(), routeValues, FormMethod.Post, new RouteValueDictionary(), theme);
         }
 
+        /// <summary>
+        /// Renders a form suitable for BFroms fields
+        /// </summary>
         public static BsMvcForm BsBeginForm(this HtmlHelper htmlHelper, object routeValues)
         {
             return BsBeginForm(htmlHelper, null, null, new RouteValueDictionary(routeValues), FormMethod.Post, new RouteValueDictionary(), BsTheme.Default);
         }
 
+        /// <summary>
+        /// Renders a form suitable for BFroms fields
+        /// </summary>
         public static BsMvcForm BsBeginForm(this HtmlHelper htmlHelper, object routeValues, BsTheme theme)
         {
             return BsBeginForm(htmlHelper, null, null, new RouteValueDictionary(routeValues), FormMethod.Post, new RouteValueDictionary(), theme);
         }
 
+        /// <summary>
+        /// Renders a form suitable for BFroms fields
+        /// </summary>
         public static BsMvcForm BsBeginForm(this HtmlHelper htmlHelper, RouteValueDictionary routeValues)
         {
             return BsBeginForm(htmlHelper, null, null, routeValues, FormMethod.Post, new RouteValueDictionary(), BsTheme.Default);
         }
 
+        /// <summary>
+        /// Renders a form suitable for BFroms fields
+        /// </summary>
         public static BsMvcForm BsBeginForm(this HtmlHelper htmlHelper, RouteValueDictionary routeValues, BsTheme theme)
         {
             return BsBeginForm(htmlHelper, null, null, routeValues, FormMethod.Post, new RouteValueDictionary(), theme);
         }
 
+        /// <summary>
+        /// Renders a form suitable for BFroms fields
+        /// </summary>
         public static BsMvcForm BsBeginForm(this HtmlHelper htmlHelper, string actionName, string controllerName)
         {
             return BsBeginForm(htmlHelper, actionName, controllerName, new RouteValueDictionary(), FormMethod.Post, new RouteValueDictionary(), BsTheme.Default);
         }
 
+        /// <summary>
+        /// Renders a form suitable for BFroms fields
+        /// </summary>
         public static BsMvcForm BsBeginForm(this HtmlHelper htmlHelper, string actionName, string controllerName, BsTheme theme)
         {
             return BsBeginForm(htmlHelper, actionName, controllerName, new RouteValueDictionary(), FormMethod.Post, new RouteValueDictionary(), theme);
         }
 
+        /// <summary>
+        /// Renders a form suitable for BFroms fields
+        /// </summary>
         public static BsMvcForm BsBeginForm(this HtmlHelper htmlHelper, string actionName, string controllerName, object routeValues)
         {
             return BsBeginForm(htmlHelper, actionName, controllerName, new RouteValueDictionary(routeValues), FormMethod.Post, new RouteValueDictionary(), BsTheme.Default);
         }
 
+        /// <summary>
+        /// Renders a form suitable for BFroms fields
+        /// </summary>
         public static BsMvcForm BsBeginForm(this HtmlHelper htmlHelper, string actionName, string controllerName, object routeValues, BsTheme theme)
         {
             return BsBeginForm(htmlHelper, actionName, controllerName, new RouteValueDictionary(routeValues), FormMethod.Post, new RouteValueDictionary(), theme);
         }
 
+        /// <summary>
+        /// Renders a form suitable for BFroms fields
+        /// </summary>
         public static BsMvcForm BsBeginForm(this HtmlHelper htmlHelper, string actionName, string controllerName, RouteValueDictionary routeValues)
         {
             return BsBeginForm(htmlHelper, actionName, controllerName, routeValues, FormMethod.Post, new RouteValueDictionary(), BsTheme.Default);
         }
 
+        /// <summary>
+        /// Renders a form suitable for BFroms fields
+        /// </summary>
         public static BsMvcForm BsBeginForm(this HtmlHelper htmlHelper, string actionName, string controllerName, RouteValueDictionary routeValues, BsTheme theme)
         {
             return BsBeginForm(htmlHelper, actionName, controllerName, routeValues, FormMethod.Post, new RouteValueDictionary(), theme);
         }
 
+        /// <summary>
+        /// Renders a form suitable for BFroms fields
+        /// </summary>
         public static BsMvcForm BsBeginForm(this HtmlHelper htmlHelper, string actionName, string controllerName, FormMethod method)
         {
             return BsBeginForm(htmlHelper, actionName, controllerName, new RouteValueDictionary(), method, new RouteValueDictionary(), BsTheme.Default);
         }
 
+        /// <summary>
+        /// Renders a form suitable for BFroms fields
+        /// </summary>
         public static BsMvcForm BsBeginForm(this HtmlHelper htmlHelper, string actionName, string controllerName, FormMethod method, BsTheme theme)
         {
             return BsBeginForm(htmlHelper, actionName, controllerName, new RouteValueDictionary(), method, new RouteValueDictionary(), theme);
         }
 
+        /// <summary>
+        /// Renders a form suitable for BFroms fields
+        /// </summary>
         public static BsMvcForm BsBeginForm(this HtmlHelper htmlHelper, string actionName, string controllerName, object routeValues, FormMethod method)
         {
             return BsBeginForm(htmlHelper, actionName, controllerName, new RouteValueDictionary(routeValues), method, new RouteValueDictionary(), BsTheme.Default);
         }
 
+        /// <summary>
+        /// Renders a form suitable for BFroms fields
+        /// </summary>
         public static BsMvcForm BsBeginForm(this HtmlHelper htmlHelper, string actionName, string controllerName, object routeValues, FormMethod method, BsTheme theme)
         {
             return BsBeginForm(htmlHelper, actionName, controllerName, new RouteValueDictionary(routeValues), method, new RouteValueDictionary(), theme);
         }
 
+        /// <summary>
+        /// Renders a form suitable for BFroms fields
+        /// </summary>
         public static BsMvcForm BsBeginForm(this HtmlHelper htmlHelper, string actionName, string controllerName, RouteValueDictionary routeValues, FormMethod method)
         {
             return BsBeginForm(htmlHelper, actionName, controllerName, routeValues, method, new RouteValueDictionary(), BsTheme.Default);
         }
 
+        /// <summary>
+        /// Renders a form suitable for BFroms fields
+        /// </summary>
         public static BsMvcForm BsBeginForm(this HtmlHelper htmlHelper, string actionName, string controllerName, RouteValueDictionary routeValues, FormMethod method, BsTheme theme)
         {
             return BsBeginForm(htmlHelper, actionName, controllerName, routeValues, method, new RouteValueDictionary(), theme);
         }
 
+        /// <summary>
+        /// Renders a form suitable for BFroms fields
+        /// </summary>
         public static BsMvcForm BsBeginForm(this HtmlHelper htmlHelper, string actionName, string controllerName, FormMethod method, object htmlAttributes)
         {
             return BsBeginForm(htmlHelper, actionName, controllerName, new RouteValueDictionary(), method, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes), BsTheme.Default);
         }
 
+        /// <summary>
+        /// Renders a form suitable for BFroms fields
+        /// </summary>
         public static BsMvcForm BsBeginForm(this HtmlHelper htmlHelper, string actionName, string controllerName, FormMethod method, object htmlAttributes, BsTheme theme)
         {
             return BsBeginForm(htmlHelper, actionName, controllerName, new RouteValueDictionary(), method, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes), theme);
         }
 
+        /// <summary>
+        /// Renders a form suitable for BFroms fields
+        /// </summary>
         public static BsMvcForm BsBeginForm(this HtmlHelper htmlHelper, string actionName, string controllerName, FormMethod method, IDictionary<string, object> htmlAttributes)
         {
             return BsBeginForm(htmlHelper, actionName, controllerName, new RouteValueDictionary(), method, htmlAttributes, BsTheme.Default);
         }
 
+        /// <summary>
+        /// Renders a form suitable for BFroms fields
+        /// </summary>
         public static BsMvcForm BsBeginForm(this HtmlHelper htmlHelper, string actionName, string controllerName, FormMethod method, IDictionary<string, object> htmlAttributes, BsTheme theme)
         {
             return BsBeginForm(htmlHelper, actionName, controllerName, new RouteValueDictionary(), method, htmlAttributes, theme);
         }
 
+        /// <summary>
+        /// Renders a form suitable for BFroms fields
+        /// </summary>
         public static BsMvcForm BsBeginForm(this HtmlHelper htmlHelper, string actionName, string controllerName, object routeValues, FormMethod method, object htmlAttributes)
         {
             return BsBeginForm(htmlHelper, actionName, controllerName, new RouteValueDictionary(routeValues), method, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes), BsTheme.Default);
         }
 
+        /// <summary>
+        /// Renders a form suitable for BFroms fields
+        /// </summary>
         public static BsMvcForm BsBeginForm(this HtmlHelper htmlHelper, string actionName, string controllerName, object routeValues, FormMethod method, object htmlAttributes, BsTheme theme)
         {
             return BsBeginForm(htmlHelper, actionName, controllerName, new RouteValueDictionary(routeValues), method, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes), theme);
         }
 
+        /// <summary>
+        /// Renders a form suitable for BFroms fields
+        /// </summary>
         public static BsMvcForm BsBeginForm(this HtmlHelper htmlHelper, string actionName, string controllerName, RouteValueDictionary routeValues, FormMethod method, IDictionary<string, object> htmlAttributes, BsTheme theme)
         {
             var form = htmlHelper.BeginForm(actionName, controllerName, routeValues, method, htmlAttributes);

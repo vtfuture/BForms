@@ -167,26 +167,28 @@
     <Content Include="Scripts\BForms\Plugins\Datepicker\js\lib\moment.isocalendar.js" />
     <Content Include="Scripts\BForms\Plugins\Datepicker\js\lib\moment.js" />
     <Content Include="Scripts\BForms\Plugins\Datepicker\css\bforms.datepicker.css" />
-    <Content Include="Scripts\BForms\Plugins\Datepicker\css\images\icn-arr-down.png" />
-    <Content Include="Scripts\BForms\Plugins\Datepicker\css\images\icn-arr-left.png" />
-    <Content Include="Scripts\BForms\Plugins\Datepicker\css\images\icn-arr-right.png" />
-    <Content Include="Scripts\BForms\Plugins\Datepicker\css\images\icn-arr-up.png" />
-    <Content Include="Scripts\BForms\Plugins\Datepicker\css\images\icn-calendar.png" />
-    <Content Include="Scripts\BForms\Plugins\Datepicker\css\images\icn-remove.png" />
-    <Content Include="Scripts\BForms\Plugins\Datepicker\css\images\icn-time.png" />
+    <Content Include="Scripts\BForms\Plugins\Datepicker\images\icn-arr-down.png" />
+    <Content Include="Scripts\BForms\Plugins\Datepicker\images\icn-arr-left.png" />
+    <Content Include="Scripts\BForms\Plugins\Datepicker\images\icn-arr-right.png" />
+    <Content Include="Scripts\BForms\Plugins\Datepicker\images\icn-arr-up.png" />
+    <Content Include="Scripts\BForms\Plugins\Datepicker\images\icn-calendar.png" />
+    <Content Include="Scripts\BForms\Plugins\Datepicker\images\icn-remove.png" />
+    <Content Include="Scripts\BForms\Plugins\Datepicker\images\icn-time.png" />
+    <Content Include="Scripts\BForms\Plugins\Select2\images\select2x2.png" />
+    <Content Include="Scripts\BForms\Stylesheets\Images\grippy.png" />
     <Content Include="Scripts\BForms\Widgets\Grid\js\bforms.editable.js" />
     <Content Include="Scripts\BForms\Widgets\Grid\js\bforms.form.js" />
     <Content Include="Scripts\BForms\Widgets\Grid\js\bforms.grid.js" />
     <Content Include="Scripts\BForms\Widgets\Grid\js\bforms.pager.js" />
     <Content Include="Scripts\BForms\Widgets\Grid\js\bforms.toolbar.js" />
-    <Content Include="Scripts\BForms\Stylesheets\grid.css" />
+    <Content Include="Scripts\BForms\Stylesheets\css\bforms.grid.css" />
     <Content Include="Scripts\BForms\Widgets\Utils\bforms.namespace.js" />
-    <Content Include="Scripts\BForms\Stylesheets\Images\icons\edit-pencil.gif" />
-    <Content Include="Scripts\BForms\Stylesheets\Images\icons\icn-down_arrow-small.png" />
-    <Content Include="Scripts\BForms\Stylesheets\Images\icons\icn-order_down.png" />
-    <Content Include="Scripts\BForms\Stylesheets\Images\icons\icn-order_up.png" />
-    <Content Include="Scripts\BForms\Stylesheets\Images\icons\icn-right_arrow-small.png" />
-    <Content Include="Scripts\BForms\Stylesheets\Images\ui-anim_basic_16x16.gif" />
+    <Content Include="Scripts\BForms\Stylesheets\Images\edit-pencil.gif" />
+    <Content Include="Scripts\BForms\Stylesheets\Images\icn-down_arrow-small.png" />
+    <Content Include="Scripts\BForms\Stylesheets\Images\icn-order_down.png" />
+    <Content Include="Scripts\BForms\Stylesheets\Images\icn-order_up.png" />
+    <Content Include="Scripts\BForms\Stylesheets\Images\icn-right_arrow-small.png" />
+    <Content Include="Scripts\BForms\Stylesheets\Images\preloader_16x16.gif" />
     <Content Include="Scripts\Controllers\Demo\Contributors\contributors-index.js" />
     <Content Include="Scripts\Controllers\Root\Components\components-rangeextensions.js" />
     <Content Include="Scripts\Controllers\Root\Components\components-grid.js" />
@@ -227,9 +229,9 @@
     <Content Include="Scripts\BForms\Plugins\NavScroll\bforms.navScroll.js" />
     <Content Include="Scripts\BForms\Plugins\RadioButtonList\bforms.radiolist.js" />
     <Content Include="Scripts\BForms\Plugins\UI\bforms.resetInput.js" />
-    <Content Include="Scripts\BForms\Plugins\Select2\css\select2-spinner.gif" />
+    <Content Include="Scripts\BForms\Plugins\Select2\images\select2-spinner.gif" />
     <Content Include="Scripts\BForms\Plugins\Select2\css\select2.css" />
-    <Content Include="Scripts\BForms\Plugins\Select2\css\select2.png" />
+    <Content Include="Scripts\BForms\Plugins\Select2\images\select2.png" />
     <Content Include="Scripts\BForms\Plugins\Select2\js\i18n\select2-ro.js" />
     <Content Include="Scripts\BForms\Plugins\Select2\js\select2.js" />
     <Content Include="Scripts\BForms\Plugins\Select2\js\bforms.select2.js" />
@@ -239,7 +241,7 @@
     <Content Include="Scripts\BForms\Plugins\Validation\i18n\bforms.validate-ro.js" />
     <Content Include="Scripts\BForms\Plugins\Validation\bforms.validate.js" />
     <Content Include="Scripts\BForms\Plugins\Validation\bforms.validate.unobtrusive.js" />
-    <Content Include="Scripts\BForms\Stylesheets\bforms.css" />
+    <Content Include="Scripts\BForms\Stylesheets\css\bforms.core.css" />
     <Content Include="Scripts\BForms\Stylesheets\Images\preloader.gif" />
     <Content Include="Scripts\Controllers\Demo\Login\login-index.js" />
     <Content Include="Scripts\Controllers\Root\Components\components-overview.js" />
@@ -284,7 +286,7 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Scripts\BForms\Stylesheets\bforms.scss" />
+    <Content Include="Scripts\BForms\Stylesheets\css\bforms.core.scss" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="RequireJS.config" />
@@ -563,7 +565,7 @@
     <Content Include="Scripts\BForms\Widgets\Utils\bforms.ajax.js" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Scripts\BForms\Stylesheets\grid.scss" />
+    <Content Include="Scripts\BForms\Stylesheets\css\bforms.grid.scss" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Demo\Views\Contributors\Index.cshtml" />

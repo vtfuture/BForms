@@ -49,7 +49,7 @@
     border-radius: 20px;
     width: 20px;
     height: 20px;
-    background: #cccccc url(Images/icn-remove.png) 50% 50% no-repeat; }
+    background: #cccccc url(../images/icn-remove.png) 50% 50% no-repeat; }
     .bs-datetime-picker .btn-close:hover, .bs-datetime-picker .btn-close:focus {
       background-color: #eee; }
   .bs-datetime-picker .pull-right {
@@ -68,9 +68,9 @@
         height: 30px;
         padding: 0; }
       .bs-datetime-picker .bs-date-action a.btn-left {
-        background: url(Images/icn-arr-left.png) 50% 50% no-repeat; }
+        background: url(../images/icn-arr-left.png) 50% 50% no-repeat; }
       .bs-datetime-picker .bs-date-action a.btn-right {
-        background: url(Images/icn-arr-right.png) 50% 50% no-repeat; }
+        background: url(../images/icn-arr-right.png) 50% 50% no-repeat; }
       .bs-datetime-picker .bs-date-action a:hover {
         background-color: #EEE; }
   .bs-datetime-picker ul {
@@ -123,9 +123,9 @@
         padding-left: 25px;
         padding-right: 7px; }
         .bs-datetime-picker .bs-secondary-action a.btn-set.time {
-          background: #f1f1f1 url(Images/icn-time.png) 7px 50% no-repeat; }
+          background: #f1f1f1 url(../images/icn-time.png) 7px 50% no-repeat; }
         .bs-datetime-picker .bs-secondary-action a.btn-set.date {
-          background: #f1f1f1 url(Images/icn-calendar.png) 7px 50% no-repeat; }
+          background: #f1f1f1 url(../images/icn-calendar.png) 7px 50% no-repeat; }
         .bs-datetime-picker .bs-secondary-action a.btn-set:hover, .bs-datetime-picker .bs-secondary-action a.btn-set:focus {
           background-color: #eee; }
   .bs-datetime-picker .bs-time-wrapper {
@@ -149,9 +149,9 @@
       .bs-datetime-picker .bs-time-wrapper ul.us-time li {
         width: 23%; }
     .bs-datetime-picker .bs-time-wrapper .btn-up {
-      background: url(Images/icn-arr-up.png) 50% 50% no-repeat; }
+      background: url(../images/icn-arr-up.png) 50% 50% no-repeat; }
     .bs-datetime-picker .bs-time-wrapper .btn-down {
-      background: url(Images/icn-arr-down.png) 50% 50% no-repeat; }
+      background: url(../images/icn-arr-down.png) 50% 50% no-repeat; }
 
 .bs-range-picker {
   display: none;

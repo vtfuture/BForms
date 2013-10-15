@@ -15,7 +15,7 @@ using BForms.Utilities;
 namespace BForms.Html
 {
     /// <summary>
-    /// Represents bootstrap v3 support for HTML5 input controls
+    /// Represents bootstrap support for HTML5 input controls
     /// </summary>
     public static class InputExtensions
     {

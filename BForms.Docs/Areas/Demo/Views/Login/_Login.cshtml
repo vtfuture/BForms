@@ -7,7 +7,7 @@
     <h1>@Html.BsGlyphicon(Glyphicon.StartEmpty) Login form</h1>
 </div>
 
-@using (Html.BsBeginForm("Index", "Login", new {ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, new {@class = "bs-form js-loginForm"}, BsTheme.Black))
+@using (Html.BsBeginForm("Index", "Login", new {ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, new {@class = "bs-form js-loginForm"}))
 {
     <div class="col-12 col-sm-12 col-lg-12">
         @Html.BsValidationSummary()

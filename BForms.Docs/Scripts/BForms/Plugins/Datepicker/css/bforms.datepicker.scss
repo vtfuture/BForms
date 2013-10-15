@@ -73,7 +73,7 @@ $Black: #424141;
 		border-radius: 20px;
 		width: 20px;
 		height: 20px;
-		background:#ccc url(Images/icn-remove.png) 50% 50% no-repeat;
+		background:#ccc url(../images/icn-remove.png) 50% 50% no-repeat;
 		&:hover, &:focus {
 			background-color: #eee;
 		}
@@ -96,10 +96,10 @@ $Black: #424141;
 				padding: 0;				
 			}
 			&.btn-left {
-				background: url(Images/icn-arr-left.png) 50% 50% no-repeat;
+				background: url(../images/icn-arr-left.png) 50% 50% no-repeat;
 			}
 			&.btn-right {
-				background: url(Images/icn-arr-right.png) 50% 50% no-repeat;
+				background: url(../images/icn-arr-right.png) 50% 50% no-repeat;
 			}
 			&:hover {
 				background-color: #EEE;
@@ -172,10 +172,10 @@ $Black: #424141;
 				padding-left: 25px;
 				padding-right: 7px;
 				&.time {
-					background:#f1f1f1 url(Images/icn-time.png) 7px 50% no-repeat;
+					background:#f1f1f1 url(../images/icn-time.png) 7px 50% no-repeat;
 				}
 				&.date {
-					background:#f1f1f1 url(Images/icn-calendar.png) 7px 50% no-repeat;
+					background:#f1f1f1 url(../images/icn-calendar.png) 7px 50% no-repeat;
 				}
 				&:hover, &:focus {
 					background-color: #eee;
@@ -212,10 +212,10 @@ $Black: #424141;
 			}
 		}
 		.btn-up {
-			background: url(Images/icn-arr-up.png) 50% 50% no-repeat;
+			background: url(../images/icn-arr-up.png) 50% 50% no-repeat;
 		}
 		.btn-down {
-			background: url(Images/icn-arr-down.png) 50% 50% no-repeat;
+			background: url(../images/icn-arr-down.png) 50% 50% no-repeat;
 		}
 	}
 }

@@ -1,7 +1,8 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <UsingTask TaskName="JavaScriptCompressorTask" AssemblyFile="..\tools\Yahoo.Yui.Compressor.Build.MsBuild.dll" />
+  <UsingTask TaskName="CssCompressorTask" AssemblyFile="..\tools\Yahoo.Yui.Compressor.Build.MsBuild.dll" />
 
-  <!--IIS Express-->
+  <!--NuGet Deploy-->
   <Target Name="MinifyForBuild" AfterTargets="AfterBuild" Condition="'$(Configuration)'=='Release'">
     <MsBuild Projects="$(MSBuildProjectFile)" Targets="MinifyBundles" Properties="DestinationDir=..\BForms.Docs\Scripts\BForms\Bundles\" />
     <Message Text="Minifying for build" Importance="high"/>
@@ -15,7 +16,7 @@
 
   <!--IIS Deploy-->
   <!--
-  <Target Name="MinifyForDeploy" AfterTargets="CopyAllFilesToSingleFolderForMsdeploy" Condition="'$(Configuration)'=='Release'">
+  <Target Name="MinifyForIIS" AfterTargets="CopyAllFilesToSingleFolderForMsdeploy" Condition="'$(Configuration)'=='Release'">
     <MsBuild Projects="$(MSBuildProjectFile)" Targets="MinifyBundles" Properties="DestinationDir=$(_PackageTempDir)\Scripts\BForms\Bundles\" />
     <Message Text="Minifying for deploy (msbuild)" Importance="high"/>
   </Target>
@@ -23,7 +24,14 @@
   
   <Target Name="MinifyBundles" Condition="'$(Configuration)'=='Release'">
     <Message Text="Minifying"/>
-    <MakeDir Directories="$(DestinationDir)"/>
+
+    <ItemGroup>
+      <BundlesFolder Include="$(DestinationDir)js" />
+      <BundlesFolder Include="$(DestinationDir)css" />
+      <BundlesFolder Include="$(DestinationDir)fonts" />
+      <BundlesFolder Include="$(DestinationDir)images" />
+    </ItemGroup>
+    <MakeDir Directories="@(BundlesFolder)"/>
     
     <ItemGroup>
       <ComponentsFiles Include="..\BForms.Docs\Scripts\BForms\Components\jQuery\*.js" />
@@ -31,24 +39,42 @@
       <ComponentsFiles Include="..\BForms.Docs\Scripts\BForms\Components\Amplify\*.js" />
       <ComponentsFiles Include="..\BForms.Docs\Scripts\BForms\Components\Bootstrap\js\*.js" />
     </ItemGroup>
-    <Message Text="$(DestinationDir)"/>
-    <JavaScriptCompressorTask LoggingType="Debug" EncodingType="UTF8" SourceFiles="@(ComponentsFiles)" OutputFile="$(DestinationDir)components.js" />
+    <JavaScriptCompressorTask LoggingType="Debug" EncodingType="UTF8" SourceFiles="@(ComponentsFiles)" OutputFile="$(DestinationDir)js\components.js" />
 
     <ItemGroup>
       <IeFiles Include="..\BForms.Docs\Scripts\BForms\Components\Html5shiv\*.js" />
       <IeFiles Include="..\BForms.Docs\Scripts\BForms\Components\Respond\*.js" />
     </ItemGroup>
-    <Message Text="$(DestinationDir)"/>
-    <JavaScriptCompressorTask LoggingType="Debug" EncodingType="UTF8" SourceFiles="@(IeFiles)" OutputFile="$(DestinationDir)iefix.js" />
+    <JavaScriptCompressorTask LoggingType="Debug" EncodingType="UTF8" SourceFiles="@(IeFiles)" OutputFile="$(DestinationDir)js\iefix.js" />
     
     <ItemGroup>
       <WidgetsFiles Include="..\BForms.Docs\Scripts\BForms\Widgets\**\*.js" />
     </ItemGroup>
-    <JavaScriptCompressorTask LoggingType="Debug" EncodingType="UTF8" SourceFiles="@(WidgetsFiles)" OutputFile="$(DestinationDir)widgets.js" />
+    <JavaScriptCompressorTask LoggingType="Debug" EncodingType="UTF8" SourceFiles="@(WidgetsFiles)" OutputFile="$(DestinationDir)js\widgets.js" />
 
     <ItemGroup>
       <PluginsFiles Include="..\BForms.Docs\Scripts\BForms\Plugins\**\*.js" />
     </ItemGroup>
-    <JavaScriptCompressorTask LoggingType="Debug" EncodingType="UTF8" SourceFiles="@(PluginsFiles)" OutputFile="$(DestinationDir)plugins.js" />
+    <JavaScriptCompressorTask LoggingType="Debug" EncodingType="UTF8" SourceFiles="@(PluginsFiles)" OutputFile="$(DestinationDir)js\plugins.js" />
+
+    <ItemGroup>
+      <CssFiles Include="..\BForms.Docs\Scripts\BForms\Components\Bootstrap\css\*.css" />
+      <CssFiles Include="..\BForms.Docs\Scripts\BForms\Plugins\Datepicker\css\*.css" />
+      <CssFiles Include="..\BForms.Docs\Scripts\BForms\Plugins\Select2\css\*.css" />
+      <CssFiles Include="..\BForms.Docs\Scripts\BForms\Stylesheets\css\*.css" />
+    </ItemGroup>
+    <CssCompressorTask LoggingType="Debug" EncodingType="UTF8" SourceFiles="@(CssFiles)" OutputFile="$(DestinationDir)css\stylesheets.css" />
+
+    <ItemGroup>
+      <FontsFiles Include="..\BForms.Docs\Scripts\BForms\Components\Bootstrap\fonts\*.*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(FontsFiles)" DestinationFiles="@(FontsFiles->'$(DestinationDir)fonts\%(Filename)%(Extension)')" />
+
+    <ItemGroup>
+      <ImagesFiles Include="..\BForms.Docs\Scripts\BForms\**\*.png" />
+      <ImagesFiles Include="..\BForms.Docs\Scripts\BForms\**\*.gif" />
+    </ItemGroup>
+    <Copy SourceFiles="@(ImagesFiles)" DestinationFiles="@(ImagesFiles->'$(DestinationDir)images\%(Filename)%(Extension)')" />
+   
   </Target>
 </Project>

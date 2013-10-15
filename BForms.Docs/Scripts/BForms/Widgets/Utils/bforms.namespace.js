@@ -1,4 +1,13 @@
-﻿define('bforms-namespace', [
+﻿/*!
+ * BForms v1.0.0 Alpha
+ * http://bforms.stefanprodan.eu
+ *
+ * Copyright 2013 Stefan Prodan and contributors
+ * http://github.com/stefanprodan/BForms/contributors
+ * Licensed under the MIT license
+ */
+
+define('bforms-namespace', [
         'jquery',
         'jquery-migrate'
 ], function (jQuery) {

@@ -12,7 +12,7 @@ using BForms.Utilities;
 namespace BForms.Html
 {
     /// <summary>
-    /// Represents bootstrap v3 support for text input control
+    /// Represents bootstrap support for text input control
     /// </summary>
     public static class TextAreaExtensions
     {

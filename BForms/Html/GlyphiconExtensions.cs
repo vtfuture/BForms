@@ -7,7 +7,7 @@ using BForms.Utilities;
 namespace BForms.Html
 {
     /// <summary>
-    /// Represents bootstrap v3 support for glyphicon fonts
+    /// Represents bootstrap support for glyphicon fonts
     /// </summary>
     public static class GlyphiconExtensions
     {
