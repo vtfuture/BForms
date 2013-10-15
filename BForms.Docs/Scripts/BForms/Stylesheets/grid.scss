@@ -581,6 +581,9 @@ a.btn {
 				.btn {
 					padding: 6px 9px 6px 10px;
 					font-size: 13px;
+					&:hover, &:focus {
+						color: #333 !important;
+					}
 				}
 				.results_per_page_container {
 					margin-right: 5px;

@@ -59,6 +59,9 @@ a {
     /*Logo*/
     padding: 0;
     margin: 0; }
+  .navbar .navbar-collapse {
+    padding-right: 0;
+    margin-right: -10px; }
   .navbar .navbar-inner {
     border: 0;
     padding: 0; }
@@ -99,6 +102,7 @@ a {
   .navbar .navbar-toggle {
     /*Nav button for mobile*/
     right: 0;
+    margin-right: 0;
     border: none;
     background-image: none;
     background: #585858; }

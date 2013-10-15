@@ -431,6 +431,8 @@ a.btn {
       .grid_container .grid_view .grid_pager .results_per_page .btn {
         padding: 6px 9px 6px 10px;
         font-size: 13px; }
+        .grid_container .grid_view .grid_pager .results_per_page .btn:hover, .grid_container .grid_view .grid_pager .results_per_page .btn:focus {
+          color: #333 !important; }
       .grid_container .grid_view .grid_pager .results_per_page .results_per_page_container {
         margin-right: 5px; }
       .grid_container .grid_view .grid_pager .results_per_page .dropdown {
