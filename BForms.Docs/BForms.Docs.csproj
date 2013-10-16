@@ -53,9 +53,9 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="RequireJsNet, Version=1.0.6.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="RequireJsNet, Version=1.0.7.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\RequireJsNet.1.0.6.0\lib\net45\RequireJsNet.dll</HintPath>
+      <HintPath>..\packages\RequireJsNet.1.0.7.0\lib\net45\RequireJsNet.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -690,6 +690,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\_Themes.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\BForms\RequireJS.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\BForms\RequireJS.Release.config" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -21,7 +21,5 @@
     <file src="BForms\bin\Debug\BForms.dll" target="lib\net45" />
     <file src="BForms\bin\Debug\BForms.xml" target="lib\net45" />
     <file src="BForms.Docs\Scripts\BForms\**\*.*" target="Content\Scripts\BForms" />
-    <file src="BForms.Docs\RequireJS.config" target="Content\Scripts\BForms" />
-    <file src="BForms.Docs\RequireJS.Release.config" target="Content\Scripts\BForms" />
   </files>
 </package>
