@@ -57,6 +57,14 @@ namespace BForms.Html
         }
 
         /// <summary>
+        /// Get description of a specific enum value
+        /// </summary>
+        public static string GetEnumDescription(this HtmlHelper htmlHelper, Enum valEnum)
+        {
+            return valEnum.GetDescription();
+        }
+
+        /// <summary>
         /// Appends BForms custom html attribute to an existing collection
         /// </summary>
         internal static void ApplyBFormsAttributes(this IDictionary<string, object> htmlAttributes, ModelMetadata metadata, IDictionary<string, object> dataOptions)

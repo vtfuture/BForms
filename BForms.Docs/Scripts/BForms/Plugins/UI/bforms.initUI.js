@@ -67,6 +67,7 @@
 
             $.when.apply(this, this.deferredList).done($.proxy(function () {
                 this.loadAllDeferred.resolve();
+                this._addTheme();
             }, this));
         };
 
@@ -81,6 +82,15 @@
                     $elem.find('option[value=""]').remove();
                 }
             });
+        };
+
+        InitUI.prototype._addTheme = function() {
+            var $themeSelect = $(".bs-selectTheme");
+            if ($themeSelect.length) {
+                var currentColor = $themeSelect.bsThemeSelect('getCurrentColorClass');
+                $('.bs-datetime-picker, .bs-range-picker').addClass(currentColor);
+
+            }
         };
 
         InitUI.prototype._applyStyles = function () {

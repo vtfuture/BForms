@@ -1,5 +1,6 @@
 ﻿@using BForms.Docs.Areas.Demo.Mock
 @using BForms.Docs.Areas.Demo.Models
+@using BForms.Docs.Helpers
 @using BForms.Docs.Resources
 @using BForms.Html
 @using BForms.Models
@@ -7,7 +8,7 @@
 
 <div id="toolbar_add" class="grid_toolbar_form" style="display: none;">
     
-    @using (Html.BsBeginForm())
+    @using (Html.BsBeginForm(@Html.GetTheme()))
     {
         <div class="col-12 col-sm-6 col-lg-6 form-group @Html.BsValidationCssFor(m => m.FirstName)">
             @Html.BsLabelFor(m => m.FirstName)

@@ -1,4 +1,7 @@
 ﻿@using System.Net.Mime
+@using BForms.Docs.Helpers
+@using BForms.Grid
+@using BForms.Html
 @using RequireJS
 
 <!DOCTYPE html>
@@ -30,7 +33,7 @@
         <![endif]-->
 
     </head>
-    <body>
+    <body class="@Html.GetEnumDescription(Html.GetTheme())">
         @Html.Partial("_Header")
 
         <section id="body">
@@ -47,33 +50,33 @@
               <div class="options bs-selectThemeOptions"> 
                   <p>Change theme</p>
                   <ul>
-                    <li class="default">
-                        <a href="#" data-color="default">
+                    <li class="default" style="display:@(Html.GetTheme() == BsTheme.Default ? "none" : "")">
+                        <a href="#" data-color="@(Html.GetEnumDescription(BsTheme.Default))" data-isdefault="true">
                            <span class="color"></span> Default
                         </a>
                     </li>
                     <li class="orange">
-                        <a href="#" data-color="orange">
+                        <a href="#" data-color="@(Html.GetEnumDescription(BsTheme.Orange))">
                            <span class="color"></span> Orange
                         </a>
                     </li>
                     <li class="green">
-                        <a href="#" data-color="green">
+                        <a href="#" data-color="@(Html.GetEnumDescription(BsTheme.Green))">
                            <span class="color"></span> Green
                         </a>
                     </li>
                     <li class="blue">
-                        <a href="#" data-color="blue">
+                        <a href="#" data-color="@(Html.GetEnumDescription(BsTheme.Blue))">
                            <span class="color"></span> Blue
                         </a>
                     </li>
                     <li class="purple">
-                        <a href="#" data-color="purple">
+                        <a href="#" data-color="@(Html.GetEnumDescription(BsTheme.Purple))">
                            <span class="color"></span> Purple
                         </a>
                     </li>
                     <li class="black">
-                        <a href="#" data-color="black">
+                        <a href="#" data-color="@(Html.GetEnumDescription(BsTheme.Black))">
                            <span class="color"></span> Black
                         </a>
                     </li>

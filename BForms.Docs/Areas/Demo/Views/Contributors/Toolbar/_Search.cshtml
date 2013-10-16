@@ -1,11 +1,12 @@
 ﻿@using BForms.Docs.Areas.Demo.Mock
+@using BForms.Docs.Helpers
 @using BForms.Docs.Resources
 @using BForms.Html
 @using BForms.Models
 @model BForms.Docs.Areas.Demo.Models.ContributorSearchModel
 
 <div id="toolbar_search" class="grid_toolbar_form" style="display: none;">
-    @using (Html.BsBeginForm())
+    @using (Html.BsBeginForm(@Html.GetTheme()))
     {
         <div class="col-12 col-sm-6 col-lg-6 form-group">
             @Html.BsLabelFor(m => m.Name)
