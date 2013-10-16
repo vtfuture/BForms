@@ -175,7 +175,7 @@
     <Content Include="Scripts\BForms\Plugins\Datepicker\images\icn-remove.png" />
     <Content Include="Scripts\BForms\Plugins\Datepicker\images\icn-time.png" />
     <Content Include="Scripts\BForms\Plugins\Select2\images\select2x2.png" />
-    <Content Include="Scripts\BForms\Stylesheets\Images\grippy.png" />
+    <Content Include="Scripts\BForms\Stylesheets\Images\icn-grippy.png" />
     <Content Include="Scripts\BForms\Widgets\Grid\js\bforms.editable.js" />
     <Content Include="Scripts\BForms\Widgets\Grid\js\bforms.form.js" />
     <Content Include="Scripts\BForms\Widgets\Grid\js\bforms.grid.js" />
@@ -183,12 +183,11 @@
     <Content Include="Scripts\BForms\Widgets\Grid\js\bforms.toolbar.js" />
     <Content Include="Scripts\BForms\Stylesheets\css\bforms.grid.css" />
     <Content Include="Scripts\BForms\Widgets\Utils\bforms.namespace.js" />
-    <Content Include="Scripts\BForms\Stylesheets\Images\edit-pencil.gif" />
     <Content Include="Scripts\BForms\Stylesheets\Images\icn-down_arrow-small.png" />
     <Content Include="Scripts\BForms\Stylesheets\Images\icn-order_down.png" />
     <Content Include="Scripts\BForms\Stylesheets\Images\icn-order_up.png" />
     <Content Include="Scripts\BForms\Stylesheets\Images\icn-right_arrow-small.png" />
-    <Content Include="Scripts\BForms\Stylesheets\Images\preloader_16x16.gif" />
+    <Content Include="Scripts\BForms\Stylesheets\Images\preloader-small.gif" />
     <Content Include="Scripts\Controllers\Common\main-script.js" />
     <Content Include="Scripts\Controllers\Demo\Contributors\contributors-index.js" />
     <Content Include="Scripts\Controllers\Root\Components\components-rangeextensions.js" />
