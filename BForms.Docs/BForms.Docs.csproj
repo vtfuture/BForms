@@ -692,7 +692,7 @@
     <Content Include="RequireJS.Release.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Scripts\BForms\Widgets\Grid\js\bforms.themeSelect.js" />
+    <Content Include="Scripts\BForms\Widgets\Utils\bforms.themeSelect.js" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -29,6 +29,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
         #region Pages
         public ActionResult Index()
         {
+            //test comment
             var gridModel = _gridRepository.ToBsGridViewModel(new BsGridRepositorySettings<ContributorSearchModel>
             {
                 Page = 1,
