@@ -1,6 +1,7 @@
 ﻿using BForms.Docs.Areas.Demo.Mock;
 using BForms.Docs.Models;
 using BForms.Grid;
+using BForms.Models;
 using RequireJS;
 using System;
 using System.Collections.Generic;

@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using BForms.Docs.Controllers;
 using BForms.Grid;
 using BForms.Html;
+using BForms.Models;
 
 namespace BForms.Docs.Helpers
 {
