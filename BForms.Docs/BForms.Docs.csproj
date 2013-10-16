@@ -180,6 +180,7 @@
     <Content Include="Scripts\BForms\Widgets\Grid\js\bforms.form.js" />
     <Content Include="Scripts\BForms\Widgets\Grid\js\bforms.grid.js" />
     <Content Include="Scripts\BForms\Widgets\Grid\js\bforms.pager.js" />
+    <Content Include="Scripts\BForms\Widgets\Grid\js\bforms.themeSelect.js" />
     <Content Include="Scripts\BForms\Widgets\Grid\js\bforms.toolbar.js" />
     <Content Include="Scripts\BForms\Stylesheets\css\bforms.grid.css" />
     <Content Include="Scripts\BForms\Widgets\Utils\bforms.namespace.js" />
@@ -684,6 +685,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="RequireJS.Release.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_Themes.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
