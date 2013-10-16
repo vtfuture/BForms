@@ -83,7 +83,7 @@ a.btn {
 			outline: 1px dotted #ccc; 
 		}
 		&.loading:after {
-			content: url(images/preloader-small.gif);
+			content: url(../images/preloader-small.gif);
 			margin-left: 6px;
 			margin-top: 3px;
 			position: absolute; 
@@ -652,7 +652,7 @@ a.btn {
 		left: 0;
 		width: 100%;
 		height: 100%;
-		background: #fff url(Images/preloader.gif) center center no-repeat;
+		background: #fff url(../images/preloader.gif) center center no-repeat;
 		z-index: 999;
 		opacity: 0.9;
 		filter: Alpha(opacity=90);
