@@ -1,4 +1,5 @@
-﻿@using BForms.Html
+﻿@using BForms.Docs.Helpers
+@using BForms.Html
 @using BForms.Grid
 @using BForms.Models
 @using BForms.Docs.Resources
@@ -7,7 +8,7 @@
 @model ContributorsViewModel
                                 
 @(Html.BsGridFor(m => m.Grid)
-        .Theme(BsTheme.Default)
+        .Theme(Html.GetTheme())
         .MultipleSelectActions(Html.Partial("Grid/_Actions").ToString())
         .HtmlAttributes(new { @class = "custom_class" })
         .RowHighlighter(row => row.Enabled ? "#59b444" : "#f0ad4e")

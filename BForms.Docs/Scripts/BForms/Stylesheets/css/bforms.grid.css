@@ -62,7 +62,7 @@ a.btn {
       outline: 1px dotted #ccc; }
     .custom-checkbox label.loading:after,
     .custom-radio label.loading:after {
-      content: url(../images/preloader_16x16.gif);
+      content: url(../images/preloader-small.gif);
       margin-left: 6px;
       margin-top: 3px;
       position: absolute; }
@@ -77,7 +77,7 @@ a.btn {
     margin-top: -8px; }
 
 .ui-sortable .grippy {
-  background: url(../images/grippy.png) 0 0 no-repeat;
+  background: url(../images/icn-grippy.png) 0 0 no-repeat;
   margin-top: 6px;
   float: left;
   display: inline-block;
@@ -189,9 +189,7 @@ a.btn {
       display: block;
       clear: both; }
   .grid_container .grid_view .reset-grid {
-    margin: -10px 5px 0 0; }
-    .grid_container .grid_view .reset-grid:hover, .grid_container .grid_view .reset-grid:focus {
-      color: #333 !important; }
+    margin: -9px 5px 0 0; }
   .grid_container .grid_view .grid_rows {
     position: relative; }
     .grid_container .grid_view .grid_rows .expand {
@@ -442,8 +440,6 @@ a.btn {
       .grid_container .grid_view .grid_pager .results_per_page .btn {
         padding: 6px 9px 6px 10px;
         font-size: 13px; }
-        .grid_container .grid_view .grid_pager .results_per_page .btn:hover, .grid_container .grid_view .grid_pager .results_per_page .btn:focus {
-          color: #333 !important; }
       .grid_container .grid_view .grid_pager .results_per_page .results_per_page_container {
         margin-right: 5px; }
       .grid_container .grid_view .grid_pager .results_per_page .dropdown {
@@ -481,7 +477,7 @@ a.btn {
   left: 0;
   width: 100%;
   height: 100%;
-  background: white url(Images/preloader.gif) center center no-repeat;
+  background: white url(../images/preloader.gif) center center no-repeat;
   z-index: 999;
   opacity: 0.9;
   filter: Alpha(opacity=90); }
@@ -510,6 +506,16 @@ a.btn {
 .grid_view.blue .dropdown-menu a:hover, .grid_view.blue .dropdown-menu a:focus {
   background: none !important;
   color: #559ed6 !important; }
+.grid_view.blue .btn-default {
+  background: #3086c8;
+  color: #fff !important;
+  border: none; }
+  .grid_view.blue .btn-default:hover, .grid_view.blue .btn-default:focus {
+    background: #559ed6 !important;
+    color: #fff !important; }
+  .grid_view.blue .btn-default .caret {
+    border-bottom-color: #fff;
+    border-top-color: #fff; }
 
 /* GREEN*/
 .grid_toolbar.green .grid_toolbar_header {
@@ -534,6 +540,16 @@ a.btn {
 .grid_view.green .dropdown-menu a:hover, .grid_view.green .dropdown-menu a:focus {
   background: none !important;
   color: #59b390 !important; }
+.grid_view.green .btn-default {
+  background: #449575;
+  color: #fff !important;
+  border: none; }
+  .grid_view.green .btn-default:hover, .grid_view.green .btn-default:focus {
+    background: #59b390 !important;
+    color: #fff !important; }
+  .grid_view.green .btn-default .caret {
+    border-bottom-color: #fff;
+    border-top-color: #fff; }
 
 /* PURPLE*/
 .grid_toolbar.purple .grid_toolbar_header {
@@ -558,6 +574,16 @@ a.btn {
 .grid_view.purple .dropdown-menu a:hover, .grid_view.purple .dropdown-menu a:focus {
   background: none !important;
   color: #703d6f !important; }
+.grid_view.purple .btn-default {
+  background: #4f2b4e;
+  color: #fff !important;
+  border: none; }
+  .grid_view.purple .btn-default:hover, .grid_view.purple .btn-default:focus {
+    background: #703d6f !important;
+    color: #fff !important; }
+  .grid_view.purple .btn-default .caret {
+    border-bottom-color: #fff;
+    border-top-color: #fff; }
 
 /* ORANGE*/
 .grid_toolbar.orange .grid_toolbar_header {
@@ -582,6 +608,16 @@ a.btn {
 .grid_view.orange .dropdown-menu a:hover, .grid_view.orange .dropdown-menu a:focus {
   background: none !important;
   color: #f27435 !important; }
+.grid_view.orange .btn-default {
+  background: #e5560f;
+  color: #fff !important;
+  border: none; }
+  .grid_view.orange .btn-default:hover, .grid_view.orange .btn-default:focus {
+    background: #f27435 !important;
+    color: #fff !important; }
+  .grid_view.orange .btn-default .caret {
+    border-bottom-color: #fff;
+    border-top-color: #fff; }
 
 /* almost BLACK*/
 .grid_toolbar.black .grid_toolbar_header {
@@ -606,6 +642,16 @@ a.btn {
 .grid_view.black .dropdown-menu a:hover, .grid_view.black .dropdown-menu a:focus {
   background: none !important;
   color: #424141 !important; }
+.grid_view.black .btn-default {
+  background: #282828;
+  color: #fff !important;
+  border: none; }
+  .grid_view.black .btn-default:hover, .grid_view.black .btn-default:focus {
+    background: #424141 !important;
+    color: #fff !important; }
+  .grid_view.black .btn-default .caret {
+    border-bottom-color: #fff;
+    border-top-color: #fff; }
 
 @media (max-width: 756px) {
   .grid_toolbar_form .row {

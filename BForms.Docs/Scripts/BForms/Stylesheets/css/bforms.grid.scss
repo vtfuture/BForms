@@ -83,7 +83,7 @@ a.btn {
 			outline: 1px dotted #ccc; 
 		}
 		&.loading:after {
-			content: url(images/preloader_16x16.gif);
+			content: url(../images/preloader-small.gif);
 			margin-left: 6px;
 			margin-top: 3px;
 			position: absolute; 
@@ -101,7 +101,7 @@ a.btn {
 }
 
 .ui-sortable .grippy {
-	background: url(../images/grippy.png) 0 0 no-repeat;
+	background: url(../images/icn-grippy.png) 0 0 no-repeat;
 	margin-top: 6px;
 	float: left;
 	display: inline-block;
@@ -251,10 +251,7 @@ a.btn {
 			}
 		}
 		.reset-grid {
-			margin: -10px 5px 0 0;
-			&:hover, &:focus {
-				color: #333 !important;
-			}
+			margin: -9px 5px 0 0;
 		}
 		.grid_rows {
 			position: relative;
@@ -599,9 +596,6 @@ a.btn {
 				.btn {
 					padding: 6px 9px 6px 10px;
 					font-size: 13px;
-					&:hover, &:focus {
-						color: #333 !important;
-					}
 				}
 				.results_per_page_container {
 					margin-right: 5px;
@@ -658,7 +652,7 @@ a.btn {
 		left: 0;
 		width: 100%;
 		height: 100%;
-		background: #fff url(Images/preloader.gif) center center no-repeat;
+		background: #fff url(../images/preloader.gif) center center no-repeat;
 		z-index: 999;
 		opacity: 0.9;
 		filter: Alpha(opacity=90);
@@ -709,6 +703,19 @@ a.btn {
 			color: $Blue !important;
 		}
 	}
+	.btn-default {
+		background: darken($Blue, 10%);
+		color: #fff !important;
+		border: none;
+		&:hover, &:focus {
+			background: $Blue !important;
+			color: #fff !important;			
+		}
+		.caret {
+			border-bottom-color: #fff;
+			border-top-color: #fff;
+		}
+	}
 }
 
 /* GREEN*/
@@ -750,6 +757,19 @@ a.btn {
 		a:hover, a:focus {
 			background: none !important;
 			color: $Green !important;
+		}
+	}
+	.btn-default {
+		background: darken($Green, 10%);
+		color: #fff !important;
+		border: none;
+		&:hover, &:focus {
+			background: $Green !important;
+			color: #fff !important;			
+		}
+		.caret {
+			border-bottom-color: #fff;
+			border-top-color: #fff;
 		}
 	}
 }
@@ -796,6 +816,19 @@ a.btn {
 			color: $Purple !important;
 		}
 	}
+	.btn-default {
+		background: darken($Purple, 10%);
+		color: #fff !important;
+		border: none;
+		&:hover, &:focus {
+			background: $Purple !important;
+			color: #fff !important;			
+		}
+		.caret {
+			border-bottom-color: #fff;
+			border-top-color: #fff;
+		}
+	}
 }
 
 
@@ -840,6 +873,19 @@ a.btn {
 			color: $Orange !important;
 		}
 	}
+	.btn-default {
+		background: darken($Orange, 10%);
+		color: #fff !important;
+		border: none;
+		&:hover, &:focus {
+			background: $Orange !important;
+			color: #fff !important;			
+		}
+		.caret {
+			border-bottom-color: #fff;
+			border-top-color: #fff;
+		}
+	}
 }
 
 
@@ -882,6 +928,19 @@ a.btn {
 		a:hover, a:focus {
 			background: none !important;
 			color: $Black !important;
+		}
+	}
+	.btn-default {
+		background: darken($Black, 10%);
+		color: #fff !important;
+		border: none;
+		&:hover, &:focus {
+			background: $Black !important;
+			color: #fff !important;			
+		}
+		.caret {
+			border-bottom-color: #fff;
+			border-top-color: #fff;
 		}
 	}
 }

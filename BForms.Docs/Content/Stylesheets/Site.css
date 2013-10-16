@@ -379,6 +379,7 @@ body.blue .navbar li.active > a {
   border-color: #559ed6; }
 body.blue h1 {
   border-color: #559ed6; }
+body.blue h1 span,
 body.blue h5 {
   color: #559ed6; }
 body.blue .bs-docs-section .bs-link-buttons li.current-version {
@@ -417,6 +418,7 @@ body.green .navbar li.active > a {
   border-color: #59b390; }
 body.green h1 {
   border-color: #59b390; }
+body.green h1 span,
 body.green h5 {
   color: #59b390; }
 body.green .bs-docs-section .bs-link-buttons li.current-version {
@@ -455,6 +457,7 @@ body.purple .navbar li.active > a {
   border-color: #703d6f; }
 body.purple h1 {
   border-color: #703d6f; }
+body.purple h1 span,
 body.purple h5 {
   color: #703d6f; }
 body.purple .bs-docs-section .bs-link-buttons li.current-version {
@@ -493,6 +496,7 @@ body.orange .navbar li.active > a {
   border-color: #f27435; }
 body.orange h1 {
   border-color: #f27435; }
+body.orange h1 span,
 body.orange h5 {
   color: #f27435; }
 body.orange .bs-docs-section .bs-link-buttons li.current-version {
@@ -531,6 +535,7 @@ body.black .navbar li.active > a {
   border-color: #424141; }
 body.black h1 {
   border-color: #424141; }
+body.black h1 span,
 body.black h5 {
   color: #424141; }
 body.black .bs-docs-section .bs-link-buttons li.current-version {

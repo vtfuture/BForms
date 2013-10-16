@@ -1,4 +1,5 @@
-﻿using BForms.Utilities;
+﻿using System.Net.Mime;
+using BForms.Utilities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -54,7 +55,7 @@ namespace BForms.Models
         public IEnumerable<SelectListItem> ToSelectList()
         {
             var list = new List<SelectListItem>();
-            
+
             foreach (var item in Items)
             {
                 list.Add(new SelectListItem
@@ -78,23 +79,22 @@ namespace BForms.Models
                 throw new ArgumentException("myEnum is not of type enum", "myEnum");
             }
 
-            List<string> excludedList = new List<string>();
-            foreach (Enum val in excludedVals)
-            {
-                excludedList.Add(Enum.GetName(val.GetType(), val));
-            }
+            var excludedList = excludedVals.Select(val => ReflectionHelpers.EnumDisplayName(myEnum, val)).ToList();
 
             foreach (var item in Enum.GetValues(enumType))
             {
                 //get Display Name from resources
                 var textValue = ReflectionHelpers.EnumDisplayName(myEnum, item as Enum);
 
-                this.Items.Add(new BsSelectListItem
+                if (excludedList.All(x => x != textValue))
                 {
-                    Selected = false,
-                    Text = textValue,
-                    Value = Convert.ChangeType(item, Enum.GetUnderlyingType(myEnum)).ToString()
-                });
+                    this.Items.Add(new BsSelectListItem
+                    {
+                        Selected = false,
+                        Text = textValue,
+                        Value = Convert.ChangeType(item, Enum.GetUnderlyingType(myEnum)).ToString()
+                    });
+                }
             }
         }
 

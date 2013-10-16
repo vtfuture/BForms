@@ -94,6 +94,9 @@ textarea {
 		border-radius: 0 !important;
 		background-image: none;
 		border: 1px solid #ccc;
+		span {
+			white-space: pre-wrap;
+		}
 		div {
 			border-radius: 0 !important;
 			width: 24px;
@@ -365,9 +368,12 @@ textarea {
 		border-color: $Blue !important;
 	}
 	.btn-default {
-		background: darken($Blue, 10%);		
+		background: darken($Blue, 10%);
+		color: #fff !important;
+		border: none;
 		&:hover, &:focus {
-			background: $Blue !important;			
+			background: $Blue !important;
+			color: #fff !important;			
 		}
 	}
 }
@@ -393,9 +399,12 @@ textarea {
 	}
 	
 	.btn-default {
-		background: darken($Green, 10%);		
+		background: darken($Green, 10%);
+		color: #fff !important;
+		border: none;
 		&:hover, &:focus {
-			background: $Green !important;			
+			background: $Green !important;
+			color: #fff !important;			
 		}
 	}
 }
@@ -421,9 +430,12 @@ textarea {
 	}
 	
 	.btn-default {
-		background: darken($Purple, 10%);		
+		background: darken($Purple, 10%);
+		color: #fff !important;
+		border: none;
 		&:hover, &:focus {
-			background: $Purple !important;			
+			background: $Purple !important;
+			color: #fff !important;			
 		}
 	}
 }
@@ -449,9 +461,12 @@ textarea {
 	}
 	
 	.btn-default {
-		background: darken($Orange, 10%);		
+		background: darken($Orange, 10%);
+		color: #fff !important;
+		border: none;
 		&:hover, &:focus {
-			background: $Orange !important;			
+			background: $Orange !important;
+			color: #fff !important;			
 		}
 	}
 }
@@ -477,9 +492,12 @@ textarea {
 	}
 	
 	.btn-default {
-		background: darken($Black, 10%);		
+		background: darken($Black, 10%);
+		color: #fff !important;
+		border: none;
 		&:hover, &:focus {
-			background: $Black !important;			
+			background: $Black !important;
+			color: #fff !important;			
 		}
 	}
 }

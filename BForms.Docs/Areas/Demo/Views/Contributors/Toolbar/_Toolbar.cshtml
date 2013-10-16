@@ -1,11 +1,12 @@
 ﻿@model BForms.Docs.Areas.Demo.Models.ContributorsViewModel
+@using BForms.Docs.Helpers
 @using BForms.Docs.Resources
 @using BForms.Grid
 @using BForms.Html
 @using BForms.Models
 
 @(Html.BsToolbarFor(x => x.Toolbar).DisplayName("Dev Team")
-    .Theme(BsTheme.Default)
+    .Theme(Html.GetTheme())
     .ConfigureActions(ca =>
     {
         ca.Add(BsToolbarActionType.Add)
