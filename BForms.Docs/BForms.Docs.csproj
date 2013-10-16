@@ -189,6 +189,7 @@
     <Content Include="Scripts\BForms\Stylesheets\Images\icn-order_up.png" />
     <Content Include="Scripts\BForms\Stylesheets\Images\icn-right_arrow-small.png" />
     <Content Include="Scripts\BForms\Stylesheets\Images\preloader_16x16.gif" />
+    <Content Include="Scripts\Controllers\Common\main-script.js" />
     <Content Include="Scripts\Controllers\Demo\Contributors\contributors-index.js" />
     <Content Include="Scripts\Controllers\Root\Components\components-rangeextensions.js" />
     <Content Include="Scripts\Controllers\Root\Components\components-grid.js" />
