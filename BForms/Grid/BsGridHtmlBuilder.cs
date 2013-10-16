@@ -195,8 +195,12 @@ namespace BForms.Grid
 
             columnsBuilder.AddCssClass("row grid_row title");
 
-            foreach (var column in this.columns)
+            for(var i = 0; i < this.columns.Count; i++)
             {
+                var column = this.columns[i];
+
+                column.HasDetails = this.hasDetails && i == 0;
+
                 columnsBuilder.InnerHtml += column.Render();
                 wrapper.InnerHtml = columnsBuilder.ToString();
             }
@@ -343,7 +347,7 @@ namespace BForms.Grid
                             if (this.hasDetails)
                             {
                                 var detailsBUilder = new TagBuilder("a");
-                                detailsBUilder.MergeAttribute("class", "expand");
+                                detailsBUilder.MergeAttribute("class", "expand bs-expand");
                                 detailsBUilder.MergeAttribute("href", "#");
                                 detailsBUilder.InnerHtml += "&nbsp;";
 

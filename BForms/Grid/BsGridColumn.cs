@@ -38,6 +38,8 @@ namespace BForms.Grid
 
     public class BsGridColumn<TRow> : BaseComponent where TRow : new()
     {
+        internal bool HasDetails { get; set; }
+
         public PropertyInfo Property { get; set; }
 
         public bool IsSortable { get; set; }
@@ -162,11 +164,23 @@ namespace BForms.Grid
         public override string Render()
         {
             var columnBuilder = new TagBuilder("div");
+
+            if (this.HasDetails)
+            {
+                var detailsBUilder = new TagBuilder("a");
+                detailsBUilder.MergeAttribute("class", "expand bs-toggleExpand");
+                detailsBUilder.MergeAttribute("href", "#");
+                detailsBUilder.InnerHtml += "&nbsp;";
+
+                columnBuilder.InnerHtml += detailsBUilder.ToString();
+            }
+
             if (this.IsSortable)
             {
                 var linkBuilder = new TagBuilder("a");
                 linkBuilder.MergeAttribute("data-name", this.Property.Name);
                 linkBuilder.MergeAttribute("href", "#");
+                linkBuilder.MergeAttribute("class", "bs-orderColumn");
                 linkBuilder.InnerHtml = this.DisplayName;
 
                 columnBuilder.InnerHtml += linkBuilder.ToString();
