@@ -62,7 +62,7 @@ a.btn {
       outline: 1px dotted #ccc; }
     .custom-checkbox label.loading:after,
     .custom-radio label.loading:after {
-      content: url(images/preloader_16x16.gif);
+      content: url(images/preloader-small.gif);
       margin-left: 6px;
       margin-top: 3px;
       position: absolute; }
@@ -77,7 +77,7 @@ a.btn {
     margin-top: -8px; }
 
 .ui-sortable .grippy {
-  background: url(../images/grippy.png) 0 0 no-repeat;
+  background: url(../images/icn-grippy.png) 0 0 no-repeat;
   margin-top: 6px;
   float: left;
   display: inline-block;
