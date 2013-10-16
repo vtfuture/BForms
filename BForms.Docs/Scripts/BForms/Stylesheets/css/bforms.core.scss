@@ -94,6 +94,9 @@ textarea {
 		border-radius: 0 !important;
 		background-image: none;
 		border: 1px solid #ccc;
+		span {
+			white-space: pre-wrap;
+		}
 		div {
 			border-radius: 0 !important;
 			width: 24px;

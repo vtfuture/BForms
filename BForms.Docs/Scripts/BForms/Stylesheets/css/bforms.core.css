@@ -67,6 +67,8 @@ textarea {
     border-radius: 0 !important;
     background-image: none;
     border: 1px solid #ccc; }
+    .custom_select .select2-choice span {
+      white-space: pre-wrap; }
     .custom_select .select2-choice div {
       border-radius: 0 !important;
       width: 24px; }
