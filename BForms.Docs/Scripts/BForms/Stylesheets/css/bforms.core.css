@@ -266,9 +266,12 @@ textarea {
 .form_container.blue .twitter-typeahead .tt-dropdown-menu {
   border-color: #559ed6 !important; }
 .form_container.blue .btn-default {
-  background: #3086c8; }
+  background: #3086c8;
+  color: #fff !important;
+  border: none; }
   .form_container.blue .btn-default:hover, .form_container.blue .btn-default:focus {
-    background: #559ed6 !important; }
+    background: #559ed6 !important;
+    color: #fff !important; }
 
 /* GREEN*/
 .form_container.green .custom_select.select2-container-active .select2-choice,
@@ -281,9 +284,12 @@ textarea {
 .form_container.green .twitter-typeahead .tt-dropdown-menu {
   border-color: #59b390 !important; }
 .form_container.green .btn-default {
-  background: #449575; }
+  background: #449575;
+  color: #fff !important;
+  border: none; }
   .form_container.green .btn-default:hover, .form_container.green .btn-default:focus {
-    background: #59b390 !important; }
+    background: #59b390 !important;
+    color: #fff !important; }
 
 /* PURPLE*/
 .form_container.purple .custom_select.select2-container-active .select2-choice,
@@ -296,9 +302,12 @@ textarea {
 .form_container.purple .twitter-typeahead .tt-dropdown-menu {
   border-color: #703d6f !important; }
 .form_container.purple .btn-default {
-  background: #4f2b4e; }
+  background: #4f2b4e;
+  color: #fff !important;
+  border: none; }
   .form_container.purple .btn-default:hover, .form_container.purple .btn-default:focus {
-    background: #703d6f !important; }
+    background: #703d6f !important;
+    color: #fff !important; }
 
 /* ORANGE*/
 .form_container.orange .custom_select.select2-container-active .select2-choice,
@@ -311,9 +320,12 @@ textarea {
 .form_container.orange .twitter-typeahead .tt-dropdown-menu {
   border-color: #f27435 !important; }
 .form_container.orange .btn-default {
-  background: #e5560f; }
+  background: #e5560f;
+  color: #fff !important;
+  border: none; }
   .form_container.orange .btn-default:hover, .form_container.orange .btn-default:focus {
-    background: #f27435 !important; }
+    background: #f27435 !important;
+    color: #fff !important; }
 
 /* almost BLACK*/
 .form_container.black .custom_select.select2-container-active .select2-choice,
@@ -326,9 +338,12 @@ textarea {
 .form_container.black .twitter-typeahead .tt-dropdown-menu {
   border-color: #424141 !important; }
 .form_container.black .btn-default {
-  background: #282828; }
+  background: #282828;
+  color: #fff !important;
+  border: none; }
   .form_container.black .btn-default:hover, .form_container.black .btn-default:focus {
-    background: #424141 !important; }
+    background: #424141 !important;
+    color: #fff !important; }
 
 @media (max-width: 756px) {
   .col-12 {

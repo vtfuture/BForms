@@ -251,10 +251,7 @@ a.btn {
 			}
 		}
 		.reset-grid {
-			margin: -10px 5px 0 0;
-			&:hover, &:focus {
-				color: #333 !important;
-			}
+			margin: -9px 5px 0 0;
 		}
 		.grid_rows {
 			position: relative;
@@ -599,9 +596,6 @@ a.btn {
 				.btn {
 					padding: 6px 9px 6px 10px;
 					font-size: 13px;
-					&:hover, &:focus {
-						color: #333 !important;
-					}
 				}
 				.results_per_page_container {
 					margin-right: 5px;
@@ -709,6 +703,19 @@ a.btn {
 			color: $Blue !important;
 		}
 	}
+	.btn-default {
+		background: darken($Blue, 10%);
+		color: #fff !important;
+		border: none;
+		&:hover, &:focus {
+			background: $Blue !important;
+			color: #fff !important;			
+		}
+		.caret {
+			border-bottom-color: #fff;
+			border-top-color: #fff;
+		}
+	}
 }
 
 /* GREEN*/
@@ -750,6 +757,19 @@ a.btn {
 		a:hover, a:focus {
 			background: none !important;
 			color: $Green !important;
+		}
+	}
+	.btn-default {
+		background: darken($Green, 10%);
+		color: #fff !important;
+		border: none;
+		&:hover, &:focus {
+			background: $Green !important;
+			color: #fff !important;			
+		}
+		.caret {
+			border-bottom-color: #fff;
+			border-top-color: #fff;
 		}
 	}
 }
@@ -796,6 +816,19 @@ a.btn {
 			color: $Purple !important;
 		}
 	}
+	.btn-default {
+		background: darken($Purple, 10%);
+		color: #fff !important;
+		border: none;
+		&:hover, &:focus {
+			background: $Purple !important;
+			color: #fff !important;			
+		}
+		.caret {
+			border-bottom-color: #fff;
+			border-top-color: #fff;
+		}
+	}
 }
 
 
@@ -840,6 +873,19 @@ a.btn {
 			color: $Orange !important;
 		}
 	}
+	.btn-default {
+		background: darken($Orange, 10%);
+		color: #fff !important;
+		border: none;
+		&:hover, &:focus {
+			background: $Orange !important;
+			color: #fff !important;			
+		}
+		.caret {
+			border-bottom-color: #fff;
+			border-top-color: #fff;
+		}
+	}
 }
 
 
@@ -882,6 +928,19 @@ a.btn {
 		a:hover, a:focus {
 			background: none !important;
 			color: $Black !important;
+		}
+	}
+	.btn-default {
+		background: darken($Black, 10%);
+		color: #fff !important;
+		border: none;
+		&:hover, &:focus {
+			background: $Black !important;
+			color: #fff !important;			
+		}
+		.caret {
+			border-bottom-color: #fff;
+			border-top-color: #fff;
 		}
 	}
 }
