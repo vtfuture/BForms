@@ -16,7 +16,7 @@
         context: null,
         registerGlobal: true,
         killPrevious: true,
-        timeout: 30000
+        loadingTimeout: 0
     };
 
     AjaxWrapper.prototype._getStack = function () {
@@ -89,9 +89,12 @@
         if (typeof data !== 'undefined' && typeof data.settings !== 'undefined') {
             var $elem = data.settings.loadingElement;
             if ($elem != null && $elem.length) {
+                window.clearTimeout(this.loadingTimeout);
                 if (show) {
-                    loadingClass == null ? $elem.show() : $elem.addClass(loadingClass);
-                } else {
+                    this.loadingTimeout = window.setTimeout(function () {
+                        loadingClass == null ? $elem.show() : $elem.addClass(loadingClass);
+                    }, data.settings.loadingDelay);
+                } else {                   
                     loadingClass == null ? $elem.hide() : $elem.removeClass(loadingClass);
                 }
             }
