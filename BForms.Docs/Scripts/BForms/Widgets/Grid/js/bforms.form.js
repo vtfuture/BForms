@@ -97,9 +97,10 @@
     };
 
     Form.prototype._evBtnClick = function (e) {
-
+       
         e.preventDefault();
 
+        var $me = $(e.currentTarget);
         var buttonOpt = e.data.buttonOpt;
         var handlerContext = e.data.handlerContext;
 
@@ -124,10 +125,11 @@
             data = this._parse();
         }
 
-        if (buttonOpt.url) {
+        var action = $me.data('action');
+        if (action) {
             $.bforms.ajax({
                 name: this.options.uniqueName,
-                url: buttonOpt.url,
+                url: action,
                 data: data,
                 callbackData: {
                     handler: buttonOpt.handler,

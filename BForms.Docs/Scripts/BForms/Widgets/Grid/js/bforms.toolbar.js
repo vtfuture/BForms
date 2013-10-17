@@ -4,123 +4,6 @@
     'amplify',
     'bforms-form'
 ], function () {
-
-    //#region Defaults
-    $.fn.bsToolbarDefaults_Search = function ($toolbar) {
-        return {
-            actions: [{
-                name: 'search',
-                selector: '.js-btn-search',
-                validate: false,
-                parse: true,
-                handler: $.proxy(function (data) {
-                    var widget = $toolbar.data('bformsBsToolbar');
-                    for (var i = 0; i < widget.subscribers.length; i++) {
-                        widget.subscribers[i].bsGrid('search', data);
-                    }
-                }, this),
-            }, {
-                name: 'reset',
-                selector: '.js-btn-reset',
-                validate: false,
-                parse: false,
-                handler: function () {
-                    this.reset();
-                    var data = this._parse();
-                    var widget = $toolbar.data('bformsBsToolbar');
-                    for (var i = 0; i < widget.subscribers.length; i++) {
-                        widget.subscribers[i].bsGrid('reset', data);
-                    }
-                }
-            }]
-        };
-    };
-
-    $.fn.bsToolbarDefaults_Add = function ($toolbar, url) {
-        return {
-            actions: [{
-                name: 'add',
-                selector: '.js-btn-add',
-                url: url,
-                validate: true,
-                parse: true,
-                handler: $.proxy(function (data, response, context) {
-                    var widget = $toolbar.data('bformsBsToolbar');
-                    for (var i = 0; i < widget.subscribers.length; i++) {
-                        widget.subscribers[i].bsGrid('add', response.Row);
-                    }
-                    context.reset();
-                }, this),
-            }, {
-                name: 'reset',
-                selector: '.js-btn-reset',
-                validate: false,
-                parse: false,
-                handler: function () {
-                    this.reset();
-                }
-            }]
-        };
-    };
-
-    $.fn.bsToolbarDefaults_Tabs = function ($toolbar, $grid, newUrl) {
-        return [{
-            name: 'search',
-            btnSelector: '.btn_advanced_search',
-            selectedElements: '.bs-quickSearchContainer',
-            container: '#toolbar_search',
-            component: {
-                type: 'bsForm',
-                container: '#toolbar_search',
-                options: $.fn.bsToolbarDefaults_Search($toolbar)
-            }
-        }, {
-            name: 'add',
-            btnSelector: '.btn-add',
-            container: '#toolbar_add',
-            triggeredBy: [{
-                container: $grid,
-                selector: '.bs-add'
-            }],
-            component: {
-                type: 'bsForm',
-                container: '#toolbar_add',
-                options: $.fn.bsToolbarDefaults_Add($toolbar, newUrl)
-            }
-        }];
-    };
-
-    $.fn.bsToolbarDefaults = function ($toolbar, $grid, options) {
-        return {
-            uniqueName: options.uniqueName || 'toolbar',
-            subscribers: [$grid],
-            reset: function () {
-                var searchTab = this._getTab('search');
-                
-                if (searchTab != null) {
-                    searchTab.component.bsForm('reset');
-                    var data = searchTab.component.bsForm('parse');
-                    
-                    var widget = $toolbar.data('bformsBsToolbar');
-                    for (var i = 0; i < widget.subscribers.length; i++) {
-                        widget.subscribers[i].bsGrid('reset', data, true);
-                    }
-                }
-
-            },
-            actions: [{
-                name: 'refresh',
-                selector: '.btn-refresh',
-                handler: function () {
-                    for (var i = 0; i < this.subscribers.length; i++) {
-                        this.subscribers[i].bsGrid('refresh');
-                    }
-                }
-            }],
-            tabs: $.fn.bsToolbarDefaults_Tabs($toolbar, $grid, options.newUrl)
-        };
-    };
-    //#endregion
     
     //#region Toolbar
     var Toolbar = function (opt) {
@@ -128,32 +11,7 @@
         this._create();
     };
 
-    Toolbar.prototype.defaultOptions = {
-
-        uniqueName: null,
-
-        bsInitUIOptions: {                                   // default form elements styles
-            select2: true,                                      // for a full list of options see bsInitUi
-            checkbox: true,                                     // line ~40 StyleInputs.prototype._styleInputsDefaults
-            radiobuttons: true
-        },
-
-        actions: [{
-            name: 'refresh',
-            btnSelector: '.js-refreshBtn',
-            handler: ''
-        }],
-
-        tabs: [{
-            name: 'search',
-            btnSelector: 'js-searchBtn',
-            container: '.js-searchFormContainer',
-            component: null,
-            dataPrefix: 'search.'
-        }],
-
-        components: []
-    };
+    
 
     Toolbar.prototype._create = function () {
         
@@ -164,6 +22,8 @@
         if (!this.options.uniqueName) {
             throw 'toolbar needs a unique name or the element on which it is aplied has to have an id attr';
         }
+        //TODO: try to find another way
+        this.options = $.extend(true, {}, this.options, this.defaultOptions);
 
         this._buttons = new Array();
 
@@ -173,13 +33,16 @@
 
         this._addDelegates();
 
-        this._addActions(this.options.actions);
+        this.controls = {};
+        
+        this._addControls(this.options.controls);
 
-        this._addTabs(this.options.tabs);
+        this._expandSavedTab();
 
         if (this.options.subscribers) {
             this._addSubscribers(this.options.subscribers);
         }
+
     };
 
     Toolbar.prototype.reset = function () {
@@ -194,6 +57,94 @@
 
     };
 
+    Toolbar.prototype._addControls = function (controls) {
+        
+        if (!controls) {
+            return;
+        }
+
+        for (var i = 0; i < controls.length; i++) {
+
+            var control = controls[i];
+
+            switch (control.type) {
+                case "action": {
+                    break;
+                }
+                case "tab": {
+
+                    this._addTabNew(control);
+
+                    break;
+                }
+                default: {
+
+                    this._addCustomControlNew(control);
+                    
+                    break;
+                }
+            }
+
+        }
+
+    };
+
+    Toolbar.prototype._addActionNew = function (control) {
+
+
+
+    };
+
+    Toolbar.prototype._addTabNew = function (control) {
+        
+        var tabOptions = control.options;
+
+        var $btn = this.element.find(tabOptions.selector);
+      
+        var tab = {
+            name: control.name,
+            opt: tabOptions,
+            $button: $btn,
+            $container: this.element.find('#' + $btn.data('tabid'))
+        };
+        
+        $btn.on('click', { tab: tab }, $.proxy(this._evBtnTabClick, this));
+  
+        control.options.init.call(this, tab.$container, control.options);
+
+        this._tabs.push(tab);
+
+    };
+
+    Toolbar.prototype._expandSavedTab = function () {
+
+        for (var i = 0; i < this._tabs.length; i++) {
+            var tab = this._tabs[i];
+            if (amplify.store('slide|' + this.options.uniqueName + '|' + tab.opt.selector)) {
+                tab.$button.trigger('click');
+            }
+        }
+
+    };
+
+    Toolbar.prototype._addCustomControlNew = function (control) {
+
+        if (typeof control.name !== 'string' || control.name.trim().length == 0) {
+            throw 'all controls must have a name';
+        }
+
+        if (typeof control.options.init !== 'function') {
+            throw 'control named ' + control.name + ' must implement an init handler';
+        }
+
+        if (typeof control.options.selector !== 'string' || control.options.selector.trim().length == 0) {
+            throw 'all controls must have a name';
+        }
+
+        control.options.init.call(this, $(control.options.selector), control.options);
+
+    };
+    
     Toolbar.prototype._addActions = function (actions) {
 
         if (actions) {
@@ -316,16 +267,16 @@
         for (var i = 0; i < this._tabs.length; i++) {
             var tab = this._tabs[i];
 
-            if (tab.button == clickedTab.button) {
+            if (tab.$button == clickedTab.$button) {
                 continue;
             }
 
-            if (tab.button.hasClass('selected')) {
+            if (tab.$button.hasClass('selected')) {
                 this._toggleTab(tab);
             }
         }
 
-        if (triggeredTab && triggeredTab.button.hasClass('selected')) {
+        if (triggeredTab && triggeredTab.$button.hasClass('selected')) {
             return;
         }
 
@@ -335,14 +286,181 @@
 
     Toolbar.prototype._toggleTab = function(tab) {
 
-        tab.button.toggleClass('selected');
-        tab.selectedElements.toggleClass('selected');
+        tab.$button.toggleClass('selected');
+        if (tab.name == 'advancedSearch') {
+            /// temporary
+            $('.bs-quick_search').toggleClass('selected');
+        }
 
-        tab.container.stop(true, false).slideToggle();
-
-        amplify.store('slide|' + this.options.uniqueName + '|' + tab.opt.btnSelector, tab.button.hasClass('selected'));
+        tab.$container.stop(true, false).slideToggle();
+  
+        amplify.store('slide|' + this.options.uniqueName + '|' + tab.opt.selector, tab.$button.hasClass('selected'));
     
     };
+
+    //#region quickSearch
+    Toolbar.prototype.quickSearch = function (init, options) {
+    
+        var defaultOptions = {
+            selector: '.bs-quick_search',
+            instant: true,
+            timeout: 250
+        };
+
+        options = $.extend(true, {}, defaultOptions);
+
+        if (typeof init === 'function') {
+            init.call(this, options);
+        } else {
+            this._initQuickSearch(options);
+        }
+
+    };
+
+    Toolbar.prototype._initQuickSearch = function ($elem, options) {
+      
+        this.element.on('keyup', options.selector + ' .bs-text', { options: options }, $.proxy(this._evOnQuickSearchKeyup, this));
+
+    };
+
+    Toolbar.prototype._evOnQuickSearchKeyup = function (e) {
+    
+        var $me = $(e.currentTarget);
+        var val = $me.val().trim();
+
+        if (val.length == 0 && $me.data('empty')) {
+            return;
+        }
+        
+        var $advanced = $('.btn_advanced_search');
+        if ($advanced.hasClass('selected')) {
+            $advanced.trigger('click');
+        }
+
+        if (val.length == 0) {
+            $me.data('empty', true);
+        } else {
+            $me.data('empty', false);
+        }
+
+        var options = e.data.options;
+        
+        if (options.instant) {
+      
+            window.clearTimeout(this.quickSearchTimeout);
+            this.quickSearchTimeout = window.setTimeout($.proxy(function () {
+                this._quickSearch(val);
+            }, this), options.timeout);
+        } else if (e.which == 13 || e.keyCode == 13) {
+            this._quickSearch(val);
+        }
+
+    }
+
+    Toolbar.prototype._quickSearch = function (quickSearch) {
+
+        for (var i = 0; i < this.subscribers.length; i++) {
+            this.subscribers[i].bsGrid('search', quickSearch, true);
+        }
+
+    };
+    //#endregion
+
+    //#region _initAdvancedSearch
+    Toolbar.prototype._initAdvancedSearch = function ($elem, options) {
+     
+        (function (scope) {
+
+            var defaultActions = [{
+                name: 'search',
+                selector: '.js-btn-search',
+                validate: false,
+                parse: true,
+                handler: $.proxy(function (data) {
+                    var widget = scope.element.data('bformsBsToolbar');
+                    for (var i = 0; i < widget.subscribers.length; i++) {
+                        widget.subscribers[i].bsGrid('search', data);
+                    }
+                }, this),
+            }, {
+                name: 'reset',
+                selector: '.js-btn-reset',
+                validate: false,
+                parse: false,
+                handler: function () {
+              
+                    this.reset();
+                    var data = this._parse();
+                    var widget = scope.element.data('bformsBsToolbar');
+                    for (var i = 0; i < widget.subscribers.length; i++) {
+                        widget.subscribers[i].bsGrid('reset', data);
+                    }
+                }
+            }];
+
+            for (var i = 0; i < defaultActions.length; i++) {
+
+                var defaultAction = defaultActions[i];
+                var found = false;
+                for (var j = 0; j < options.actions.length; j++) {
+                    var action = options.actions[j];
+                    if (defaultAction.name == action.name) {
+                        options.actions[j] = $.extend(true, {}, defaultAction, action);
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (!found) {
+                    options.actions.push(defaultAction);
+                }
+            }
+
+            var formOptions = {
+                container: $elem.attr('id'),
+                actions: options.actions
+            };
+
+            $elem.bsForm(formOptions);
+        })(this);
+
+    };
+    //#endregion
+
+    //#region _initAdd
+    Toolbar.prototype._initAdd = function ($elem, options) {
+
+        (function (scope) {
+            var formOptions = {
+                container: $elem.attr('id'),
+                actions: [{
+                    name: 'add',
+                    selector: '.js-btn-add',
+                    validate: true,
+                    parse: true,
+                    handler: $.proxy(function (data, response, context) {
+                        var widget = scope.element.data('bformsBsToolbar');
+                        for (var i = 0; i < widget.subscribers.length; i++) {
+                            widget.subscribers[i].bsGrid('add', response.Row);
+                        }
+                        context.reset();
+                    }, this),
+                }, {
+                    name: 'reset',
+                    selector: '.js-btn-reset',
+                    validate: false,
+                    parse: false,
+                    handler: function () {
+                        this.reset();
+                    }
+                }]
+            }
+
+            $elem.bsForm(formOptions);
+        })(this);
+
+    };
+    //#endregion
     
 
     //#region helpers
@@ -367,10 +485,87 @@
     };
     //#endregion
 
+    Toolbar.prototype.defaultOptions = {
+        uniqueName: null,
+        tabContainerSelector: '.grid_toolbar_form',
+        controls: [{
+            name: 'advancedSearch',
+            type: 'tab',
+            options: {
+                selector: '.btn_advanced_search',
+                init: Toolbar.prototype._initAdvancedSearch
+            }
+        }, {
+            name: 'quickSearch',
+            type: 'custom',
+            options: {
+                selector: '.bs-quick_search',
+                init: Toolbar.prototype._initQuickSearch,
+                instant: true,
+                timeout: 250
+            }
+        }, {
+            name: 'add',
+            type: 'tab',
+            options: {
+                selector: '.btn-add',
+                init: Toolbar.prototype._initAdd
+            }
+        }]
+    };
+
+    Toolbar.prototype.defaultControls = [{
+        name: 'advancedSearch',
+        type: 'tab',
+        options: {
+            selector: '.btn_advanced_search',
+            init: Toolbar.prototype._initAdvancedSearch,
+            initOptions: [{
+                name: 'search',
+                selector: '.js-btn-search',
+                validate: false,
+                parse: true,
+                handler: $.proxy(function (data) {
+                    var widget = this.$toolbar.data('bformsBsToolbar');
+                    for (var i = 0; i < widget.subscribers.length; i++) {
+                        widget.subscribers[i].bsGrid('search', data);
+                    }
+                }, this),
+            }, {
+                name: 'reset',
+                selector: '.js-btn-reset',
+                validate: false,
+                parse: false,
+                handler: function () {
+                    this.reset();
+                    var data = this._parse();
+                    var widget = this.element.data('bformsBsToolbar');
+                    for (var i = 0; i < widget.subscribers.length; i++) {
+                        widget.subscribers[i].bsGrid('reset', data);
+                    }
+                }
+            }]
+        }
+    }, {
+        name: 'quickSearch',
+        type: 'custom',
+        options: {
+            selector: '.bs-quick_search',
+            init: Toolbar.prototype._initQuickSearch,
+            instant: true,
+            timeout: 250
+        }
+    }, {
+        name: 'add',
+        type: 'tab',
+        options: {
+            selector: '.btn-add',
+            init: Toolbar.prototype._initAdd
+        }
+    }];
+
     //#endregion
     
     $.widget('bforms.bsToolbar', Toolbar.prototype);
-       
-    return Toolbar;
 
 });

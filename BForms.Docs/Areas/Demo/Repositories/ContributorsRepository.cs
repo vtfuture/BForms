@@ -7,6 +7,7 @@ using BForms.Docs.Areas.Demo.Models;
 using BForms.Docs.Resources;
 using BForms.Grid;
 using BForms.Models;
+using BForms.Utilities;
 
 namespace BForms.Docs.Areas.Demo.Repositories
 {
@@ -85,7 +86,31 @@ namespace BForms.Docs.Areas.Demo.Repositories
 
         public IQueryable<Contributor> Filter(IQueryable<Contributor> query)
         {
-            if (Settings.Search != null)
+            if (!string.IsNullOrEmpty(Settings.QuickSearch))
+            {
+                //join query with correspondant enum strings
+                var roleTypes = Enum.GetValues(typeof(ProjectRole));
+                var displayedRoles = new List<KeyValuePair<int, string>>();
+                foreach (Enum roleType in roleTypes)
+                {
+                    var displayName = ReflectionHelpers.EnumDisplayName(typeof(ProjectRole), roleType);
+                    displayedRoles.Add(new KeyValuePair<int, string>((int)(ProjectRole)roleType, displayName.ToLower()));
+                }
+
+                var searched = Settings.QuickSearch.ToLower();
+
+                //filter by fields that are strings on enums
+                var queryQuick = query.Join(displayedRoles, x => (int)x.Role, y => y.Key, (x, y) => new { Contributer = x, RoleText = y });
+                queryQuick = queryQuick.Where(x=> x.Contributer.FirstName.ToLower().Contains(searched) ||
+                                                    x.Contributer.LastName.ToLower().Contains(searched) ||
+                                                    x.Contributer.Country.ToLower().Contains(searched) ||
+                                                    x.RoleText.Value.Contains(searched) ||
+                                                    x.Contributer.Languages != null && x.Contributer.Languages.Any(y => y.Contains(searched)));
+
+                //select back TEntity
+                query = queryQuick.Select(x => x.Contributer);
+            } 
+            else if (Settings.Search != null)
             {
                 #region Name
                 if (!string.IsNullOrEmpty(Settings.Search.Name))

@@ -9,6 +9,8 @@ namespace BForms.Grid
     {
         public TSearch Search { get; set; }
 
+        public string QuickSearch { get; set; }
+
         public List<BsColumnOrder> OrderColumns { get; set; }
 
         public int Page { get; set; }

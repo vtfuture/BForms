@@ -13,12 +13,12 @@ using BForms.Mvc;
 
 namespace BForms.Utilities
 {
-    internal static class ReflectionHelpers
+    public static class ReflectionHelpers
     {
         /// <summary>
         /// Retuns Attribute
         /// </summary>
-        public static bool TryGetAttribute<T>(string name, Type modelType, out T attribute) where T : Attribute
+        internal static bool TryGetAttribute<T>(string name, Type modelType, out T attribute) where T : Attribute
         {
             var hasAttribute = false;
             attribute = default(T);
@@ -46,7 +46,7 @@ namespace BForms.Utilities
         /// <summary>
         /// Retuns Attribute
         /// </summary>
-        public static bool TryGetAttribute<T>(PropertyInfo property, out T attribute) where T : Attribute
+        internal static bool TryGetAttribute<T>(PropertyInfo property, out T attribute) where T : Attribute
         {
             var hasAttribute = false;
             attribute = default(T);
@@ -67,7 +67,7 @@ namespace BForms.Utilities
         /// <summary>
         /// Gets propertyInfo from expression
         /// </summary>
-        public static PropertyInfo GetPropertyInfo<TSource, TProperty>(this Expression<Func<TSource, TProperty>> propertyLambda)
+        internal static PropertyInfo GetPropertyInfo<TSource, TProperty>(this Expression<Func<TSource, TProperty>> propertyLambda)
         {
             Type type = typeof(TSource);
             MemberExpression memberExpression = propertyLambda.Body as MemberExpression;
@@ -307,7 +307,7 @@ namespace BForms.Utilities
             return config.ToString();
         }
 
-        internal static string EnumDisplayName(Type myEnum, Enum val)
+        public static string EnumDisplayName(Type myEnum, Enum val)
         {
             var enumType = myEnum;
             if (!enumType.IsEnum)

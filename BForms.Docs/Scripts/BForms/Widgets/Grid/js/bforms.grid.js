@@ -253,10 +253,20 @@
 
     };
 
-    Grid.prototype.search = function (data) {
+    Grid.prototype.search = function (data, isQuick) {
+
         this.refreshModel.page = 1;
-        this.refreshModel.Search = data;
+
+        if (isQuick) {
+            this.refreshModel.quickSearch = data;
+            this.refreshModel.Search = null;
+        } else {
+            this.refreshModel.Search = data;
+            this.refreshModel.quickSearch = null;
+        }
+
         this._showFilterIcon();
+
         this._getPage();
     };
 
@@ -803,6 +813,7 @@
             success: $.proxy(this._pagerAjaxSuccess, this),
             error: $.proxy(this._pagerAjaxError, this),
             loadingElement: this.$rowsContainer,
+            loadingDelay: 100,
             loadingClass: 'loading'
         };
 

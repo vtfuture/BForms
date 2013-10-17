@@ -73,8 +73,10 @@ namespace BForms.Grid
 
         public override string Render()
         {
+            var id = this.fullName.Split('.').Last().ToLower();
+
             var toolbarBuilder = new TagBuilder("div");
-            toolbarBuilder.MergeAttribute("id", this.fullName.Split('.').Last().ToLower());
+            toolbarBuilder.MergeAttribute("id", id);
             toolbarBuilder.MergeClassAttribute("grid_toolbar", this.htmlAttributes);
             toolbarBuilder.MergeAttributes(this.htmlAttributes, true);
 
@@ -92,16 +94,30 @@ namespace BForms.Grid
 
             string tabs = string.Empty;
 
+            int tabNr = 0;
+
             foreach (var action in this.ActionsFactory.Actions)
             {
-                controlsBuilder.InnerHtml += action.Render();
-
                 var normalAction = action as BsToolbarAction<TToolbar>;
 
                 if (normalAction != null && normalAction.TabDelegate != null)
                 {
-                    tabs += normalAction.TabDelegate(this.model);
+                    var tabId = id + "_tab_" + tabNr;
+
+                    var tabBuilder = new TagBuilder("div");
+                    tabBuilder.AddCssClass("grid_toolbar_form");
+                    tabBuilder.MergeAttribute("style", "display:none;");
+                    tabBuilder.MergeAttribute("id", tabId);
+                    tabBuilder.InnerHtml += normalAction.TabDelegate(this.model);
+
+                    tabs += tabBuilder.ToString();
+
+                    normalAction.SetTabId(tabId);
+
+                    tabNr++;
                 }
+
+                controlsBuilder.InnerHtml += action.Render();
             }
             toolbarHeaderBuilder.InnerHtml += controlsBuilder.ToString();
 

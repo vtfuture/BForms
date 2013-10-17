@@ -246,15 +246,27 @@
 
     //#region Toolbar
     GridIndex.prototype.initToolbar = function() {
-        this.$toolbar.bsToolbar(
-            $.extend(true, {},$.fn.bsToolbarDefaults(
-                this.$toolbar,
-                this.$grid,
-                {
-                    uniqueName: 'usersToolbar',
-                    newUrl: this.options.newUrl
-                }))
-        );
+        this.$toolbar.bsToolbar({
+            uniqueName: 'usersToolbar',
+            subscribers: [this.$grid],
+            controls: [{
+                name: 'advancedSearch',
+                type: 'tab',
+                options: {
+                    selector: '.btn_advanced_search',
+                    actions: [{
+                        name: 'search',
+                        handler: $.proxy(function (data) {
+                            console.log('custom');
+                            var widget = this.$toolbar.data('bformsBsToolbar');
+                            for (var i = 0; i < widget.subscribers.length; i++) {
+                                widget.subscribers[i].bsGrid('search', data);
+                            }
+                        }, this),
+                    }]
+                }
+            }]
+        });
     };
     //#endregion
 

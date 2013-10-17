@@ -33,6 +33,8 @@ namespace BForms.Grid
             }
         }
 
+        private string tabId;
+
         public BsToolbarAction(ViewContext viewContext)
             :base(viewContext) { }
 
@@ -63,6 +65,11 @@ namespace BForms.Grid
                         break;
                     }
             }
+        }
+
+        public string GetDescriptorClass()
+        {
+            return this.descriptorClass;
         }
 
         public BsToolbarAction(string descriptorClass, ViewContext viewContext)
@@ -121,6 +128,11 @@ namespace BForms.Grid
             actionBuilder.AddCssClass(this.styleClasses);
             actionBuilder.MergeAttribute("href", this.href ?? "#");
 
+            if (!string.IsNullOrEmpty(this.tabId))
+            {
+                actionBuilder.MergeAttribute("data-tabid", this.tabId);
+            }
+
             if (!string.IsNullOrEmpty(this.title))
             {
                 actionBuilder.MergeAttribute("title", this.title);
@@ -129,6 +141,11 @@ namespace BForms.Grid
             actionBuilder.InnerHtml += (this.glyphIcon.HasValue ? GetGlyphcon(this.glyphIcon.Value) + " " : "") + this.text;
 
             return actionBuilder.ToString();
+        }
+
+        internal void SetTabId(string tabId)
+        {
+            this.tabId = tabId;
         }
     }
 }

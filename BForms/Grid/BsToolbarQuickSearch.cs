@@ -33,7 +33,7 @@ namespace BForms.Grid
         public override string Render()
         {
             var inputGroupBuilder = new TagBuilder("div");
-            inputGroupBuilder.AddCssClass("input-group bs-quickSearchContainer");
+            inputGroupBuilder.AddCssClass("input-group bs-quick_search");
 
 
             var inputBuilder = new TagBuilder("input");

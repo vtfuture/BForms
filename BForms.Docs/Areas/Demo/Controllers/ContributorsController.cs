@@ -52,7 +52,6 @@ namespace BForms.Docs.Areas.Demo.Controllers
                 {"detailsUrl", Url.Action("Details")},
                 {"getRowUrl", Url.Action("GetRow")},
                 {"enableDisableUrl", Url.Action("EnableDisable")},
-                {"newUrl", Url.Action("New")},
                 {"updateUrl", Url.Action("Update")},
                 {"deleteUrl", Url.Action("Delete")},
                 {"editComponents", RequireJsHtmlHelpers.ToJsonDictionary<EditComponents>()}
