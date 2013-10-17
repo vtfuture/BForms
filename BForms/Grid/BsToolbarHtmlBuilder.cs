@@ -20,16 +20,27 @@ namespace BForms.Grid
         private readonly string fullName;
         private readonly TToolbar model;
         private readonly ModelMetadata metadata;
+        private readonly object[] attributes;
 
         public BsToolbarHtmlBuilder() { }
 
-        public BsToolbarHtmlBuilder(string fullName, TToolbar model, ModelMetadata metadata, ViewContext viewContext): base(viewContext)
+        public BsToolbarHtmlBuilder(string fullName, TToolbar model, ModelMetadata metadata, object[] attributes, ViewContext viewContext): base(viewContext)
         {
             this.fullName = fullName;
             this.model = model;
             this.metadata = metadata;
 
             this.displayName = this.metadata.DisplayName;
+            this.attributes = attributes;
+            //TODO: refactor
+            foreach (var item in this.attributes)
+            {
+                var attr = item as BsToolbarAttribute;
+                if (attr != null && attr.Theme > 0)
+                {
+                    this.theme = attr.Theme;
+                }
+            }
         }
 
         public BsToolbarHtmlBuilder<TToolbar> DisplayName(string name)

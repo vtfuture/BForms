@@ -81,6 +81,7 @@
     <Compile Include="Grid\BsGridRepositorySettings.cs" />
     <Compile Include="Html\FormExtensions.cs" />
     <Compile Include="Models\BsTheme.cs" />
+    <Compile Include="Mvc\BsToolbarAttribute.cs" />
     <Compile Include="Mvc\BsHtmlTag.cs" />
     <Compile Include="Grid\BsPagerSettings.cs" />
     <Compile Include="Grid\BsToolbarAction.cs" />

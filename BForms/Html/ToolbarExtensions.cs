@@ -31,8 +31,10 @@ namespace BForms.Html
             var metadata = ModelMetadata.FromLambdaExpression(expression, htmlHelper.ViewData);
 
             var fullName = ExpressionHelper.GetExpressionText(expression);
+
+            var attributes = expression.GetPropertyInfo().GetCustomAttributes(true);
            
-            return new BsToolbarHtmlBuilder<TToolbar>(fullName, toolbar, metadata, htmlHelper.ViewContext);
+            return new BsToolbarHtmlBuilder<TToolbar>(fullName, toolbar, metadata, attributes, htmlHelper.ViewContext);
         }
     }
 }

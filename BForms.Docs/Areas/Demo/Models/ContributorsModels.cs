@@ -16,6 +16,7 @@ namespace BForms.Docs.Areas.Demo.Models
         [Display(Name = "Contributors", ResourceType = typeof(Resource))]
         public BsGridModel<ContributorRowModel> Grid { get; set; }
 
+        [BsToolbar(Theme=BsTheme.Black)]
         [Display(Name = "Contributors", ResourceType = typeof(Resource))]
         public BsToolbarModel<ContributorSearchModel, ContributorNewModel> Toolbar { get; set; }
     }
