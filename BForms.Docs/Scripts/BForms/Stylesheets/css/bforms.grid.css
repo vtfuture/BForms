@@ -89,6 +89,14 @@ a.btn {
 .grid_container {
   font-size: 16px;
   /* Single grid */ }
+  .grid_container .btn-default {
+    background: white;
+    color: #333333;
+    border-color: #ccc; }
+    .grid_container .btn-default:hover, .grid_container .btn-default:focus {
+      background: #eee !important;
+      color: #333333 !important;
+      text-decoration: none; }
   .grid_container label {
     font-size: 13px;
     font-family: arial, verdana, sans-serif; }
@@ -507,8 +515,7 @@ a.btn {
 .grid_view.blue .btn-default {
   background: #3086c8;
   color: #fff !important;
-  border: none;
-  padding: 4px 10px; }
+  border-color: #3086c8; }
   .grid_view.blue .btn-default:hover, .grid_view.blue .btn-default:focus {
     background: #559ed6 !important;
     color: #fff !important; }
@@ -542,8 +549,7 @@ a.btn {
 .grid_view.green .btn-default {
   background: #449575;
   color: #fff !important;
-  border: none;
-  padding: 4px 12px; }
+  border-color: #449575; }
   .grid_view.green .btn-default:hover, .grid_view.green .btn-default:focus {
     background: #59b390 !important;
     color: #fff !important; }
@@ -577,8 +583,7 @@ a.btn {
 .grid_view.purple .btn-default {
   background: #4f2b4e;
   color: #fff !important;
-  border: none;
-  padding: 4px 12px; }
+  border-color: #4f2b4e; }
   .grid_view.purple .btn-default:hover, .grid_view.purple .btn-default:focus {
     background: #703d6f !important;
     color: #fff !important; }
@@ -612,8 +617,7 @@ a.btn {
 .grid_view.orange .btn-default {
   background: #e5560f;
   color: #fff !important;
-  border: none;
-  padding: 4px 12px; }
+  border-color: #e5560f; }
   .grid_view.orange .btn-default:hover, .grid_view.orange .btn-default:focus {
     background: #f27435 !important;
     color: #fff !important; }
@@ -647,8 +651,7 @@ a.btn {
 .grid_view.black .btn-default {
   background: #282828;
   color: #fff !important;
-  border: none;
-  padding: 4px 12px; }
+  border-color: #282828; }
   .grid_view.black .btn-default:hover, .grid_view.black .btn-default:focus {
     background: #424141 !important;
     color: #fff !important; }

@@ -32,7 +32,6 @@ a.btn {
 	visibility: hidden;
 }
 
-
 /* Custom UI*/
 
 .custom-checkbox label {
@@ -115,6 +114,16 @@ a.btn {
 
 .grid_container {	
 	font-size: 16px;
+	.btn-default {
+		background: #fff ;
+		color: #333333;
+		border-color: #ccc;
+		&:hover, &:focus {
+			background: #eee !important;
+			color: #333333 !important;
+			text-decoration: none;
+		}
+	}
 	label {
 		font-size: 13px;
 		font-family: arial, verdana, sans-serif;
@@ -704,8 +713,7 @@ a.btn {
 	.btn-default {
 		background: darken($Blue, 10%);
 		color: #fff !important;
-		border: none;
-		padding: 4px 10px;
+		border-color: darken($Blue, 10%);
 		&:hover, &:focus {
 			background: $Blue !important;
 			color: #fff !important;			
@@ -761,8 +769,7 @@ a.btn {
 	.btn-default {
 		background: darken($Green, 10%);
 		color: #fff !important;
-		border: none;
-		padding: 4px 12px;
+		border-color: darken($Green, 10%);
 		&:hover, &:focus {
 			background: $Green !important;
 			color: #fff !important;			
@@ -819,8 +826,7 @@ a.btn {
 	.btn-default {
 		background: darken($Purple, 10%);
 		color: #fff !important;
-		border: none;
-		padding: 4px 12px;
+		border-color: darken($Purple, 10%);
 		&:hover, &:focus {
 			background: $Purple !important;
 			color: #fff !important;			
@@ -877,8 +883,7 @@ a.btn {
 	.btn-default {
 		background: darken($Orange, 10%);
 		color: #fff !important;
-		border: none;
-		padding: 4px 12px;
+		border-color: darken($Orange, 10%);
 		&:hover, &:focus {
 			background: $Orange !important;
 			color: #fff !important;			
@@ -935,8 +940,7 @@ a.btn {
 	.btn-default {
 		background: darken($Black, 10%);
 		color: #fff !important;
-		border: none;
-		padding: 4px 12px;
+		border-color: darken($Black, 10%);
 		&:hover, &:focus {
 			background: $Black !important;
 			color: #fff !important;			

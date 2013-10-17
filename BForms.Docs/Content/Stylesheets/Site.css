@@ -368,7 +368,8 @@ code {
 body.blue a:hover, body.blue a:focus {
   color: #3086c8; }
 body.blue .btn-default {
-  background: #3086c8; }
+  background: #3086c8;
+  border: 1px solid #559ed6; }
   body.blue .btn-default:hover, body.blue .btn-default:focus {
     background: #559ed6 !important; }
 body.blue .navbar .nav > li .dropdown-menu li .badge-info {
@@ -407,7 +408,8 @@ body.blue .error_page .btn {
 body.green a:hover, body.green a:focus {
   color: #449575; }
 body.green .btn-default {
-  background: #449575; }
+  background: #449575;
+  border: 1px solid #59b390; }
   body.green .btn-default:hover, body.green .btn-default:focus {
     background: #59b390 !important; }
 body.green .navbar .nav > li .dropdown-menu li .badge-info {
@@ -446,7 +448,8 @@ body.green .error_page .btn {
 body.purple a:hover, body.purple a:focus {
   color: #4f2b4e; }
 body.purple .btn-default {
-  background: #4f2b4e; }
+  background: #4f2b4e;
+  border: 1px solid #703d6f; }
   body.purple .btn-default:hover, body.purple .btn-default:focus {
     background: #703d6f !important; }
 body.purple .navbar .nav > li .dropdown-menu li .badge-info {
@@ -485,7 +488,8 @@ body.purple .error_page .btn {
 body.orange a:hover, body.orange a:focus {
   color: #e5560f; }
 body.orange .btn-default {
-  background: #e5560f; }
+  background: #e5560f;
+  border: 1px solid #f27435; }
   body.orange .btn-default:hover, body.orange .btn-default:focus {
     background: #f27435 !important; }
 body.orange .navbar .nav > li .dropdown-menu li .badge-info {
@@ -524,7 +528,8 @@ body.orange .error_page .btn {
 body.black a:hover, body.black a:focus {
   color: #282828; }
 body.black .btn-default {
-  background: #282828; }
+  background: #282828;
+  border: 1px solid #424141; }
   body.black .btn-default:hover, body.black .btn-default:focus {
     background: #424141 !important; }
 body.black .navbar .nav > li .dropdown-menu li .badge-info {
