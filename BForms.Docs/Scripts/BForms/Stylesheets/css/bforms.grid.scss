@@ -246,7 +246,7 @@ a.btn {
 			}
 		}
 		.reset-grid {
-			margin: -9px 5px 0 0;
+			margin: -10px 5px 0 0;
 		}
 		.grid_rows {
 			position: relative;
@@ -705,7 +705,7 @@ a.btn {
 		background: darken($Blue, 10%);
 		color: #fff !important;
 		border: none;
-		padding: 4px 12px;
+		padding: 4px 10px;
 		&:hover, &:focus {
 			background: $Blue !important;
 			color: #fff !important;			

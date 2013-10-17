@@ -185,7 +185,7 @@ a.btn {
       display: block;
       clear: both; }
   .grid_container .grid_view .reset-grid {
-    margin: -9px 5px 0 0; }
+    margin: -10px 5px 0 0; }
   .grid_container .grid_view .grid_rows {
     position: relative; }
     .grid_container .grid_view .grid_rows .expand {
@@ -508,7 +508,7 @@ a.btn {
   background: #3086c8;
   color: #fff !important;
   border: none;
-  padding: 4px 12px; }
+  padding: 4px 10px; }
   .grid_view.blue .btn-default:hover, .grid_view.blue .btn-default:focus {
     background: #559ed6 !important;
     color: #fff !important; }
