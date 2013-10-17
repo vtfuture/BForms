@@ -16,7 +16,7 @@
         context: null,
         registerGlobal: true,
         killPrevious: true,
-        loadingTimeout: 0
+        loadingDelay: 100
     };
 
     AjaxWrapper.prototype._getStack = function () {
