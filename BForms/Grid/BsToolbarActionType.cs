@@ -23,10 +23,6 @@ namespace BForms.Grid
         /// <summary>
         /// Toggles create form
         /// </summary>
-        Add = 3,
-        /// <summary>
-        /// Expand/Collapse row details
-        /// </summary>
-        ToggleRowDetails = 4
+        Add = 3
     }
 }

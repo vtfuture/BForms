@@ -4,9 +4,14 @@
         ca.Add(BsToolbarActionType.Add)
             .Text(Resource.Add)
             .Tab(x => Html.BsPartialPrefixed(y => y.New, "Toolbar/_New", x));
+
         ca.Add(BsToolbarActionType.Refresh)
             .Text(Resource.Refresh);
-        ca.Add(BsToolbarActionType.Search)
+
+		ca.Add<BsToolbarQuickSearch>()
+            .Placeholder(Resource.Search);
+
+        ca.Add(BsToolbarActionType.AdvancedSearch)
             .Text(Resource.Search)
             .Tab(x => Html.BsPartialPrefixed(y => y.Search, "Toolbar/_Search", x));
     })

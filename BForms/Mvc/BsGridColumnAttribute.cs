@@ -9,7 +9,7 @@ namespace BForms.Mvc
     [AttributeUsage(AttributeTargets.Method | AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Parameter, AllowMultiple = false)]
     public class BsGridColumnAttribute : Attribute
     {
-        private bool hasOrder = true;
+        private bool _hasOrder = true;
 
         /// <summary>
         /// Wraps column header in a html node. Default is true
@@ -18,15 +18,15 @@ namespace BForms.Mvc
         {
             get
             {
-                return this.hasOrder;
+                return _hasOrder;
             }
             set
             {
-                this.hasOrder = value;
+                _hasOrder = value;
             }
         }
 
-        private bool isEditable = true;
+        private bool _isEditable = true;
 
         /// <summary>
         /// Wraps cell in editable container
@@ -35,11 +35,11 @@ namespace BForms.Mvc
         {
             get
             {
-                return this.isEditable;
+                return _isEditable;
             }
             set
             {
-                this.isEditable = value;
+                _isEditable = value;
             }
         }
 
