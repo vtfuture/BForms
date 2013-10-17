@@ -19,7 +19,7 @@
 
             bulk.AddSelector(BsBulkSelectorType.All);
             bulk.AddSelector().StyleClass("js-actives").Text(@Resource.Enabled);
-            bulk.AddSelector(BsBulkSelectorType.All).Text(@Resource.Disabled);
+            bulk.AddSelector().StyleClass("js-inactives").Text(@Resource.Disabled);
             bulk.AddSelector(BsBulkSelectorType.None);
 
             bulk.ForSelector(BsBulkSelectorType.All).Text(@Resource.All);
