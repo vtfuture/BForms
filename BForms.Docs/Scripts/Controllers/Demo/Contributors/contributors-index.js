@@ -256,7 +256,7 @@
                     selector: '.btn_advanced_search',
                     actions: [{
                         name: 'search',
-                        handler: $.proxy(function (data) 
+                        handler: $.proxy(function (data) {
                             var widget = this.$toolbar.data('bformsBsToolbar');
                             for (var i = 0; i < widget.subscribers.length; i++) {
                                 widget.subscribers[i].bsGrid('search', data);
