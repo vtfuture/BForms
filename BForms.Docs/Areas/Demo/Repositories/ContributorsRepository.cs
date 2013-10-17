@@ -105,7 +105,8 @@ namespace BForms.Docs.Areas.Demo.Repositories
                                                     x.Contributer.LastName.ToLower().Contains(searched) ||
                                                     x.Contributer.Country.ToLower().Contains(searched) ||
                                                     x.RoleText.Value.Contains(searched) ||
-                                                    x.Contributer.Languages != null && x.Contributer.Languages.Any(y => y.Contains(searched)));
+                                                    x.Contributer.Languages != null && x.Contributer.Languages.Any(y => y.Contains(searched)) ||
+                                                    x.Contributer.Contributions.Contains(searched));
 
                 //select back TEntity
                 query = queryQuick.Select(x => x.Contributer);

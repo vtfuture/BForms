@@ -219,7 +219,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
             try
             {
                 //simulate exception
-                if (objId == 1 || objId == 2)
+                if (objId == 2)
                 {
                     throw new Exception("This is how an exception message is displayed inside a BFroms grid row");
                 }
