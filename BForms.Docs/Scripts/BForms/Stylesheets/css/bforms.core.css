@@ -199,19 +199,18 @@ textarea {
 .btn {
   padding: 4px 12px;
   text-transform: uppercase;
-  font-size: 17px;
-  border: none; }
+  font-size: 17px; }
   .btn:focus {
     outline: none; }
 
 .btn-default {
-  color: #333333;
-  background-color: #ffffff;
-  border: 1px solid #cccccc;
-  padding: 3px 10px; }
+  color: #fff;
+  background-color: #368985;
+  border-color: #368985; }
   .btn-default:hover, .btn-default:focus {
-    background: #ebebeb !important;
-    color: #333333 !important;
+    background: #45ada8 !important;
+    border-color: #368985;
+    color: #fff !important;
     text-decoration: none; }
 
 .upload-file {
@@ -273,8 +272,7 @@ textarea {
 .form_container.blue .btn-default {
   background: #3086c8;
   color: #fff !important;
-  border: none;
-  padding: 4px 12px; }
+  border-color: #3086c8; }
   .form_container.blue .btn-default:hover, .form_container.blue .btn-default:focus {
     background: #559ed6 !important;
     color: #fff !important; }
@@ -292,8 +290,7 @@ textarea {
 .form_container.green .btn-default {
   background: #449575;
   color: #fff !important;
-  border: none;
-  padding: 4px 12px; }
+  border-color: #449575; }
   .form_container.green .btn-default:hover, .form_container.green .btn-default:focus {
     background: #59b390 !important;
     color: #fff !important; }
@@ -311,8 +308,7 @@ textarea {
 .form_container.purple .btn-default {
   background: #4f2b4e;
   color: #fff !important;
-  border: none;
-  padding: 4px 12px; }
+  border-color: #4f2b4e; }
   .form_container.purple .btn-default:hover, .form_container.purple .btn-default:focus {
     background: #703d6f !important;
     color: #fff !important; }
@@ -330,8 +326,7 @@ textarea {
 .form_container.orange .btn-default {
   background: #e5560f;
   color: #fff !important;
-  border: none;
-  padding: 4px 12px; }
+  border-color: #e5560f; }
   .form_container.orange .btn-default:hover, .form_container.orange .btn-default:focus {
     background: #f27435 !important;
     color: #fff !important; }
@@ -349,8 +344,7 @@ textarea {
 .form_container.black .btn-default {
   background: #282828;
   color: #fff !important;
-  border: none;
-  padding: 4px 12px; }
+  border-color: #282828; }
   .form_container.black .btn-default:hover, .form_container.black .btn-default:focus {
     background: #424141 !important;
     color: #fff !important; }

@@ -509,7 +509,8 @@ body.blue {
 		color: darken($Blue, 10%);
 	}
 	.btn-default {
-		background: darken($Blue, 10%);		
+		background: darken($Blue, 10%);	
+		border: 1px solid $Blue;
 		&:hover, &:focus {
 			background: $Blue !important;			
 		}
@@ -574,7 +575,8 @@ body.green {
 		color: darken($Green, 10%);
 	}
 	.btn-default {
-		background: darken($Green, 10%);		
+		background: darken($Green, 10%);
+		border: 1px solid $Green;		
 		&:hover, &:focus {
 			background: $Green !important;			
 		}
@@ -639,7 +641,8 @@ body.purple {
 		color: darken($Purple, 10%);
 	}
 	.btn-default {
-		background: darken($Purple, 10%);		
+		background: darken($Purple, 10%);	
+		border: 1px solid $Purple;
 		&:hover, &:focus {
 			background: $Purple !important;			
 		}
@@ -704,7 +707,8 @@ body.orange {
 		color: darken($Orange, 10%);
 	}
 	.btn-default {
-		background: darken($Orange, 10%);		
+		background: darken($Orange, 10%);
+		border: 1px solid $Orange;		
 		&:hover, &:focus {
 			background: $Orange !important;			
 		}
@@ -769,7 +773,8 @@ body.black {
 		color: darken($Black, 10%);
 	}
 	.btn-default {
-		background: darken($Black, 10%);		
+		background: darken($Black, 10%);
+		border: 1px solid $Black;		
 		&:hover, &:focus {
 			background: $Black !important;			
 		}
