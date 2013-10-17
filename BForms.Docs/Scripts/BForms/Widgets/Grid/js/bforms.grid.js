@@ -619,15 +619,19 @@
         } else {
             $me = $target;
         }
-        var $row = $me.closest(this.options.rowSelector);
 
-        if ($me.prop('checked')) {
+        if (typeof $me !== "undefined" && $me != null) {
 
-            $row.addClass('selected');
+            var $row = $me.closest(this.options.rowSelector);
 
-        } else {
+            if ($me.prop('checked')) {
 
-            $row.removeClass('selected');
+                $row.addClass('selected');
+
+            } else {
+
+                $row.removeClass('selected');
+            }
         }
 
         var checked = this.element.find(this.options.rowCheckSelector).filter(function () {

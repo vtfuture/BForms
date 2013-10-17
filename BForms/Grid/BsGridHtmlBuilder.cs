@@ -40,13 +40,17 @@ namespace BForms.Grid
         }
 
         private IDictionary<string, object> htmlAttributes;
-        private string multipleSelectActionsHtml;
+        private string resetButtonHtml;
         private Func<TRow, string> rowHighlighter;
         private Func<TRow, IDictionary<string, object>> rowData;
         private bool hasDetails;
+        private bool hasBulkActions;
         private List<BsGridColumn<TRow>> columns;
+        private List<BsBulkAction> bulkActions;
+        private List<BsBulkSelector> bulkSelectors; 
         private BsPagerSettings pagerSettings = new BsPagerSettings();
         private BsTheme theme = BsTheme.Default;
+        //private BsBulkActionsFactory BulkActionsFactory { get; set; }
         private string noRecordsTemplate;
         private string noResultsTemplate;
 
@@ -103,12 +107,32 @@ namespace BForms.Grid
             return this;
         }
 
-        /// <summary>
-        /// Renders bulk action bar 
-        /// </summary>
-        public BsGridHtmlBuilder<TModel, TRow> MultipleSelectActions(string multipleSelectActionsHtml)
+        public BsGridHtmlBuilder<TModel, TRow> ConfigureBulkActions(Action<BsBulkActionsFactory> configurator)
         {
-            this.multipleSelectActionsHtml = multipleSelectActionsHtml;
+            var bulkActionsFactory = new BsBulkActionsFactory(this.viewContext);
+            configurator(bulkActionsFactory);
+
+            this.bulkActions = bulkActionsFactory.BulkActions;
+            this.bulkSelectors = bulkActionsFactory.BulkSelectors;
+            this.hasBulkActions = true;
+
+            return this;
+        }
+
+        public BsGridHtmlBuilder<TModel,TRow> GridResetButton()
+        {
+            var resetButton = new TagBuilder("div");
+            resetButton.MergeAttribute("class","btn btn-info bs-resetGrid pull-right reset-grid");
+            resetButton.MergeAttribute("style","display:none");
+            resetButton.MergeAttribute("title","Reset");
+
+            var resetButtonSpan = new TagBuilder("span");
+            resetButtonSpan.MergeAttribute("class","glyphicon glyphicon-repeat");
+
+            resetButton.InnerHtml += resetButtonSpan.ToString();
+
+            this.resetButtonHtml = resetButton.ToString();
+
             return this;
         }
 
@@ -181,7 +205,63 @@ namespace BForms.Grid
             filterIconBuilder.MergeAttribute("title", "");
             headerBuilder.InnerHtml += filterIconBuilder.ToString();
 
-            headerBuilder.InnerHtml += this.multipleSelectActionsHtml;
+            #region BulkActions
+
+            if (this.hasBulkActions)
+            {
+
+
+                var bulkActionsWrapper = new TagBuilder("div");
+                bulkActionsWrapper.MergeAttribute("class", "grid_bulk_controls bs-group_actions");
+                var orderedBulkActions = this.bulkActions.OrderBy(x => x.BulkActionOrder);
+                foreach (var bulkAction in orderedBulkActions)
+                {
+                    bulkActionsWrapper.InnerHtml += bulkAction.Render();
+                }
+
+
+                var bulkActionsSelectWrapper = new TagBuilder("div");
+                bulkActionsSelectWrapper.MergeAttribute("class", "btn-group check_all");
+
+                var bulkActionsSelectToggle = new TagBuilder("button");
+                bulkActionsSelectToggle.MergeAttribute("type", "button");
+                bulkActionsSelectToggle.MergeAttribute("class", "btn btn-default dropdown-toggle");
+                bulkActionsSelectToggle.MergeAttribute("data-toggle", "dropdown");
+                bulkActionsSelectToggle.MergeAttribute("title", "Select");
+
+                var bulkActionsSelectToggleCaret = new TagBuilder("span");
+                bulkActionsSelectToggleCaret.MergeAttribute("class", "caret");
+                bulkActionsSelectToggle.InnerHtml += bulkActionsSelectToggleCaret.ToString();
+
+                bulkActionsSelectWrapper.InnerHtml += bulkActionsSelectToggle.ToString();
+
+                var bulkActionSelectList = new TagBuilder("ul");
+                bulkActionSelectList.MergeAttribute("class", "dropdown-menu pull-right");
+                bulkActionSelectList.MergeAttribute("role", "menu");
+
+                var orderedBulkSelectors = bulkSelectors.OrderBy(x => x.Order);
+                foreach (var bulkSelector in orderedBulkSelectors)
+                {
+                    bulkActionSelectList.InnerHtml += bulkSelector.Render();
+                }
+
+                bulkActionsSelectWrapper.InnerHtml += bulkActionSelectList.ToString();
+
+                var bulkActionsSelectCheckbox = new TagBuilder("input");
+                bulkActionsSelectCheckbox.MergeAttribute("type", "checkbox");
+
+                bulkActionsSelectWrapper.InnerHtml += bulkActionsSelectCheckbox.ToString();
+
+                bulkActionsWrapper.InnerHtml += bulkActionsSelectWrapper.ToString();
+
+                headerBuilder.InnerHtml += bulkActionsWrapper.ToString();
+            }
+
+            if (!String.IsNullOrEmpty(this.resetButtonHtml))
+            {
+                headerBuilder.InnerHtml += this.resetButtonHtml;
+            }
+            #endregion
 
             gridBuilder.InnerHtml += headerBuilder.ToString();
             #endregion
@@ -379,7 +459,7 @@ namespace BForms.Grid
                             cellBuilder.InnerHtml += text;
                         }
 
-                        if (i == this.columns.Count - 1 && !string.IsNullOrEmpty(this.multipleSelectActionsHtml))
+                        if (i == this.columns.Count - 1 && this.hasBulkActions)
                         {
                             var checkBuilder = new TagBuilder("input");
                             checkBuilder.MergeAttribute("type", "checkbox");

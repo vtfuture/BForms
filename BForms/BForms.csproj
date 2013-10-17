@@ -75,6 +75,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Grid\BsBaseGridRepository.cs" />
+    <Compile Include="Grid\BsBulkAction.cs" />
+    <Compile Include="Grid\BsBulkActionsFactory.cs" />
+    <Compile Include="Grid\BsBulkActionType.cs" />
+    <Compile Include="Grid\BsBulkSelector.cs" />
+    <Compile Include="Grid\BsBulkSelectorType.cs" />
     <Compile Include="Grid\BsGridColumn.cs" />
     <Compile Include="Grid\BsGridColumnFactory.cs" />
     <Compile Include="Grid\BsGridHtmlBuilder.cs" />
