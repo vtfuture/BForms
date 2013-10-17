@@ -323,15 +323,15 @@
 
     };
 
-    Toolbar.prototype._evOnQuickSearchKeyup = function (e) {
-    
+    Toolbar.prototype._evOnQuickSearchKeyup = function(e) {
+
         var $me = $(e.currentTarget);
         var val = $me.val().trim();
 
         if (val.length == 0 && $me.data('empty')) {
             return;
         }
-        
+
         var $advanced = $('.btn_advanced_search');
         if ($advanced.hasClass('selected')) {
             $advanced.trigger('click');
@@ -344,18 +344,18 @@
         }
 
         var options = e.data.options;
-        
+
         if (options.instant) {
-      
+
             window.clearTimeout(this.quickSearchTimeout);
-            this.quickSearchTimeout = window.setTimeout($.proxy(function () {
+            this.quickSearchTimeout = window.setTimeout($.proxy(function() {
                 this._quickSearch(val);
             }, this), options.timeout);
         } else if (e.which == 13 || e.keyCode == 13) {
             this._quickSearch(val);
         }
 
-    }
+    };
 
     Toolbar.prototype._quickSearch = function (quickSearch) {
 
@@ -488,6 +488,19 @@
     Toolbar.prototype.defaultOptions = {
         uniqueName: null,
         tabContainerSelector: '.grid_toolbar_form',
+        reset: function ($grid) {
+            var searchTab = this._getTab('advancedSearch');
+            
+            if (searchTab != null) {
+                searchTab.$container.bsForm('reset');
+                var data = searchTab.$container.bsForm('parse');
+                
+                var widget = this.element.data('bformsBsToolbar');
+                for (var i = 0; i < widget.subscribers.length; i++) {
+                    widget.subscribers[i].bsGrid('reset', data, true);
+                }
+            }
+        },
         controls: [{
             name: 'advancedSearch',
             type: 'tab',

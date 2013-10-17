@@ -267,6 +267,10 @@
 
         this._showFilterIcon();
 
+        if (isQuick && this.refreshModel.quickSearch == '') {
+            this._hideFilterIcon();
+        }
+
         this._getPage();
     };
 
@@ -722,30 +726,39 @@
     Grid.prototype._evResetGrid = function (e) {
         e.stopPropagation();
 
+        var goToFirstPage = false;
+
         this._resetHeaderCheck();
         this._uncheckAllRows();
         this._resetOrder();
         this._hideResetGridButton(true);
         this._removeErrors();
-        this.refreshModel.pageSize = this._initialModel.pageSize;
-        this.$pager.bsPager('selectValue', this.refreshModel.pageSize);
 
+        if (this.refreshModel.pageSize != this._initialModel.pageSize) {
+            goToFirstPage = true;
+            this.refreshModel.pageSize = this._initialModel.pageSize;
+            this.$pager.bsPager('selectValue', this.refreshModel.pageSize);
+        }
 
-        if (this.options.$toolbar != null) {
+        if (this.options.$toolbar != null && this.$filterIcon.is(':visible')) {
             this.options.$toolbar.bsToolbar('reset');
         }
 
-        this.refresh();
+        if (goToFirstPage === true) {
+            this.refreshModel.page = 1;
+        }
+
+        this._getPage();
     };
 
     Grid.prototype._evOnErrorRemove = function (e) {
         if (this.element.find('.bs-form-error').length == 1) {
-            window.setTimeout($.proxy(function() {
+            window.setTimeout($.proxy(function () {
                 this._hideResetGridButton();
                 this._updateExpandToggle();
             }, this), 0);
         }
-        
+
 
     };
 
@@ -759,12 +772,12 @@
             });
         } else {
             var $rows = this.element.find(this.options.rowSelector).not('.open');
-            $rows.each($.proxy(function(idx, el) {
+            $rows.each($.proxy(function (idx, el) {
                 var $row = $(el);
                 if ($row.find(this.options.errorCloseSelector).length == 0) {
                     $row.find(this.options.detailsSelector).trigger('click');
-                } 
-            },this));
+                }
+            }, this));
         }
     };
     //#endregion
@@ -851,12 +864,6 @@
             $.bforms.scrollToElement(this.$gridHeader);
         }
 
-        if (callbackData.sent.page > 1) {
-            this._showResetGridButton();
-        } else {
-            this._hideResetGridButton();
-        }
-
         this._updateExpandToggle();
     };
 
@@ -907,27 +914,34 @@
     };
 
     Grid.prototype._isInitialState = function () {
-        var initialState = true,
-            orderLength = this.refreshModel.OrderColumns.length,
+        var orderLength = this.refreshModel.OrderColumns.length,
             orderIt = 0;
 
         for (; orderIt < orderLength; orderIt++) {
-            if (this.refreshModel.OrderColumns[orderIt].Type != 0) initialState = false;
+            if (this.refreshModel.OrderColumns[orderIt].Type != 0)
+                return false;
         }
 
         if (this.$filterIcon.is(':visible')) {
-            initialState = false;
+            return false;
         }
 
         if (this.refreshModel.pageSize != this._initialModel.pageSize) {
-            initialState = false;
+            return false;
         }
 
         if (this.element.find(this.options.errorCloseSelector).length) {
-            initialState = false;
+            return false;
         }
 
-        return initialState;
+        var $rows = this.element.find(this.options.detailsSelector).parents(this.options.rowSelector).not('.open');
+        var closedRowsCount = $rows.length - $rows.find(this.options.errorCloseSelector).length;
+
+        if (closedRowsCount != this.refreshModel.pageSize) {
+            return false;
+        }
+
+        return true;
     };
 
     Grid.prototype._uncheckAllRows = function () {
@@ -950,10 +964,19 @@
         var allExpanded = false;
 
         var $rows = this.element.find(this.options.detailsSelector).parents(this.options.rowSelector).not('.open');
+        var closedRowsCount = $rows.length - $rows.find(this.options.errorCloseSelector).length;
 
-        if ($rows.length - $rows.find(this.options.errorCloseSelector).length == 0) {
+
+        if (closedRowsCount == 0) {
             allExpanded = true;
         }
+
+        if (closedRowsCount < this.refreshModel.pageSize) {
+            this._showResetGridButton();
+        } else {
+            this._hideResetGridButton();
+        }
+
 
         if (allExpanded) {
             this.$expandToggle.addClass('open');
