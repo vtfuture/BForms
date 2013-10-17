@@ -122,11 +122,6 @@ a.btn {
 	ul {
 		padding: 0;
 	}
-	.btn-default {
-		color: #333333;
-		background-color: #ffffff;
-		border: 1px solid #cccccc;
-	}
 	.dropdown-menu {
 		a:hover, a:focus {
 			background: none !important;
@@ -265,6 +260,9 @@ a.btn {
 				text-decoration: none;
 				background-color: #E6E6E6;
 				vertical-align: text-bottom;
+				&.open {
+					background: url(../images/icn-right_arrow-small.png) center center no-repeat;
+				}
 				&:hover {
 					background-color: #e0e0e0;
 				}
@@ -629,7 +627,7 @@ a.btn {
 	.check_all {
 		position: relative;
 		.btn {
-			padding-left: 30px;			
+			padding-left: 30px !important;			
 			.caret {
 				margin: -2px 0 0 2px;
 			}
@@ -707,6 +705,7 @@ a.btn {
 		background: darken($Blue, 10%);
 		color: #fff !important;
 		border: none;
+		padding: 4px 12px;
 		&:hover, &:focus {
 			background: $Blue !important;
 			color: #fff !important;			
@@ -763,6 +762,7 @@ a.btn {
 		background: darken($Green, 10%);
 		color: #fff !important;
 		border: none;
+		padding: 4px 12px;
 		&:hover, &:focus {
 			background: $Green !important;
 			color: #fff !important;			
@@ -820,6 +820,7 @@ a.btn {
 		background: darken($Purple, 10%);
 		color: #fff !important;
 		border: none;
+		padding: 4px 12px;
 		&:hover, &:focus {
 			background: $Purple !important;
 			color: #fff !important;			
@@ -877,6 +878,7 @@ a.btn {
 		background: darken($Orange, 10%);
 		color: #fff !important;
 		border: none;
+		padding: 4px 12px;
 		&:hover, &:focus {
 			background: $Orange !important;
 			color: #fff !important;			
@@ -934,6 +936,7 @@ a.btn {
 		background: darken($Black, 10%);
 		color: #fff !important;
 		border: none;
+		padding: 4px 12px;
 		&:hover, &:focus {
 			background: $Black !important;
 			color: #fff !important;			
@@ -1005,13 +1008,6 @@ a.btn {
 
 @media (min-width: 960px) { /* Hover effects for desktop only*/
 	.grid_container {
-		.btn-default {
-			&:hover, &:focus {
-				background: #ebebeb !important;
-				color: #333333 !important;
-				text-decoration: none;
-			}
-		}
 		.grid_toolbar .grid_toolbar_header .grid_toolbar_controls {
 			a:hover {
 				background-color: darken($mainColor, 5%);

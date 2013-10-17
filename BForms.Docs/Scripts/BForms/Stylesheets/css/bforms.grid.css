@@ -94,10 +94,6 @@ a.btn {
     font-family: arial, verdana, sans-serif; }
   .grid_container ul {
     padding: 0; }
-  .grid_container .btn-default {
-    color: #333333;
-    background-color: #ffffff;
-    border: 1px solid #cccccc; }
   .grid_container .dropdown-menu a:hover, .grid_container .dropdown-menu a:focus {
     background: none !important;
     color: #45ada8 !important; }
@@ -202,6 +198,8 @@ a.btn {
       text-decoration: none;
       background-color: #E6E6E6;
       vertical-align: text-bottom; }
+      .grid_container .grid_view .grid_rows .expand.open {
+        background: url(../images/icn-right_arrow-small.png) center center no-repeat; }
       .grid_container .grid_view .grid_rows .expand:hover {
         background-color: #e0e0e0; }
       .grid_container .grid_view .grid_rows .expand + span {
@@ -460,7 +458,7 @@ a.btn {
 .grid_bulk_controls .check_all {
   position: relative; }
   .grid_bulk_controls .check_all .btn {
-    padding-left: 30px; }
+    padding-left: 30px !important; }
     .grid_bulk_controls .check_all .btn .caret {
       margin: -2px 0 0 2px; }
   .grid_bulk_controls .check_all input[type="checkbox"] {
@@ -509,7 +507,8 @@ a.btn {
 .grid_view.blue .btn-default {
   background: #3086c8;
   color: #fff !important;
-  border: none; }
+  border: none;
+  padding: 4px 12px; }
   .grid_view.blue .btn-default:hover, .grid_view.blue .btn-default:focus {
     background: #559ed6 !important;
     color: #fff !important; }
@@ -543,7 +542,8 @@ a.btn {
 .grid_view.green .btn-default {
   background: #449575;
   color: #fff !important;
-  border: none; }
+  border: none;
+  padding: 4px 12px; }
   .grid_view.green .btn-default:hover, .grid_view.green .btn-default:focus {
     background: #59b390 !important;
     color: #fff !important; }
@@ -577,7 +577,8 @@ a.btn {
 .grid_view.purple .btn-default {
   background: #4f2b4e;
   color: #fff !important;
-  border: none; }
+  border: none;
+  padding: 4px 12px; }
   .grid_view.purple .btn-default:hover, .grid_view.purple .btn-default:focus {
     background: #703d6f !important;
     color: #fff !important; }
@@ -611,7 +612,8 @@ a.btn {
 .grid_view.orange .btn-default {
   background: #e5560f;
   color: #fff !important;
-  border: none; }
+  border: none;
+  padding: 4px 12px; }
   .grid_view.orange .btn-default:hover, .grid_view.orange .btn-default:focus {
     background: #f27435 !important;
     color: #fff !important; }
@@ -645,7 +647,8 @@ a.btn {
 .grid_view.black .btn-default {
   background: #282828;
   color: #fff !important;
-  border: none; }
+  border: none;
+  padding: 4px 12px; }
   .grid_view.black .btn-default:hover, .grid_view.black .btn-default:focus {
     background: #424141 !important;
     color: #fff !important; }
@@ -690,10 +693,6 @@ a.btn {
     right: auto !important; } }
 @media (min-width: 960px) {
   /* Hover effects for desktop only*/
-  .grid_container .btn-default:hover, .grid_container .btn-default:focus {
-    background: #ebebeb !important;
-    color: #333333 !important;
-    text-decoration: none; }
   .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls a:hover {
     background-color: #3e9b96;
     text-decoration: none;

@@ -205,11 +205,14 @@ textarea {
     outline: none; }
 
 .btn-default {
-  background: #368985;
-  color: #fff; }
+  color: #333333;
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
+  padding: 3px 12px; }
   .btn-default:hover, .btn-default:focus {
-    background: #45ada8 !important;
-    color: #fff !important; }
+    background: #ebebeb !important;
+    color: #333333 !important;
+    text-decoration: none; }
 
 .upload-file {
   /* File upload button */
@@ -270,7 +273,8 @@ textarea {
 .form_container.blue .btn-default {
   background: #3086c8;
   color: #fff !important;
-  border: none; }
+  border: none;
+  padding: 4px 12px; }
   .form_container.blue .btn-default:hover, .form_container.blue .btn-default:focus {
     background: #559ed6 !important;
     color: #fff !important; }
@@ -288,7 +292,8 @@ textarea {
 .form_container.green .btn-default {
   background: #449575;
   color: #fff !important;
-  border: none; }
+  border: none;
+  padding: 4px 12px; }
   .form_container.green .btn-default:hover, .form_container.green .btn-default:focus {
     background: #59b390 !important;
     color: #fff !important; }
@@ -306,7 +311,8 @@ textarea {
 .form_container.purple .btn-default {
   background: #4f2b4e;
   color: #fff !important;
-  border: none; }
+  border: none;
+  padding: 4px 12px; }
   .form_container.purple .btn-default:hover, .form_container.purple .btn-default:focus {
     background: #703d6f !important;
     color: #fff !important; }
@@ -324,7 +330,8 @@ textarea {
 .form_container.orange .btn-default {
   background: #e5560f;
   color: #fff !important;
-  border: none; }
+  border: none;
+  padding: 4px 12px; }
   .form_container.orange .btn-default:hover, .form_container.orange .btn-default:focus {
     background: #f27435 !important;
     color: #fff !important; }
@@ -342,7 +349,8 @@ textarea {
 .form_container.black .btn-default {
   background: #282828;
   color: #fff !important;
-  border: none; }
+  border: none;
+  padding: 4px 12px; }
   .form_container.black .btn-default:hover, .form_container.black .btn-default:focus {
     background: #424141 !important;
     color: #fff !important; }

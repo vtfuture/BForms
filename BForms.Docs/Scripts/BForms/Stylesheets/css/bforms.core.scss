@@ -281,11 +281,14 @@ textarea {
 	}
 }
 .btn-default {
-	background: darken($mainColor, 10%);
-	color: #fff;
+	color: #333333;
+	background-color: #ffffff;
+	border: 1px solid #cccccc;
+	padding: 3px 12px;
 	&:hover, &:focus {
-		background: $mainColor !important;
-		color: #fff !important;
+		background: #ebebeb !important;
+		color: #333333 !important;
+		text-decoration: none;
 	}
 }
 
@@ -371,6 +374,7 @@ textarea {
 		background: darken($Blue, 10%);
 		color: #fff !important;
 		border: none;
+		padding: 4px 12px;
 		&:hover, &:focus {
 			background: $Blue !important;
 			color: #fff !important;			
@@ -402,6 +406,7 @@ textarea {
 		background: darken($Green, 10%);
 		color: #fff !important;
 		border: none;
+		padding: 4px 12px;
 		&:hover, &:focus {
 			background: $Green !important;
 			color: #fff !important;			
@@ -433,6 +438,7 @@ textarea {
 		background: darken($Purple, 10%);
 		color: #fff !important;
 		border: none;
+		padding: 4px 12px;
 		&:hover, &:focus {
 			background: $Purple !important;
 			color: #fff !important;			
@@ -464,6 +470,7 @@ textarea {
 		background: darken($Orange, 10%);
 		color: #fff !important;
 		border: none;
+		padding: 4px 12px;
 		&:hover, &:focus {
 			background: $Orange !important;
 			color: #fff !important;			
@@ -495,6 +502,7 @@ textarea {
 		background: darken($Black, 10%);
 		color: #fff !important;
 		border: none;
+		padding: 4px 12px;
 		&:hover, &:focus {
 			background: $Black !important;
 			color: #fff !important;			
