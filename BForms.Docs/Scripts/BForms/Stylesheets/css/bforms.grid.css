@@ -462,7 +462,8 @@ a.btn {
 
 /* Action buttons component */
 .grid_bulk_controls .btn {
-  text-transform: none; }
+  text-transform: none;
+  margin-right: 5px; }
 .grid_bulk_controls .check_all {
   position: relative; }
   .grid_bulk_controls .check_all .btn {
