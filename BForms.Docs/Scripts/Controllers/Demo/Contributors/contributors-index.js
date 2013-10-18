@@ -40,16 +40,6 @@
                 filter: function ($el) {
                     return $el.data('active') != 'True';
                 },
-            }, {
-                btnSelector: '.js-all',
-                filter: function ($el) {
-                    return true;
-                },
-            }, {
-                btnSelector: '.js-none',
-                filter: function ($el) {
-                    return false;
-                },
             }],
             //#endregion
             

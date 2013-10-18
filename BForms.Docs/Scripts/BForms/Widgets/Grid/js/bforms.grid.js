@@ -64,7 +64,19 @@
         validationSummaryContainer: '.bs-validation_summary',
         validationRowActionsContainer: '.bs-validation_row_action',
         errorRowContainer: '.bs-validation_row',
-        errorCloseSelector: '.bs-form-error .close'
+        errorCloseSelector: '.bs-form-error .close',
+
+        defaultFilterButtons: [{
+            btnSelector: '.js-all',
+            filter: function ($el) {
+                return true;
+            },
+        }, {
+            btnSelector: '.js-none',
+            filter: function ($el) {
+                return false;
+            },
+        }]
     };
 
     Grid.prototype._refreshModel = {
@@ -89,6 +101,8 @@
             throw 'grid needs a unique name or the element on which it is aplied has to have an id attr';
         }
 
+        this._initDefaultOptions();
+        
         this._initSelectors();
 
         this.options.hasRowCheck = this.$actionsContainer.length > 0;
@@ -112,6 +126,15 @@
         // when an action made on grid generates a refresh then this.needsRefresh is set to true
         this.needsRefresh = false;
 
+    };
+
+    Grid.prototype._initDefaultOptions = function () {
+
+        if (typeof this.options.filterButtons !== "undefined" && $.isArray(this.options.filterButtons)) {
+             this.options.filterButtons = this.options.filterButtons.concat(this.options.defaultFilterButtons);
+        } else {
+            this.options.filterButtons = this.options.defaultFilterButtons;
+        }
     };
 
     Grid.prototype._addDelegates = function () {
