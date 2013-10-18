@@ -170,7 +170,7 @@ a.btn {
 					float: left;
 					width: 165px;
 					color: #333;
-					padding: 8px 3px 7px 15px;
+					padding: 9px 3px 8px 15px;
 					border-left: 1px solid darken($mainColor, 5%);
 					input {
 						border: none;
@@ -181,7 +181,7 @@ a.btn {
 						border-radius: 20px;
 					}
 					+ .btn_advanced_search {
-						border: none;
+						border-left: none;
 					}					
 				}
 				

@@ -218,6 +218,12 @@ $Black: #424141;
 			background: url(../images/icn-arr-down.png) 50% 50% no-repeat;
 		}
 	}
+	&.bs-onlytime-picker {
+		height: 200px;
+		.bs-time-wrapper ul {
+			margin-top: 10px;
+		}
+	}
 }
 
 
