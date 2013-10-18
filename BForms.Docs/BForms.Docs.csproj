@@ -152,12 +152,16 @@
     </Content>
     <Content Include="Content\Images\Docs\autocomplete-select.jpg" />
     <Content Include="Content\Images\Docs\checkboxlist-select.jpg" />
+    <Content Include="Content\Images\Docs\css-styling-grid-row.png" />
+    <Content Include="Content\Images\Docs\css-styling-grid.png" />
     <Content Include="Content\Images\Docs\datepicker-input.jpg" />
     <Content Include="Content\Images\Docs\datepicker-range.jpg" />
     <Content Include="Content\Images\Docs\datepicker-year-month-input.jpg" />
     <Content Include="Content\Images\Docs\datetimepicker-input.jpg" />
     <Content Include="Content\Images\Docs\datetimepicker-range.jpg" />
     <Content Include="Content\Images\Docs\dropdown-search-select.jpg" />
+    <Content Include="Content\Images\Docs\html-grid-structure.png" />
+    <Content Include="Content\Images\Docs\html-row-structure.png" />
     <Content Include="Content\Images\Docs\listbox-search-select.jpg" />
     <Content Include="Content\Images\Docs\radiolist-select.jpg" />
     <Content Include="Content\Images\Docs\taglist-search-select.jpg" />
