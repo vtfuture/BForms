@@ -988,6 +988,14 @@
         var model = $.extend(true, {}, this.renderModel);
         model.Value = this.value.clone();
 
+        if (this._type == this.enums.Type.Timepicker) {
+            if (typeof this.options.wrapperClass !== "undefined") {
+                this.options.wrapperClass += " bs-onlytime-picker";
+            } else {
+                this.options.wrapperClass = 'bs-onlytime-picker ';
+            }
+        }
+
         $.extend(true, model, {
             Is12Hours: this.options.is12Hours,
             HeadText: this.getHeadText(model.Value),
