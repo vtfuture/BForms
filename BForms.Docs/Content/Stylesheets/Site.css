@@ -345,13 +345,13 @@ code {
   margin-top: 20px; }
   .footer ul {
     list-style-type: none;
-    margin: 0 0 10px 0;
+    margin: 0;
     padding: 0; }
     .footer ul li {
-      display: inline-block;
-      margin-right: 5px; }
-      .footer ul li .divider {
-        margin-left: 5px; }
+      margin-bottom: 5px;
+      font-size: 14px; }
+      .footer ul li:last-child {
+        margin: 0; }
 
 .affix {
   position: fixed; }
