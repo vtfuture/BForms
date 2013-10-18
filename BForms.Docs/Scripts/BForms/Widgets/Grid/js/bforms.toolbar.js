@@ -10,9 +10,7 @@
         this.options = opt;
         this._create();
     };
-
     
-
     Toolbar.prototype._create = function () {
         
         if(!this.options.uniqueName){
@@ -230,7 +228,7 @@
         
         this._tabs.push(tab);
 
-        if (amplify.store('slide|' + this.options.uniqueName + '|' + tab.opt.btnSelector)) {
+        if (this.options.saveState && amplify.store('slide|' + this.options.uniqueName + '|' + tab.opt.btnSelector)) {
             $btn.trigger('click');
         }
 
@@ -294,7 +292,9 @@
 
         tab.$container.stop(true, false).slideToggle();
   
-        amplify.store('slide|' + this.options.uniqueName + '|' + tab.opt.selector, tab.$button.hasClass('selected'));
+        if (this.options.saveState) {
+            amplify.store('slide|' + this.options.uniqueName + '|' + tab.opt.selector, tab.$button.hasClass('selected'));
+        }
     
     };
 
@@ -487,6 +487,7 @@
 
     Toolbar.prototype.defaultOptions = {
         uniqueName: null,
+        saveTabState: true,
         tabContainerSelector: '.grid_toolbar_form',
         reset: function ($grid) {
             var searchTab = this._getTab('advancedSearch');
