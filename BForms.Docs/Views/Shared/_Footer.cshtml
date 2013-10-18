@@ -1,11 +1,13 @@
-﻿@{var footer = ViewBag.Footer;}
+﻿@using BForms.Docs.Areas.Demo.Helpers
+@{var footer = ViewBag.Footer;}
 
     <footer>
           <div class="footer">
             <div class="row">
                 <div class="col-lg-6">
                     <ul>
-                        <li style="font-size: 14px;">Made by <a href="https://github.com/stefanprodan/BForms/contributors">BForms Team</a> &copy; @DateTime.Now.Year</li>
+                        <li class="copyright">Made by <a href="https://github.com/stefanprodan/BForms/contributors" target="_blank">BForms Team</a> &copy; @DateTime.Now.Year</li>
+                        <li class="version">Build @Utils.BFromsVersion()</li>
                     </ul>
                 </div>
                  <div class="hidden-sm col-lg-6">
