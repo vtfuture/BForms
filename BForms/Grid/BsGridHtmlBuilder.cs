@@ -48,6 +48,7 @@ namespace BForms.Grid
         private List<BsGridColumn<TRow>> columns;
         private List<BsBulkAction> bulkActions;
         private List<BsBulkSelector> bulkSelectors; 
+        private bool hasPager = true;
         private BsPagerSettings pagerSettings = new BsPagerSettings();
         private BsTheme theme = BsTheme.Default;
         //private BsBulkActionsFactory BulkActionsFactory { get; set; }
@@ -149,6 +150,13 @@ namespace BForms.Grid
         public BsGridHtmlBuilder<TModel, TRow> RowData(Func<TRow, Dictionary<string, object>> rowData)
         {
             this.rowData = rowData;
+
+            return this;
+        }
+
+        public BsGridHtmlBuilder<TModel, TRow> NoPager()
+        {
+            this.hasPager = false;
 
             return this;
         }
@@ -291,7 +299,7 @@ namespace BForms.Grid
             gridBuilder.InnerHtml += wrapper.ToString();
 
             #region pager builder
-            if (this.model.Pager != null && this.model.Pager.TotalRecords > 0)
+            if (this.hasPager && this.model.Pager != null && this.model.Pager.TotalRecords > 0)
             {
                 var pagerWrapper = new TagBuilder("div");
                 pagerWrapper.AddCssClass("row grid_pager");
