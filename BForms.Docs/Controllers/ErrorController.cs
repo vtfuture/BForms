@@ -17,7 +17,6 @@ namespace BForms.Docs.Controllers
 
         public ViewResult NotFound()
         {
-            Response.StatusCode = 404;
             return View("NotFound");
         }
 	}
