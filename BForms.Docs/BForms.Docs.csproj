@@ -285,7 +285,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Demo\Views\Shared\" />
     <Folder Include="Properties\PublishProfiles\" />
-    <Folder Include="Views\Error\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
