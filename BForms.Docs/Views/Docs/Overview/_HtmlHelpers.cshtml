@@ -1,9 +1,20 @@
 ﻿@using BForms.Docs.Helpers
 <h3 id="html-helpers">Razor HTML Helpers</h3>
 
-<h5>        
-    BForms Html extensions index for input, select and range elements
-</h5>
+<p>
+    BForms comes with HTML Extensions that cover all the HTML5 input types,
+    single and multi select lists, date and time pickers, file upload, autocomplete, range pickers.
+</p>
+<p>
+    By decorating your models with BForms attributes you can easily define the behavior and UI appearance of each form field.
+    Similar to DataAnnotations.DataType, BForms provides a <code>BsControl</code> attribute
+    and a <code>BsControlType</code> enum
+    that allows you to specify witch type of input should be rendered by the Razor engine.
+</p>
+
+<h4 class="sub_title">        
+    Form elements
+</h4>
 
 <table class="table table-striped">
     <thead>
@@ -165,41 +176,58 @@
             <td><a href="@Url.Action("RangeExtensions", "Components")#Range">BsRangeFor</a></td>
             <td>-</td>
         </tr>
+        <tr>
+            <td>26</td>
+            <td>Label</td>
+            <td>-</td>
+            <td><a href="#">BsLabelFor</a></td>
+        </tr>
+        <tr>
+            <td>27</td>
+            <td>Validation tooltip</td>
+            <td>-</td>
+            <td><a href="#">BsValidationFor</a></td>
+        </tr>
+        <tr>
+            <td>28</td>
+            <td>Description tooltip</td>
+            <td>-</td>
+            <td><a href="#">BsDescriptionFor</a></td>
+        </tr>
+        <tr>
+            <td>29</td>
+            <td>Glyphicon font</td>
+            <td>-</td>
+            <td><a href="#">BsGlyphicon</a> <small>and</small> <a href="#">BsGlyphiconAddon</a></td>
+        </tr>
+        <tr>
+            <td>30</td>
+            <td>HTML Form</td>
+            <td>-</td>
+            <td><a href="#">BsBeginForm</a></td>
+        </tr>
     </tbody>
 </table>
 
-<h5>
-    BForms Html extensions index for non-input elements
-</h5>
-
-<table class="table table-striped">
+<h4 class="sub_title">Controls</h4>
+<table class="table table-hover">
     <thead>
         <tr>
             <th>#</th>
-            <th>Element type</th>
-            <th>Specialized helper</th>
+            <th>Control</th>
+            <th>Helper</th>
         </tr>
     </thead>
     <tbody>
         <tr>
             <td>1</td>
-            <td>Label</td>
-            <td><a href="#">BsLabelFor</a></td>
+            <td><a href="@Url.Action("Grid", "Docs", new { area = "" })">Grid</a></td>
+            <td>BsGridFor</td>
         </tr>
         <tr>
             <td>2</td>
-            <td>Validation tooltip</td>
-            <td><a href="#">BsValidationFor</a></td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td>Description tooltip</td>
-            <td><a href="#">BsDescriptionFor</a></td>
-        </tr>
-        <tr>
-            <td>4</td>
-            <td>Glyphicon font</td>
-            <td><a href="#">BsGlyphicon</a> <small>and</small> <a href="#">BsGlyphiconAddon</a></td>
+            <td><a href="@Url.Action("Grid", "Docs", new { area = "" })">Toolbar</a></td>
+            <td>BsToolbarFor</td>
         </tr>
     </tbody>
 </table>

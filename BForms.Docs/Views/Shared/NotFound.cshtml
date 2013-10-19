@@ -1,0 +1,14 @@
+﻿@model System.Web.Mvc.HandleErrorInfo
+@{
+    Layout = "_Layout.cshtml";
+    ViewBag.Title = "404 Page not found";
+}
+<div>
+    <div class="alert alert-block alert-warning fade in">
+        <h4>Page not found!</h4>
+        <p>The requested URL was not found on this server.</p>
+        <p>
+            <a class="btn btn-warning" href="@Url.Action("Index", "Home", new { area = "" })">Go to home page</a>
+        </p>
+    </div>
+</div>

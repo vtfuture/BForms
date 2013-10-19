@@ -130,6 +130,7 @@
     <Compile Include="Areas\Demo\Models\LoginModels.cs" />
     <Compile Include="Areas\Demo\Repositories\ContributorsRepository.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\StartController.cs" />
     <Compile Include="Controllers\DocsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -206,6 +207,8 @@
     <Content Include="Scripts\Controllers\Demo\Contributors\contributors-index.js" />
     <Content Include="Scripts\Controllers\Root\Docs\docs-rangeextensions.js" />
     <Content Include="Scripts\Controllers\Root\Docs\docs-grid.js" />
+    <Content Include="Scripts\Controllers\Root\Error\error-notfound.js" />
+    <Content Include="Scripts\Controllers\Root\Error\error-index.js" />
     <Content Include="Scripts\Controllers\Root\Start\start-setup.js" />
     <Content Include="Views\Docs\InputExtensions\Source\InputPasswordSpecializedView.cshtml.embed" />
     <Content Include="Views\Docs\InputExtensions\Source\InputUrlSpecializedModel.cs.embed" />
@@ -282,6 +285,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Demo\Views\Shared\" />
     <Folder Include="Properties\PublishProfiles\" />
+    <Folder Include="Views\Error\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -720,6 +724,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Start\Setup\Source\_LayoutRequire.cshtml.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\NotFound.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

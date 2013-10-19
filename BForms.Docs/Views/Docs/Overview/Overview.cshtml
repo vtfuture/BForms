@@ -8,7 +8,7 @@
         <div class="bs-sidebar">
             <ul class="nav bs-sidenav">
                 <li>
-                    <a href="#controls-section">UI Controls</a>
+                    <a href="#controls-section">Overview</a>
                     <ul class="nav">
                         <li><a href="#html-helpers">HTML Helpers</a></li>
                         <li><a href="#javascript-components">JavaScript components</a></li>
@@ -23,28 +23,18 @@
 
         <div class="bs-docs-section">
             <div class="page-header">
-                <h1 id="controls-section">UI Controls</h1>
+                <h1 id="controls-section">Overview</h1>
             </div>
             <p>
-                With BForms you'll be able to build ASP.NET MVC web apps using Bootstrap's mobile-first approach and benefit 
+                With BForms you'll be able to build ASP.NET MVC web apps using Bootstrap's mobile-first approach and benefit
                 from out of the box HTML5 controls with both client and server-side validation.
             </p>
 
-            <p>
-                BForms comes with HTML Extensions that cover all the HTML5 input types, 
-                single and multi select lists, date and time pickers, file upload, autocomplete, range pickers.          
-            </p>
-            <p>
-                By decorating your models with BForms attributes you can easily define the behavior and UI appearance of each form field.
-                Similar to DataAnnotations.DataType, BForms provides a <code>BsControl</code> attribute
-                and a <code>BsControlType</code> enum
-                that allows you to specify witch type of input should be rendered by the Razor engine.
-            </p>
-        </div>
 
-        @Html.Partial("Overview/_HtmlHelpers")
-        @Html.Partial("Overview/_JSComponents")
-        @Html.Partial("Overview/_CssHelpers")
+            @Html.Partial("Overview/_HtmlHelpers")
+            @Html.Partial("Overview/_JSComponents")
+            @Html.Partial("Overview/_CssHelpers")
+        </div>
     </main>
 
 </div>

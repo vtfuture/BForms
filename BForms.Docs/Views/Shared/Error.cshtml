@@ -1,17 +1,29 @@
-﻿@{
-    Layout = null;
+﻿@model System.Web.Mvc.HandleErrorInfo
+@{
+    Layout = "_Layout.cshtml";
+    ViewBag.Title = "Error";
 }
-
-<!DOCTYPE html>
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Error</title>
-</head>
-<body>
-    <hgroup>
-        <h1>Error.</h1>
-        <h2>An error occurred while processing your request.</h2>
-    </hgroup>
-</body>
-</html>
+<div>
+    <div class="alert alert-block alert-warning fade in">
+        <h4>Something went rong!</h4>
+        <p>We are sorry but an unexpected error has occurred.</p>
+        <p>
+            <a class="btn btn-warning" href="@Url.Action("Index", "Home", new { area = "" })">Go to home page</a>
+        </p>
+    </div>
+    @if (Model != null && HttpContext.Current.IsDebuggingEnabled)
+    {
+        <div>
+            <p>
+                <b>Exception:</b> @Model.Exception.Message<br />
+                <b>Controller:</b> @Model.ControllerName<br />
+                <b>Action:</b> @Model.ActionName
+            </p>
+            <div>
+                <pre>
+                @Model.Exception.StackTrace
+                </pre>
+            </div>
+        </div>
+    }
+</div>
