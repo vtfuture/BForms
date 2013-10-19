@@ -1,8 +1,0 @@
-﻿public class RegisterModel
-{
-    [Display(Name = "Location", Prompt = "Choose your country")]
-    [BsControl(BsControlType.DropDownList)]
-    public BsSelectList<int?> CountryList { get; set; }
-    
-    ...
-}

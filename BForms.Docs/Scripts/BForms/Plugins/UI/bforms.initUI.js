@@ -1,6 +1,6 @@
 ﻿(function (factory) {
     if (typeof define === "function" && define.amd) {
-        define('bforms-initUI', ['jquery', 'jquery-migrate', 'bforms-datepicker-i18n'], factory);
+        define('bforms-initUI', ['jquery', 'jquery-migrate', 'bootstrap', 'jquery-ui-core', 'bforms-datepicker-i18n'], factory);
     } else {
         factory(window.jQuery);
     }

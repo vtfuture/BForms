@@ -1,0 +1,19 @@
+﻿@using BForms.Docs.Helpers
+<h3 id="Select">Select helper</h3>
+
+@*BsSelectFor vs regular *@
+@*BsSelectList - one field, generic type, SelectedValues*@
+@*from select list, from enum, to select list*@
+@*BSselectListItem - grouping, additional data*@
+@*list of enum values usable with BsSelectFor*@
+
+<p>        
+    In order to render a single-select input of type dropdown list you will need to use the 
+    <code>@@Html.BsSelectFor</code> helper extension and 
+    decorate your model property with <code>[BsControl(BsControlType.DropDownList)]</code>.
+</p>
+
+<h4 class="sub_title">Select Extensions</h4>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/SelectExtensions/Source/AllSelectExtensions.cs.embed")
+</pre>

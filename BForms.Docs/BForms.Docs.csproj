@@ -130,7 +130,8 @@
     <Compile Include="Areas\Demo\Models\LoginModels.cs" />
     <Compile Include="Areas\Demo\Repositories\ContributorsRepository.cs" />
     <Compile Include="Controllers\BaseController.cs" />
-    <Compile Include="Controllers\ComponentsController.cs" />
+    <Compile Include="Controllers\StartController.cs" />
+    <Compile Include="Controllers\DocsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -168,6 +169,10 @@
     <Content Include="Content\Images\Docs\timepicker-input.jpg" />
     <Content Include="Content\Images\Docs\timepicker-range.jpg" />
     <Content Include="Scripts\BForms\Components\Amplify\amplify.js" />
+    <Content Include="Scripts\BForms\Components\RequireJS\depend.js" />
+    <Content Include="Scripts\BForms\Components\RequireJS\i18n.js" />
+    <Content Include="Scripts\BForms\Components\RequireJS\require.js" />
+    <Content Include="Scripts\BForms\Components\RequireJS\text.js" />
     <Content Include="Scripts\BForms\Plugins\Datepicker\js\bforms.datepicker.js" />
     <Content Include="Scripts\BForms\Plugins\Datepicker\js\bforms.datepicker.tmpl.js" />
     <Content Include="Scripts\BForms\Plugins\Datepicker\js\bforms.datepicker.range.js" />
@@ -199,11 +204,12 @@
     <Content Include="Scripts\BForms\Stylesheets\Images\preloader-small.gif" />
     <Content Include="Scripts\Controllers\Common\main-script.js" />
     <Content Include="Scripts\Controllers\Demo\Contributors\contributors-index.js" />
-    <Content Include="Scripts\Controllers\Root\Components\components-rangeextensions.js" />
-    <Content Include="Scripts\Controllers\Root\Components\components-grid.js" />
-    <Content Include="Views\Components\InputExtensions\Source\InputPasswordSpecializedView.cshtml.embed" />
-    <Content Include="Views\Components\InputExtensions\Source\InputUrlSpecializedModel.cs.embed" />
-    <Content Include="Views\Components\InputExtensions\Source\InputUrlSpecializedView.cshtml.embed" />
+    <Content Include="Scripts\Controllers\Root\Docs\docs-rangeextensions.js" />
+    <Content Include="Scripts\Controllers\Root\Docs\docs-grid.js" />
+    <Content Include="Scripts\Controllers\Root\Start\start-setup.js" />
+    <Content Include="Views\Docs\InputExtensions\Source\InputPasswordSpecializedView.cshtml.embed" />
+    <Content Include="Views\Docs\InputExtensions\Source\InputUrlSpecializedModel.cs.embed" />
+    <Content Include="Views\Docs\InputExtensions\Source\InputUrlSpecializedView.cshtml.embed" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Images\Docs\checkbox-input.jpg" />
@@ -253,24 +259,11 @@
     <Content Include="Scripts\BForms\Stylesheets\css\bforms.core.css" />
     <Content Include="Scripts\BForms\Stylesheets\Images\preloader.gif" />
     <Content Include="Scripts\Controllers\Demo\Login\login-index.js" />
-    <Content Include="Scripts\Controllers\Root\Components\components-overview.js" />
-    <Content Include="Scripts\Controllers\Root\Components\components-inputextensions.js" />
-    <Content Include="Scripts\Controllers\Root\Components\components-selectextensions.js" />
+    <Content Include="Scripts\Controllers\Root\Docs\docs-overview.js" />
+    <Content Include="Scripts\Controllers\Root\Docs\docs-inputextensions.js" />
+    <Content Include="Scripts\Controllers\Root\Docs\docs-selectextensions.js" />
     <Content Include="Scripts\Controllers\Root\Home\home-contact.js" />
     <Content Include="Scripts\Controllers\Root\Home\home-index.js" />
-    <Content Include="Scripts\Requirejs\async.js" />
-    <Content Include="Scripts\Requirejs\depend.js" />
-    <Content Include="Scripts\Requirejs\font.js" />
-    <Content Include="Scripts\Requirejs\goog.js" />
-    <Content Include="Scripts\Requirejs\i18n.js" />
-    <Content Include="Scripts\Requirejs\image.js" />
-    <Content Include="Scripts\Requirejs\json.js" />
-    <Content Include="Scripts\Requirejs\noext.js" />
-    <Content Include="Scripts\Requirejs\order.js" />
-    <Content Include="Scripts\Requirejs\propertyParser.js" />
-    <Content Include="Scripts\Requirejs\r.js" />
-    <Content Include="Scripts\Requirejs\require.js" />
-    <Content Include="Scripts\Requirejs\text.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -330,10 +323,10 @@
     <Content Include="Areas\Demo\Views\Login\_Register.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\Overview\Overview.cshtml" />
+    <Content Include="Views\Docs\Overview\Overview.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\InputExtensions\_InputHelper.cshtml" />
+    <Content Include="Views\Docs\InputExtensions\_InputHelper.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\BForms\Components\Bootstrap\fonts\glyphicons-halflings-regular.eot" />
@@ -341,34 +334,34 @@
     <Content Include="Scripts\BForms\Components\Bootstrap\fonts\glyphicons-halflings-regular.woff" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\InputExtensions\_InputEmail.cshtml" />
+    <Content Include="Views\Docs\InputExtensions\_InputEmail.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\SelectExtensions\_SelectHelper.cshtml" />
+    <Content Include="Views\Docs\SelectExtensions\_SelectHelper.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\InputExtensions\InputExtensions.cshtml" />
+    <Content Include="Views\Docs\InputExtensions\InputExtensions.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\SelectExtensions\SelectExtensions.cshtml" />
+    <Content Include="Views\Docs\SelectExtensions\SelectExtensions.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\InputExtensions\_InputTextbox.cshtml" />
+    <Content Include="Views\Docs\InputExtensions\_InputTextbox.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\InputExtensions\_InputPassword.cshtml" />
+    <Content Include="Views\Docs\InputExtensions\_InputPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\InputExtensions\_InputUrl.cshtml" />
+    <Content Include="Views\Docs\InputExtensions\_InputUrl.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\InputExtensions\_InputNumber.cshtml" />
+    <Content Include="Views\Docs\InputExtensions\_InputNumber.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\InputExtensions\_InputCheckbox.cshtml" />
+    <Content Include="Views\Docs\InputExtensions\_InputCheckbox.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\InputExtensions\_InputRadio.cshtml" />
+    <Content Include="Views\Docs\InputExtensions\_InputRadio.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\_Social.cshtml" />
@@ -377,197 +370,197 @@
     <Content Include="Views\Shared\_Tracking.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\InputExtensions\Source\InputCheckboxSpecializedModel.cs.embed" />
-    <Content Include="Views\Components\InputExtensions\Source\InputCheckboxSpecializedView.cshtml.embed" />
-    <Content Include="Views\Components\InputExtensions\Source\InputEmailSpecializedModel.cs.embed" />
-    <Content Include="Views\Components\InputExtensions\Source\InputEmailSpecializedView.cshtml.embed" />
-    <Content Include="Views\Components\InputExtensions\Source\InputNumberSpecializedModel.cs.embed" />
-    <Content Include="Views\Components\InputExtensions\Source\InputNumberSpecializedView.cshtml.embed" />
-    <Content Include="Views\Components\InputExtensions\Source\InputPasswordSpecializedModel.cs.embed" />
-    <Content Include="Views\Components\SelectExtensions\Source\SelectHelperModel.cs.embed" />
+    <Content Include="Views\Docs\InputExtensions\Source\InputCheckboxSpecializedModel.cs.embed" />
+    <Content Include="Views\Docs\InputExtensions\Source\InputCheckboxSpecializedView.cshtml.embed" />
+    <Content Include="Views\Docs\InputExtensions\Source\InputEmailSpecializedModel.cs.embed" />
+    <Content Include="Views\Docs\InputExtensions\Source\InputEmailSpecializedView.cshtml.embed" />
+    <Content Include="Views\Docs\InputExtensions\Source\InputNumberSpecializedModel.cs.embed" />
+    <Content Include="Views\Docs\InputExtensions\Source\InputNumberSpecializedView.cshtml.embed" />
+    <Content Include="Views\Docs\InputExtensions\Source\InputPasswordSpecializedModel.cs.embed" />
+    <Content Include="Views\Docs\SelectExtensions\Source\SelectHelperModel.cs.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\SelectExtensions\Source\SelectHelperView.cshtml.embed" />
+    <Content Include="Views\Docs\SelectExtensions\Source\SelectHelperView.cshtml.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\InputExtensions\Source\AllInputExtensions.cs.embed" />
+    <Content Include="Views\Docs\InputExtensions\Source\AllInputExtensions.cs.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\InputExtensions\Source\InputHelperModel.cs.embed" />
+    <Content Include="Views\Docs\InputExtensions\Source\InputHelperModel.cs.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\InputExtensions\Source\InputHelperView.cshtml.embed" />
+    <Content Include="Views\Docs\InputExtensions\Source\InputHelperView.cshtml.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\InputExtensions\Source\InputCheckboxModel.cs.embed" />
+    <Content Include="Views\Docs\InputExtensions\Source\InputCheckboxModel.cs.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\InputExtensions\Source\InputCheckboxView.cshtml.embed" />
+    <Content Include="Views\Docs\InputExtensions\Source\InputCheckboxView.cshtml.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\InputExtensions\Source\InputEmailModel.cs.embed" />
+    <Content Include="Views\Docs\InputExtensions\Source\InputEmailModel.cs.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\InputExtensions\Source\InputEmailView.cshtml.embed" />
+    <Content Include="Views\Docs\InputExtensions\Source\InputEmailView.cshtml.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\InputExtensions\Source\InputNumberModel.cs.embed" />
+    <Content Include="Views\Docs\InputExtensions\Source\InputNumberModel.cs.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\InputExtensions\Source\InputNumberView.cshtml.embed" />
+    <Content Include="Views\Docs\InputExtensions\Source\InputNumberView.cshtml.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\InputExtensions\Source\InputPasswordModel.cs.embed" />
+    <Content Include="Views\Docs\InputExtensions\Source\InputPasswordModel.cs.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\InputExtensions\Source\InputPasswordView.cshtml.embed" />
+    <Content Include="Views\Docs\InputExtensions\Source\InputPasswordView.cshtml.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\InputExtensions\Source\InputRadioModel.cs.embed" />
+    <Content Include="Views\Docs\InputExtensions\Source\InputRadioModel.cs.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\InputExtensions\Source\InputRadioView.cshtml.embed" />
+    <Content Include="Views\Docs\InputExtensions\Source\InputRadioView.cshtml.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\InputExtensions\Source\InputUrlModel.cs.embed" />
+    <Content Include="Views\Docs\InputExtensions\Source\InputUrlModel.cs.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\InputExtensions\Source\InputUrlView.cshtml.embed" />
+    <Content Include="Views\Docs\InputExtensions\Source\InputUrlView.cshtml.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\InputExtensions\Source\InputTextboxModel.cs.embed" />
+    <Content Include="Views\Docs\InputExtensions\Source\InputTextboxModel.cs.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\InputExtensions\Source\InputTextboxView.cshtml.embed" />
+    <Content Include="Views\Docs\InputExtensions\Source\InputTextboxView.cshtml.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\InputExtensions\Source\InputTextboxSpecializedModel.cs.embed" />
+    <Content Include="Views\Docs\InputExtensions\Source\InputTextboxSpecializedModel.cs.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\InputExtensions\Source\InputTextboxSpecializedView.cshtml.embed" />
+    <Content Include="Views\Docs\InputExtensions\Source\InputTextboxSpecializedView.cshtml.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\SelectExtensions\Source\DropdownListModel.cs.embed" />
+    <Content Include="Views\Docs\SelectExtensions\Source\DropdownListModel.cs.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\SelectExtensions\Source\DropdownListView.cshtml.embed" />
+    <Content Include="Views\Docs\SelectExtensions\Source\DropdownListView.cshtml.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\SelectExtensions\Source\ListboxView.cshtml.embed" />
+    <Content Include="Views\Docs\SelectExtensions\Source\ListboxView.cshtml.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\SelectExtensions\Source\ListboxModel.cs.embed" />
+    <Content Include="Views\Docs\SelectExtensions\Source\ListboxModel.cs.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\SelectExtensions\Source\TagListView.cshtml.embed" />
+    <Content Include="Views\Docs\SelectExtensions\Source\TagListView.cshtml.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\SelectExtensions\Source\TagListModel.cs.embed" />
+    <Content Include="Views\Docs\SelectExtensions\Source\TagListModel.cs.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\SelectExtensions\_DropdownList.cshtml" />
+    <Content Include="Views\Docs\SelectExtensions\_DropdownList.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\SelectExtensions\_Listbox.cshtml" />
+    <Content Include="Views\Docs\SelectExtensions\_Listbox.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\SelectExtensions\_TagList.cshtml" />
+    <Content Include="Views\Docs\SelectExtensions\_TagList.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\Overview\_HtmlHelpers.cshtml" />
+    <Content Include="Views\Docs\Overview\_HtmlHelpers.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\Overview\_JSComponents.cshtml" />
+    <Content Include="Views\Docs\Overview\_JSComponents.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\SelectExtensions\_CheckboxList.cshtml" />
+    <Content Include="Views\Docs\SelectExtensions\_CheckboxList.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\SelectExtensions\Source\CheckboxListView.cshtml.embed" />
+    <Content Include="Views\Docs\SelectExtensions\Source\CheckboxListView.cshtml.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\SelectExtensions\_RadioButtonList.cshtml" />
+    <Content Include="Views\Docs\SelectExtensions\_RadioButtonList.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\SelectExtensions\Source\RadioButtonListModel.cs.embed" />
+    <Content Include="Views\Docs\SelectExtensions\Source\RadioButtonListModel.cs.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\SelectExtensions\Source\RadioButtonListView.cshtml.embed" />
+    <Content Include="Views\Docs\SelectExtensions\Source\RadioButtonListView.cshtml.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\SelectExtensions\_Autocomplete.cshtml" />
+    <Content Include="Views\Docs\SelectExtensions\_Autocomplete.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\SelectExtensions\Source\AutocompleteModel.cs.embed" />
+    <Content Include="Views\Docs\SelectExtensions\Source\AutocompleteModel.cs.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\SelectExtensions\Source\AutocompleteView.cshtml.embed" />
+    <Content Include="Views\Docs\SelectExtensions\Source\AutocompleteView.cshtml.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\SelectExtensions\Source\RadioButtonListData.cs.embed" />
+    <Content Include="Views\Docs\SelectExtensions\Source\RadioButtonListData.cs.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\SelectExtensions\Source\CheckboxListModel.cs.embed" />
+    <Content Include="Views\Docs\SelectExtensions\Source\CheckboxListModel.cs.embed" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\BForms\Plugins\Datepicker\css\bforms.datepicker.scss" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\InputExtensions\_InputDatePicker.cshtml" />
+    <Content Include="Views\Docs\InputExtensions\_InputDatePicker.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\InputExtensions\Source\InputDatePickerModel.cs.embed" />
+    <Content Include="Views\Docs\InputExtensions\Source\InputDatePickerModel.cs.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\InputExtensions\Source\InputDatePickerView.cshtml.embed" />
+    <Content Include="Views\Docs\InputExtensions\Source\InputDatePickerView.cshtml.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\InputExtensions\Source\InputDateTimePickerModel.cs.embed" />
+    <Content Include="Views\Docs\InputExtensions\Source\InputDateTimePickerModel.cs.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\InputExtensions\_InputTimePicker.cshtml" />
+    <Content Include="Views\Docs\InputExtensions\_InputTimePicker.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\InputExtensions\Source\InputTimePickerView.cshtml.embed" />
+    <Content Include="Views\Docs\InputExtensions\Source\InputTimePickerView.cshtml.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\InputExtensions\Source\InputTimePickerModel.cs.embed" />
+    <Content Include="Views\Docs\InputExtensions\Source\InputTimePickerModel.cs.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\RangeExtensions\RangeExtensions.cshtml" />
+    <Content Include="Views\Docs\RangeExtensions\RangeExtensions.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\RangeExtensions\_DateRange.cshtml" />
+    <Content Include="Views\Docs\RangeExtensions\_DateRange.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\RangeExtensions\Source\DatePickerRangeModel.cs.embed" />
+    <Content Include="Views\Docs\RangeExtensions\Source\DatePickerRangeModel.cs.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\RangeExtensions\Source\DatePickerRangeView.cshtml.embed" />
+    <Content Include="Views\Docs\RangeExtensions\Source\DatePickerRangeView.cshtml.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\RangeExtensions\Source\DateTimePickerRangeModel.cs.embed" />
+    <Content Include="Views\Docs\RangeExtensions\Source\DateTimePickerRangeModel.cs.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\RangeExtensions\_RangeHelper.cshtml" />
+    <Content Include="Views\Docs\RangeExtensions\_RangeHelper.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\RangeExtensions\Source\AllRangeExtensions.cs.embed" />
+    <Content Include="Views\Docs\RangeExtensions\Source\AllRangeExtensions.cs.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\RangeExtensions\Source\TimePickerRangeModel.cs.embed" />
+    <Content Include="Views\Docs\RangeExtensions\Source\TimePickerRangeModel.cs.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\RangeExtensions\_TimeRange.cshtml" />
+    <Content Include="Views\Docs\RangeExtensions\_TimeRange.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\SelectExtensions\Source\AllSelectExtensions.cs.embed" />
+    <Content Include="Views\Docs\SelectExtensions\Source\AllSelectExtensions.cs.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\SelectExtensions\_BsSelectList.cshtml" />
+    <Content Include="Views\Docs\SelectExtensions\_BsSelectList.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\SelectExtensions\Source\ListItem-data.cshtml.embed" />
+    <Content Include="Views\Docs\SelectExtensions\Source\ListItem-data.cshtml.embed" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\BForms\Widgets\Utils\bforms.ajax.js" />
@@ -593,88 +586,88 @@
     <Content Include="Areas\Demo\Views\Contributors\Grid\_Actions.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\Grid\Index.cshtml" />
+    <Content Include="Views\Docs\Grid\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\Grid\_Models.cshtml" />
+    <Content Include="Views\Docs\Grid\_Models.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\Grid\_GridHelper.cshtml" />
+    <Content Include="Views\Docs\Grid\_GridHelper.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\Grid\Source\_ViewModel.cs.embed" />
+    <Content Include="Views\Docs\Grid\Source\_ViewModel.cs.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\Grid\Source\_Attributes.cs.embed" />
+    <Content Include="Views\Docs\Grid\Source\_Attributes.cs.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\Grid\Source\_GridHelper.cs.embed" />
+    <Content Include="Views\Docs\Grid\Source\_GridHelper.cs.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\Grid\Source\_ToolbarHelper.cs.embed" />
+    <Content Include="Views\Docs\Grid\Source\_ToolbarHelper.cs.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\Grid\Source\_HtmlAttributes.cs.embed" />
+    <Content Include="Views\Docs\Grid\Source\_HtmlAttributes.cs.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\Grid\Source\_RowHighlighter.cs.embed" />
+    <Content Include="Views\Docs\Grid\Source\_RowHighlighter.cs.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\Grid\Source\_RowData.cs.embed" />
+    <Content Include="Views\Docs\Grid\Source\_RowData.cs.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\Grid\Source\_ConfigureColumns.cs.embed" />
+    <Content Include="Views\Docs\Grid\Source\_ConfigureColumns.cs.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\Grid\Source\_ConfigureColumnsExample.cs.embed" />
+    <Content Include="Views\Docs\Grid\Source\_ConfigureColumnsExample.cs.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\Grid\Source\_Actions.cs.embed" />
+    <Content Include="Views\Docs\Grid\Source\_Actions.cs.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\Grid\_ToolbarHelper.cshtml" />
+    <Content Include="Views\Docs\Grid\_ToolbarHelper.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\Grid\Source\_HtmlAttributesToolbar.cs.embed" />
+    <Content Include="Views\Docs\Grid\Source\_HtmlAttributesToolbar.cs.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\Grid\Source\_ConfigureActions.cs.embed" />
+    <Content Include="Views\Docs\Grid\Source\_ConfigureActions.cs.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\Grid\Source\_ConfigureActionsExample.cs.embed" />
+    <Content Include="Views\Docs\Grid\Source\_ConfigureActionsExample.cs.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\Grid\Source\_ActionTypes.cs.embed" />
+    <Content Include="Views\Docs\Grid\Source\_ActionTypes.cs.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\Grid\_Repository.cshtml" />
+    <Content Include="Views\Docs\Grid\_Repository.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\Grid\Source\_Query.cs.embed" />
+    <Content Include="Views\Docs\Grid\Source\_Query.cs.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\Grid\Source\_OrderQuery.cs.embed" />
+    <Content Include="Views\Docs\Grid\Source\_OrderQuery.cs.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\Grid\Source\_MapQuery.cs.embed" />
+    <Content Include="Views\Docs\Grid\Source\_MapQuery.cs.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\Grid\Source\_RepositoryExample.cs.embed" />
+    <Content Include="Views\Docs\Grid\Source\_RepositoryExample.cs.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\Grid\Source\_ToViewModel.cs.embed" />
+    <Content Include="Views\Docs\Grid\Source\_ToViewModel.cs.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\Grid\Source\_ToViewModelExtensions.cs.embed" />
+    <Content Include="Views\Docs\Grid\Source\_ToViewModelExtensions.cs.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\Grid\Source\_ControllerExample.cs.embed" />
+    <Content Include="Views\Docs\Grid\Source\_ControllerExample.cs.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\Grid\_Javascript.cshtml" />
+    <Content Include="Views\Docs\Grid\_Javascript.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\Grid\Source\_JavascriptToolbar.cs.embed" />
+    <Content Include="Views\Docs\Grid\Source\_JavascriptToolbar.cs.embed" />
     <Content Include="Areas\Demo\Views\Contributors\Grid\Details\_ProjectRelatedEditable.cshtml" />
     <Content Include="Areas\Demo\Views\Contributors\Grid\Details\_ProjectRelatedReadonly.cshtml" />
     <Content Include="Areas\Demo\Views\Contributors\Grid\Details\_Identity.cshtml" />
@@ -687,7 +680,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\Grid\Source\_JavascriptGrid.cs.embed" />
+    <Content Include="Views\Docs\Grid\Source\_JavascriptGrid.cs.embed" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="RequireJS.Release.config" />
@@ -705,10 +698,28 @@
     <Content Include="Scripts\BForms\RequireJS.Release.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\Overview\_CssHelpers.cshtml" />
+    <Content Include="Views\Docs\Overview\_CssHelpers.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Components\Grid\_CSS.cshtml" />
+    <Content Include="Views\Docs\Grid\_CSS.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Setup\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Setup\Source\_Global.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Setup\Source\_BundleConfig.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Setup\Source\_LayoutCss.cshtml.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Setup\Source\_BaseController.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Setup\Source\_LayoutRequire.cshtml.embed" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

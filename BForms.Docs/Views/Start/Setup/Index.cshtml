@@ -1,0 +1,59 @@
+﻿@using BForms.Docs.Helpers
+@{
+    ViewBag.Title = "Setup";
+}
+
+<div class="row">
+    <div class="hidden-xs hidden-sm col-md-3 col-lg-3">
+        <div class="bs-sidebar">
+            <ul class="nav bs-sidenav">
+                <li>
+                    <a href="#setup">Setup</a>
+                    <ul class="nav">
+                        <li><a href="#Models">NuGet</a></li>
+                        <li><a href="#server">Server side</a></li>
+                        <li><a href="#client">Client side</a></li>
+                        <li><a href="#deploy">Deploy</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <main class="col-md-9 col-lg-9" role="main">
+        <div class="bs-docs-section">
+            <div class="page-header">
+                <h1 id="setup">Setup</h1>
+            </div>
+            <p>
+                Setup BForms for ASP.NET MVC step by step guide
+            </p>
+
+            <h4 class="sub_title">RequireJS Base Controller</h4>
+            <pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Setup/Source/_BaseController.cs.embed")
+            </pre>
+
+            <h4 class="sub_title">Register BForms validation provider</h4>
+            <pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Setup/Source/_Global.cs.embed")
+            </pre>
+
+            <h4 class="sub_title">Register CSS bundles</h4>
+            <pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Setup/Source/_BundleConfig.cs.embed")
+            </pre>
+
+            <h4 class="sub_title">Include CSS bundles in layout</h4>
+            <pre class="prettyprint lang-html bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Setup/Source/_LayoutCss.cshtml.embed")
+            </pre>
+
+            <h4 class="sub_title">Include JS bundles in layout</h4>
+            <pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Setup/Source/_LayoutRequire.cshtml.embed")
+            </pre>
+        </div>
+
+    </main>
+</div>

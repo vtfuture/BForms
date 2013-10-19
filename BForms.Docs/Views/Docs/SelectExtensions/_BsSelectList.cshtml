@@ -1,0 +1,44 @@
+﻿@using BForms.Docs.Helpers
+<h3 id="BsSelectList">The BsSelectList&lt;T&gt; class</h3>
+
+<p>        
+    The BsSelectList&lt;T&gt; class was created in order to extend <code>SelectList</code>'s functionalities. 
+    The generic parameter <code>T</code> represents the type of the value selected by the user. 
+    Unlike its framework-provided counterpart, you now have a type-safe way of working with list-like inputs.
+</p>
+<h4 class="sub_title">
+    Extension methods
+</h4>
+
+<p>
+    <ul>
+        <li>
+            <code>FromSelectList</code> - creates a new <code>BsSelectList&lt;T&gt;</code> from an existing <code>IEnumerable&lt;SelectListItem&gt;</code>
+        </li>
+        <li>
+            <code>FromEnum</code> - creates a new <code>BsSelectList&lt;T&gt;</code> from an enum. 
+                                    The <code>text</code> property of the newly created list items will be filled with the data contained in the <code>Display</code> attribute of each enum value. 
+                                    If there is no such attribute, the enum value's name will be used.
+        </li>
+    </ul>
+</p>
+
+<h4 class="sub_title">
+    BsSelectListItem
+</h4>
+<p>
+    <code>BsSelectListItem</code> is derived from <code>SelectListItem</code>. It implements the following additional properties:
+    <ul>
+        <li>
+            <code>Dictionary&lt;string, string&gt; Data</code> - Using the <code>Data</code> property you can provide the option with additional data.
+            The data found in this dictionary will be rendered as following in the resulted html:
+            <pre>@Html.InsertFileContentCached("~/Views/Docs/SelectExtensions/Source/ListItem-data.cshtml.embed")</pre>
+        </li>
+        <li>
+            <code>string GroupName</code> - This, along with the <code>GroupKey</code> property, removes the need of defining a separate type for grouped lists.
+        </li>
+        <li>
+            <code>string GroupKey</code> - - This, along with the <code>GroupName</code> property, removes the need of defining a separate type for grouped lists.
+        </li>
+    </ul>
+</p>

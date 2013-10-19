@@ -1,0 +1,56 @@
+﻿@using BForms.Docs.Helpers
+<h3 id="Repository">Repository</h3>
+
+<p>
+    <code>BsBaseGridRepository&#60;TEntity, TRow, TSearch&#62;</code>
+</p>
+
+<p>
+    Basic query builder. Recommended to be used for grid count
+</p>
+
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/Grid/Source/_Query.cs.embed")
+</pre>
+<br />
+
+<p>
+    Query ordering. To be used before grid paging
+</p>
+
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/Grid/Source/_OrderQuery.cs.embed")
+</pre>
+<br />
+
+<p>
+    Query mapping. Recommended to be used after grid paging
+</p>
+
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/Grid/Source/_MapQuery.cs.embed")
+</pre>
+<br />
+
+<p>
+    Get the grid model. Method can be overriden       
+</p>
+
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/Grid/Source/_ToViewModel.cs.embed")
+</pre>
+<br />
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/Grid/Source/_ToViewModelExtensions.cs.embed")
+</pre>
+<br />
+
+<h4 class="sub_title">Example</h4>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/Grid/Source/_RepositoryExample.cs.embed")
+</pre>
+<br />
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/Grid/Source/_ControllerExample.cs.embed")
+</pre>
+

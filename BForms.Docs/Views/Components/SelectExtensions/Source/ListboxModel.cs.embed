@@ -1,8 +1,0 @@
-﻿public class RegisterModel
-{
-    [Display(Name = "Technologies", Prompt = "Choose your favorite technologies")]
-    [BsControl(BsControlType.ListBox)]
-    public BsSelectList<List<int>> TechnologiesList { get; set; }
-    
-    ...
-}

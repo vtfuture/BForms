@@ -10,8 +10,6 @@ using BForms.Mvc;
 
 namespace BForms.Docs
 {
-    // Note: For instructions on enabling IIS7 classic mode, 
-    // visit http://go.microsoft.com/fwlink/?LinkId=301868
     public class MvcApplication : System.Web.HttpApplication
     {
         protected void Application_Start()
@@ -21,6 +19,8 @@ namespace BForms.Docs
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            //register BForms validation provider
             ModelValidatorProviders.Providers.Add(new BsModelValidatorProvider());
         }
     }

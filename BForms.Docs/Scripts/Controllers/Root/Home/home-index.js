@@ -1,7 +1,5 @@
 ﻿require([
-         'jquery',
-         'jquery-ui-core',
-         'bootstrap',
+         'bforms-initUI',
          'main-script'
 ], function () {
     var HomeIndex = function (options) {

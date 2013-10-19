@@ -20,14 +20,22 @@
 
         <div class="collapse navbar-collapse navbar-responsive-collapse">
             <ul class="nav navbar-nav pull-right">
-                <li class="dropdown @(ctrl.Contains("Components") ? "active" : "")">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Components</a>
+                <li class="dropdown @(ctrl.Contains("Start") ? "active" : "")">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Get started</a>
                     <ul class="dropdown-menu">
-                        <li><a href="@Url.Action("Overview", "Components", new { area = "" })">Overview</a></li>
-                        <li><a href="@Url.Action("InputExtensions", "Components", new { area = "" })">Input controls</a></li>
-                        <li><a href="@Url.Action("SelectExtensions", "Components", new { area = "" })">Select controls</a></li>
-                        <li><a href="@Url.Action("RangeExtensions", "Components", new { area = "" })">Range controls</a></li>
-                        <li><a href="@Url.Action("Grid", "Components", new { area = "" })">Grid + Toolbar controls</a></li>
+                        <li><a href="@Url.Action("Setup", "Start", new { area = "" })">Project setup</a></li>
+                        <li><a href="@Url.Action("Form", "Start", new { area = "" })">Building forms</a></li>
+                        <li><a href="@Url.Action("Grid", "Start", new { area = "" })">Building grids and toolbars</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown @(ctrl.Contains("Docs") ? "active" : "")">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Docs</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="@Url.Action("Overview", "Docs", new { area = "" })">Overview</a></li>
+                        <li><a href="@Url.Action("InputExtensions", "Docs", new { area = "" })">Input controls</a></li>
+                        <li><a href="@Url.Action("SelectExtensions", "Docs", new { area = "" })">Select controls</a></li>
+                        <li><a href="@Url.Action("RangeExtensions", "Docs", new { area = "" })">Range controls</a></li>
+                        <li><a href="@Url.Action("Grid", "Docs", new { area = "" })">Grid + Toolbar controls</a></li>
                     </ul>
                 </li>
                 <li class="dropdown @((area != null && area.ToString().Contains("Demo")) ? "active" : "")">

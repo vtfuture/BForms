@@ -1,0 +1,16 @@
+﻿@using BForms.Html
+@using RequireJS
+
+<!DOCTYPE html>
+<html>
+  ...
+  <body>
+    ...
+
+    @Html.RenderRequireJsSetup(
+    Url.Content("~/Scripts"),
+    Url.Content("~/Scripts/bforms/components/requirejs/require.js"),
+    Server.MapPath("~/Scripts/BForms/RequireJS.Release.config"))
+
+  </body>
+</html>

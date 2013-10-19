@@ -7,7 +7,7 @@
     <head>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="initial-scale=1,width=device-width,maximum-scale=1,user-scalable=no">
+        <meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no">
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
         <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
@@ -17,7 +17,7 @@
         <title>@ViewBag.Title - BForms</title>
         @Styles.Render("~/css")
 
-         @*For IE6-8 support of HTML5 elements and responsive*@
+         @*For IE7-8 support of HTML5 elements and responsive*@
         <!--[if lt IE 9]>
         @if (HttpContext.Current.IsDebuggingEnabled)
         {
@@ -52,7 +52,7 @@
         @if (HttpContext.Current.IsDebuggingEnabled)
         {
             @Html.RenderRequireJsSetup(Url.Content("~/Scripts"),
-            Url.Content("~/Scripts/requirejs/require.js"),
+            Url.Content("~/Scripts/bforms/components/requirejs/require.js"),
             new []
             {
                 Server.MapPath("~/Scripts/BForms/RequireJS.config"),
@@ -62,7 +62,7 @@
         else
         {
             @Html.RenderRequireJsSetup(Url.Content("~/Scripts"),
-            Url.Content("~/Scripts/requirejs/require.js"),
+            Url.Content("~/Scripts/bforms/components/requirejs/require.js"),
             new []
             {
                 Server.MapPath("~/Scripts/BForms/RequireJS.Release.config"),

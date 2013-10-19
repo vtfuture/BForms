@@ -1,0 +1,10 @@
+﻿public static void RegisterBundles(BundleCollection bundles)
+{
+
+    bundles.Add(new StyleBundle("~/css")
+        //BForms CSS bundle
+        .Include("~/Scripts/BForms/Bundles/css/*.css", new CssRewriteUrlTransform())
+        //Your own stylesheets
+        .Include("~/Content/Stylesheets/*.css", new CssRewriteUrlTransform())
+        );
+}
