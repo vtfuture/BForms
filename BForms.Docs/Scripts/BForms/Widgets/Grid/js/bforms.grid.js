@@ -301,6 +301,7 @@
 
         this.refreshModel.page = 1;
         this.refreshModel.Search = data;
+        this.refreshModel.quickSearch = null;
         this._hideFilterIcon();
 
         if (preventPagination !== true) {

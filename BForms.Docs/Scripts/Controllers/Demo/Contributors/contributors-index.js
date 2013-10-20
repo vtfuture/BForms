@@ -1,11 +1,15 @@
 ﻿require([
+        'bforms-toolbar-advancedSearch',
+        'bforms-toolbar-add',
+        'bforms-toolbar-quickSearch',
         'jquery',
         'bforms-grid',
         'bforms-toolbar',
         'bootstrap',
         'bforms-ajax',
         'main-script'
-], function () {
+        
+], function (AdvancedSearch, Add) {
 
     //#region Constructor and Properties
     var GridIndex = function (options) {
@@ -235,27 +239,25 @@
     //#endregion
 
     //#region Toolbar
-    GridIndex.prototype.initToolbar = function() {
+    GridIndex.prototype.initToolbar = function () {
+
         this.$toolbar.bsToolbar({
             uniqueName: 'usersToolbar',
-            subscribers: [this.$grid],
-            controls: [{
-                name: 'advancedSearch',
-                type: 'tab',
-                options: {
-                    selector: '.btn_advanced_search',
-                    actions: [{
-                        name: 'search',
-                        handler: $.proxy(function (data) {
-                            var widget = this.$toolbar.data('bformsBsToolbar');
-                            for (var i = 0; i < widget.subscribers.length; i++) {
-                                widget.subscribers[i].bsGrid('search', data);
-                            }
-                        }, this),
-                    }]
-                }
-            }]
+            subscribers: [this.$grid]/*,
+            autoInitControls: false,
+            //initialize default controls manually
+            controls: [
+                Add
+            ]*/
         });
+
+        ////add default control with custom options
+        //var advancedSearch = new AdvancedSearch(this.$toolbar, null, false);
+        //advancedSearch.setControl('search', {
+        //    handler: function () { console.log(this); }
+        //});
+
+        //this.$toolbar.bsToolbar('controls', [advancedSearch]);
     };
     //#endregion
 
