@@ -1,9 +1,15 @@
 ﻿define('bforms-toolbar', [
+    'bforms-toolbar-advancedSearch',
+    'bforms-toolbar-add',
+    'bforms-toolbar-quickSearch',
     'jquery',
     'jquery-ui-core',
     'amplify',
     'bforms-form'
-], function () {
+], function (AdvancedSearch, Add, QuickSearch) {
+
+    jQuery.nsx('bforms.toolbar.defaults');
+    jQuery.nsx('bforms.toolbar.controls');
     
     //#region Toolbar
     var Toolbar = function (opt) {
@@ -39,6 +45,14 @@
         },
         controls: null
     };
+
+    Toolbar.prototype._create = function () {
+
+        $.bforms.toolbar.defaults.AdvancedSearch = AdvancedSearch;
+        $.bforms.toolbar.defaults.Add = Add;
+        $.bforms.toolbar.defaults.QuickSearch = QuickSearch;
+
+    };
     
     Toolbar.prototype._init = function () {
         
@@ -53,9 +67,21 @@
         this._controls = [];
     
         if (this.options.autoInitControls) {
-            for (var k in $.bforms.toolbar) {
-                if (k in $.bforms.toolbar) {
-                    var control = new $.bforms.toolbar[k](this.element);
+            //init default controls if any
+            for (var k in $.bforms.toolbar.defaults) {
+                if (k in $.bforms.toolbar.defaults) {
+                    var control = new $.bforms.toolbar.defaults[k](this.element);
+                    var $btn = this.element.find(control._defaultOptions.selector);
+                    if ($btn.length > 0) {
+                        control.$element = $btn;
+                        this._controls.push(control);
+                    }
+                }
+            }
+            //init custom controls requested outside of toolbar
+            for (var k in $.bforms.toolbar.controls) {
+                if (k in $.bforms.toolbar.controls) {
+                    var control = new $.bforms.toolbar.controls[k](this.element);
                     this._controls.push(control);
                 }
             }
@@ -77,7 +103,7 @@
         this._addControls(this._controls);
 
         this._expandSavedTab();
-
+        console.log(this._controls);
     };
 
     Toolbar.prototype.reset = function () {
@@ -138,15 +164,10 @@
     };
 
     Toolbar.prototype._addTab = function (tab) {
+           
+        tab.$container = $('#' + tab.$element.data('tabid'))
         
-        var tabOptions = tab.options;
-        
-        var $btn = this.element.find(tabOptions.selector);
-   
-        tab.$element = $btn;
-        tab.$container = $('#' + $btn.data('tabid'))
-        
-        $btn.on('click', { tab: tab }, $.proxy(this._evBtnTabClick, this));
+        tab.$element.on('click', { tab: tab }, $.proxy(this._evBtnTabClick, this));
   
         //control.options.init.call(this, tab.$container, control.options);
         
@@ -290,7 +311,4 @@
     //#endregion
     
     $.widget('bforms.bsToolbar', Toolbar.prototype);
-
-    jQuery.nsx('bforms.toolbar');
-
 });

@@ -13,9 +13,7 @@
 		this.$toolbar = $toolbar;
 
 		this.options = $.extend(true, {}, this._defaultOptions, options);
-
-		this.$element = $(this.options.selector);
-	
+        	
 		this._init();
 
 	};
@@ -72,8 +70,6 @@
 	    }
 
 	};
-
-	$.bforms.toolbar.quickSearch = QuickSearch;
 
 	return QuickSearch;
 

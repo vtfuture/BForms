@@ -29,7 +29,7 @@
 	};
 
 	Add.prototype._defaultOptions = {
-	    selector: '.btn-add'
+	    selector: '.bs-show_add'
 	};
 
 	Add.prototype.init = function () {
@@ -52,13 +52,13 @@
 	Add.prototype._addDefaultOptions = function () {
 
 	    var addOptions = {
-	        name: 'add',
-	        selector: '.js-btn-add',
+	        name: 'save',
+	        selector: '.js-btn-save',
 	        validate: true,
 	        parse: true,
-	        handler: $.proxy(this._evOnAdd, this),
+	        handler: $.proxy(this._evOnAdd, this)
 	    }
-	    this._controls['add'] = addOptions;
+	    this._controls['save'] = addOptions;
 
 	    var resetOptions = {
 	        name: 'reset',
@@ -92,9 +92,7 @@
 	Add.prototype._evOnReset = function (data) {
 	    this.$addForm.bsForm('reset');
 	};
-
-	$.bforms.toolbar.add = Add;
-
+    
 	return Add;
 
 });

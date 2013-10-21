@@ -29,7 +29,7 @@
 	};
 
 	AdvancedSearch.prototype._defaultOptions = {
-		selector: '.btn_advanced_search'
+		selector: '.bs-show_advanced_search'
 	};
 
 	AdvancedSearch.prototype.init = function () {
@@ -97,8 +97,6 @@
 			this.widget.subscribers[i].bsGrid('reset', data);
 		}
 	};
-
-	$.bforms.toolbar.advancedSearch = AdvancedSearch;
 
 	return AdvancedSearch;
 

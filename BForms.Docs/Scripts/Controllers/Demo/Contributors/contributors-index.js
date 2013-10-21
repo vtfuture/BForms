@@ -1,14 +1,10 @@
 ﻿require([
-        'bforms-toolbar-advancedSearch',
-        'bforms-toolbar-add',
-        'bforms-toolbar-quickSearch',
-        'jquery',
-        'bforms-grid',
-        'bforms-toolbar',
-        'bootstrap',
-        'bforms-ajax',
-        'main-script'
-        
+    'jquery',
+    'bforms-grid',
+    'bforms-toolbar',
+    'bootstrap',
+    'bforms-ajax',
+    'main-script'
 ], function (AdvancedSearch, Add) {
 
     //#region Constructor and Properties
@@ -252,7 +248,7 @@
         });
 
         ////add default control with custom options
-        //var advancedSearch = new AdvancedSearch(this.$toolbar, null, false);
+        //var advancedSearch = new $.bforms.toolbar.defaults.AdvancedSearch(this.$toolbar, null, false);
         //advancedSearch.setControl('search', {
         //    handler: function () { console.log(this); }
         //});
