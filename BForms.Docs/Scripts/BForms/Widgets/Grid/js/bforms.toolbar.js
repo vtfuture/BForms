@@ -103,7 +103,6 @@
         this._addControls(this._controls);
 
         this._expandSavedTab();
-        console.log(this._controls);
     };
 
     Toolbar.prototype.reset = function () {
