@@ -6,7 +6,7 @@
 <h3 class="editable">
     @Html.BsGlyphicon(Glyphicon.User)
     Identity
-    @Html.BsGlyphicon(Glyphicon.Pencil)
+    @Html.BsGlyphicon(Glyphicon.Pencil, new Dictionary<string, object> {{ "class", "open-editable" }})
 </h3>
 
 @Html.Partial("Grid/Details/_IdentityReadonly", Model)
