@@ -1,12 +1,12 @@
 ﻿@model System.Web.Mvc.HandleErrorInfo
 @{
     Layout = "_Layout.cshtml";
-    ViewBag.Title = "Error";
+    ViewBag.Title = "Unexpected error";
 }
 <div>
     <div class="alert alert-block alert-warning fade in">
         <h4>Something went rong!</h4>
-        <p>We are sorry but an unexpected error has occurred.</p>
+        <p>We are sorry but an unexpected error has occurred. The support team has been informed about this problem.</p>
         <p>
             <a class="btn btn-warning" href="@Url.Action("Index", "Home", new { area = "" })">Go to home page</a>
         </p>

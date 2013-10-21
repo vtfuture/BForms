@@ -10,12 +10,9 @@
     <description>BForms for ASP.NET MVC</description>
     <copyright>Copyright Stefan Prodan 2013</copyright>
     <dependencies>
-      <dependency id="Newtonsoft.Json" version="5.0.6" />
-      <dependency id="RequireJsNet" version="1.0.5.0" />
+      <dependency id="Newtonsoft.Json" version="5.0.8" />
+      <dependency id="RequireJsNet" version="1.0.7.0" />
     </dependencies>
-    <frameworkAssemblies>
-      <frameworkAssembly assemblyName="Microsoft.Web.Infrastructure" targetFramework=".NETFramework4.0" />
-    </frameworkAssemblies>
   </metadata>
   <files>
     <file src="BForms\bin\Debug\BForms.dll" target="lib\net45" />

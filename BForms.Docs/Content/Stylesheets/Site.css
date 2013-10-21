@@ -98,7 +98,7 @@ a {
   .navbar .nav .open > a:focus {
     background-color: transparent !important; }
   .navbar li.active > a {
-    border-bottom: 2px solid #45ada8; }
+    border-bottom: 2px solid #45ada8 !important; }
   .navbar li.active .dropdown-toggle {
     background: #fff; }
   .navbar .navbar-toggle {
@@ -351,8 +351,15 @@ code {
     .footer ul li {
       margin-bottom: 5px;
       font-size: 14px; }
-      .footer ul li:last-child {
-        margin: 0; }
+      .footer ul li.version {
+        margin: 0;
+        color: #999;
+        font-size: 12px; }
+  .footer a {
+    color: #45ada8; }
+  .footer .hosted {
+    clear: both;
+    margin: 0; }
 
 .affix {
   position: fixed; }
@@ -378,7 +385,7 @@ body.blue .navbar .nav > li .dropdown-menu li .badge-info {
 body.blue .navbar .nav > li .dropdown-menu li a:hover, body.blue .navbar .nav > li .dropdown-menu li a:focus {
   color: #3086c8; }
 body.blue .navbar li.active > a {
-  border-color: #559ed6; }
+  border-color: #559ed6 !important; }
 body.blue h1 {
   border-color: #559ed6; }
 body.blue h1 span,
@@ -400,6 +407,8 @@ body.blue .error_page .btn {
   border-bottom-color: #559ed6; }
   body.blue .error_page .btn:last-child {
     border-bottom-color: #3086c8; }
+body.blue .footer a {
+  color: #559ed6; }
 @media screen and (max-width: 959px) {
   body.blue .bs-docs-section .bs-docs-tech > div {
     border-bottom-color: #4092d1;
@@ -418,7 +427,7 @@ body.green .navbar .nav > li .dropdown-menu li .badge-info {
 body.green .navbar .nav > li .dropdown-menu li a:hover, body.green .navbar .nav > li .dropdown-menu li a:focus {
   color: #449575; }
 body.green .navbar li.active > a {
-  border-color: #59b390; }
+  border-color: #59b390 !important; }
 body.green h1 {
   border-color: #59b390; }
 body.green h1 span,
@@ -440,6 +449,8 @@ body.green .error_page .btn {
   border-bottom-color: #59b390; }
   body.green .error_page .btn:last-child {
     border-bottom-color: #449575; }
+body.green .footer a {
+  color: #59b390; }
 @media screen and (max-width: 959px) {
   body.green .bs-docs-section .bs-docs-tech > div {
     border-bottom-color: #4ca683;
@@ -458,7 +469,7 @@ body.purple .navbar .nav > li .dropdown-menu li .badge-info {
 body.purple .navbar .nav > li .dropdown-menu li a:hover, body.purple .navbar .nav > li .dropdown-menu li a:focus {
   color: #4f2b4e; }
 body.purple .navbar li.active > a {
-  border-color: #703d6f; }
+  border-color: #703d6f !important; }
 body.purple h1 {
   border-color: #703d6f; }
 body.purple h1 span,
@@ -480,6 +491,8 @@ body.purple .error_page .btn {
   border-bottom-color: #703d6f; }
   body.purple .error_page .btn:last-child {
     border-bottom-color: #4f2b4e; }
+body.purple .footer a {
+  color: #703d6f; }
 @media screen and (max-width: 959px) {
   body.purple .bs-docs-section .bs-docs-tech > div {
     border-bottom-color: #5f345f;
@@ -498,7 +511,7 @@ body.orange .navbar .nav > li .dropdown-menu li .badge-info {
 body.orange .navbar .nav > li .dropdown-menu li a:hover, body.orange .navbar .nav > li .dropdown-menu li a:focus {
   color: #e5560f; }
 body.orange .navbar li.active > a {
-  border-color: #f27435; }
+  border-color: #f27435 !important; }
 body.orange h1 {
   border-color: #f27435; }
 body.orange h1 span,
@@ -520,6 +533,8 @@ body.orange .error_page .btn {
   border-bottom-color: #f27435; }
   body.orange .error_page .btn:last-child {
     border-bottom-color: #e5560f; }
+body.orange .footer a {
+  color: #f27435; }
 @media screen and (max-width: 959px) {
   body.orange .bs-docs-section .bs-docs-tech > div {
     border-bottom-color: #f0641d;
@@ -538,7 +553,7 @@ body.black .navbar .nav > li .dropdown-menu li .badge-info {
 body.black .navbar .nav > li .dropdown-menu li a:hover, body.black .navbar .nav > li .dropdown-menu li a:focus {
   color: #282828; }
 body.black .navbar li.active > a {
-  border-color: #424141; }
+  border-color: #424141 !important; }
 body.black h1 {
   border-color: #424141; }
 body.black h1 span,
@@ -560,6 +575,8 @@ body.black .error_page .btn {
   border-bottom-color: #424141; }
   body.black .error_page .btn:last-child {
     border-bottom-color: #282828; }
+body.black .footer a {
+  color: #424141; }
 @media screen and (max-width: 959px) {
   body.black .bs-docs-section .bs-docs-tech > div {
     border-bottom-color: #353434;
