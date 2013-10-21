@@ -53,6 +53,23 @@ namespace BForms.Mvc
         /// </summary>
         public int Width { get; set; }
 
+        private BsGridColumnUsage _usage = BsGridColumnUsage.Both;
+
+        /// <summary>
+        /// Column usage expected values Both/Excel/Html
+        /// </summary>
+        public BsGridColumnUsage Usage
+        {
+            get
+            {
+                return _usage;
+            }
+            set
+            {
+                _usage = value;
+            }
+        }
+
         /// <summary>
         /// Empty ctor
         /// </summary>

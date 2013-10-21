@@ -33,6 +33,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.5.5631.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DocumentFormat.OpenXml.2.5\lib\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
@@ -72,6 +76,7 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Grid\BsBaseGridRepository.cs" />
@@ -85,6 +90,8 @@
     <Compile Include="Grid\BsGridHtmlBuilder.cs" />
     <Compile Include="Grid\BsGridRepositorySettings.cs" />
     <Compile Include="Html\FormExtensions.cs" />
+    <Compile Include="Models\BsExcelResult.cs" />
+    <Compile Include="Grid\BsGridColumnUsage.cs" />
     <Compile Include="Models\BsTheme.cs" />
     <Compile Include="Mvc\BsToolbarAttribute.cs" />
     <Compile Include="Mvc\BsHtmlTag.cs" />
@@ -134,6 +141,7 @@
     <Compile Include="Html\ValidationExtensions.cs" />
     <Compile Include="Utilities\ActionResultHelpers.cs" />
     <Compile Include="Mvc\ModelStateExtensions.cs" />
+    <Compile Include="Utilities\ExcelHelpers.cs" />
     <Compile Include="Utilities\LinqHelpers.cs" />
     <Compile Include="Utilities\ReflectionHelpers.cs" />
     <Compile Include="Mvc\RenderViewHelpers.cs" />

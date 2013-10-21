@@ -8,6 +8,7 @@ using BForms.Docs.Resources;
 using BForms.Grid;
 using BForms.Models;
 using BForms.Utilities;
+using BForms.Docs.Areas.Demo.Helpers;
 
 namespace BForms.Docs.Areas.Demo.Repositories
 {
@@ -62,6 +63,15 @@ namespace BForms.Docs.Areas.Demo.Repositories
                     DateValue = x.StartDate
                 }
             };
+
+        public Func<Contributor, ContributorRowExcelModel> MapContributor_ContributorRowExcelModel = x =>
+            new ContributorRowExcelModel
+            {
+                Name = x.FirstName + " " + x.LastName,
+                Role = x.Role.ToString(),
+                Contributions = string.IsNullOrEmpty(x.Contributions) ? "" : String.Join(", ", x.Contributions.Split(new[] { ',' }).Take(2)),
+                StartDate = x.StartDate.ToMonthNameDate()
+            };
         #endregion
 
         #region Filter/Order/Map
@@ -101,7 +111,7 @@ namespace BForms.Docs.Areas.Demo.Repositories
 
                 //filter by fields that are strings on enums
                 var queryQuick = query.Join(displayedRoles, x => (int)x.Role, y => y.Key, (x, y) => new { Contributer = x, RoleText = y });
-                queryQuick = queryQuick.Where(x=> x.Contributer.FirstName.ToLower().Contains(searched) ||
+                queryQuick = queryQuick.Where(x => x.Contributer.FirstName.ToLower().Contains(searched) ||
                                                     x.Contributer.LastName.ToLower().Contains(searched) ||
                                                     x.Contributer.Country.ToLower().Contains(searched) ||
                                                     x.RoleText.Value.Contains(searched) ||
@@ -110,7 +120,7 @@ namespace BForms.Docs.Areas.Demo.Repositories
 
                 //select back TEntity
                 query = queryQuick.Select(x => x.Contributer);
-            } 
+            }
             else if (Settings.Search != null)
             {
                 #region Name
@@ -187,13 +197,48 @@ namespace BForms.Docs.Areas.Demo.Repositories
 
                     if (languages != null)
                     {
-                        query = query.Where(x => x.Languages != null && x.Languages.Any(y => languages.Contains(y)));   
+                        query = query.Where(x => x.Languages != null && x.Languages.Any(y => languages.Contains(y)));
                     }
                 }
                 #endregion
             }
 
             return query;
+        }
+
+        public virtual List<ContributorRowExcelModel> GetExcelItems(BsGridRepositorySettings<ContributorSearchModel> settings, List<int> ids)
+        {
+            this.settings = settings;
+
+            var result = new List<ContributorRowExcelModel>();
+
+            // create filtered query
+            var basicQuery = this.Query();
+
+            if (ids != null && ids.Any())
+            {
+                basicQuery = basicQuery.Where(x => ids.Contains(x.Id));
+            }
+            else
+            {
+                basicQuery = Filter(basicQuery);
+            }
+
+            IEnumerable<ContributorRowExcelModel> finalQuery = null;
+
+            // order
+            var orderedExcelQueryBuilder = new OrderedQueryBuilder<ContributorRowExcelModel>(this.settings.OrderColumns);
+
+            orderedExcelQueryBuilder.OrderFor(x => x.Name, y => y.FirstName + " " + y.LastName);
+
+            var orderedQuery = orderedExcelQueryBuilder.Order(basicQuery, x => x.StartDate, BsOrderType.Ascending);
+
+            // map
+            finalQuery = orderedQuery.Select(MapContributor_ContributorRowExcelModel).ToList();
+
+            result = finalQuery.ToList();
+
+            return result;
         }
         #endregion
 

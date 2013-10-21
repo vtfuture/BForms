@@ -35,7 +35,7 @@ namespace BForms.Grid
             {
                 case BsBulkActionType.Excel:
                     this.Type = BsBulkActionType.Excel;
-                    this.buttonClass = "btn-primary js-btn-enable_selected";
+                    this.buttonClass = "btn-primary js-btn-print_selected";
                     this.title = "Export selected to excel";
                     this.glyphIcon = Glyphicon.DownloadAlt;
                     break;

@@ -1,11 +1,12 @@
 ﻿require([
-    'jquery',
-    'bforms-grid',
-    'bforms-toolbar',
-    'bootstrap',
-    'bforms-ajax',
-    'main-script'
-], function (AdvancedSearch, Add) {
+        'jquery',
+        'bforms-namespace',
+        'bforms-grid',
+        'bforms-toolbar',
+        'bootstrap',
+        'bforms-ajax',
+        'main-script'       
+], function () {
 
     //#region Constructor and Properties
     var GridIndex = function (options) {
@@ -45,6 +46,20 @@
             
             //#region gridActions TODO - refactor handler to methods
             gridActions: [{
+                btnSelector: '.js-btn-print_selected',
+                handler: $.proxy(function ($rows, context) {
+                    var data = {};
+                    var ids = [];
+                    $rows.each(function () {
+                        ids.push($(this).data('objid'));
+                    });
+                    data.ids = ids;
+                    data.settings = context.refreshModel;
+
+                    this._print(data, this.options.printUrl);
+
+                }, this)
+            },{
                 btnSelector: '.js-btn-enable_selected',
                 handler: $.proxy(function ($rows, context) {
                     var data = {};
@@ -181,6 +196,12 @@
             loadingClass: 'loading'
         };
         $.bforms.ajax(ajaxOptions);
+    };
+    //#endregion
+
+    //#region Print
+    GridIndex.prototype._print = function (data, url) {
+        window.location.assign(url + "?" + $.bforms.param(data));
     };
     //#endregion
 
