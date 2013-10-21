@@ -22,9 +22,7 @@ namespace BForms.Utilities
             // Create the spreadsheet on the MemoryStream
             SpreadsheetDocument spreadsheetDocument = SpreadsheetDocument.Create(memoryStream, SpreadsheetDocumentType.Workbook);
 
-            var sheetData = CreateSpreadsheetWorkbook(spreadsheetDocument, sheetName);
-
-            sheetData.Fill(items);
+            spreadsheetDocument.Fill(items, sheetName);
 
             // Close the document.
             spreadsheetDocument.Close();
@@ -32,7 +30,7 @@ namespace BForms.Utilities
             return memoryStream;
         }
 
-        private static SheetData CreateSpreadsheetWorkbook(SpreadsheetDocument spreadsheetDocument, string sheetName)
+        private static void Fill<T>(this SpreadsheetDocument spreadsheetDocument, IEnumerable<T> items, string sheetName) where T : class
         {
             // Add a WorkbookPart to the document.
             WorkbookPart workbookpart = spreadsheetDocument.AddWorkbookPart();
@@ -41,9 +39,12 @@ namespace BForms.Utilities
             // Add a WorksheetPart to the WorkbookPart.
             WorksheetPart worksheetPart = workbookpart.AddNewPart<WorksheetPart>();
 
-            var sheetData = new SheetData();
+            var ws = new Worksheet();
 
-            worksheetPart.Worksheet = new Worksheet(sheetData);
+            ws.Fill(items);
+
+            worksheetPart.Worksheet = ws;
+            worksheetPart.Worksheet.Save();
 
             // Add Sheets to the Workbook.
             Sheets sheets = spreadsheetDocument.WorkbookPart.Workbook.AppendChild<Sheets>(new Sheets());
@@ -53,19 +54,23 @@ namespace BForms.Utilities
             sheets.Append(sheet);
 
             workbookpart.Workbook.Save();
-
-            return sheetData;
         }
 
-        private static void Fill<T>(this SheetData sheetData, IEnumerable<T> items) where T : class
+        private static void Fill<T>(this Worksheet worksheet, IEnumerable<T> items) where T : class
         {
             if (items == null || !items.Any()) return;
 
+            var sheetData = new SheetData();
+
             var columns = new List<string>();
+
+            Columns exColumns = new Columns();
 
             var headerRow = new Row();
 
             var type = typeof(T);
+
+            var index = 0;
 
             // Create header based on DisplayAttribute and BsGridColumnAttribute
             foreach (var property in type.GetProperties())
@@ -76,6 +81,8 @@ namespace BForms.Utilities
                 {
                     if (columnAttr.Usage != Models.BsGridColumnUsage.Html)
                     {
+                        index++;
+
                         var width = columnAttr.Width;
 
                         string displayName = null;
@@ -91,6 +98,8 @@ namespace BForms.Utilities
                         }
 
                         columns.Add(property.Name);
+
+                        exColumns.Append(CreateColumn((UInt32)index, (UInt32)index, width * 10));
 
                         headerRow.AppendChild(CreateCell(displayName));
                     }
@@ -124,6 +133,21 @@ namespace BForms.Utilities
 
                 sheetData.AppendChild(row);
             }
+
+            worksheet.Append(exColumns);
+            worksheet.Append(sheetData);
+        }
+
+        private static Run GetBoldStyle()
+        {
+            Run run = new Run();
+            RunProperties runProperties = new RunProperties();
+            Bold bold = new Bold();
+
+            runProperties.Append(bold);
+            run.Append(runProperties);
+
+            return run;
         }
 
         private static Cell CreateCell(string name)
@@ -131,7 +155,23 @@ namespace BForms.Utilities
             Cell cell = new Cell();
             cell.DataType = CellValues.String;
             cell.CellValue = new CellValue(name);
+            //var run = GetBoldStyle();
+            //run.Append(new Text(name));
+            //var cellValue = new CellValue();
+            //cellValue.Append(run);
+            //cell.Append(cellValue);
             return cell;
+        }
+
+        private static Column CreateColumn(UInt32 startIndex, UInt32 endIndex, double width)
+        {
+            Column column;
+            column = new Column();
+            column.Min = startIndex;
+            column.Max = endIndex;
+            column.Width = width;
+            column.CustomWidth = true;
+            return column;
         }
     }
 }

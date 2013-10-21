@@ -174,12 +174,12 @@ namespace BForms.Docs.Areas.Demo.Models
         [BsGridColumn(Width = 2)]
         public string Name { get; set; }
 
+        [BsGridColumn(Width = 3)]
+        public string Role { get; set; }
+
         [Display(Name = "Contributor since")]
         [BsGridColumn(Width = 2)]
         public string StartDate { get; set; }
-
-        [BsGridColumn(Width = 3)]
-        public string Role { get; set; }
 
         [BsGridColumn(Width = 5)]
         public string Contributions { get; set; }
