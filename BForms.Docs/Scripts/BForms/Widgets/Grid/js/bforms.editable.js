@@ -18,6 +18,7 @@
         editFirst: false,
         editOnly: false,
         headerSelector: 'h3',
+        headerSelectorTrigger: 'open-editable',
         saveClass: 'btn-success',
         cancelClass: 'btn-danger',
         readOnlySelector: '.bs-readonly',
@@ -116,9 +117,10 @@
         e.preventDefault();
 
         var $me = $(e.currentTarget);
+        var $meTrigger = $(e.target);
 
         //check if i'm already in edit mode
-        if ($me.data('editmode') || e.currentTarget != e.target) {
+         if ($me.data('editmode') || ( !$meTrigger.hasClass(this.options.headerSelectorTrigger) && e.currentTarget != e.target) ) {
             return;
         }
 
