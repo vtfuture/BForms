@@ -169,6 +169,7 @@
     <Content Include="Content\Images\Docs\taglist-search-select.jpg" />
     <Content Include="Content\Images\Docs\timepicker-input.jpg" />
     <Content Include="Content\Images\Docs\timepicker-range.jpg" />
+    <Content Include="Content\Images\hosted-on-azure.png" />
     <Content Include="Scripts\BForms\Components\Amplify\amplify.js" />
     <Content Include="Scripts\BForms\Components\RequireJS\depend.js" />
     <Content Include="Scripts\BForms\Components\RequireJS\i18n.js" />

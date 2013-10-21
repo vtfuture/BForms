@@ -142,7 +142,7 @@ a {
 	}
 	li.active {
 		> a {
-			border-bottom: 2px solid $mainColor;
+			border-bottom: 2px solid $mainColor !important;
 		}
 		.dropdown-toggle {
 			background: #fff;
@@ -482,10 +482,19 @@ code {
 		li {			
 			margin-bottom: 5px;
 			font-size: 14px;
-			&:last-child {
+			&.version {
 				margin: 0;
+				color: #999;
+				font-size: 12px;
 			}
 		}
+	}
+	a {
+		color: $mainColor;
+	}
+	.hosted {
+		clear: both;
+		margin: 0;
 	}
 }
 
@@ -526,7 +535,7 @@ body.blue {
 			}
 		}
 		li.active > a {
-			border-color: $Blue;
+			border-color: $Blue !important;
 		}
 	}
 	h1 {
@@ -561,6 +570,9 @@ body.blue {
 			border-bottom-color: darken($Blue, 10%);
 		}
 	}
+	.footer a {
+		color: $Blue;
+	}
 	@media screen and (max-width: 959px) {
 		.bs-docs-section .bs-docs-tech > div {
 			border-bottom-color: darken($Blue, 5%);
@@ -592,7 +604,7 @@ body.green {
 			}
 		}
 		li.active > a {
-			border-color: $Green;
+			border-color: $Green !important;
 		}
 	}
 	h1 {
@@ -627,6 +639,9 @@ body.green {
 			border-bottom-color: darken($Green, 10%);
 		}
 	}
+	.footer a {
+		color: $Green;
+	}
 	@media screen and (max-width: 959px) {
 		.bs-docs-section .bs-docs-tech > div {
 			border-bottom-color: darken($Green, 5%);
@@ -658,7 +673,7 @@ body.purple {
 			}
 		}
 		li.active > a {
-			border-color: $Purple;
+			border-color: $Purple !important;
 		}
 	}
 	h1 {
@@ -693,6 +708,9 @@ body.purple {
 			border-bottom-color: darken($Purple, 10%);
 		}
 	}
+	.footer a {
+		color: $Purple;
+	}
 	@media screen and (max-width: 959px) {
 		.bs-docs-section .bs-docs-tech > div {
 			border-bottom-color: darken($Purple, 5%);
@@ -724,7 +742,7 @@ body.orange {
 			}
 		}
 		li.active > a {
-			border-color: $Orange;
+			border-color: $Orange !important;
 		}
 	}
 	h1 {
@@ -759,6 +777,9 @@ body.orange {
 			border-bottom-color: darken($Orange, 10%);
 		}
 	}
+	.footer a {
+		color: $Orange;
+	}
 	@media screen and (max-width: 959px) {
 		.bs-docs-section .bs-docs-tech > div {
 			border-bottom-color: darken($Orange, 5%);
@@ -790,7 +811,7 @@ body.black {
 			}
 		}
 		li.active > a {
-			border-color: $Black;
+			border-color: $Black !important;
 		}
 	}
 	h1 {
@@ -824,6 +845,9 @@ body.black {
 		&:last-child {
 			border-bottom-color: darken($Black, 10%);
 		}
+	}
+	.footer a {
+		color: $Black;
 	}
 	@media screen and (max-width: 959px) {
 		.bs-docs-section .bs-docs-tech > div {
