@@ -1,0 +1,116 @@
+﻿@using BForms.Docs.Helpers
+
+<h3 id="ToolbarHelper">Toolbar helper</h3>
+
+<p>In order to render a toolbar you will need to use the <code>Html.ToolbarFor</code> helper extension.
+The basic setup requirements for this to render something looks like this:    
+</p>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/Toolbar/Source/_BasicSetup.cs.embed")
+</pre>
+<br />
+
+<p>
+    As you would expect the above code does nothing but render an empty toolar. It doesn't really make sense to use it this way, so in order to make it truly functional we have to set some more properties.
+    This can be achieved in 2 ways: by decorating your model property with attributes (<code>BsToolbarAttribute</code> and <code>DisplayAttribute</code>) - limited, not all properties can be set this way - or by setting them in your .cshtml file - all properties can be set and those that are set here overrides those set in the declarative way.
+</p>
+
+<h4>Display name</h4>
+<p>    
+    The name that describes the entity that the toolbar will try to manipulate.
+    It can be set both ways.
+</p>
+
+<p>Declarative - Decorate your property model with DisplayAttribute that comes with MVC</p>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/Toolbar/Source/_DisplayNameDeclarative.cs.embed")
+</pre>
+<br />
+
+<p>Razor</p>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/Toolbar/Source/_DisplayNameRazor.cs.embed")
+</pre>
+<br />
+
+<h4>Theme</h4>
+<p>
+    You can easily change the look of your toolbar by setting the theme. It actually just changes the colour of your component, but it is a simple and elegant feature that helps you to change basic styling with no effort at all.
+    It can be set both ways.
+</p>
+
+<p>Declarative - Decorate your property model with BsToolbarAttribute and set BsTheme property to the theme of your desire</p>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/Toolbar/Source/_ThemeDeclarative.cs.embed")
+</pre>
+<br />
+
+<p>Razor</p>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/Toolbar/Source/_ThemeRazor.cs.embed")
+</pre>
+<br />
+
+<p>
+    The default theme is Turqoise and you can choose from Black, Blue, Orange, Green and Purple.
+    See it live <a href="@Url.Action("Index", "Contributors", new { area="Demo"})">here</a> by clicking the arrow in the right and choosing another theme.
+</p>
+<br />
+
+<h4>Controls</h4>
+<p>
+    Now you must say OK it can be blue, it can be black, it can have a name but it still does nothing and you are right. It's time to add some controls.
+</p>
+<p>
+    Out of the box <code>BsToolbar</code> comes with 3 functionalities: quick search, advanced search and add. Sadly this part is for Razor only.
+</p>
+
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/Toolbar/Source/_Controls.cs.embed")
+</pre>
+<br />
+
+<p>
+    There are 3 types of controls: actions, tabs and custom. Above we have two examples of tabs (Add and AdvancedSearch - well they are not entirely tabs yet, will discuss it later) and a custom one(QuickSearch)
+</p>
+
+<p>
+    If you want to render actions or tabs you have 2 choices: pick a default one from BsToolbarActionType
+</p>
+
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/Toolbar/Source/_DefaultControls.cs.embed")
+</pre>
+
+<p>
+    which will automatically render the action or tab button, or add a new one
+</p>
+
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/Toolbar/Source/_NewControls.cs.embed")
+</pre>
+<br />
+
+<p>
+    and customize it however you like. The level of custumization between default and new ones is the same, the only difference being that the default ones can be used out of the box.
+</p>
+<br />
+
+<h4>Custom controls</h4>
+<p>
+    As stated above you can add custom controls to your toolbar and <code>BsForms</code> comes with a built-in one - <code>QuickSearch</code>. To use it simply add
+</p>
+
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/Toolbar/Source/_ControlsQuickSearchRazor.cs.embed")
+</pre>
+<br />
+
+<p>
+    You can add as many custom controls as you like, but as the name says, it's custom so you have to build it yourself. Luckily this is a fairly easy task too. Let's look at the quick search example:
+</p>
+
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/Toolbar/Source/_ControlsQuickSearch.cs.embed")
+</pre>
+<br />

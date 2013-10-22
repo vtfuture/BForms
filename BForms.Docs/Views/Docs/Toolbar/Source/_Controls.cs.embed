@@ -1,0 +1,9 @@
+﻿@(Html.BsToolbarFor(x => x.Toolbar)
+    .ConfigureActions(ca =>
+    {
+        ca.Add(BsToolbarActionType.Add);
+
+        ca.Add<BsToolbarQuickSearch>();
+        
+        ca.Add(BsToolbarActionType.AdvancedSearch);
+    })

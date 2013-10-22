@@ -19,18 +19,23 @@
 
     Toolbar.prototype.options = {
         uniqueName: null,
+        // save opened tab in localstorage and retreive it later
         saveTabState: true,
+        // tab container selector
         tabContainerSelector: '.grid_toolbar_form',
+        // auto initialize controls that were attached on bforms.toolbar.defaults and bforms.toolbar.controls namespaces
         autoInitControls: true,
-        saveState: true,
+        // default reset handler
         reset: function ($grid) {
 
+            // reset quick search if any
             var quickSearch = this.getControl('quickSearch');
 
             if (quickSearch != null) {
                 quickSearch.$element.find('input').val('');
             }
 
+            // reset advanced search if any
             var advancedSearch = this.getControl('advancedSearch');
             var data;
             if (advancedSearch != null) {
@@ -38,16 +43,19 @@
                 data = advancedSearch.$container.bsForm('parse');
             }
 
+            // reset grid
             var widget = this.element.data('bformsBsToolbar');
             for (var i = 0; i < widget.subscribers.length; i++) {
                 widget.subscribers[i].bsGrid('reset', data, true);
             }
         },
+        // controls to be added to toolbar widget
         controls: null
     };
 
     Toolbar.prototype._create = function () {
 
+        // attach default controls to namespace
         $.bforms.toolbar.defaults.AdvancedSearch = AdvancedSearch;
         $.bforms.toolbar.defaults.Add = Add;
         $.bforms.toolbar.defaults.QuickSearch = QuickSearch;
@@ -78,6 +86,7 @@
                     }
                 }
             }
+
             //init custom controls requested outside of toolbar
             for (var k in $.bforms.toolbar.controls) {
                 if (k in $.bforms.toolbar.controls) {
@@ -87,6 +96,7 @@
             }
         }
 
+        // init controls passed as options
         if (this.options.controls instanceof Array) {
             for (var i = 0; i < this.options.controls.length; i++) {
                 var control = new this.options.controls[i](this.element);
@@ -94,6 +104,7 @@
             }
         }
 
+        // add 
         this.subscribers = new Array();
 
         if (this.options.subscribers) {
@@ -174,12 +185,14 @@
 
     Toolbar.prototype._expandSavedTab = function () {
 
-        var tabs = this._getTabs();
-      
-        for (var i = 0; i < tabs.length; i++) {
-            var tab = tabs[i];
-            if (amplify.store('slide|' + this.options.uniqueName + '|' + tab.options.selector)) {
-                tab.$element.trigger('click');
+        if (this.options.saveTabState) {
+            var tabs = this._getTabs();
+
+            for (var i = 0; i < tabs.length; i++) {
+                var tab = tabs[i];
+                if (amplify.store('slide|' + this.options.uniqueName + '|' + tab.options.selector)) {
+                    tab.$element.trigger('click');
+                }
             }
         }
 
@@ -281,7 +294,7 @@
         
         tab.$container.stop(true, false).slideToggle();
   
-        if (this.options.saveState) {
+        if (this.options.saveTabState) {
             amplify.store('slide|' + this.options.uniqueName + '|' + tab.options.selector, tab.$element.hasClass('selected'));
         }
     

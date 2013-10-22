@@ -25,6 +25,11 @@ namespace BForms.Grid
             this.viewContext = viewContext;
         }
 
+        /// <summary>
+        /// Adds a default action
+        /// </summary>
+        /// <param name="actionType">Action type</param>
+        /// <returns>BsToolbarAction</returns>
         public BsToolbarAction<TToolbar> Add(BsToolbarActionType actionType)
         {
             var toolbarAction = new BsToolbarAction<TToolbar>(actionType, this.viewContext);
@@ -33,6 +38,11 @@ namespace BForms.Grid
             return toolbarAction;
         }
 
+        /// <summary>
+        /// Adds custom control - action or tab
+        /// </summary>
+        /// <param name="descriptorClass"></param>
+        /// <returns>BsToolbarAction</returns>
         public BsToolbarAction<TToolbar> Add(string descriptorClass)
         {
             var toolbarAction = new BsToolbarAction<TToolbar>(descriptorClass, this.viewContext);
@@ -41,6 +51,11 @@ namespace BForms.Grid
             return toolbarAction;
         }
 
+        /// <summary>
+        /// Adds custom control - ex: QuickSearch
+        /// </summary>
+        /// <typeparam name="TCustomAction"></typeparam>
+        /// <returns></returns>
         public TCustomAction Add<TCustomAction>() where TCustomAction:new()
         {
             var toolbarAction = new TCustomAction();

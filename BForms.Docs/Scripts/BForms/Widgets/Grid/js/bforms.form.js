@@ -21,7 +21,8 @@
                             //    name: 'refresh',
                             //    btnSelector: '.bs-refreshBtn',
                             //    url: '',
-                            //    handler: '',
+        //    handler: '',
+        // setAdditionalData: null,
                             //    validate: true,
                             //    parse: true
                             //}]
@@ -123,6 +124,9 @@
         var data;
         if (buttonOpt.parse) {
             data = this._parse();
+            if (typeof buttonOpt.getExtraData === 'function') {
+                buttonOpt.setExtraData.call(this, data);
+            }
         }
 
         var action = $me.data('action');

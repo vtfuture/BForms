@@ -208,6 +208,7 @@
     <Content Include="Scripts\BForms\Stylesheets\Images\preloader-small.gif" />
     <Content Include="Scripts\Controllers\Common\main-script.js" />
     <Content Include="Scripts\Controllers\Demo\Contributors\contributors-index.js" />
+    <Content Include="Scripts\Controllers\Root\Docs\docs-toolbar.js" />
     <Content Include="Scripts\Controllers\Root\Docs\docs-rangeextensions.js" />
     <Content Include="Scripts\Controllers\Root\Docs\docs-grid.js" />
     <Content Include="Scripts\Controllers\Root\Error\error-notfound.js" />
@@ -622,25 +623,22 @@
     <Content Include="Views\Docs\Grid\Source\_RowData.cs.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Docs\Grid\Source\_ConfigureColumns.cs.embed" />
+    <Content Include="Views\Docs\Toolbar\Source\_ConfigureColumns.cs.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Docs\Grid\Source\_ConfigureColumnsExample.cs.embed" />
+    <Content Include="Views\Docs\Toolbar\Source\_ConfigureColumnsExample.cs.embed" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Docs\Grid\Source\_Actions.cs.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Docs\Grid\_ToolbarHelper.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Docs\Grid\Source\_HtmlAttributesToolbar.cs.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Docs\Grid\Source\_ConfigureActions.cs.embed" />
+    <Content Include="Views\Docs\Toolbar\Source\_ConfigureActions.cs.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Docs\Grid\Source\_ConfigureActionsExample.cs.embed" />
+    <Content Include="Views\Docs\Toolbar\Source\_ConfigureActionsExample.cs.embed" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Docs\Grid\Source\_ActionTypes.cs.embed" />
@@ -730,6 +728,42 @@
   <ItemGroup>
     <Content Include="Views\Shared\NotFound.cshtml" />
     <Content Include="Scripts\BForms\Widgets\Grid\js\bforms.toolbar.advancedSearch.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Toolbar\Source\_BasicSetup.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Toolbar\Source\_DisplayNameDeclarative.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Toolbar\Source\_DisplayNameRazor.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Toolbar\Source\_Controls.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Toolbar\Source\_ThemeDeclarative.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Toolbar\Source\_ThemeRazor.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Toolbar\Source\_DefaultControls.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Toolbar\Source\_NewControls.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Toolbar\Source\_ControlsQuickSearch.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Toolbar\Source\_ControlsQuickSearchRazor.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Toolbar\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Toolbar\_ToolbarHelper.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

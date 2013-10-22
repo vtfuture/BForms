@@ -11,15 +11,44 @@ namespace BForms.Grid
 {
     public class BsToolbarHtmlBuilder<TToolbar> : BaseComponent
     {
+        /// <summary>
+        /// Text that will be displayed in header
+        /// </summary>
         private string displayName;
+
+        /// <summary>
+        /// Html attributes that will decorate toolbar container
+        /// </summary>
         private IDictionary<string, object> htmlAttributes;
 
+        /// <summary>
+        /// Utility class used for action 
+        /// </summary>
         private BsToolbarActionsFactory<TToolbar> ActionsFactory { get; set; }
 
+        /// <summary>
+        /// Theme
+        /// </summary>
         private BsTheme theme = BsTheme.Default;
+
+        /// <summary>
+        /// Toolbar name based on class hierarchy
+        /// </summary>
         private readonly string fullName;
+
+        /// <summary>
+        /// Toolbar model
+        /// </summary>
         private readonly TToolbar model;
+
+        /// <summary>
+        /// Toolbar model metadata
+        /// </summary>
         private readonly ModelMetadata metadata;
+
+        /// <summary>
+        /// model attributes
+        /// </summary>
         private readonly object[] attributes;
 
         public BsToolbarHtmlBuilder() { }
@@ -43,6 +72,10 @@ namespace BForms.Grid
             }
         }
 
+        /// <summary>
+        /// Sets the display name property
+        /// </summary>
+        /// <returns>BsToolbarHtmlBuilder</returns>
         public BsToolbarHtmlBuilder<TToolbar> DisplayName(string name)
         {
             this.displayName = name;
@@ -67,6 +100,11 @@ namespace BForms.Grid
             return this;
         }
 
+        /// <summary>
+        /// Sets toolbar Theme
+        /// </summary>
+        /// <param name="theme"></param>
+        /// <returns>BsToolbarHtmlBuilder</returns>
         public BsToolbarHtmlBuilder<TToolbar> Theme(BsTheme theme)
         {
             this.theme = theme;
@@ -74,6 +112,10 @@ namespace BForms.Grid
             return this;
         }
 
+        /// <summary>
+        /// Sets actions factory
+        /// </summary>
+        /// <returns>BsToolbarHtmlBuilder</returns>
         public BsToolbarHtmlBuilder<TToolbar> ConfigureActions(Action<BsToolbarActionsFactory<TToolbar>> configurator)
         {
             this.ActionsFactory = new BsToolbarActionsFactory<TToolbar>(this.viewContext);
@@ -82,6 +124,9 @@ namespace BForms.Grid
             return this;
         }
 
+        /// <summary>
+        /// Renders toolbar
+        /// </summary>
         public override string Render()
         {
             var id = this.fullName.Split('.').Last().ToLower();
@@ -109,21 +154,24 @@ namespace BForms.Grid
 
             foreach (var action in this.ActionsFactory.Actions)
             {
-                var normalAction = action as BsToolbarAction<TToolbar>;
+                // check if action is default
+                var defaultAction = action as BsToolbarAction<TToolbar>;
 
-                if (normalAction != null && normalAction.TabDelegate != null)
-                {
+                // renders tab content if any
+                if (defaultAction != null && defaultAction.TabDelegate != null)
+                {                    
                     var tabId = id + "_tab_" + tabNr;
 
                     var tabBuilder = new TagBuilder("div");
                     tabBuilder.AddCssClass("grid_toolbar_form");
                     tabBuilder.MergeAttribute("style", "display:none;");
                     tabBuilder.MergeAttribute("id", tabId);
-                    tabBuilder.InnerHtml += normalAction.TabDelegate(this.model);
+                    tabBuilder.InnerHtml += defaultAction.TabDelegate(this.model);
 
                     tabs += tabBuilder.ToString();
 
-                    normalAction.SetTabId(tabId);
+                    //sets tab container id for tab - button correlation
+                    defaultAction.SetTabId(tabId);
 
                     tabNr++;
                 }

@@ -38,5 +38,10 @@ namespace BForms.Docs.Controllers
         {
             return View("Grid/Index");
         }
+
+        public ActionResult Toolbar()
+        {
+            return View("Toolbar/Index");
+        }
     }
 }

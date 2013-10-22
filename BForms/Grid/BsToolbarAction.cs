@@ -9,6 +9,9 @@ using BForms.Mvc;
 
 namespace BForms.Grid
 {
+    /// <summary>
+    /// Grid toolbar default control component
+    /// </summary>
     public class BsToolbarAction<TToolbar> : BaseComponent
     {
         #region Properties and constructors
@@ -41,6 +44,7 @@ namespace BForms.Grid
         public BsToolbarAction(BsToolbarActionType type, ViewContext viewContext)
             : base(viewContext)
         {
+            // Set default control action properties
             switch (type)
             {
                 case BsToolbarActionType.Add:
@@ -79,48 +83,79 @@ namespace BForms.Grid
         }
         #endregion
 
+        /// <summary>
+        /// Sets control descriptor class
+        /// </summary>
+        /// <returns>BsToolbarAction</returns>
         public BsToolbarAction<TToolbar> DescriptorClass(string descriptorClass)
         {
             this.descriptorClass = descriptorClass;
             return this;
         }
 
+        /// <summary>
+        /// Sets control style
+        /// </summary>
+        /// <returns>BsToolbarAction</returns>
         public BsToolbarAction<TToolbar> StyleClasses(string styleClasses)
         {
             this.styleClasses = styleClasses;
             return this;
         }
 
+        /// <summary>
+        /// Sets control button title
+        /// </summary>
+        /// <returns>BsToolbarAction</returns>
         public BsToolbarAction<TToolbar> Title(string title)
         {
             this.title = title;
             return this;
         }
 
+        /// <summary>
+        /// Sets control button text
+        /// </summary>
+        /// <returns>BsToolbarAction</returns>
         public BsToolbarAction<TToolbar> Text(string text)
         {
             this.text = text;
             return this;
         }
 
+        /// <summary>
+        /// Sets control GlyphIcon
+        /// </summary>
+        /// <returns>BsToolbarAction</returns>
         public BsToolbarAction<TToolbar> GlyphIcon(Glyphicon icon)
         {
             this.glyphIcon = icon;
             return this;
         }
 
+        /// <summary>
+        /// Sets tab content
+        /// </summary>
+        /// <returns>BsToolbarAction</returns>
         public BsToolbarAction<TToolbar> Tab(Func<TToolbar, MvcHtmlString> tabDelegate)
         {
             this.tabDelegate = tabDelegate;
             return this;
         }
 
+        /// <summary>
+        /// Sets href attribute
+        /// </summary>
+        /// <returns>BsToolbarAction</returns>
         public BsToolbarAction<TToolbar> Action(string action)
         {
             this.href = action;
             return this;
         }
 
+        /// <summary>
+        /// Renders component
+        /// </summary>
         public override string Render()
         {
             var actionBuilder = new TagBuilder("a");

@@ -30,6 +30,10 @@ namespace BForms.Grid
             return this;
         } 
 
+        /// <summary>
+        /// Renders custom control
+        /// </summary>
+        /// <returns></returns>
         public override string Render()
         {
             var inputGroupBuilder = new TagBuilder("div");

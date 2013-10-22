@@ -37,17 +37,17 @@
             cols.Add(c => c.Role).Name("Role")
                                 .SetWidth(3)
                                 .Sortable()
-                                .Text(x => Html.GetRoleIcon(x.Role) + " " + Html.BsEnumDisplayName(x.Role));
+                                .Text(row => Html.GetRoleIcon(row.Role) + " " + Html.BsEnumDisplayName(row.Role));
 
             cols.Add(c => c.StartDate).Name("Contributor since")
                                 .SetWidth(3)
                                 .Sortable()
-                                .Text(x => Html.BsGlyphicon(Glyphicon.Calendar) + " " + x.StartDate.ToMonthNameDate());
+                                .Text(row => Html.BsGlyphicon(Glyphicon.Calendar) + " " + row.StartDate.ToMonthNameDate());
 
             cols.Add(c => c.Contributions).Name("Contributions")
                                 .SetWidth(4)
                                 .Sortable()
-                                .Text(x => string.IsNullOrEmpty(x.Contributions) ? "" : String.Join(", ", x.Contributions.Split(new[] { ',' }).Take(2)));
+                                .Text(row => string.IsNullOrEmpty(row.Contributions) ? "" : String.Join(", ", row.Contributions.Split(new[] { ',' }).Take(2)));
 
             cols.For(c => c.Name).Name(Resource.Name);
         })
