@@ -206,7 +206,7 @@ namespace BForms.Docs.Areas.Demo.Repositories
             return query;
         }
 
-        public virtual List<ContributorRowExcelModel> GetExcelItems(BsGridRepositorySettings<ContributorSearchModel> settings, List<int> ids)
+        public List<ContributorRowExcelModel> GetExcelItems(BsGridRepositorySettings<ContributorSearchModel> settings, List<int> ids)
         {
             this.settings = settings;
 

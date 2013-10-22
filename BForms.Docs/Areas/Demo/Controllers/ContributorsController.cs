@@ -12,6 +12,7 @@ using BForms.Grid;
 using BForms.Models;
 using BForms.Mvc;
 using RequireJS;
+using BForms.Utilities;
 
 namespace BForms.Docs.Areas.Demo.Controllers
 {
@@ -304,7 +305,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
             {
                 return new BsExcelResult<ContributorRowExcelModel>("BForms Contributors.xlsx", items);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
                 return null;
             }

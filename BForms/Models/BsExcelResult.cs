@@ -10,10 +10,16 @@ using System.Web.Mvc;
 
 namespace BForms.Models
 {
+    /// <summary>
+    /// Action Result used to export an excel file
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class BsExcelResult<T> : ActionResult where T : class
     {
-        private string FileName { get; set; }
-        private IEnumerable<T> Items { get; set; }
+        protected string FileName { get; set; }
+        protected IEnumerable<T> Items { get; set; }
+
+        public BsExcelResult(){}
 
         public BsExcelResult(string fileName, IEnumerable<T> items)
         {
@@ -27,7 +33,10 @@ namespace BForms.Models
         /// <param name="context">Controller context.</param> 
         public override void ExecuteResult(ControllerContext context)
         {
-            WriteStream(Items.ToExcel(FileName), FileName);
+            if (Items != null)
+            {
+                WriteStream(Items.ToExcelMemoryStream<T, ExcelHandler<T>>(FileName), FileName);
+            }
         }
 
         /// <summary> 
@@ -35,7 +44,7 @@ namespace BForms.Models
         /// </summary> 
         /// <param name="memoryStream">Memory stream.</param> 
         /// <param name="fileName">Excel file name.</param> 
-        private static void WriteStream(MemoryStream memoryStream, string fileName)
+        protected static void WriteStream(MemoryStream memoryStream, string fileName)
         {
             HttpContext context = HttpContext.Current;
             context.Response.Clear();
@@ -44,6 +53,32 @@ namespace BForms.Models
               String.Format("attachment;filename={0}", fileName));
             context.Response.BinaryWrite(memoryStream.ToArray());
             context.Response.End();
+        }
+    }
+
+    /// <summary>
+    /// Action Result used to export an excel file
+    /// Use with custom ExcelHandler (class inherited from ExcelHandler)
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public class BsExcelResult<T, Handler> : BsExcelResult<T>
+        where T : class
+            where Handler : ExcelHandler<T>, new()
+    {
+        public BsExcelResult(){}
+
+        public BsExcelResult(string fileName, IEnumerable<T> items) : base(fileName, items){}
+
+        /// <summary> 
+        /// Execute the Excel Result. 
+        /// </summary> 
+        /// <param name="context">Controller context.</param> 
+        public override void ExecuteResult(ControllerContext context)
+        {
+            if (Items != null)
+            {
+                WriteStream(Items.ToExcelMemoryStream<T, Handler>(FileName), FileName);
+            }
         }
     }
 }
