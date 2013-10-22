@@ -99,7 +99,7 @@
                 case 'select-multiple':
                 case 'select-one':
                 case 'text':
-                case 'textarea:':
+                case 'textarea':
                     if ($(this).hasClass("tag_counter")) {
                         $(this).val('0');
                     } else {
