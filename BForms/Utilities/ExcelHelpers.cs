@@ -140,6 +140,35 @@ namespace BForms.Utilities
 
         private static Run GetBoldStyle()
         {
+            Stylesheet styleSheet = new Stylesheet();//workbook.WorkbookStylesPart.Stylesheet;
+
+            //build the formatted header style
+            UInt32Value headerFontIndex =
+                CreateFont(
+                    styleSheet,
+                    "Arial",
+                    12,
+                    true,
+                    System.Drawing.Color.White);
+            //set the background color style
+            UInt32Value headerFillIndex =
+                CreateFill(
+                    styleSheet,
+                    System.Drawing.Color.SlateGray);
+            //create the cell style by combining font/background
+            UInt32Value headerStyleIndex =
+                CreateCellFormat(
+                    styleSheet,
+                    headerFontIndex,
+                    headerFillIndex,
+                    null);
+
+            Cell headerCell = CreateTextCell(
+                        1,
+                        1,
+                        "qwe",
+                        headerStyleIndex);
+
             Run run = new Run();
             RunProperties runProperties = new RunProperties();
             Bold bold = new Bold();
@@ -148,6 +177,160 @@ namespace BForms.Utilities
             run.Append(runProperties);
 
             return run;
+        }
+
+        private static UInt32Value CreateFont(Stylesheet styleSheet, string fontName, Nullable<double> fontSize, bool isBold, System.Drawing.Color foreColor)
+        {
+            Font font = new Font();
+
+            if (!string.IsNullOrEmpty(fontName))
+            {
+                FontName name = new FontName()
+                {
+                    Val = fontName
+                };
+                font.Append(name);
+            }
+
+            if (fontSize.HasValue)
+            {
+                FontSize size = new FontSize()
+                {
+                    Val = fontSize.Value
+                };
+                font.Append(size);
+            }
+
+            if (isBold == true)
+            {
+                Bold bold = new Bold();
+                font.Append(bold);
+            }
+
+            if (foreColor != null)
+            {
+                Color color = new Color()
+                {
+                    Rgb = new HexBinaryValue()
+                    {
+                        Value =
+                            System.Drawing.ColorTranslator.ToHtml(
+                                System.Drawing.Color.FromArgb(
+                                    foreColor.A,
+                                    foreColor.R,
+                                    foreColor.G,
+                                    foreColor.B)).Replace("#", "")
+                    }
+                };
+                font.Append(color);
+            }
+            styleSheet.Fonts.Append(font);
+            UInt32Value result = styleSheet.Fonts.Count;
+            styleSheet.Fonts.Count++;
+            return result;
+        }
+
+        private static UInt32Value CreateFill(Stylesheet styleSheet, System.Drawing.Color fillColor)
+        {
+            Fill fill = new Fill(
+                new PatternFill(
+                    new ForegroundColor()
+                    {
+                        Rgb = new HexBinaryValue()
+                        {
+                            Value =
+                            System.Drawing.ColorTranslator.ToHtml(
+                                System.Drawing.Color.FromArgb(
+                                    fillColor.A,
+                                    fillColor.R,
+                                    fillColor.G,
+                                    fillColor.B)).Replace("#", "")
+                        }
+                    })
+                {
+                    PatternType = PatternValues.Solid
+                }
+            );
+            styleSheet.Fills.Append(fill);
+
+            UInt32Value result = styleSheet.Fills.Count;
+            styleSheet.Fills.Count++;
+            return result;
+        }
+
+        private static UInt32Value CreateCellFormat(Stylesheet styleSheet, UInt32Value fontIndex, UInt32Value fillIndex, UInt32Value numberFormatId)
+        {
+            CellFormat cellFormat = new CellFormat();
+
+            if (fontIndex != null)
+                cellFormat.FontId = fontIndex;
+
+            if (fillIndex != null)
+                cellFormat.FillId = fillIndex;
+
+            if (numberFormatId != null)
+            {
+                cellFormat.NumberFormatId = numberFormatId;
+                cellFormat.ApplyNumberFormat = BooleanValue.FromBoolean(true);
+            }
+
+            styleSheet.CellFormats.Append(cellFormat);
+
+            UInt32Value result = styleSheet.CellFormats.Count;
+            styleSheet.CellFormats.Count++;
+            return result;
+        }
+
+        private static Cell CreateTextCell(int columnIndex, int rowIndex, object cellValue, Nullable<uint> styleIndex)
+        {
+            Cell cell = new Cell();
+
+            cell.DataType = CellValues.InlineString;
+            cell.CellReference = GetColumnName(columnIndex) + rowIndex;
+
+            if (styleIndex.HasValue)
+                cell.StyleIndex = styleIndex.Value;
+
+            InlineString inlineString = new InlineString();
+            Text t = new Text();
+
+            t.Text = cellValue.ToString();
+            inlineString.AppendChild(t);
+            cell.AppendChild(inlineString);
+
+            return cell;
+        }
+
+        private static Cell CreateValueCell(int columnIndex, int rowIndex, object cellValue, Nullable<uint> styleIndex)
+        {
+            Cell cell = new Cell();
+            cell.CellReference = GetColumnName(columnIndex) + rowIndex;
+            CellValue value = new CellValue();
+            value.Text = cellValue.ToString();
+
+            if (styleIndex.HasValue)
+                cell.StyleIndex = styleIndex.Value;
+
+            cell.AppendChild(value);
+
+            return cell;
+        }
+
+        private static string GetColumnName(int columnIndex)
+        {
+            int dividend = columnIndex;
+            string columnName = String.Empty;
+            int modifier;
+
+            while (dividend > 0)
+            {
+                modifier = (dividend - 1) % 26;
+                columnName =
+                    Convert.ToChar(65 + modifier).ToString() + columnName;
+                dividend = (int)((dividend - modifier) / 26);
+            }
+
+            return columnName;
         }
 
         private static Cell CreateCell(string name)
@@ -173,5 +356,30 @@ namespace BForms.Utilities
             column.CustomWidth = true;
             return column;
         }
+
+        private static void Test()
+        {
+            //if (DateTime.TryParse(obj.ToString(), out dateValue))
+            //{
+            //    styleIndex = _dateStyleId;
+            //    dataCell = CreateValueCell(i + 1, rowIndex, dateValue.ToOADate().ToString(), styleIndex);
+            //}
+            //else if (int.TryParse(obj.ToString(), out intValue))
+            //{
+            //    styleIndex = _numberStyleId;
+            //    dataCell = CreateValueCell(i + 1, rowIndex, intValue, styleIndex);
+            //}
+            //else if (Double.TryParse(obj.ToString(), out doubleValue))
+            //{
+            //    styleIndex = _doubleStyleId;
+            //    dataCell = CreateValueCell(i + 1, rowIndex, doubleValue, styleIndex);
+            //}
+            //else
+            //{
+            //    //assume the value is string, use the InlineString value type...
+            //    dataCell = CreateTextCell(i + 1, rowIndex, dataRow[i], null);
+            //}
+        }
+        
     }
 }
