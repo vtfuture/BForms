@@ -675,8 +675,8 @@ a.btn {
 .grid_toolbar.blue  .grid_toolbar_header {
 	background: $Blue;
 	.grid_toolbar_controls {
-		a, .input-group {
-			border-color: darken($Blue, 10%) !important;
+		a:not(:last-child), .input-group {
+		    	border-left: 1px solid darken($Blue, 5%) !important;
 		}
 		a:hover {
 			background: darken($Blue, 10%) !important;
@@ -731,8 +731,8 @@ a.btn {
 .grid_toolbar.green  .grid_toolbar_header {
 	background: $Green;
 	.grid_toolbar_controls {
-		a, .input-group {
-			border-color: darken($Green, 10%) !important;
+		a:not(:last-child), .input-group {
+		    	border-left: 1px solid darken($Green, 5%) !important;
 		}
 		a:hover {
 			background: darken($Green, 10%) !important;
@@ -788,8 +788,8 @@ a.btn {
 .grid_toolbar.purple  .grid_toolbar_header {
 	background: $Purple;
 	.grid_toolbar_controls {
-		a, .input-group {
-			border-color: darken($Purple, 10%) !important;
+		a:not(:last-child), .input-group {
+		    	border-left: 1px solid darken($Purple, 5%) !important;
 		}	
 		a:hover {
 			background: darken($Purple, 10%) !important;
@@ -845,9 +845,9 @@ a.btn {
 .grid_toolbar.orange  .grid_toolbar_header {
 	background: $Orange;
 	.grid_toolbar_controls {
-		a, .input-group {
-			border-color: darken($Orange, 10%) !important;
-		}	
+		a:not(:last-child), .input-group {
+		    	border-left: 1px solid darken($Orange, 5%) !important;
+		}		
 		a:hover {
 			background: darken($Orange, 10%) !important;
 		}
@@ -902,8 +902,8 @@ a.btn {
 .grid_toolbar.black   .grid_toolbar_header {
 	background: $Black;
 	.grid_toolbar_controls {
-		a, .input-group {
-			border-color: darken($Black, 10%) !important;
+		a:not(:last-child), .input-group {
+		    	border-left: 1px solid darken($Black, 5%) !important;
 		}	
 		a:hover {
 			background: darken($Black, 10%) !important;
@@ -969,7 +969,7 @@ a.btn {
 				border-left: none;
 			}
 			a:last-child {
-				border-right: 1px solid darken($mainColor, 5%) !important;
+				border-right: 1px solid darken($mainColor, 5%);
 				+ input-group {
 					margin-left: -1px;
 				}
