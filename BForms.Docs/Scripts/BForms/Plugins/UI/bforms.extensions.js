@@ -133,7 +133,13 @@
             }
         });
         //#endregion
-
+        
+        //#region textarea
+        $(this).find('.bs-textarea').each(function () {
+            $(this).val('');
+        });
+        //#endregion
+        
         //#region select2
         $(this).find('select' + ':not(' + ignore + ')').each(function () {
             var thisObj = $(this);
