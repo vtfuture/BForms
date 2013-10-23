@@ -1,0 +1,1 @@
+﻿BsExcelResult(string fileName, BsGridExcelBuilder<T> builder)

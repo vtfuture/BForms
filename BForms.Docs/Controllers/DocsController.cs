@@ -43,5 +43,10 @@ namespace BForms.Docs.Controllers
         {
             return View("Toolbar/Index");
         }
+
+        public ActionResult Excel()
+        {
+            return View("Excel/Index");
+        }
     }
 }

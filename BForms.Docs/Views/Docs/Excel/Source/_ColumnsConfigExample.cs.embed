@@ -1,0 +1,14 @@
+﻿builder.ConfigureColumns(columns =>
+        {
+            columns.For(x => x.Enabled)
+                    .Text(x => x.Enabled ? Resource.Yes : Resource.No)
+                    .Style((row, style) => 
+                             style.FillColor = row.Enabled ? 
+                                BsGridExcelColor.LightGreen : BsGridExcelColor.Red);
+
+            columns.For(x => x.Role)
+                    .Style(style => style.FillColor = BsGridExcelColor.Lavender);
+
+            columns.For(x => x.StartDate)
+                    .Style(style => style.Font.Italic = true);
+        });

@@ -1,0 +1,14 @@
+﻿class BsGridExcelStyle
+{
+    BsGridExcelFont Font { get; set; } // cell(s) font
+    BsGridExcelColor? FillColor { get; set; } // cell(s) background color
+}
+
+class BsGridExcelFont
+{
+    bool? Bold { get; set; } // is bold ?
+    bool? Italic { get; set; } // is italic ?
+    string Family { get; set; } // font family
+    int? Size { get; set; } // font size
+    BsGridExcelColor? Color { get; set; } // font color
+}

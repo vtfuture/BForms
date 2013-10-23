@@ -1,0 +1,3 @@
+﻿BsGridExcelBuilder<T> ConfigureRows(Func<T, BsGridExcelStyle> config)
+
+BsGridExcelBuilder<T> ConfigureRows(Action<T, BsGridExcelStyle> config)

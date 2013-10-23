@@ -1,0 +1,11 @@
+﻿builder.ConfigureRows((row, style) =>
+        {
+            if (row.Role == "TeamLeader")
+            {
+                style.Font.Bold = true;
+            }
+            if (row.Role == "Tester")
+            {
+                style.Font.Italic = true;
+            }
+        });

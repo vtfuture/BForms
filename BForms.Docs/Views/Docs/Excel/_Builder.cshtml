@@ -1,0 +1,96 @@
+﻿@using BForms.Docs.Helpers
+<h3 id="Builder">Builder</h3>
+
+<p><code>BsGridExcelBuilder&#60;T&#62;</code> is the component behind the excel file creation.</p>
+
+<p>
+    <code>Constructor</code>
+</p>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/Excel/Source/_BuilderConstructor.cs.embed")
+</pre>
+
+<br />
+
+<p>
+    <code>Example</code>
+</p>
+
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/Excel/Source/_BuilderConstructorExample.cs.embed")
+</pre>
+
+<br />
+
+<p>
+    <code>Configuration</code>
+</p>
+
+<p>
+    By default, the builder only applies bold style to the header, renders the column headers based on the name of the <code>DisplayAttribute</code> and the width of the 
+ columns based on the width of the <code>BsGridColumnAttribute</code>. <br/> <br />
+
+    Here's a list of methods you could use to configure the builder, adding custom styles and text:
+</p>
+<br />
+<p>
+    <code>Configure Header</code>
+</p>
+<p>
+    Sets custom style for header, or for a specific header column.
+</p>
+
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/Excel/Source/_HeaderConfig.cs.embed")
+</pre>
+
+<br />
+
+<p>
+    <code>Example</code>
+</p>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/Excel/Source/_HeaderConfigExample.cs.embed")
+</pre>
+
+<br />
+
+<p>
+    <code>Configure Rows</code>
+</p>
+<p>
+    Sets custom style for rows, or for a specific row.
+</p>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/Excel/Source/_RowsConfig.cs.embed")
+</pre>
+
+<br />
+
+<p>
+    <code>Example</code>
+</p>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/Excel/Source/_RowsConfigExample.cs.embed")
+</pre>
+
+<br />
+
+<p>
+    <code>Configure Columns</code>
+</p>
+<p>
+    Sets custom style for columns, or for a specific column cell.
+</p>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/Excel/Source/_ColumnsConfig.cs.embed")
+</pre>
+
+<br />
+
+<p>
+    <code>Example</code>
+</p>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/Excel/Source/_ColumnsConfigExample.cs.embed")
+</pre>

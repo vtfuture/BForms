@@ -1,0 +1,11 @@
+﻿builder.ConfigureHeader(header =>
+        {
+            // general style
+            header.Style.Font.Bold = true;
+            header.Style.FillColor = BsGridExcelColor.Ivory;
+
+            // specific style
+            header.For(x => x.StartDate)
+                    .Text("Contributor since")
+                    .Style(style => style.Font.Italic = true);
+        });
