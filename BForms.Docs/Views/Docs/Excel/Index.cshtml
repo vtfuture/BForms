@@ -1,0 +1,38 @@
+﻿@{
+    ViewBag.Title = "Excel control";
+}
+
+<div class="row">
+    <div class="hidden-xs hidden-sm col-md-3 col-lg-3">
+        <div class="bs-sidebar">
+            <ul class="nav bs-sidenav">
+                <li>
+                    <a href="#select-section">Excel control</a>
+                    <ul class="nav">
+                        <li><a href="#BsExcelResult">Excel result</a></li>
+                        <li><a href="#Builder">Builder</a></li>
+                        <li><a href="#Style">Style</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <main class="col-md-9 col-lg-9" role="main">
+        <div class="bs-docs-section">
+            <div class="page-header">
+                <h1 id="select-section">Excel Builder</h1>
+            </div>
+            
+            <p>
+                BForms <strong>Excel Builder</strong> component is designed to export the <strong>Grids</strong> items into an excel file.
+            </p>
+
+            @Html.Partial("Excel/_ExcelResult")
+            @Html.Partial("Excel/_Builder")
+            @Html.Partial("Excel/_Style")
+
+        </div>
+
+    </main>
+</div>

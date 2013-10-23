@@ -54,7 +54,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
                 {"detailsUrl", Url.Action("Details")},
                 {"getRowUrl", Url.Action("GetRow")},
                 {"enableDisableUrl", Url.Action("EnableDisable")},
-                {"printUrl", Url.Action("Print")},
+                {"exportExcelUrl", Url.Action("ExportExcel")},
                 {"updateUrl", Url.Action("Update")},
                 {"deleteUrl", Url.Action("Delete")},
                 {"editComponents", RequireJsHtmlHelpers.ToJsonDictionary<EditComponents>()}
@@ -298,7 +298,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
             return new BsJsonResult(null, status, msg);
         }
 
-        public ActionResult Print(BsGridRepositorySettings<ContributorSearchModel> settings, List<int> ids)
+        public ActionResult ExportExcel(BsGridRepositorySettings<ContributorSearchModel> settings, List<int> ids)
         {
             var items = _gridRepository.GetExcelItems(settings, ids);
 

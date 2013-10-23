@@ -1,0 +1,32 @@
+﻿@using BForms.Docs.Helpers
+<h3 id="Style">Style</h3>
+
+<p><code>BsGridExcelStyle</code> is the class behind the cells style formatting.</p>
+
+<p>
+    You can style a specific cell, column, header by setting the <code>Style</code> property in the builder configuration part.
+</p>
+
+<p>
+    <code>Class</code>
+</p>
+
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/Excel/Source/_StyleClass.cs.embed")
+</pre>
+
+<br />
+
+<p>
+    <code>Color</code>
+</p>
+
+<p>
+    The framework provides a set of colors to help you style the excel file via the <code>BsGridExcelColor</code> enum.
+
+    Below you can find the list:
+</p>
+
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/Excel/Source/_ColorList.cs.embed")
+</pre>

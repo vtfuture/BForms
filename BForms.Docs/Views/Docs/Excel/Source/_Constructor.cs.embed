@@ -1,0 +1,1 @@
+﻿BsExcelResult(string fileName, IEnumerable<T> items)

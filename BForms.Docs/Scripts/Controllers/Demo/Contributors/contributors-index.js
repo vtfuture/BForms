@@ -46,7 +46,7 @@
 
             //#region gridActions TODO - refactor handler to methods
             gridActions: [{
-                btnSelector: '.js-btn-print_selected',
+                btnSelector: '.js-btn-exportExcel_selected',
                 handler: $.proxy(function ($rows, context) {
                     var data = {};
                     var ids = [];
@@ -56,7 +56,7 @@
                     data.ids = ids;
                     data.settings = context.refreshModel;
 
-                    this._print(data, this.options.printUrl);
+                    this._exportExcel(data, this.options.exportExcelUrl);
 
                 }, this)
             }, {
@@ -200,7 +200,7 @@
     //#endregion
 
     //#region Print
-    GridIndex.prototype._print = function (data, url) {
+    GridIndex.prototype._exportExcel = function (data, url) {
         window.location.assign(url + "?" + $.bforms.param(data));
     };
     //#endregion

@@ -208,6 +208,7 @@
     <Content Include="Scripts\BForms\Stylesheets\Images\preloader-small.gif" />
     <Content Include="Scripts\Controllers\Common\main-script.js" />
     <Content Include="Scripts\Controllers\Demo\Contributors\contributors-index.js" />
+    <Content Include="Scripts\Controllers\Root\Docs\docs-excel.js" />
     <Content Include="Scripts\Controllers\Root\Docs\docs-toolbar.js" />
     <Content Include="Scripts\Controllers\Root\Docs\docs-rangeextensions.js" />
     <Content Include="Scripts\Controllers\Root\Docs\docs-grid.js" />
@@ -785,6 +786,52 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Docs\Toolbar\Source\_ControlsManuallyInit.cs.embed" />
+    <Content Include="Views\Docs\Excel\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Excel\_ExcelResult.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Excel\Source\_Constructor.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Excel\Source\_ConstructorBuilder.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Excel\_Builder.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Excel\Source\_BuilderConstructor.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Excel\Source\_BuilderConstructorExample.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Excel\Source\_HeaderConfigExample.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Excel\Source\_HeaderConfig.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Excel\Source\_RowsConfigExample.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Excel\Source\_RowsConfig.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Excel\Source\_ColumnsConfigExample.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Excel\Source\_ColumnsConfig.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Excel\_Style.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Excel\Source\_StyleClass.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Excel\Source\_ColorList.cs.embed" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
