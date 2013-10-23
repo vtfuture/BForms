@@ -340,7 +340,10 @@ namespace BForms.Docs.Areas.Demo.Controllers
             }
             catch (Exception ex)
             {
-                return null;
+                var controllerName = (string)Request.RequestContext.RouteData.Values["controller"];
+                var actionName = (string)Request.RequestContext.RouteData.Values["action"];
+
+                return View("Error", new HandleErrorInfo(ex, controllerName, actionName));
             }
         }
         #endregion
