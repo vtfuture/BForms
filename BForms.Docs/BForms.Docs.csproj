@@ -623,10 +623,10 @@
     <Content Include="Views\Docs\Grid\Source\_RowData.cs.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Docs\Toolbar\Source\_ConfigureColumns.cs.embed" />
+    <Content Include="Views\Docs\Grid\Source\_ConfigureColumns.cs.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Docs\Toolbar\Source\_ConfigureColumnsExample.cs.embed" />
+    <Content Include="Views\Docs\Grid\Source\_ConfigureColumnsExample.cs.embed" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Docs\Grid\Source\_Actions.cs.embed" />
