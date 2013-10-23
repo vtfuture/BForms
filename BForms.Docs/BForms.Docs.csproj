@@ -765,6 +765,27 @@
   <ItemGroup>
     <Content Include="Views\Docs\Toolbar\_ToolbarHelper.cshtml" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Toolbar\Source\_RequireSetup.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Toolbar\Source\_JsBasicSetup.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Toolbar\Source\_ControlsQuickSearchJs.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Toolbar\Source\_ControlsAddDefaults.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Toolbar\Source\_ControlsAdvancedSearchDefaults.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Toolbar\Source\_DefaultFormControlsCustomization.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Toolbar\Source\_ControlsManuallyInit.cs.embed" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

@@ -5,7 +5,7 @@
         'bforms-toolbar',
         'bootstrap',
         'bforms-ajax',
-        'main-script'       
+        'main-script'
 ], function () {
 
     //#region Constructor and Properties
@@ -26,7 +26,7 @@
     //#region Grid
     GridIndex.prototype.initGrid = function () {
         this.$grid.bsGrid({
-            $toolbar : this.$toolbar,
+            $toolbar: this.$toolbar,
             uniqueName: 'usersGrid',
             pagerUrl: this.options.pagerUrl,
 
@@ -43,7 +43,7 @@
                 },
             }],
             //#endregion
-            
+
             //#region gridActions TODO - refactor handler to methods
             gridActions: [{
                 btnSelector: '.js-btn-print_selected',
@@ -59,7 +59,7 @@
                     this._print(data, this.options.printUrl);
 
                 }, this)
-            },{
+            }, {
                 btnSelector: '.js-btn-enable_selected',
                 handler: $.proxy(function ($rows, context) {
                     var data = {};
@@ -121,12 +121,12 @@
             updateRowUrl: this.options.getRowUrl,
             detailsUrl: this.options.detailsUrl,
             beforeRowDetailsSuccess: $.proxy(this._beforeDetailsSuccessHandler, this),
-            afterRowDetailsSuccess : $.proxy(this._afterDetailsSuccessHandler, this),
+            afterRowDetailsSuccess: $.proxy(this._afterDetailsSuccessHandler, this),
             rowActions: [{
                 btnSelector: '.js-btn_state',
                 url: this.options.enableDisableUrl,
                 handler: $.proxy(this._enableDisableHandler, this),
-            },{
+            }, {
                 btnSelector: '.js-btn_delete',
                 url: this.options.deleteUrl,
                 init: $.proxy(this._deleteHandler, this),
@@ -140,7 +140,7 @@
 
         var $row = data.$row,
             response = data.data;
-        
+
         var identityOpt = this._editableOptions($row, this.options.editComponents.Identity);
         response.$detailsHtml.find('.js-editableIdentity').bsEditable(identityOpt);
 
@@ -148,7 +148,7 @@
         response.$detailsHtml.find('.js-editableProject').bsEditable(projectOpt);
     };
 
-    GridIndex.prototype._editableOptions = function($row, componentId) {
+    GridIndex.prototype._editableOptions = function ($row, componentId) {
         return $.extend(true, {}, {
             url: this.options.updateUrl,
             prefix: 'x' + $row.data('objid') + '.',
@@ -156,13 +156,13 @@
                 objId: $row.data('objid'),
                 componentId: componentId
             },
-            editSuccessHandler: $.proxy(function(editResponse) {
+            editSuccessHandler: $.proxy(function (editResponse) {
                 this.$grid.bsGrid('updateRow', $row, false, true);
             }, this)
         });
     };
 
-    GridIndex.prototype._afterDetailsSuccessHandler = function(e, data) {
+    GridIndex.prototype._afterDetailsSuccessHandler = function (e, data) {
         var $row = data.$row;
 
         $row.find('.js-editableIdentity').bsEditable('initValidation');
@@ -238,7 +238,7 @@
         });
     };
 
-    GridIndex.prototype._ajaxDelete = function($html, data, url, success, error){
+    GridIndex.prototype._ajaxDelete = function ($html, data, url, success, error) {
         var ajaxOptions = {
             name: '|delete|' + data,
             url: url,
@@ -258,22 +258,36 @@
     //#region Toolbar
     GridIndex.prototype.initToolbar = function () {
 
+        // on init
         this.$toolbar.bsToolbar({
             uniqueName: 'usersToolbar',
             subscribers: [this.$grid]/*,
             autoInitControls: false,
             //initialize default controls manually
             controls: [
-                Add
+                $.bforms.toolbar.defaults.advancedsearch,
+                $.bforms.toolbar.controls.yourCustomControl
             ]*/
         });
 
-        ////add default control with custom options
-        //var advancedSearch = new $.bforms.toolbar.defaults.AdvancedSearch(this.$toolbar, null, false);
-        //advancedSearch.setControl('search', {
-        //    handler: function () { console.log(this); }
+        //// after init
+        //this.$toolbar.bsToolbar('controls', [$.bforms.toolbar.controls.yourCustomControl]);
+
+        //// Step 1: get advanced search plugin from toolbar defaults namespace
+        //var advancedsearch = new $.bforms.toolbar.defaults.advancedsearch(this.$toolbar);
+
+        //// Step 2: update button settings
+        //advancedsearch.setcontrol('search', {
+        //    handler: $.proxy(function () {
+        //        console.log('custom');
+        //        var widget = $('#toolbar').data('bformsBsToolbar');
+        //        for (var i = 0; i < widget.subscribers.length; i++) {
+        //            widget.subscribers[i].bsGrid('search', data);
+        //        }
+        //    }, this)
         //});
 
+        //// Step 3: add control to toolbar
         //this.$toolbar.bsToolbar('controls', [advancedSearch]);
     };
     //#endregion

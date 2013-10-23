@@ -4,95 +4,106 @@
 	'bforms-form'
 ], function () {
 
-    var Add = function ($toolbar, options, lazy) {
+    var Add = function ($toolbar, options) {
 
-		this.name = 'add';
+        this.name = 'add';
 
-		this.type = 'tab';
+        this.type = 'tab';
 
-		this.$toolbar = $toolbar;
+        this.$toolbar = $toolbar;
 
-		this.options = $.extend(true, {}, this._defaultOptions, options);
+        this.options = $.extend(true, {}, this._defaultOptions, options);
 
-		this.widget = this.$toolbar.data('bformsBsToolbar');
+        this.widget = this.$toolbar.data('bformsBsToolbar');
 
-		this._controls = {};
+        this._controls = {};
 
-		this._addDefaultOptions();
+        this._addDefaultOptions();
 
-		lazy = typeof lazy === 'undefined' ? true : lazy;
+    };
 
-		if (lazy) {
-		    this.init();
-		}
+    Add.prototype._defaultOptions = {
+        selector: '.bs-show_add'
+    };
 
-	};
+    Add.prototype.init = function () {
 
-	Add.prototype._defaultOptions = {
-	    selector: '.bs-show_add'
-	};
+        var $elem = $(this._defaultOptions.selector);
 
-	Add.prototype.init = function () {
+        var controls = [];
+        for (var k in this._controls) {
+            if (k in this._controls) {
+                controls.push(this._controls[k]);
+            }
+        }
 
-	    var $elem = $(this._defaultOptions.selector);
+        this.$addForm = $('#' + $elem.data('tabid')).bsForm({
+            container: $elem.attr('id'),
+            actions: controls
+        });
+    };
 
-	    var controls = [];
-	    for (var k in this._controls) {
-	        if (k in this._controls) {
-	            controls.push(this._controls[k]);
-	        }
-	    }
+    Add.prototype._addDefaultOptions = function () {
 
-		this.$addForm = $('#' + $elem.data('tabid')).bsForm({
-			container: $elem.attr('id'),
-			actions: controls
-		});
-	};
+        var addOptions = {
+            // button name. When you want to customize a form button
+            // functionality the name is the key based on which the 
+            // options will be merged
+            name: 'save',
+            // button selector that the handler will attach to
+            selector: '.js-btn-save',
+            // validate form. In this case we validate the form because
+            // adding an entity might have some consitions to meet
+            validate: true,
+            // parse form and send parsed data to handler
+            parse: true,
+            // button handler
+            handler: $.proxy(this._evOnAdd, this)
+        };
+        this._controls['save'] = addOptions;
 
-	Add.prototype._addDefaultOptions = function () {
+        var resetOptions = {
+            // button name. When you want to customize a form button
+            // functionality the name is the key based on which the 
+            // options will be merged
+            name: 'reset',
+            // button selector that the handler will attach to
+            selector: '.js-btn-reset',
+            // validate form. In this case we don't want to validate
+            // the form because all user input will be reset
+            validate: false,
+            // parse form and send parsed data to handler. We don't parse
+            // the form because we've just reseted it
+            parse: false,
+            // button handler
+            handler: $.proxy(this._evOnReset, this)
+        };
+        this._controls['reset'] = resetOptions;
+    };
 
-	    var addOptions = {
-	        name: 'save',
-	        selector: '.js-btn-save',
-	        validate: true,
-	        parse: true,
-	        handler: $.proxy(this._evOnAdd, this)
-	    }
-	    this._controls['save'] = addOptions;
+    Add.prototype.setControl = function (controlName, options) {
 
-	    var resetOptions = {
-	        name: 'reset',
-	        selector: '.js-btn-reset',
-	        validate: false,
-	        parse: true,
-	        handler: $.proxy(this._evOnReset, this)
-	    };
-	    this._controls['reset'] = resetOptions;
-	};
+        var control = this._controls[controlName];
 
-	Add.prototype.setControl = function (controlName, options) {
+        if (control) {
+            control = $.extend(true, {}, control, options);
+        }
 
-	    var control = this._controls[controlName];
+        this._controls[controlName] = control;
 
-	    if (control) {
-	        control = $.extend(true, {}, control, options);
-	    }
+    };
 
-	    this._controls[controlName] = control;
+    Add.prototype._evOnAdd = function (data, response) {
+        for (var i = 0; i < this.widget.subscribers.length; i++) {
+            this.widget.subscribers[i].bsGrid('add', response.Row);
+        }
+        this.$addForm.bsForm('reset');
+    };
 
-	};
+    Add.prototype._evOnReset = function (data) {
+        this.$addForm.bsForm('reset');
+    };
 
-	Add.prototype._evOnAdd = function (data, response) {
-	    for (var i = 0; i < this.widget.subscribers.length; i++) {
-	        this.widget.subscribers[i].bsGrid('add', response.Row);
-	    }
-	    this.$addForm.bsForm('reset');
-	};
-
-	Add.prototype._evOnReset = function (data) {
-	    this.$addForm.bsForm('reset');
-	};
-    
-	return Add;
+    return Add;
 
 });

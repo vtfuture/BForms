@@ -25,30 +25,8 @@
         tabContainerSelector: '.grid_toolbar_form',
         // auto initialize controls that were attached on bforms.toolbar.defaults and bforms.toolbar.controls namespaces
         autoInitControls: true,
-        // default reset handler
-        reset: function ($grid) {
-
-            // reset quick search if any
-            var quickSearch = this.getControl('quickSearch');
-
-            if (quickSearch != null) {
-                quickSearch.$element.find('input').val('');
-            }
-
-            // reset advanced search if any
-            var advancedSearch = this.getControl('advancedSearch');
-            var data;
-            if (advancedSearch != null) {
-                advancedSearch.$container.bsForm('reset');
-                data = advancedSearch.$container.bsForm('parse');
-            }
-
-            // reset grid
-            var widget = this.element.data('bformsBsToolbar');
-            for (var i = 0; i < widget.subscribers.length; i++) {
-                widget.subscribers[i].bsGrid('reset', data, true);
-            }
-        },
+        // reset handler
+        reset: null,
         // controls to be added to toolbar widget
         controls: null
     };
@@ -117,9 +95,35 @@
     };
 
     Toolbar.prototype.reset = function () {
+        this._reset();
         if (typeof this.options.reset === "function") {
             this.options.reset.apply(this, arguments);
         }
+    };
+
+    Toolbar.prototype._reset = function () {
+
+        // reset quick search if any
+        var quickSearch = this.getControl('quickSearch');
+
+        if (quickSearch != null) {
+            quickSearch.$element.find('input').val('');
+        }
+
+        // reset advanced search if any
+        var advancedSearch = this.getControl('advancedSearch');
+        var data;
+        if (advancedSearch != null) {
+            advancedSearch.$container.bsForm('reset');
+            data = advancedSearch.$container.bsForm('parse');
+        }
+
+        // reset grid
+        var widget = this.element.data('bformsBsToolbar');
+        for (var i = 0; i < widget.subscribers.length; i++) {
+            widget.subscribers[i].bsGrid('reset', data, true);
+        }
+
     };
 
     Toolbar.prototype._addDelegates = function () {
@@ -132,7 +136,6 @@
 
         for (var i = 0; i < controls.length; i++) {
             var control = controls[i];
-            control.init();
             this._controls.push(control);
         }
 
@@ -159,11 +162,15 @@
 
                     this._addTab(control);
 
+                    control.init();
+
                     break;
                 }
                 default: {
 
                     this._addCustomControl(control);
+
+                    control.init();
                     
                     break;
                 }

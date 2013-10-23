@@ -59,7 +59,8 @@ The basic setup requirements for this to render something looks like this:
 
 <h4>Controls</h4>
 <p>
-    Now you must say OK it can be blue, it can be black, it can have a name but it still does nothing and you are right. It's time to add some controls.
+    Now you must say OK it can be blue, it can be black, it can have a name but it still has no buttons to interract with and you are right. It's time to add some controls.
+    Be carefull! By adding controls on the servers side doesn't mean that the user can instantly interract with them. For that you must do a little client side coding; more of that <a href="#javascript">here</a>.
 </p>
 <p>
     Out of the box <code>BsToolbar</code> comes with 3 functionalities: quick search, advanced search and add. Sadly this part is for Razor only.
@@ -96,9 +97,9 @@ The basic setup requirements for this to render something looks like this:
 </p>
 <br />
 
-<h4>Custom controls</h4>
+<h4 id="razor-custom-controls">Custom controls</h4>
 <p>
-    As stated above you can add custom controls to your toolbar and <code>BsForms</code> comes with a built-in one - <code>QuickSearch</code>. To use it simply add
+    As stated above you can add custom controls to your toolbar and <strong>BsForms</strong> comes with a built-in one - <code>BsToolbarQuickSearch</code>. To use it simply add
 </p>
 
 <pre class="prettyprint lang-cs bs-example">
@@ -107,10 +108,175 @@ The basic setup requirements for this to render something looks like this:
 <br />
 
 <p>
-    You can add as many custom controls as you like, but as the name says, it's custom so you have to build it yourself. Luckily this is a fairly easy task too. Let's look at the quick search example:
+    You can add as many custom controls as you like, but as the name says, it's custom so you have to build it yourself.
+    Luckily this is a fairly easy task to do, too. Let's take a look at the quick search example:
 </p>
 
-<pre class="prettyprint lang-cs bs-example">
+<pre class="prettyprint lang-java bs-example">
 @Html.InsertFileContentCached("~/Views/Docs/Toolbar/Source/_ControlsQuickSearch.cs.embed")
 </pre>
 <br />
+
+<p>
+    Now that you have your page set up (html wise) it's time to add some interractions.
+</p>
+
+<h3 id="javascript">Javascript</h3>
+
+<p>
+    The first step is to require toolbar.js
+</p>
+
+<pre class="prettyprint lang-js bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/Toolbar/Source/_RequireSetup.cs.embed")
+</pre>
+<br />
+
+<p>Now that the script is loaded we can apply the toolbar widget on our element</p>
+
+<pre class="prettyprint lang-js bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/Toolbar/Source/_JsBasicSetup.cs.embed")
+</pre>
+<br />
+
+<h4>Options</h4>
+
+<code>uniqueName</code>
+
+<p>
+    <strong>type</strong> string
+    <br />
+    <strong>default</strong> DOM element id
+</p>
+
+<p>
+    Used to uniquely identify the toolbar. It is not required as long as the toolbar has the <strong>id</strong> attribute set.
+</p>
+
+<code>subscribers</code>
+
+<p>
+    <strong>type</strong> Array
+    <br />
+    <strong>default</strong> empty
+</p>
+
+<p>
+    The toolbat by itself has no meaning. That's why for it to be functional you must provide a list of subscribers.
+    These will be notified when an action is being made.
+</p>
+
+<code>autoInitControls</code>
+
+<p>
+    <strong>type</strong> boolean
+    <br />
+    <strong>default</strong> true
+</p>
+
+<p>
+    When toolbar.js is loaded, there are also loaded the scripts for the default toolbar controls(quick search, advanced search and add).
+    If <code>autoInitControls = true</code> they are automatically initialized if you added them when you configured the toolbar controls on the server side.
+    Also if you call your own plugins you can set them to automatically initialize too. Read more about this <a href="#js-custom-controls">here</a>.
+</p>
+
+<code>reset</code>
+
+<p>
+    <strong>type</strong> function
+    <br />
+    <strong>default</strong> resets advanced and quick search
+</p>
+
+<p>
+    Supply a handler if there is anything you would like to reset in your toolbar 
+</p>
+
+<code>controls</code>
+
+<p>
+    <strong>type</strong> Array
+    <br />
+    <strong>default</strong> empty
+</p>
+
+<p>
+    Add your custom controls that you don't want to automatically be initialized.
+</p>
+
+<br />
+
+<h4 id="js-custom-controls">Custom controls</h4>
+
+<p>
+    <a href="#razor-custom-controls">Earlier</a> I've showed you how to implement a custom control on the server side.
+    Again we must provide some interraction for the user, so we have to write a plugin similar to the default ones.
+</p>
+
+<p>
+    Below you will find the implementation of the quick search plugin.
+</p>
+
+<pre class="prettyprint lang-js bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/Toolbar/Source/_ControlsQuickSearchJs.cs.embed")
+</pre>
+<br />
+
+<h4>Adding controls manually</h4>
+
+<p>
+    In order to stop your controls to be automatically added to your toolbar you have to set <code>autoInitControls</code> to <code>false</code>.
+    Then you can add your controls on toolbar initialization or after.
+</p>
+
+<pre class="prettyprint lang-js bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/Toolbar/Source/_ControlsManuallyInit.cs.embed")
+</pre>
+<br />
+
+<h4>Customizing controls</h4>
+
+<p>
+    Advanced search and add controls manipulate the toolbar subscribers by submiting a form. By using their corresponding plugins
+    you can customize the form functionality.
+</p>
+
+<p>
+    <strong>Add control</strong>
+</p>
+
+<p>
+    By default the add form has two buttons: save and reset. The save button saves the new entity and adds it to the grid as the first element.
+    The reset button simply resets all form fields. 
+</p>
+
+<pre class="prettyprint lang-js bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/Toolbar/Source/_ControlsAddDefaults.cs.embed")
+</pre>
+<br />
+
+<p>
+    <strong>Advanced search control</strong>
+</p>
+
+<p>
+    By default the advanced search form has two buttons: search and reset. The search button triggers filter grid by sending the parsed form data.
+    The reset button does the same but before parsing the form we reset it. Even though we reset the form we still need to parse the it in order
+    to filter the grid in case the form has some default fields values. 
+</p>
+
+<pre class="prettyprint lang-js bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/Toolbar/Source/_ControlsAdvancedSearchDefaults.cs.embed")
+</pre>
+<br />
+
+<p>
+    You can customize the buttons behaviour of the plugins described above by following the next steps:
+</p>
+
+<pre class="prettyprint lang-js bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/Toolbar/Source/_DefaultFormControlsCustomization.cs.embed")
+</pre>
+<br />
+
+

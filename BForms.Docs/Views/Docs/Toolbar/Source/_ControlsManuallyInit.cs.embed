@@ -1,0 +1,14 @@
+﻿// on init
+this.$toolbar.bsToolbar({
+    uniqueName: 'usersToolbar',
+    subscribers: [this.$grid],
+    autoInitControls: false,
+    //initialize default controls manually
+    controls: [
+        $.bforms.toolbar.defaults.advancedsearch,
+        $.bforms.toolbar.controls.yourCustomControl
+    ]
+});
+
+// after init
+this.$toolbar.bsToolbar('controls', [$.bforms.toolbar.controls.yourCustomControl]);

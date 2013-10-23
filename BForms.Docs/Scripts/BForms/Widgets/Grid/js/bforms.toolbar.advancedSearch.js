@@ -4,100 +4,110 @@
 	'bforms-form'
 ], function () {
 
-	var AdvancedSearch = function ($toolbar, options, lazy) {
+    var AdvancedSearch = function ($toolbar, options) {
 
-		this.name = 'advancedSearch';
+        this.name = 'advancedSearch';
 
-		this.type = 'tab';
+        this.type = 'tab';
 
-		this.$toolbar = $toolbar;
+        this.$toolbar = $toolbar;
 
-		this.options = $.extend(true, {}, this._defaultOptions, options);
+        this.options = $.extend(true, {}, this._defaultOptions, options);
 
-		this.widget = this.$toolbar.data('bformsBsToolbar');
+        this.widget = this.$toolbar.data('bformsBsToolbar');
 
-		this._controls = {};
+        this._controls = {};
 
-		this._addDefaultOptions();
+        this._addDefaultOptions();
 
-		lazy = typeof lazy === 'undefined' ? true : lazy;
+    };
 
-		if (lazy) {
-			this.init();
-		}
+    AdvancedSearch.prototype._defaultOptions = {
+        selector: '.bs-show_advanced_search'
+    };
 
-	};
+    AdvancedSearch.prototype.init = function () {
 
-	AdvancedSearch.prototype._defaultOptions = {
-		selector: '.bs-show_advanced_search'
-	};
+        var controls = [];
+        for (var k in this._controls) {
+            if (k in this._controls) {
+                controls.push(this._controls[k]);
+            }
+        }
 
-	AdvancedSearch.prototype.init = function () {
+        var $elem = $(this._defaultOptions.selector);
 
-		var controls = [];
-		for (var k in this._controls) {
-			if (k in this._controls) {
-				controls.push(this._controls[k]);
-			}
-		}
+        this.$searchForm = $('#' + $elem.data('tabid')).bsForm({
+            container: $elem.attr('id'),
+            actions: controls
+        });
 
-		var $elem = $(this._defaultOptions.selector);
+    };
 
-		this.$searchForm = $('#' + $elem.data('tabid')).bsForm({
-			container: $elem.attr('id'),
-			actions: controls
-		});
+    AdvancedSearch.prototype._addDefaultOptions = function () {
 
-	};
+        var searchOptions = {
+            // button name. When you want to customize a form button
+            // functionality the name is the key based on which the 
+            // options will be merged
+            name: 'search',
+            // button selector that the handler will attach to
+            selector: '.js-btn-search',
+            // validate form. We don't validate data on search
+            validate: false,
+            // parse form and send parsed data to handler
+            parse: true,
+            // button handler
+            handler: $.proxy(this._evOnSearch, this)
+        };
+        this._controls['search'] = searchOptions;
 
-	AdvancedSearch.prototype._addDefaultOptions = function () {
+        var resetOptions = {
+            // button name. When you want to customize a form button
+            // functionality the name is the key based on which the 
+            // options will be merged
+            name: 'reset',
+            // button selector that the handler will attach to
+            selector: '.js-btn-reset',
+            // validate form. In this case we don't want to validate
+            // the form because all user input will be reset
+            validate: false,
+            // parse form and send parsed data to handler. We parse the data
+            // in case some fields have default values
+            parse: true,
+            // button handler
+            handler: $.proxy(this._evOnReset, this)
+        };
+        this._controls['reset'] = resetOptions;
+    };
 
-		var searchOptions = {
-			name: 'search',
-			selector: '.js-btn-search',
-			validate: false,
-			parse: true,
-			handler: $.proxy(this._evOnSearch, this)
-		}
-		this._controls['search'] = searchOptions;
+    AdvancedSearch.prototype.setControl = function (controlName, options) {
 
-		var resetOptions = {
-			name: 'reset',
-			selector: '.js-btn-reset',
-			validate: false,
-			parse: false,
-			handler: $.proxy(this._evOnReset, this)
-		};
-		this._controls['reset'] = resetOptions;
-	};
+        var control = this._controls[controlName];
 
-	AdvancedSearch.prototype.setControl = function (controlName, options) {
+        if (control) {
+            control = $.extend(true, {}, control, options);
+        }
 
-		var control = this._controls[controlName];
+        this._controls[controlName] = control;
 
-		if (control) {
-			control = $.extend(true, {}, control, options);
-		}
+    };
 
-		this._controls[controlName] = control;
+    AdvancedSearch.prototype._evOnSearch = function (data) {
+        for (var i = 0; i < this.widget.subscribers.length; i++) {
+            this.widget.subscribers[i].bsGrid('search', data);
+        }
+    };
 
-	};
+    AdvancedSearch.prototype._evOnReset = function () {
+        this.$searchForm.bsForm('reset');
+        var data = {};
+        this.$searchForm.bsForm('getFormData', data);
+        for (var i = 0; i < this.widget.subscribers.length; i++) {
+            this.widget.subscribers[i].bsGrid('reset', data);
+        }
+    };
 
-	AdvancedSearch.prototype._evOnSearch = function (data) {
-		for (var i = 0; i < this.widget.subscribers.length; i++) {
-			this.widget.subscribers[i].bsGrid('search', data);
-		}
-	};
-
-	AdvancedSearch.prototype._evOnReset = function () {
-		this.$searchForm.bsForm('reset');
-		var data = {};
-		this.$searchForm.bsForm('getFormData', data);
-		for (var i = 0; i < this.widget.subscribers.length; i++) {
-			this.widget.subscribers[i].bsGrid('reset', data);
-		}
-	};
-
-	return AdvancedSearch;
+    return AdvancedSearch;
 
 });

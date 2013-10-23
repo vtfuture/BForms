@@ -1,0 +1,31 @@
+﻿var searchOptions = {
+	// button name. When you want to customize a form button
+	// functionality the name is the key based on which the 
+	// options will be merged
+	name: 'search',
+	// button selector that the handler will attach to
+	selector: '.js-btn-search',
+	// validate form. We don't validate data on search
+	validate: false,
+	// parse form and send parsed data to handler
+	parse: true,
+    // button handler
+	handler: $.proxy(this._evOnSearch, this)
+};
+
+var resetOptions = {
+	// button name. When you want to customize a form button
+	// functionality the name is the key based on which the 
+	// options will be merged
+	name: 'reset',
+	// button selector that the handler will attach to
+	selector: '.js-btn-reset',
+	// validate form. In this case we don't want to validate
+	// the form because all user input will be reset
+	validate: false,
+	// parse form and send parsed data to handler. We parse the data
+    // in case some fields have default values
+	parse: true,
+	// button handler
+	handler: $.proxy(this._evOnReset, this)
+};

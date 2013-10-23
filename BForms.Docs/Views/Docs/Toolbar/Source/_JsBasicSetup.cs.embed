@@ -1,0 +1,4 @@
+﻿$('#toolbar').bsToolbar({
+    uniqueName: 'usersToolbar',
+    subscribers: [$('#grid')]
+});
