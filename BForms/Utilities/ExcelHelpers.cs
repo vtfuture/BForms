@@ -13,280 +13,167 @@ using System.Threading.Tasks;
 
 namespace BForms.Utilities
 {
+    #region ExcelHelpers
     public static class ExcelHelpers
     {
-        public static MemoryStream ToExcel<T>(this IEnumerable<T> items, string sheetName) where T : class
+        #region Style
+        /// <summary>
+        /// Create a new cell format
+        /// </summary>
+        /// <param name="fontId"></param>
+        /// <param name="fillId"></param>
+        /// <param name="numberFormatId"></param>
+        /// <param name="borderId"></param>
+        /// <param name="formatId"></param>
+        /// <param name="applyFill"></param>
+        /// <returns></returns>
+        public static CellFormat CreateCellFormat(UInt32 fontId, UInt32 fillId, UInt32 numberFormatId = 0U, UInt32 borderId = 0U, UInt32 formatId = 0U, bool applyFill = true, bool applyNumberFormat = true)
         {
-            MemoryStream memoryStream = new MemoryStream();
-
-            // Create the spreadsheet on the MemoryStream
-            SpreadsheetDocument spreadsheetDocument = SpreadsheetDocument.Create(memoryStream, SpreadsheetDocumentType.Workbook);
-
-            spreadsheetDocument.Fill(items, sheetName);
-
-            // Close the document.
-            spreadsheetDocument.Close();
-
-            return memoryStream;
-        }
-
-        private static void Fill<T>(this SpreadsheetDocument spreadsheetDocument, IEnumerable<T> items, string sheetName) where T : class
-        {
-            // Add a WorkbookPart to the document.
-            WorkbookPart workbookpart = spreadsheetDocument.AddWorkbookPart();
-            workbookpart.Workbook = new Workbook();
-
-            // Add a WorksheetPart to the WorkbookPart.
-            WorksheetPart worksheetPart = workbookpart.AddNewPart<WorksheetPart>();
-
-            var ws = new Worksheet();
-
-            ws.Fill(items);
-
-            worksheetPart.Worksheet = ws;
-            worksheetPart.Worksheet.Save();
-
-            // Add Sheets to the Workbook.
-            Sheets sheets = spreadsheetDocument.WorkbookPart.Workbook.AppendChild<Sheets>(new Sheets());
-
-            // Append a new worksheet and associate it with the workbook.
-            Sheet sheet = new Sheet() { Id = spreadsheetDocument.WorkbookPart.GetIdOfPart(worksheetPart), SheetId = 1, Name = sheetName };
-            sheets.Append(sheet);
-
-            workbookpart.Workbook.Save();
-        }
-
-        private static void Fill<T>(this Worksheet worksheet, IEnumerable<T> items) where T : class
-        {
-            if (items == null || !items.Any()) return;
-
-            var sheetData = new SheetData();
-
-            var columns = new List<string>();
-
-            Columns exColumns = new Columns();
-
-            var headerRow = new Row();
-
-            var type = typeof(T);
-
-            var index = 0;
-
-            // Create header based on DisplayAttribute and BsGridColumnAttribute
-            foreach (var property in type.GetProperties())
+            return new CellFormat()
             {
-                BsGridColumnAttribute columnAttr = null;
-
-                if (ReflectionHelpers.TryGetAttribute(property, out columnAttr))
-                {
-                    if (columnAttr.Usage != Models.BsGridColumnUsage.Html)
-                    {
-                        index++;
-
-                        var width = columnAttr.Width;
-
-                        string displayName = null;
-                        DisplayAttribute displayAttribute = null;
-
-                        if (ReflectionHelpers.TryGetAttribute(property, out displayAttribute))
-                        {
-                            displayName = displayAttribute.GetName();
-                        }
-                        else
-                        {
-                            displayName = property.Name;
-                        }
-
-                        columns.Add(property.Name);
-
-                        exColumns.Append(CreateColumn((UInt32)index, (UInt32)index, width * 10));
-
-                        headerRow.AppendChild(CreateCell(displayName));
-                    }
-                }
-            }
-
-            sheetData.AppendChild(headerRow);
-
-            // Create data table
-            foreach (var item in items)
-            {
-                var row = new Row();
-
-                foreach (var column in columns)
-                {
-                    var property = type.GetProperty(column);
-
-                    var value = property.GetValue(item);
-
-                    var strValue = value as string;
-
-                    if (strValue != null)
-                    {
-                        row.AppendChild(CreateCell(strValue));
-                    }
-                    else
-                    {
-                        throw new Exception(column + " is not of type string");
-                    }
-                }
-
-                sheetData.AppendChild(row);
-            }
-
-            worksheet.Append(exColumns);
-            worksheet.Append(sheetData);
+                NumberFormatId = (UInt32Value)numberFormatId,
+                FontId = (UInt32Value)fontId,
+                FillId = (UInt32Value)fillId,
+                BorderId = (UInt32Value)borderId,
+                FormatId = (UInt32Value)formatId,
+                ApplyFill = applyFill,
+                ApplyNumberFormat = applyNumberFormat
+            };
         }
 
-        private static Run GetBoldStyle()
-        {
-            Stylesheet styleSheet = new Stylesheet();//workbook.WorkbookStylesPart.Stylesheet;
-
-            //build the formatted header style
-            UInt32Value headerFontIndex =
-                CreateFont(
-                    styleSheet,
-                    "Arial",
-                    12,
-                    true,
-                    System.Drawing.Color.White);
-            //set the background color style
-            UInt32Value headerFillIndex =
-                CreateFill(
-                    styleSheet,
-                    System.Drawing.Color.SlateGray);
-            //create the cell style by combining font/background
-            UInt32Value headerStyleIndex =
-                CreateCellFormat(
-                    styleSheet,
-                    headerFontIndex,
-                    headerFillIndex,
-                    null);
-
-            Cell headerCell = CreateTextCell(
-                        1,
-                        1,
-                        "qwe",
-                        headerStyleIndex);
-
-            Run run = new Run();
-            RunProperties runProperties = new RunProperties();
-            Bold bold = new Bold();
-
-            runProperties.Append(bold);
-            run.Append(runProperties);
-
-            return run;
-        }
-
-        private static UInt32Value CreateFont(Stylesheet styleSheet, string fontName, Nullable<double> fontSize, bool isBold, System.Drawing.Color foreColor)
+        /// <summary>
+        /// Create a new font
+        /// </summary>
+        /// <param name="isBold">Whether the text should be bold</param>
+        /// <param name="fontFamily">The font family eg: "Arial"</param>
+        /// <param name="size">The font size</param>
+        /// <param name="color">The font color (value of the color theme)</param>
+        /// <returns></returns>
+        public static Font CreateFont(bool isBold, bool isItalic, string fontFamily, System.Double? size, string color)
         {
             Font font = new Font();
 
-            if (!string.IsNullOrEmpty(fontName))
+            if (size.HasValue)
             {
-                FontName name = new FontName()
-                {
-                    Val = fontName
-                };
-                font.Append(name);
+                FontSize fontSize = new FontSize() { Val = size };
+                font.Append(fontSize);
             }
 
-            if (fontSize.HasValue)
+            if (isItalic)
             {
-                FontSize size = new FontSize()
-                {
-                    Val = fontSize.Value
-                };
-                font.Append(size);
+                Italic italic = new Italic();
+                font.Append(italic);
             }
 
-            if (isBold == true)
+            if (isBold)
             {
                 Bold bold = new Bold();
                 font.Append(bold);
             }
 
-            if (foreColor != null)
+            if (color != null)
             {
-                Color color = new Color()
-                {
-                    Rgb = new HexBinaryValue()
-                    {
-                        Value =
-                            System.Drawing.ColorTranslator.ToHtml(
-                                System.Drawing.Color.FromArgb(
-                                    foreColor.A,
-                                    foreColor.R,
-                                    foreColor.G,
-                                    foreColor.B)).Replace("#", "")
-                    }
-                };
-                font.Append(color);
-            }
-            styleSheet.Fonts.Append(font);
-            UInt32Value result = styleSheet.Fonts.Count;
-            styleSheet.Fonts.Count++;
-            return result;
-        }
-
-        private static UInt32Value CreateFill(Stylesheet styleSheet, System.Drawing.Color fillColor)
-        {
-            Fill fill = new Fill(
-                new PatternFill(
-                    new ForegroundColor()
-                    {
-                        Rgb = new HexBinaryValue()
-                        {
-                            Value =
-                            System.Drawing.ColorTranslator.ToHtml(
-                                System.Drawing.Color.FromArgb(
-                                    fillColor.A,
-                                    fillColor.R,
-                                    fillColor.G,
-                                    fillColor.B)).Replace("#", "")
-                        }
-                    })
-                {
-                    PatternType = PatternValues.Solid
-                }
-            );
-            styleSheet.Fills.Append(fill);
-
-            UInt32Value result = styleSheet.Fills.Count;
-            styleSheet.Fills.Count++;
-            return result;
-        }
-
-        private static UInt32Value CreateCellFormat(Stylesheet styleSheet, UInt32Value fontIndex, UInt32Value fillIndex, UInt32Value numberFormatId)
-        {
-            CellFormat cellFormat = new CellFormat();
-
-            if (fontIndex != null)
-                cellFormat.FontId = fontIndex;
-
-            if (fillIndex != null)
-                cellFormat.FillId = fillIndex;
-
-            if (numberFormatId != null)
-            {
-                cellFormat.NumberFormatId = numberFormatId;
-                cellFormat.ApplyNumberFormat = BooleanValue.FromBoolean(true);
+                Color color1 = new Color() { Rgb = color };
+                font.Append(color1);
             }
 
-            styleSheet.CellFormats.Append(cellFormat);
+            if (!string.IsNullOrEmpty(fontFamily))
+            {
+                FontName fontName = new FontName() { Val = fontFamily };
+                font.Append(fontName);
+            }
 
-            UInt32Value result = styleSheet.CellFormats.Count;
-            styleSheet.CellFormats.Count++;
-            return result;
+            return font;
         }
 
-        private static Cell CreateTextCell(int columnIndex, int rowIndex, object cellValue, Nullable<uint> styleIndex)
+        /// <summary>
+        /// Create a new fill
+        /// </summary>
+        /// <param name="fillColorRgb">The foreground color of the fill</param>
+        /// <param name="pattern">The fill pattern</param>
+        /// <returns></returns>
+        public static Fill CreateFill(string fillColorRgb, PatternValues? pattern = null)
+        {
+            PatternFill patternFill = new PatternFill();
+
+            if (!string.IsNullOrEmpty(fillColorRgb))
+            {
+                patternFill.PatternType = pattern ?? PatternValues.Solid;
+                ForegroundColor foregroundColor = new ForegroundColor() { Rgb = fillColorRgb };
+                BackgroundColor backgroundColor = new BackgroundColor() { Indexed = (UInt32Value)64U };
+                patternFill.Append(foregroundColor);
+                patternFill.Append(backgroundColor);
+            }
+            else
+            {
+                patternFill.PatternType = pattern ?? PatternValues.None;
+            }
+
+            return new Fill(patternFill);
+        }
+
+        /// <summary>
+        /// Create a new border
+        /// </summary>
+        /// <returns></returns>
+        public static Border CreateBorder()
+        {
+            Border border = new Border();
+            LeftBorder leftBorder = new LeftBorder();
+            RightBorder rightBorder = new RightBorder();
+            TopBorder topBorder = new TopBorder();
+            BottomBorder bottomBorder = new BottomBorder();
+            DiagonalBorder diagonalBorder = new DiagonalBorder();
+
+            border.Append(leftBorder);
+            border.Append(rightBorder);
+            border.Append(topBorder);
+            border.Append(bottomBorder);
+            border.Append(diagonalBorder);
+
+            return border;
+        }
+        #endregion
+
+        #region Generate Cells/Columns
+        /// <summary>
+        /// Create simple text cell
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public static Cell CreateTextCell(string name)
         {
             Cell cell = new Cell();
+            cell.DataType = CellValues.String;
+            cell.CellValue = new CellValue(name);
+            return cell;
+        }
 
-            cell.DataType = CellValues.InlineString;
+        /// <summary>
+        /// Create styled text cell at specified position
+        /// </summary>
+        /// <param name="columnIndex"></param>
+        /// <param name="rowIndex"></param>
+        /// <param name="cellValue"></param>
+        /// <param name="styleIndex"></param>
+        /// <returns></returns>
+        public static Cell CreateTextCell(int columnIndex, int rowIndex, object cellValue, Nullable<uint> styleIndex)
+        {
+            Cell cell = CreateTextCell(cellValue, styleIndex);
             cell.CellReference = GetColumnName(columnIndex) + rowIndex;
+            return cell;
+        }
+
+        /// <summary>
+        /// Create styled text cell
+        /// </summary>
+        /// <param name="cellValue"></param>
+        /// <param name="styleIndex"></param>
+        /// <returns></returns>
+        public static Cell CreateTextCell(object cellValue, Nullable<uint> styleIndex)
+        {
+            Cell cell = new Cell();
+            cell.DataType = CellValues.InlineString;
 
             if (styleIndex.HasValue)
                 cell.StyleIndex = styleIndex.Value;
@@ -301,11 +188,38 @@ namespace BForms.Utilities
             return cell;
         }
 
-        private static Cell CreateValueCell(int columnIndex, int rowIndex, object cellValue, Nullable<uint> styleIndex)
+        /// <summary>
+        /// Create styled value cell at specified position
+        /// </summary>
+        /// <param name="columnIndex"></param>
+        /// <param name="rowIndex"></param>
+        /// <param name="cellValue"></param>
+        /// <param name="styleIndex"></param>
+        /// <returns></returns>
+        public static Cell CreateValueCell(int columnIndex, int rowIndex, object cellValue, Nullable<uint> styleIndex, CellValues? cellType = null)
+        {
+            Cell cell = CreateValueCell(cellValue, styleIndex, cellType);
+            cell.CellReference = GetColumnName(columnIndex) + rowIndex;
+            return cell;
+        }
+
+        /// <summary>
+        /// Create styled value cell
+        /// </summary>
+        /// <param name="cellValue"></param>
+        /// <param name="styleIndex"></param>
+        /// <returns></returns>
+        public static Cell CreateValueCell(object cellValue, Nullable<uint> styleIndex, CellValues? cellType = null)
         {
             Cell cell = new Cell();
-            cell.CellReference = GetColumnName(columnIndex) + rowIndex;
+
+            if (cellType.HasValue)
+            {
+                cell.DataType = cellType;
+            }
+
             CellValue value = new CellValue();
+
             value.Text = cellValue.ToString();
 
             if (styleIndex.HasValue)
@@ -316,6 +230,29 @@ namespace BForms.Utilities
             return cell;
         }
 
+        /// <summary>
+        /// Create a custom width column
+        /// </summary>
+        /// <param name="startIndex"></param>
+        /// <param name="endIndex"></param>
+        /// <param name="width"></param>
+        /// <returns></returns>
+        public static Column CreateColumn(UInt32 startIndex, UInt32 endIndex, double width)
+        {
+            Column column;
+            column = new Column();
+            column.Min = startIndex;
+            column.Max = endIndex;
+            column.Width = width;
+            column.CustomWidth = true;
+            return column;
+        }
+
+        /// <summary>
+        /// Get the column name based on its index
+        /// </summary>
+        /// <param name="columnIndex"></param>
+        /// <returns></returns>
         private static string GetColumnName(int columnIndex)
         {
             int dividend = columnIndex;
@@ -332,54 +269,7 @@ namespace BForms.Utilities
 
             return columnName;
         }
-
-        private static Cell CreateCell(string name)
-        {
-            Cell cell = new Cell();
-            cell.DataType = CellValues.String;
-            cell.CellValue = new CellValue(name);
-            //var run = GetBoldStyle();
-            //run.Append(new Text(name));
-            //var cellValue = new CellValue();
-            //cellValue.Append(run);
-            //cell.Append(cellValue);
-            return cell;
-        }
-
-        private static Column CreateColumn(UInt32 startIndex, UInt32 endIndex, double width)
-        {
-            Column column;
-            column = new Column();
-            column.Min = startIndex;
-            column.Max = endIndex;
-            column.Width = width;
-            column.CustomWidth = true;
-            return column;
-        }
-
-        private static void Test()
-        {
-            //if (DateTime.TryParse(obj.ToString(), out dateValue))
-            //{
-            //    styleIndex = _dateStyleId;
-            //    dataCell = CreateValueCell(i + 1, rowIndex, dateValue.ToOADate().ToString(), styleIndex);
-            //}
-            //else if (int.TryParse(obj.ToString(), out intValue))
-            //{
-            //    styleIndex = _numberStyleId;
-            //    dataCell = CreateValueCell(i + 1, rowIndex, intValue, styleIndex);
-            //}
-            //else if (Double.TryParse(obj.ToString(), out doubleValue))
-            //{
-            //    styleIndex = _doubleStyleId;
-            //    dataCell = CreateValueCell(i + 1, rowIndex, doubleValue, styleIndex);
-            //}
-            //else
-            //{
-            //    //assume the value is string, use the InlineString value type...
-            //    dataCell = CreateTextCell(i + 1, rowIndex, dataRow[i], null);
-            //}
-        }
-        
+        #endregion
     }
+    #endregion
 }

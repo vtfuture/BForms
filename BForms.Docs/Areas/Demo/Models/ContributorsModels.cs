@@ -183,6 +183,9 @@ namespace BForms.Docs.Areas.Demo.Models
 
         [BsGridColumn(Width = 5)]
         public string Contributions { get; set; }
+
+        [BsGridColumn(Width = 1)]
+        public bool Enabled { get; set; }
     }
 
     public enum ProjectRole

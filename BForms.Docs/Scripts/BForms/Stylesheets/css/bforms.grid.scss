@@ -676,7 +676,7 @@ a.btn {
 	background: $Blue;
 	.grid_toolbar_controls {
 		a, .input-group {
-			border-color: darken($Blue, 10%) !important;
+			border-left-color: darken($Blue, 10%) !important;
 		}
 		a:hover {
 			background: darken($Blue, 10%) !important;
@@ -732,7 +732,7 @@ a.btn {
 	background: $Green;
 	.grid_toolbar_controls {
 		a, .input-group {
-			border-color: darken($Green, 10%) !important;
+			border-left-color: darken($Green, 10%) !important;
 		}
 		a:hover {
 			background: darken($Green, 10%) !important;
@@ -789,7 +789,7 @@ a.btn {
 	background: $Purple;
 	.grid_toolbar_controls {
 		a, .input-group {
-			border-color: darken($Purple, 10%) !important;
+			border-left-color: darken($Purple, 10%) !important;
 		}	
 		a:hover {
 			background: darken($Purple, 10%) !important;
@@ -846,7 +846,7 @@ a.btn {
 	background: $Orange;
 	.grid_toolbar_controls {
 		a, .input-group {
-			border-color: darken($Orange, 10%) !important;
+			border-left-color: darken($Orange, 10%) !important;
 		}	
 		a:hover {
 			background: darken($Orange, 10%) !important;
@@ -903,7 +903,7 @@ a.btn {
 	background: $Black;
 	.grid_toolbar_controls {
 		a, .input-group {
-			border-color: darken($Black, 10%) !important;
+			border-left-color: darken($Black, 10%) !important;
 		}	
 		a:hover {
 			background: darken($Black, 10%) !important;

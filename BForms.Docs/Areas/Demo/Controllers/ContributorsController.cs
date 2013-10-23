@@ -12,6 +12,8 @@ using BForms.Grid;
 using BForms.Models;
 using BForms.Mvc;
 using RequireJS;
+using BForms.Utilities;
+using System.Drawing;
 
 namespace BForms.Docs.Areas.Demo.Controllers
 {
@@ -302,11 +304,46 @@ namespace BForms.Docs.Areas.Demo.Controllers
 
             try
             {
-                return new BsExcelResult<ContributorRowExcelModel>("BForms Contributors.xlsx", items);
+                var builder = new BsGridExcelBuilder<ContributorRowExcelModel>("BForms Contributors.xlsx", items);
+
+                builder.ConfigureHeader(header =>
+                        {
+                            header.Style.Font.Bold = true;
+                            header.Style.FillColor = BsGridExcelColor.Ivory;
+                            header.For(x => x.StartDate)
+                                  .Text("Contributor since")
+                                  .Style(style => style.Font.Italic = true);
+                        })
+                       .ConfigureRows((row, style) =>
+                        {
+                            if (row.Role == "TeamLeader")
+                            {
+                                style.Font.Bold = true;
+                            }
+                            if (row.Role == "Tester")
+                            {
+                                style.Font.Italic = true;
+                            }
+                        })
+                        .ConfigureColumns(columns =>
+                        {
+                            columns.For(x => x.Enabled)
+                                   .Text(x => x.Enabled ? Resource.Yes : Resource.No)
+                                   .Style((row, style) => style.FillColor = row.Enabled ? BsGridExcelColor.LightGreen : BsGridExcelColor.Red);
+                            columns.For(x => x.Role)
+                                   .Style(style => style.FillColor = BsGridExcelColor.Lavender);
+                            columns.For(x => x.StartDate)
+                                   .Style(style => style.Font.Italic = true);
+                        });
+
+                return new BsExcelResult<ContributorRowExcelModel>("BForms Contributors.xlsx", builder);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                return null;
+                var controllerName = (string)Request.RequestContext.RouteData.Values["controller"];
+                var actionName = (string)Request.RequestContext.RouteData.Values["action"];
+
+                return View("Error", new HandleErrorInfo(ex, controllerName, actionName));
             }
         }
         #endregion

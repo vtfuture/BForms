@@ -1,4 +1,5 @@
-﻿using BForms.Utilities;
+﻿using BForms.Grid;
+using BForms.Utilities;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,24 +11,38 @@ using System.Web.Mvc;
 
 namespace BForms.Models
 {
+    /// <summary>
+    /// Action Result used to export an excel file
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class BsExcelResult<T> : ActionResult where T : class
     {
-        private string FileName { get; set; }
-        private IEnumerable<T> Items { get; set; }
+        private string fileName { get; set; }
+        private IEnumerable<T> items { get; set; }
+        private BsGridExcelBuilder<T> builder { get; set; }
+
+        public BsExcelResult(){}
 
         public BsExcelResult(string fileName, IEnumerable<T> items)
         {
-            FileName = fileName;
-            Items = items;
+            this.fileName = fileName;
+            this.items = items;
         }
 
+        public BsExcelResult(string fileName, BsGridExcelBuilder<T> builder)
+        {
+            this.fileName = fileName;
+            this.builder = builder;
+        }
         /// <summary> 
         /// Execute the Excel Result. 
         /// </summary> 
         /// <param name="context">Controller context.</param> 
         public override void ExecuteResult(ControllerContext context)
         {
-            WriteStream(Items.ToExcel(FileName), FileName);
+            var builder = this.builder ?? new BsGridExcelBuilder<T>(fileName, items);
+            var stream = builder.ToStream();
+            WriteStream(stream, fileName);
         }
 
         /// <summary> 
@@ -35,7 +50,7 @@ namespace BForms.Models
         /// </summary> 
         /// <param name="memoryStream">Memory stream.</param> 
         /// <param name="fileName">Excel file name.</param> 
-        private static void WriteStream(MemoryStream memoryStream, string fileName)
+        protected static void WriteStream(MemoryStream memoryStream, string fileName)
         {
             HttpContext context = HttpContext.Current;
             context.Response.Clear();

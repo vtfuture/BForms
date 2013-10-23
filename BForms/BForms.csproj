@@ -88,11 +88,16 @@
     <Compile Include="Grid\BsBulkSelectorType.cs" />
     <Compile Include="Grid\BsGridColumn.cs" />
     <Compile Include="Grid\BsGridColumnFactory.cs" />
+    <Compile Include="Grid\BsGridExcelBuilder.cs" />
+    <Compile Include="Grid\BsGridExcelCell.cs" />
+    <Compile Include="Grid\BsGridExcelCellFactory.cs" />
     <Compile Include="Grid\BsGridHtmlBuilder.cs" />
     <Compile Include="Grid\BsGridRepositorySettings.cs" />
+    <Compile Include="Grid\BsGridExcelColumnFactory.cs" />
     <Compile Include="Html\FormExtensions.cs" />
     <Compile Include="Models\BsExcelResult.cs" />
     <Compile Include="Grid\BsGridColumnUsage.cs" />
+    <Compile Include="Models\BsGridExcelColor.cs" />
     <Compile Include="Models\BsTheme.cs" />
     <Compile Include="Mvc\BsToolbarAttribute.cs" />
     <Compile Include="Mvc\BsHtmlTag.cs" />

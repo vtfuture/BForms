@@ -67,6 +67,7 @@ namespace BForms.Docs.Areas.Demo.Repositories
         public Func<Contributor, ContributorRowExcelModel> MapContributor_ContributorRowExcelModel = x =>
             new ContributorRowExcelModel
             {
+                Enabled = x.Enabled,
                 Name = x.FirstName + " " + x.LastName,
                 Role = x.Role.ToString(),
                 Contributions = string.IsNullOrEmpty(x.Contributions) ? "" : String.Join(", ", x.Contributions.Split(new[] { ',' }).Take(2)),
@@ -206,7 +207,7 @@ namespace BForms.Docs.Areas.Demo.Repositories
             return query;
         }
 
-        public virtual List<ContributorRowExcelModel> GetExcelItems(BsGridRepositorySettings<ContributorSearchModel> settings, List<int> ids)
+        public List<ContributorRowExcelModel> GetExcelItems(BsGridRepositorySettings<ContributorSearchModel> settings, List<int> ids)
         {
             this.settings = settings;
 
