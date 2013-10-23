@@ -1,4 +1,5 @@
-﻿using BForms.Mvc;
+﻿using BForms.Models;
+using BForms.Mvc;
 using BForms.Utilities;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
@@ -16,6 +17,13 @@ namespace BForms.Grid
     #region Helpers
     public static class BsGridExcelHelpers
     {
+        #region AreEqual
+        /// <summary>
+        /// Test if two BsGridExcelStyles are equal (based on fontId and fillId reference)
+        /// </summary>
+        /// <param name="excelStyle"></param>
+        /// <param name="otherExcelStyle"></param>
+        /// <returns></returns>
         public static bool AreEqual(this BsGridExcelStyle excelStyle, BsGridExcelStyle otherExcelStyle)
         {
             return excelStyle.FontId.HasValue && 
@@ -23,10 +31,57 @@ namespace BForms.Grid
                 excelStyle.FontId == otherExcelStyle.FontId &&
                 excelStyle.FillId == otherExcelStyle.FillId;
         }
+        #endregion
+
+        #region Concat
+        /// <summary>
+        /// Concatenate styles properties without overriding them
+        /// </summary>
+        public static Func<BsGridExcelStyle, BsGridExcelStyle, BsGridExcelStyle> Concat = (style1, style2) =>
+        {
+            if (style2 != null)
+            {
+                if (!style1.FillColor.HasValue)
+                {
+                    style1.FillColor = style2.FillColor;
+                }
+
+                if (!style1.Font.Bold.HasValue)
+                {
+                    style1.Font.Bold = style2.Font.Bold;
+                }
+
+                if (!style1.Font.Italic.HasValue)
+                {
+                    style1.Font.Italic = style2.Font.Italic;
+                }
+
+                if (string.IsNullOrEmpty(style1.Font.Family))
+                {
+                    style1.Font.Family = style2.Font.Family;
+                }
+
+                if (!style1.Font.Size.HasValue)
+                {
+                    style1.Font.Size = style2.Font.Size;
+                }
+
+                if (!style1.Font.Color.HasValue)
+                {
+                    style1.Font.Color = style2.Font.Color;
+                }
+            }
+
+            return style1;
+        };
+        #endregion
     }
     #endregion
 
     #region BsGridExcelStyle
+    /// <summary>
+    /// Class representing a cell style
+    /// </summary>
     public class BsGridExcelStyle
     {
         public BsGridExcelStyle()
@@ -34,18 +89,26 @@ namespace BForms.Grid
             Font = new BsGridExcelFont();
         }
         public BsGridExcelFont Font { get; set; }
-        public string FillColor { get; set; }
+        public BsGridExcelColor? FillColor { get; set; }
+        public PatternValues? FillPattern { get; set; }
         public int? FontId { get; set; }
         public int? FillId { get; set; }
     }
 
+    #region BsGridExcelFont
+    /// <summary>
+    /// Class representing a font style
+    /// </summary>
     public class BsGridExcelFont
     {
-        public bool Bold { get; set; }
+        public bool? Bold { get; set; }
+        public bool? Italic { get; set; }
         public string Family { get; set; }
         public int? Size { get; set; }
-        public string Color { get; set; }
+        public BsGridExcelColor? Color { get; set; }
     }
+    #endregion
+
     #endregion
 
     #region BsGridExcelBuilder
@@ -113,6 +176,10 @@ namespace BForms.Grid
         #endregion
 
         #region Helpers
+        /// <summary>
+        /// Generate basic excel document, filling it with rows representation of the items
+        /// </summary>
+        /// <param name="spreadsheetDocument"></param>
         private void AddWorkbook(SpreadsheetDocument spreadsheetDocument)
         {
             // add a WorkbookPart to the document
@@ -130,7 +197,7 @@ namespace BForms.Grid
             // add worksheet
             var ws = new Worksheet();
 
-            Fill(ws);
+            AddRows(ws);
 
             worksheetPart.Worksheet = ws;
             worksheetPart.Worksheet.Save();
@@ -149,8 +216,7 @@ namespace BForms.Grid
         /// Processes the list of items, adding them to the worksheet
         /// </summary>
         /// <param name="worksheet"></param>
-        /// <param name="items"></param>
-        private void Fill(Worksheet worksheet)
+        private void AddRows(Worksheet worksheet)
         {
             if (items == null || !items.Any()) return;
 
@@ -164,6 +230,7 @@ namespace BForms.Grid
 
             var type = typeof(T);
 
+            #region Header
             var index = 0;
 
             // create header based on DisplayAttribute and BsGridColumnAttribute
@@ -177,8 +244,7 @@ namespace BForms.Grid
                     {
                         index++;
 
-                        var width = columnAttr.Width;
-
+                        #region Value
                         string displayName = null;
                         DisplayAttribute displayAttribute = null;
 
@@ -190,7 +256,12 @@ namespace BForms.Grid
                         {
                             displayName = property.Name;
                         }
+                        #endregion
 
+                        #region Style
+                        var width = columnAttr.Width;
+
+                        BsGridExcelStyle style = null;
                         if (headerCells != null)
                         {
                             var headerCell = headerCells.FirstOrDefault(x => string.Compare(x.PropName, property.Name) == 0);
@@ -198,6 +269,7 @@ namespace BForms.Grid
                             if (headerCell != null)
                             {
                                 displayName = headerCell.Name;
+                                style = BsGridExcelHelpers.Concat(headerCell.CellStyle, this.headerStyle);
                             }
                         }
 
@@ -206,18 +278,24 @@ namespace BForms.Grid
                         exColumns.Append(ExcelHelpers.CreateColumn((UInt32)index, (UInt32)index, width * widthUnit));
 
                         int formatId;
-                        var cellFormat = GetCellFormat(this.headerStyle ?? new BsGridExcelStyle
+
+                        if (style == null)
                         {
-                            Font = new BsGridExcelFont
+                            style = this.headerStyle ?? new BsGridExcelStyle
                             {
-                                Bold = true
-                            }
-                        }, out formatId);
+                                Font = new BsGridExcelFont
+                                {
+                                    Bold = true
+                                }
+                            };
+                        }
+                        var cellFormat = GetCellFormat(style, out formatId);
 
                         if (cellFormat != null)
                         {
                             styleSheet.CellFormats.Append(cellFormat);
                         }
+                        #endregion
 
                         headerRow.AppendChild(ExcelHelpers.CreateTextCell(displayName, (UInt32)formatId));
                     }
@@ -225,7 +303,9 @@ namespace BForms.Grid
             }
 
             sheetData.AppendChild(headerRow);
+            #endregion
 
+            #region Rows
             // create data table
             foreach (var item in items)
             {
@@ -239,16 +319,8 @@ namespace BForms.Grid
 
                     var cell = dataCells.FirstOrDefault(x => string.Compare(x.PropName, column) == 0);
 
-                    if (cell != null && cell.NameFunc != null)
-                    {
-                        value = cell.NameFunc(item);
-                    }
-                    else
-                    {
-                        value = property.GetValue(item);
-                    }
-
-                    var style = new BsGridExcelStyle();
+                    #region Style
+                    BsGridExcelStyle style = new BsGridExcelStyle();
 
                     if (aConfig != null)
                     {
@@ -259,12 +331,37 @@ namespace BForms.Grid
                         style = fConfig(item);
                     }
 
+                    if (cell != null)
+                    {
+                        if (cell.CellStyle != null)
+                        {
+                            style = BsGridExcelHelpers.Concat(style, cell.CellStyle);
+                        }
+                        if (cell.StyleFunc != null)
+                        {
+                            var style2 = new BsGridExcelStyle();
+                            cell.StyleFunc(item, style2);
+                            style = BsGridExcelHelpers.Concat(style, style2);
+                        }
+                    }
+
                     int formatId;
                     var cellFormat = GetCellFormat(style, out formatId);
 
                     if (cellFormat != null)
                     {
                         styleSheet.CellFormats.Append(cellFormat);
+                    }
+                    #endregion
+
+                    #region Value
+                    if (cell != null && cell.NameFunc != null)
+                    {
+                        value = cell.NameFunc(item);
+                    }
+                    else
+                    {
+                        value = property.GetValue(item);
                     }
 
                     var strValue = value as string;
@@ -303,10 +400,12 @@ namespace BForms.Grid
                             throw new Exception(column + " is not of type string");
                         }
                     }
+                    #endregion
                 }
 
                 sheetData.AppendChild(row);
             }
+            #endregion
 
             worksheet.Append(exColumns);
             worksheet.Append(sheetData);
@@ -340,8 +439,16 @@ namespace BForms.Grid
             // create fills
             Fills fills = new Fills() { Count = (UInt32Value)1U };
             int fillId;
-            var noneFill = GetFill(new BsGridExcelStyle(), out fillId);
+            var noneFill = GetFill(new BsGridExcelStyle()
+            {
+                FillPattern = PatternValues.None
+            }, out fillId); //needed, reserved by excel
+            var greyFill = GetFill(new BsGridExcelStyle()
+            {
+                FillPattern = PatternValues.Gray125
+            }, out fillId); //needed, reserved by excel
             fills.Append(noneFill);
+            fills.Append(greyFill);
 
             // create borders
             Borders borders = new Borders() { Count = (UInt32Value)1U };
@@ -390,7 +497,8 @@ namespace BForms.Grid
             foreach (var item in fonts)
             {
                 if (item.Font.Bold == style.Font.Bold &&
-                    string.Compare(item.Font.Color, style.Font.Color) == 0 &&
+                    item.Font.Italic == style.Font.Italic &&
+                    item.Font.Color == style.Font.Color &&
                     item.Font.Size == style.Font.Size &&
                     string.Compare(item.Font.Family, style.Font.Family) == 0)
                 {
@@ -398,11 +506,13 @@ namespace BForms.Grid
                     return null;
                 }
             }
+            var color = GetColor(style.Font.Color);
             var font = ExcelHelpers.CreateFont(
-                style.Font.Bold, 
+                style.Font.Bold ?? false, 
+                style.Font.Italic ?? false,
                 style.Font.Family, 
-                style.Font.Size, 
-                style.Font.Color);
+                style.Font.Size,
+                color);
 
             fonts.Add(style);
 
@@ -415,13 +525,16 @@ namespace BForms.Grid
         {
             foreach (var item in fills)
             {
-                if (string.Compare(item.FillColor, style.FillColor) == 0)
+                if ((item.FillColor == style.FillColor) && (item.FillPattern == style.FillPattern))
                 {
                     fillId = fills.IndexOf(item);
                     return null;
                 }
             }
-            var fill = ExcelHelpers.CreateFill(style.FillColor);
+
+            var fillColor = GetColor(style.FillColor);
+
+            var fill = ExcelHelpers.CreateFill(fillColor, style.FillPattern);
 
             fills.Add(style);
 
@@ -476,9 +589,18 @@ namespace BForms.Grid
                 return GetCellFormat(formatStyle, out formatId);
             }
         }
+
+        private string GetColor(BsGridExcelColor? fillColor)
+        {
+            return fillColor.HasValue ? ReflectionHelpers.EnumDescription(typeof(BsGridExcelColor), fillColor.Value) : null;
+        }
         #endregion
 
         #region Serialize
+        /// <summary>
+        /// Excel format memory stream representation of the resulting excel file
+        /// </summary>
+        /// <returns></returns>
         public MemoryStream ToStream()
         {
             MemoryStream memoryStream = new MemoryStream();
@@ -494,6 +616,10 @@ namespace BForms.Grid
             return memoryStream;
         }
 
+        /// <summary>
+        /// Excel format byte array representation of the resulting excel file
+        /// </summary>
+        /// <returns></returns>
         public byte[] ToArray()
         {
             var stream = ToStream();

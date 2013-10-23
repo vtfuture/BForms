@@ -305,26 +305,37 @@ namespace BForms.Docs.Areas.Demo.Controllers
             try
             {
                 var builder = new BsGridExcelBuilder<ContributorRowExcelModel>("BForms Contributors.xlsx", items);
+
                 builder.ConfigureHeader(header =>
                         {
                             header.Style.Font.Bold = true;
-                            header.For(x => x.StartDate).Text("Contributor since");
+                            header.Style.FillColor = BsGridExcelColor.Ivory;
+                            header.For(x => x.StartDate)
+                                  .Text("Contributor since")
+                                  .Style(style => style.Font.Italic = true);
                         })
                        .ConfigureRows((row, style) =>
                         {
-                            if (row.Name == "Stefan P.")
+                            if (row.Role == "TeamLeader")
                             {
                                 style.Font.Bold = true;
                             }
-                            if (row.Name == "Oana M.")
+                            if (row.Role == "Tester")
                             {
-                                style.FillColor = "FF0070C0";
+                                style.Font.Italic = true;
                             }
                         })
                         .ConfigureColumns(columns =>
                         {
-                            columns.For(x => x.Enabled).Text(x => x.Enabled ? "Yes" : "No");
+                            columns.For(x => x.Enabled)
+                                   .Text(x => x.Enabled ? Resource.Yes : Resource.No)
+                                   .Style((row, style) => style.FillColor = row.Enabled ? BsGridExcelColor.LightGreen : BsGridExcelColor.Red);
+                            columns.For(x => x.Role)
+                                   .Style(style => style.FillColor = BsGridExcelColor.Lavender);
+                            columns.For(x => x.StartDate)
+                                   .Style(style => style.Font.Italic = true);
                         });
+
                 return new BsExcelResult<ContributorRowExcelModel>("BForms Contributors.xlsx", builder);
             }
             catch (Exception ex)

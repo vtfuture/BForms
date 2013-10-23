@@ -49,7 +49,7 @@ namespace BForms.Utilities
         /// <param name="size">The font size</param>
         /// <param name="color">The font color (value of the color theme)</param>
         /// <returns></returns>
-        public static Font CreateFont(bool isBold, string fontFamily, System.Double? size, string color)
+        public static Font CreateFont(bool isBold, bool isItalic, string fontFamily, System.Double? size, string color)
         {
             Font font = new Font();
 
@@ -57,6 +57,12 @@ namespace BForms.Utilities
             {
                 FontSize fontSize = new FontSize() { Val = size };
                 font.Append(fontSize);
+            }
+
+            if (isItalic)
+            {
+                Italic italic = new Italic();
+                font.Append(italic);
             }
 
             if (isBold)
@@ -84,14 +90,15 @@ namespace BForms.Utilities
         /// Create a new fill
         /// </summary>
         /// <param name="fillColorRgb">The foreground color of the fill</param>
+        /// <param name="pattern">The fill pattern</param>
         /// <returns></returns>
-        public static Fill CreateFill(string fillColorRgb)
+        public static Fill CreateFill(string fillColorRgb, PatternValues? pattern = null)
         {
             PatternFill patternFill = new PatternFill();
 
             if (!string.IsNullOrEmpty(fillColorRgb))
             {
-                patternFill.PatternType = PatternValues.Solid;
+                patternFill.PatternType = pattern ?? PatternValues.Solid;
                 ForegroundColor foregroundColor = new ForegroundColor() { Rgb = fillColorRgb };
                 BackgroundColor backgroundColor = new BackgroundColor() { Indexed = (UInt32Value)64U };
                 patternFill.Append(foregroundColor);
@@ -99,9 +106,9 @@ namespace BForms.Utilities
             }
             else
             {
-                patternFill.PatternType = PatternValues.None;
+                patternFill.PatternType = pattern ?? PatternValues.None;
             }
-            
+
             return new Fill(patternFill);
         }
 

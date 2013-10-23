@@ -97,6 +97,7 @@
     <Compile Include="Html\FormExtensions.cs" />
     <Compile Include="Models\BsExcelResult.cs" />
     <Compile Include="Grid\BsGridColumnUsage.cs" />
+    <Compile Include="Models\BsGridExcelColor.cs" />
     <Compile Include="Models\BsTheme.cs" />
     <Compile Include="Mvc\BsToolbarAttribute.cs" />
     <Compile Include="Mvc\BsHtmlTag.cs" />
