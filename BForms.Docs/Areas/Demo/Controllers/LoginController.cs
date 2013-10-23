@@ -37,7 +37,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
                 model.LoginModel = null;
             }
 
-            RequireJsOptions.Add("registerUrl",Url.Action("Register"));
+            RequireJsOptions.Add("registerUrl", Url.Action("Register"));
 
             return View(model);
         }

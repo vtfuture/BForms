@@ -1,0 +1,36 @@
+﻿public class LoginController : BaseController
+{
+    [HttpGet]
+    public ActionResult Index(string mode)
+    {
+        var model = new AuthenticationModel()
+        {
+            LoginModel = new LoginModel(),
+            RegisterModel = InitRegisterModel()
+        };
+
+        if(!string.IsNullOrEmpty(mode))
+        if(mode.ToLower() == "login")
+        {
+            model.RegisterModel = null;
+        }
+        else if (mode.ToLower() == "register")
+        {
+            model.LoginModel = null;
+        }
+
+        RequireJsOptions.Add("registerUrl", Url.Action("Register"));
+
+        return View(model);
+    }
+
+    [HttpPost]
+    public ActionResult Index(AuthenticationModel model, string mode)
+    {
+        //add global validation error
+        ModelState.AddFormError("LoginModel",
+            "This account has been suspended! Contact us for more details.");
+
+        return View(model);
+    }
+}

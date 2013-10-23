@@ -1,0 +1,26 @@
+﻿require([
+	'bforms-initUI',
+	'bforms-validate-unobtrusive'
+], function () {
+
+    var LoginIndex = function (options) {
+        this.options = $.extend(true, {}, options);
+    };
+
+    LoginIndex.prototype.init = function () {
+        this.$loginForm = $('.js-loginForm');
+
+        this.$loginForm.bsInitUI(this.options.styleInputs);
+        
+        this.addHandlers();
+    };
+
+    LoginIndex.prototype.addHandlers = function () {
+
+    };
+
+    $(document).ready(function () {
+        var ctrl = new LoginIndex(requireConfig.pageOptions);
+        ctrl.init();
+    });
+});

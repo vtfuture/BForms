@@ -839,6 +839,21 @@
   <ItemGroup>
     <Content Include="Views\Docs\Excel\Source\_CompleteExample.cs.embed" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Demo\Views\Login\Docs\_Login.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Demo\Views\Login\Docs\Source\_LoginModel.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Demo\Views\Login\Docs\Source\_LoginController.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Demo\Views\Login\Docs\Source\_LoginController.js.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Demo\Views\Login\Docs\Source\_LoginView.cshtml.embed" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

@@ -1,16 +1,4 @@
-@using BForms.Docs.Helpers
-@using BForms.Grid
-@using BForms.Html
-@using BForms.Models
-@model BForms.Docs.Areas.Demo.Models.LoginModel
-
-
-
-<div class="col-12 col-sm-12 col-lg-12">
-    <h1>@Html.BsGlyphicon(Glyphicon.StartEmpty) Login form</h1>
-</div>
-
-@using (Html.BsBeginForm("Index", "Login",
+﻿@using (Html.BsBeginForm("Index", "Login",
     new {ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, 
     new {@class = "bs-form js-loginForm"}, 
     Html.GetTheme()))
@@ -46,5 +34,3 @@
         <a class="btn btn-primary pull-right" href="@Url.Action("Index", new {mode = "register"})">Register</a>
     </div>
 }
-
-@Html.Partial("Docs/_Login")

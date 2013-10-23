@@ -1,0 +1,16 @@
+﻿public class LoginModel
+{
+    [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
+    [Display(Name = "Email", Prompt = "Email", ResourceType = typeof(Resource))]
+    [BsControl(BsControlType.Email)]
+    public string Email { get; set; }
+
+    [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
+    [Display(Name = "Password", Prompt = "Password", ResourceType = typeof(Resource))]
+    [BsControl(BsControlType.Password)]
+    public string Password { get; set; }
+
+    [Display(Name = "RememberMe", ResourceType = typeof(Resource))]
+    [BsControl(BsControlType.CheckBox)]
+    public bool RememberMe { get; set; }
+}
