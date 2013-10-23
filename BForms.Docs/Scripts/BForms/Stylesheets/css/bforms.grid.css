@@ -145,7 +145,7 @@ a.btn {
             line-height: 8px\9;
             border-radius: 20px; }
           .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .input-group + .btn_advanced_search {
-            border: none; }
+            border-left: none; }
         .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .glyphicon {
           font-size: 14px; }
         .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls:after {
