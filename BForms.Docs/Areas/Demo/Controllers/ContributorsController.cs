@@ -13,6 +13,7 @@ using BForms.Models;
 using BForms.Mvc;
 using RequireJS;
 using BForms.Utilities;
+using System.Drawing;
 
 namespace BForms.Docs.Areas.Demo.Controllers
 {
@@ -303,7 +304,28 @@ namespace BForms.Docs.Areas.Demo.Controllers
 
             try
             {
-                return new BsExcelResult<ContributorRowExcelModel>("BForms Contributors.xlsx", items);
+                var builder = new BsGridExcelBuilder<ContributorRowExcelModel>("BForms Contributors.xlsx", items);
+                builder.ConfigureHeader(header =>
+                        {
+                            header.Style.Font.Bold = true;
+                            header.For(x => x.StartDate).Text("Contributor since");
+                        })
+                       .ConfigureRows((row, style) =>
+                        {
+                            if (row.Name == "Stefan P.")
+                            {
+                                style.Font.Bold = true;
+                            }
+                            if (row.Name == "Oana M.")
+                            {
+                                style.FillColor = "FF0070C0";
+                            }
+                        })
+                        .ConfigureColumns(columns =>
+                        {
+                            columns.For(x => x.Enabled).Text(x => x.Enabled ? "Yes" : "No");
+                        });
+                return new BsExcelResult<ContributorRowExcelModel>("BForms Contributors.xlsx", builder);
             }
             catch (Exception ex)
             {

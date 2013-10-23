@@ -13,279 +13,9 @@ using System.Threading.Tasks;
 
 namespace BForms.Utilities
 {
-    #region ExcelHandler
-    /// <summary>
-    /// Manages the processing of a list into excel readable content
-    /// </summary>
-    /// <typeparam name="T">Class with properties marked with BsGridColumnAttribute (supported types: DateTime, string, int, double)</typeparam>
-    public class ExcelHandler<T> where T : class
-    {
-        #region Constructor and Properties
-        private SpreadsheetDocument SpreadsheetDocument;
-        private Stylesheet Stylesheet;
-        private string SheetName;
-        public UInt32Value HeaderStyleIndex;
-        public UInt32Value DataStyleIndex;
-        private int WidthUnit = 10;
-
-        public ExcelHandler(){}
-        #endregion
-
-        /// <summary>
-        /// Configures the spreadsheet and adds the items in its sheet
-        /// </summary>
-        /// <param name="items"></param>
-        public void Add(SpreadsheetDocument spreadsheetDocument, IEnumerable<T> items, string sheetName)
-        {
-            SpreadsheetDocument = spreadsheetDocument;
-            SheetName = sheetName;
-
-            // add a WorkbookPart to the document
-            WorkbookPart workbookpart = SpreadsheetDocument.AddWorkbookPart();
-            workbookpart.Workbook = new Workbook();
-
-            // add a WorksheetPart to the WorkbookPart
-            WorksheetPart worksheetPart = workbookpart.AddNewPart<WorksheetPart>();
-
-            // add Stylesheet
-            WorkbookStylesPart workbookStylesPart = SpreadsheetDocument.WorkbookPart.AddNewPart<WorkbookStylesPart>();
-            workbookStylesPart.Stylesheet = Stylesheet ?? CreateStylesheet();
-
-            // add worksheet
-            var ws = new Worksheet();
-
-            Process(ws, items);
-
-            worksheetPart.Worksheet = ws;
-            worksheetPart.Worksheet.Save();
-
-            // add Sheets to the Workbook.
-            Sheets sheets = SpreadsheetDocument.WorkbookPart.Workbook.AppendChild<Sheets>(new Sheets());
-
-            // append a new worksheet and associate it with the workbook.
-            Sheet sheet = new Sheet() { Id = SpreadsheetDocument.WorkbookPart.GetIdOfPart(worksheetPart), SheetId = 1, Name = SheetName };
-            sheets.Append(sheet);
-
-            workbookpart.Workbook.Save();
-        }
-
-        #region Helpers
-        /// <summary>
-        /// Creates a basic stylesheet
-        /// Can be overriden for custom cell styles
-        /// </summary>
-        /// <returns></returns>
-        protected virtual Stylesheet CreateStylesheet()
-        {
-            Stylesheet stylesheet = new Stylesheet() { MCAttributes = new MarkupCompatibilityAttributes() { Ignorable = "x14ac" } };
-            stylesheet.AddNamespaceDeclaration("mc", "http://schemas.openxmlformats.org/markup-compatibility/2006");
-            stylesheet.AddNamespaceDeclaration("x14ac", "http://schemas.microsoft.com/office/spreadsheetml/2009/9/ac");
-
-            // create fonts
-            Fonts fonts = new Fonts() { Count = (UInt32Value)1U, KnownFonts = true };
-            var simpleFont = ExcelHelpers.CreateFont(false, null, null, null);
-            var boldFont = ExcelHelpers.CreateFont(true, null, null, null);
-            fonts.Append(simpleFont);
-            fonts.Append(boldFont);
-
-            // create fills
-            Fills fills = new Fills() { Count = (UInt32Value)1U };
-            var noneFill = ExcelHelpers.CreateFill(PatternValues.None, null, null);
-            fills.Append(noneFill);
-
-            // create borders
-            Borders borders = new Borders() { Count = (UInt32Value)1U };
-            var border = ExcelHelpers.CreateBorder();
-            borders.Append(border);
-
-            // create cell style formats
-            CellStyleFormats cellStyleFormats = new CellStyleFormats() { Count = (UInt32Value)1U };
-            CellFormat cellFormat = new CellFormat() { NumberFormatId = (UInt32Value)0U, FontId = (UInt32Value)0U, FillId = (UInt32Value)0U, BorderId = (UInt32Value)0U };
-
-            cellStyleFormats.Append(cellFormat);
-
-            CellFormats cellFormats = new CellFormats() { Count = (UInt32Value)2U };
-            CellFormat headerCellFormat = ExcelHelpers.CreateCellFormat(1U, 0U);
-            CellFormat dataCellFormat = ExcelHelpers.CreateCellFormat(0U, 0U);
-
-            cellFormats.Append(headerCellFormat);
-            HeaderStyleIndex = 0;
-            cellFormats.Append(dataCellFormat);
-            DataStyleIndex = 1;
-
-            CellStyles cellStyles = new CellStyles() { Count = (UInt32Value)1U };
-            CellStyle cellStyle = new CellStyle() { Name = "Normal", FormatId = (UInt32Value)0U, BuiltinId = (UInt32Value)0U };
-            cellStyles.Append(cellStyle);
-
-            // add to stylesheet
-            stylesheet.Append(fonts);
-            stylesheet.Append(fills);
-            stylesheet.Append(borders);
-            stylesheet.Append(cellStyleFormats);
-            stylesheet.Append(cellFormats);
-            stylesheet.Append(cellStyles);
-
-            return stylesheet;
-        }
-
-        /// <summary>
-        /// Add a custom stylesheet
-        /// Set HeaderStyleIndex and DataStyleIndex to style the cells
-        /// </summary>
-        /// <param name="stylesheet"></param>
-        public void RegisterStylesheet(Stylesheet stylesheet)
-        {
-            Stylesheet = stylesheet;
-        }
-
-        /// <summary>
-        /// Processes the list of items, adding them to the worksheet
-        /// </summary>
-        /// <param name="worksheet"></param>
-        /// <param name="items"></param>
-        private void Process(Worksheet worksheet, IEnumerable<T> items)
-        {
-            if (items == null || !items.Any()) return;
-
-            var sheetData = new SheetData();
-
-            var columns = new List<string>();
-
-            Columns exColumns = new Columns();
-
-            var headerRow = new Row();
-
-            var type = typeof(T);
-
-            var index = 0;
-
-            // create header based on DisplayAttribute and BsGridColumnAttribute
-            foreach (var property in type.GetProperties())
-            {
-                BsGridColumnAttribute columnAttr = null;
-
-                if (ReflectionHelpers.TryGetAttribute(property, out columnAttr))
-                {
-                    if (columnAttr.Usage != Models.BsGridColumnUsage.Html)
-                    {
-                        index++;
-
-                        var width = columnAttr.Width;
-
-                        string displayName = null;
-                        DisplayAttribute displayAttribute = null;
-
-                        if (ReflectionHelpers.TryGetAttribute(property, out displayAttribute))
-                        {
-                            displayName = displayAttribute.GetName();
-                        }
-                        else
-                        {
-                            displayName = property.Name;
-                        }
-
-                        columns.Add(property.Name);
-
-                        exColumns.Append(ExcelHelpers.CreateColumn((UInt32)index, (UInt32)index, width * WidthUnit));
-
-                        headerRow.AppendChild(ExcelHelpers.CreateTextCell(displayName, HeaderStyleIndex));
-                    }
-                }
-            }
-
-            sheetData.AppendChild(headerRow);
-
-            // create data table
-            foreach (var item in items)
-            {
-                var row = new Row();
-
-                foreach (var column in columns)
-                {
-                    var property = type.GetProperty(column);
-
-                    var value = property.GetValue(item);
-
-                    var strValue = value as string;
-
-                    if (strValue != null)
-                    {
-                        row.AppendChild(ExcelHelpers.CreateTextCell(strValue, DataStyleIndex));
-                    }
-                    else
-                    {
-                        DateTime dateValue;
-                        int intValue;
-                        long longValue;
-                        double doubleValue;
-
-                        if (DateTime.TryParse(value.ToString(), out dateValue))
-                        {
-                            // ToOADate => excel representation of DateTime - TODO: format date
-                            row.AppendChild(ExcelHelpers.CreateTextCell(dateValue.ToShortDateString(), DataStyleIndex));
-                        }
-                        else if (int.TryParse(value.ToString(), out intValue))
-                        {
-                            row.AppendChild(ExcelHelpers.CreateValueCell(intValue, DataStyleIndex, CellValues.Number));
-
-                        }
-                        else if (long.TryParse(value.ToString(), out longValue))
-                        {
-                            row.AppendChild(ExcelHelpers.CreateValueCell(longValue, DataStyleIndex, CellValues.Number));
-                        }
-                        else if (Double.TryParse(value.ToString(), out doubleValue))
-                        {
-                            row.AppendChild(ExcelHelpers.CreateValueCell(doubleValue, DataStyleIndex, CellValues.Number));
-                        }
-                        else // not supported type
-                        {
-                            throw new Exception(column + " is not of type string");
-                        }
-                    }
-                }
-
-                sheetData.AppendChild(row);
-            }
-
-            worksheet.Append(exColumns);
-            worksheet.Append(sheetData);
-        }
-        #endregion
-    }
-    #endregion
-
     #region ExcelHelpers
     public static class ExcelHelpers
     {
-        /// <summary>
-        /// Converts a list of items in a memory stream representation of an excel file (using the ExcelHandler class)
-        /// The header is generated based on the display attribute of the model
-        /// The properties marked with the BsGridColumnAttribute are taken into consideration
-        /// </summary>
-        /// <typeparam name="T">Class with properties marked with BsGridColumnAttribute (supported property types: DateTime, string, int, double)</typeparam>
-        /// <typeparam name="Handler">Class inherited from ExcelHandler</typeparam>
-        /// <param name="items">List of items to be converted to excel</param>
-        /// <param name="sheetName">The sheetname of the excel file</param>
-        /// <returns></returns>
-        public static MemoryStream ToExcelMemoryStream<T, Handler>(this IEnumerable<T> items, string sheetName) 
-            where T : class
-            where Handler : ExcelHandler<T>, new()
-        {
-            MemoryStream memoryStream = new MemoryStream();
-
-            // Create the spreadsheet on the MemoryStream
-            SpreadsheetDocument spreadsheetDocument = SpreadsheetDocument.Create(memoryStream, SpreadsheetDocumentType.Workbook);
-
-            var handler = new Handler();
-
-            handler.Add(spreadsheetDocument, items, sheetName);
-
-            // Close the document.
-            spreadsheetDocument.Close();
-
-            return memoryStream;
-        }
-
         #region Style
         /// <summary>
         /// Create a new cell format
@@ -319,7 +49,7 @@ namespace BForms.Utilities
         /// <param name="size">The font size</param>
         /// <param name="color">The font color (value of the color theme)</param>
         /// <returns></returns>
-        public static Font CreateFont(bool isBold, string fontFamily, System.Double? size, UInt32? color)
+        public static Font CreateFont(bool isBold, string fontFamily, System.Double? size, string color)
         {
             Font font = new Font();
 
@@ -337,7 +67,7 @@ namespace BForms.Utilities
 
             if (color != null)
             {
-                Color color1 = new Color() { Theme = (UInt32Value)color };
+                Color color1 = new Color() { Rgb = color };
                 font.Append(color1);
             }
 
@@ -353,29 +83,26 @@ namespace BForms.Utilities
         /// <summary>
         /// Create a new fill
         /// </summary>
-        /// <param name="patternType">The pattern type value</param>
-        /// <param name="foregroundColor">The foreground color of the fill</param>
-        /// <param name="backgroundColor">The background color of the fill</param>
+        /// <param name="fillColorRgb">The foreground color of the fill</param>
         /// <returns></returns>
-        public static Fill CreateFill(PatternValues patternType, string foregroundColor, string backgroundColor)
+        public static Fill CreateFill(string fillColorRgb)
         {
-            Fill fill = new Fill();
-            PatternFill patternFill = new PatternFill() { PatternType = patternType };
+            PatternFill patternFill = new PatternFill();
 
-            if (!string.IsNullOrEmpty(foregroundColor))
+            if (!string.IsNullOrEmpty(fillColorRgb))
             {
-                ForegroundColor foreColor = new ForegroundColor() { Rgb = foregroundColor };
-                patternFill.Append(foreColor);
+                patternFill.PatternType = PatternValues.Solid;
+                ForegroundColor foregroundColor = new ForegroundColor() { Rgb = fillColorRgb };
+                BackgroundColor backgroundColor = new BackgroundColor() { Indexed = (UInt32Value)64U };
+                patternFill.Append(foregroundColor);
+                patternFill.Append(backgroundColor);
             }
-
-            if (!string.IsNullOrEmpty(backgroundColor))
+            else
             {
-                BackgroundColor backColor = new BackgroundColor() { Rgb = backgroundColor };
-                patternFill.Append(backColor);
+                patternFill.PatternType = PatternValues.None;
             }
-
-            fill.Append(patternFill);
-            return fill;
+            
+            return new Fill(patternFill);
         }
 
         /// <summary>

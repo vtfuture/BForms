@@ -67,6 +67,7 @@ namespace BForms.Docs.Areas.Demo.Repositories
         public Func<Contributor, ContributorRowExcelModel> MapContributor_ContributorRowExcelModel = x =>
             new ContributorRowExcelModel
             {
+                Enabled = x.Enabled,
                 Name = x.FirstName + " " + x.LastName,
                 Role = x.Role.ToString(),
                 Contributions = string.IsNullOrEmpty(x.Contributions) ? "" : String.Join(", ", x.Contributions.Split(new[] { ',' }).Take(2)),
