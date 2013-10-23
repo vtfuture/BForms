@@ -494,7 +494,7 @@ a.btn {
 .grid_toolbar.blue .grid_toolbar_header {
   background: #559ed6; }
   .grid_toolbar.blue .grid_toolbar_header .grid_toolbar_controls a, .grid_toolbar.blue .grid_toolbar_header .grid_toolbar_controls .input-group {
-    border-color: #3086c8 !important; }
+    border-left-color: #3086c8 !important; }
   .grid_toolbar.blue .grid_toolbar_header .grid_toolbar_controls a:hover {
     background: #3086c8 !important; }
   @media (max-width: 756px) {
@@ -528,7 +528,7 @@ a.btn {
 .grid_toolbar.green .grid_toolbar_header {
   background: #59b390; }
   .grid_toolbar.green .grid_toolbar_header .grid_toolbar_controls a, .grid_toolbar.green .grid_toolbar_header .grid_toolbar_controls .input-group {
-    border-color: #449575 !important; }
+    border-left-color: #449575 !important; }
   .grid_toolbar.green .grid_toolbar_header .grid_toolbar_controls a:hover {
     background: #449575 !important; }
   @media (max-width: 756px) {
@@ -562,7 +562,7 @@ a.btn {
 .grid_toolbar.purple .grid_toolbar_header {
   background: #703d6f; }
   .grid_toolbar.purple .grid_toolbar_header .grid_toolbar_controls a, .grid_toolbar.purple .grid_toolbar_header .grid_toolbar_controls .input-group {
-    border-color: #4f2b4e !important; }
+    border-left-color: #4f2b4e !important; }
   .grid_toolbar.purple .grid_toolbar_header .grid_toolbar_controls a:hover {
     background: #4f2b4e !important; }
   @media (max-width: 756px) {
@@ -596,7 +596,7 @@ a.btn {
 .grid_toolbar.orange .grid_toolbar_header {
   background: #f27435; }
   .grid_toolbar.orange .grid_toolbar_header .grid_toolbar_controls a, .grid_toolbar.orange .grid_toolbar_header .grid_toolbar_controls .input-group {
-    border-color: #e5560f !important; }
+    border-left-color: #e5560f !important; }
   .grid_toolbar.orange .grid_toolbar_header .grid_toolbar_controls a:hover {
     background: #e5560f !important; }
   @media (max-width: 756px) {
@@ -630,7 +630,7 @@ a.btn {
 .grid_toolbar.black .grid_toolbar_header {
   background: #424141; }
   .grid_toolbar.black .grid_toolbar_header .grid_toolbar_controls a, .grid_toolbar.black .grid_toolbar_header .grid_toolbar_controls .input-group {
-    border-color: #282828 !important; }
+    border-left-color: #282828 !important; }
   .grid_toolbar.black .grid_toolbar_header .grid_toolbar_controls a:hover {
     background: #282828 !important; }
   @media (max-width: 756px) {
