@@ -1,0 +1,91 @@
+﻿$Gray: #dadada;
+$darkGray: #585858;
+$textGray: #989898;
+$textColor: #212121;
+$borderColor: #e8e8e8;
+
+.group_editor {
+	margin-bottom: 20px;
+	display: table;
+	border-collapse: collapse;
+	> div {
+		display: table-cell;
+		width: 50%;
+		border: 1px solid $borderColor;
+	}
+	.row {
+		margin: 0;
+	}
+	.navbar {
+		border: none;
+		margin: 0;
+	}
+	.search {
+		padding: 10px 0;
+		margin-bottom: 10px;
+		background: #e7e7e7;
+	}
+	.grids_header_submit {
+		padding: 5px 10px 0;
+	}
+	dl {
+		dt {
+			float: left;
+			width: 30%;
+			overflow: hidden;
+			clear: left;
+			text-align: right;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			font-weight: normal;
+			color: #aaa;
+		}
+		dd {
+			margin-left: 30%;
+			word-wrap: break-word;
+		}
+		&.to-left {
+			dt {
+				width: auto;
+				text-align: left;
+			}
+			dd {
+				margin-left: 5px;
+				float: left;
+			}
+		}
+	}	
+	.profile {
+		img {
+			max-width: 64px;
+			border: 1px solid $borderColor;
+		}
+		dl {
+			margin-top: 0;
+		}
+		&.large {
+			border: 1px solid $borderColor;
+			padding: 5px;
+			margin-bottom: 5px;
+			.users {
+				margin-bottom: 0;
+				li {
+					border: none;
+					padding: 0;
+				}
+			}
+		}
+	}
+	.group_profiles {
+		padding: 0 10px;
+		list-style: none;
+		.selected {
+			.profile.large {
+				border: 1px solid #A3E473;
+			}
+			.glyphicon {
+				color: #77BD43;
+			}
+		}
+	}
+}

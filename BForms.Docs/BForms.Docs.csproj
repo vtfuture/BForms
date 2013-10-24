@@ -192,6 +192,7 @@
     <Content Include="Scripts\BForms\Plugins\Datepicker\images\icn-remove.png" />
     <Content Include="Scripts\BForms\Plugins\Datepicker\images\icn-time.png" />
     <Content Include="Scripts\BForms\Plugins\Select2\images\select2x2.png" />
+    <Content Include="Scripts\BForms\Stylesheets\css\bforms.groupeditor.css" />
     <Content Include="Scripts\BForms\Stylesheets\css\bforms.pager.css" />
     <Content Include="Scripts\BForms\Stylesheets\Images\icn-grippy.png" />
     <Content Include="Scripts\BForms\Widgets\Grid\js\bforms.editable.js" />
@@ -881,6 +882,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\BForms\Stylesheets\css\bforms.pager.scss" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\BForms\Stylesheets\css\bforms.groupeditor.scss" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

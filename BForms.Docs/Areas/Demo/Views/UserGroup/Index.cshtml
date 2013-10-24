@@ -6,5 +6,116 @@
     ViewBag.Title = "Group Editor Demo";
 }
 
+<div class="grid_container">
+    <div class="group_editor">
+        <div class="left">
+            <nav class="navbar navbar-default" role="navigation">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
 
+                <div class="collapse navbar-collapse navbar-ex1-collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="#models" data-toggle="tab">Models</a></li>
+                        <li><a href="#views" data-toggle="tab">Views</a></li>
+                        <li><a href="#ccontroller" data-toggle="tab">ASP.NET Controller</a></li>
+                        <li><a href="#jscontroller" data-toggle="tab">JS Controller</a></li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="search js-search">
+                <form class="js-searchForm">
+                    <div class="basic">
+                        <div class="row form-container">
 
+                            <div class="col-12 col-sm-4 col-lg-5 form-group">
+                                <label class="control-label" for="Name">Nume</label>
+                                <div class="input-group">
+                                    <span class="glyphicon glyphicon-user input-group-addon"></span>
+                                    <input class="form-control bs-text" id="Name" name="Name" type="text" value="">
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-4 col-lg-5 form-group">
+                                <label class="control-label" for="s2id_autogen2">Departament</label>
+                                <div class="input-group">
+                                    <div class="select2-container form-control bs-dropdown custom_select" id="s2id_Departments_SelectedValues"><a href="javascript:void(0)" onclick="return false;" class="select2-choice select2-default" tabindex="-1">   <span>Alegeţi</span><abbr class="select2-search-choice-close"></abbr>   <div><b></b></div></a><input class="select2-focusser select2-offscreen" type="text" id="s2id_autogen2"><div class="select2-drop select2-display-none select2-with-searchbox">   <div class="select2-search">       <input type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="select2-input">   </div>   <ul class="select2-results">   </ul></div></div><select class="form-control bs-dropdown select2-offscreen" id="Departments_SelectedValues" name="Departments.SelectedValues" tabindex="-1">
+                                        <option value="">Alegeţi</option>
+                                        <option value="12">Administrativ </option>
+                                        <option value="5">Contabilitate</option>
+                                        <option value="9">Dezvoltare C++</option>
+                                        <option value="2">Dezvoltare WEB</option>
+                                        <option value="6">Informatica Juridica</option>
+                                        <option value="4">IT</option>
+                                        <option value="10">Juridic</option>
+                                        <option value="13">Management</option>
+                                        <option value="3">Secretariat</option>
+                                        <option value="8">Suport Tehnic</option>
+                                        <option value="11">Texte</option>
+                                        <option value="7">Vânzări</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="grids_header_submit">
+                        <button type="submit" class="btn btn-default js-btn-search">Caută</button>
+
+                    </div>
+                </form>
+            </div>
+            <ul class="group_profiles">
+                <li>
+                    <div class="media profile large">
+                        <a class="pull-left" href="#">
+                            <img class="media-object" src="http://www.cloverwos.ro/1.0.0.217/Content/images/bg-user.png">
+                        </a>
+                        <a href="#" class="btn btn-default pull-right"><span class="glyphicon glyphicon-plus"></span></a>
+                        <div class="media-body">
+                            <dl class="to-left">
+                                <dt>Seria:</dt>
+                                <dd>Test</dd>
+
+                                <dt>Inregistrat de către:</dt>
+                                <dd><a href="#">Cristian Pufu</a> 19.02.2004</dd>
+
+                                <dt>Dată:</dt>
+                                <dd>04.07.2013</dd>
+                            </dl>
+                        </div>
+
+                    </div>
+                </li>
+                <li class="selected">
+                    <div class="media profile large">
+                        <a class="pull-left" href="#">
+                            <img class="media-object" src="http://www.cloverwos.ro/1.0.0.217/Content/images/bg-user.png">
+                        </a>
+                        <a href="#" class="btn btn-default pull-right"><span class="glyphicon glyphicon-ok"></span></a>
+                        <div class="media-body">
+                            <dl class="to-left">
+                                <dt>Seria:</dt>
+                                <dd>Test</dd>
+
+                                <dt>Inregistrat de către:</dt>
+                                <dd><a href="#">Cristian Pufu</a> 19.02.2004</dd>
+
+                                <dt>Dată:</dt>
+                                <dd>04.07.2013</dd>
+                            </dl>
+                        </div>
+
+                    </div>
+                </li>
+            </ul>
+        </div>  @*first column end  *@
+        <div class="right"></div>
+    </div>
+</div>
