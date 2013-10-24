@@ -321,6 +321,9 @@ code {
     padding: 30px 20px 20px;
     border: 1px solid #dddddd;
     border-top: none; }
+    .docs_tabs .tab-content pre.prettyprint {
+      border: none;
+      background: #fff; }
 
 /* Error pages */
 .error_page .brand {
