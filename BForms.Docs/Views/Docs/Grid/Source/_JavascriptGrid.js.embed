@@ -1,0 +1,4 @@
+﻿$('#grid').bsGrid({
+    uniqueName: 'usersGrid',
+    pagerUrl: this.options.pagerUrl   
+});

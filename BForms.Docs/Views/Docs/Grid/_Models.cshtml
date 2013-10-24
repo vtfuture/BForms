@@ -2,22 +2,120 @@
 <h3 id="Models">Models</h3>
 
 <p>
-    In order to render a grid, first you have to define the models and use <code>BsGridModel&#60;TRow&#62;</code> decorated with <code>BsGridAttribute</code> and <code>BsToolbarModel&#60;TSearch, TNew&#62;</code> class.
+   The first step of the grid creation is the model definition.
+</p>
+
+
+<h4 class="sub_title">Row Model</h4>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/Grid/Source/_RowModel.cs.embed")
+</pre>
+<br />
+
+<p>
+    As you may have noticed in the above example, there are some unusual things declared in the row model.
+    The <code>RowData()</code> method helps you define specific attributes in the row's html (<code>data-</code> attr), while the <code>BsGridColumnAttribute</code> allows
+    you to set specific properties for each grid column.
+</p>
+
+<hr />
+
+<code>BsGridColumnAttribute</code>
+
+<h4 class ="sub_title">Options</h4>
+
+<code>IsSortable</code>
+
+<p>
+    <strong>type</strong> <code>bool</code>
+    <br />
+    <strong>default</strong> <code>true</code>
+</p>
+
+<p>
+    Set the grid column as orderable.
+</p>
+
+<code>IsEditable</code>
+
+<p>
+    <strong>type</strong> <code>bool</code>
+    <br />
+    <strong>default</strong> <code>true</code>
+</p>
+
+<p>
+    Set the grid column as inline editable.
+</p>
+
+<code>Width</code>
+
+<p>
+    <strong>type</strong> <code>int</code>
+    <br />
+    <strong>default</strong> <code>0</code>
+</p>
+
+<p>
+    Set the width of the column.
+    Expected values: 1 - 12
+</p>
+
+<code>Usage</code>
+
+<p>
+    <strong>type</strong> <code>BsGridColumnUsage</code>
+    <br />
+    <strong>default</strong> <code>BsGridColumnUsage.Both</code>
+</p>
+
+<p>
+    Set the scope of the property.
+    Supported values: Excel / Html / Both
+</p>
+
+<hr/>
+
+<p>
+    After you've defined the row model, wrap it up with the <code>BsGridModel&#60;TRow&#62;</code> and append it to the view model.
 </p>
 
 <h4 class="sub_title">View Model</h4>
 <pre class="prettyprint lang-cs bs-example">
 @Html.InsertFileContentCached("~/Views/Docs/Grid/Source/_ViewModel.cs.embed")
 </pre>
-
-<h4 class="sub_title">Attributes</h4>
+<br/>
 <p>
-    <code>BsGridAttribute</code> specifies whether the grid supports expandable rows (has details).
-</p>
-<p>
-    <code>BsGridColumnAttribute</code> is used to set the width of a column (total width = 12), the header display name and order.
+    As you can see in the example, you can decorate the grid model with the <code>BsGridAttribute</code>. 
+    This allows you to set the color theme and specify whether the grid supports expandable rows.
 </p>
 
-<pre class="prettyprint lang-cs bs-example">
-@Html.InsertFileContentCached("~/Views/Docs/Grid/Source/_Attributes.cs.embed")
-</pre>
+<hr/>
+
+<code>BsGridAttribute</code>
+
+<h4 class="sub_title">Options</h4>
+
+<code>HasDetails</code>
+
+<p>
+    <strong>type</strong> <code>bool</code>
+    <br />
+    <strong>default</strong> <code>false</code>
+</p>
+
+<p>
+    Flag for expandable rows.
+</p>
+
+<code>Theme</code>
+
+<p>
+    <strong>type</strong> <code>BsTheme</code>
+    <br />
+    <strong>default</strong> <code> BsTheme.Default</code> (turqoise color)
+</p>
+
+<p>
+    Set the grid's theme.
+</p>

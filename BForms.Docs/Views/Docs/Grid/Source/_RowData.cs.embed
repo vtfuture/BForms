@@ -1,1 +1,5 @@
-﻿BsGridHtmlBuilder<TModel, TRow> RowData(Func<TRow, Dictionary<string, object>> rowData)
+﻿@Html.BsGridFor(m => m.Grid)
+     .RowData(row => new Dictionary<string, object> { 
+         { "data-objid", row.Id }, 
+         { "data-active", row.Enabled } 
+     })

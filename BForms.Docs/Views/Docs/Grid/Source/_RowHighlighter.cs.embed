@@ -1,1 +1,2 @@
-﻿BsGridHtmlBuilder<TModel, TRow> RowHighlighter(Func<TRow, string> higlighter)
+﻿@Html.BsGridFor(m => m.Grid)
+     .RowHighlighter(row => row.Enabled ? "#59b444" : "#f0ad4e")

@@ -1,33 +1,6 @@
 ﻿public class UsersViewModel
 {
-    [BsGrid(HasDetails = true)]
+    [BsGrid(HasDetails = true, Theme = BsTheme.Blue)]
     [Display(Name = "Users", ResourceType = typeof(Resource))]
     public BsGridModel<UsersGridRowModel> Grid { get; set; }
-
-    [Display(Name = "Users", ResourceType = typeof(Resource))]
-    public BsToolbarModel<UsersSearchModel, UsersNewModel> Toolbar { get; set; }
-}
-
-public class UsersGridRowModel
-{
-    public int Id { get; set; }
-
-    [BsGridColumn(Width = 5)]
-    public string Name { get; set; }
-
-    [BsGridColumn(Width = 4)]
-    public DateTime RegisterDate { get; set; }
-
-    [BsGridColumn(Width = 3, IsEditable = false)]
-    public bool Enabled { get; set; }
-
-    //attributes to be inserted in html for each row
-    public Dictionary<string, object> RowData() 
-    {
-        return new Dictionary<string, object> 
-        {
-            { "data-objid", this.Id },
-            { "data-active", this.Enabled }
-        };
-    }
 }

@@ -6,51 +6,117 @@
 </p>
 
 <p>
-    Basic query builder. Recommended to be used for grid count
+    Wanting to make your job easier, we created an abstract class to help you standardize the server side grid creation and also write less code.
+</p>
+<p>
+    Inheriting this base repository, you just have to implement a few methods and the rest is being handled for you.
+</p>
+<hr/>
+<p>
+    The first step is to implement the <code>Query()</code> method. You can consider this method, as a way of getting the basic query, or the query used for the total items count.
+</p>
+
+<code>IQueryable&#60;TEntity&#62; Query();</code>
+
+<p>
+    <strong>return type</strong> <code>IQueryable&#60;TEntity&#62;</code>
+</p>
+
+<p>
+    Example:
 </p>
 
 <pre class="prettyprint lang-cs bs-example">
 @Html.InsertFileContentCached("~/Views/Docs/Grid/Source/_Query.cs.embed")
 </pre>
-<br />
+
+<hr />
 
 <p>
-    Query ordering. To be used before grid paging
+    The next step will be implementing the <code>OrderQuery()</code> method. Here you will order your query using the <code>orderedQueryBuilder</code> property.
+</p>
+
+<code>OrderQuery(IQueryable&#60;TEntity&#62; query);</code>
+
+<p>
+    <strong>return type</strong> <code>IOrderedQueryable&#60;TEntity&#62;</code><br/>
+    <strong>params:</strong>
+    <ul>
+        <li>
+            <code>query</code>
+            <p>
+            <strong>type </strong><code>IQueryable&#60;TEntity&#62; query</code><br />
+            <strong>description</strong> return value of <code>Query()</code>
+            </p>
+        </li>
+    </ul>
+</p>
+
+<p>
+    Example:
 </p>
 
 <pre class="prettyprint lang-cs bs-example">
 @Html.InsertFileContentCached("~/Views/Docs/Grid/Source/_OrderQuery.cs.embed")
 </pre>
-<br />
+
+<hr />
 
 <p>
-    Query mapping. Recommended to be used after grid paging
+    The final step is implementing <code>MapQuery()</code> method. 
+    This method is used make the select and convert your entities in row models.
+    To do this, you will most likely implement a mapper(TEntity, TRow) to use in the select.
+</p>
+
+<code>MapQuery(IQueryable&#60;TEntity&#62; query);</code>
+
+<p>
+    <strong>return type</strong> <code>IEnumerable&#60;TRow&#62;</code><br />
+    <strong>params:</strong>
+    <ul>
+        <li>
+            <code>query</code>
+            <p>
+                <strong>type </strong><code>IQueryable&#60;TEntity&#62;</code><br />
+                <strong>description</strong> return value of <code>OrderQuery()</code>
+            </p>
+        </li>
+    </ul>
+</p>
+
+<p>
+    Example:
 </p>
 
 <pre class="prettyprint lang-cs bs-example">
 @Html.InsertFileContentCached("~/Views/Docs/Grid/Source/_MapQuery.cs.embed")
 </pre>
-<br />
+
+<hr />
 
 <p>
-    Get the grid model. Method can be overriden       
+    I guess you're asking yourself, "what now?". 
+</p>
+<p>
+    Well, now all you have to do is call the method <code>ToBsGridViewModel()</code> in the controller and you there you have your grid model all "mapped out and ready to go".
+</p>
+
+<p>
+    Example:   
 </p>
 
 <pre class="prettyprint lang-cs bs-example">
 @Html.InsertFileContentCached("~/Views/Docs/Grid/Source/_ToViewModel.cs.embed")
 </pre>
-<br />
-<pre class="prettyprint lang-cs bs-example">
-@Html.InsertFileContentCached("~/Views/Docs/Grid/Source/_ToViewModelExtensions.cs.embed")
-</pre>
-<br />
 
-<h4 class="sub_title">Example</h4>
-<pre class="prettyprint lang-cs bs-example">
-@Html.InsertFileContentCached("~/Views/Docs/Grid/Source/_RepositoryExample.cs.embed")
-</pre>
-<br />
-<pre class="prettyprint lang-cs bs-example">
-@Html.InsertFileContentCached("~/Views/Docs/Grid/Source/_ControllerExample.cs.embed")
-</pre>
+<br/>
+
+<p>
+    You can use the same method in different scopes (pagination ajax, add new row) to get the exact data you need (set of rows, single row). <br/>
+    Also, the repository allows you to override it, in case you want a custom implementation.
+</p>
+
+
+
+
 

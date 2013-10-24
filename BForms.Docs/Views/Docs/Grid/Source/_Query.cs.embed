@@ -1,1 +1,8 @@
-﻿abstract IQueryable<TEntity> Query();
+﻿public override IQueryable<Contributor> Query()
+{
+    var query = db.Contributors.AsQueryable();
+
+    // filter query based on BsGridRepositorySettings<TSearch> Settings
+
+    return query;
+}

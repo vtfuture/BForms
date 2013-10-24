@@ -1,0 +1,11 @@
+﻿filterButtons: [{
+    btnSelector: '.js-actives',
+    filter: function ($el) {
+        return $el.data('active') == true;
+    }
+}, {
+    btnSelector: '.js-inactives',
+    filter: function ($el) {
+        return $el.data('active') != true;
+    },
+}],

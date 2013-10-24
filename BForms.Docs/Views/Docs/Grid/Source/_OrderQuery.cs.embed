@@ -1,1 +1,8 @@
-﻿abstract IOrderedQueryable<TEntity> OrderQuery(IQueryable<TEntity> query);
+﻿public override IOrderedQueryable<Contributor> OrderQuery(IQueryable<Contributor> query)
+{
+    this.orderedQueryBuilder.OrderFor(x => x.Name, y => y.FirstName + " " + y.LastName);
+
+    var ordered = this.orderedQueryBuilder.Order(query, x => x.StartDate, BsOrderType.Ascending);
+
+    return ordered;
+}

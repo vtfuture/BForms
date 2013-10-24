@@ -163,6 +163,8 @@
     <Content Include="Content\Images\Docs\datetimepicker-input.jpg" />
     <Content Include="Content\Images\Docs\datetimepicker-range.jpg" />
     <Content Include="Content\Images\Docs\dropdown-search-select.jpg" />
+    <Content Include="Content\Images\Docs\grid-bulkactions.png" />
+    <Content Include="Content\Images\Docs\grid-pager.png" />
     <Content Include="Content\Images\Docs\html-grid-structure.png" />
     <Content Include="Content\Images\Docs\html-row-structure.png" />
     <Content Include="Content\Images\Docs\listbox-search-select.jpg" />
@@ -690,7 +692,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Docs\Grid\Source\_JavascriptGrid.cs.embed" />
+    <Content Include="Views\Docs\Grid\Source\_JavascriptGrid.js.embed" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="RequireJS.Release.config" />
@@ -885,6 +887,31 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\BForms\Stylesheets\css\bforms.groupeditor.scss" />
+    <Content Include="Views\Docs\Grid\Source\_RowModel.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Grid\Source\_GridHelperSimple.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Grid\Source\_GridTheme.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Grid\Source\_ResetButton.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Grid\Source\_Pager.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Grid\Source\_JavascriptGridRequire.js.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Grid\Source\_JavascriptRowAction.js.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Grid\Source\_JavascriptGridAction.js.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Grid\Source\_JavascriptFilterButton.js.embed" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
