@@ -302,7 +302,7 @@ namespace BForms.Grid
             if (this.hasPager && this.model.Pager != null && this.model.Pager.TotalRecords > 0)
             {
                 var pagerWrapper = new TagBuilder("div");
-                pagerWrapper.AddCssClass("row grid_pager");
+                pagerWrapper.AddCssClass("row bs-pager");
 
                 pagerWrapper.InnerHtml += this.RenderPages();
 

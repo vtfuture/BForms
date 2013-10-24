@@ -113,7 +113,7 @@
         this.refreshModel = this._refreshModel;
         this._currentResultsCount = this.$gridCountContainer.text();
 
-        this.$pager = this.element.find('.grid_pager').bsPager({
+        this.$pager = this.element.find('.bs-pager').bsPager({
             pagerUpdate: $.proxy(this._evOnPageChange, this),
             pagerGoTop: $.proxy(this._evOnPagerGoTop, this)
         });
