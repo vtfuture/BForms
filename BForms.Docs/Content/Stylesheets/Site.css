@@ -219,7 +219,7 @@ code {
   background: #f7f5fa;
   display: table;
   border-spacing: 10px;
-  z-index: 9999;
+  z-index: 1023;
   display: none; }
   .select_theme .toogle {
     position: relative;
@@ -292,7 +292,8 @@ code {
   .bs-docs-section .bs-example.bs-img-example {
     background: #fff; }
     .bs-docs-section .bs-example.bs-img-example img {
-      max-width: 100%; }
+      max-width: 100%;
+      cursor: pointer; }
 .bs-docs-section .highlight {
   padding: 9px 14px;
   margin-bottom: 14px;

@@ -304,7 +304,7 @@ code {
 	background: #f7f5fa;
 	display: table;
 	border-spacing: 10px;
-	z-index: 9999;
+	z-index: 1023;
 	display: none;
 	.toogle {
 		position: relative;
@@ -402,6 +402,7 @@ code {
 			background: #fff;
 			img {
 				max-width: 100%;
+				cursor: pointer;
 			}
 		}
 	}
