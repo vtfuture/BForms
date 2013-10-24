@@ -214,6 +214,8 @@
     <Content Include="Scripts\Controllers\Root\Docs\docs-grid.js" />
     <Content Include="Scripts\Controllers\Root\Error\error-notfound.js" />
     <Content Include="Scripts\Controllers\Root\Error\error-index.js" />
+    <Content Include="Scripts\Controllers\Root\Start\start-grid.js" />
+    <Content Include="Scripts\Controllers\Root\Start\start-form.js" />
     <Content Include="Scripts\Controllers\Root\Start\start-setup.js" />
     <Content Include="Views\Docs\InputExtensions\Source\InputPasswordSpecializedView.cshtml.embed" />
     <Content Include="Views\Docs\InputExtensions\Source\InputUrlSpecializedModel.cs.embed" />
