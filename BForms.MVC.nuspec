@@ -7,8 +7,11 @@
     <id>BForms.MVC</id>
     <title>BForms.MVC</title>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>BForms for ASP.NET MVC</description>
+    <description>BForms UI Framework for ASP.NET MVC</description>
     <copyright>Copyright Stefan Prodan and contributors 2013</copyright>
+    <tags>ASP.NET MVC, UI, JavaScript</tags>
+    <language>en-US</language>
+    <projectUrl>http://bforms.stefanprodan.eu</projectUrl>
     <dependencies>
       <dependency id="Newtonsoft.Json" version="5.0.8" />
       <dependency id="RequireJsNet" version="1.0.7.0" />
