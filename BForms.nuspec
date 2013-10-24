@@ -14,7 +14,7 @@
     </frameworkAssemblies>
   </metadata>
   <files>
-    <file src="BForms\bin\Debug\BForms.dll" target="lib\net45\" />
-    <file src="BForms\bin\Debug\BForms.xml" target="lib\net45\" />
+    <file src="BForms\bin\Release\BForms.dll" target="lib\net45\" />
+    <file src="BForms\bin\Release\BForms.xml" target="lib\net45\" />
   </files>
 </package>
