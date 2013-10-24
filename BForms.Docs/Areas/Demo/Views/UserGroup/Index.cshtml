@@ -1,10 +1,13 @@
 ﻿@using BForms.Html
 @using BForms.Docs.Resources
+@using BForms.Models
+
 @model BForms.Docs.Areas.Demo.Models.ContributorsViewModel
 
 @{
     ViewBag.Title = "Group Editor Demo";
 }
+
 
 <div class="grid_container">
     <div class="group_editor">
@@ -77,7 +80,7 @@
                         <a class="pull-left" href="#">
                             <img class="media-object" src="http://www.cloverwos.ro/1.0.0.217/Content/images/bg-user.png">
                         </a>
-                        <a href="#" class="btn btn-default pull-right"><span class="glyphicon glyphicon-plus"></span></a>
+                        <a href="#" class="btn btn-default pull-right">@Html.BsGlyphicon(Glyphicon.Plus)</a>
                         <div class="media-body">
                             <dl class="to-left">
                                 <dt>Seria:</dt>
@@ -98,7 +101,7 @@
                         <a class="pull-left" href="#">
                             <img class="media-object" src="http://www.cloverwos.ro/1.0.0.217/Content/images/bg-user.png">
                         </a>
-                        <a href="#" class="btn btn-default pull-right"><span class="glyphicon glyphicon-ok"></span></a>
+                        <a href="#" class="btn btn-default pull-right">@Html.BsGlyphicon(Glyphicon.Ok)</a>
                         <div class="media-body">
                             <dl class="to-left">
                                 <dt>Seria:</dt>
@@ -115,7 +118,66 @@
                     </div>
                 </li>
             </ul>
+
+            <div class="row bs-pager">
+                <div class="col-md-8 col-lg-8 bs-pages">
+                    <ul class="pagination pagination-sm">
+                        <li class="disabled"><a data-page="1" href="#">«</a></li>
+                        <li class="disabled"><a data-page="0" href="#">‹</a></li>
+                        <li class="active"><a data-page="1" href="#">1</a></li>
+                        <li><a data-page="2" href="#">2</a></li>
+                        <li><a data-page="3" href="#">3</a></li>
+                        <li><a data-page="2" href="#">›</a></li>
+                        <li><a data-page="3" href="#">»</a></li>
+                    </ul>
+                    <div class="results_number">1-5 of <span>15</span> items</div>
+                </div>
+                <div class="col-md-4 col-lg-4 results_per_page">
+                    <div class="pull-right">
+                        <div class="dropdown dropup">
+                            <span class="results_per_page_container">results per page</span>
+                            <a data-toggle="dropdown" href="#"><span class="btn btn-default bs-perPageDisplay">5<span class="caret"></span></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a class="bs-perPage selected" data-value="5" href="#">5</a></li>
+                                <li><a class="bs-perPage" data-value="10" href="#">10</a></li>
+                                <li><a class="bs-perPage" data-value="50" href="#">50</a></li>
+                                <li><a class="bs-perPage" data-value="100" href="#">100</a></li>
+                                <li><a class="bs-perPage" data-value="500" href="#">500</a></li>
+                            </ul>
+                        </div>                       
+                    </div>
+                </div>
+            </div>
         </div>  @*first column end  *@
-        <div class="right"></div>
+
+        <div class="right">
+            <div class="grid_view">
+                <div class="grid_rows">
+                    <div class="row grid_row title">
+                        <div class=" col-lg-12 col-md-12 col-sm-12">
+                            <a class="expand bs-toggleExpand" href="#">&nbsp;</a>
+                            <a class="bs-orderColumn" data-name="Name" href="#">Name</a>
+                        </div>
+                    </div>
+                    <div class="grid_rows_wrapper">
+                        <div class="row grid_row" data-active="True" data-objid="1" style="">
+                            <header>
+                                <div class=" col-lg-6 col-md-6 col-sm-2">
+                                    <span>1. Stefan P.</span>
+                                </div>
+                                <div class=" col-lg-6 col-md-6 col-sm-4">
+                                    <div class="controls btn-group btn-group-sm pull-right">
+                                        <a href="#" class="btn btn-default">@Html.BsGlyphicon(Glyphicon.Pencil)</a>
+                                        <a href="#" class="btn btn-default">@Html.BsGlyphicon(Glyphicon.ChevronUp)</a>
+                                        <a href="#" class="btn btn-default">@Html.BsGlyphicon(Glyphicon.ChevronDown)</a>
+                                        <a href="#" class="btn btn-default">@Html.BsGlyphicon(Glyphicon.Remove)</a>
+                                    </div>
+                                </div>
+                            </header>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>  @*second column end*@
     </div>
 </div>

@@ -12,6 +12,7 @@ $borderColor: #e8e8e8;
 		display: table-cell;
 		width: 50%;
 		border: 1px solid $borderColor;
+		vertical-align: top;
 	}
 	.row {
 		margin: 0;
@@ -86,6 +87,20 @@ $borderColor: #e8e8e8;
 			.glyphicon {
 				color: #77BD43;
 			}
+		}
+	}
+	.bs-pager {
+		padding: 0 10px;
+	}
+	
+	.grid_view {
+		padding: 10px;
+		.grid_rows_wrapper .grid_row {
+			min-height: 10px;
+			padding: 5px 0;
+		}
+		.controls .glyphicon {
+			vertical-align: text-top;
 		}
 	}
 }

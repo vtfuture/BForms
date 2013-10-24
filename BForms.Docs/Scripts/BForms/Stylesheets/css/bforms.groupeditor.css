@@ -5,7 +5,8 @@
   .group_editor > div {
     display: table-cell;
     width: 50%;
-    border: 1px solid #e8e8e8; }
+    border: 1px solid #e8e8e8;
+    vertical-align: top; }
   .group_editor .row {
     margin: 0; }
   .group_editor .navbar {
@@ -57,3 +58,12 @@
       border: 1px solid #A3E473; }
     .group_editor .group_profiles .selected .glyphicon {
       color: #77BD43; }
+  .group_editor .bs-pager {
+    padding: 0 10px; }
+  .group_editor .grid_view {
+    padding: 10px; }
+    .group_editor .grid_view .grid_rows_wrapper .grid_row {
+      min-height: 10px;
+      padding: 5px 0; }
+    .group_editor .grid_view .controls .glyphicon {
+      vertical-align: text-top; }
