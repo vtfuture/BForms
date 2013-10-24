@@ -1,1 +1,1 @@
-﻿return new BsExcelResult<ContributorRowExcelModel>("BForms Contributors.xlsx", builder);
+﻿return new BsExcelResult<ContributorRowModel>("BForms Contributors.xlsx", builder);

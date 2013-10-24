@@ -1,0 +1,5 @@
+﻿[BsGridColumn(Width = 5, Usage = BsGridColumnUsage.Both)]
+public string Contributions { get; set; }
+
+[BsGridColumn(Width = 1, Usage = BsGridColumnUsage.Excel)]
+public bool Enabled { get; set; }

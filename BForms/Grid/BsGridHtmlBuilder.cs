@@ -699,22 +699,25 @@ namespace BForms.Grid
                 BsGridColumnAttribute columnAttr = null;
                 if (ReflectionHelpers.TryGetAttribute(property, out columnAttr))
                 {
-                    var column = new BsGridColumn<TRow>(property, this.viewContext);
-
-                    column.IsSortable = columnAttr.IsSortable;
-                    column.SetWidth(columnAttr.Width);
-
-                    System.ComponentModel.DataAnnotations.DisplayAttribute displayAttribute = null;
-                    if (ReflectionHelpers.TryGetAttribute(property, out displayAttribute))
+                    if (columnAttr.Usage != BsGridColumnUsage.Excel)
                     {
-                        column.DisplayName = displayAttribute.GetName();
-                    }
-                    else
-                    {
-                        column.DisplayName = property.Name;
-                    }
+                        var column = new BsGridColumn<TRow>(property, this.viewContext);
 
-                    this.columns.Add(column);
+                        column.IsSortable = columnAttr.IsSortable;
+                        column.SetWidth(columnAttr.Width);
+
+                        System.ComponentModel.DataAnnotations.DisplayAttribute displayAttribute = null;
+                        if (ReflectionHelpers.TryGetAttribute(property, out displayAttribute))
+                        {
+                            column.DisplayName = displayAttribute.GetName();
+                        }
+                        else
+                        {
+                            column.DisplayName = property.Name;
+                        }
+
+                        this.columns.Add(column);
+                    }
                 }
             }
         }

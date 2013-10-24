@@ -853,6 +853,9 @@
   <ItemGroup>
     <Content Include="Areas\Demo\Views\Login\Docs\Source\_LoginView.cshtml.embed" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Excel\Source\_GridColumnAttribute.cs.embed" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

@@ -145,8 +145,6 @@ namespace BForms.Docs.Areas.Demo.Models
     {
         public int Id { get; set; }
 
-        public bool Enabled { get; set; }
-
         [BsGridColumn(Width = 2, IsEditable = true)]
         public string Name { get; set; }
 
@@ -159,6 +157,9 @@ namespace BForms.Docs.Areas.Demo.Models
         [BsGridColumn(Width = 5)]
         public string Contributions { get; set; }
 
+        [BsGridColumn(Width = 1, Usage = BsGridColumnUsage.Excel)]
+        public bool Enabled { get; set; }
+
         public Dictionary<string, object> RowData()
         {
             return new Dictionary<string, object> 
@@ -167,25 +168,6 @@ namespace BForms.Docs.Areas.Demo.Models
                 { "data-active", Enabled }
             };
         }
-    }
-
-    public class ContributorRowExcelModel
-    {
-        [BsGridColumn(Width = 2)]
-        public string Name { get; set; }
-
-        [BsGridColumn(Width = 3)]
-        public string Role { get; set; }
-
-        [Display(Name = "Contributor since")]
-        [BsGridColumn(Width = 2)]
-        public string StartDate { get; set; }
-
-        [BsGridColumn(Width = 5)]
-        public string Contributions { get; set; }
-
-        [BsGridColumn(Width = 1)]
-        public bool Enabled { get; set; }
     }
 
     public enum ProjectRole

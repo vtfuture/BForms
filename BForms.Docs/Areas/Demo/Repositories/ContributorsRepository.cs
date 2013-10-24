@@ -63,16 +63,6 @@ namespace BForms.Docs.Areas.Demo.Repositories
                     DateValue = x.StartDate
                 }
             };
-
-        public Func<Contributor, ContributorRowExcelModel> MapContributor_ContributorRowExcelModel = x =>
-            new ContributorRowExcelModel
-            {
-                Enabled = x.Enabled,
-                Name = x.FirstName + " " + x.LastName,
-                Role = x.Role.ToString(),
-                Contributions = string.IsNullOrEmpty(x.Contributions) ? "" : String.Join(", ", x.Contributions.Split(new[] { ',' }).Take(2)),
-                StartDate = x.StartDate.ToMonthNameDate()
-            };
         #endregion
 
         #region Filter/Order/Map
@@ -207,11 +197,11 @@ namespace BForms.Docs.Areas.Demo.Repositories
             return query;
         }
 
-        public List<ContributorRowExcelModel> GetExcelItems(BsGridRepositorySettings<ContributorSearchModel> settings, List<int> ids)
+        public List<ContributorRowModel> GetItems(BsGridRepositorySettings<ContributorSearchModel> settings, List<int> ids)
         {
             this.settings = settings;
 
-            var result = new List<ContributorRowExcelModel>();
+            var result = new List<ContributorRowModel>();
 
             // create filtered query
             var basicQuery = this.Query();
@@ -225,17 +215,17 @@ namespace BForms.Docs.Areas.Demo.Repositories
                 basicQuery = Filter(basicQuery);
             }
 
-            IEnumerable<ContributorRowExcelModel> finalQuery = null;
+            IEnumerable<ContributorRowModel> finalQuery = null;
 
             // order
-            var orderedExcelQueryBuilder = new OrderedQueryBuilder<ContributorRowExcelModel>(this.settings.OrderColumns);
+            var orderedExcelQueryBuilder = new OrderedQueryBuilder<ContributorRowModel>(this.settings.OrderColumns);
 
             orderedExcelQueryBuilder.OrderFor(x => x.Name, y => y.FirstName + " " + y.LastName);
 
             var orderedQuery = orderedExcelQueryBuilder.Order(basicQuery, x => x.StartDate, BsOrderType.Ascending);
 
             // map
-            finalQuery = orderedQuery.Select(MapContributor_ContributorRowExcelModel).ToList();
+            finalQuery = orderedQuery.Select(MapContributor_ContributorRowModel).ToList();
 
             result = finalQuery.ToList();
 

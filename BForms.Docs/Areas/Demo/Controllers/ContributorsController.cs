@@ -13,6 +13,7 @@ using BForms.Models;
 using BForms.Mvc;
 using RequireJS;
 using BForms.Utilities;
+using BForms.Docs.Areas.Demo.Helpers;
 using System.Drawing;
 
 namespace BForms.Docs.Areas.Demo.Controllers
@@ -300,11 +301,11 @@ namespace BForms.Docs.Areas.Demo.Controllers
 
         public ActionResult ExportExcel(BsGridRepositorySettings<ContributorSearchModel> settings, List<int> ids)
         {
-            var items = _gridRepository.GetExcelItems(settings, ids);
+            var items = _gridRepository.GetItems(settings, ids);
 
             try
             {
-                var builder = new BsGridExcelBuilder<ContributorRowExcelModel>("BForms Contributors.xlsx", items);
+                var builder = new BsGridExcelBuilder<ContributorRowModel>("BForms Contributors.xlsx", items);
 
                 builder.ConfigureHeader(header =>
                         {
@@ -316,11 +317,11 @@ namespace BForms.Docs.Areas.Demo.Controllers
                         })
                        .ConfigureRows((row, style) =>
                         {
-                            if (row.Role == "TeamLeader")
+                            if (row.Role == ProjectRole.TeamLeader)
                             {
                                 style.Font.Bold = true;
                             }
-                            if (row.Role == "Tester")
+                            if (row.Role == ProjectRole.Tester)
                             {
                                 style.Font.Italic = true;
                             }
@@ -331,12 +332,14 @@ namespace BForms.Docs.Areas.Demo.Controllers
                                    .Text(x => x.Enabled ? Resource.Yes : Resource.No)
                                    .Style((row, style) => style.FillColor = row.Enabled ? BsGridExcelColor.LightGreen : BsGridExcelColor.Red);
                             columns.For(x => x.Role)
+                                   .Text(x => x.Role.ToString())
                                    .Style(style => style.FillColor = BsGridExcelColor.Lavender);
                             columns.For(x => x.StartDate)
+                                   .Text(x => x.StartDate.ToMonthNameDate())
                                    .Style(style => style.Font.Italic = true);
                         });
 
-                return new BsExcelResult<ContributorRowExcelModel>("BForms Contributors.xlsx", builder);
+                return new BsExcelResult<ContributorRowModel>("BForms Contributors.xlsx", builder);
             }
             catch (Exception ex)
             {
