@@ -9,28 +9,19 @@
             RegisterModel = InitRegisterModel()
         };
 
-        if(!string.IsNullOrEmpty(mode))
-        if(mode.ToLower() == "login")
-        {
-            model.RegisterModel = null;
-        }
-        else if (mode.ToLower() == "register")
-        {
-            model.LoginModel = null;
-        }
-
-        RequireJsOptions.Add("registerUrl", Url.Action("Register"));
-
         return View(model);
     }
 
     [HttpPost]
     public ActionResult Index(AuthenticationModel model, string mode)
     {
-        //add global validation error
-        ModelState.AddFormError("LoginModel",
-            "This account has been suspended! Contact us for more details.");
+	//validate credentials and redirect
 
-        return View(model);
+	//if authorization failed add global validation error
+	ModelState.AddFormError("LoginModel",
+		"This account has been suspended! Contact us for more details.");
+
+	//return view with validation errors
+	return View(model);
     }
 }

@@ -858,6 +858,21 @@
   <ItemGroup>
     <Content Include="Views\Docs\Excel\Source\_GridColumnAttribute.cs.embed" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Demo\Views\Login\Docs\_Register.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Demo\Views\Login\Docs\Source\_RegisterModel.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Demo\Views\Login\Docs\Source\_RegisterView.cshtml.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Demo\Views\Login\Docs\Source\_RegisterController.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Demo\Views\Login\Docs\Source\_RegisterController.js.embed" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

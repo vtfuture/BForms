@@ -8,15 +8,11 @@
     };
 
     LoginIndex.prototype.init = function () {
+
         this.$loginForm = $('.js-loginForm');
 
+        //apply BForms plugins
         this.$loginForm.bsInitUI(this.options.styleInputs);
-        
-        this.addHandlers();
-    };
-
-    LoginIndex.prototype.addHandlers = function () {
-
     };
 
     $(document).ready(function () {

@@ -8,10 +8,11 @@
     <title>BForms.MVC</title>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>BForms for ASP.NET MVC</description>
-    <copyright>Copyright Stefan Prodan 2013</copyright>
+    <copyright>Copyright Stefan Prodan and contributors 2013</copyright>
     <dependencies>
       <dependency id="Newtonsoft.Json" version="5.0.8" />
       <dependency id="RequireJsNet" version="1.0.7.0" />
+      <dependency id="DocumentFormat.OpenXml" version="2.5" />
     </dependencies>
   </metadata>
   <files>

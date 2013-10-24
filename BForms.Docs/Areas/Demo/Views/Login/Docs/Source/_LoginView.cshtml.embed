@@ -1,7 +1,9 @@
-﻿@using (Html.BsBeginForm("Index", "Login",
-    new {ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, 
-    new {@class = "bs-form js-loginForm"}, 
-    Html.GetTheme()))
+﻿@using (Html.BsBeginForm(
+	"Index", 
+	"Login",
+	new {ReturnUrl = ViewBag.ReturnUrl}, 
+	FormMethod.Post, 
+	new {@class = "js-loginForm"}))
 {
     <div class="col-12 col-sm-12 col-lg-12">
         @Html.BsValidationSummary()

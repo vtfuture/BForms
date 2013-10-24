@@ -85,7 +85,9 @@ namespace BForms.Docs.Areas.Demo.Controllers
             else
             {
                 //JSON serialize ModelState errors
-                return new BsJsonResult(new Dictionary<string, object> { { "Errors", ModelState.GetErrors() } }, BsResponseStatus.ValidationError);
+                return new BsJsonResult(
+                    new Dictionary<string, object> { { "Errors", ModelState.GetErrors() } }, 
+                    BsResponseStatus.ValidationError);
             }
 
             return new BsJsonResult();
