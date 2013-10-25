@@ -92,7 +92,7 @@
 
 <hr />
 
-<p>
+@*<p>
     <code>RowHighlighter(Func&#60;TRow, string&#62; highlighter)</code>
 </p>
 <p>
@@ -119,38 +119,67 @@
 @Html.InsertFileContentCached("~/Views/Docs/Grid/Source/_RowHighlighter.cs.embed")
 </pre>
 
-<hr />
+<hr />*@
 
+@*<p>
+        <code>RowData(Func&#60;TRow, dictionary&#60;string, object&#62;&#62; rowData)</code>
+    </p>
+    <p>
+        <strong>params:</strong>
+        <ul>
+            <li>
+                <code>rowData</code>
+                <p>
+                    <strong>type </strong><code>Func&#60;TRow, dictionary&#60;string, object&#62;&#62;</code><br />
+                    <strong>default</strong> none <br />
+                    <strong>description</strong> based on the row model, specify via a dictionary the row html attributes
+                </p>
+            </li>
+        </ul>
+    </p>
+
+    <p>
+        Set the html attributes of a row (usually used for <code>data-</code> attributes). </br>
+        As i mentioned before, you can set this in your row model. By configuring this in razor you override those.
+    </p>
+    <p>
+        Example:
+    </p>
+    <pre class="prettyprint lang-cs bs-example">
+    @Html.InsertFileContentCached("~/Views/Docs/Grid/Source/_RowData.cs.embed")
+    </pre>
+
+    <hr />*@
 <p>
-    <code>RowData(Func&#60;TRow, dictionary&#60;string, object&#62;&#62; rowData)</code>
+    <code>ConfigureRows(Action&#60;BsGridRowConfigurator&#60;TRow&#62;&#62; configurator)</code>
 </p>
 <p>
     <strong>params:</strong>
     <ul>
         <li>
-            <code>rowData</code>
-            <p>
-                <strong>type </strong><code>Func&#60;TRow, dictionary&#60;string, object&#62;&#62;</code><br />
-                <strong>default</strong> none <br />
-                <strong>description</strong> based on the row model, specify via a dictionary the row html attributes
-            </p>
+            <code>configurator</code>
+<p>
+    <strong>type </strong><code>Action&#60;BsGridRowConfigurator&#60;TRow&#62;&#62;</code><br />
+    <strong>default</strong> none <br />
+    <strong>description</strong> rows configurator (html attributes, has details, color)
+</p>
         </li>
     </ul>
 </p>
 
 <p>
-    Set the html attributes of a row (usually used for <code>data-</code> attributes). </br>
-    As i mentioned before, you can set this in your row model. By configuring this in razor you override those.
+    Using this method, you can add html attributes to each row, and set its color based on your row model.
+    By default, the <code>BsGridAttribute</code> decides whether the rows have details (are expandable), but in some
+    cases you may want some of your rows expandable and others not.
 </p>
 <p>
     Example:
 </p>
 <pre class="prettyprint lang-cs bs-example">
-@Html.InsertFileContentCached("~/Views/Docs/Grid/Source/_RowData.cs.embed")
+@Html.InsertFileContentCached("~/Views/Docs/Grid/Source/_ConfigureRowsExample.cs.embed")
 </pre>
 
 <hr />
-
 <p>
     <code>ConfigureColumns(Action&#60;BsGridColumnFactory&#60;TRow&#62;&#62; configurator)</code>
 </p>

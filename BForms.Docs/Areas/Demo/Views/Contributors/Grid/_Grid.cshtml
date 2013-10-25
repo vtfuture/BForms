@@ -26,8 +26,6 @@
             bulk.ForSelector(BsBulkSelectorType.None).Text(@Resource.None);
         })
         .HtmlAttributes(new { @class = "custom_class" })
-        .RowHighlighter(row => row.Enabled ? "#59b444" : "#f0ad4e")
-        .RowData(row => new Dictionary<string, object> { { "data-objid", row.Id }, { "data-active", row.Enabled } })
         .ConfigureColumns(cols =>
         {
             cols.For(c => c.Name).Name(Resource.Name)
@@ -50,6 +48,12 @@
                                 .Text(row => string.IsNullOrEmpty(row.Contributions) ? "" : String.Join(", ", row.Contributions.Split(new[] { ',' }).Take(2)));
 
             cols.For(c => c.Name).Name(Resource.Name);
+        })
+        .ConfigureRows(cfg =>
+        {
+            cfg.Details(row => row.Enabled ? true : false)
+               .HtmlAttributes(row => new Dictionary<string, object> { { "data-objid", row.Id }, { "data-active", row.Enabled } })
+               .Highlighter(row => row.Enabled ? "#59b444" : "#f0ad4e");
         })
         .PagerSettings(new BsPagerSettings { Size = 5 })
 )

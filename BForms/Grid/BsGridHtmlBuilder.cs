@@ -43,6 +43,7 @@ namespace BForms.Grid
         private string resetButtonHtml;
         private Func<TRow, string> rowHighlighter;
         private Func<TRow, IDictionary<string, object>> rowData;
+        private Func<TRow, bool> rowDetails;
         private bool hasDetails;
         private bool hasBulkActions;
         private List<BsGridColumn<TRow>> columns;
@@ -108,6 +109,21 @@ namespace BForms.Grid
             return this;
         }
 
+        public BsGridHtmlBuilder<TModel, TRow> ConfigureRows(Action<BsGridRowConfigurator<TRow>> configurator)
+        {
+            var rowConfigurator = new BsGridRowConfigurator<TRow>();
+
+            configurator(rowConfigurator);
+
+            this.rowData = rowConfigurator.HtmlAttr;
+
+            this.rowHighlighter = rowConfigurator.Highlight;
+
+            this.rowDetails = rowConfigurator.HasDetails;
+
+            return this;
+        }
+
         public BsGridHtmlBuilder<TModel, TRow> ConfigureBulkActions(Action<BsBulkActionsFactory> configurator)
         {
             var bulkActionsFactory = new BsBulkActionsFactory(this.viewContext);
@@ -133,23 +149,6 @@ namespace BForms.Grid
             resetButton.InnerHtml += resetButtonSpan.ToString();
 
             this.resetButtonHtml = resetButton.ToString();
-
-            return this;
-        }
-
-        public BsGridHtmlBuilder<TModel, TRow> RowHighlighter(Func<TRow, string> higlighter)
-        {
-            this.rowHighlighter = higlighter;
-
-            return this;
-        }
-
-        /// <summary>
-        /// Adds data- html attributes
-        /// </summary>
-        public BsGridHtmlBuilder<TModel, TRow> RowData(Func<TRow, Dictionary<string, object>> rowData)
-        {
-            this.rowData = rowData;
 
             return this;
         }
@@ -438,12 +437,15 @@ namespace BForms.Grid
                         {
                             if (this.hasDetails)
                             {
-                                var detailsBUilder = new TagBuilder("a");
-                                detailsBUilder.MergeAttribute("class", "expand bs-expand");
-                                detailsBUilder.MergeAttribute("href", "#");
-                                detailsBUilder.InnerHtml += "&nbsp;";
+                                if (this.rowDetails(row))
+                                {
+                                    var detailsBUilder = new TagBuilder("a");
+                                    detailsBUilder.MergeAttribute("class", "expand bs-expand");
+                                    detailsBUilder.MergeAttribute("href", "#");
+                                    detailsBUilder.InnerHtml += "&nbsp;";
 
-                                cellBuilder.InnerHtml += detailsBUilder.ToString();
+                                    cellBuilder.InnerHtml += detailsBUilder.ToString();
+                                }
                             }
                         }
 
