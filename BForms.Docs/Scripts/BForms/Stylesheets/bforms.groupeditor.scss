@@ -8,23 +8,32 @@ $borderColor: #e8e8e8;
 	margin-bottom: 20px;
 	display: table;
 	border-collapse: collapse;
+	width: 100%;
 	> div {
 		display: table-cell;
 		width: 50%;
 		border: 1px solid $borderColor;
 		vertical-align: top;
+		position: relative;
+		padding-bottom: 70px;
 	}
 	.row {
 		margin: 0;
 	}
-	.navbar {
+	.navbar-default {
 		border: none;
 		margin: 0;
+		.navbar-collapse {
+			background: #fff;
+		}
+		.active a {
+			background: #f8f8f8 !important;
+		}
 	}
 	.search {
 		padding: 10px 0;
 		margin-bottom: 10px;
-		background: #e7e7e7;
+		background: #f8f8f8 ;
 	}
 	.grids_header_submit {
 		padding: 5px 10px 0;
@@ -80,6 +89,9 @@ $borderColor: #e8e8e8;
 	.group_profiles {
 		padding: 0 10px;
 		list-style: none;
+		.select_profile {
+			float: right;
+		}
 		.selected {
 			.profile.large {
 				border: 1px solid #A3E473;
@@ -89,18 +101,58 @@ $borderColor: #e8e8e8;
 			}
 		}
 	}
-	.bs-pager {
+	.bs-pager, .counter {
 		padding: 0 10px;
+		border-top: 1px solid $borderColor;
+		position: absolute;
+		bottom: 0;
+		width: 100%;
 	}
-	
+	.counter {
+		padding: 17px 0;
+	}
 	.grid_view {
 		padding: 10px;
-		.grid_rows_wrapper .grid_row {
-			min-height: 10px;
-			padding: 5px 0;
+		.grid_rows_wrapper {
+			border: none;
+			.grid_row {
+				min-height: 10px;
+				padding: 5px 0;
+				margin: 0 0 5px;
+				background: #fff !important;
+				border: 1px solid $borderColor;
+				&:hover {
+					border: 1px solid #c3c3c3;
+				}
+				> .form_container {
+					padding: 0 10px;
+				}
+			}
+			.grid_row_details h3 {
+				margin-top: 0;
+				&:hover {
+					border-color: #eee !important;
+				}
+			}
 		}
 		.controls .glyphicon {
 			vertical-align: text-top;
+		}
+
+	}
+}
+
+@media (max-width: 959px) { 
+	.group_editor {
+		display: block;
+		> div {
+			display: block;
+			width: 100%;
+			padding: 0;
+			margin-bottom: 5px;
+			.bs-pager, .counter {
+				position: relative;
+			}
 		}
 	}
 }

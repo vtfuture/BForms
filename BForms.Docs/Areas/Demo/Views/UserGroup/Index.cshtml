@@ -8,6 +8,9 @@
     ViewBag.Title = "Group Editor Demo";
 }
 
+<style type="text/css">
+    body { max-width: 1400px;}
+</style>
 
 <div class="grid_container">
     <div class="group_editor">
@@ -36,7 +39,7 @@
                     <div class="basic">
                         <div class="row form-container">
 
-                            <div class="col-12 col-sm-4 col-lg-5 form-group">
+                            <div class="col-sm-6 col-md-6 col-lg-6 form-group">
                                 <label class="control-label" for="Name">Nume</label>
                                 <div class="input-group">
                                     <span class="glyphicon glyphicon-user input-group-addon"></span>
@@ -44,7 +47,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-12 col-sm-4 col-lg-5 form-group">
+                            <div class="col-sm-6 col-md-6 col-lg-6 form-group">
                                 <label class="control-label" for="s2id_autogen2">Departament</label>
                                 <div class="input-group">
                                     <div class="select2-container form-control bs-dropdown custom_select" id="s2id_Departments_SelectedValues"><a href="javascript:void(0)" onclick="return false;" class="select2-choice select2-default" tabindex="-1">   <span>Alegeţi</span><abbr class="select2-search-choice-close"></abbr>   <div><b></b></div></a><input class="select2-focusser select2-offscreen" type="text" id="s2id_autogen2"><div class="select2-drop select2-display-none select2-with-searchbox">   <div class="select2-search">       <input type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="select2-input">   </div>   <ul class="select2-results">   </ul></div></div><select class="form-control bs-dropdown select2-offscreen" id="Departments_SelectedValues" name="Departments.SelectedValues" tabindex="-1">
@@ -80,7 +83,7 @@
                         <a class="pull-left" href="#">
                             <img class="media-object" src="http://www.cloverwos.ro/1.0.0.217/Content/images/bg-user.png">
                         </a>
-                        <a href="#" class="btn btn-default pull-right">@Html.BsGlyphicon(Glyphicon.Plus)</a>
+                        <a href="#" class="btn btn-default select_profile">@Html.BsGlyphicon(Glyphicon.Plus)</a>
                         <div class="media-body">
                             <dl class="to-left">
                                 <dt>Seria:</dt>
@@ -101,7 +104,7 @@
                         <a class="pull-left" href="#">
                             <img class="media-object" src="http://www.cloverwos.ro/1.0.0.217/Content/images/bg-user.png">
                         </a>
-                        <a href="#" class="btn btn-default pull-right">@Html.BsGlyphicon(Glyphicon.Ok)</a>
+                        <a href="#" class="btn btn-default select_profile">@Html.BsGlyphicon(Glyphicon.Ok)</a>
                         <div class="media-body">
                             <dl class="to-left">
                                 <dt>Seria:</dt>
@@ -120,7 +123,7 @@
             </ul>
 
             <div class="row bs-pager">
-                <div class="col-md-8 col-lg-8 bs-pages">
+                <div class="col-sm-8 col-md-8 col-lg-8 bs-pages">
                     <ul class="pagination pagination-sm">
                         <li class="disabled"><a data-page="1" href="#">«</a></li>
                         <li class="disabled"><a data-page="0" href="#">‹</a></li>
@@ -132,7 +135,7 @@
                     </ul>
                     <div class="results_number">1-5 of <span>15</span> items</div>
                 </div>
-                <div class="col-md-4 col-lg-4 results_per_page">
+                <div class="col-sm-4 col-md-4 col-lg-4 results_per_page">
                     <div class="pull-right">
                         <div class="dropdown dropup">
                             <span class="results_per_page_container">results per page</span>
@@ -144,7 +147,7 @@
                                 <li><a class="bs-perPage" data-value="100" href="#">100</a></li>
                                 <li><a class="bs-perPage" data-value="500" href="#">500</a></li>
                             </ul>
-                        </div>                       
+                        </div>
                     </div>
                 </div>
             </div>
@@ -162,10 +165,17 @@
                     <div class="grid_rows_wrapper">
                         <div class="row grid_row" data-active="True" data-objid="1" style="">
                             <header>
-                                <div class=" col-lg-6 col-md-6 col-sm-2">
+                                <div class=" col-lg-12 col-md-12 col-sm-12">
+                                    <span>Adauga persoane fizice</span>
+                                </div>
+                            </header>
+                        </div>
+                        <div class="row grid_row" data-active="True" data-objid="1" style="">
+                            <header>
+                                <div class=" col-lg-6 col-md-6 col-sm-12">
                                     <span>1. Stefan P.</span>
                                 </div>
-                                <div class=" col-lg-6 col-md-6 col-sm-4">
+                                <div class=" col-lg-6 col-md-6 col-sm-12">
                                     <div class="controls btn-group btn-group-sm pull-right">
                                         <a href="#" class="btn btn-default">@Html.BsGlyphicon(Glyphicon.Pencil)</a>
                                         <a href="#" class="btn btn-default">@Html.BsGlyphicon(Glyphicon.ChevronUp)</a>
@@ -174,8 +184,230 @@
                                     </div>
                                 </div>
                             </header>
+                            <div class="row grid_row_details" style="">
+                                <div class="col-lg-12">
+                                    <div id="contributor_identity" class="grid_details description js-editableIdentity">
+
+                                        <h3 class="">
+                                            <span class="glyphicon glyphicon-user"></span>
+                                            Identity                                            
+                                        </h3>
+
+                                        <form action="/BForms.Docs/Demo/Contributors/Details" method="post" novalidate="novalidate" style="display: block;">
+                                            <div class="turqoise form_container row">
+                                                <div class="col-sm-6 col-md-6 col-lg-6 form-group ">
+                                                    <label class="control-label required" for="x6_FirstName">First name</label>
+                                                    <div class="input-group">
+                                                        <span class="glyphicon glyphicon-user input-group-addon"></span>
+                                                        <input class="form-control bs-text" data-val="true" data-val-required="This field is required" id="x6_FirstName" name="x6.FirstName" type="text" value="Oana">
+                                                        <span class="input-group-addon glyphicon glyphicon-warning-sign field-validation-valid" data-toggle="tooltip" data-valmsg-for="x6.FirstName" data-valmsg-replace="true" data-original-title="" title=""></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6 col-md-6 col-lg-6 form-group ">
+                                                    <label class="control-label required" for="x6_LastName">Last name</label>
+                                                    <div class="input-group">
+                                                        <span class="glyphicon glyphicon-user input-group-addon"></span>
+                                                        <input class="form-control bs-text" data-val="true" data-val-required="This field is required" id="x6_LastName" name="x6.LastName" type="text" value="M.">
+                                                        <span class="input-group-addon glyphicon glyphicon-warning-sign field-validation-valid" data-toggle="tooltip" data-valmsg-for="x6.LastName" data-valmsg-replace="true" data-original-title="" title=""></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6 col-md-6 col-lg-6 form-group ">
+                                                    <label class="control-label" for="x6_Url">Web address</label>
+                                                    <div class="input-group">
+                                                        <span class="glyphicon glyphicon-link input-group-addon"></span>
+                                                        <input class="form-control bs-url" id="x6_Url" name="x6.Url" placeholder="http://mysite.com or http://twitter.com/id" type="url" value="">
+                                                        <span class="input-group-addon glyphicon glyphicon-warning-sign field-validation-valid" data-toggle="tooltip" data-valmsg-for="x6.Url" data-valmsg-replace="true" data-original-title="" title=""></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6 col-md-6 col-lg-6 form-group ">
+                                                    <label class="control-label required" for="s2id_autogen5">Location</label>
+                                                    <div class="input-group">
+                                                        <span class="glyphicon glyphicon-calendar input-group-addon"></span>
+                                                        <div class="select2-container form-control bs-dropdown custom_select" id="s2id_x6_CountriesList_SelectedValues"><a href="javascript:void(0)" onclick="return false;" class="select2-choice" tabindex="-1">   <span>Romania</span><abbr class="select2-search-choice-close"></abbr>   <div><b></b></div></a><input class="select2-focusser select2-offscreen" type="text" id="s2id_autogen5"><div class="select2-drop select2-display-none select2-with-searchbox">   <div class="select2-search">       <input type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="select2-input">   </div>   <ul class="select2-results">   </ul></div></div><select class="form-control bs-dropdown select2-offscreen" data-val="true" data-val-required="This field is required" id="x6_CountriesList_SelectedValues" name="x6.CountriesList.SelectedValues" tabindex="-1">
+                                                            <option value="">Choose your country</option>
+                                                            <option value="Afghanistan">Afghanistan</option>
+                                                            <option value="Albania">Albania</option>
+                                                            <option value="Algeria">Algeria</option>
+                                                            <option value="Argentina">Argentina</option>
+                                                            <option value="Armenia">Armenia</option>
+                                                            <option value="Australia">Australia</option>
+                                                            <option value="Austria">Austria</option>
+                                                            <option value="Azerbaijan">Azerbaijan</option>
+                                                            <option value="Bahrain">Bahrain</option>
+                                                            <option value="Belarus">Belarus</option>
+                                                            <option value="Belgium">Belgium</option>
+                                                            <option value="Belize">Belize</option>
+                                                            <option value="Bolivarian Republic of Venezuela">Bolivarian Republic of Venezuela</option>
+                                                            <option value="Bolivia">Bolivia</option>
+                                                            <option value="Brazil">Brazil</option>
+                                                            <option value="Brunei Darussalam">Brunei Darussalam</option>
+                                                            <option value="Bulgaria">Bulgaria</option>
+                                                            <option value="Canada">Canada</option>
+                                                            <option value="Caribbean">Caribbean</option>
+                                                            <option value="Chile">Chile</option>
+                                                            <option value="China">China</option>
+                                                            <option value="Colombia">Colombia</option>
+                                                            <option value="Costa Rica">Costa Rica</option>
+                                                            <option value="Croatia">Croatia</option>
+                                                            <option value="Czech Republic">Czech Republic</option>
+                                                            <option value="Denmark">Denmark</option>
+                                                            <option value="Dominican Republic">Dominican Republic</option>
+                                                            <option value="Ecuador">Ecuador</option>
+                                                            <option value="Egypt">Egypt</option>
+                                                            <option value="El Salvador">El Salvador</option>
+                                                            <option value="Estonia">Estonia</option>
+                                                            <option value="Ethiopia">Ethiopia</option>
+                                                            <option value="Faroe Islands">Faroe Islands</option>
+                                                            <option value="Finland">Finland</option>
+                                                            <option value="France">France</option>
+                                                            <option value="Georgia">Georgia</option>
+                                                            <option value="Germany">Germany</option>
+                                                            <option value="Greece">Greece</option>
+                                                            <option value="Greenland">Greenland</option>
+                                                            <option value="Guatemala">Guatemala</option>
+                                                            <option value="Honduras">Honduras</option>
+                                                            <option value="Hong Kong SAR">Hong Kong SAR</option>
+                                                            <option value="Hungary">Hungary</option>
+                                                            <option value="Iceland">Iceland</option>
+                                                            <option value="India">India</option>
+                                                            <option value="Indonesia">Indonesia</option>
+                                                            <option value="Iran">Iran</option>
+                                                            <option value="Iraq">Iraq</option>
+                                                            <option value="Ireland">Ireland</option>
+                                                            <option value="Israel">Israel</option>
+                                                            <option value="Italy">Italy</option>
+                                                            <option value="Jamaica">Jamaica</option>
+                                                            <option value="Japan">Japan</option>
+                                                            <option value="Jordan">Jordan</option>
+                                                            <option value="Kazakhstan">Kazakhstan</option>
+                                                            <option value="Kenya">Kenya</option>
+                                                            <option value="Korea">Korea</option>
+                                                            <option value="Kuwait">Kuwait</option>
+                                                            <option value="Kyrgyzstan">Kyrgyzstan</option>
+                                                            <option value="Latvia">Latvia</option>
+                                                            <option value="Lebanon">Lebanon</option>
+                                                            <option value="Libya">Libya</option>
+                                                            <option value="Liechtenstein">Liechtenstein</option>
+                                                            <option value="Lithuania">Lithuania</option>
+                                                            <option value="Luxembourg">Luxembourg</option>
+                                                            <option value="Macao SAR">Macao SAR</option>
+                                                            <option value="Macedonia (Former Yugoslav Republic of Macedonia)">Macedonia (Former Yugoslav Republic of Macedonia)</option>
+                                                            <option value="Malaysia">Malaysia</option>
+                                                            <option value="Maldives">Maldives</option>
+                                                            <option value="Mexico">Mexico</option>
+                                                            <option value="Mongolia">Mongolia</option>
+                                                            <option value="Morocco">Morocco</option>
+                                                            <option value="Netherlands">Netherlands</option>
+                                                            <option value="New Zealand">New Zealand</option>
+                                                            <option value="Nicaragua">Nicaragua</option>
+                                                            <option value="Norway">Norway</option>
+                                                            <option value="Oman">Oman</option>
+                                                            <option value="Pakistan">Pakistan</option>
+                                                            <option value="Panama">Panama</option>
+                                                            <option value="Paraguay">Paraguay</option>
+                                                            <option value="Peru">Peru</option>
+                                                            <option value="Philippines">Philippines</option>
+                                                            <option value="Poland">Poland</option>
+                                                            <option value="Portugal">Portugal</option>
+                                                            <option value="Principality of Monaco">Principality of Monaco</option>
+                                                            <option value="Puerto Rico">Puerto Rico</option>
+                                                            <option value="Qatar">Qatar</option>
+                                                            <option selected="selected" value="Romania">Romania</option>
+                                                            <option value="Russia">Russia</option>
+                                                            <option value="Saudi Arabia">Saudi Arabia</option>
+                                                            <option value="Serbia and Montenegro (Former)">Serbia and Montenegro (Former)</option>
+                                                            <option value="Singapore">Singapore</option>
+                                                            <option value="Slovakia">Slovakia</option>
+                                                            <option value="Slovenia">Slovenia</option>
+                                                            <option value="South Africa">South Africa</option>
+                                                            <option value="Spain">Spain</option>
+                                                            <option value="Sweden">Sweden</option>
+                                                            <option value="Switzerland">Switzerland</option>
+                                                            <option value="Syria">Syria</option>
+                                                            <option value="Taiwan">Taiwan</option>
+                                                            <option value="Thailand">Thailand</option>
+                                                            <option value="Trinidad and Tobago">Trinidad and Tobago</option>
+                                                            <option value="Tunisia">Tunisia</option>
+                                                            <option value="Turkey">Turkey</option>
+                                                            <option value="U.A.E.">U.A.E.</option>
+                                                            <option value="Ukraine">Ukraine</option>
+                                                            <option value="United Kingdom">United Kingdom</option>
+                                                            <option value="United States">United States</option>
+                                                            <option value="Uruguay">Uruguay</option>
+                                                            <option value="Uzbekistan">Uzbekistan</option>
+                                                            <option value="Vietnam">Vietnam</option>
+                                                            <option value="Yemen">Yemen</option>
+                                                            <option value="Zimbabwe">Zimbabwe</option>
+                                                        </select>
+                                                        <span class="input-group-addon glyphicon glyphicon-warning-sign field-validation-valid" data-toggle="tooltip" data-valmsg-for="x6.CountriesList.SelectedValues" data-valmsg-replace="true" data-original-title="" title=""></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+
+
+                                    </div>
+                                </div>
+
+
+
+                                <div class="col-lg-12 bs-row_controls">
+                                    <hr>
+
+                                    <button type="button" class="btn btn-warning js-btn_state" data-enabled="true">Disable</button>
+                                    <button type="button" class="btn btn-danger pull-right js-btn_delete" data-original-title="" title="">Delete</button>
+                                </div>
+                            </div>
+                            
+                            <div class="turqoise form_container row">
+                                <hr />
+                                <div class="col-sm-12 col-lg-12 bs-validation_summary"></div>
+                                <div class="col-sm-6 col-md-6 col-sm-6 col-lg-6 form-group">
+                                    <label class="control-label required" for="RegisterModel_Name">Name</label>
+                                    <div class="input-group">
+                                        <span class="glyphicon glyphicon-user input-group-addon"></span>
+                                        <input class="form-control bs-text" data-val="true" data-val-required="This field is required" id="RegisterModel_Name" name="RegisterModel.Name" placeholder="Surname and name" type="text" value="">
+                                        <span class="input-group-addon glyphicon glyphicon-warning-sign field-validation-valid" data-toggle="tooltip" data-valmsg-for="RegisterModel.Name" data-valmsg-replace="true" data-original-title="" title=""></span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-sm-6 col-lg-6 form-group">
+                                    <label class="control-label required" for="RegisterModel_Email">Email address</label>
+                                    <div class="input-group">
+                                        <span class="glyphicon glyphicon-envelope input-group-addon"></span>
+                                        <input class="form-control bs-email" data-val="true" data-val-required="This field is required" id="RegisterModel_Email" name="RegisterModel.Email" placeholder="email@example.com" type="email" value="">
+                                        <span class="input-group-addon glyphicon glyphicon-warning-sign field-validation-valid" data-toggle="tooltip" data-valmsg-for="RegisterModel.Email" data-valmsg-replace="true" data-original-title="" title=""></span>
+                                    </div>
+                                </div>
+
+                                <div class="clearfix"></div>
+
+                            </div>
+                        </div>
+                        <div class="row grid_row" data-active="True" data-objid="1" style="">
+                            <header>
+                                <div class=" col-lg-6 col-md-6 col-sm-12">
+                                    <span>2. Oana M.</span>
+                                </div>
+                                <div class=" col-lg-6 col-md-6 col-sm-12">
+                                    <div class="controls btn-group btn-group-sm pull-right">
+                                        <a href="#" class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span></a>
+                                        <a href="#" class="btn btn-default"><span class="glyphicon glyphicon-chevron-up"></span></a>
+                                        <a href="#" class="btn btn-default"><span class="glyphicon glyphicon-chevron-down"></span></a>
+                                        <a href="#" class="btn btn-default"><span class="glyphicon glyphicon-remove"></span></a>
+                                    </div>
+                                </div>
+                            </header>
+
+
+
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="row counter">
+                <div class="col-lg-6 col-md-6 col-sm-6">Total: 2</div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <a href="#" class="btn btn-default pull-right">@Html.BsGlyphicon(Glyphicon.Refresh) Reseteaza</a>
                 </div>
             </div>
         </div>  @*second column end*@
