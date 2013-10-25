@@ -1,0 +1,5 @@
+﻿public static void RegisterBundles(BundleCollection bundles)
+{
+	bundles.Add(new ScriptBundle("~/BFormsJS").IncludeDirectory(
+		"~/Scripts/BForms/Bundles/js","*.js"));
+}

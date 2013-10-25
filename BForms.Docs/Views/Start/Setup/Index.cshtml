@@ -10,10 +10,10 @@
                 <li>
                     <a href="#setup">Setup</a>
                     <ul class="nav">
-                        <li><a href="#Models">NuGet</a></li>
-                        <li><a href="#server">Server side</a></li>
-                        <li><a href="#client">Client side</a></li>
-                        <li><a href="#deploy">Deploy</a></li>
+                        <li><a href="#install">Install</a></li>
+                        <li><a href="#validate">Validation provider</a></li>
+                        <li><a href="#css">Include CSS</a></li>
+                        <li><a href="#js">Include JS</a></li>
                     </ul>
                 </li>
             </ul>
@@ -25,16 +25,22 @@
             <div class="page-header">
                 <h1 id="setup">Setup BForms for ASP.NET MVC step by step guide</h1>
             </div>
+            <h4 id="install">NuGet</h4>
             <p>
-                Install BForms.MVC package via NuGet Manager onto your MVC project, this will include in Script folder the BForms JS Framework and will
+                Install <a href="http://www.nuget.org/packages/BForms.MVC/">BForms.MVC</a> package via NuGet Manager onto your MVC project, this will include in Script folder the BForms JS Framework and will
                 add reference to BForms and RequireJsNet assemblies. The JavaScript and CSS components come in two forms, as individual files and as <b>minified bundles</b>.
             </p>
-
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Setup/Source/_Files.embed")
+            </pre>
+            <br />
+            <h4 id="validate">Validation provider</h4>
             <h4 class="sub_title">Register BForms validation provider</h4>
             <pre class="prettyprint lang-cs bs-example">
 @Html.InsertFileContentCached("~/Views/Start/Setup/Source/_Global.cs.embed")
             </pre>
             <br />
+            <h4 id="css">Include CSS</h4>
             <p>
                 If you are using ASP.NET CSS bundles add the BFroms css file first.
             </p>
@@ -47,7 +53,8 @@
             <pre class="prettyprint lang-html bs-example">
 @Html.InsertFileContentCached("~/Views/Start/Setup/Source/_LayoutCss.cshtml.embed")
             </pre>
-            <h3>Client side</h3>
+            <br />
+            <h4 id="js">Include JS</h4>
             <p>
                 There are two ways of working with BForms JS components, one way is with RequireJS.NET or to reference the js files
                 directly from the <code>~/Scripts/Bforms/Bundles/js</code> folder.
@@ -67,6 +74,12 @@
             <h4 class="sub_title">Include JS bundles and require entry point in layout</h4>
             <pre class="prettyprint lang-cs bs-example">
 @Html.InsertFileContentCached("~/Views/Start/Setup/Source/_LayoutRequire.cshtml.embed")
+            </pre>
+            <br />
+            <h4>Include JS with ASP.NET bundling</h4>
+            <h4 class="sub_title">Register JS bundles</h4>
+            <pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Setup/Source/_BundleConfigJs.cs.embed")
             </pre>
         </div>
 

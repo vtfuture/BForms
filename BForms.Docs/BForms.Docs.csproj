@@ -52,9 +52,9 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.5.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="RequireJsNet, Version=1.0.7.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="RequireJsNet, Version=1.0.8.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\RequireJsNet.1.0.7.0\lib\net45\RequireJsNet.dll</HintPath>
+      <HintPath>..\packages\RequireJsNet.1.0.8.0\lib\net45\RequireJsNet.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -147,6 +147,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
+    <Content Include="Views\Start\Setup\Source\_BundleConfigJs.cs.embed" />
+    <None Include="Views\Start\Setup\Source\_Files.embed" />
     <Content Include="Areas\Demo\Views\Contributors\Grid\Details\_IdentityEditable.cshtml">
       <SubType>Code</SubType>
     </Content>
@@ -194,9 +196,9 @@
     <Content Include="Scripts\BForms\Plugins\Datepicker\images\icn-remove.png" />
     <Content Include="Scripts\BForms\Plugins\Datepicker\images\icn-time.png" />
     <Content Include="Scripts\BForms\Plugins\Select2\images\select2x2.png" />
-    <Content Include="Scripts\BForms\Stylesheets\css\bforms.groupeditor.css" />
-    <Content Include="Scripts\BForms\Stylesheets\css\bforms.pager.css" />
-    <Content Include="Scripts\BForms\Stylesheets\Images\icn-grippy.png" />
+    <Content Include="Scripts\BForms\Stylesheets\bforms.groupeditor.css" />
+    <Content Include="Scripts\BForms\Stylesheets\bforms.pager.css" />
+    <Content Include="Scripts\BForms\Images\icn-grippy.png" />
     <Content Include="Scripts\BForms\Widgets\Grid\js\bforms.editable.js" />
     <Content Include="Scripts\BForms\Widgets\Grid\js\bforms.form.js" />
     <Content Include="Scripts\BForms\Widgets\Grid\js\bforms.grid.js" />
@@ -204,13 +206,13 @@
     <Content Include="Scripts\BForms\Widgets\Grid\js\bforms.toolbar.quickSearch.js" />
     <Content Include="Scripts\BForms\Widgets\Grid\js\bforms.toolbar.add.js" />
     <Content Include="Scripts\BForms\Widgets\Grid\js\bforms.toolbar.js" />
-    <Content Include="Scripts\BForms\Stylesheets\css\bforms.grid.css" />
+    <Content Include="Scripts\BForms\Stylesheets\bforms.grid.css" />
     <Content Include="Scripts\BForms\Widgets\Utils\bforms.namespace.js" />
-    <Content Include="Scripts\BForms\Stylesheets\Images\icn-down_arrow-small.png" />
-    <Content Include="Scripts\BForms\Stylesheets\Images\icn-order_down.png" />
-    <Content Include="Scripts\BForms\Stylesheets\Images\icn-order_up.png" />
-    <Content Include="Scripts\BForms\Stylesheets\Images\icn-right_arrow-small.png" />
-    <Content Include="Scripts\BForms\Stylesheets\Images\preloader-small.gif" />
+    <Content Include="Scripts\BForms\Images\icn-down_arrow-small.png" />
+    <Content Include="Scripts\BForms\Images\icn-order_down.png" />
+    <Content Include="Scripts\BForms\Images\icn-order_up.png" />
+    <Content Include="Scripts\BForms\Images\icn-right_arrow-small.png" />
+    <Content Include="Scripts\BForms\Images\preloader-small.gif" />
     <Content Include="Scripts\Controllers\Common\main-script.js" />
     <Content Include="Scripts\Controllers\Demo\Contributors\contributors-index.js" />
     <Content Include="Scripts\Controllers\Demo\UserGroup\usergroup-index.js" />
@@ -272,8 +274,8 @@
     <Content Include="Scripts\BForms\Plugins\Validation\i18n\bforms.validate-ro.js" />
     <Content Include="Scripts\BForms\Plugins\Validation\bforms.validate.js" />
     <Content Include="Scripts\BForms\Plugins\Validation\bforms.validate.unobtrusive.js" />
-    <Content Include="Scripts\BForms\Stylesheets\css\bforms.core.css" />
-    <Content Include="Scripts\BForms\Stylesheets\Images\preloader.gif" />
+    <Content Include="Scripts\BForms\Stylesheets\bforms.core.css" />
+    <Content Include="Scripts\BForms\Images\preloader.gif" />
     <Content Include="Scripts\Controllers\Demo\Login\login-index.js" />
     <Content Include="Scripts\Controllers\Root\Docs\docs-overview.js" />
     <Content Include="Scripts\Controllers\Root\Docs\docs-inputextensions.js" />
@@ -302,7 +304,7 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Scripts\BForms\Stylesheets\css\bforms.core.scss" />
+    <Content Include="Scripts\BForms\Stylesheets\bforms.core.scss" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="RequireJS.config" />
@@ -581,7 +583,7 @@
     <Content Include="Scripts\BForms\Widgets\Utils\bforms.ajax.js" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Scripts\BForms\Stylesheets\css\bforms.grid.scss" />
+    <Content Include="Scripts\BForms\Stylesheets\bforms.grid.scss" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Demo\Views\Contributors\Index.cshtml" />
@@ -883,10 +885,10 @@
     <Content Include="Areas\Demo\Views\UserGroup\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Scripts\BForms\Stylesheets\css\bforms.pager.scss" />
+    <Content Include="Scripts\BForms\Stylesheets\bforms.pager.scss" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Scripts\BForms\Stylesheets\css\bforms.groupeditor.scss" />
+    <Content Include="Scripts\BForms\Stylesheets\bforms.groupeditor.scss" />
     <Content Include="Views\Docs\Grid\Source\_RowModel.cs.embed" />
   </ItemGroup>
   <ItemGroup>
