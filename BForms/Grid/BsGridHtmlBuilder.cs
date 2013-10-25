@@ -44,6 +44,7 @@ namespace BForms.Grid
         private Func<TRow, string> rowHighlighter;
         private Func<TRow, IDictionary<string, object>> rowData;
         private Func<TRow, bool> rowDetails;
+        private Func<TRow, bool> rowCheckbox;
         private bool hasDetails;
         private bool hasBulkActions;
         private List<BsGridColumn<TRow>> columns;
@@ -119,7 +120,9 @@ namespace BForms.Grid
 
             this.rowHighlighter = rowConfigurator.Highlight;
 
-            this.rowDetails = rowConfigurator.HasDetails;
+            this.rowDetails = rowConfigurator.Details;
+
+            this.rowCheckbox = rowConfigurator.Checkbox;
 
             return this;
         }
@@ -437,7 +440,7 @@ namespace BForms.Grid
                         {
                             if (this.hasDetails)
                             {
-                                if (this.rowDetails(row))
+                                if (this.rowDetails == null || this.rowDetails(row))
                                 {
                                     var detailsBUilder = new TagBuilder("a");
                                     detailsBUilder.MergeAttribute("class", "expand bs-expand");
@@ -479,6 +482,11 @@ namespace BForms.Grid
                             checkBuilder.MergeAttribute("type", "checkbox");
                             checkBuilder.MergeAttribute("class", "bs-row_check");
 
+                            if (this.rowCheckbox != null && !this.rowCheckbox(row))
+                            {
+                                checkBuilder.MergeAttribute("disabled", "disabled");
+                            }
+                            
                             cellBuilder.InnerHtml += checkBuilder.ToString(TagRenderMode.SelfClosing);
                         }
 

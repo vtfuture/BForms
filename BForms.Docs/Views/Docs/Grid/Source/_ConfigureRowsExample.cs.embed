@@ -1,7 +1,8 @@
 ﻿@Html.BsGridFor(m => m.Grid)
      .ConfigureRows(cfg =>
      {
-            cfg.Details(row => row.Enabled ? true : false) // is expandable ?
+            cfg.HasDetails(row => row.Enabled ? true : false) // is expandable ?
+               .HasCheckbox(row => row.Enabled ? true : false) // disable checkbox ?
                .HtmlAttributes(row => new Dictionary<string, object> { 
                    { "data-objid", row.Id }, 
                    { "data-active", row.Enabled } 

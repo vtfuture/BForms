@@ -51,7 +51,8 @@
         })
         .ConfigureRows(cfg =>
         {
-            cfg.Details(row => row.Enabled ? true : false)
+            cfg.HasDetails(row => row.Enabled ? true : false)
+               .HasCheckbox(row => row.Enabled ? true : false)
                .HtmlAttributes(row => new Dictionary<string, object> { { "data-objid", row.Id }, { "data-active", row.Enabled } })
                .Highlighter(row => row.Enabled ? "#59b444" : "#f0ad4e");
         })

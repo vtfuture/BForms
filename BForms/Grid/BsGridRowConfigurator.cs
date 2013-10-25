@@ -11,6 +11,7 @@ namespace BForms.Grid
         private Func<TRow, Dictionary<string, object>> htmlAttributes;
         private Func<TRow, string> highlighter;
         private Func<TRow, bool> details;
+        private Func<TRow, bool> checkbox;
 
         public Func<TRow, Dictionary<string, object>> HtmlAttr
         {
@@ -20,11 +21,19 @@ namespace BForms.Grid
             }
         }
 
-        public Func<TRow, bool> HasDetails
+        public Func<TRow, bool> Details
         {
             get
             {
                 return this.details;
+            }
+        }
+
+        public Func<TRow, bool> Checkbox
+        {
+            get
+            {
+                return this.checkbox;
             }
         }
 
@@ -55,9 +64,16 @@ namespace BForms.Grid
             return this;
         }
 
-        public BsGridRowConfigurator<TRow> Details(Func<TRow, bool> details)
+        public BsGridRowConfigurator<TRow> HasDetails(Func<TRow, bool> details)
         {
             this.details = details;
+
+            return this;
+        }
+
+        public BsGridRowConfigurator<TRow> HasCheckbox(Func<TRow, bool> checkbox)
+        {
+            this.checkbox = checkbox;
 
             return this;
         }
