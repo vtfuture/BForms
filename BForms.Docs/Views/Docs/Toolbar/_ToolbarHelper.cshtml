@@ -15,6 +15,10 @@ The basic setup requirements for this to render something looks like this:
     This can be achieved in 2 ways: by decorating your model property with attributes (<code>BsToolbarAttribute</code> and <code>DisplayAttribute</code>) - limited, not all properties can be set this way - or by setting them in your .cshtml file - all properties can be set and those that are set here overrides those set in the declarative way.
 </p>
 
+<div class="bs-example bs-img-example">
+    <img src="@Url.Content("~/Content/images/docs/empty-toolbar.png")">
+</div>
+
 <h4>Display name</h4>
 <p>    
     The name that describes the entity that the toolbar will try to manipulate.
@@ -31,6 +35,10 @@ The basic setup requirements for this to render something looks like this:
 <pre class="prettyprint lang-cs bs-example">
 @Html.InsertFileContentCached("~/Views/Docs/Toolbar/Source/_DisplayNameRazor.cs.embed")
 </pre>
+
+<div class="bs-example bs-img-example">
+    <img src="@Url.Content("~/Content/images/docs/toolbar-with-name.png")">
+</div>
 <br />
 
 <h4>Theme</h4>
@@ -280,3 +288,7 @@ The basic setup requirements for this to render something looks like this:
 <br />
 
 
+<div class="bs-example bs-img-example">
+    <img src="@Url.Content("~/Content/images/docs/html-row-structure.png")">
+    <img src="@Url.Content("~/Content/images/docs/css-styling-grid-row.png")">
+</div>

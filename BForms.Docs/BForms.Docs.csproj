@@ -162,6 +162,7 @@
     <Content Include="Content\Images\Docs\datetimepicker-input.jpg" />
     <Content Include="Content\Images\Docs\datetimepicker-range.jpg" />
     <Content Include="Content\Images\Docs\dropdown-search-select.jpg" />
+    <Content Include="Content\Images\Docs\empty-toolbar.png" />
     <Content Include="Content\Images\Docs\html-grid-structure.png" />
     <Content Include="Content\Images\Docs\html-row-structure.png" />
     <Content Include="Content\Images\Docs\listbox-search-select.jpg" />
@@ -169,6 +170,7 @@
     <Content Include="Content\Images\Docs\taglist-search-select.jpg" />
     <Content Include="Content\Images\Docs\timepicker-input.jpg" />
     <Content Include="Content\Images\Docs\timepicker-range.jpg" />
+    <Content Include="Content\Images\Docs\toolbar-with-name.png" />
     <Content Include="Content\Images\hosted-on-azure.png" />
     <Content Include="Scripts\BForms\Components\Amplify\amplify.js" />
     <Content Include="Scripts\BForms\Components\RequireJS\depend.js" />
