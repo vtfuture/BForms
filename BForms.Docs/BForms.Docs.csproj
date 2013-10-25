@@ -148,7 +148,7 @@
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
     <Content Include="Views\Start\Setup\Source\_BundleConfigJs.cs.embed" />
-    <None Include="Views\Start\Setup\Source\_Files.embed" />
+    <Content Include="Views\Start\Setup\Source\_Files.embed" />
     <Content Include="Areas\Demo\Views\Contributors\Grid\Details\_IdentityEditable.cshtml">
       <SubType>Code</SubType>
     </Content>
