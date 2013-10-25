@@ -48,7 +48,7 @@
         updateRowUrl: null,
 
         hasRowCheck: true,
-        rowCheckSelector: '.bs-row_check',
+        rowCheckSelector: '.bs-row_check:not([disabled="disabled"])',
         headerCheckSelector: '.check_all > input',
         groupActionsSelector: '.bs-group_actions',
 
@@ -928,11 +928,14 @@
             start: $.proxy(this._onSortStart, this),
             stop: $.proxy(this._onSortStop, this),
             update: $.proxy(this._onSortUpdate, this),
-            containment: this.$gridOrderContainer,
+            containment: 'parent',
             distance: 10,
             cursor: 'move',
             tolerance: 'pointer',
-            helper: 'clone'
+            helper: function(e, elem) {
+                var $elem = $(elem);
+                return $elem.find('a:not(.bs-toggleExpand)').clone();
+            }
         });
     };
 
