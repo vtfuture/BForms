@@ -41,6 +41,8 @@ namespace BForms.Grid
     {
         internal bool HasDetails { get; set; }
 
+        internal bool HideDetails { get; set; }
+
         public PropertyInfo Property { get; set; }
 
         public bool IsSortable { get; set; }
@@ -176,12 +178,18 @@ namespace BForms.Grid
 
             if (this.HasDetails)
             {
-                var detailsBUilder = new TagBuilder("a");
-                detailsBUilder.MergeAttribute("class", "expand bs-toggleExpand");
-                detailsBUilder.MergeAttribute("href", "#");
-                detailsBUilder.InnerHtml += "&nbsp;";
+                var detailsBuilder = new TagBuilder("a");
+                detailsBuilder.MergeAttribute("class", "expand bs-toggleExpand");
 
-                columnBuilder.InnerHtml += detailsBUilder.ToString();
+                if (this.HideDetails)
+                {
+                    detailsBuilder.MergeAttribute("style", "display:none");
+                }
+
+                detailsBuilder.MergeAttribute("href", "#");
+                detailsBuilder.InnerHtml += "&nbsp;";
+
+                columnBuilder.InnerHtml += detailsBuilder.ToString();
             }
 
             if (this.IsSortable)

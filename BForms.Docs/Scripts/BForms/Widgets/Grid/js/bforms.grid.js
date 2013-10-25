@@ -1043,6 +1043,13 @@
     };
 
     Grid.prototype._updateExpandToggle = function () {
+        
+        if (this.element.find(this.options.detailsSelector).length > 0) {
+            this.$expandToggle.show();
+        } else {
+            this.$expandToggle.hide();
+        }
+
         var allExpanded = false;
 
         var $rows = this.element.find(this.options.detailsSelector).parents(this.options.rowSelector).not('.open');

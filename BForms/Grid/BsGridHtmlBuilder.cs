@@ -49,7 +49,7 @@ namespace BForms.Grid
         private bool hasBulkActions;
         private List<BsGridColumn<TRow>> columns;
         private List<BsBulkAction> bulkActions;
-        private List<BsBulkSelector> bulkSelectors; 
+        private List<BsBulkSelector> bulkSelectors;
         private bool hasPager = true;
         private BsPagerSettings pagerSettings = new BsPagerSettings();
         private BsTheme theme = BsTheme.Default;
@@ -139,15 +139,15 @@ namespace BForms.Grid
             return this;
         }
 
-        public BsGridHtmlBuilder<TModel,TRow> GridResetButton()
+        public BsGridHtmlBuilder<TModel, TRow> GridResetButton()
         {
             var resetButton = new TagBuilder("div");
-            resetButton.MergeAttribute("class","btn btn-info bs-resetGrid pull-right reset-grid");
-            resetButton.MergeAttribute("style","display:none");
-            resetButton.MergeAttribute("title","Reset");
+            resetButton.MergeAttribute("class", "btn btn-info bs-resetGrid pull-right reset-grid");
+            resetButton.MergeAttribute("style", "display:none");
+            resetButton.MergeAttribute("title", "Reset");
 
             var resetButtonSpan = new TagBuilder("span");
-            resetButtonSpan.MergeAttribute("class","glyphicon glyphicon-repeat");
+            resetButtonSpan.MergeAttribute("class", "glyphicon glyphicon-repeat");
 
             resetButton.InnerHtml += resetButtonSpan.ToString();
 
@@ -219,8 +219,6 @@ namespace BForms.Grid
 
             if (this.hasBulkActions)
             {
-
-
                 var bulkActionsWrapper = new TagBuilder("div");
                 bulkActionsWrapper.MergeAttribute("class", "grid_bulk_controls bs-group_actions");
                 var orderedBulkActions = this.bulkActions.OrderBy(x => x.BulkActionOrder);
@@ -287,11 +285,13 @@ namespace BForms.Grid
 
             this.OrderColumns();
 
-            for(var i = 0; i < this.columns.Count; i++)
+            for (var i = 0; i < this.columns.Count; i++)
             {
                 var column = this.columns[i];
 
                 column.HasDetails = this.hasDetails && i == 0;
+
+                column.HideDetails = HideDetails();
 
                 columnsBuilder.InnerHtml += column.Render();
                 wrapper.InnerHtml = columnsBuilder.ToString();
@@ -487,7 +487,7 @@ namespace BForms.Grid
                             {
                                 checkBuilder.MergeAttribute("disabled", "disabled");
                             }
-                            
+
                             cellBuilder.InnerHtml += checkBuilder.ToString(TagRenderMode.SelfClosing);
                         }
 
@@ -669,7 +669,7 @@ namespace BForms.Grid
 
                     var totalCountBuilder = new TagBuilder("span");
                     totalCountBuilder.InnerHtml += this.model.Pager.TotalRecords;
-                    
+
                     //TODO:
                     var template = "{0}-{1} of {2} items";
                     var result = string.Format(template, firstIdx, lastIdx, totalCountBuilder.ToString()); //"Rezultate " + firstIdx + "–" + lastIdx + " din";
@@ -754,6 +754,28 @@ namespace BForms.Grid
             }
 
             this.columns = this.columns.OrderByDescending(c => c.Order.HasValue).ThenBy(x => x.Order).ToList();
+        }
+
+        private bool HideDetails()
+        {
+            if (this.hasDetails)
+            {
+                if (this.rowDetails == null)
+                {
+                    return false;
+                }
+                else if (this.model.Items != null && this.model.Items.Any())
+                {
+                    foreach (var item in this.model.Items)
+                    {
+                        if (this.rowDetails(item))
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+            return true;
         }
     }
 }
