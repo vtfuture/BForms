@@ -39,6 +39,8 @@ namespace BForms.Grid
 
     public class BsGridColumn<TRow> : BaseComponent where TRow : new()
     {
+        internal string PrivateName { get; set; }
+
         internal bool HasDetails { get; set; }
 
         internal bool HideDetails { get; set; }
@@ -55,7 +57,24 @@ namespace BForms.Grid
 
         public int? Order { get; set; }
 
-        private List<BsColumnWidth> widthSizes = new List<BsColumnWidth>();
+        private List<BsColumnWidth> widthSizes = new List<BsColumnWidth>() 
+        { 
+            new BsColumnWidth
+            {
+                ScreenType = BsScreenType.Large,
+                Size = 1
+            },
+            new BsColumnWidth
+            {
+                ScreenType = BsScreenType.Medium,
+                Size = 1
+            },
+            new BsColumnWidth
+            {
+                ScreenType = BsScreenType.Small,
+                Size = 1
+            }
+        };
 
         public List<BsColumnWidth> WidthSizes
         {
@@ -65,14 +84,21 @@ namespace BForms.Grid
             }
         }
 
-        public Func<TRow, object> CellText { get; set; }
+        internal Func<TRow, object> CellText { get; set; }
 
         public BsGridColumn(ViewContext viewContext) : base(viewContext) { }
+
+        public BsGridColumn(string name, ViewContext viewContext)
+            : base(viewContext)
+        {
+            this.PrivateName = name;
+        }
 
         public BsGridColumn(PropertyInfo property, ViewContext viewContext)
             : base(viewContext)
         {
             this.Property = property;
+            this.PrivateName = this.Property.Name;
         }
 
         public BsGridColumn<TRow> Name(string name)
@@ -106,6 +132,7 @@ namespace BForms.Grid
 
         public BsGridColumn<TRow> SetWidth(int largeWidth, int mediumWidth, int smallWidth)
         {
+            this.widthSizes = new List<BsColumnWidth>();
             this.widthSizes.Add(new BsColumnWidth
             {
                 ScreenType = BsScreenType.Large,
@@ -192,10 +219,9 @@ namespace BForms.Grid
                 columnBuilder.InnerHtml += detailsBuilder.ToString();
             }
 
-            if (this.IsSortable)
+            if (this.Property != null && this.IsSortable)
             {
                 var linkBuilder = new TagBuilder("a");
-                linkBuilder.MergeAttribute("data-name", this.Property.Name);
                 linkBuilder.MergeAttribute("href", "#");
                 linkBuilder.MergeAttribute("class", "bs-orderColumn");
                 linkBuilder.InnerHtml = this.DisplayName;
@@ -213,6 +239,7 @@ namespace BForms.Grid
             }
 
             columnBuilder.AddCssClass(this.GetWidthClasses());
+            columnBuilder.MergeAttribute("data-name", this.PrivateName);
 
             return columnBuilder.ToString();
         }

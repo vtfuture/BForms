@@ -45,6 +45,14 @@ namespace BForms.Grid
             return column;
         }
 
+        public BsGridColumn<TRow> Add(string name)
+        {
+            BsGridColumn<TRow> column = new BsGridColumn<TRow>(name, this.viewContext);
+            this.columns.Add(column);
+
+            return column;
+        }
+
         public BsGridColumn<TRow> For<TValue>(Expression<Func<TRow, TValue>> expression)
         {
             BsGridColumn<TRow> column = this.GetColumn(expression.GetPropertyInfo<TRow, TValue>());
@@ -62,7 +70,7 @@ namespace BForms.Grid
         
         private BsGridColumn<TRow> GetColumn(PropertyInfo property)
         {
-            var column = this.Columns.Where(x => x.Property.Name == property.Name).FirstOrDefault();
+            var column = this.Columns.Where(x => x.PrivateName == property.Name).FirstOrDefault();
 
             if (column == null)
             {

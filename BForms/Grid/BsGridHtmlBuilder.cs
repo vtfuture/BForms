@@ -457,7 +457,10 @@ namespace BForms.Grid
 
                         if (column.CellText == null)
                         {
-                            text = column.Property.GetValue(row).ToString();
+                            if (column.Property != null)
+                            {
+                                text = column.Property.GetValue(row).ToString();
+                            }
                         }
                         else
                         {
@@ -744,7 +747,7 @@ namespace BForms.Grid
             {
                 foreach (var column in this.columns)
                 {
-                    var name = column.Property.Name;
+                    var name = column.PrivateName;
                     if (this.model.ColumnOrder.ContainsKey(name))
                     {
                         column.Order = this.model.ColumnOrder[name];

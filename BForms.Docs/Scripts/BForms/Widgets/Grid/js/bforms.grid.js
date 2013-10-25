@@ -563,10 +563,10 @@
             type = 1;
         }
 
-        var name = elem.data('name');
+        var name = elem.parent().data('name');
 
         var orderColumn = {
-            Name: elem.data('name'),
+            Name: name,
             Type: type
         };
 

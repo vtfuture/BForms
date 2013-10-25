@@ -53,7 +53,8 @@ namespace BForms.Grid
 
         public BsToolbarHtmlBuilder() { }
 
-        public BsToolbarHtmlBuilder(string fullName, TToolbar model, ModelMetadata metadata, object[] attributes, ViewContext viewContext): base(viewContext)
+        public BsToolbarHtmlBuilder(string fullName, TToolbar model, ModelMetadata metadata, object[] attributes, ViewContext viewContext)
+            : base(viewContext)
         {
             this.fullName = fullName;
             this.model = model;
@@ -140,45 +141,48 @@ namespace BForms.Grid
 
             var toolbarHeaderBuilder = new TagBuilder("div");
             toolbarHeaderBuilder.AddCssClass("grid_toolbar_header");
-            
+
             var headerBulder = new TagBuilder("h1");
             headerBulder.InnerHtml += this.displayName;
             toolbarHeaderBuilder.InnerHtml += headerBulder.ToString();
-
-            var controlsBuilder = new TagBuilder("div");
-            controlsBuilder.AddCssClass("grid_toolbar_controls");
-
+            
             string tabs = string.Empty;
 
-            int tabNr = 0;
-
-            foreach (var action in this.ActionsFactory.Actions)
+            if (this.ActionsFactory != null)
             {
-                // check if action is default
-                var defaultAction = action as BsToolbarAction<TToolbar>;
+                var controlsBuilder = new TagBuilder("div");
+                controlsBuilder.AddCssClass("grid_toolbar_controls");
 
-                // renders tab content if any
-                if (defaultAction != null && defaultAction.TabDelegate != null)
-                {                    
-                    var tabId = id + "_tab_" + tabNr;
+                int tabNr = 0;
 
-                    var tabBuilder = new TagBuilder("div");
-                    tabBuilder.AddCssClass("grid_toolbar_form");
-                    tabBuilder.MergeAttribute("style", "display:none;");
-                    tabBuilder.MergeAttribute("id", tabId);
-                    tabBuilder.InnerHtml += defaultAction.TabDelegate(this.model);
+                foreach (var action in this.ActionsFactory.Actions)
+                {
+                    // check if action is default
+                    var defaultAction = action as BsToolbarAction<TToolbar>;
 
-                    tabs += tabBuilder.ToString();
+                    // renders tab content if any
+                    if (defaultAction != null && defaultAction.TabDelegate != null)
+                    {
+                        var tabId = id + "_tab_" + tabNr;
 
-                    //sets tab container id for tab - button correlation
-                    defaultAction.SetTabId(tabId);
+                        var tabBuilder = new TagBuilder("div");
+                        tabBuilder.AddCssClass("grid_toolbar_form");
+                        tabBuilder.MergeAttribute("style", "display:none;");
+                        tabBuilder.MergeAttribute("id", tabId);
+                        tabBuilder.InnerHtml += defaultAction.TabDelegate(this.model);
 
-                    tabNr++;
+                        tabs += tabBuilder.ToString();
+
+                        //sets tab container id for tab - button correlation
+                        defaultAction.SetTabId(tabId);
+
+                        tabNr++;
+                    }
+
+                    controlsBuilder.InnerHtml += action.Render();
                 }
-
-                controlsBuilder.InnerHtml += action.Render();
+                toolbarHeaderBuilder.InnerHtml += controlsBuilder.ToString();
             }
-            toolbarHeaderBuilder.InnerHtml += controlsBuilder.ToString();
 
             toolbarBuilder.InnerHtml += toolbarHeaderBuilder.ToString();
             toolbarBuilder.InnerHtml += tabs;
