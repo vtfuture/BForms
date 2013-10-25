@@ -425,7 +425,6 @@ code {
 /* Tabs for example */
 
 .docs_tabs {
-	padding: 0 15px;
 	margin-top: 30px;
 	.navbar {
 		margin: 0;
@@ -944,9 +943,6 @@ body.black {
 		margin-right: 0;
 		margin-left: 0;
 	}	
-	.docs_tabs {
-		padding: 0;
-	}
 	.bs-table-scrollable {
 		width: 100%;
 		margin-bottom: 15px;

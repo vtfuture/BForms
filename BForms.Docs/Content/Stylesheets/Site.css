@@ -309,7 +309,6 @@ code {
 
 /* Tabs for example */
 .docs_tabs {
-  padding: 0 15px;
   margin-top: 30px; }
   .docs_tabs .navbar {
     margin: 0;
@@ -646,9 +645,6 @@ body.black .footer a {
   .row {
     margin-right: 0;
     margin-left: 0; }
-
-  .docs_tabs {
-    padding: 0; }
 
   .bs-table-scrollable {
     width: 100%;
