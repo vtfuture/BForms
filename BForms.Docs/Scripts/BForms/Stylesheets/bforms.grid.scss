@@ -571,59 +571,7 @@ a.btn {
 					}
 				}
 			}
-		}
-		.grid_pager {
-			margin: 0;
-			font-size: 13px;
-			font-family: Arial, Verdana, sans-serif;
-			> div {
-				padding: 0;
-				overflow: hidden;
-				margin: 18px 0;
-			}
-			.pagination {
-				margin: 0;
-				float: left;
-				.active a {
-					background: $mainColor;
-					&:hover {
-						background: $mainColor;
-						border: 1px solid  $mainColor;
-						color: #fff;
-					}
-				}
-			}
-			.results_number {
-				float: left;
-				line-height: 29px;
-				margin-left: 10px;
-			}
-			.results_per_page {
-				overflow: visible;
-				.btn {
-					padding: 6px 9px 6px 10px;
-					font-size: 13px;
-				}
-				.results_per_page_container {
-					margin-right: 5px;
-				}
-				.dropdown {
-					float: left;
-					.caret {
-						margin-left: 5px;
-					}
-					.dropdown-menu {
-						left: auto;
-						right: 0;
-						min-width: 100px;
-					}
-				}
-				.btn-go_up {
-					float: left;
-					margin-left: 10px;
-				}
-			}
-		}
+		}		
 	}	
 }
 
@@ -696,12 +644,6 @@ a.btn {
 	h2 .badge {
 		background: $Blue;
 	}
-	.grid_pager .pagination .active {
-		a, a:hover {
-			background: $Blue;
-			border: 1px solid $Blue;
-		}
-	}
 	.grid_row.selected header {
 		color: $Blue;
 	}
@@ -751,12 +693,6 @@ a.btn {
 .grid_view.green {
 	h2 .badge {
 		background: $Green;
-	}
-	.grid_pager .pagination .active {
-		a, a:hover {
-			background: $Green;
-			border: 1px solid $Green;
-		}
 	}
 	.grid_row.selected header {
 		color: $Green;
@@ -809,12 +745,6 @@ a.btn {
 	h2 .badge {
 		background: $Purple;
 	}
-	.grid_pager .pagination .active {
-		a, a:hover {
-			background: $Purple;
-			border: 1px solid $Purple;
-		}
-	}	
 	.grid_row.selected header {
 		color: $Purple;
 	}
@@ -838,7 +768,6 @@ a.btn {
 		}
 	}
 }
-
 
 /* ORANGE*/
 
@@ -866,12 +795,6 @@ a.btn {
 	h2 .badge {
 		background: $Orange;
 	}
-	.grid_pager .pagination .active {
-		a, a:hover {
-			background: $Orange;
-			border: 1px solid $Orange;
-		}
-	}	
 	.grid_row.selected header {
 		color: $Orange;
 	}
@@ -922,12 +845,6 @@ a.btn {
 .grid_view.black  {
 	h2 .badge {
 		background: $Black;
-	}
-	.grid_pager .pagination .active {
-		a, a:hover {
-			background: $Black;
-			border: 1px solid $Black;
-		}
 	}
 	.grid_row.selected header {
 		color: #000;

@@ -37,7 +37,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
                 model.LoginModel = null;
             }
 
-            RequireJsOptions.Add("registerUrl",Url.Action("Register"));
+            RequireJsOptions.Add("registerUrl", Url.Action("Register"));
 
             return View(model);
         }
@@ -85,7 +85,9 @@ namespace BForms.Docs.Areas.Demo.Controllers
             else
             {
                 //JSON serialize ModelState errors
-                return new BsJsonResult(new Dictionary<string, object> { { "Errors", ModelState.GetErrors() } }, BsResponseStatus.ValidationError);
+                return new BsJsonResult(
+                    new Dictionary<string, object> { { "Errors", ModelState.GetErrors() } }, 
+                    BsResponseStatus.ValidationError);
             }
 
             return new BsJsonResult();

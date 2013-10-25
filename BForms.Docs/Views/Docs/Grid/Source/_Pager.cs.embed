@@ -1,0 +1,9 @@
+﻿@Html.BsGridFor(m => m.Grid)
+     .PagerSettings(new BsPagerSettings 
+     {
+        Size = 5
+        ShowFirstLastButtons = true,
+        ShowPrevNextButtons = true,
+        HasPagesText = true,
+        HasPageSizeSelector = true
+     })

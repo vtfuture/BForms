@@ -51,6 +51,8 @@ namespace BForms.Grid
 
         public string DisplayName { get; set; }
 
+        public int? Order { get; set; }
+
         private List<BsColumnWidth> widthSizes = new List<BsColumnWidth>();
 
         public List<BsColumnWidth> WidthSizes
@@ -126,6 +128,12 @@ namespace BForms.Grid
         public BsGridColumn<TRow> Text(Func<TRow, object> cellText)
         {
             this.CellText = cellText;
+            return this;
+        }
+
+        public BsGridColumn<TRow> SetOrder(int order)
+        {
+            this.Order = order;
             return this;
         }
 

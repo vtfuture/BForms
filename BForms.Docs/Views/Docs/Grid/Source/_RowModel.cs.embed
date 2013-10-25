@@ -1,0 +1,18 @@
+﻿public class ContributorRowModel
+{
+    public int Id { get; set; }
+
+    [BsGridColumn(Width = 2, IsEditable = true)]
+    public string Name { get; set; }
+
+    public bool Enabled { get; set; }
+
+    public Dictionary<string, object> RowData()
+    {
+        return new Dictionary<string, object> 
+        {
+            { "data-objid", Id },
+            { "data-active", Enabled }
+        };
+    }
+}

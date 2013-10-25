@@ -1,1 +1,4 @@
-﻿abstract IEnumerable<TRow> MapQuery(IQueryable<TEntity> query);
+﻿public override IEnumerable<ContributorRowModel> MapQuery(IQueryable<Contributor> query)
+{
+    return query.Select(MapContributor_ContributorRowModel);
+}

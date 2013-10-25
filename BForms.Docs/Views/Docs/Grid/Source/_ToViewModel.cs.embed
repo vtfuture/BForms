@@ -1,1 +1,16 @@
-﻿virtual BsGridModel<TRow> ToBsGridViewModel(BsGridRepositorySettings<TSearch> settings)
+﻿public ActionResult Index()
+{
+    var gridModel = _gridRepository.ToBsGridViewModel(
+                       new BsGridRepositorySettings<ContributorSearchModel>
+                       {
+                          Page = 1,
+                          PageSize = 5
+                       });
+
+    var model = new ContributorsViewModel
+    {
+        Grid = gridModel,
+    };
+
+    return View(model);
+}

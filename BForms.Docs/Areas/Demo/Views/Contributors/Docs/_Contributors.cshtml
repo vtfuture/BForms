@@ -1,0 +1,53 @@
+﻿@using BForms.Docs.Helpers
+@using BForms.Grid
+@using BForms.Html
+@using BForms.Models
+
+<div class="docs_tabs">
+    <nav class="navbar navbar-default" role="navigation">
+
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#models" data-toggle="tab">Models</a></li>
+                <li><a href="#views" data-toggle="tab">Views</a></li>
+                <li><a href="#ccontroller" data-toggle="tab">ASP.NET Controller</a></li>
+                <li><a href="#jscontroller" data-toggle="tab">JS Controller</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">@Html.BsGlyphicon(Glyphicon.Link) Documentation</a></li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </nav>
+
+    <div class="tab-content">
+        <div class="tab-pane fade in active" id="models">
+            <pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Areas/Demo/Views/Contributors/Docs/Source/_GridModel.cs.embed")
+            </pre>
+        </div>
+        <div class="tab-pane fade" id="views">
+            <pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Areas/Demo/Views/Contributors/Docs/Source/_GridView.cshtml.embed")
+            </pre>
+        </div>
+        <div class="tab-pane fade" id="ccontroller">
+            <pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Areas/Demo/Views/Contributors/Docs/Source/_GridController.cs.embed")
+            </pre>
+        </div>
+        <div class="tab-pane fade" id="jscontroller">
+            <pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Areas/Demo/Views/Contributors/Docs/Source/_GridController.js.embed")
+            </pre>
+        </div>
+    </div>
+</div>

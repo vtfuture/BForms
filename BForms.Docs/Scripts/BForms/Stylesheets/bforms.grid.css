@@ -420,45 +420,6 @@ a.btn {
       .grid_container .grid_view .grid_rows_wrapper .grid_row_details .check-list label span {
         font-size: 11px;
         display: block; }
-  .grid_container .grid_view .grid_pager {
-    margin: 0;
-    font-size: 13px;
-    font-family: Arial, Verdana, sans-serif; }
-    .grid_container .grid_view .grid_pager > div {
-      padding: 0;
-      overflow: hidden;
-      margin: 18px 0; }
-    .grid_container .grid_view .grid_pager .pagination {
-      margin: 0;
-      float: left; }
-      .grid_container .grid_view .grid_pager .pagination .active a {
-        background: #45ada8; }
-        .grid_container .grid_view .grid_pager .pagination .active a:hover {
-          background: #45ada8;
-          border: 1px solid #45ada8;
-          color: #fff; }
-    .grid_container .grid_view .grid_pager .results_number {
-      float: left;
-      line-height: 29px;
-      margin-left: 10px; }
-    .grid_container .grid_view .grid_pager .results_per_page {
-      overflow: visible; }
-      .grid_container .grid_view .grid_pager .results_per_page .btn {
-        padding: 6px 9px 6px 10px;
-        font-size: 13px; }
-      .grid_container .grid_view .grid_pager .results_per_page .results_per_page_container {
-        margin-right: 5px; }
-      .grid_container .grid_view .grid_pager .results_per_page .dropdown {
-        float: left; }
-        .grid_container .grid_view .grid_pager .results_per_page .dropdown .caret {
-          margin-left: 5px; }
-        .grid_container .grid_view .grid_pager .results_per_page .dropdown .dropdown-menu {
-          left: auto;
-          right: 0;
-          min-width: 100px; }
-      .grid_container .grid_view .grid_pager .results_per_page .btn-go_up {
-        float: left;
-        margin-left: 10px; }
 
 /* Action buttons component */
 .grid_bulk_controls .btn {
@@ -505,9 +466,6 @@ a.btn {
 
 .grid_view.blue h2 .badge {
   background: #559ed6; }
-.grid_view.blue .grid_pager .pagination .active a, .grid_view.blue .grid_pager .pagination .active a:hover {
-  background: #559ed6;
-  border: 1px solid #559ed6; }
 .grid_view.blue .grid_row.selected header {
   color: #559ed6; }
 .grid_view.blue .dropdown-menu a:hover, .grid_view.blue .dropdown-menu a:focus {
@@ -539,9 +497,6 @@ a.btn {
 
 .grid_view.green h2 .badge {
   background: #59b390; }
-.grid_view.green .grid_pager .pagination .active a, .grid_view.green .grid_pager .pagination .active a:hover {
-  background: #59b390;
-  border: 1px solid #59b390; }
 .grid_view.green .grid_row.selected header {
   color: #59b390; }
 .grid_view.green .dropdown-menu a:hover, .grid_view.green .dropdown-menu a:focus {
@@ -573,9 +528,6 @@ a.btn {
 
 .grid_view.purple h2 .badge {
   background: #703d6f; }
-.grid_view.purple .grid_pager .pagination .active a, .grid_view.purple .grid_pager .pagination .active a:hover {
-  background: #703d6f;
-  border: 1px solid #703d6f; }
 .grid_view.purple .grid_row.selected header {
   color: #703d6f; }
 .grid_view.purple .dropdown-menu a:hover, .grid_view.purple .dropdown-menu a:focus {
@@ -607,9 +559,6 @@ a.btn {
 
 .grid_view.orange h2 .badge {
   background: #f27435; }
-.grid_view.orange .grid_pager .pagination .active a, .grid_view.orange .grid_pager .pagination .active a:hover {
-  background: #f27435;
-  border: 1px solid #f27435; }
 .grid_view.orange .grid_row.selected header {
   color: #f27435; }
 .grid_view.orange .dropdown-menu a:hover, .grid_view.orange .dropdown-menu a:focus {
@@ -641,9 +590,6 @@ a.btn {
 
 .grid_view.black h2 .badge {
   background: #424141; }
-.grid_view.black .grid_pager .pagination .active a, .grid_view.black .grid_pager .pagination .active a:hover {
-  background: #424141;
-  border: 1px solid #424141; }
 .grid_view.black .grid_row.selected header {
   color: #000; }
 .grid_view.black .dropdown-menu a:hover, .grid_view.black .dropdown-menu a:focus {

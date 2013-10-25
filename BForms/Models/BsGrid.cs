@@ -11,5 +11,7 @@ namespace BForms.Models
         public IEnumerable<T> Items { get; set; }
 
         public BsPagerModel Pager { get; set; }
+
+        public Dictionary<string, int> ColumnOrder { get; set; } 
     }
 }

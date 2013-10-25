@@ -1,14 +1,16 @@
 ﻿builder.ConfigureColumns(columns =>
         {
             columns.For(x => x.Enabled)
-                    .Text(x => x.Enabled ? Resource.Yes : Resource.No)
-                    .Style((row, style) => 
-                             style.FillColor = row.Enabled ? 
-                                BsGridExcelColor.LightGreen : BsGridExcelColor.Red);
+                   .Text(x => x.Enabled ? 
+                        Resource.Yes : Resource.No) // type bool => specify what text to display
+                   .Style((row, style) => style.FillColor = row.Enabled ? 
+                        BsGridExcelColor.LightGreen : BsGridExcelColor.Red);
 
             columns.For(x => x.Role)
-                    .Style(style => style.FillColor = BsGridExcelColor.Lavender);
+                   .Text(x => x.Role.ToString()) // type enum => specify what text to display
+                   .Style(style => style.FillColor = BsGridExcelColor.Lavender);
 
             columns.For(x => x.StartDate)
-                    .Style(style => style.Font.Italic = true);
+                   .Text(x => x.StartDate.ToMonthNameDate()) // custom date display
+                   .Style(style => style.Font.Italic = true);
         });

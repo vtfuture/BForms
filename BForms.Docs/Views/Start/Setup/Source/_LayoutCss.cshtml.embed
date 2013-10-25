@@ -7,10 +7,10 @@
         maximum-scale=1, 
         user-scalable=no">
 
-  @Styles.Render("~/css")
+    @Styles.Render("~/BForms")
 
-  @*For IE7-8 support of HTML5 elements and responsive*@
-  <!--[if lt IE 9]>
+    @*For IE7-8 support of HTML5 elements and responsive*@
+    <!--[if lt IE 9]>
     <script src="@Url.Content("~/Scripts/BForms/Bundles/iefix.js")" 
     type="text/javascript">
     </script>

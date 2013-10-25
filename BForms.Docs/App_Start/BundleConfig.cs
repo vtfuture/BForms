@@ -13,7 +13,7 @@ namespace BForms.Docs
                 .Include("~/Scripts/BForms/Components/Bootstrap/css/*.css", new CssRewriteUrlTransform())
                 .Include("~/Scripts/BForms/Plugins/Datepicker/css/*.css", new CssRewriteUrlTransform())
                 .Include("~/Scripts/BForms/Plugins/Select2/css/*.css", new CssRewriteUrlTransform())
-                .Include("~/Scripts/BForms/Stylesheets/css/*.css", new CssRewriteUrlTransform())
+                .Include("~/Scripts/BForms/Stylesheets/*.css", new CssRewriteUrlTransform())
                 .Include("~/Content/Stylesheets/*.css", new CssRewriteUrlTransform())
                 );
 #else

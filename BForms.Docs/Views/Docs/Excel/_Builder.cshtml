@@ -4,7 +4,7 @@
 <p><code>BsGridExcelBuilder&#60;T&#62;</code> is the component behind the excel file creation.</p>
 
 <p>
-    <code>Constructor</code>
+    <h4 class="sub_title">Constructor</h4>
 </p>
 <pre class="prettyprint lang-cs bs-example">
 @Html.InsertFileContentCached("~/Views/Docs/Excel/Source/_BuilderConstructor.cs.embed")
@@ -13,7 +13,7 @@
 <br />
 
 <p>
-    <code>Example</code>
+    <h4 class="sub_title">Example</h4>
 </p>
 
 <pre class="prettyprint lang-cs bs-example">
@@ -23,18 +23,25 @@
 <br />
 
 <p>
-    <code>Configuration</code>
+    <h4>Configuration</h4>
 </p>
 
 <p>
-    By default, the builder only applies bold style to the header, renders the column headers based on the name of the <code>DisplayAttribute</code> and the width of the 
- columns based on the width of the <code>BsGridColumnAttribute</code>. <br/> <br />
-
+    By default, the builder styles the header bold, renders its content based on the name of the <code>DisplayAttribute</code> and the width of the
+    columns based on the width of the <code>BsGridColumnAttribute</code>, attributes that decorate the model's properties. 
+</p>
+<p>
+    If you use the same model for the grid and excel export, you can set the <code>Usage</code> property of the <code>BsGridColumnAttribute</code>, to specify the property's scope.
+</p>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/Excel/Source/_GridColumnAttribute.cs.embed")
+</pre>
+<br/>
+<p>
     Here's a list of methods you could use to configure the builder, adding custom styles and text:
 </p>
-<br />
 <p>
-    <code>Configure Header</code>
+    <h4 class="sub_title">Configure Header</h4>
 </p>
 <p>
     Sets custom style for header, or for a specific header column.
@@ -47,7 +54,7 @@
 <br />
 
 <p>
-    <code>Example</code>
+    <h4 class="sub_title">Example</h4>
 </p>
 <pre class="prettyprint lang-cs bs-example">
 @Html.InsertFileContentCached("~/Views/Docs/Excel/Source/_HeaderConfigExample.cs.embed")
@@ -56,11 +63,12 @@
 <br />
 
 <p>
-    <code>Configure Rows</code>
+    <h4 class="sub_title">Configure Rows</h4>
 </p>
 <p>
     Sets custom style for rows, or for a specific row.
 </p>
+
 <pre class="prettyprint lang-cs bs-example">
 @Html.InsertFileContentCached("~/Views/Docs/Excel/Source/_RowsConfig.cs.embed")
 </pre>
@@ -68,7 +76,7 @@
 <br />
 
 <p>
-    <code>Example</code>
+    <h4 class="sub_title">Example</h4>
 </p>
 <pre class="prettyprint lang-cs bs-example">
 @Html.InsertFileContentCached("~/Views/Docs/Excel/Source/_RowsConfigExample.cs.embed")
@@ -77,10 +85,16 @@
 <br />
 
 <p>
-    <code>Configure Columns</code>
+    <h4 class="sub_title">Configure Columns</h4>
 </p>
 <p>
     Sets custom style for columns, or for a specific column cell.
+</p>
+<p>
+    The builder will iterate through the model's properties and create cells based on their values and datatype.
+    The supported types are <code>long</code>, <code>int</code>, <code>double</code>, <code>DateTime</code> and <code>string</code>.
+    If your model has other properties that are not supported, you have to use the column configuration and specify what text 
+    should be displayed for that column via the <code>Text()</code> method.
 </p>
 <pre class="prettyprint lang-cs bs-example">
 @Html.InsertFileContentCached("~/Views/Docs/Excel/Source/_ColumnsConfig.cs.embed")
@@ -89,7 +103,7 @@
 <br />
 
 <p>
-    <code>Example</code>
+    <h4 class="sub_title">Example</h4>
 </p>
 <pre class="prettyprint lang-cs bs-example">
 @Html.InsertFileContentCached("~/Views/Docs/Excel/Source/_ColumnsConfigExample.cs.embed")

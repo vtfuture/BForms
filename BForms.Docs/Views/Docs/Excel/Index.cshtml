@@ -12,6 +12,7 @@
                         <li><a href="#BsExcelResult">Excel result</a></li>
                         <li><a href="#Builder">Builder</a></li>
                         <li><a href="#Style">Style</a></li>
+                        <li><a href="#Example">Example</a></li>
                     </ul>
                 </li>
             </ul>
@@ -25,12 +26,20 @@
             </div>
             
             <p>
-                BForms <strong>Excel Builder</strong> component is designed to export the <strong>Grids</strong> items into an excel file.
+                BForms <strong>Excel Builder</strong> component is designed to export the <strong>Grid's</strong> items into an excel file.
             </p>
 
+            <hr />
             @Html.Partial("Excel/_ExcelResult")
+            <hr />
+
             @Html.Partial("Excel/_Builder")
+            <hr />
+
             @Html.Partial("Excel/_Style")
+            <hr />
+
+            @Html.Partial("Excel/_Example")
 
         </div>
 

@@ -43,6 +43,7 @@ namespace BForms.Grid
         private string resetButtonHtml;
         private Func<TRow, string> rowHighlighter;
         private Func<TRow, IDictionary<string, object>> rowData;
+        private Func<TRow, bool> rowDetails;
         private bool hasDetails;
         private bool hasBulkActions;
         private List<BsGridColumn<TRow>> columns;
@@ -108,6 +109,21 @@ namespace BForms.Grid
             return this;
         }
 
+        public BsGridHtmlBuilder<TModel, TRow> ConfigureRows(Action<BsGridRowConfigurator<TRow>> configurator)
+        {
+            var rowConfigurator = new BsGridRowConfigurator<TRow>();
+
+            configurator(rowConfigurator);
+
+            this.rowData = rowConfigurator.HtmlAttr;
+
+            this.rowHighlighter = rowConfigurator.Highlight;
+
+            this.rowDetails = rowConfigurator.HasDetails;
+
+            return this;
+        }
+
         public BsGridHtmlBuilder<TModel, TRow> ConfigureBulkActions(Action<BsBulkActionsFactory> configurator)
         {
             var bulkActionsFactory = new BsBulkActionsFactory(this.viewContext);
@@ -133,23 +149,6 @@ namespace BForms.Grid
             resetButton.InnerHtml += resetButtonSpan.ToString();
 
             this.resetButtonHtml = resetButton.ToString();
-
-            return this;
-        }
-
-        public BsGridHtmlBuilder<TModel, TRow> RowHighlighter(Func<TRow, string> higlighter)
-        {
-            this.rowHighlighter = higlighter;
-
-            return this;
-        }
-
-        /// <summary>
-        /// Adds data- html attributes
-        /// </summary>
-        public BsGridHtmlBuilder<TModel, TRow> RowData(Func<TRow, Dictionary<string, object>> rowData)
-        {
-            this.rowData = rowData;
 
             return this;
         }
@@ -283,6 +282,8 @@ namespace BForms.Grid
 
             columnsBuilder.AddCssClass("row grid_row title");
 
+            this.OrderColumns();
+
             for(var i = 0; i < this.columns.Count; i++)
             {
                 var column = this.columns[i];
@@ -302,7 +303,7 @@ namespace BForms.Grid
             if (this.hasPager && this.model.Pager != null && this.model.Pager.TotalRecords > 0)
             {
                 var pagerWrapper = new TagBuilder("div");
-                pagerWrapper.AddCssClass("row grid_pager");
+                pagerWrapper.AddCssClass("row bs-pager");
 
                 pagerWrapper.InnerHtml += this.RenderPages();
 
@@ -423,6 +424,8 @@ namespace BForms.Grid
 
                     var headerBuilder = new TagBuilder("header");
 
+                    this.OrderColumns();
+
                     for (var i = 0; i < this.columns.Count; i++)
                     {
                         var column = this.columns.ElementAt(i);
@@ -434,12 +437,15 @@ namespace BForms.Grid
                         {
                             if (this.hasDetails)
                             {
-                                var detailsBUilder = new TagBuilder("a");
-                                detailsBUilder.MergeAttribute("class", "expand bs-expand");
-                                detailsBUilder.MergeAttribute("href", "#");
-                                detailsBUilder.InnerHtml += "&nbsp;";
+                                if (this.rowDetails(row))
+                                {
+                                    var detailsBUilder = new TagBuilder("a");
+                                    detailsBUilder.MergeAttribute("class", "expand bs-expand");
+                                    detailsBUilder.MergeAttribute("href", "#");
+                                    detailsBUilder.InnerHtml += "&nbsp;";
 
-                                cellBuilder.InnerHtml += detailsBUilder.ToString();
+                                    cellBuilder.InnerHtml += detailsBUilder.ToString();
+                                }
                             }
                         }
 
@@ -699,24 +705,46 @@ namespace BForms.Grid
                 BsGridColumnAttribute columnAttr = null;
                 if (ReflectionHelpers.TryGetAttribute(property, out columnAttr))
                 {
-                    var column = new BsGridColumn<TRow>(property, this.viewContext);
-
-                    column.IsSortable = columnAttr.IsSortable;
-                    column.SetWidth(columnAttr.Width);
-
-                    System.ComponentModel.DataAnnotations.DisplayAttribute displayAttribute = null;
-                    if (ReflectionHelpers.TryGetAttribute(property, out displayAttribute))
+                    if (columnAttr.Usage != BsGridColumnUsage.Excel)
                     {
-                        column.DisplayName = displayAttribute.GetName();
-                    }
-                    else
-                    {
-                        column.DisplayName = property.Name;
-                    }
+                        var column = new BsGridColumn<TRow>(property, this.viewContext);
 
-                    this.columns.Add(column);
+                        column.IsSortable = columnAttr.IsSortable;
+                        column.SetWidth(columnAttr.Width);
+                        column.SetOrder(columnAttr.Order);
+
+                        System.ComponentModel.DataAnnotations.DisplayAttribute displayAttribute = null;
+                        if (ReflectionHelpers.TryGetAttribute(property, out displayAttribute))
+                        {
+                            column.DisplayName = displayAttribute.GetName();
+                        }
+                        else
+                        {
+                            column.DisplayName = property.Name;
+                        }
+
+                        this.columns.Add(column);
+                    }
                 }
             }
+        }
+
+        private void OrderColumns()
+        {
+            if (this.model.ColumnOrder != null && this.model.ColumnOrder.Any())
+            {
+                foreach (var column in this.columns)
+                {
+                    var name = column.Property.Name;
+                    if (this.model.ColumnOrder.ContainsKey(name))
+                    {
+                        column.Order = this.model.ColumnOrder[name];
+                    }
+
+                }
+            }
+
+            this.columns = this.columns.OrderByDescending(c => c.Order.HasValue).ThenBy(x => x.Order).ToList();
         }
     }
 }

@@ -1,0 +1,27 @@
+﻿public class LoginController : BaseController
+{
+    [HttpGet]
+    public ActionResult Index(string mode)
+    {
+        var model = new AuthenticationModel()
+        {
+            LoginModel = new LoginModel(),
+            RegisterModel = InitRegisterModel()
+        };
+
+        return View(model);
+    }
+
+    [HttpPost]
+    public ActionResult Index(AuthenticationModel model, string mode)
+    {
+	//validate credentials and redirect
+
+	//if authorization failed add global validation error
+	ModelState.AddFormError("LoginModel",
+		"This account has been suspended! Contact us for more details.");
+
+	//return view with validation errors
+	return View(model);
+    }
+}

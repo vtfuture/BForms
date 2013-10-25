@@ -1,8 +1,12 @@
-﻿.ConfigureColumns(cf =>
-{
-    cf.Add(c => c.Enabled)
-		.Name(Resource.Enable) //column header 
-		.SetWidth(3) //column width
-		.Sortable() //is sortable?
-		.Text(x => x.Enabled ? Resource.Yes : Resource.No); //text to display
-}
+﻿@Html.BsGridFor(m => m.Grid)
+     .ConfigureColumns(cols =>
+     {
+        cols.Add(c => c.Enabled)
+            .Name(Resource.Enable) // column header 
+            .SetWidth(3) // column width
+            .Sortable() // is sortable?
+            .Text(x => x.Enabled ? Resource.Yes : Resource.No); // text to display
+
+        cols.For(c => c.Name) // edit specific column
+            .Name(Resource.Name); // update the column header
+     }

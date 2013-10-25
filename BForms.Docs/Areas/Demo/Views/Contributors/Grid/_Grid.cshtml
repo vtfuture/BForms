@@ -26,30 +26,34 @@
             bulk.ForSelector(BsBulkSelectorType.None).Text(@Resource.None);
         })
         .HtmlAttributes(new { @class = "custom_class" })
-        .RowHighlighter(row => row.Enabled ? "#59b444" : "#f0ad4e")
-        .RowData(row => new Dictionary<string, object> { { "data-objid", row.Id }, { "data-active", row.Enabled } })
         .ConfigureColumns(cols =>
         {
-            cols.Add(c => c.Name).Name(Resource.Name)
-                                .SetWidth(2)
-                                .Sortable();
+            cols.For(c => c.Name).Name(Resource.Name)
+                                 //.SetWidth(2)
+                                 .Sortable();
 
-            cols.Add(c => c.Role).Name("Role")
-                                .SetWidth(3)
+            cols.For(c => c.Role).Name("Role")
+                                //.SetWidth(3)
                                 .Sortable()
                                 .Text(row => Html.GetRoleIcon(row.Role) + " " + Html.BsEnumDisplayName(row.Role));
 
-            cols.Add(c => c.StartDate).Name("Contributor since")
-                                .SetWidth(3)
+            cols.For(c => c.StartDate).Name("Contributor since")
+                                //.SetWidth(3)
                                 .Sortable()
                                 .Text(row => Html.BsGlyphicon(Glyphicon.Calendar) + " " + row.StartDate.ToMonthNameDate());
 
-            cols.Add(c => c.Contributions).Name("Contributions")
-                                .SetWidth(4)
+            cols.For(c => c.Contributions).Name("Contributions")
+                                //.SetWidth(4)
                                 .Sortable()
                                 .Text(row => string.IsNullOrEmpty(row.Contributions) ? "" : String.Join(", ", row.Contributions.Split(new[] { ',' }).Take(2)));
 
             cols.For(c => c.Name).Name(Resource.Name);
         })
-        .PagerSettings(new BsPagerSettings {Size = 5})
+        .ConfigureRows(cfg =>
+        {
+            cfg.Details(row => row.Enabled ? true : false)
+               .HtmlAttributes(row => new Dictionary<string, object> { { "data-objid", row.Id }, { "data-active", row.Enabled } })
+               .Highlighter(row => row.Enabled ? "#59b444" : "#f0ad4e");
+        })
+        .PagerSettings(new BsPagerSettings { Size = 5 })
 )

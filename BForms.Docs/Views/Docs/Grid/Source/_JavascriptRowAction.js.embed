@@ -1,0 +1,10 @@
+﻿rowActions: [{
+    btnSelector: '.js-btn_state',
+    url: this.options.enableDisableUrl,
+    handler: function (e, options, $row, context) {},
+}, {
+    btnSelector: '.js-btn_delete',
+    url: this.options.deleteUrl,
+    init: function (options, $row, context) {},
+    context: this
+}]

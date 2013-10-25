@@ -10,22 +10,27 @@
 
     var navScroll = function ($element, options) {
         this.$element = $element;
-        this.options = options;
-        this.hash = null;
-        this.breakOffset = null;
-        
-        this.$container = $(this.options.container);
-        this.$sidebar = $(this.options.sidebar);
-        this.$relativeElement = $(this.options.relativeElement);
 
-        this.heightOffset = (this.$container.height() - this.$element.height() - (this.$element.outerHeight() - this.$element.height())) / 2;
+        if (this.$element.length) {
 
-        this.menuItems = this.$element.find('a');
 
-        this.topBreak = this.options.topBreak;
-        this.bottomBreak = this.options.bottomBreak;
+            this.options = options;
+            this.hash = null;
+            this.breakOffset = null;
 
-        this.init();
+            this.$container = $(this.options.container);
+            this.$sidebar = $(this.options.sidebar);
+            this.$relativeElement = $(this.options.relativeElement);
+
+            this.heightOffset = (this.$container.height() - this.$element.height() - (this.$element.outerHeight() - this.$element.height())) / 2;
+
+            this.menuItems = this.$element.find('a');
+
+            this.topBreak = this.options.topBreak;
+            this.bottomBreak = this.options.bottomBreak;
+
+            this.init();
+        } 
     };
 
     navScroll.prototype.init = function () {
@@ -41,7 +46,7 @@
 
         if (this.hash != '') {
             this.updateNav(this.hash);
-        }else {
+        } else {
             this._setHash();
         }
     };
@@ -88,11 +93,11 @@
     navScroll.prototype._setPosition = function (callAgain) {
 
         var scrollTop = $(window).scrollTop();
-        
+
         if (!this.$sidebar.hasClass('affix-bottom')) {
 
             if (this.$sidebar.offset().top + this.$sidebar.outerHeight() - this.heightOffset >= this.bottomBreak) {
-                
+
                 this.$sidebar.removeClass('affix-top');
                 this.$sidebar.removeClass('affix');
 
@@ -105,14 +110,14 @@
                 this.$sidebar.addClass('affix-bottom');
                 this.breakOffset = scrollTop;
             } else if (scrollTop > this.topBreak) {
-                
+
                 this.$sidebar.removeClass('affix-top');
                 this.$sidebar.addClass('affix');
                 this.$sidebar.removeClass('affix-bottom');
                 this.$sidebar.css({
                     top: 0
                 });
-              
+
             } else {
                 this.$sidebar.removeClass('affix');
                 this.$sidebar.removeClass('affix-bottom');
@@ -141,8 +146,8 @@
                 });
             }
         }
-      
-        if(callAgain) {
+
+        if (callAgain) {
             this._setPosition();
         }
     };
@@ -164,7 +169,7 @@
     };
 
     $.fn.bsNavScrollDefaults = {
-        container : '.hidden-sm',
+        container: '.hidden-sm',
         sidebar: '.bs-sidebar',
         sidebarTopClass: 'affix-top',
         sidebarClass: 'affix',

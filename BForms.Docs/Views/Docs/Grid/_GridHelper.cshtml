@@ -1,70 +1,286 @@
 ﻿@using BForms.Docs.Helpers
 <h3 id="GridHelper">Grid helper</h3>
 
-<p><code>Html.BsGridFor</code> helper returns a <code>BsGridHtmlBuilder</code> used to build the html of the grid. This way, you can configure your grid adding attributes, properties and columns.</p>
+<p>In order to render a grid, use the <code>Html.BsGridFor</code> html helper extension.</p>
+
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/Grid/Source/_GridHelperSimple.cs.embed")
+</pre>
+<br />
 
 <p>
-    <code>HtmlAttributes</code>
+    This helper returns a <code>BsGridHtmlBuilder</code> used to build and configure the html of the grid.
+    This way, you can set the grid's properties adding attributes, and columns.
+</p>
+
+<hr />
+
+<code>BsGridHtmlBuilder</code>
+
+<h4 class="sub_title">Methods</h4>
+
+<p>
+    <code>HtmlAttributes(Dictionary&#60;string, object&#62; htmlAttributes)</code>
+</p>
+<p>
+    <strong>params:</strong>
+    <ul>
+        <li>
+            <code>htmlAttributes</code>
+            <p>
+                <strong>type </strong><code>Dictionary&#60;string, object&#62;</code><br/>
+                <strong>default</strong> none <br />
+                <strong>description</strong> object representing a key-value set of html attributes
+            </p>
+        </li>
+    </ul>
+</p>
+
+<p>
+    Set html attributes to the grid's dom element wrapper.
+</p>
+<p>
+    Example:
 </p>
 <pre class="prettyprint lang-cs bs-example">
 @Html.InsertFileContentCached("~/Views/Docs/Grid/Source/_HtmlAttributes.cs.embed")
 </pre>
-<br />
+<hr />
 
 <p>
-    <code>RowHighlighter</code>
+    <code>Theme(BsTheme theme)</code>
 </p>
 <p>
-    Defines the row color.
+    <strong>params:</strong>
+    <ul>
+        <li>
+            <code>theme</code>
+<p>
+    <strong>type </strong><code>BsTheme</code><br />
+    <strong>default</strong> <code>BsTheme.Default</code><br />
+    <strong>description</strong> theme selector
+</p>
+        </li>
+    </ul>
+</p>
+
+<p>
+    Set the grid's color theme.
+</p>
+<p>
+    Example:
+</p>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/Grid/Source/_GridTheme.cs.embed")
+</pre>
+
+<hr/>
+
+<p>
+    <code>GridResetButton()</code>
+</p>
+
+<p>
+    Add a reset button.
+</p>
+<p>
+    Example:
+</p>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/Grid/Source/_ResetButton.cs.embed")
+</pre>
+
+<hr />
+
+@*<p>
+    <code>RowHighlighter(Func&#60;TRow, string&#62; highlighter)</code>
+</p>
+<p>
+    <strong>params:</strong>
+    <ul>
+        <li>
+            <code>higlighter</code>
+            <p>
+                <strong>type </strong><code>Func&#60;TRow, string&#62;</code><br />
+                <strong>default</strong> none <br />
+                <strong>description</strong> based on the row model, specify a string representation of a color
+            </p>
+        </li>
+    </ul>
+</p>
+
+<p>
+    Set the row color.
+</p>
+<p>
+    Example:
 </p>
 <pre class="prettyprint lang-cs bs-example">
 @Html.InsertFileContentCached("~/Views/Docs/Grid/Source/_RowHighlighter.cs.embed")
 </pre>
-<br />
+
+<hr />*@
+
+@*<p>
+        <code>RowData(Func&#60;TRow, dictionary&#60;string, object&#62;&#62; rowData)</code>
+    </p>
+    <p>
+        <strong>params:</strong>
+        <ul>
+            <li>
+                <code>rowData</code>
+                <p>
+                    <strong>type </strong><code>Func&#60;TRow, dictionary&#60;string, object&#62;&#62;</code><br />
+                    <strong>default</strong> none <br />
+                    <strong>description</strong> based on the row model, specify via a dictionary the row html attributes
+                </p>
+            </li>
+        </ul>
+    </p>
+
+    <p>
+        Set the html attributes of a row (usually used for <code>data-</code> attributes). </br>
+        As i mentioned before, you can set this in your row model. By configuring this in razor you override those.
+    </p>
+    <p>
+        Example:
+    </p>
+    <pre class="prettyprint lang-cs bs-example">
+    @Html.InsertFileContentCached("~/Views/Docs/Grid/Source/_RowData.cs.embed")
+    </pre>
+
+    <hr />*@
+<p>
+    <code>ConfigureRows(Action&#60;BsGridRowConfigurator&#60;TRow&#62;&#62; configurator)</code>
+</p>
+<p>
+    <strong>params:</strong>
+    <ul>
+        <li>
+            <code>configurator</code>
+<p>
+    <strong>type </strong><code>Action&#60;BsGridRowConfigurator&#60;TRow&#62;&#62;</code><br />
+    <strong>default</strong> none <br />
+    <strong>description</strong> rows configurator (html attributes, has details, color)
+</p>
+        </li>
+    </ul>
+</p>
 
 <p>
-    <code>RowData</code>
+    Using this method, you can add html attributes to each row, and set its color based on your row model.
+    By default, the <code>BsGridAttribute</code> decides whether the rows have details (are expandable), but in some
+    cases you may want some of your rows expandable and others not.
 </p>
 <p>
-    The html attributes placed on the a grid row can be specified via the model's <code>BsGridColumnAttribute</code> or using this method.
+    Example:
 </p>
 <pre class="prettyprint lang-cs bs-example">
-@Html.InsertFileContentCached("~/Views/Docs/Grid/Source/_RowData.cs.embed")
+@Html.InsertFileContentCached("~/Views/Docs/Grid/Source/_ConfigureRowsExample.cs.embed")
 </pre>
-<br />
+
+<hr />
+<p>
+    <code>ConfigureColumns(Action&#60;BsGridColumnFactory&#60;TRow&#62;&#62; configurator)</code>
+</p>
+<p>
+    <strong>params:</strong>
+    <ul>
+        <li>
+            <code>configurator</code>
+            <p>
+                <strong>type </strong><code>Action&#60;BsGridColumnFactory&#60;TRow&#62;&#62;</code><br />
+                <strong>default</strong> none <br />
+                <strong>description</strong> columns factory (used to add and configure columns)
+            </p>
+        </li>
+    </ul>
+</p>
 
 <p>
-    <code>ConfigureColumns</code>
+    By default, the grid will be build based on the <code>BsGridColumnAttribute</code> existence on the row model's properties. 
+    It's actually all you have to do to add columns to the grid. But, just in case you want to use the row model as
+    common model for different grids, you can add, remove or update specific columns using this method.
 </p>
 <p>
-    Add columns to grid, based on TRow model.
-</p>
-<pre class="prettyprint lang-cs bs-example">
-@Html.InsertFileContentCached("~/Views/Docs/Grid/Source/_ConfigureColumns.cs.embed")
-</pre>
-<br />
-<p>
-    You can also configure <code>BsGridColumn&#60;TRow&#62;</code> or use the <code>BsGridColumnAttribute</code>.
+    Example:
 </p>
 <pre class="prettyprint lang-cs bs-example">
 @Html.InsertFileContentCached("~/Views/Docs/Grid/Source/_ConfigureColumnsExample.cs.embed")
 </pre>
-<br />
+
+<hr />
 
 <p>
-    <code>MultipleSelectActions</code>
+    <code>ConfigureBulkActions(Action&#60;BsBulkActionsFactory&#62; configurator)</code>
 </p>
 <p>
-    Builder adds a checkbox to each row and renders the specified grid actions partial above the grid.
+    <strong>params:</strong>
+    <ul>
+        <li>
+            <code>configurator</code>
+        <p>
+            <strong>type </strong><code>Action&#60;BsBulkActionsFactory&#62;</code><br />
+            <strong>default</strong> none <br />
+            <strong>description</strong> bulk actions factory (used to add and configure bulk actions and row selectors)
+        </p>
+        </li>
+    </ul>
+</p>
+
+<p>
+    Using this method to configure the grid, will trigger the rendering of a set of buttons above it and a checkbox in each of its rows.<br/>
+    The buttons are used to apply certain actions to the selected rows.<br />
+    The bulk actions selectors are helpers that are used to select rows that fulfill certain requirements.
+</p>
+<p>
+    You can choose from a set of predefined actions using <code>BsBulkActionType</code> enum and from a set of predefined selectors using
+    <code>BsBulkSelectorType</code> enum.
+</p>
+<p>
+    <div class="bs-example bs-img-example">
+        <img src="@Url.Content("~/Content/images/docs/grid-bulkactions.png")">
+    </div>
+</p>
+<p>
+    Example:
 </p>
 <pre class="prettyprint lang-cs bs-example">
 @Html.InsertFileContentCached("~/Views/Docs/Grid/Source/_Actions.cs.embed")
 </pre>
-<br />
 
-<h4 class="sub_title">Example</h4>
+<hr />
+
+<p>
+    <code>PagerSettings(BsPagerSettings pagerSettings)</code>
+</p>
+<p>
+    <strong>params:</strong>
+    <ul>
+        <li>
+            <code>pagerSettings</code>
+            <p>
+                <strong>type </strong><code>BsPagerSettings</code><br />
+                <strong>default</strong> none <br />
+                <strong>description</strong> pager settings (page size, template, show buttons, etc)
+            </p>
+        </li>
+    </ul>
+</p>
+
+<p>
+    The method is used to configure the pagination settings of the grid. In this way, you can set the page size, use a specified partial view to render
+    the pager, hide or show certain buttons.
+</p>
+<p>
+    <div class="bs-example bs-img-example">
+        <img src="@Url.Content("~/Content/images/docs/grid-pager.png")">
+    </div>
+</p>
+<p>
+    Example:
+</p>
 <pre class="prettyprint lang-cs bs-example">
-@Html.InsertFileContentCached("~/Views/Docs/Grid/Source/_GridHelper.cs.embed")
+@Html.InsertFileContentCached("~/Views/Docs/Grid/Source/_Pager.cs.embed")
 </pre>
-<br/>
 

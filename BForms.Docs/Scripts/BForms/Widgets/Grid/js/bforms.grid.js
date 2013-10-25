@@ -66,6 +66,8 @@
         errorRowContainer: '.bs-validation_row',
         errorCloseSelector: '.bs-form-error .close',
 
+        sortable: true,
+
         defaultFilterButtons: [{
             btnSelector: '.js-all',
             filter: function ($el) {
@@ -102,7 +104,7 @@
         }
 
         this._initDefaultOptions();
-        
+
         this._initSelectors();
 
         this.options.hasRowCheck = this.$actionsContainer.length > 0;
@@ -113,7 +115,7 @@
         this.refreshModel = this._refreshModel;
         this._currentResultsCount = this.$gridCountContainer.text();
 
-        this.$pager = this.element.find('.grid_pager').bsPager({
+        this.$pager = this.element.find('.bs-pager').bsPager({
             pagerUpdate: $.proxy(this._evOnPageChange, this),
             pagerGoTop: $.proxy(this._evOnPagerGoTop, this)
         });
@@ -126,12 +128,15 @@
         // when an action made on grid generates a refresh then this.needsRefresh is set to true
         this.needsRefresh = false;
 
+        if (this.options.sortable) {
+            this._initSortable();
+        }
     };
 
     Grid.prototype._initDefaultOptions = function () {
 
         if (typeof this.options.filterButtons !== "undefined" && $.isArray(this.options.filterButtons)) {
-             this.options.filterButtons = this.options.filterButtons.concat(this.options.defaultFilterButtons);
+            this.options.filterButtons = this.options.filterButtons.concat(this.options.defaultFilterButtons);
         } else {
             this.options.filterButtons = this.options.defaultFilterButtons;
         }
@@ -820,9 +825,6 @@
 
         for (var k in this.refreshModel) {
             if (k in this.refreshModel) {
-
-                var key;
-                var val;
                 var prop = this.refreshModel[k];
 
                 if (prop instanceof Array || typeof (prop) !== 'object') {
@@ -917,6 +919,53 @@
         if (arguments[4].pageChanged) {
             $.bforms.scrollToElement(this.$gridHeader);
         }
+    };
+    //#endregion
+
+    //#region sortable
+    Grid.prototype._initSortable = function () {
+        this.$gridOrderContainer.sortable({
+            start: $.proxy(this._onSortStart, this),
+            stop: $.proxy(this._onSortStop, this),
+            update: $.proxy(this._onSortUpdate, this),
+            containment: this.$gridOrderContainer,
+            distance: 10,
+            cursor: 'move',
+            tolerance: 'pointer',
+            helper: 'clone'
+        });
+    };
+
+    Grid.prototype._onSortStart = function (e, ui) {
+        this.$rowsContainer.addClass('loading');
+        ui.item.data('startpos', ui.item.index());
+
+        this.element.find(this.options.expandToggleSelector).hide();
+    };
+
+    Grid.prototype._onSortStop = function (e, ui) {
+
+        var startPos = ui.item.data('startpos');
+
+        if (startPos == ui.item.index()) {
+            this.$rowsContainer.removeClass('loading');
+            this.$expandToggle.show();
+        }
+    };
+
+    Grid.prototype._onSortUpdate = function (e, ui) {
+        var columnOrder = [];
+
+        this.$gridOrderContainer.find('*[data-name]').each(function (idx, elem) {
+            columnOrder.push({
+                key: $(elem).data('name'),
+                value: idx
+            });
+        });
+        this.refreshModel.ColumnOrder = columnOrder;
+        this._getPage();
+
+        this.$gridOrderContainer.find('div:first').prepend(this.$expandToggle.show());
     };
     //#endregion
 

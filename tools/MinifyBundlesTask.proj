@@ -61,7 +61,7 @@
       <CssFiles Include="..\BForms.Docs\Scripts\BForms\Components\Bootstrap\css\*.css" />
       <CssFiles Include="..\BForms.Docs\Scripts\BForms\Plugins\Datepicker\css\*.css" />
       <CssFiles Include="..\BForms.Docs\Scripts\BForms\Plugins\Select2\css\*.css" />
-      <CssFiles Include="..\BForms.Docs\Scripts\BForms\Stylesheets\css\*.css" />
+      <CssFiles Include="..\BForms.Docs\Scripts\BForms\Stylesheets\*.css" />
     </ItemGroup>
     <CssCompressorTask LoggingType="Debug" EncodingType="UTF8" SourceFiles="@(CssFiles)" OutputFile="$(DestinationDir)css\stylesheets.css" />
 

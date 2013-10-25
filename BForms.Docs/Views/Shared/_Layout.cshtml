@@ -55,8 +55,8 @@
             Url.Content("~/Scripts/bforms/components/requirejs/require.js"),
             new []
             {
-                Server.MapPath("~/Scripts/BForms/RequireJS.config"),
-                Server.MapPath("~/RequireJS.config")
+                "~/Scripts/BForms/RequireJS.config",
+                "~/RequireJS.config"
             })
         }
         else
@@ -65,8 +65,8 @@
             Url.Content("~/Scripts/bforms/components/requirejs/require.js"),
             new []
             {
-                Server.MapPath("~/Scripts/BForms/RequireJS.Release.config"),
-                Server.MapPath("~/RequireJS.Release.config")
+                "~/Scripts/BForms/RequireJS.Release.config",
+                "~/RequireJS.Release.config"
             })
             @Html.Partial("_Tracking")
         }

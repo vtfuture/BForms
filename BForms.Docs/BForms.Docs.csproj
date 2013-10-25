@@ -52,9 +52,9 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.5.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="RequireJsNet, Version=1.0.7.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="RequireJsNet, Version=1.0.8.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\RequireJsNet.1.0.7.0\lib\net45\RequireJsNet.dll</HintPath>
+      <HintPath>..\packages\RequireJsNet.1.0.8.0\lib\net45\RequireJsNet.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -121,6 +121,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Demo\Controllers\ContributorsController.cs" />
     <Compile Include="Areas\Demo\Controllers\LoginController.cs" />
+    <Compile Include="Areas\Demo\Controllers\UserGroupController.cs" />
     <Compile Include="Areas\Demo\DemoAreaRegistration.cs" />
     <Compile Include="Areas\Demo\Helpers\Utils.cs" />
     <Compile Include="Areas\Demo\Mock\Entities.cs" />
@@ -146,6 +147,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
+    <Content Include="Views\Start\Setup\Source\_BundleConfigJs.cs.embed" />
+    <Content Include="Views\Start\Setup\Source\_Files.embed" />
     <Content Include="Areas\Demo\Views\Contributors\Grid\Details\_IdentityEditable.cshtml">
       <SubType>Code</SubType>
     </Content>
@@ -163,6 +166,8 @@
     <Content Include="Content\Images\Docs\datetimepicker-range.jpg" />
     <Content Include="Content\Images\Docs\dropdown-search-select.jpg" />
     <Content Include="Content\Images\Docs\empty-toolbar.png" />
+    <Content Include="Content\Images\Docs\grid-bulkactions.png" />
+    <Content Include="Content\Images\Docs\grid-pager.png" />
     <Content Include="Content\Images\Docs\html-grid-structure.png" />
     <Content Include="Content\Images\Docs\html-row-structure.png" />
     <Content Include="Content\Images\Docs\listbox-search-select.jpg" />
@@ -193,7 +198,9 @@
     <Content Include="Scripts\BForms\Plugins\Datepicker\images\icn-remove.png" />
     <Content Include="Scripts\BForms\Plugins\Datepicker\images\icn-time.png" />
     <Content Include="Scripts\BForms\Plugins\Select2\images\select2x2.png" />
-    <Content Include="Scripts\BForms\Stylesheets\Images\icn-grippy.png" />
+    <Content Include="Scripts\BForms\Stylesheets\bforms.groupeditor.css" />
+    <Content Include="Scripts\BForms\Stylesheets\bforms.pager.css" />
+    <Content Include="Scripts\BForms\Images\icn-grippy.png" />
     <Content Include="Scripts\BForms\Widgets\Grid\js\bforms.editable.js" />
     <Content Include="Scripts\BForms\Widgets\Grid\js\bforms.form.js" />
     <Content Include="Scripts\BForms\Widgets\Grid\js\bforms.grid.js" />
@@ -201,21 +208,24 @@
     <Content Include="Scripts\BForms\Widgets\Grid\js\bforms.toolbar.quickSearch.js" />
     <Content Include="Scripts\BForms\Widgets\Grid\js\bforms.toolbar.add.js" />
     <Content Include="Scripts\BForms\Widgets\Grid\js\bforms.toolbar.js" />
-    <Content Include="Scripts\BForms\Stylesheets\css\bforms.grid.css" />
+    <Content Include="Scripts\BForms\Stylesheets\bforms.grid.css" />
     <Content Include="Scripts\BForms\Widgets\Utils\bforms.namespace.js" />
-    <Content Include="Scripts\BForms\Stylesheets\Images\icn-down_arrow-small.png" />
-    <Content Include="Scripts\BForms\Stylesheets\Images\icn-order_down.png" />
-    <Content Include="Scripts\BForms\Stylesheets\Images\icn-order_up.png" />
-    <Content Include="Scripts\BForms\Stylesheets\Images\icn-right_arrow-small.png" />
-    <Content Include="Scripts\BForms\Stylesheets\Images\preloader-small.gif" />
+    <Content Include="Scripts\BForms\Images\icn-down_arrow-small.png" />
+    <Content Include="Scripts\BForms\Images\icn-order_down.png" />
+    <Content Include="Scripts\BForms\Images\icn-order_up.png" />
+    <Content Include="Scripts\BForms\Images\icn-right_arrow-small.png" />
+    <Content Include="Scripts\BForms\Images\preloader-small.gif" />
     <Content Include="Scripts\Controllers\Common\main-script.js" />
     <Content Include="Scripts\Controllers\Demo\Contributors\contributors-index.js" />
+    <Content Include="Scripts\Controllers\Demo\UserGroup\usergroup-index.js" />
     <Content Include="Scripts\Controllers\Root\Docs\docs-excel.js" />
     <Content Include="Scripts\Controllers\Root\Docs\docs-toolbar.js" />
     <Content Include="Scripts\Controllers\Root\Docs\docs-rangeextensions.js" />
     <Content Include="Scripts\Controllers\Root\Docs\docs-grid.js" />
     <Content Include="Scripts\Controllers\Root\Error\error-notfound.js" />
     <Content Include="Scripts\Controllers\Root\Error\error-index.js" />
+    <Content Include="Scripts\Controllers\Root\Start\start-grid.js" />
+    <Content Include="Scripts\Controllers\Root\Start\start-form.js" />
     <Content Include="Scripts\Controllers\Root\Start\start-setup.js" />
     <Content Include="Views\Docs\InputExtensions\Source\InputPasswordSpecializedView.cshtml.embed" />
     <Content Include="Views\Docs\InputExtensions\Source\InputUrlSpecializedModel.cs.embed" />
@@ -266,8 +276,8 @@
     <Content Include="Scripts\BForms\Plugins\Validation\i18n\bforms.validate-ro.js" />
     <Content Include="Scripts\BForms\Plugins\Validation\bforms.validate.js" />
     <Content Include="Scripts\BForms\Plugins\Validation\bforms.validate.unobtrusive.js" />
-    <Content Include="Scripts\BForms\Stylesheets\css\bforms.core.css" />
-    <Content Include="Scripts\BForms\Stylesheets\Images\preloader.gif" />
+    <Content Include="Scripts\BForms\Stylesheets\bforms.core.css" />
+    <Content Include="Scripts\BForms\Images\preloader.gif" />
     <Content Include="Scripts\Controllers\Demo\Login\login-index.js" />
     <Content Include="Scripts\Controllers\Root\Docs\docs-overview.js" />
     <Content Include="Scripts\Controllers\Root\Docs\docs-inputextensions.js" />
@@ -285,7 +295,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -297,7 +306,7 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Scripts\BForms\Stylesheets\css\bforms.core.scss" />
+    <Content Include="Scripts\BForms\Stylesheets\bforms.core.scss" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="RequireJS.config" />
@@ -576,7 +585,7 @@
     <Content Include="Scripts\BForms\Widgets\Utils\bforms.ajax.js" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Scripts\BForms\Stylesheets\css\bforms.grid.scss" />
+    <Content Include="Scripts\BForms\Stylesheets\bforms.grid.scss" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Demo\Views\Contributors\Index.cshtml" />
@@ -687,7 +696,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Docs\Grid\Source\_JavascriptGrid.cs.embed" />
+    <Content Include="Views\Docs\Grid\Source\_JavascriptGrid.js.embed" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="RequireJS.Release.config" />
@@ -834,6 +843,97 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Docs\Excel\Source\_ColorList.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Excel\_Example.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Excel\Source\_CompleteExample.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Demo\Views\Login\Docs\_Login.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Demo\Views\Login\Docs\Source\_LoginModel.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Demo\Views\Login\Docs\Source\_LoginController.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Demo\Views\Login\Docs\Source\_LoginController.js.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Demo\Views\Login\Docs\Source\_LoginView.cshtml.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Excel\Source\_GridColumnAttribute.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Demo\Views\Login\Docs\_Register.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Demo\Views\Login\Docs\Source\_RegisterModel.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Demo\Views\Login\Docs\Source\_RegisterView.cshtml.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Demo\Views\Login\Docs\Source\_RegisterController.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Demo\Views\Login\Docs\Source\_RegisterController.js.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Demo\Views\UserGroup\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\BForms\Stylesheets\bforms.pager.scss" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\BForms\Stylesheets\bforms.groupeditor.scss" />
+    <Content Include="Views\Docs\Grid\Source\_RowModel.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Grid\Source\_GridHelperSimple.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Grid\Source\_GridTheme.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Grid\Source\_ResetButton.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Grid\Source\_Pager.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Grid\Source\_JavascriptGridRequire.js.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Grid\Source\_JavascriptRowAction.js.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Grid\Source\_JavascriptGridAction.js.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Grid\Source\_JavascriptFilterButton.js.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Demo\Views\Contributors\Docs\_Contributors.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Demo\Views\Contributors\Docs\Source\_GridController.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Demo\Views\Contributors\Docs\Source\_GridController.js.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Demo\Views\Contributors\Docs\Source\_GridModel.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Demo\Views\Contributors\Docs\Source\_GridView.cshtml.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Grid\Source\_ConfigureRowsExample.cs.embed" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

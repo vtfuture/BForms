@@ -1,1 +1,17 @@
-﻿BsGridHtmlBuilder<TModel, TRow> MultipleSelectActions(string multipleSelectActionsHtml)
+﻿@Html.BsGridFor(m => m.Grid)
+     .ConfigureBulkActions(bulk =>
+     {
+         bulk.AddAction(BsBulkActionType.Delete); // add predefined action
+         bulk.AddAction() // add custom action
+             .StyleClass("btn-success js-btn-enable_selected")
+             .Title("Enable selected")
+             .GlyphIcon(Glyphicon.Ok);
+
+         bulk.AddSelector(BsBulkSelectorType.All); // add predefined rows selector
+         bulk.AddSelector() // add custom rows selector
+             .StyleClass("js-actives")
+             .Text(@Resource.Enabled);
+
+         bulk.ForSelector(BsBulkSelectorType.All) // update specific selector
+             .Text(@Resource.All);
+    })

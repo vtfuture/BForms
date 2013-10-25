@@ -1,0 +1,54 @@
+﻿public class LoginController : BaseController
+{
+    [HttpGet]
+    public ActionResult Index(string mode)
+    {
+        var model = new AuthenticationModel()
+        {
+            LoginModel = new LoginModel(),
+            RegisterModel = InitRegisterModel()
+        };
+
+        RequireJsOptions.Add("registerUrl", Url.Action("Register"));
+
+        return View(model);
+    }
+
+    public BsJsonResult Register(AuthenticationModel model)
+    {
+        //add validation error to BsRange field
+        if (model.RegisterModel != null && 
+            model.RegisterModel.Interval != null &&
+            model.RegisterModel.Interval.To.HasValue && 
+            model.RegisterModel.Interval.From.HasValue &&
+            model.RegisterModel.Interval.From.Value > model.RegisterModel.Interval.To.Value)
+        {
+            ModelState.AddFieldError("RegisterModel.Interval",
+                model.RegisterModel.Interval.GetType(), 
+                "Invalid interval");
+        }
+
+        //add validation error to BsSelectList field
+        ModelState.AddFieldError("RegisterModel.CountriesList",
+            model.RegisterModel.CountriesList.GetType(),
+            "Selected location doesn't match your GPS location");
+
+        //add global validation error
+        ModelState.AddFormError("RegisterModel", 
+            "This email address is in use.");
+
+        if (ModelState.IsValid)
+        {
+            //save new user to db                
+        }
+        else
+        {
+            //JSON serialize ModelState errors
+            return new BsJsonResult(
+                new Dictionary<string, object> { { "Errors", ModelState.GetErrors() } }, 
+                BsResponseStatus.ValidationError);
+        }
+
+        return new BsJsonResult();
+    }
+}

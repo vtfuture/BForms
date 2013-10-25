@@ -7,10 +7,24 @@
   <body>
     ...
 
-    @Html.RenderRequireJsSetup(
-    Url.Content("~/Scripts"),
-    Url.Content("~/Scripts/BForms/Components/RequireJS/require.js"),
-    Server.MapPath("~/Scripts/BForms/RequireJS.Release.config"))
+    @if (HttpContext.Current.IsDebuggingEnabled)
+    {
+        @Html.RenderRequireJsSetup(Url.Content("~/Scripts"),
+        Url.Content("~/Scripts/bforms/components/requirejs/require.js"),
+        new []
+        {
+            "~/Scripts/BForms/RequireJS.config"
+        })
+    }
+    else
+    {
+        @Html.RenderRequireJsSetup(Url.Content("~/Scripts"),
+        Url.Content("~/Scripts/bforms/components/requirejs/require.js"),
+        new []
+        {
+            "~/Scripts/BForms/RequireJS.Release.config"
+        })
+    }
 
   </body>
 </html>

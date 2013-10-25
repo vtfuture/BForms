@@ -40,7 +40,7 @@ body {
 .container-fluid {
 	padding: 0;
 }
-.navbar-inner, .navbar {
+header .navbar-inner, header .navbar {
 	background: #fff;
 	background-image: none;
 	filter: none;
@@ -81,7 +81,7 @@ a {
 
 /* Header */
 
-.navbar {
+header .navbar {
 	padding: 0 0 30px 0;
 	border-bottom: 1px solid $borderColor;
 	.brand { /*Logo*/
@@ -304,7 +304,7 @@ code {
 	background: #f7f5fa;
 	display: table;
 	border-spacing: 10px;
-	z-index: 9999;
+	z-index: 1023;
 	display: none;
 	.toogle {
 		position: relative;
@@ -402,6 +402,7 @@ code {
 			background: #fff;
 			img {
 				max-width: 100%;
+				cursor: pointer;
 			}
 		}
 	}
@@ -421,6 +422,31 @@ code {
 	}
 }
 
+/* Tabs for example */
+
+.docs_tabs {
+	padding: 0 15px;
+	margin-top: 30px;
+	.navbar {
+		margin: 0;
+		border-bottom: none;
+		.navbar-toggle:focus {
+			outline: none;
+		}
+		.active a {
+			background: #fff !important;
+		}
+	}
+	.tab-content {
+		padding: 30px 20px 20px;
+		border: 1px solid #dddddd;
+		border-top: none;
+		pre.prettyprint {
+			border: none;
+			background: #fff;
+		}
+	}
+}
 
 
 /* Error pages */
@@ -918,7 +944,9 @@ body.black {
 		margin-right: 0;
 		margin-left: 0;
 	}	
-	
+	.docs_tabs {
+		padding: 0;
+	}
 	.bs-table-scrollable {
 		width: 100%;
 		margin-bottom: 15px;

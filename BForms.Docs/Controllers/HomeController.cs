@@ -14,11 +14,6 @@ namespace BForms.Docs.Controllers
             return View();
         }
 
-        public ActionResult Contact()
-        {
-            return View();
-        }
-
         [HttpPost]
         public void SaveTheme(ThemeSettings settings)
         {

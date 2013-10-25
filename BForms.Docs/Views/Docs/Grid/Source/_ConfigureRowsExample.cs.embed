@@ -1,0 +1,10 @@
+﻿@Html.BsGridFor(m => m.Grid)
+     .ConfigureRows(cfg =>
+     {
+            cfg.Details(row => row.Enabled ? true : false) // is expandable ?
+               .HtmlAttributes(row => new Dictionary<string, object> { 
+                   { "data-objid", row.Id }, 
+                   { "data-active", row.Enabled } 
+               })
+               .Highlighter(row => row.Enabled ? "#59b444" : "#f0ad4e"); // row color
+     })

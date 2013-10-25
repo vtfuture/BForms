@@ -1,0 +1,14 @@
+﻿gridActions: [{
+    btnSelector: '.js-btn-exportExcel_selected',
+    handler: function ($rows, context) {
+        var data = {};
+        var ids = [];
+        $rows.each(function () {
+            ids.push($(this).data('objid'));
+        });
+        data.ids = ids;
+        data.settings = context.refreshModel;
+
+        // do something with data
+    }
+}]
