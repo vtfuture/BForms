@@ -11,9 +11,9 @@ namespace BForms.Grid
 
         public string QuickSearch { get; set; }
 
-        public List<BsColumnOrder> OrderColumns { get; set; }
+        public List<BsColumnOrder> OrderableColumns { get; set; } // order grid by column
 
-        public Dictionary<string, int> ColumnOrder { get; set; } 
+        public Dictionary<string, int> OrderColumns { get; set; } // swap columns order
 
         public int Page { get; set; }
 

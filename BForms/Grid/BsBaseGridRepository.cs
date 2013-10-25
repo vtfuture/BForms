@@ -322,7 +322,7 @@ namespace BForms.Grid
             var totalRecords = basicQuery.Select(x => false).Count();
 
             //add column order
-            result.ColumnOrder = settings.ColumnOrder;
+            result.OrderColumns = settings.OrderColumns;
 
             if (totalRecords > 0)
             {
@@ -332,7 +332,7 @@ namespace BForms.Grid
 
                 if (totalRecords > 1)
                 {
-                    this.orderedQueryBuilder = new OrderedQueryBuilder<TRow>(this.settings.OrderColumns);
+                    this.orderedQueryBuilder = new OrderedQueryBuilder<TRow>(this.settings.OrderableColumns);
                     var orderedQuery = this.OrderQuery(basicQuery);
 
                     var pagedQuery = orderedQuery.Skip(pager.PageSize * (pager.CurrentPage - 1)).Take(pager.PageSize);

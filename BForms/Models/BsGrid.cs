@@ -12,6 +12,6 @@ namespace BForms.Models
 
         public BsPagerModel Pager { get; set; }
 
-        public Dictionary<string, int> ColumnOrder { get; set; } 
+        public Dictionary<string, int> OrderColumns { get; set; } 
     }
 }

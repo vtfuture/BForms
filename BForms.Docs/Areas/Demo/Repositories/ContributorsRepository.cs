@@ -218,7 +218,7 @@ namespace BForms.Docs.Areas.Demo.Repositories
             IEnumerable<ContributorRowModel> finalQuery = null;
 
             // order
-            var orderedExcelQueryBuilder = new OrderedQueryBuilder<ContributorRowModel>(this.settings.OrderColumns);
+            var orderedExcelQueryBuilder = new OrderedQueryBuilder<ContributorRowModel>(this.settings.OrderableColumns);
 
             orderedExcelQueryBuilder.OrderFor(x => x.Name, y => y.FirstName + " " + y.LastName);
 
