@@ -32,10 +32,14 @@ namespace BForms.Docs.Areas.Demo.Controllers
         #region Pages
         public ActionResult Index()
         {
+
+            var columnOrder = Session["ColumnOrder"] as Dictionary<string, int>;
+
             var gridModel = _gridRepository.ToBsGridViewModel(new BsGridRepositorySettings<ContributorSearchModel>
             {
                 Page = 1,
-                PageSize = 5
+                PageSize = 5,
+                ColumnOrder = columnOrder
             });
 
             var model = new ContributorsViewModel
@@ -80,6 +84,12 @@ namespace BForms.Docs.Areas.Demo.Controllers
                 if (model.Page == 3)
                 {
                     throw new Exception("This is how an exception message is displayed in grid header");
+                }
+
+                //save OrderColumns in session
+                if (model.ColumnOrder != null)
+                {
+                    Session["ColumnOrder"] = model.ColumnOrder;
                 }
 
                 var viewModel = _gridRepository.ToBsGridViewModel<ContributorsViewModel>(x => x.Grid, model, out count);

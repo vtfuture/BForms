@@ -148,13 +148,13 @@ namespace BForms.Docs.Areas.Demo.Models
         [BsGridColumn(Width = 2, IsEditable = true)]
         public string Name { get; set; }
 
-        [BsGridColumn(Width = 2)]
-        public DateTime StartDate { get; set; }
-
         [BsGridColumn(Width = 3)]
         public ProjectRole Role { get; set; }
 
-        [BsGridColumn(Width = 5)]
+        [BsGridColumn(Width = 3)]
+        public DateTime StartDate { get; set; }
+
+        [BsGridColumn(Width = 4)]
         public string Contributions { get; set; }
 
         [BsGridColumn(Width = 1, Usage = BsGridColumnUsage.Excel)]

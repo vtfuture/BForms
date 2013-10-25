@@ -283,6 +283,8 @@ namespace BForms.Grid
 
             columnsBuilder.AddCssClass("row grid_row title");
 
+            this.OrderColumns();
+
             for(var i = 0; i < this.columns.Count; i++)
             {
                 var column = this.columns[i];
@@ -422,6 +424,8 @@ namespace BForms.Grid
                     }
 
                     var headerBuilder = new TagBuilder("header");
+
+                    this.OrderColumns();
 
                     for (var i = 0; i < this.columns.Count; i++)
                     {
@@ -705,6 +709,7 @@ namespace BForms.Grid
 
                         column.IsSortable = columnAttr.IsSortable;
                         column.SetWidth(columnAttr.Width);
+                        column.SetOrder(columnAttr.Order);
 
                         System.ComponentModel.DataAnnotations.DisplayAttribute displayAttribute = null;
                         if (ReflectionHelpers.TryGetAttribute(property, out displayAttribute))
@@ -720,6 +725,24 @@ namespace BForms.Grid
                     }
                 }
             }
+        }
+
+        private void OrderColumns()
+        {
+            if (this.model.ColumnOrder != null && this.model.ColumnOrder.Any())
+            {
+                foreach (var column in this.columns)
+                {
+                    var name = column.Property.Name;
+                    if (this.model.ColumnOrder.ContainsKey(name))
+                    {
+                        column.Order = this.model.ColumnOrder[name];
+                    }
+
+                }
+            }
+
+            this.columns = this.columns.OrderByDescending(c => c.Order.HasValue).ThenBy(x => x.Order).ToList();
         }
     }
 }

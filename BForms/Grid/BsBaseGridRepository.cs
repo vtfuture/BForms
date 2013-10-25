@@ -321,6 +321,9 @@ namespace BForms.Grid
             //performs count
             var totalRecords = basicQuery.Select(x => false).Count();
 
+            //add column order
+            result.ColumnOrder = settings.ColumnOrder;
+
             if (totalRecords > 0)
             {
                 var pager = new BsPagerModel(totalRecords, this.settings.PageSize, this.settings.Page);

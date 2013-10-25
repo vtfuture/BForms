@@ -13,6 +13,8 @@ namespace BForms.Grid
 
         public List<BsColumnOrder> OrderColumns { get; set; }
 
+        public Dictionary<string, int> ColumnOrder { get; set; } 
+
         public int Page { get; set; }
 
         public int PageSize { get; set; }
