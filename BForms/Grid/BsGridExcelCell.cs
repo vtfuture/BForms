@@ -8,11 +8,11 @@ namespace BForms.Grid
 {
     public class BsGridExcelCell<TRow> where TRow : class
     {
-        public string Name { get; set; }
-        public string PropName { get; set; }
-        public Func<TRow, string> NameFunc { get; set; }
-        public Action<TRow, BsGridExcelStyle> StyleFunc { get; set; }
-        public BsGridExcelStyle CellStyle { get; set; }
+        internal string Name { get; set; }
+        internal string PropName { get; set; }
+        internal Func<TRow, string> NameFunc { get; set; }
+        internal Action<TRow, BsGridExcelStyle> StyleFunc { get; set; }
+        internal BsGridExcelStyle CellStyle { get; set; }
 
         public BsGridExcelCell<TRow> Text(string text)
         {

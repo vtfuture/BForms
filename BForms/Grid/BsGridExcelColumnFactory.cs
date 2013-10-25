@@ -10,7 +10,7 @@ namespace BForms.Grid
 {
     public class BsGridExcelColumnFactory<TRow> where TRow : class
     {
-        public List<BsGridExcelCell<TRow>> Cells = new List<BsGridExcelCell<TRow>>();
+        internal List<BsGridExcelCell<TRow>> Cells = new List<BsGridExcelCell<TRow>>();
 
         public BsGridExcelColumnFactory()
         {

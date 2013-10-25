@@ -11,7 +11,7 @@ namespace BForms.Grid
     public class BsGridExcelCellFactory<TRow> where TRow : class
     {
         public BsGridExcelStyle Style = new BsGridExcelStyle();
-        public List<BsGridExcelCell<TRow>> Cells = new List<BsGridExcelCell<TRow>>();
+        internal List<BsGridExcelCell<TRow>> Cells = new List<BsGridExcelCell<TRow>>();
 
         public BsGridExcelCellFactory()
         {

@@ -169,11 +169,12 @@
 
                         e.preventDefault();
 
-                        this.$rowsContainer.find(grid.options.rowSelector).each($.proxy(function (k, el) {
+                        this.$rowsContainer.find(grid.options.rowCheckSelector).parents(grid.options.rowSelector).each($.proxy(function (k, el) {
                             var $el = $(el);
                             var checked = opts.filter.call(this, $el);
                             $el.find(this.options.rowCheckSelector).prop('checked', checked);
                             checked ? $el.addClass('selected') : $el.removeClass('selected');
+
 
                         }, this));
 
@@ -619,7 +620,7 @@
 
         this.element.find(this.options.rowCheckSelector).prop('checked', checked);
 
-        var $rows = this.element.find(this.options.rowsContainerSelector + '>' + this.options.rowSelector);
+        var $rows = this.element.find(this.options.rowCheckSelector).parents(this.options.rowSelector);
         if (checked) {
             $rows.addClass('selected');
         } else {

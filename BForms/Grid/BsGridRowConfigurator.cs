@@ -13,7 +13,7 @@ namespace BForms.Grid
         private Func<TRow, bool> details;
         private Func<TRow, bool> checkbox;
 
-        public Func<TRow, Dictionary<string, object>> HtmlAttr
+        internal Func<TRow, Dictionary<string, object>> HtmlAttr
         {
             get
             {
@@ -21,7 +21,7 @@ namespace BForms.Grid
             }
         }
 
-        public Func<TRow, bool> Details
+        internal Func<TRow, bool> Details
         {
             get
             {
@@ -29,7 +29,7 @@ namespace BForms.Grid
             }
         }
 
-        public Func<TRow, bool> Checkbox
+        internal Func<TRow, bool> Checkbox
         {
             get
             {
@@ -37,7 +37,7 @@ namespace BForms.Grid
             }
         }
 
-        public Func<TRow, string> Highlight
+        internal Func<TRow, string> Highlight
         {
             get
             {

@@ -32,8 +32,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
         #region Pages
         public ActionResult Index()
         {
-
-            var columnOrder = Session["ColumnOrder"] as Dictionary<string, int>;
+            var columnOrder = GetColumnOrder();
 
             var gridModel = _gridRepository.ToBsGridViewModel(new BsGridRepositorySettings<ContributorSearchModel>
             {
@@ -76,7 +75,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
             var msg = string.Empty;
             var status = BsResponseStatus.Success;
             var html = string.Empty;
-            var count = 0;
+            var count = 0;  
 
             try
             {
@@ -86,11 +85,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
                     throw new Exception("This is how an exception message is displayed in grid header");
                 }
 
-                //save OrderColumns in session
-                if (model.ColumnOrder != null)
-                {
-                    Session["ColumnOrder"] = model.ColumnOrder;
-                }
+                SaveColumnOrder(model);
 
                 var viewModel = _gridRepository.ToBsGridViewModel<ContributorsViewModel>(x => x.Grid, model, out count);
 
@@ -373,6 +368,21 @@ namespace BForms.Docs.Areas.Demo.Controllers
                     ms.ClearModelState(new List<string>() { "RoleList", "StartDate", "LanguagesList", "Contributions" });
                     break;
             }
+        }
+
+        [NonAction]
+        public void SaveColumnOrder(BsGridRepositorySettings<ContributorSearchModel> settings)
+        {
+            if (settings.ColumnOrder != null)
+            {
+                Session["ColumnOrder"] = settings.ColumnOrder;
+            }
+        }
+
+        [NonAction]
+        public Dictionary<string, int> GetColumnOrder()
+        {
+            return Session["ColumnOrder"] as Dictionary<string, int>;
         }
         #endregion
     }

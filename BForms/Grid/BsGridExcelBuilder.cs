@@ -90,9 +90,9 @@ namespace BForms.Grid
         }
         public BsGridExcelFont Font { get; set; }
         public BsGridExcelColor? FillColor { get; set; }
-        public PatternValues? FillPattern { get; set; }
-        public int? FontId { get; set; }
-        public int? FillId { get; set; }
+        internal PatternValues? FillPattern { get; set; }
+        internal int? FontId { get; set; }
+        internal int? FillId { get; set; }
     }
 
     #region BsGridExcelFont
