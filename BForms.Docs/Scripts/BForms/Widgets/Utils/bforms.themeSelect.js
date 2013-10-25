@@ -16,7 +16,7 @@
     };
 
     themeSelect.prototype.options = {
-        targets: 'body, .form_container, .grid_toolbar, .grid_view, .bs-datetime-picker, .bs-range-picker',
+        targets: 'body, .form_container, .grid_toolbar, .grid_view, .bs-datetime-picker, .bs-range-picker, .bs-pager',
         startTheme: opts.startTheme,
         themeEnum: opts.themeEnum,
         availableColors: 'turqoise orange green blue purple black',

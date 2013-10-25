@@ -1014,7 +1014,9 @@
         var $rows = this.element.find(this.options.detailsSelector).parents(this.options.rowSelector).not('.open');
         var closedRowsCount = $rows.length - $rows.find(this.options.errorCloseSelector).length;
 
-        if (closedRowsCount != this.refreshModel.pageSize) {
+        var rowsWithDetailsCount = this.element.find(this.options.detailsSelector).length;
+
+        if (closedRowsCount != rowsWithDetailsCount) {
             return false;
         }
 
@@ -1048,7 +1050,9 @@
             allExpanded = true;
         }
 
-        if (closedRowsCount < this.refreshModel.pageSize) {
+        var rowsWithDetailsCount = this.element.find(this.options.detailsSelector).length;
+
+        if (closedRowsCount < rowsWithDetailsCount) {
             this._showResetGridButton();
         } else {
             this._hideResetGridButton();

@@ -307,6 +307,7 @@ namespace BForms.Grid
             {
                 var pagerWrapper = new TagBuilder("div");
                 pagerWrapper.AddCssClass("row bs-pager");
+                pagerWrapper.AddCssClass(theme.GetDescription());
 
                 pagerWrapper.InnerHtml += this.RenderPages();
 
