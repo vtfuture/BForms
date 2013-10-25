@@ -50,12 +50,12 @@
             cols.For(row => row.Name).Name(Resource.Name);
 
             cols.Add("Actions")
-                .Text(row => RowButtonTemplate(row)).Sortable().Name("Actions");
+                .Text(row => RowButtonTemplate(row));
         })
         .ConfigureRows(cfg =>
         {
             cfg.HasDetails(row => row.Enabled ? true : false)
-               .HasCheckbox(row => row.Enabled ? true : false)
+               .HasCheckbox(row => (!row.Enabled && row.Name.StartsWith("M")) ? false : true)
                .HtmlAttributes(row => new Dictionary<string, object> { { "data-objid", row.Id }, { "data-active", row.Enabled } })
                .Highlighter(row => row.Enabled ? "#59b444" : "#f0ad4e");
         })
@@ -63,9 +63,9 @@
 )
 
 @helper RowButtonTemplate(ContributorRowModel row) 
-{ 
-    if (!row.Enabled)
+{
+    if (!row.Enabled && row.Name.StartsWith("M"))
     {
-        <span class="glyphicon glyphicon-trash"></span>
+        <a href="#" class="js-inline_delete"><span class="glyphicon glyphicon-trash"></span></a>
     }
 }

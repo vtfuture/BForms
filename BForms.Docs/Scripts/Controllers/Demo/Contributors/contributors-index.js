@@ -133,6 +133,16 @@
                 context: this
             }]
         });
+
+        this.$grid.on('click', 'header .js-inline_delete', $.proxy(function (e) {
+            e.preventDefault();
+            this._deleteHandler({
+                btnSelector: '.js-inline_delete',
+                url: this.options.deleteUrl,
+                init: this._deleteHandler,
+                context: this
+            }, $(e.currentTarget).closest('.grid_row'), this);
+        }, this));
     };
 
     //#region DetailsHandler
