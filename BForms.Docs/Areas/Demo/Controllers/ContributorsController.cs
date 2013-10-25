@@ -38,7 +38,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
             {
                 Page = 1,
                 PageSize = 5,
-                ColumnOrder = columnOrder
+                OrderColumns = columnOrder
             });
 
             var model = new ContributorsViewModel
@@ -305,7 +305,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
 
         public ActionResult ExportExcel(BsGridRepositorySettings<ContributorSearchModel> settings, List<int> ids)
         {
-            var items = _gridRepository.GetItems(settings, ids);
+            var items = _gridRepository.GetItems(settings, ids); 
 
             try
             {
@@ -313,6 +313,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
 
                 builder.ConfigureHeader(header =>
                         {
+                            header.Order(settings.OrderColumns);
                             header.Style.Font.Bold = true;
                             header.Style.FillColor = BsGridExcelColor.Ivory;
                             header.For(x => x.StartDate)
@@ -332,10 +333,13 @@ namespace BForms.Docs.Areas.Demo.Controllers
                         })
                         .ConfigureColumns(columns =>
                         {
+                            columns.For(x => x.Name)
+                                   .Order(1);
                             columns.For(x => x.Enabled)
                                    .Text(x => x.Enabled ? Resource.Yes : Resource.No)
                                    .Style((row, style) => style.FillColor = row.Enabled ? BsGridExcelColor.LightGreen : BsGridExcelColor.Red);
                             columns.For(x => x.Role)
+                                   .Order(2)
                                    .Text(x => x.Role.ToString())
                                    .Style(style => style.FillColor = BsGridExcelColor.Lavender);
                             columns.For(x => x.StartDate)
@@ -373,9 +377,9 @@ namespace BForms.Docs.Areas.Demo.Controllers
         [NonAction]
         public void SaveColumnOrder(BsGridRepositorySettings<ContributorSearchModel> settings)
         {
-            if (settings.ColumnOrder != null)
+            if (settings.OrderColumns != null)
             {
-                Session["ColumnOrder"] = settings.ColumnOrder;
+                Session["ColumnOrder"] = settings.OrderColumns;
             }
         }
 

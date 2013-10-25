@@ -11,6 +11,8 @@ namespace BForms.Grid
     public class BsGridExcelCellFactory<TRow> where TRow : class
     {
         public BsGridExcelStyle Style = new BsGridExcelStyle();
+        internal Dictionary<string, int> Positions;
+
         internal List<BsGridExcelCell<TRow>> Cells = new List<BsGridExcelCell<TRow>>();
 
         public BsGridExcelCellFactory()
@@ -35,6 +37,12 @@ namespace BForms.Grid
             var cell = GetCell(propName);
             cell.Name = text;
             return cell;
+        }
+
+        public BsGridExcelCellFactory<TRow> Order(Dictionary<string, int> order)
+        {
+            this.Positions = order;
+            return this;
         }
 
         private BsGridExcelCell<TRow> GetCell(string propName)
