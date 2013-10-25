@@ -193,7 +193,8 @@ a.btn {
       display: block;
       clear: both; }
   .grid_container .grid_view .reset-grid {
-    margin: -10px 5px 0 0; }
+    margin: -10px 5px 0 0;
+    float: right; }
   .grid_container .grid_view .grid_rows {
     position: relative; }
     .grid_container .grid_view .grid_rows .expand {
@@ -627,7 +628,8 @@ a.btn {
 @media (max-width: 500px) {
   .grid_container .grid_view h2 .grid_bulk_controls {
     clear: both;
-    float: left;
+    margin-top: 10px; }
+  .grid_container .grid_view .reset-grid {
     margin-top: 10px; } }
 @media (max-width: 959px) {
   .grid_container .btn-default:hover, .grid_container .btn-default:focus {

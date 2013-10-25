@@ -145,7 +145,7 @@ namespace BForms.Grid
         public BsGridHtmlBuilder<TModel, TRow> GridResetButton()
         {
             var resetButton = new TagBuilder("div");
-            resetButton.MergeAttribute("class", "btn btn-info bs-resetGrid pull-right reset-grid");
+            resetButton.MergeAttribute("class", "btn btn-info bs-resetGrid reset-grid");
             resetButton.MergeAttribute("style", "display:none");
             resetButton.MergeAttribute("title", "Reset");
 

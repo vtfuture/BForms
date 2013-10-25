@@ -256,6 +256,7 @@ a.btn {
 		}
 		.reset-grid {
 			margin: -10px 5px 0 0;
+			float: right;
 		}
 		.grid_rows {
 			position: relative;
@@ -898,11 +899,14 @@ a.btn {
 	}
 	
 }
+
 @media (max-width: 500px) {
 	.grid_container .grid_view {
 		h2 .grid_bulk_controls {
 			clear: both;
-			float: left;
+			margin-top: 10px;
+		}
+		.reset-grid {
 			margin-top: 10px;
 		}
 	}
