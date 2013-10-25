@@ -121,6 +121,7 @@ namespace BForms.Grid
         private List<BsGridExcelCell<T>> dataCells;
         private List<BsGridExcelCell<T>> headerCells;
         private BsGridExcelStyle headerStyle;
+        private Dictionary<string, int> order;
         private IEnumerable<T> items;
         private Stylesheet styleSheet;
         private List<BsGridExcelStyle> fonts = new List<BsGridExcelStyle>();
@@ -159,6 +160,8 @@ namespace BForms.Grid
             this.headerCells = factory.Cells;
 
             this.headerStyle = factory.Style;
+
+            this.order = factory.Positions;
 
             return this;
         }
@@ -232,9 +235,44 @@ namespace BForms.Grid
 
             #region Header
             var index = 0;
+            var properties = type.GetProperties();
+
+            #region Order Columns
+            if (this.order != null) // the column order from settings has priority
+            {
+                properties = properties.OrderBy(x =>
+                {
+                    if (this.order.ContainsKey(x.Name))
+                    {
+                        return this.order.FirstOrDefault(y => y.Key == x.Name).Value;
+                    }
+                    else
+                    {
+                        return Int32.MaxValue;
+                    }
+
+                }).ToArray();
+            }
+            else if (this.dataCells != null && this.dataCells.Any())
+            {
+                properties = properties.OrderBy(x =>
+                {
+                    var cell = this.dataCells.FirstOrDefault(y => y.PropName == x.Name);
+
+                    if (cell != null)
+                    {
+                        return cell.Position ?? Int32.MaxValue;
+                    }
+                    else
+                    {
+                        return Int32.MaxValue;
+                    }
+                }).ToArray();
+            }
+            #endregion
 
             // create header based on DisplayAttribute and BsGridColumnAttribute
-            foreach (var property in type.GetProperties())
+            foreach (var property in properties)
             {
                 BsGridColumnAttribute columnAttr = null;
 

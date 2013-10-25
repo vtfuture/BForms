@@ -427,6 +427,7 @@ namespace BForms.Grid
                 {
                     var rowBuilder = new TagBuilder("div");
                     rowBuilder.MergeAttribute("class", "row grid_row");
+
                     if (rowData != null)
                     {
                         rowBuilder.MergeAttributes(rowData(row));
@@ -450,6 +451,12 @@ namespace BForms.Grid
                         var column = this.columns.ElementAt(i);
 
                         var cellBuilder = new TagBuilder("div");
+
+                        if (column.HtmlAttr != null)
+                        {
+                            cellBuilder.MergeAttributes(column.HtmlAttr);
+                        }
+
                         cellBuilder.AddCssClass(column.GetWidthClasses());
 
                         if (i == 0)
@@ -758,14 +765,14 @@ namespace BForms.Grid
 
         private void OrderColumns()
         {
-            if (this.model.ColumnOrder != null && this.model.ColumnOrder.Any())
+            if (this.model.OrderColumns != null && this.model.OrderColumns.Any())
             {
                 foreach (var column in this.columns)
                 {
                     var name = column.PrivateName;
-                    if (this.model.ColumnOrder.ContainsKey(name))
+                    if (this.model.OrderColumns.ContainsKey(name))
                     {
-                        column.Order = this.model.ColumnOrder[name];
+                        column.Order = this.model.OrderColumns[name];
                     }
 
                 }

@@ -9,6 +9,7 @@ namespace BForms.Grid
     public class BsGridExcelCell<TRow> where TRow : class
     {
         internal string Name { get; set; }
+        internal int? Position { get; set; }
         internal string PropName { get; set; }
         internal Func<TRow, string> NameFunc { get; set; }
         internal Action<TRow, BsGridExcelStyle> StyleFunc { get; set; }
@@ -36,6 +37,12 @@ namespace BForms.Grid
         {
             this.CellStyle = new BsGridExcelStyle();
             style(this.CellStyle);
+            return this;
+        }
+
+        public BsGridExcelCell<TRow> Order(int order)
+        {
+            this.Position = order;
             return this;
         }
     }

@@ -41,6 +41,8 @@ namespace BForms.Grid
     {
         internal string PrivateName { get; set; }
 
+        internal Dictionary<string, object> HtmlAttr { get; set; }
+
         internal bool HasDetails { get; set; }
 
         internal bool HideDetails { get; set; }
@@ -111,6 +113,13 @@ namespace BForms.Grid
         {
             this.EditableContent = configurator(new TRow());
             this.IsEditable = true;
+            return this;
+        }
+
+        public BsGridColumn<TRow> HtmlAttributes(Func<TRow, Dictionary<string, object>> configurator)
+        {
+            this.HtmlAttr = configurator(new TRow());
+
             return this;
         }
 

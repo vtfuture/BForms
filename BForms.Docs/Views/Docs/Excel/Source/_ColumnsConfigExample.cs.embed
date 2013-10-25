@@ -1,12 +1,14 @@
 ﻿builder.ConfigureColumns(columns =>
         {
             columns.For(x => x.Enabled)
+                   .Order(3) // column position 
                    .Text(x => x.Enabled ? 
                         Resource.Yes : Resource.No) // type bool => specify what text to display
                    .Style((row, style) => style.FillColor = row.Enabled ? 
                         BsGridExcelColor.LightGreen : BsGridExcelColor.Red);
 
             columns.For(x => x.Role)
+                   .Order(2)
                    .Text(x => x.Role.ToString()) // type enum => specify what text to display
                    .Style(style => style.FillColor = BsGridExcelColor.Lavender);
 

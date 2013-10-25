@@ -82,7 +82,7 @@
     };
 
     Grid.prototype._refreshModel = {
-        OrderColumns: [],
+        OrderableColumns: [],
         Search: {},
         page: 1,
         pageSize: 5,
@@ -113,6 +113,7 @@
         this._addDelegates();
 
         this.refreshModel = this._refreshModel;
+        this.refreshModel.OrderColumns = this._getColumnsOrder();
         this._currentResultsCount = this.$gridCountContainer.text();
 
         this.$pager = this.element.find('.bs-pager').bsPager({
@@ -574,11 +575,11 @@
 
             var alreadyOrdered = false;
 
-            for (var i = 0; i < this.refreshModel.OrderColumns.length; i++) {
-                var item = this.refreshModel.OrderColumns[i];
+            for (var i = 0; i < this.refreshModel.OrderableColumns.length; i++) {
+                var item = this.refreshModel.OrderableColumns[i];
                 if (item.Name == name) {
                     if (type == 0) {
-                        this.refreshModel.OrderColumns.splice(i, 1);
+                        this.refreshModel.OrderableColumns.splice(i, 1);
                     } else {
                         item.Type = type;
                     }
@@ -588,7 +589,7 @@
             }
 
             if (!alreadyOrdered) {
-                this.refreshModel.OrderColumns.push(orderColumn);
+                this.refreshModel.OrderableColumns.push(orderColumn);
             }
 
             elem.removeClass('sort_asc').removeClass('sort_desc');
@@ -597,8 +598,8 @@
 
             this.element.find(this.options.orderContainerSelector + ' ' + this.options.orderElemSelector).removeClass('sort_asc').removeClass('sort_desc');
 
-            this.refreshModel.OrderColumns = [];
-            this.refreshModel.OrderColumns.push(orderColumn);
+            this.refreshModel.OrderableColumns = [];
+            this.refreshModel.OrderableColumns.push(orderColumn);
         }
 
         if (type != 0) {
@@ -955,15 +956,7 @@
     };
 
     Grid.prototype._onSortUpdate = function (e, ui) {
-        var columnOrder = [];
-
-        this.$gridOrderContainer.find('*[data-name]').each(function (idx, elem) {
-            columnOrder.push({
-                key: $(elem).data('name'),
-                value: idx
-            });
-        });
-        this.refreshModel.ColumnOrder = columnOrder;
+        this.refreshModel.OrderColumns = this._getColumnsOrder();
         this._getPage();
 
         this.$gridOrderContainer.find('div:first').prepend(this.$expandToggle.show());
@@ -992,11 +985,11 @@
     };
 
     Grid.prototype._isInitialState = function () {
-        var orderLength = this.refreshModel.OrderColumns.length,
+        var orderLength = this.refreshModel.OrderableColumns.length,
             orderIt = 0;
 
         for (; orderIt < orderLength; orderIt++) {
-            if (this.refreshModel.OrderColumns[orderIt].Type != 0)
+            if (this.refreshModel.OrderableColumns[orderIt].Type != 0)
                 return false;
         }
 
@@ -1033,7 +1026,7 @@
 
     Grid.prototype._resetOrder = function () {
         this.element.find(this.options.orderContainerSelector + ' ' + this.options.orderElemSelector).removeClass('sort_asc sort_desc');
-        this.refreshModel.OrderColumns = [];
+        this.refreshModel.OrderableColumns = [];
     };
 
     Grid.prototype._removeErrors = function () {
@@ -1073,6 +1066,19 @@
             this.$expandToggle.removeClass('open');
         }
 
+    };
+
+    Grid.prototype._getColumnsOrder = function () {
+        var columnOrder = [];
+
+        this.$gridOrderContainer.find('*[data-name]').each(function (idx, elem) {
+            columnOrder.push({
+                key: $(elem).data('name'),
+                value: idx
+            });
+        });
+
+        return columnOrder;
     };
     //#endregion
 

@@ -64,7 +64,7 @@ namespace BForms.Docs.Areas.Demo.Mock
                             Role = ProjectRole.Developer,
                             StartDate = new DateTime(2013, 8, 10),
                             Languages = new List<string>() { "Javascript", "C#" },
-                            Contributions = "bforms js framework, datetime picker, automated tests for js"
+                            Contributions = "js framework, datetime picker, automated tests for js"
                         },
                         new Contributor()
                         {
