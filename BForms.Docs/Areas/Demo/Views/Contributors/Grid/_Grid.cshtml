@@ -8,6 +8,7 @@
 @model ContributorsViewModel
                                 
 @(Html.BsGridFor(m => m.Grid)
+        //.NoTitle()
         .Theme(Html.GetTheme())
         .GridResetButton()
         .ConfigureBulkActions(bulk =>
@@ -28,6 +29,7 @@
         .HtmlAttributes(new { @class = "custom_class" })
         .ConfigureColumns(cols =>
         {
+            //cols.NoHeader();
             cols.For(row => row.Name).Name(Resource.Name)
                                  .SetWidth(2)
                                  .Sortable();

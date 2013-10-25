@@ -40,6 +40,7 @@ namespace BForms.Grid
         }
 
         private IDictionary<string, object> htmlAttributes;
+        private bool renderTitle = true;
         private string resetButtonHtml;
         private Func<TRow, string> rowHighlighter;
         private Func<TRow, IDictionary<string, object>> rowData;
@@ -48,9 +49,10 @@ namespace BForms.Grid
         private bool hasDetails;
         private bool hasBulkActions;
         private List<BsGridColumn<TRow>> columns;
+        private bool showColumnsHeader = true;
         private List<BsBulkAction> bulkActions;
         private List<BsBulkSelector> bulkSelectors;
-        private bool hasPager = true;
+        private bool renderPager = true;
         private BsPagerSettings pagerSettings = new BsPagerSettings();
         private BsTheme theme = BsTheme.Default;
         //private BsBulkActionsFactory BulkActionsFactory { get; set; }
@@ -105,6 +107,7 @@ namespace BForms.Grid
 
             columnFactory.Validate();
 
+            this.showColumnsHeader = columnFactory.ShowHeader;
             this.columns = columnFactory.Columns;
 
             return this;
@@ -158,7 +161,14 @@ namespace BForms.Grid
 
         public BsGridHtmlBuilder<TModel, TRow> NoPager()
         {
-            this.hasPager = false;
+            this.renderPager = false;
+
+            return this;
+        }
+
+        public BsGridHtmlBuilder<TModel, TRow> NoTitle()
+        {
+            this.renderTitle = false;
 
             return this;
         }
@@ -201,100 +211,105 @@ namespace BForms.Grid
             gridBuilder.AddCssClass(this.theme.GetDescription());
 
             #region header builder
-            var headerBuilder = new TagBuilder("h2");
-
-            var badgeBuilder = new TagBuilder("span");
-            badgeBuilder.AddCssClass("badge");
-            badgeBuilder.InnerHtml += this.model.Pager != null ? this.model.Pager.TotalRecords : 0;
-            headerBuilder.InnerHtml += badgeBuilder.ToString();
-
-            headerBuilder.InnerHtml += this.metadata.DisplayName;
-
-            var filterIconBuilder = new TagBuilder("span");
-            filterIconBuilder.AddCssClass("glyphicon glyphicon-filter icon_filter bs-filter");
-            filterIconBuilder.MergeAttribute("title", "");
-            headerBuilder.InnerHtml += filterIconBuilder.ToString();
-
-            #region BulkActions
-
-            if (this.hasBulkActions)
+            if (this.renderTitle)
             {
-                var bulkActionsWrapper = new TagBuilder("div");
-                bulkActionsWrapper.MergeAttribute("class", "grid_bulk_controls bs-group_actions");
-                var orderedBulkActions = this.bulkActions.OrderBy(x => x.BulkActionOrder);
-                foreach (var bulkAction in orderedBulkActions)
+                var headerBuilder = new TagBuilder("h2");
+
+                var badgeBuilder = new TagBuilder("span");
+                badgeBuilder.AddCssClass("badge");
+                badgeBuilder.InnerHtml += this.model.Pager != null ? this.model.Pager.TotalRecords : 0;
+                headerBuilder.InnerHtml += badgeBuilder.ToString();
+
+                headerBuilder.InnerHtml += this.metadata.DisplayName;
+
+                var filterIconBuilder = new TagBuilder("span");
+                filterIconBuilder.AddCssClass("glyphicon glyphicon-filter icon_filter bs-filter");
+                filterIconBuilder.MergeAttribute("title", "");
+                headerBuilder.InnerHtml += filterIconBuilder.ToString();
+
+                #region BulkActions
+
+                if (this.hasBulkActions)
                 {
-                    bulkActionsWrapper.InnerHtml += bulkAction.Render();
+                    var bulkActionsWrapper = new TagBuilder("div");
+                    bulkActionsWrapper.MergeAttribute("class", "grid_bulk_controls bs-group_actions");
+                    var orderedBulkActions = this.bulkActions.OrderBy(x => x.BulkActionOrder);
+                    foreach (var bulkAction in orderedBulkActions)
+                    {
+                        bulkActionsWrapper.InnerHtml += bulkAction.Render();
+                    }
+
+
+                    var bulkActionsSelectWrapper = new TagBuilder("div");
+                    bulkActionsSelectWrapper.MergeAttribute("class", "btn-group check_all");
+
+                    var bulkActionsSelectToggle = new TagBuilder("button");
+                    bulkActionsSelectToggle.MergeAttribute("type", "button");
+                    bulkActionsSelectToggle.MergeAttribute("class", "btn btn-default dropdown-toggle");
+                    bulkActionsSelectToggle.MergeAttribute("data-toggle", "dropdown");
+                    bulkActionsSelectToggle.MergeAttribute("title", "Select");
+
+                    var bulkActionsSelectToggleCaret = new TagBuilder("span");
+                    bulkActionsSelectToggleCaret.MergeAttribute("class", "caret");
+                    bulkActionsSelectToggle.InnerHtml += bulkActionsSelectToggleCaret.ToString();
+
+                    bulkActionsSelectWrapper.InnerHtml += bulkActionsSelectToggle.ToString();
+
+                    var bulkActionSelectList = new TagBuilder("ul");
+                    bulkActionSelectList.MergeAttribute("class", "dropdown-menu pull-right");
+                    bulkActionSelectList.MergeAttribute("role", "menu");
+
+                    var orderedBulkSelectors = bulkSelectors.OrderBy(x => x.Order);
+                    foreach (var bulkSelector in orderedBulkSelectors)
+                    {
+                        bulkActionSelectList.InnerHtml += bulkSelector.Render();
+                    }
+
+                    bulkActionsSelectWrapper.InnerHtml += bulkActionSelectList.ToString();
+
+                    var bulkActionsSelectCheckbox = new TagBuilder("input");
+                    bulkActionsSelectCheckbox.MergeAttribute("type", "checkbox");
+
+                    bulkActionsSelectWrapper.InnerHtml += bulkActionsSelectCheckbox.ToString();
+
+                    bulkActionsWrapper.InnerHtml += bulkActionsSelectWrapper.ToString();
+
+                    headerBuilder.InnerHtml += bulkActionsWrapper.ToString();
                 }
 
-
-                var bulkActionsSelectWrapper = new TagBuilder("div");
-                bulkActionsSelectWrapper.MergeAttribute("class", "btn-group check_all");
-
-                var bulkActionsSelectToggle = new TagBuilder("button");
-                bulkActionsSelectToggle.MergeAttribute("type", "button");
-                bulkActionsSelectToggle.MergeAttribute("class", "btn btn-default dropdown-toggle");
-                bulkActionsSelectToggle.MergeAttribute("data-toggle", "dropdown");
-                bulkActionsSelectToggle.MergeAttribute("title", "Select");
-
-                var bulkActionsSelectToggleCaret = new TagBuilder("span");
-                bulkActionsSelectToggleCaret.MergeAttribute("class", "caret");
-                bulkActionsSelectToggle.InnerHtml += bulkActionsSelectToggleCaret.ToString();
-
-                bulkActionsSelectWrapper.InnerHtml += bulkActionsSelectToggle.ToString();
-
-                var bulkActionSelectList = new TagBuilder("ul");
-                bulkActionSelectList.MergeAttribute("class", "dropdown-menu pull-right");
-                bulkActionSelectList.MergeAttribute("role", "menu");
-
-                var orderedBulkSelectors = bulkSelectors.OrderBy(x => x.Order);
-                foreach (var bulkSelector in orderedBulkSelectors)
+                if (!String.IsNullOrEmpty(this.resetButtonHtml))
                 {
-                    bulkActionSelectList.InnerHtml += bulkSelector.Render();
+                    headerBuilder.InnerHtml += this.resetButtonHtml;
                 }
+                #endregion
 
-                bulkActionsSelectWrapper.InnerHtml += bulkActionSelectList.ToString();
-
-                var bulkActionsSelectCheckbox = new TagBuilder("input");
-                bulkActionsSelectCheckbox.MergeAttribute("type", "checkbox");
-
-                bulkActionsSelectWrapper.InnerHtml += bulkActionsSelectCheckbox.ToString();
-
-                bulkActionsWrapper.InnerHtml += bulkActionsSelectWrapper.ToString();
-
-                headerBuilder.InnerHtml += bulkActionsWrapper.ToString();
+                gridBuilder.InnerHtml += headerBuilder.ToString();
             }
-
-            if (!String.IsNullOrEmpty(this.resetButtonHtml))
-            {
-                headerBuilder.InnerHtml += this.resetButtonHtml;
-            }
-            #endregion
-
-            gridBuilder.InnerHtml += headerBuilder.ToString();
             #endregion
 
             var wrapper = new TagBuilder("div");
             wrapper.AddCssClass("grid_rows");
 
             #region columns builder
-
-            var columnsBuilder = new TagBuilder("div");
-
-            columnsBuilder.AddCssClass("row grid_row title");
-
-            this.OrderColumns();
-
-            for (var i = 0; i < this.columns.Count; i++)
+            if (this.showColumnsHeader)
             {
-                var column = this.columns[i];
+                var columnsBuilder = new TagBuilder("div");
 
-                column.HasDetails = this.hasDetails && i == 0;
+                columnsBuilder.AddCssClass("row grid_row title");
 
-                column.HideDetails = HideDetails();
+                this.OrderColumns();
 
-                columnsBuilder.InnerHtml += column.Render();
-                wrapper.InnerHtml = columnsBuilder.ToString();
+                for (var i = 0; i < this.columns.Count; i++)
+                {
+                    var column = this.columns[i];
+
+                    column.HasDetails = this.hasDetails && i == 0;
+
+                    column.HideDetails = HideDetails();
+
+                    columnsBuilder.InnerHtml += column.Render();
+                    wrapper.InnerHtml = columnsBuilder.ToString();
+                }
             }
             #endregion
 
@@ -303,7 +318,7 @@ namespace BForms.Grid
             gridBuilder.InnerHtml += wrapper.ToString();
 
             #region pager builder
-            if (this.hasPager && this.model.Pager != null && this.model.Pager.TotalRecords > 0)
+            if (this.renderPager && this.model.Pager != null && this.model.Pager.TotalRecords > 0)
             {
                 var pagerWrapper = new TagBuilder("div");
                 pagerWrapper.AddCssClass("row bs-pager");

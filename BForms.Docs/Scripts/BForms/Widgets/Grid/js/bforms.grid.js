@@ -933,10 +933,7 @@
             distance: 10,
             cursor: 'move',
             tolerance: 'pointer',
-            helper: function(e, elem) {
-                var $elem = $(elem);
-                return $elem.find('a:not(.bs-toggleExpand)').clone();
-            }
+            helper: 'clone'
         });
     };
 

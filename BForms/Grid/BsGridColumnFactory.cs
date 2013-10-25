@@ -15,6 +15,15 @@ namespace BForms.Grid
 
         private readonly int totalColumnWidth = 12;
 
+        private bool showHeader = true;
+        internal bool ShowHeader
+        {
+            get
+            {
+                return this.showHeader;
+            }
+        }
+
         private List<BsGridColumn<TRow>> columns;
 
         public List<BsGridColumn<TRow>> Columns
@@ -66,6 +75,11 @@ namespace BForms.Grid
             {
                 this.columns.Remove(column);
             }
+        }
+
+        public void NoHeader()
+        {
+            this.showHeader = false;
         }
         
         private BsGridColumn<TRow> GetColumn(PropertyInfo property)
