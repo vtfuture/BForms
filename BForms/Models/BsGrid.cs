@@ -14,4 +14,10 @@ namespace BForms.Models
 
         public Dictionary<string, int> OrderColumns { get; set; } 
     }
+
+    public class BsGridRowData
+    {
+        public int Id { get; set; }
+        public bool GetDetails { get; set; }
+    }
 }

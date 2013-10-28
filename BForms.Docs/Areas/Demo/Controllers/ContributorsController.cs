@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using BForms.Docs.Areas.Demo.Models;
@@ -32,6 +33,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
         #region Pages
         public ActionResult Index()
         {
+
             var columnOrder = GetColumnOrder();
 
             var gridModel = _gridRepository.ToBsGridViewModel(new BsGridRepositorySettings<ContributorSearchModel>
@@ -123,7 +125,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
                 else
                 {
                     return new BsJsonResult(
-                        new Dictionary<string, object> { { "Errors", ModelState.GetErrors() } }, 
+                        new Dictionary<string, object> { { "Errors", ModelState.GetErrors() } },
                         BsResponseStatus.ValidationError);
                 }
             }
@@ -190,7 +192,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
             var details = string.Empty;
 
             try
-            {                
+            {
                 var rowModel = _gridRepository.ReadRow(objId);
 
                 var viewModel = _gridRepository.ToBsGridViewModel<ContributorsViewModel>(x => x.Grid, rowModel);
@@ -218,23 +220,25 @@ namespace BForms.Docs.Areas.Demo.Controllers
             }, status, msg);
         }
 
-        public BsJsonResult Details(int objId)
+        public BsJsonResult Details(List<BsGridRowData> items)
         {
             var msg = string.Empty;
             var status = BsResponseStatus.Success;
-            var html = string.Empty;
+            var detailsHtml = new Dictionary<string, string>();
 
             try
             {
-                //simulate exception
-                if (objId == 2)
-                {
-                    throw new Exception("This is how an exception message is displayed inside a BFroms grid row");
-                }
 
-                //render row details
-                var model = _gridRepository.ReadDetails(objId);
-                html = this.BsRenderPartialView("Grid/Details/_Index", model);
+                var details = _gridRepository.ReadDetails(items.Select(x => x.Id).ToList());
+
+                foreach (var item in details)
+                {
+                    //render row details
+                    var model = _gridRepository.ReadDetails(item.Id);
+
+                    detailsHtml.Add(item.Id.ToString(), this.BsRenderPartialView("Grid/Details/_Index", model));
+                }
+              
 
             }
             catch (Exception ex)
@@ -245,26 +249,26 @@ namespace BForms.Docs.Areas.Demo.Controllers
 
             return new BsJsonResult(new
             {
-                Html = html
+                DetailsHtml = detailsHtml
             }, status, msg);
         }
 
-        public BsJsonResult Delete(List<int> ids)
+        public BsJsonResult Delete(List<BsGridRowData> items)
         {
             var msg = string.Empty;
             var status = BsResponseStatus.Success;
 
             try
             {
-                foreach (var id in ids)
+                foreach (var item in items)
                 {
                     //simulate exception
-                    if (id == 3)
+                    if (item.Id == 3)
                     {
                         throw new Exception("This is how an exception message is displayed when it's triggered on row control");
                     }
 
-                    _gridRepository.Delete(id);
+                    _gridRepository.Delete(item.Id);
                 }
             }
             catch (Exception ex)
@@ -276,23 +280,39 @@ namespace BForms.Docs.Areas.Demo.Controllers
             return new BsJsonResult(null, status, msg);
         }
 
-        public BsJsonResult EnableDisable(List<int> ids, bool? enable)
+        public BsJsonResult EnableDisable(List<BsGridRowData> items, bool? enable)
         {
             var msg = string.Empty;
             var status = BsResponseStatus.Success;
+            var rowsHtml = string.Empty;
+            var detailsHtml = new Dictionary<string, string>();
 
             try
             {
-                foreach (var id in ids)
+                foreach (var item in items)
                 {
                     //simulate exception
-                    if (id == 2)
+                    if (item.Id == 2)
                     {
                         throw new Exception("This is how an exception message is displayed when it's triggered on row control");
                     }
 
-                    _gridRepository.EnableDisable(id, enable);
+                    _gridRepository.EnableDisable(item.Id, enable);
                 }
+
+                var rowsModel = _gridRepository.ReadRows(items.Select(x => x.Id).ToList());
+                var viewModel = _gridRepository.ToBsGridViewModel<ContributorsViewModel>(x => x.Grid, rowsModel);
+
+                var detailsModel = _gridRepository.ReadDetails(items.Where(x => x.GetDetails).Select(x => x.Id).ToList());
+                detailsModel.ForEach(model =>
+                {
+                    if (model.Enabled)
+                    {
+                        detailsHtml.Add(model.Id.ToString(), this.BsRenderPartialView("Grid/Details/_Index", model));
+                    }
+                });
+
+                rowsHtml = this.BsRenderPartialView("Grid/_Grid", viewModel);
             }
             catch (Exception ex)
             {
@@ -300,16 +320,20 @@ namespace BForms.Docs.Areas.Demo.Controllers
                 status = BsResponseStatus.ServerError;
             }
 
-            return new BsJsonResult(null, status, msg);
+            return new BsJsonResult(new
+            {
+                RowsHtml = rowsHtml,
+                DetailsHtml = detailsHtml
+            }, status, msg);
         }
 
-        public ActionResult ExportExcel(BsGridRepositorySettings<ContributorSearchModel> settings, List<int> ids)
+        public ActionResult ExportExcel(BsGridRepositorySettings<ContributorSearchModel> settings, List<BsGridRowData> items)
         {
-            var items = _gridRepository.GetItems(settings, ids); 
+            var rows = _gridRepository.GetItems(settings, items.Select(x=>x.Id).ToList());
 
             try
             {
-                var builder = new BsGridExcelBuilder<ContributorRowModel>("BForms Contributors.xlsx", items);
+                var builder = new BsGridExcelBuilder<ContributorRowModel>("BForms Contributors.xlsx", rows);
 
                 builder.ConfigureHeader(header =>
                         {
@@ -366,7 +390,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
             switch (componentId)
             {
                 case EditComponents.Identity:
-                    ms.ClearModelState(new List<string>() { "FirstName", "LastName", "Url", "CountriesList"});
+                    ms.ClearModelState(new List<string>() { "FirstName", "LastName", "Url", "CountriesList" });
                     break;
                 case EditComponents.ProjectRelated:
                     ms.ClearModelState(new List<string>() { "RoleList", "StartDate", "LanguagesList", "Contributions" });

@@ -398,17 +398,20 @@
             return;
         }
 
-        var data = {
-            objId: $row.data('objid')
+        var sendData = {
+            items: [{
+                Id: $row.data('objid')
+            }]
         };
 
         var ajaxOptions = {
-            name: this.options.uniqueName + '|details|' + data.objId,
+            name: this.options.uniqueName + '|details|' + $row.data('objId'),
             url: this.options.detailsUrl,
-            data: data,
+            data: sendData,
             callbackData: {
-                sent: data,
-                row: $row
+                sent: sendData,
+                row: $row,
+                id: $row.data('objid')
             },
             context: this,
             success: $.proxy(this._detailsAjaxSuccess, this),
@@ -421,46 +424,66 @@
 
     };
 
-    Grid.prototype._detailsAjaxSuccess = function (data, callbackData) {
+    Grid.prototype._detailsAjaxSuccess = function (data) {
 
-        var $row = callbackData.row;
+        if (typeof data.DetailsHtml !== "undefined") {
 
-        data.$detailsHtml = $(data.Html);
+            for (var itemId in data.DetailsHtml) {
 
-        this._trigger('beforeRowDetailsSuccess', 0, {
-            $row: $row,
-            data: data
-        });
+                var $row = this._getRowElement(itemId);
+                var html = data.DetailsHtml[itemId];
 
-        //insert details to dom
-        $row.append(data.$detailsHtml.hide()).stop(true, true).slideDown(800);
+                data.$detailsHtml = $(html);
 
-        this._handleDetails($row);
+                this._trigger('beforeRowDetailsSuccess', 0, {
+                    $row: $row,
+                    data: data
+                });
 
-        $row.data('hasdetails', true);
+                //insert details to dom
+                $row.append(data.$detailsHtml.hide()).stop(true, true).slideDown(800);
 
-        this._createActions(this.options.rowActions, $row);
+                this._handleDetails($row);
 
-        this._trigger('afterRowDetailsSuccess', 0, {
-            $row: $row,
-            data: data
-        });
+                $row.data('hasdetails', true);
+
+                this._createActions(this.options.rowActions, $row);
+
+                this._trigger('afterRowDetailsSuccess', 0, {
+                    $row: $row,
+                    data: data
+                });
+            }
+        }
     };
 
     Grid.prototype._detailsAjaxError = function (data) {
 
         if (data.Message) {
             var $row = arguments[4].row;
-            var $errorContainer = $row.find('.bs-validation_row');
+            if (typeof $row !== "undefined" && $row != null) {
 
-            if ($errorContainer.length == 0) {
-                $errorContainer = $('<div class="col-12 col-sm-12 col-lg-12 bs-validation_row"></div>');
-                $row.find(this.options.rowHeaderSelector).after($errorContainer);
+                var $errorContainer = $row.find('.bs-validation_row');
+
+                if ($errorContainer.length == 0) {
+                    $errorContainer = $('<div class="col-12 col-sm-12 col-lg-12 bs-validation_row"></div>');
+                    $row.find(this.options.rowHeaderSelector).after($errorContainer);
+                }
+
+                this._addError(data.Message, $errorContainer, true);
+
+                this._updateExpandToggle();
+            } else {
+
+                var $gridErrorContainer = $(this.element).find('.bs-validation_summary');
+
+                if ($gridErrorContainer.length == 0) {
+                    $gridErrorContainer = $('<div class="col-12 col-sm-12 col-lg-12 bs-validation_summary"></div>');
+                    this.element.find('h2').after($gridErrorContainer);
+                }
+
+                this._addError(data.Message, $gridErrorContainer);
             }
-
-            this._addError(data.Message, $errorContainer, true);
-
-            this._updateExpandToggle();
         }
     };
 
@@ -506,6 +529,24 @@
         }
 
         this._updateExpandToggle();
+    };
+
+    Grid.prototype._getMultiDetails = function (items) {
+        $.bforms.ajax({
+            name: this.options.uniqueName + '|multiDetails',
+            url: this.options.detailsUrl,
+            data: {
+                items: items
+            },
+            callbackData: {
+                items: items
+            },
+            context: this,
+            success: $.proxy(this._detailsAjaxSuccess, this),
+            error: $.proxy(this._detailsAjaxError, this),
+            loadingElement: this.$rowsContainer,
+            loadingClass: 'loading'
+        });
     };
     //#endregion
 
@@ -806,13 +847,32 @@
                 removeErrors: true
             });
         } else {
-            var $rows = this.element.find(this.options.rowSelector).not('.open');
-            $rows.each($.proxy(function (idx, el) {
-                var $row = $(el);
-                if ($row.find(this.options.errorCloseSelector).length == 0) {
-                    $row.find(this.options.detailsSelector).trigger('click');
+            var $rows = this.element.find(this.options.detailsSelector).parents(this.options.rowSelector).not('.open');
+
+            var items = $rows.map($.proxy(function (idx, row) {
+                var $row = $(row);
+
+                if ($row.data('hasdetails')) {
+                    this._handleDetails($row);
+                } else if ($row.find(this.options.errorCloseSelector).length == 0) {
+                    return {
+                        Id: $row.data('objid')
+                    };
                 }
-            }, this));
+            }, this)).get();
+
+
+            if (items.length) {
+                this._getMultiDetails(items);
+            }
+
+
+            //$rows.each($.proxy(function (idx, el) {
+            //    var $row = $(el);
+            //    if ($row.find(this.options.errorCloseSelector).length == 0) {
+            //        $row.find(this.options.detailsSelector).trigger('click');
+            //    }
+            //}, this));
         }
     };
     //#endregion
@@ -918,7 +978,7 @@
             this._addError(data.Message, $errorContainer);
         }
 
-        if (arguments[4].pageChanged) {
+        if (arguments[4] && arguments[4].pageChanged) {
             $.bforms.scrollToElement(this.$gridHeader);
         }
     };
@@ -1034,7 +1094,7 @@
     };
 
     Grid.prototype._updateExpandToggle = function () {
-        
+
         if (this.element.find(this.options.detailsSelector).length > 0) {
             this.$expandToggle.show();
         } else {
@@ -1068,10 +1128,11 @@
 
     };
 
-    Grid.prototype._getColumnsOrder = function () {
+
+    Grid.prototype._getColumnsOrder = function() {
         var columnOrder = [];
 
-        this.$gridOrderContainer.find('*[data-name]').each(function (idx, elem) {
+        this.$gridOrderContainer.find('*[data-name]').each(function(idx, elem) {
             columnOrder.push({
                 key: $(elem).data('name'),
                 value: idx
@@ -1079,6 +1140,10 @@
         });
 
         return columnOrder;
+    };
+    
+    Grid.prototype._getRowElement = function (objId) {
+        return this.element.find(this.options.rowSelector + '[data-objid="' + objId + '"]');
     };
     //#endregion
 
@@ -1157,7 +1222,7 @@
     Grid.prototype._updateRowAjaxError = function (data) {
         if (data.Message) {
             var $row = arguments[4].row;
-            var $errorContainer = $row.find('.bs-validation_row');
+            var $errorContainer = $row.find(this.options.errorRowContainer);
 
             if ($errorContainer.length == 0) {
                 $errorContainer = $('<div class="col-12 col-sm-12 col-lg-12 bs-validation_row"></div>');
@@ -1170,7 +1235,7 @@
 
     Grid.prototype._rowActionAjaxError = function (data, $row) {
         if (data.Message) {
-            var $errorContainer = $row.find('.bs-validation_row_control');
+            var $errorContainer = $row.find(this.options.errorRowContainer);
 
             if ($errorContainer.length == 0) {
                 $errorContainer = $('<div class="col-12 col-sm-12 col-lg-12 bs-validation_row_control"></div>');
@@ -1194,6 +1259,76 @@
         }
 
         this._showResetGridButton();
+    };
+
+    Grid.prototype.updateRows = function (html, detailsHtml) {
+
+        var $container = $('<div></div>').append(html);
+        var $rows = $container.find(this.options.rowSelector);
+
+        $rows.each($.proxy(function (idx, row) {
+            var $row = $(row),
+            objId = $row.data('objid');
+
+            var $currentRow = this._getRowElement(objId);
+
+            if (this.options.hasRowCheck) {
+                var checked = $currentRow.find(this.options.rowCheckSelector).prop('checked');
+
+                var $rowCheckSelector = $row.find(this.options.rowCheckSelector);
+                
+                if ($rowCheckSelector.length) {
+                    $row.find(this.options.rowCheckSelector).prop('checked', checked);
+
+                    if (checked) {
+                        $row.addClass('selected');
+                    }
+                }
+            }
+
+            if (typeof detailsHtml !== "undefined") {
+
+                var htmlDetails = detailsHtml[objId];
+
+                if (typeof htmlDetails !== "undefined" && htmlDetails != '') {
+
+                    var $htmlDetails = $(htmlDetails);
+
+                    $row.addClass('open');
+                    $row.data('hasdetails', true);
+                    $row.append($htmlDetails);
+
+                    this._createActions(this.options.rowActions, $row);
+
+                    this._trigger('beforeRowDetailsSuccess', 0, {
+                        $row: $row,
+                        data: {
+                            $detailsHtml: $htmlDetails
+                        }
+                    });
+                }
+            }
+
+            $currentRow.replaceWith($row);
+
+            this._evOnRowCheckChange();
+
+
+        }, this));
+    };
+
+    Grid.prototype.getSelectedRows = function () {
+        var selectedRows = this.element.find(this.options.rowSelector + '.selected');
+
+        var items = selectedRows.map(function (idx, row) {
+            var $row = $(row);
+            return {
+                Id: $row.data('objid'),
+                GetDetails: $row.hasClass('open')
+            };
+        }).get();
+
+        return items;
     };
     //#endregion
 

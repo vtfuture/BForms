@@ -49,11 +49,10 @@
                 btnSelector: '.js-btn-exportExcel_selected',
                 handler: $.proxy(function ($rows, context) {
                     var data = {};
-                    var ids = [];
-                    $rows.each(function () {
-                        ids.push($(this).data('objid'));
-                    });
-                    data.ids = ids;
+                    
+                    var items = context.getSelectedRows();
+
+                    data.items = items;
                     data.settings = context.refreshModel;
 
                     this._exportExcel(data, this.options.exportExcelUrl);
@@ -63,17 +62,16 @@
                 btnSelector: '.js-btn-enable_selected',
                 handler: $.proxy(function ($rows, context) {
                     var data = {};
-                    var ids = [];
-                    $rows.each(function () {
-                        ids.push($(this).data('objid'));
-                    });
-                    data.ids = ids;
+
+                    var items = context.getSelectedRows();
+                    
+                    data.items = items;
                     data.enable = true;
 
                     this._ajaxEnableDisable($rows, data, this.options.enableDisableUrl, function (response) {
-                        $rows.each(function () {
-                            context.updateRow($(this), $(this).hasClass('open'));
-                        });
+                        
+                        context.updateRows(response.RowsHtml, response.DetailsHtml);
+                       
                     }, function (response) {
                         context._pagerAjaxError(response);
                     });
@@ -82,17 +80,15 @@
                 btnSelector: '.js-btn-disable_selected',
                 handler: $.proxy(function ($rows, context) {
                     var data = {};
-                    var ids = [];
-                    $rows.each(function () {
-                        ids.push($(this).data('objid'));
-                    });
-                    data.ids = ids;
+                    
+                    var items = context.getSelectedRows();
+                    data.items = items;
                     data.enable = false;
 
                     this._ajaxEnableDisable($rows, data, this.options.enableDisableUrl, function (response) {
-                        $rows.each(function () {
-                            context.updateRow($(this), $(this).hasClass('open'));
-                        });
+                        
+                        context.updateRows(response.RowsHtml, response.DetailsHtml);
+
                     }, function (response) {
                         context._pagerAjaxError(response);
                     });
@@ -100,11 +96,10 @@
             }, {
                 btnSelector: '.js-btn-delete_selected',
                 handler: $.proxy(function ($rows, context) {
-                    var ids = [];
-                    $rows.each(function () {
-                        ids.push($(this).data('objid'));
-                    });
-                    this._ajaxDelete($rows, ids, this.options.deleteUrl, $.proxy(function () {
+                    
+                    var items = context.getSelectedRows();
+                    
+                    this._ajaxDelete($rows, items, this.options.deleteUrl, $.proxy(function () {
                         $rows.remove();
                         context._evOnRowCheckChange($rows);
                         if (this.$grid.find('.grid_row[data-objid]').length == 0) {
@@ -184,10 +179,16 @@
     GridIndex.prototype._enableDisableHandler = function (e, options, $row, context) {
 
         var data = [];
-        data.push($row.data('objid'));
+
+        data.push({
+            Id: $row.data('objid'),
+            GetDetails: $row.hasClass('open')
+        });
 
         this._ajaxEnableDisable($row, data, options.url, function (response) {
-            context.updateRow($row, $row.hasClass('open'));
+
+            context.updateRows(response.RowsHtml, response.DetailsHtml);
+
         }, function (response) {
             context._rowActionAjaxError(response, $row);
         });
@@ -232,7 +233,9 @@
             e.preventDefault();
 
             var data = [];
-            data.push($row.data('objid'));
+            data.push({
+                Id : $row.data('objid')
+            });
 
             this._ajaxDelete($row, data, options.url, function () {
                 $row.remove();

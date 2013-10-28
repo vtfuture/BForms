@@ -290,6 +290,24 @@ namespace BForms.Grid
         }
 
         /// <summary>
+        /// Creates GridModel for added row
+        /// </summary>
+        /// <typeparam name="TModel">Wrapper model type</typeparam>
+        /// <param name="expression">Grid selector targeted for wrapping</param>
+        /// <param name="rows">Added rows</param>
+        /// <returns>Wrapper model</returns>
+        public TModel ToBsGridViewModel<TModel>(Expression<Func<TModel, BsGridModel<TRow>>> expression, List<TRow> rows)
+            where TModel : new()
+        {
+            var grid = new BsGridModel<TRow>
+            {
+                Items = rows
+            };
+
+            return SetGridProperty(expression, grid);
+        }
+
+        /// <summary>
         /// Creates GridModel based on Query, OrderQuery and MapQuery
         /// </summary>
         /// <param name="settings">Settings</param>

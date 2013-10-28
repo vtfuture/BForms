@@ -9,6 +9,7 @@ using BForms.Grid;
 using BForms.Models;
 using BForms.Utilities;
 using BForms.Docs.Areas.Demo.Helpers;
+using WebGrease.Css.Extensions;
 
 namespace BForms.Docs.Areas.Demo.Repositories
 {
@@ -262,9 +263,24 @@ namespace BForms.Docs.Areas.Demo.Repositories
             return FillDetailsProperties(detailsModel);
         }
 
+        public List<ContributorDetailsModel> ReadDetails(List<int> objIds)
+        {
+            var result = new List<ContributorDetailsModel>();
+
+            var detailsList = db.Contributors.Where(x => objIds.Contains(x.Id)).Select(MapContributor_ContributorDetailsModel).ToList();
+            detailsList.ForEach(x => result.Add(FillDetailsProperties(x)));
+
+            return result;
+        }
+
         public ContributorRowModel ReadRow(int objId)
         {
             return db.Contributors.Where(x => x.Id == objId).Select(MapContributor_ContributorRowModel).FirstOrDefault();
+        }
+
+        public List<ContributorRowModel> ReadRows(List<int> objIds)
+        {
+            return db.Contributors.Where(x => objIds.Contains(x.Id)).Select(MapContributor_ContributorRowModel).ToList();
         }
 
         public ContributorDetailsModel Update(ContributorDetailsModel model, int objId, EditComponents componentId)
