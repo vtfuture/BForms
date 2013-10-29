@@ -43,7 +43,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
                 Page = 1,
                 PageSize = 5,
                 OrderColumns = columnOrder,
-                GetDetails = true
+                GetDetails = false
             });
 
             var model = new ContributorsViewModel
