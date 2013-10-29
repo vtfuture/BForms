@@ -23,6 +23,10 @@
     padding: 10px 0;
     margin-bottom: 10px;
     background: #f8f8f8; }
+    .group_editor .search .btn {
+      padding: 6px 12px; }
+    .group_editor .search.inline .input-group {
+      padding: 0 15px; }
   .group_editor .grids_header_submit {
     padding: 5px 10px 0; }
   .group_editor dl dt {
