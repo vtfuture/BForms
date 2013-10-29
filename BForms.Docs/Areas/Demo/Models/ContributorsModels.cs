@@ -141,7 +141,7 @@ namespace BForms.Docs.Areas.Demo.Models
         public string LastName { get; set; }
     }
 
-    public class ContributorRowModel
+    public class ContributorRowModel : BsGridRowModel<ContributorDetailsModel>
     {
         public int Id { get; set; }
 

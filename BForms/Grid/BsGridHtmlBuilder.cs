@@ -8,6 +8,8 @@ using System.Linq;
 using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
+using DocumentFormat.OpenXml.EMMA;
+using DocumentFormat.OpenXml.Wordprocessing;
 
 namespace BForms.Grid
 {
@@ -46,6 +48,7 @@ namespace BForms.Grid
         private Func<TRow, IDictionary<string, object>> rowData;
         private Func<TRow, bool> rowDetails;
         private Func<TRow, bool> rowCheckbox;
+        private Func<TRow, string> rowDetailsTemplate;
         private bool hasDetails;
         private bool hasBulkActions;
         private List<BsGridColumn<TRow>> columns;
@@ -127,6 +130,8 @@ namespace BForms.Grid
 
             this.rowCheckbox = rowConfigurator.Checkbox;
 
+            this.rowDetailsTemplate = rowConfigurator.DetailsTmpl;
+
             return this;
         }
 
@@ -206,6 +211,9 @@ namespace BForms.Grid
             var gridBuilder = new TagBuilder("div");
             gridBuilder.MergeAttribute("id", this.fullName.Split('.').Last().ToLower());
             gridBuilder.MergeClassAttribute("grid_view", this.htmlAttributes);
+            gridBuilder.MergeAttribute("data-settings",
+                HtmlHelper.AnonymousObjectToHtmlAttributes(this.model.BaseSettings).ToJsonString());
+
             gridBuilder.MergeAttributes(this.htmlAttributes, true);
 
             gridBuilder.AddCssClass(this.theme.GetDescription());
@@ -423,10 +431,21 @@ namespace BForms.Grid
                 var rowsBuilder = new TagBuilder("div");
                 rowsBuilder.MergeAttribute("class", "grid_rows_wrapper");
 
+                PropertyInfo hasDetailsProp = null;
+                var rowType = typeof (TRow);
+
+                var isSubClassOfBaseRowModel = rowType.IsSubclassOfRawGeneric(typeof (BsGridRowModel<>));
+                if (isSubClassOfBaseRowModel)
+                {
+                    hasDetailsProp = rowType.GetProperty("HasDetails", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
+                }
+
                 foreach (var row in this.model.Items)
                 {
                     var rowBuilder = new TagBuilder("div");
                     rowBuilder.MergeAttribute("class", "row grid_row");
+
+                    var rowHasDetails = this.hasDetails && (this.rowDetails == null || this.rowDetails(row));
 
                     if (rowData != null)
                     {
@@ -461,17 +480,14 @@ namespace BForms.Grid
 
                         if (i == 0)
                         {
-                            if (this.hasDetails)
+                            if (rowHasDetails)
                             {
-                                if (this.rowDetails == null || this.rowDetails(row))
-                                {
-                                    var detailsBUilder = new TagBuilder("a");
-                                    detailsBUilder.MergeAttribute("class", "expand bs-expand");
-                                    detailsBUilder.MergeAttribute("href", "#");
-                                    detailsBUilder.InnerHtml += "&nbsp;";
+                                var detailsBUilder = new TagBuilder("a");
+                                detailsBUilder.MergeAttribute("class", "expand bs-expand");
+                                detailsBUilder.MergeAttribute("href", "#");
+                                detailsBUilder.InnerHtml += "&nbsp;";
 
-                                    cellBuilder.InnerHtml += detailsBUilder.ToString();
-                                }
+                                cellBuilder.InnerHtml += detailsBUilder.ToString();
                             }
                         }
 
@@ -520,6 +536,11 @@ namespace BForms.Grid
                     }
 
                     rowBuilder.InnerHtml += headerBuilder.ToString();
+
+                    if (rowHasDetails && (this.model.BaseSettings.GetDetails || (hasDetailsProp != null && (bool)hasDetailsProp.GetValue(row))))
+                    {
+                        rowBuilder.InnerHtml += this.rowDetailsTemplate(row);
+                    }
 
                     rowsBuilder.InnerHtml += rowBuilder.ToString();
                 }
@@ -765,14 +786,14 @@ namespace BForms.Grid
 
         private void OrderColumns()
         {
-            if (this.model.OrderColumns != null && this.model.OrderColumns.Any())
+            if (this.model.BaseSettings.OrderColumns != null && this.model.BaseSettings.OrderColumns.Any())
             {
                 foreach (var column in this.columns)
                 {
                     var name = column.PrivateName;
-                    if (this.model.OrderColumns.ContainsKey(name))
+                    if (this.model.BaseSettings.OrderColumns.ContainsKey(name))
                     {
-                        column.Order = this.model.OrderColumns[name];
+                        column.Order = this.model.BaseSettings.OrderColumns[name];
                     }
 
                 }

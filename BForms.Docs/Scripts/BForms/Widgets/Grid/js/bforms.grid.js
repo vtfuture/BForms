@@ -84,13 +84,13 @@
     Grid.prototype._refreshModel = {
         OrderableColumns: [],
         Search: {},
-        page: 1,
-        pageSize: 5,
+        Page: 1,
+        PageSize: 5,
         quickSearch: ''
     };
 
     Grid.prototype._initialModel = {
-        pageSize: 5
+        PageSize: 5
     };
 
     Grid.prototype._create = function () {
@@ -112,7 +112,7 @@
 
         this._addDelegates();
 
-        this.refreshModel = this._refreshModel;
+        this.refreshModel = $.extend(true, {}, this.element.data('settings'), this._refreshModel);
         this.refreshModel.OrderColumns = this._getColumnsOrder();
         this._currentResultsCount = this.$gridCountContainer.text();
 
@@ -122,15 +122,21 @@
         });
 
         //set default page size
-        this.refreshModel.pageSize = parseInt(this.$pager.bsPager("getPageSize"), 10) || this.refreshModel.pageSize;
+        this.refreshModel.PageSize = parseInt(this.$pager.bsPager("getPageSize"), 10) || this.refreshModel.PageSize;
 
-        this._initialModel.pageSize = this.refreshModel.pageSize;
+        this._initialModel.PageSize = this.refreshModel.PageSize;
 
         // when an action made on grid generates a refresh then this.needsRefresh is set to true
         this.needsRefresh = false;
 
         if (this.options.sortable) {
             this._initSortable();
+        }
+
+        if (this.refreshModel.GetDetails == true) {
+            this.$rowsContainer.find(this.options.rowSelector).each($.proxy(function (idx, row) {
+                this._initInitialDetails($(row));
+            }, this));
         }
     };
 
@@ -285,7 +291,7 @@
 
     Grid.prototype.search = function (data, isQuick) {
 
-        this.refreshModel.page = 1;
+        this.refreshModel.Page = 1;
 
         if (isQuick) {
             this.refreshModel.quickSearch = data;
@@ -306,7 +312,7 @@
 
     Grid.prototype.reset = function (data, preventPagination) {
 
-        this.refreshModel.page = 1;
+        this.refreshModel.Page = 1;
         this.refreshModel.Search = data;
         this.refreshModel.quickSearch = null;
         this._hideFilterIcon();
@@ -317,7 +323,7 @@
     };
 
     Grid.prototype.refresh = function (e, data) {
-        this.refreshModel.page = 1;
+        this.refreshModel.Page = 1;
         this._getPage();
     };
 
@@ -553,14 +559,14 @@
     //#region events
     Grid.prototype._evOnPageChange = function (e, data) {
 
-        this.refreshModel.page = data.page;
+        this.refreshModel.Page = data.page;
         var pageChanged = true;
 
         if (data.pageSize) {
-            this.refreshModel.pageSize = data.pageSize;
+            this.refreshModel.PageSize = data.pageSize;
             pageChanged = false;
 
-            if (data.pageSize != this._initialModel.pageSize) {
+            if (data.pageSize != this._initialModel.PageSize) {
                 this._showResetGridButton();
             } else {
                 this._hideResetGridButton();
@@ -810,10 +816,10 @@
         this._hideResetGridButton(true);
         this._removeErrors();
 
-        if (this.refreshModel.pageSize != this._initialModel.pageSize) {
+        if (this.refreshModel.PageSize != this._initialModel.PageSize) {
             goToFirstPage = true;
-            this.refreshModel.pageSize = this._initialModel.pageSize;
-            this.$pager.bsPager('selectValue', this.refreshModel.pageSize);
+            this.refreshModel.PageSize = this._initialModel.PageSize;
+            this.$pager.bsPager('selectValue', this.refreshModel.PageSize);
         }
 
         if (this.options.$toolbar != null && this.$filterIcon.is(':visible')) {
@@ -821,7 +827,7 @@
         }
 
         if (goToFirstPage === true) {
-            this.refreshModel.page = 1;
+            this.refreshModel.Page = 1;
         }
 
         this._getPage();
@@ -956,6 +962,14 @@
             $.bforms.scrollToElement(this.$gridHeader);
         }
 
+        if (this.refreshModel.GetDetails) {
+            var $rows = this.$rowsContainer.find(this.options.rowSelector);
+
+            $rows.each($.proxy(function (idx, row) {
+                this._initInitialDetails($(row));
+            }, this));
+        }
+
         this._updateExpandToggle();
     };
 
@@ -1057,7 +1071,7 @@
             return false;
         }
 
-        if (this.refreshModel.pageSize != this._initialModel.pageSize) {
+        if (this.refreshModel.PageSize != this._initialModel.PageSize) {
             return false;
         }
 
@@ -1128,11 +1142,10 @@
 
     };
 
-
-    Grid.prototype._getColumnsOrder = function() {
+    Grid.prototype._getColumnsOrder = function () {
         var columnOrder = [];
 
-        this.$gridOrderContainer.find('*[data-name]').each(function(idx, elem) {
+        this.$gridOrderContainer.find('*[data-name]').each(function (idx, elem) {
             columnOrder.push({
                 key: $(elem).data('name'),
                 value: idx
@@ -1141,9 +1154,35 @@
 
         return columnOrder;
     };
-    
+
     Grid.prototype._getRowElement = function (objId) {
         return this.element.find(this.options.rowSelector + '[data-objid="' + objId + '"]');
+    };
+
+    Grid.prototype._initInitialDetails = function ($row) {
+
+        var detailsData = {
+            $detailsHtml: $row.find(this.options.rowDetailsSelector)
+        };
+
+        if (detailsData.$detailsHtml.length) {
+            
+            this._trigger('beforeRowDetailsSuccess', 0, {
+                $row: $row,
+                data: detailsData
+            });
+
+            this._handleDetails($row);
+
+            $row.data('hasdetails', true);
+
+            this._createActions(this.options.rowActions, $row);
+
+            this._trigger('afterRowDetailsSuccess', 0, {
+                $row: $row,
+                data: detailsData
+            });
+        }
     };
     //#endregion
 
@@ -1261,7 +1300,7 @@
         this._showResetGridButton();
     };
 
-    Grid.prototype.updateRows = function (html, detailsHtml) {
+    Grid.prototype.updateRows = function (html) {
 
         var $container = $('<div></div>').append(html);
         var $rows = $container.find(this.options.rowSelector);
@@ -1276,7 +1315,7 @@
                 var checked = $currentRow.find(this.options.rowCheckSelector).prop('checked');
 
                 var $rowCheckSelector = $row.find(this.options.rowCheckSelector);
-                
+
                 if ($rowCheckSelector.length) {
                     $row.find(this.options.rowCheckSelector).prop('checked', checked);
 
@@ -1286,30 +1325,9 @@
                 }
             }
 
-            if (typeof detailsHtml !== "undefined") {
-
-                var htmlDetails = detailsHtml[objId];
-
-                if (typeof htmlDetails !== "undefined" && htmlDetails != '') {
-
-                    var $htmlDetails = $(htmlDetails);
-
-                    $row.addClass('open');
-                    $row.data('hasdetails', true);
-                    $row.append($htmlDetails);
-
-                    this._createActions(this.options.rowActions, $row);
-
-                    this._trigger('beforeRowDetailsSuccess', 0, {
-                        $row: $row,
-                        data: {
-                            $detailsHtml: $htmlDetails
-                        }
-                    });
-                }
-            }
-
             $currentRow.replaceWith($row);
+            
+            this._initInitialDetails($row);
 
             this._evOnRowCheckChange();
 

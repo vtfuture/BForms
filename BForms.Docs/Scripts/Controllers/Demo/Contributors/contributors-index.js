@@ -70,7 +70,7 @@
 
                     this._ajaxEnableDisable($rows, data, this.options.enableDisableUrl, function (response) {
                         
-                        context.updateRows(response.RowsHtml, response.DetailsHtml);
+                        context.updateRows(response.RowsHtml);
                        
                     }, function (response) {
                         context._pagerAjaxError(response);
@@ -87,7 +87,7 @@
 
                     this._ajaxEnableDisable($rows, data, this.options.enableDisableUrl, function (response) {
                         
-                        context.updateRows(response.RowsHtml, response.DetailsHtml);
+                        context.updateRows(response.RowsHtml);
 
                     }, function (response) {
                         context._pagerAjaxError(response);
@@ -187,7 +187,7 @@
 
         this._ajaxEnableDisable($row, data, options.url, function (response) {
 
-            context.updateRows(response.RowsHtml, response.DetailsHtml);
+            context.updateRows(response.RowsHtml);
 
         }, function (response) {
             context._rowActionAjaxError(response, $row);

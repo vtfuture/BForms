@@ -6,6 +6,7 @@ using System.Linq.Expressions;
 using System.Web;
 using System.Web.Mvc;
 using BForms.Utilities;
+using DocumentFormat.OpenXml.Office2010.PowerPoint;
 
 namespace BForms.Grid
 {
@@ -206,6 +207,15 @@ namespace BForms.Grid
         public abstract IEnumerable<TRow> MapQuery(IQueryable<TEntity> query);
 
         /// <summary>
+        /// Fills row with details, must be implemented if settings.GetDetails is true
+        /// </summary>
+        /// <param name="row"></param>
+        public virtual void FillDetails(TRow row)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
         /// Creates GridModel based on Query, OrderQuery and MapQuery with default sttings
         /// </summary>
         /// <returns></returns>
@@ -213,7 +223,7 @@ namespace BForms.Grid
         {
             var gridRepositorySettings = new BsGridRepositorySettings<TSearch>
             {
-                Page = 1, 
+                Page = 1,
                 PageSize = 5
             };
 
@@ -230,44 +240,13 @@ namespace BForms.Grid
         {
             var gridRepositorySettings = new BsGridRepositorySettings<TSearch>
             {
-                Page = page, 
+                Page = page,
                 PageSize = pageSize
             };
 
             return this.ToBsGridViewModel(gridRepositorySettings);
         }
-
-        /// <summary>
-        /// Creates GridModel based on Query, OrderQuery and MapQuery and wrapps it for further use
-        /// </summary>
-        /// <typeparam name="TModel">Wrapper model type</typeparam>
-        /// <param name="expression">Grid selector targeted for wrapping</param>
-        /// <param name="settings">Settings</param>
-        /// <param name="count">Total records</param>
-        /// <returns>Wrapper model</returns>
-        public TModel ToBsGridViewModel<TModel>(Expression<Func<TModel, BsGridModel<TRow>>> expression, BsGridRepositorySettings<TSearch> settings, out int count) where TModel : new()
-        {
-            var grid = this.ToBsGridViewModel(settings);
-
-            count = grid.Pager == null ? 0 : grid.Pager.TotalRecords;
-
-            return SetGridProperty(expression, grid);
-        }
-
-        /// <summary>
-        /// Creates GridModel based on Query, OrderQuery and MapQuery and wrapps it for further use
-        /// </summary>
-        /// <typeparam name="TModel">Wrapper model type</typeparam>
-        /// <param name="expression">Grid selector targeted for wrapping</param>
-        /// <param name="settings">Settings</param>
-        /// <returns>Wrapper model</returns>
-        public TModel ToBsGridViewModel<TModel>(Expression<Func<TModel, BsGridModel<TRow>>> expression, BsGridRepositorySettings<TSearch> settings) where TModel : new()
-        {
-            var grid = this.ToBsGridViewModel(settings);
-
-            return SetGridProperty(expression, grid);
-        }
-
+        
         /// <summary>
         /// Creates GridModel for added row
         /// </summary>
@@ -275,8 +254,7 @@ namespace BForms.Grid
         /// <param name="expression">Grid selector targeted for wrapping</param>
         /// <param name="row">Added row</param>
         /// <returns>Wrapper model</returns>
-        public TModel ToBsGridViewModel<TModel>(Expression<Func<TModel, BsGridModel<TRow>>> expression, TRow row)
-            where TModel : new()
+        public BsGridModel<TRow> ToBsGridViewModel(TRow row)
         {
             var grid = new BsGridModel<TRow>
             {
@@ -286,7 +264,7 @@ namespace BForms.Grid
                 }
             };
 
-            return SetGridProperty(expression, grid);
+            return grid;
         }
 
         /// <summary>
@@ -296,15 +274,41 @@ namespace BForms.Grid
         /// <param name="expression">Grid selector targeted for wrapping</param>
         /// <param name="rows">Added rows</param>
         /// <returns>Wrapper model</returns>
-        public TModel ToBsGridViewModel<TModel>(Expression<Func<TModel, BsGridModel<TRow>>> expression, List<TRow> rows)
-            where TModel : new()
+        public BsGridModel<TRow> ToBsGridViewModel(List<TRow> rows)
         {
             var grid = new BsGridModel<TRow>
             {
                 Items = rows
             };
 
-            return SetGridProperty(expression, grid);
+            return grid;
+        }
+
+        public BsGridModel<TRow> ToBsGridViewModel<TValue>(List<TRow> rows, Expression<Func<TRow, TValue>> rowExpression, List<BsGridRowData<TValue>> rowsSettings, Func<TRow, bool> entityExpression)
+        {
+            ////creates basic query
+            //var basicQuery = this.Query();
+            //var list = rowsSettings.Select(y => y.Id).ToList();
+            //var finalQuery = this.MapQuery(basicQuery).Where(entityExpression);
+
+            //rows = finalQuery.ToList();
+
+            foreach (var row in rows)
+            {
+                var rowProp = rowExpression.GetPropertyInfo();
+                var rowIdentifier = (TValue)rowProp.GetValue(row);
+                if (rowsSettings.Any(x => x.Id.Equals(rowIdentifier) && x.GetDetails))
+                {
+                    this.FillDetails(row);
+                }
+            }
+
+            var grid = new BsGridModel<TRow>
+            {
+                Items = rows
+            };
+
+            return grid;
         }
 
         /// <summary>
@@ -340,7 +344,7 @@ namespace BForms.Grid
             var totalRecords = basicQuery.Select(x => false).Count();
 
             //add column order
-            result.OrderColumns = settings.OrderColumns;
+            result.BaseSettings.OrderColumns = settings.OrderColumns;
 
             if (totalRecords > 0)
             {
@@ -365,6 +369,14 @@ namespace BForms.Grid
                 // get items for current page
                 result.Items = finalQuery.ToList();
 
+                if (settings.GetDetails)
+                {
+                    foreach (var item in result.Items)
+                    {
+                        this.FillDetails(item);
+                    }
+                }
+
                 //sets pager
                 pager.CurrentPageRecords = result.Items.Count();
                 result.Pager = pager;
@@ -373,6 +385,9 @@ namespace BForms.Grid
             {
                 result.Items = new List<TRow>();
             }
+
+            //sets base settings
+            result.BaseSettings = this.settings.BaseSettings;
 
             return result;
         }

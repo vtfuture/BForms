@@ -41,7 +41,7 @@ namespace BForms.Docs.Areas.Demo.Repositories
                 Name = x.FirstName + " " + x.LastName,
                 Role = x.Role,
                 Contributions = x.Contributions,
-                StartDate = x.StartDate
+                StartDate = x.StartDate,
             };
 
         public Func<Contributor, ContributorDetailsModel> MapContributor_ContributorDetailsModel = x =>
@@ -84,6 +84,16 @@ namespace BForms.Docs.Areas.Demo.Repositories
         public override IEnumerable<ContributorRowModel> MapQuery(IQueryable<Contributor> query)
         {
             return query.Select(MapContributor_ContributorRowModel);
+        }
+
+        public override void FillDetails(ContributorRowModel row)
+        {
+            row.Details = db.Contributors.Where(x => x.Id == row.Id).Select(MapContributor_ContributorDetailsModel).FirstOrDefault();
+
+            if (row.Details != null)
+            {
+                FillDetailsProperties(row.Details);
+            }
         }
 
         public IQueryable<Contributor> Filter(IQueryable<Contributor> query)
@@ -256,26 +266,16 @@ namespace BForms.Docs.Areas.Demo.Repositories
             return MapContributor_ContributorRowModel(entity);
         }
 
-        public ContributorDetailsModel ReadDetails(int objId)
-        {
-            var detailsModel = db.Contributors.Where(x => x.Id == objId).Select(MapContributor_ContributorDetailsModel).FirstOrDefault();
-
-            return FillDetailsProperties(detailsModel);
-        }
-
-        public List<ContributorDetailsModel> ReadDetails(List<int> objIds)
-        {
-            var result = new List<ContributorDetailsModel>();
-
-            var detailsList = db.Contributors.Where(x => objIds.Contains(x.Id)).Select(MapContributor_ContributorDetailsModel).ToList();
-            detailsList.ForEach(x => result.Add(FillDetailsProperties(x)));
-
-            return result;
-        }
-
         public ContributorRowModel ReadRow(int objId)
         {
             return db.Contributors.Where(x => x.Id == objId).Select(MapContributor_ContributorRowModel).FirstOrDefault();
+        }
+
+        public List<ContributorDetailsModel> ReadDetails(List<int> ids)
+        {
+            var list = db.Contributors.Where(x => ids.Contains(x.Id)).Select(MapContributor_ContributorDetailsModel).ToList();
+            list.ForEach(x=>FillDetailsProperties(x));
+            return list;
         }
 
         public List<ContributorRowModel> ReadRows(List<int> objIds)
@@ -334,15 +334,6 @@ namespace BForms.Docs.Areas.Demo.Repositories
         #endregion
 
         #region Helpers
-        public ContributorDetailsModel FillDetailsProperties(ContributorDetailsModel detailsModel)
-        {
-            detailsModel.LanguagesList.SelectedValues = detailsModel.Languages;
-            detailsModel.RoleList.SelectedValues = detailsModel.Role;
-            detailsModel.CountriesList.SelectedValues = detailsModel.Country;
-
-            return detailsModel;
-        }
-
         [System.Diagnostics.DebuggerHidden()]
         public ContributorSearchModel GetSearchForm()
         {
@@ -365,6 +356,15 @@ namespace BForms.Docs.Areas.Demo.Repositories
                 CountriesList = Lists.AllCounties<string>(false),
                 LanguagesList = Lists.AllLanguages<List<string>>()
             };
+        }
+
+        public ContributorDetailsModel FillDetailsProperties(ContributorDetailsModel model)
+        {
+            model.LanguagesList.SelectedValues = model.Languages;
+            model.RoleList.SelectedValues = model.Role;
+            model.CountriesList.SelectedValues = model.Country;
+
+            return model;
         }
         #endregion
     }

@@ -106,7 +106,7 @@
                 }
             }
 
-            if (uiLocale != 'en') {
+            if (uiLocale != 'en' && typeof uiLocale !== "undefined") {
                 //load external i18n files
                 var localeDeferred = $.Deferred();
                 this.deferredList.push(localeDeferred);
