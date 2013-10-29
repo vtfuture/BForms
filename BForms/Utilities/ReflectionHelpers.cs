@@ -13,8 +13,74 @@ using BForms.Mvc;
 
 namespace BForms.Utilities
 {
+    /// <summary>
+    /// Reflection helper class 
+    /// </summary>
     public static class ReflectionHelpers
     {
+        /// <summary>
+        /// Returns the Name value of Description attribute
+        /// </summary>
+        public static string GetDescription(this Enum enumValue)
+        {
+            var attribute = enumValue.GetType()
+                        .GetMember(enumValue.ToString())
+                        .First()
+                        .GetCustomAttributes(false)
+                        .OfType<DescriptionAttribute>()
+                        .LastOrDefault();
+
+            return attribute == null ? String.Empty : attribute.Description;
+        }
+
+        /// <summary>
+        /// Returns the text value of Display attribute
+        /// </summary>
+        public static string EnumDisplayName(Type myEnum, Enum val)
+        {
+            var enumType = myEnum;
+            if (!enumType.IsEnum)
+            {
+                throw new ArgumentException("myEnum is not of type enum", "myEnum");
+            }
+
+            var name = Enum.GetName(enumType, val);
+
+            var text = enumType.GetMember(name)
+                    .First()
+                    .GetCustomAttributes(false)
+                    .OfType<DisplayAttribute>()
+                    .LastOrDefault();
+
+            var textValue = text == null ? name : text.GetName();
+
+            return textValue;
+        }
+
+        /// <summary>
+        /// Returns the Name value of Description attribute
+        /// </summary>
+        public static string EnumDescription(Type myEnum, Enum val)
+        {
+            var enumType = myEnum;
+            if (!enumType.IsEnum)
+            {
+                throw new ArgumentException("myEnum is not of type enum", "myEnum");
+            }
+
+            var name = Enum.GetName(enumType, val);
+
+            var text = enumType.GetMember(name)
+                    .First()
+                    .GetCustomAttributes(false)
+                    .OfType<DescriptionAttribute>()
+                    .LastOrDefault();
+
+            var textValue = text == null ? name : text.Description;
+
+            return textValue;
+        }
+
         /// <summary>
         /// Retuns Attribute
         /// </summary>
@@ -136,21 +202,6 @@ namespace BForms.Utilities
             {
                 htmlAttributes.Add(key, val);
             }
-        }
-
-        /// <summary>
-        /// Returns the Description attribute value
-        /// </summary>
-        internal static string GetDescription(this Enum enumValue)
-        {
-            var attribute = enumValue.GetType()
-                        .GetMember(enumValue.ToString())
-                        .First()
-                        .GetCustomAttributes(false)
-                        .OfType<DescriptionAttribute>()
-                        .LastOrDefault();
-
-            return attribute == null ? String.Empty : attribute.Description;
         }
 
         /// <summary>
@@ -305,48 +356,6 @@ namespace BForms.Utilities
             }
             config.Append("}");
             return config.ToString();
-        }
-
-        public static string EnumDisplayName(Type myEnum, Enum val)
-        {
-            var enumType = myEnum;
-            if (!enumType.IsEnum)
-            {
-                throw new ArgumentException("myEnum is not of type enum", "myEnum");
-            }
-
-            var name = Enum.GetName(enumType, val);
-
-            var text = enumType.GetMember(name)
-                    .First()
-                    .GetCustomAttributes(false)
-                    .OfType<DisplayAttribute>()
-                    .LastOrDefault();
-
-            var textValue = text == null ? name : text.GetName();
-
-            return textValue;
-        }
-
-        public static string EnumDescription(Type myEnum, Enum val)
-        {
-            var enumType = myEnum;
-            if (!enumType.IsEnum)
-            {
-                throw new ArgumentException("myEnum is not of type enum", "myEnum");
-            }
-
-            var name = Enum.GetName(enumType, val);
-
-            var text = enumType.GetMember(name)
-                    .First()
-                    .GetCustomAttributes(false)
-                    .OfType<DescriptionAttribute>()
-                    .LastOrDefault();
-
-            var textValue = text == null ? name : text.Description;
-
-            return textValue;
         }
     }
 }
