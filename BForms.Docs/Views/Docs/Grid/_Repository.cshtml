@@ -11,6 +11,9 @@
 <p>
     Inheriting this base repository, you just have to implement a few methods and the rest is being handled for you.
 </p>
+<p>
+    The order of the operations is <code>Get Query &#62; Filter Query &#62; Order Query &#62; Map Query</code>
+</p>
 <hr/>
 <p>
     The first step is to implement the <code>Query()</code> method. You can consider this method, as a way of getting the basic query, or the query used for the total items count.
@@ -45,11 +48,15 @@
         <li>
             <code>query</code>
             <p>
-            <strong>type </strong><code>IQueryable&#60;TEntity&#62; query</code><br />
-            <strong>description</strong> return value of <code>Query()</code>
+                <strong>type </strong><code>IQueryable&#60;TEntity&#62; query</code><br />
+                <strong>description</strong> return value of <code>Query()</code>
             </p>
         </li>
     </ul>
+</p>
+
+<p>
+    If the name of your model property is not the same as the name of the database column, you will need to use <code>OrderQuery()</code> as shown in the next example.
 </p>
 
 <p>
@@ -59,6 +66,10 @@
 <pre class="prettyprint lang-cs bs-example">
 @Html.InsertFileContentCached("~/Views/Docs/Grid/Source/_OrderQuery.cs.embed")
 </pre>
+
+<p>
+    As you observe, your model has the property Name but the database has the columns FirstName and LastName, so you'll need to specify how it will be sorted.
+</p>
 
 <hr />
 
@@ -98,7 +109,7 @@
     I guess you're asking yourself, "what now?". 
 </p>
 <p>
-    Well, now all you have to do is call the method <code>ToBsGridViewModel()</code> in the controller and you there you have your grid model all "mapped out and ready to go".
+    Well, now all you have to do is call the method <code>ToBsGridViewModel()</code> in the controller and there you have your grid model all "mapped out and ready to go".
 </p>
 
 <p>

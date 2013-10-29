@@ -11,7 +11,7 @@ The basic setup requirements for this to render something looks like this:
 <br />
 
 <p>
-    As you would expect the above code does nothing but render an empty toolar. It doesn't really make sense to use it this way, so in order to make it truly functional we have to set some more properties.
+    As you would expect the above code does nothing but render an empty toolbar. It doesn't really make sense to use it this way, so in order to make it truly functional we have to set some more properties.
     This can be achieved in 2 ways: by decorating your model property with attributes (<code>BsToolbarAttribute</code> and <code>DisplayAttribute</code>) - limited, not all properties can be set this way - or by setting them in your .cshtml file - all properties can be set and those that are set here overrides those set in the declarative way.
 </p>
 
@@ -67,8 +67,8 @@ The basic setup requirements for this to render something looks like this:
 
 <h4 id="ToolbarControls">Controls</h4>
 <p>
-    Now you must say OK it can be blue, it can be black, it can have a name but it still has no buttons to interract with and you are right. It's time to add some controls.
-    Be carefull! By adding controls on the servers side doesn't mean that the user can instantly interract with them. For that you must do a little client side coding; more of that <a href="#javascript">here</a>.
+    Now you must say OK it can be blue, it can be black, it can have a name but it still has no buttons to interact with and you are right. It's time to add some controls.
+    Be careful! By adding controls on the servers side doesn't mean that the user can instantly interact with them. For that you must do a little client side coding; more of that <a href="#javascript">here</a>.
 </p>
 <p>
     Out of the box <code>BsToolbar</code> comes with 3 functionalities: quick search, advanced search and add. Sadly this part is for Razor only.
@@ -101,7 +101,7 @@ The basic setup requirements for this to render something looks like this:
 <br />
 
 <p>
-    and customize it however you like. The level of custumization between default and new ones is the same, the only difference being that the default ones can be used out of the box.
+    and customize it however you like. The level of customization between default and new ones is the same, the only difference being that the default ones can be used out of the box.
 </p>
 <br />
 
@@ -117,7 +117,7 @@ The basic setup requirements for this to render something looks like this:
 
 <p>
     You can add as many custom controls as you like, but as the name says, it's custom so you have to build it yourself.
-    Luckily this is a fairly easy task to do, too. Let's take a look at the quick search example:
+    Luckily this is a fairly easy task to do. Let's take a look at the quick search example:
 </p>
 
 <pre class="prettyprint lang-java bs-example">
@@ -126,7 +126,7 @@ The basic setup requirements for this to render something looks like this:
 <br />
 
 <p>
-    Now that you have your page set up (html wise) it's time to add some interractions.
+    Now that you have your page set up (html wise) it's time to add some interactions.
 </p>
 
 <h3 id="javascript">Javascript</h3>
@@ -170,7 +170,7 @@ The basic setup requirements for this to render something looks like this:
 </p>
 
 <p>
-    The toolbat by itself has no meaning. That's why for it to be functional you must provide a list of subscribers.
+    The toolbar by itself has no meaning. That's why for it to be functional you must provide a list of subscribers.
     These will be notified when an action is being made.
 </p>
 
@@ -183,7 +183,7 @@ The basic setup requirements for this to render something looks like this:
 </p>
 
 <p>
-    When toolbar.js is loaded, there are also loaded the scripts for the default toolbar controls(quick search, advanced search and add).
+    When toolbar.js is loaded, the scripts for the default toolbar controls (quick search, advanced search and add) are also loaded.
     If <code>autoInitControls = true</code> they are automatically initialized if you added them when you configured the toolbar controls on the server side.
     Also if you call your own plugins you can set them to automatically initialize too. Read more about this <a href="#js-custom-controls">here</a>.
 </p>
@@ -218,7 +218,7 @@ The basic setup requirements for this to render something looks like this:
 
 <p>
     <a href="#razor-custom-controls">Earlier</a> I've showed you how to implement a custom control on the server side.
-    Again we must provide some interraction for the user, so we have to write a plugin similar to the default ones.
+    Again we must provide some interaction for the user, so we have to write a plugin similar to the default ones.
 </p>
 
 <p>
@@ -269,7 +269,7 @@ The basic setup requirements for this to render something looks like this:
 
 <p>
     By default the advanced search form has two buttons: search and reset. The search button triggers filter grid by sending the parsed form data.
-    The reset button does the same but before parsing the form we reset it. Even though we reset the form we still need to parse the it in order
+    The reset button does the same but before parsing the form we reset it. Even though we reset the form we still need to parse it in order
     to filter the grid in case the form has some default fields values. 
 </p>
 

@@ -1,1 +1,1 @@
-﻿[Display(Name = "Contributors", ResourceType = typeof(Resource))]
+﻿@(Html.BsToolbarFor(x => x.Toolbar).DisplayName("Dev Team"))
