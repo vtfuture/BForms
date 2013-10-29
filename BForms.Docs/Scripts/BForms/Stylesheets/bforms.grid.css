@@ -264,9 +264,9 @@ a.btn {
       .grid_container .grid_view .grid_rows_wrapper .grid_row .grid_row_color {
         width: 4px;
         position: absolute;
-        top: -1px;
+        top: 0;
         left: 0;
-        bottom: -1px; }
+        bottom: 0; }
       .grid_container .grid_view .grid_rows_wrapper .grid_row .btn-group {
         vertical-align: top; }
       .grid_container .grid_view .grid_rows_wrapper .grid_row .dropdown-toggle {
