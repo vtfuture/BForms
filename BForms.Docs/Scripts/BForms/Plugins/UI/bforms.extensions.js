@@ -177,7 +177,11 @@
         //#endregion
         
         //#region radioButtonsList
-        $(this).find('.radioButtonsList-done').bsResetRadioButtons();
+        var radioButtons = $(this).find('.radioButtonsList-done');
+
+        if (radioButtons.length > 0) {
+            radioButtons.bsResetRadioButtons();
+        }
         //#endregion
 
         if (focus !== false)
