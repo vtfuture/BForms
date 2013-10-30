@@ -144,7 +144,11 @@
 
         for (var i = 0; i < controls.length; i++) {
             var control = controls[i];
-            this._controls.push(control);
+            var $btn = this.element.find(control._defaultOptions.selector);
+            if ($btn.length > 0) {
+                control.$element = $btn;
+                this._controls.push(control);
+            }
         }
 
         this._addControls(controls);
