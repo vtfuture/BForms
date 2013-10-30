@@ -28,7 +28,7 @@
                             //}]
     };
     
-    Form.prototype._create = function () {
+    Form.prototype._init = function () {
 
         if (!this.options.uniqueName){ 
             this.options.uniqueName = this.element.attr('id');
@@ -84,6 +84,10 @@
     Form.prototype._addAction = function (buttonOpt) {
         
         var $elem = this.element.find(buttonOpt.selector);
+
+        if ($elem.length == 0) {
+            throw 'element with selector ' + buttonOpt.selector + ' is not found in form container ' + this.options.uniqueName;
+        }
 
         $elem.on('click', {
             buttonOpt: buttonOpt,
