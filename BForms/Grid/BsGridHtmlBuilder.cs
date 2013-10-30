@@ -313,6 +313,8 @@ namespace BForms.Grid
 
                     column.HasDetails = this.hasDetails && i == 0;
 
+                    column.HasInitialDetails = this.model.BaseSettings.GetDetails;
+
                     column.HideDetails = HideDetails();
 
                     columnsBuilder.InnerHtml += column.Render();
@@ -444,6 +446,11 @@ namespace BForms.Grid
                 {
                     var rowBuilder = new TagBuilder("div");
                     rowBuilder.MergeAttribute("class", "row grid_row");
+
+                    if (this.model.BaseSettings.GetDetails)
+                    {
+                        rowBuilder.AddCssClass("open");
+                    }
 
                     var rowHasDetails = this.hasDetails && (this.rowDetails == null || this.rowDetails(row));
 

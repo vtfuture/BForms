@@ -45,6 +45,8 @@ namespace BForms.Grid
 
         internal bool HasDetails { get; set; }
 
+        internal bool HasInitialDetails { get; set; }
+
         internal bool HideDetails { get; set; }
 
         public PropertyInfo Property { get; set; }
@@ -216,6 +218,11 @@ namespace BForms.Grid
             {
                 var detailsBuilder = new TagBuilder("a");
                 detailsBuilder.MergeAttribute("class", "expand bs-toggleExpand");
+
+                if (this.HasInitialDetails)
+                {
+                    detailsBuilder.AddCssClass("open");
+                }
 
                 if (this.HideDetails)
                 {

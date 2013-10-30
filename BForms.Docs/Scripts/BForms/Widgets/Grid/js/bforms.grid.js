@@ -1273,8 +1273,11 @@
     };
 
     Grid.prototype._rowActionAjaxError = function (data, $row) {
+        
+        console.log('here')
+
         if (data.Message) {
-            var $errorContainer = $row.find(this.options.errorRowContainer);
+            var $errorContainer = $row.find('.bs-validation_row_control');
 
             if ($errorContainer.length == 0) {
                 $errorContainer = $('<div class="col-12 col-sm-12 col-lg-12 bs-validation_row_control"></div>');
