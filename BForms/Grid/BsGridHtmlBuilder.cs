@@ -307,19 +307,38 @@ namespace BForms.Grid
 
                 this.OrderColumns();
 
+                if (this.hasDetails)
+                {
+                    var detailsBuilder = new TagBuilder("a");
+                    detailsBuilder.MergeAttribute("class", "expand bs-toggleExpand");
+
+                    if (this.model.BaseSettings.GetDetails)
+                    {
+                        detailsBuilder.AddCssClass("open");
+                    }
+
+                    if (HideDetails())
+                    {
+                        detailsBuilder.MergeAttribute("style", "display:none");
+                    }
+
+                    detailsBuilder.MergeAttribute("href", "#");
+                    detailsBuilder.InnerHtml += "&nbsp;";
+
+                    columnsBuilder.InnerHtml += detailsBuilder.ToString();
+                }
+
+                var headerBuilder = new TagBuilder("header");
+
                 for (var i = 0; i < this.columns.Count; i++)
                 {
                     var column = this.columns[i];
-
-                    column.HasDetails = this.hasDetails && i == 0;
-
-                    column.HasInitialDetails = this.model.BaseSettings.GetDetails;
-
-                    column.HideDetails = HideDetails();
-
-                    columnsBuilder.InnerHtml += column.Render();
-                    wrapper.InnerHtml = columnsBuilder.ToString();
+                    headerBuilder.InnerHtml += column.Render();
                 }
+
+                columnsBuilder.InnerHtml += headerBuilder.ToString();
+
+                wrapper.InnerHtml += columnsBuilder.ToString();
             }
             #endregion
 
@@ -468,6 +487,16 @@ namespace BForms.Grid
                         rowBuilder.InnerHtml += rowHighlighterBuilder.ToString();
                     }
 
+                    if (rowHasDetails)
+                    {
+                        var detailsBUilder = new TagBuilder("a");
+                        detailsBUilder.MergeAttribute("class", "expand bs-expand");
+                        detailsBUilder.MergeAttribute("href", "#");
+                        detailsBUilder.InnerHtml += "&nbsp;";
+
+                        rowBuilder.InnerHtml += detailsBUilder.ToString();
+                    }
+
                     var headerBuilder = new TagBuilder("header");
 
                     this.OrderColumns();
@@ -484,20 +513,7 @@ namespace BForms.Grid
                         }
 
                         cellBuilder.AddCssClass(column.GetWidthClasses());
-
-                        if (i == 0)
-                        {
-                            if (rowHasDetails)
-                            {
-                                var detailsBUilder = new TagBuilder("a");
-                                detailsBUilder.MergeAttribute("class", "expand bs-expand");
-                                detailsBUilder.MergeAttribute("href", "#");
-                                detailsBUilder.InnerHtml += "&nbsp;";
-
-                                cellBuilder.InnerHtml += detailsBUilder.ToString();
-                            }
-                        }
-
+                        
                         var text = string.Empty;
 
                         if (column.CellText == null)
@@ -525,24 +541,24 @@ namespace BForms.Grid
                             cellBuilder.InnerHtml += text;
                         }
 
-                        if (i == this.columns.Count - 1 && this.hasBulkActions)
-                        {
-                            var checkBuilder = new TagBuilder("input");
-                            checkBuilder.MergeAttribute("type", "checkbox");
-                            checkBuilder.MergeAttribute("class", "bs-row_check");
-
-                            if (this.rowCheckbox != null && !this.rowCheckbox(row))
-                            {
-                                checkBuilder.MergeAttribute("disabled", "disabled");
-                            }
-
-                            cellBuilder.InnerHtml += checkBuilder.ToString(TagRenderMode.SelfClosing);
-                        }
-
                         headerBuilder.InnerHtml += cellBuilder.ToString();
                     }
 
                     rowBuilder.InnerHtml += headerBuilder.ToString();
+
+                    if (this.hasBulkActions)
+                    {
+                        var checkBuilder = new TagBuilder("input");
+                        checkBuilder.MergeAttribute("type", "checkbox");
+                        checkBuilder.MergeAttribute("class", "row_check bs-row_check");
+
+                        if (this.rowCheckbox != null && !this.rowCheckbox(row))
+                        {
+                            checkBuilder.MergeAttribute("disabled", "disabled");
+                        }
+
+                        rowBuilder.InnerHtml += checkBuilder.ToString(TagRenderMode.SelfClosing);
+                    }
 
                     if (rowHasDetails && (this.model.BaseSettings.GetDetails || (hasDetailsProp != null && (bool)hasDetailsProp.GetValue(row))))
                     {

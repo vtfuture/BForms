@@ -261,11 +261,12 @@ a.btn {
 		.grid_rows {
 			position: relative;
 			.expand {
-				display: inline-block;
+				position: absolute;
+				left: 15px;
+				top: 12px;
 				background: url(../images/icn-down_arrow-small.png) center center no-repeat;
 				width: 17px;
-				height: 17px;
-				margin-right: 5px;
+				height: 17px;				
 				text-indent: -999em;
 				text-decoration: none;
 				background-color: #E6E6E6;
@@ -307,12 +308,15 @@ a.btn {
 				padding-right: 20px;
 			}
 			header {
-				input[type="checkbox"] {
-					float: right;
-				}
+				padding: 0 25px;
 				&:after {
 					@extend .clear_all;
 				}
+			}
+			.row_check {
+				position: absolute;
+				right: 10px;
+				top: 12px;
 			}
 			.alert {
 				margin: 10px 0 0;

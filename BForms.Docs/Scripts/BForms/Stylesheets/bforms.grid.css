@@ -198,11 +198,12 @@ a.btn {
   .grid_container .grid_view .grid_rows {
     position: relative; }
     .grid_container .grid_view .grid_rows .expand {
-      display: inline-block;
+      position: absolute;
+      left: 15px;
+      top: 12px;
       background: url(../images/icn-down_arrow-small.png) center center no-repeat;
       width: 17px;
       height: 17px;
-      margin-right: 5px;
       text-indent: -999em;
       text-decoration: none;
       background-color: #E6E6E6;
@@ -234,8 +235,12 @@ a.btn {
       border-bottom: 1px dashed #45ada8;
       background: url(../images/pencil-small.png) right 50% no-repeat;
       padding-right: 20px; }
-    .grid_container .grid_view .grid_row header input[type="checkbox"] {
-      float: right; }
+    .grid_container .grid_view .grid_row header {
+      padding: 0 25px; }
+    .grid_container .grid_view .grid_row .row_check {
+      position: absolute;
+      right: 10px;
+      top: 12px; }
     .grid_container .grid_view .grid_row .alert {
       margin: 10px 0 0; }
     .grid_container .grid_view .grid_row.selected header {
