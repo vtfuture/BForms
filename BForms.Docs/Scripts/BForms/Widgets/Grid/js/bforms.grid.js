@@ -741,11 +741,11 @@
     };
 
     Grid.prototype._resetHeaderCheck = function () {
-
-        this.$headerCheck.prop('indeterminate', false);
-        this.$headerCheck.prop('checked', false);
-        this.$actionsContainer.children('button').hide();
-
+        if (this.$headerCheck) {
+            this.$headerCheck.prop('indeterminate', false);
+            this.$headerCheck.prop('checked', false);
+            this.$actionsContainer.children('button').hide();
+        }
     };
 
     Grid.prototype._evOnCellEdit = function (e) {
