@@ -35,9 +35,9 @@
             }
         }
 
-        var $elem = $(this._defaultOptions.selector);
+        var $elem = this.$container.find(this._defaultOptions.selector);
 
-        this.$searchForm = $('#' + $elem.data('tabid')).bsForm({
+        this.$searchForm = this.$container.bsForm({
             container: $elem.attr('id'),
             actions: controls
         });

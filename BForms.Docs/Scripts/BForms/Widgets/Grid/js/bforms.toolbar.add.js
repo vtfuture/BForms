@@ -28,7 +28,7 @@
 
     Add.prototype.init = function () {
 
-        var $elem = $(this._defaultOptions.selector);
+        var $elem = this.$container.find(this._defaultOptions.selector);
 
         var controls = [];
         for (var k in this._controls) {
@@ -37,7 +37,7 @@
             }
         }
 
-        this.$addForm = $('#' + $elem.data('tabid')).bsForm({
+        this.$addForm = this.$container.bsForm({
             container: $elem.attr('id'),
             actions: controls
         });
