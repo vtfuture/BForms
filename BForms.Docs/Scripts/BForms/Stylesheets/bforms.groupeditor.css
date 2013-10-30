@@ -81,21 +81,28 @@
     padding: 17px 0; }
   .group_editor .grid_view {
     padding: 10px; }
-    .group_editor .grid_view .grid_rows_wrapper {
+    .group_editor .grid_view .grid_rows .expand {
+      position: relative;
+      display: inline-block;
+      top: 0;
+      left: 0; }
+    .group_editor .grid_view .grid_rows .grid_rows_wrapper {
       border: none; }
-      .group_editor .grid_view .grid_rows_wrapper .grid_row {
+      .group_editor .grid_view .grid_rows .grid_rows_wrapper .grid_row {
         min-height: 10px;
         padding: 5px 0;
         margin: 0 0 5px;
         background: #fff !important;
         border: 1px solid #e8e8e8; }
-        .group_editor .grid_view .grid_rows_wrapper .grid_row:hover {
+        .group_editor .grid_view .grid_rows .grid_rows_wrapper .grid_row:hover {
           border: 1px solid #c3c3c3; }
-        .group_editor .grid_view .grid_rows_wrapper .grid_row > .form_container {
+        .group_editor .grid_view .grid_rows .grid_rows_wrapper .grid_row header {
+          padding: 0; }
+        .group_editor .grid_view .grid_rows .grid_rows_wrapper .grid_row > .form_container {
           padding: 0 10px; }
-      .group_editor .grid_view .grid_rows_wrapper .grid_row_details h3 {
+      .group_editor .grid_view .grid_rows .grid_rows_wrapper .grid_row_details h3 {
         margin-top: 0; }
-        .group_editor .grid_view .grid_rows_wrapper .grid_row_details h3:hover {
+        .group_editor .grid_view .grid_rows .grid_rows_wrapper .grid_row_details h3:hover {
           border-color: #eee !important; }
     .group_editor .grid_view .controls .glyphicon {
       vertical-align: text-top; }

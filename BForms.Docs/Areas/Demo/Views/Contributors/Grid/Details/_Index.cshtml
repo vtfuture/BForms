@@ -4,7 +4,7 @@
 @model BForms.Docs.Areas.Demo.Models.ContributorDetailsModel
 
 <div class="row grid_row_details" data-rowdetailsid="@Model.Id">
-    <div class="col-lg-6">
+    <div class="col-md-6 col-lg-6">
         <div id="contributor_identity" class="grid_details description js-editableIdentity">
 
             @Html.BsPartialPrefixed(x => x, "Grid/Details/_Identity", Model, "x" + Model.Id.ToString())
@@ -12,7 +12,7 @@
         </div>
     </div>
 
-    <div class="col-lg-6">
+    <div class="col-md-6 col-lg-6">
         <div id="contributor_project" class="grid_details description js-editableProject">
 
             @Html.BsPartialPrefixed(x => x, "Grid/Details/_ProjectRelated", Model, "x" + Model.Id.ToString())
@@ -20,7 +20,7 @@
         </div>
     </div>
 
-    <div class="col-lg-12 bs-row_controls">
+    <div class="col-md-12 col-lg-12 bs-row_controls">
         <hr />
         @{
             var stateText = Model.Enabled ? Resource.Disable : Resource.Enable;
