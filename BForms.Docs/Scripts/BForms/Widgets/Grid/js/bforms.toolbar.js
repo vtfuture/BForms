@@ -69,7 +69,11 @@
             for (var k in $.bforms.toolbar.controls) {
                 if (k in $.bforms.toolbar.controls) {
                     var control = new $.bforms.toolbar.controls[k](this.element);
-                    this._controls.push(control);
+                    var $btn = this.element.find(control._defaultOptions.selector);
+                    if ($btn.length > 0) {
+                        control.$element = $btn;
+                        this._controls.push(control);
+                    }
                 }
             }
         }
@@ -78,7 +82,11 @@
         if (this.options.controls instanceof Array) {
             for (var i = 0; i < this.options.controls.length; i++) {
                 var control = new this.options.controls[i](this.element);
-                this._controls.push(control);
+                var $btn = this.element.find(control._defaultOptions.selector);
+                if ($btn.length > 0) {
+                    control.$element = $btn;
+                    this._controls.push(control);
+                }
             }
         }
 
