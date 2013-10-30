@@ -2657,10 +2657,33 @@ the specific language governing permissions and limitations under the Apache Lic
                 this.opts.element.trigger($.Event("select2-blur"));
             }));
 
+             //onclick , replace selected with text so it can be edited
             this.container.on("click", selector, this.bind(function (e) {
+
                 if (!this.isInterfaceEnabled()) return;
+
                 if ($(e.target).closest(".select2-search-choice").length > 0) {
-                    // clicked inside a select2 search choice, do not open
+
+                    var selectedText = $(e.target).text();
+
+                    //remove selected value
+                    var isMsie = typeof $.browser !== "undefined" && $.browser.msie;
+
+                    if (isMsie) {
+                        $(e.target).closest(".select2-search-choice").hide();
+                        this.unselect($(e.target));
+                        this.open();
+                        this.focusSearch();
+                    } else {
+                        $(e.target).closest(".select2-search-choice").fadeOut('fast', this.bind(function () {
+                            this.unselect($(e.target));
+                            this.open();
+                            this.focusSearch();
+                        })).dequeue();
+                    }
+
+                    selection.find(".select2-search-field input").val(selectedText);
+                    this.resizeSearch();
                     return;
                 }
                 this.selectChoice(null);
