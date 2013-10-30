@@ -10,7 +10,7 @@
 
     jQuery.nsx('bforms.toolbar.defaults');
     jQuery.nsx('bforms.toolbar.controls');
-    
+
     //#region Toolbar
     var Toolbar = function (opt) {
         this.options = opt;
@@ -39,10 +39,10 @@
         $.bforms.toolbar.defaults.QuickSearch = QuickSearch;
 
     };
-    
+
     Toolbar.prototype._init = function () {
-        
-        if(!this.options.uniqueName){
+
+        if (!this.options.uniqueName) {
             this.options.uniqueName = this.element.attr('id');
         }
 
@@ -51,7 +51,7 @@
         }
 
         this._controls = [];
-    
+
         if (this.options.autoInitControls) {
             //init default controls if any
             for (var k in $.bforms.toolbar.defaults) {
@@ -144,7 +144,7 @@
     };
 
     Toolbar.prototype._addControls = function (controls) {
-        
+
         if (!controls) {
             return;
         }
@@ -171,7 +171,7 @@
                     this._addCustomControl(control);
 
                     control.init();
-                    
+
                     break;
                 }
             }
@@ -181,13 +181,13 @@
     };
 
     Toolbar.prototype._addTab = function (tab) {
-           
+
         tab.$container = $('#' + tab.$element.data('tabid'))
-        
+
         tab.$element.on('click', { tab: tab }, $.proxy(this._evBtnTabClick, this));
-  
+
         //control.options.init.call(this, tab.$container, control.options);
-        
+
     };
 
     Toolbar.prototype._expandSavedTab = function () {
@@ -266,30 +266,16 @@
 
         var clickedTab = e.data.tab;
 
-        var tabs = this._getTabs();
- 
-        //close other tab, if any
-        for (var i = 0; i < tabs.length; i++) {
-            var tab = tabs[i];
-
-            if (tab.$element == clickedTab.$element) {
-                continue;
-            }
- 
-            if (tab.$element.hasClass('selected')) {
-                this._toggleTab(tab);
-            }
-        }
-
-        if (triggeredTab && triggeredTab.$element.hasClass('selected')) {
-            return;
+        if (this._selectedTab != null && this._selectedTab.name != clickedTab.name) {
+            this._toggleTab(this._selectedTab);
         }
 
         this._toggleTab(clickedTab);
-
     };
 
-    Toolbar.prototype._toggleTab = function(tab) {
+    Toolbar.prototype._toggleTab = function (tab) {
+
+        if (tab == null) return;
 
         tab.$element.toggleClass('selected');
         if (tab.name == 'advancedSearch') {
@@ -298,13 +284,20 @@
                 quickSearch.$element.toggleClass('selected');
             }
         }
-        
+
         tab.$container.stop(true, false).slideToggle();
-  
+
+        var isSelected = tab.$element.hasClass('selected');
+
         if (this.options.saveTabState) {
-            amplify.store('slide|' + this.options.uniqueName + '|' + tab.options.selector, tab.$element.hasClass('selected'));
+            amplify.store('slide|' + this.options.uniqueName + '|' + tab.options.selector, isSelected);
         }
-    
+
+        if (isSelected) {
+            this._selectedTab = tab;
+        } else {
+            this._selectedTab = null;
+        }
     };
 
     //#region helpers
@@ -316,8 +309,9 @@
 
     };
 
-    Toolbar.prototype.getControl = function(name) {
-        var control = $.grep(this._controls, function(el) {
+    Toolbar.prototype.getControl = function (name) {
+
+        var control = $.grep(this._controls, function (el) {
             return el.name == name;
         });
 
@@ -325,9 +319,24 @@
 
         return null;
     };
+
+    Toolbar.prototype.toggleControl = function (name) {
+        var control = this.getControl(name);
+
+        if (control != null && control.type == "tab") {
+
+            if (this._selectedTab != null && this._selectedTab.name != control.name) {
+                this._toggleTab(this._selectedTab);
+            }
+
+            this._toggleTab(control);
+        }
+
+        return control;
+    };
     //#endregion
 
     //#endregion
-    
+
     $.widget('bforms.bsToolbar', Toolbar.prototype);
 });

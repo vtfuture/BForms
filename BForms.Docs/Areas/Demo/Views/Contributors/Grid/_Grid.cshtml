@@ -27,6 +27,7 @@
           bulk.ForSelector(BsBulkSelectorType.None).Text(@Resource.None);
       })
       .HtmlAttributes(new { @class = "custom_class" })
+      //.AllowAddIfEmpty()
       .ConfigureColumns(cols =>
       {
           //cols.NoHeader();

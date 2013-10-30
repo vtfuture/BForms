@@ -51,6 +51,7 @@ namespace BForms.Grid
         private Func<TRow, string> rowDetailsTemplate;
         private bool hasDetails;
         private bool hasBulkActions;
+        private bool allowAddIfEmpty;
         private List<BsGridColumn<TRow>> columns;
         private bool showColumnsHeader = true;
         private List<BsBulkAction> bulkActions;
@@ -164,6 +165,12 @@ namespace BForms.Grid
             return this;
         }
 
+        public BsGridHtmlBuilder<TModel, TRow> AllowAddIfEmpty()
+        {
+            this.allowAddIfEmpty = true;
+            return this;
+        }
+
         public BsGridHtmlBuilder<TModel, TRow> NoPager()
         {
             this.renderPager = false;
@@ -241,6 +248,12 @@ namespace BForms.Grid
                 {
                     var bulkActionsWrapper = new TagBuilder("div");
                     bulkActionsWrapper.MergeAttribute("class", "grid_bulk_controls bs-group_actions");
+
+                    if (this.model.Items == null || !this.model.Items.Any())
+                    {
+                        bulkActionsWrapper.MergeAttribute("style","display:none");
+                    }
+
                     var orderedBulkActions = this.bulkActions.OrderBy(x => x.BulkActionOrder);
                     foreach (var bulkAction in orderedBulkActions)
                     {
@@ -447,15 +460,15 @@ namespace BForms.Grid
         {
             var result = string.Empty;
 
+            var rowsBuilder = new TagBuilder("div");
+            rowsBuilder.MergeAttribute("class", "grid_rows_wrapper");
+
             if (this.model.Items.Any())
             {
-                var rowsBuilder = new TagBuilder("div");
-                rowsBuilder.MergeAttribute("class", "grid_rows_wrapper");
-
                 PropertyInfo hasDetailsProp = null;
-                var rowType = typeof (TRow);
+                var rowType = typeof(TRow);
 
-                var isSubClassOfBaseRowModel = rowType.IsSubclassOfRawGeneric(typeof (BsGridRowModel<>));
+                var isSubClassOfBaseRowModel = rowType.IsSubclassOfRawGeneric(typeof(BsGridRowModel<>));
                 if (isSubClassOfBaseRowModel)
                 {
                     hasDetailsProp = rowType.GetProperty("HasDetails", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
@@ -571,8 +584,12 @@ namespace BForms.Grid
             }
             else
             {
+                rowsBuilder.MergeAttribute("style","display:none");
+                result += rowsBuilder.ToString();
+
                 var rowBuilder = new TagBuilder("div");
                 rowBuilder.MergeAttribute("class", "row grid_row");
+                rowBuilder.AddCssClass("bs-noResultsRow");
 
                 var divBuilder = new TagBuilder("div");
                 divBuilder.MergeAttribute("class", "col-12 col-sm-12 col-lg-12");
@@ -581,15 +598,18 @@ namespace BForms.Grid
                 infoBuilder.MergeAttribute("class", "alert alert-info");
 
 
-                infoBuilder.InnerHtml += "There are no results. ";//"Nu sunt inregistrari";
+                infoBuilder.InnerHtml += "There are no results. ";
 
-                var addBtnBuilder = new TagBuilder("button");
-                addBtnBuilder.MergeAttribute("type", "button");
-                addBtnBuilder.MergeAttribute("class", "btn btn-primary bs-add");
-                //TODO:
-                addBtnBuilder.InnerHtml += "Add";
+                if (this.allowAddIfEmpty)
+                {
+                    var addBtnBuilder = new TagBuilder("button");
+                    addBtnBuilder.MergeAttribute("type", "button");
+                    addBtnBuilder.MergeAttribute("class", "btn btn-primary bs-triggerAdd");
+                    //TODO:
+                    addBtnBuilder.InnerHtml += "Add";
 
-                infoBuilder.InnerHtml += addBtnBuilder.ToString();
+                    infoBuilder.InnerHtml += addBtnBuilder.ToString();
+                }
 
                 divBuilder.InnerHtml += infoBuilder.ToString();
                 rowBuilder.InnerHtml += divBuilder.ToString();

@@ -35,7 +35,7 @@
         gridHeaderSelector: 'h2',
         filterSelector: '.bs-filter',
         resetGridSelector: '.bs-resetGrid',
-        addSelector: '.bs-add',
+        addSelector: '.bs-triggerAdd',
         expandToggleSelector: '.bs-toggleExpand',
 
         rowsContainerSelector: '.grid_rows_wrapper',
@@ -65,6 +65,7 @@
         validationRowActionsContainer: '.bs-validation_row_action',
         errorRowContainer: '.bs-validation_row',
         errorCloseSelector: '.bs-form-error .close',
+        noResultsRowSelector: '.bs-noResultsRow',
 
         sortable: true,
 
@@ -250,6 +251,14 @@
         this.element.on('click', this.options.errorCloseSelector, $.proxy(this._evOnErrorRemove, this));
 
         this.element.on('click', this.options.expandToggleSelector, $.proxy(this._evOnExpandToggle, this));
+
+        this.element.on('click', this.options.addSelector, $.proxy(function () {
+
+            if (this.options.$toolbar != null && typeof this.options.$toolbar.bsToolbar === 'function') {
+                this.options.$toolbar.bsToolbar('toggleControl', 'add');
+            }
+
+        }, this));
     };
 
     Grid.prototype._initSelectors = function () {
@@ -342,6 +351,11 @@
         this.$rowsContainer.prepend($row.find(this.options.rowSelector));
 
         this.$pager.bsPager('updateTotal', this._currentResultsCount);
+
+        this.toggleBulkActions();
+
+        this.$rowsContainer.show();
+        this.element.find(this.options.noResultsRowSelector).remove();
     };
 
     //#region Grid details
@@ -935,14 +949,15 @@
 
         this._currentResultsCount = data.Count || 0;
 
-        var $html = $(data.Html);
+        var $html = $(data.Html),
+            $wrapper = $('<div></div>').append($html);
 
         //update rows
-        this.$rowsContainer.html($html.html());
-
         if (this._currentResultsCount) {
+            this.$rowsContainer.html($html.html());
             this.$rowsContainer.removeClass('no_results');
         } else {
+            this.$rowsContainer.html($wrapper.find(this.options.noResultsRowSelector));
             this.$rowsContainer.addClass('no_results');
         }
 
@@ -970,6 +985,7 @@
             }, this));
         }
 
+        this.toggleBulkActions();
         this._updateExpandToggle();
     };
 
@@ -1166,7 +1182,7 @@
         };
 
         if (detailsData.$detailsHtml.length) {
-            
+
             this._trigger('beforeRowDetailsSuccess', 0, {
                 $row: $row,
                 data: detailsData
@@ -1182,6 +1198,14 @@
                 $row: $row,
                 data: detailsData
             });
+        }
+    };
+
+    Grid.prototype.toggleBulkActions = function () {
+        if (this.element.find(this.options.rowCheckSelector).length > 0) {
+            this.element.find(this.options.groupActionsSelector).show();
+        } else {
+            this.element.find(this.options.groupActionsSelector).hide();
         }
     };
     //#endregion
@@ -1273,8 +1297,6 @@
     };
 
     Grid.prototype._rowActionAjaxError = function (data, $row) {
-        
-        console.log('here')
 
         if (data.Message) {
             var $errorContainer = $row.find('.bs-validation_row_control');
@@ -1329,7 +1351,7 @@
             }
 
             $currentRow.replaceWith($row);
-            
+
             this._initInitialDetails($row);
 
             this._evOnRowCheckChange();

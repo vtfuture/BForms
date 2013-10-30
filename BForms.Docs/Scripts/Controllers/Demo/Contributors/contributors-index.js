@@ -20,6 +20,7 @@
 
         this.initGrid();
         this.initToolbar();
+        //this.$toolbar.bsToolbar('toggleControl', 'add');
     };
     //#endregion
 
