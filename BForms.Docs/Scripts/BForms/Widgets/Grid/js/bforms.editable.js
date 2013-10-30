@@ -146,7 +146,10 @@
 
             // validate form
             $.validator.unobtrusive.parse($form);
-            $form.validate();
+
+            var validatedForm = $form.validate();
+
+            validatedForm.settings.partialNameSearch = true;
 
             // return if not falid form
             if (!$form.valid())
@@ -173,12 +176,20 @@
             context: this,
             success: $.proxy(this._saveAjaxSuccess, this),
             error: $.proxy(this._saveAjaxError, this),
+            validationError: $.proxy(this._saveAjaxValidationError, this),
             loadingElement: this.element,
             loadingClass: 'loading'
         };
 
         $.bforms.ajax(ajaxOptions);
 
+    };
+
+    Editable.prototype._saveAjaxValidationError = function (data, callbackData) {
+        if (data) {
+            var validatedForm = this.$editor.data('validator');
+            validatedForm.showErrors(data.Errors);
+        }
     };
 
     Editable.prototype._saveAjaxSuccess = function (data, callbackData) {
@@ -203,7 +214,6 @@
             var validatedForm = this.$editor.data('validator');
             validatedForm.showSummaryError(data.Message);
         }
-
     };
 
     Editable.prototype._evOnCancelClick = function (e) {

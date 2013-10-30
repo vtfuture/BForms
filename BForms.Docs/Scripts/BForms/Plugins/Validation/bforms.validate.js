@@ -232,6 +232,7 @@
                 onsubmit: true,
                 ignore: '',
                 selectedSuffix: '.SelectedValues',
+                partialNameSearch: false,
                 checklistClass: 'bs-checkbox',
                 bsDropdownClass: 'bs-dropdown',
                 validationSummaryKey: 'BsFormError',
@@ -850,6 +851,11 @@
                     var $elem = $(this.currentForm).find("[name='" + name + "']");
                     if ($elem.length === 0) {
                         $elem = $(this.currentForm).find("[name='" + name + this.settings.selectedSuffix + "']");
+                    }
+                    if (this.settings.partialNameSearch) {
+                        if ($elem.length === 0) {
+                            $elem = $(this.currentForm).find("[name*='" + name + "']");
+                        }
                     }
                     return $elem;
                 },
