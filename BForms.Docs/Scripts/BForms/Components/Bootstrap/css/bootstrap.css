@@ -801,6 +801,7 @@ pre code {
 }
 .col-xs-12 {
   width: 100%;
+  clear: both;
 }
 @media (min-width: 768px) {
   .container {
@@ -854,6 +855,7 @@ pre code {
   }
   .col-sm-12 {
     width: 100%;
+    clear: both;
   }
   .col-sm-push-1 {
     left: 8.333333333333332%;
@@ -1007,6 +1009,7 @@ pre code {
   }
   .col-md-12 {
     width: 100%;
+    clear: both;
   }
   .col-md-push-0 {
     left: auto;
@@ -1169,6 +1172,7 @@ pre code {
   }
   .col-lg-12 {
     width: 100%;
+    clear: both;
   }
   .col-lg-push-0 {
     left: auto;
