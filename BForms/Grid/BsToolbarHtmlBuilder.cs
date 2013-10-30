@@ -36,6 +36,8 @@ namespace BForms.Grid
         /// </summary>
         private readonly string fullName;
 
+        private string id;
+
         /// <summary>
         /// Toolbar model
         /// </summary>
@@ -59,6 +61,7 @@ namespace BForms.Grid
             this.fullName = fullName;
             this.model = model;
             this.metadata = metadata;
+            this.id = this.fullName.Split('.').Last().ToLower();
 
             this.displayName = this.metadata.DisplayName;
             this.attributes = attributes;
@@ -89,6 +92,7 @@ namespace BForms.Grid
         public BsToolbarHtmlBuilder<TToolbar> HtmlAttributes(Dictionary<string, object> htmlAttributes)
         {
             this.htmlAttributes = htmlAttributes;
+            SetIdFromHtmlAttributes(htmlAttributes);
             return this;
         }
 
@@ -97,8 +101,15 @@ namespace BForms.Grid
         /// </summary>
         public BsToolbarHtmlBuilder<TToolbar> HtmlAttributes(object htmlAttributes)
         {
-            this.htmlAttributes = HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes);
-            return this;
+            return HtmlAttributes(HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+        }
+
+        private void SetIdFromHtmlAttributes(Dictionary<string, object> htmlAttr)
+        {
+            if (htmlAttr.Keys.Contains("id"))
+            {
+                this.id = htmlAttr["id"].ToString(); 
+            }
         }
 
         /// <summary>
@@ -130,10 +141,8 @@ namespace BForms.Grid
         /// </summary>
         public override string Render()
         {
-            var id = this.fullName.Split('.').Last().ToLower();
-
             var toolbarBuilder = new TagBuilder("div");
-            toolbarBuilder.MergeAttribute("id", id);
+            toolbarBuilder.MergeAttribute("id", this.id);
             toolbarBuilder.MergeClassAttribute("grid_toolbar", this.htmlAttributes);
             toolbarBuilder.MergeAttributes(this.htmlAttributes, true);
 
@@ -163,7 +172,7 @@ namespace BForms.Grid
                     // renders tab content if any
                     if (defaultAction != null && defaultAction.TabDelegate != null)
                     {
-                        var tabId = id + "_tab_" + tabNr;
+                        var tabId = this.id + "_tab_" + tabNr;
 
                         var tabBuilder = new TagBuilder("div");
                         tabBuilder.AddCssClass("grid_toolbar_form");
