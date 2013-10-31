@@ -14,6 +14,7 @@
                         <li><a href="#validate">Validation provider</a></li>
                         <li><a href="#css">Include CSS</a></li>
                         <li><a href="#js">Include JS</a></li>
+                        <li><a href="#configure">RequireJS config</a></li>
                         <li><a href="#example">BForms example</a></li>
                     </ul>
                 </li>
@@ -103,6 +104,46 @@
 @Html.InsertFileContentCached("~/Views/Start/Setup/Source/_BundleConfigJs.cs.embed")
             </pre>
             <br />
+            <h4 id="configure">5. RequireJS configuration</h4>
+            <p>
+                First of all you need to remember this step is optional. You only need to do it if you want an extra configuration for your RequireJS.
+            </p>
+            <p>
+                Let's say you want to add one more script in your project. Create <code>RequireJS.config</code> and <code>RequireJS.Release.config</code> as in the image bellow:
+            </p>
+            <h4 class="sub_title">Configuration files</h4>
+            <div class="bs-example bs-img-example">
+                <img src="@Url.Content("~/Content/images/docs/require-config-files.PNG")" />
+            </div>
+            <p>
+                Note that selected files from the above image are new. BForms package comes with his own configuration, which you can find under <code>Scripts>BForms</code>.
+            </p>
+            <p>
+                Now that we have our files, let's add references to our scripts. To show you how to do this we have created a script called <code>main-script.js</code> under  <code>Scripts>Custom>Common</code>, which contains only a <code>console.log</code> statement.
+            </p>
+            <h4 class="sub_title">Main-script file</h4>
+            <div class="bs-example bs-img-example">
+                <img src="@Url.Content("~/Content/images/docs/main-script-file.PNG")" />
+            </div>
+            <br />
+            <pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Setup/Source/_MainScriptDefinition.cs.embed")
+            </pre>
+            <br />
+            <p>
+                Add the path in your newly created configuration files.For example <code>RequierJS.config</code> should look like this:
+            </p>
+            <h4 class="sub_title">Configuration files content</h4>
+            <pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Setup/Source/_ScriptReference.cs.embed")
+            </pre>
+            <br />
+            <p>
+                As you can see in the code above we have added the path to our scripts ( just one in our case ). We don't need to prefix our path with <code>/Scripts</code> because RequireJS will automatically search there.
+                <br/>
+                Also you don't need to add <code>.js</code> extension. 
+            </p>
+          
             <h4 id="example">Example</h4>
             <p>
                 Thumbs up ! Now that everything is set up you can start working on your new project. Let’s say you want to add a dropdown element somewhere in your application. Read the following steps and you’ll see how easy it is.
@@ -110,7 +151,7 @@
             <h4 class="sub_title">Model definition - step 1</h4>
             <p>
                 You need to create your model. Let’s name it <b>Demo</b>.
-                <br/>As we said earlier, we need to add a dropdown property.
+                <br />As we said earlier, we need to add a dropdown property.
             </p>
             <pre class="prettyprint lang-cs bs-example">
 @Html.InsertFileContentCached("~/Views/Start/Setup/Source/_ModelDefinition.cs.embed")

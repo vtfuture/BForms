@@ -147,8 +147,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
+    <Content Include="Content\Images\Docs\main-script-file.PNG" />
     <Content Include="Content\Images\Docs\project-setup-dropdown-open.PNG" />
     <Content Include="Content\Images\Docs\project-setup-dropdown.PNG" />
+    <Content Include="Content\Images\Docs\require-config-files.PNG" />
     <Content Include="Views\Start\Setup\Source\_BundleConfigJs.cs.embed" />
     <Content Include="Views\Start\Setup\Source\_Files.embed" />
     <Content Include="Areas\Demo\Views\Contributors\Grid\Details\_IdentityEditable.cshtml">
@@ -939,6 +941,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Start\Setup\Source\_Javascript.cs.embed" />
+    <Content Include="Views\Start\Setup\Source\_ScriptReference.cs.embed" />
+    <None Include="Views\Start\Setup\Source\_MainScriptDefinition.cs.embed" />
     <None Include="Views\Start\Setup\Source\_Scripts.embed" />
     <None Include="Views\Start\Setup\Source\_View.cshtml.embed" />
     <None Include="Views\Start\Setup\Source\_CodeLineForValidationProvider.cs.embed" />
