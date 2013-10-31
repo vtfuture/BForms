@@ -313,6 +313,21 @@ namespace BForms.Grid
             return grid;
         }
 
+        public BsGridModel<TRow> ToBsGridViewModel(TRow row, bool getDetails)
+        {
+            if (getDetails)
+            {
+                this.FillDetails(row);
+            }
+
+            var grid = new BsGridModel<TRow>
+            {
+                Items = new List<TRow> { row }
+            };
+
+            return grid;
+        }
+
         /// <summary>
         /// Creates GridModel based on Query, OrderQuery and MapQuery
         /// </summary>

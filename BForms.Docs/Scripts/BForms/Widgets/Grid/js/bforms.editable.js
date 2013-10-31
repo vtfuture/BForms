@@ -8,7 +8,7 @@
 
     var Editable = function (opt) {
         this.options = opt;
-        this._create();
+        this._init();
     };
 
     Editable.prototype.options = {
@@ -30,7 +30,11 @@
         initPlugins: null
     };
 
-    Editable.prototype._create = function () {
+    Editable.prototype._init = function () {
+
+        if (this.element.hasClass('bs-editable_applied')) {
+            return;
+        }
 
         if (!this.options.uniqueName) {
             this.options.uniqueName = this.element.attr('id');
@@ -70,6 +74,8 @@
                 $element: this.element
             });
         }, this));
+
+        this.element.addClass('bs-editable_applied');
     };
 
     Editable.prototype._initSelectors = function () {
@@ -251,6 +257,12 @@
         this.$header.data('editmode', false);
 
         this.$header.addClass('editable');
+
+    };
+
+    Editable.prototype._destroy = function () {
+
+        this.element.removeClass('bs-editable_applied');
 
     };
 

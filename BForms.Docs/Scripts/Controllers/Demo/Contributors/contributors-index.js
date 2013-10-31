@@ -114,8 +114,7 @@
             }],
             //#endregion
 
-            updateRowUrl: this.options.getRowUrl,
-            detailsUrl: this.options.detailsUrl,
+            detailsUrl: this.options.getRowsUrl,
             beforeRowDetailsSuccess: $.proxy(this._beforeDetailsSuccessHandler, this),
             afterRowDetailsSuccess: $.proxy(this._afterDetailsSuccessHandler, this),
             rowActions: [{
@@ -148,10 +147,11 @@
             response = data.data;
 
         var identityOpt = this._editableOptions($row, this.options.editComponents.Identity);
-        response.$detailsHtml.find('.js-editableIdentity').bsEditable(identityOpt);
+        
+        $row.find('.js-editableIdentity').bsEditable(identityOpt);
 
         var projectOpt = this._editableOptions($row, this.options.editComponents.ProjectRelated);
-        response.$detailsHtml.find('.js-editableProject').bsEditable(projectOpt);
+        $row.find('.js-editableProject').bsEditable(projectOpt);
     };
 
     GridIndex.prototype._editableOptions = function ($row, componentId) {

@@ -68,6 +68,7 @@
         noResultsRowSelector: '.bs-noResultsRow',
 
         sortable: true,
+        rowClickExpandable: true,
 
         defaultFilterButtons: [{
             btnSelector: '.js-all',
@@ -94,7 +95,7 @@
         PageSize: 5
     };
 
-    Grid.prototype._create = function () {
+    Grid.prototype._init = function () {
 
         if (!this.options.uniqueName) {
             this.options.uniqueName = this.element.attr('id');
@@ -130,7 +131,7 @@
         // when an action made on grid generates a refresh then this.needsRefresh is set to true
         this.needsRefresh = false;
 
-        if (this.options.sortable) {
+        if (this.options.sortable && ($.browser == null || $.browser.mobile == false)) {
             this._initSortable();
         }
 
@@ -192,56 +193,63 @@
                 })(opts, this);
             }
 
-            for (var i = 0; i < this.options.gridActions.length; i++) {
+            if (this.options.gridActions != null) {
+                for (var i = 0; i < this.options.gridActions.length; i++) {
 
-                var opts = this.options.gridActions[i];
+                    var opts = this.options.gridActions[i];
 
-                (function (opts, grid) {
+                    (function (opts, grid) {
 
-                    if (opts.popover) {
+                        if (opts.popover) {
 
-                        var $me = grid.$actionsContainer.find(opts.btnSelector);
+                            var $me = grid.$actionsContainer.find(opts.btnSelector);
 
-                        $me.popover({
-                            html: true,
-                            content: $('.popover-content').html(),
-                            placement: 'bottom'
-                        });
+                            $me.popover({
+                                html: true,
+                                content: $('.popover-content').html(),
+                                placement: 'bottom'
+                            });
 
-                        $me.on('show.bs.popover', $.proxy(function (e) {
+                            $me.on('show.bs.popover', $.proxy(function (e) {
 
-                            var tip = $me.data('bs.popover').tip();
+                                var tip = $me.data('bs.popover').tip();
 
-                            tip.one('click', '.bs-confirm', $.proxy(function (e) {
+                                tip.one('click', '.bs-confirm', $.proxy(function (e) {
 
-                                e.preventDefault();
+                                    e.preventDefault();
 
-                                $me.popover('toggle');
+                                    $me.popover('toggle');
+
+                                    opts.handler.call(this, this.element.find(this.options.rowSelector + '.selected'), this);
+
+                                }, this));
+
+                                tip.one('click', '.bs-cancel', function (e) {
+
+                                    e.preventDefault();
+
+                                    $me.popover('toggle');
+                                });
+
+                            }, grid));
+
+                        } else {
+
+                            grid.$actionsContainer.on('click', opts.btnSelector, $.proxy(function (e) {
 
                                 opts.handler.call(this, this.element.find(this.options.rowSelector + '.selected'), this);
 
-                            }, this));
+                            }, grid));
+                        }
 
-                            tip.one('click', '.bs-cancel', function (e) {
-
-                                e.preventDefault();
-
-                                $me.popover('toggle');
-                            });
-
-                        }, grid));
-
-                    } else {
-
-                        grid.$actionsContainer.on('click', opts.btnSelector, $.proxy(function (e) {
-
-                            opts.handler.call(this, this.element.find(this.options.rowSelector + '.selected'), this);
-
-                        }, grid));
-                    }
-
-                })(opts, this);
+                    })(opts, this);
+                }
             }
+
+            if (this.options.rowClickExpandable) {
+                this.element.on('click', this.options.rowSelector, $.proxy(this._onRowClick, this));
+            }
+
         }
 
         this.element.on('click', '.edit_col', $.proxy(this._evOnCellEdit, this));
@@ -332,7 +340,7 @@
     };
 
     Grid.prototype.refresh = function (e, data) {
-        this.refreshModel.Page = 1;
+        //this.refreshModel.Page = 1;
         this._getPage();
     };
 
@@ -420,7 +428,8 @@
 
         var sendData = {
             items: [{
-                Id: $row.data('objid')
+                Id: $row.data('objid'),
+                GetDetails: true
             }]
         };
 
@@ -446,35 +455,34 @@
 
     Grid.prototype._detailsAjaxSuccess = function (data) {
 
-        if (typeof data.DetailsHtml !== "undefined") {
+        var $html = $(data.RowsHtml);
+        $html.find(this.options.rowSelector).each($.proxy(function (idx, updatedRow) {
 
-            for (var itemId in data.DetailsHtml) {
+            var $updatedRow = $(updatedRow);
+            var $row = this._getRowElement($updatedRow.data('objid'));
 
-                var $row = this._getRowElement(itemId);
-                var html = data.DetailsHtml[itemId];
+            $row.find(this.options.rowHeaderSelector).replaceWith($updatedRow.find(this.options.rowHeaderSelector));
+            $row.append($updatedRow.find(this.options.rowDetailsSelector).hide());
 
-                data.$detailsHtml = $(html);
+            this._trigger('beforeRowDetailsSuccess', 0, {
+                $row: $row,
+                data: data
+            });
 
-                this._trigger('beforeRowDetailsSuccess', 0, {
-                    $row: $row,
-                    data: data
-                });
+            //insert details to dom
+            $row.stop(true, true).slideDown(800);
 
-                //insert details to dom
-                $row.append(data.$detailsHtml.hide()).stop(true, true).slideDown(800);
+            this._handleDetails($row);
 
-                this._handleDetails($row);
+            $row.data('hasdetails', true);
 
-                $row.data('hasdetails', true);
+            this._createActions(this.options.rowActions, $row);
 
-                this._createActions(this.options.rowActions, $row);
-
-                this._trigger('afterRowDetailsSuccess', 0, {
-                    $row: $row,
-                    data: data
-                });
-            }
-        }
+            this._trigger('afterRowDetailsSuccess', 0, {
+                $row: $row,
+                data: data
+            });
+        }, this));
     };
 
     Grid.prototype._detailsAjaxError = function (data) {
@@ -876,7 +884,8 @@
                     this._handleDetails($row);
                 } else if ($row.find(this.options.errorCloseSelector).length == 0) {
                     return {
-                        Id: $row.data('objid')
+                        Id: $row.data('objid'),
+                        getDetails: true
                     };
                 }
             }, this)).get();
@@ -893,6 +902,13 @@
             //        $row.find(this.options.detailsSelector).trigger('click');
             //    }
             //}, this));
+        }
+    };
+
+    Grid.prototype._onRowClick = function (e) {
+        if (!this._isTextSelected()) {
+            var $row = $(e.currentTarget);
+            $row.find(this.options.detailsSelector).trigger('click');
         }
     };
     //#endregion
@@ -1016,7 +1032,8 @@
 
     //#region sortable
     Grid.prototype._initSortable = function () {
-        this.$gridOrderContainer.sortable({
+  
+        this.$gridOrderContainer.find('header').sortable({
             start: $.proxy(this._onSortStart, this),
             stop: $.proxy(this._onSortStop, this),
             update: $.proxy(this._onSortUpdate, this),
@@ -1049,7 +1066,7 @@
         this.refreshModel.OrderColumns = this._getColumnsOrder();
         this._getPage();
 
-        this.$gridOrderContainer.find('div:first').prepend(this.$expandToggle.show());
+        this.$expandToggle.show();
     };
     //#endregion
 
@@ -1104,6 +1121,12 @@
             return false;
         }
 
+        if (this.element.find(this.options.rowCheckSelector).filter(function () {
+            return $(this).prop('checked');
+        }).length > 0) {
+            return false;
+        }
+
         return true;
     };
 
@@ -1141,12 +1164,10 @@
             allExpanded = true;
         }
 
-        var rowsWithDetailsCount = this.element.find(this.options.detailsSelector).length;
-
-        if (closedRowsCount < rowsWithDetailsCount) {
-            this._showResetGridButton();
-        } else {
+        if (this._isInitialState()) {
             this._hideResetGridButton();
+        } else {
+            this._showResetGridButton();
         }
 
 
@@ -1201,6 +1222,16 @@
         }
     };
 
+    Grid.prototype._isTextSelected = function () {
+        var text = "";
+        if (typeof window.getSelection != "undefined") {
+            text = window.getSelection().toString();
+        } else if (typeof document.selection != "undefined" && document.selection.type == "Text") {
+            text = document.selection.createRange().text;
+        }
+        return text !== "";
+    };
+
     Grid.prototype.toggleBulkActions = function () {
         if (this.element.find(this.options.rowCheckSelector).length > 0) {
             this.element.find(this.options.groupActionsSelector).show();
@@ -1214,14 +1245,15 @@
     Grid.prototype.updateRow = function (row, getDetails, onlyHeader) {
 
         var data = {
-            objId: row.data('objid'),
-            getDetails: getDetails || false,
-            onlyHeader: onlyHeader || false
+            items: [{
+                Id: row.data('objid'),
+                GetDetails: getDetails || false
+            }]
         };
 
         var ajaxOptions = {
             name: this.options.uniqueName + '|UpdateRow|' + data.objId,
-            url: this.options.updateRowUrl,
+            url: this.options.detailsUrl,
             data: data,
             callbackData: {
                 sent: data,
@@ -1241,16 +1273,13 @@
     Grid.prototype._updateRowAjaxSuccess = function (data, callbackData) {
 
         var $html = $(data.Row),
-            $row = callbackData.row,
-            $newRow = $html.find(this.options.rowSelector);
+            $row = callbackData.row
+        $newRow = $html.find(this.options.rowSelector);
 
         if (callbackData.sent.getDetails) {
 
             $newRow.addClass('open');
             $newRow.data('hasdetails', true);
-
-            data.$detailsHtml = $(data.Details);
-            $newRow.append(data.$detailsHtml);
 
             this._createActions(this.options.rowActions, $newRow);
 
@@ -1331,6 +1360,7 @@
         var $rows = $container.find(this.options.rowSelector);
 
         $rows.each($.proxy(function (idx, row) {
+
             var $row = $(row),
             objId = $row.data('objid');
 
@@ -1350,6 +1380,15 @@
                 }
             }
 
+            $currentRow.find('.grid_details').each(function (idx, detailsPart) {
+                var $detailsPart = $(detailsPart);
+                if ($detailsPart.hasClass('bs-editable') && $detailsPart.find('.bs-readonly:visible').length == 0) {
+                    var $newDetails = $row.find('#' + $detailsPart.attr('id'));
+                    $detailsPart.find('.bs-readonly').html($newDetails.find('.bs-readonly').html());
+                    $newDetails.replaceWith($detailsPart);
+                }
+            });
+
             $currentRow.replaceWith($row);
 
             this._initInitialDetails($row);
@@ -1358,6 +1397,8 @@
 
 
         }, this));
+
+        this._updateExpandToggle();
     };
 
     Grid.prototype.getSelectedRows = function () {

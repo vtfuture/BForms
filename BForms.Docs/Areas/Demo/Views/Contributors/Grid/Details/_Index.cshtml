@@ -4,16 +4,17 @@
 @model BForms.Docs.Areas.Demo.Models.ContributorDetailsModel
 
 <div class="row grid_row_details" data-rowdetailsid="@Model.Id">
-    <div class="col-md-6 col-lg-6">
-        <div id="contributor_identity" class="grid_details description js-editableIdentity">
+
+    <div class="col-lg-6">
+        <div id="contributor_identity" class="grid_details description js-editableIdentity bs-editable">
 
             @Html.BsPartialPrefixed(x => x, "Grid/Details/_Identity", Model, "x" + Model.Id.ToString())
-            
+
         </div>
     </div>
 
-    <div class="col-md-6 col-lg-6">
-        <div id="contributor_project" class="grid_details description js-editableProject">
+    <div class="col-lg-6">
+        <div id="contributor_project" class="grid_details description js-editableProject bs-editable">
 
             @Html.BsPartialPrefixed(x => x, "Grid/Details/_ProjectRelated", Model, "x" + Model.Id.ToString())
 
