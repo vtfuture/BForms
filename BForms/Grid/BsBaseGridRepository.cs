@@ -32,11 +32,13 @@ namespace BForms.Grid
 
         public class QueryCriteria<TEntity, TReturn> : IQueryCriteria<TEntity>
         {
+            private Expression<Func<TEntity, TReturn>> storedExpression { get; set; }
+
             public QueryCriteria(Expression<Func<TEntity, TReturn>> expression)
             {
                 storedExpression = expression;
             }
-            private static Expression<Func<TEntity, TReturn>> storedExpression { get; set; }
+            
             public IOrderedQueryable<TEntity> OrderBy(IQueryable<TEntity> query)
             {
                 return query.OrderBy(storedExpression);
