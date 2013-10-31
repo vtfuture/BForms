@@ -221,7 +221,7 @@ namespace BForms.Grid
             gridBuilder.MergeAttribute("id", this.fullName.Split('.').Last().ToLower());
             gridBuilder.MergeClassAttribute("grid_view", this.htmlAttributes);
 
-            if (!hideDetails)
+            if (this.hasDetails)
             {
                 gridBuilder.AddCssClass("is_expandable");
             }

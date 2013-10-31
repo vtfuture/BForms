@@ -55,12 +55,10 @@ namespace BForms.Docs.Areas.Demo.Controllers
                     New = _gridRepository.GetNewForm()
                 }
             };
-
+            
             var options = new Dictionary<string, object>
             {
                 {"pagerUrl", Url.Action("Pager")},
-                {"detailsUrl", Url.Action("Details")},
-                {"getRowUrl", Url.Action("GetRow")},
                 {"getRowsUrl", Url.Action("GetRows")},
                 {"enableDisableUrl", Url.Action("EnableDisable")},
                 {"exportExcelUrl", Url.Action("ExportExcel")},

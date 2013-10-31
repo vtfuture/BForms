@@ -1136,10 +1136,8 @@
 
         if (this.element.find(this.options.detailsSelector).length > 0) {
             this.$expandToggle.show();
-            this.element.addClass('is_expandable');
         } else {
             this.$expandToggle.hide();
-            this.element.removeClass('is_expandable');
         }
 
         var allExpanded = false;
