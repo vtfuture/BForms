@@ -194,56 +194,56 @@
             }
 
             if (this.options.gridActions != null) {
-                for (var i = 0; i < this.options.gridActions.length; i++) {
+            for (var i = 0; i < this.options.gridActions.length; i++) {
 
-                    var opts = this.options.gridActions[i];
+                var opts = this.options.gridActions[i];
 
-                    (function (opts, grid) {
+                (function (opts, grid) {
 
-                        if (opts.popover) {
+                    if (opts.popover) {
 
-                            var $me = grid.$actionsContainer.find(opts.btnSelector);
+                        var $me = grid.$actionsContainer.find(opts.btnSelector);
 
-                            $me.popover({
-                                html: true,
-                                content: $('.popover-content').html(),
-                                placement: 'bottom'
-                            });
+                        $me.popover({
+                            html: true,
+                            content: $('.popover-content').html(),
+                            placement: 'bottom'
+                        });
 
-                            $me.on('show.bs.popover', $.proxy(function (e) {
+                        $me.on('show.bs.popover', $.proxy(function (e) {
 
-                                var tip = $me.data('bs.popover').tip();
+                            var tip = $me.data('bs.popover').tip();
 
-                                tip.one('click', '.bs-confirm', $.proxy(function (e) {
+                            tip.one('click', '.bs-confirm', $.proxy(function (e) {
 
-                                    e.preventDefault();
+                                e.preventDefault();
 
-                                    $me.popover('toggle');
-
-                                    opts.handler.call(this, this.element.find(this.options.rowSelector + '.selected'), this);
-
-                                }, this));
-
-                                tip.one('click', '.bs-cancel', function (e) {
-
-                                    e.preventDefault();
-
-                                    $me.popover('toggle');
-                                });
-
-                            }, grid));
-
-                        } else {
-
-                            grid.$actionsContainer.on('click', opts.btnSelector, $.proxy(function (e) {
+                                $me.popover('toggle');
 
                                 opts.handler.call(this, this.element.find(this.options.rowSelector + '.selected'), this);
 
-                            }, grid));
-                        }
+                            }, this));
 
-                    })(opts, this);
-                }
+                            tip.one('click', '.bs-cancel', function (e) {
+
+                                e.preventDefault();
+
+                                $me.popover('toggle');
+                            });
+
+                        }, grid));
+
+                    } else {
+
+                        grid.$actionsContainer.on('click', opts.btnSelector, $.proxy(function (e) {
+
+                            opts.handler.call(this, this.element.find(this.options.rowSelector + '.selected'), this);
+
+                        }, grid));
+                    }
+
+                })(opts, this);
+            }
             }
 
             if (this.options.rowClickExpandable) {
@@ -1247,11 +1247,11 @@
 
     //#region row update
     Grid.prototype.updateRow = function (row, getDetails, onlyHeader) {
-
+        
         var data = {
             items: [{
                 Id: row.data('objid'),
-                GetDetails: getDetails || false
+                GetDetails: getDetails || true
             }]
         };
 
@@ -1276,43 +1276,7 @@
 
     Grid.prototype._updateRowAjaxSuccess = function (data, callbackData) {
 
-        var $html = $(data.Row),
-            $row = callbackData.row
-        $newRow = $html.find(this.options.rowSelector);
-
-        if (callbackData.sent.getDetails) {
-
-            $newRow.addClass('open');
-            $newRow.data('hasdetails', true);
-
-            this._createActions(this.options.rowActions, $newRow);
-
-            this._trigger('beforeRowDetailsSuccess', 0, {
-                $row: $newRow,
-                data: data
-            });
-        }
-
-        if (this.options.hasRowCheck) {
-            var checked = $row.find(this.options.rowCheckSelector).prop('checked');
-            $newRow.find(this.options.rowCheckSelector).prop('checked', checked);
-            $newRow.addClass('selected');
-        }
-
-        // replace row header with the updated one
-
-        if (callbackData.sent.onlyHeader) {
-            $row.find('header').replaceWith($newRow.find('header'));
-        } else {
-            $row.replaceWith($newRow);
-        }
-
-        if (callbackData.sent.getDetails) {
-            this._trigger('afterRowDetailsSuccess', 0, {
-                $row: $newRow,
-                data: data
-            });
-        }
+        this.updateRows(data.RowsHtml);
     };
 
     Grid.prototype._updateRowAjaxError = function (data) {
@@ -1360,7 +1324,7 @@
 
     Grid.prototype.updateRows = function (html) {
 
-        var $container = $('<div></div>').append(html);
+        var $container = $(html);
         var $rows = $container.find(this.options.rowSelector);
 
         $rows.each($.proxy(function (idx, row) {
@@ -1392,6 +1356,12 @@
                     $newDetails.replaceWith($detailsPart);
                 }
             });
+
+            //$row.find(this.options.rowCheckSelector).replaceWith($currentRow.find(this.options.rowCheckSelector));
+
+            //$currentRow.html($row.html());
+
+            //$row.attr('class', $currentRow.attr('class'));
 
             $currentRow.replaceWith($row);
 

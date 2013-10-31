@@ -6,24 +6,24 @@
 
 <div class="bs-readonly">
     <dl>
-        <dt>role &nbsp;</dt>
+        <dt>role</dt>
         <dd>@Html.GetRoleIcon(Model.Role) @Model.Role.ToString()</dd>
     </dl>
     <dl>
-        <dt>contributor since &nbsp;</dt>
+        <dt>contributor since</dt>
         <dd>@Model.ContributorSince.ToShortDateString()</dd>
     </dl>
     @if (Model.Languages != null)
     {
         <dl>
-            <dt>languages &nbsp;</dt>
+            <dt>languages</dt>
             <dd>@String.Join(", ", Model.Languages.ToArray())</dd>
         </dl>
     }
     @if (!string.IsNullOrEmpty(Model.Contributions))
     {
         <dl>
-            <dt>contributions &nbsp;</dt>
+            <dt>contributions</dt>
             <dd>@Model.Contributions</dd>
         </dl>
     }
