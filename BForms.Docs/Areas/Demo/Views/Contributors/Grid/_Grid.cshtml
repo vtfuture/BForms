@@ -57,7 +57,7 @@
               .Text(RowButtonTemplate);
       })
 
-      .ConfigureRows(cfg => cfg.HasDetails(row => row.Enabled)
+      .ConfigureRows(cfg => cfg.HasDetails(row => true)
                                .DetailsTemplate(row => Html.Partial("Grid/Details/_Index", row.Details).ToString())
                                .HasCheckbox(row => (row.Enabled || !row.Name.StartsWith("M")))
                                .HtmlAttributes(row => new Dictionary<string, object> { { "data-objid", row.Id }, { "data-active", row.Enabled } })

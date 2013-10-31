@@ -1,0 +1,11 @@
+﻿@using BForms.Html
+@using BForms.Docs.Resources
+@model BForms.Docs.Areas.Demo.Models.ContributorsViewModel
+
+@{
+    Layout = null;
+    Response.AddHeader("Content-disposition", "attachment; filename=report.xls");
+    Response.ContentType = "application/octet-stream";
+}
+
+@Html.Partial("Grid/_Grid", Model)

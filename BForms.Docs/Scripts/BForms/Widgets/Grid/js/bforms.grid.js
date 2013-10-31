@@ -94,7 +94,7 @@
         PageSize: 5
     };
 
-    Grid.prototype._create = function () {
+    Grid.prototype._init = function () {
 
         if (!this.options.uniqueName) {
             this.options.uniqueName = this.element.attr('id');
@@ -332,7 +332,7 @@
     };
 
     Grid.prototype.refresh = function (e, data) {
-        this.refreshModel.Page = 1;
+        //this.refreshModel.Page = 1;
         this._getPage();
     };
 
@@ -420,7 +420,8 @@
 
         var sendData = {
             items: [{
-                Id: $row.data('objid')
+                Id: $row.data('objid'),
+                GetDetails: true
             }]
         };
 
@@ -446,35 +447,34 @@
 
     Grid.prototype._detailsAjaxSuccess = function (data) {
 
-        if (typeof data.DetailsHtml !== "undefined") {
+        var $html = $(data.RowsHtml);
+        $html.find(this.options.rowSelector).each($.proxy(function (idx, updatedRow) {
 
-            for (var itemId in data.DetailsHtml) {
+            var $updatedRow = $(updatedRow);
+            var $row = this._getRowElement($updatedRow.data('objid'));
 
-                var $row = this._getRowElement(itemId);
-                var html = data.DetailsHtml[itemId];
+            $row.find(this.options.rowHeaderSelector).replaceWith($updatedRow.find(this.options.rowHeaderSelector));
+            $row.append($updatedRow.find(this.options.rowDetailsSelector).hide());
 
-                data.$detailsHtml = $(html);
+            this._trigger('beforeRowDetailsSuccess', 0, {
+                $row: $row,
+                data: data
+            });
 
-                this._trigger('beforeRowDetailsSuccess', 0, {
-                    $row: $row,
-                    data: data
-                });
+            //insert details to dom
+            $row.stop(true, true).slideDown(800);
 
-                //insert details to dom
-                $row.append(data.$detailsHtml.hide()).stop(true, true).slideDown(800);
+            this._handleDetails($row);
 
-                this._handleDetails($row);
+            $row.data('hasdetails', true);
 
-                $row.data('hasdetails', true);
+            this._createActions(this.options.rowActions, $row);
 
-                this._createActions(this.options.rowActions, $row);
-
-                this._trigger('afterRowDetailsSuccess', 0, {
-                    $row: $row,
-                    data: data
-                });
-            }
-        }
+            this._trigger('afterRowDetailsSuccess', 0, {
+                $row: $row,
+                data: data
+            });
+        }, this));
     };
 
     Grid.prototype._detailsAjaxError = function (data) {
@@ -876,7 +876,8 @@
                     this._handleDetails($row);
                 } else if ($row.find(this.options.errorCloseSelector).length == 0) {
                     return {
-                        Id: $row.data('objid')
+                        Id: $row.data('objid'),
+                        getDetails: true
                     };
                 }
             }, this)).get();
@@ -1212,16 +1213,17 @@
 
     //#region row update
     Grid.prototype.updateRow = function (row, getDetails, onlyHeader) {
-
+        
         var data = {
-            objId: row.data('objid'),
-            getDetails: getDetails || false,
-            onlyHeader: onlyHeader || false
+            items: [{
+                Id: row.data('objid'),
+                GetDetails: getDetails || false
+            }]
         };
 
         var ajaxOptions = {
             name: this.options.uniqueName + '|UpdateRow|' + data.objId,
-            url: this.options.updateRowUrl,
+            url: this.options.detailsUrl,
             data: data,
             callbackData: {
                 sent: data,
@@ -1241,17 +1243,14 @@
     Grid.prototype._updateRowAjaxSuccess = function (data, callbackData) {
 
         var $html = $(data.Row),
-            $row = callbackData.row,
+            $row = callbackData.row
             $newRow = $html.find(this.options.rowSelector);
-
+            
         if (callbackData.sent.getDetails) {
 
             $newRow.addClass('open');
             $newRow.data('hasdetails', true);
-
-            data.$detailsHtml = $(data.Details);
-            $newRow.append(data.$detailsHtml);
-
+            
             this._createActions(this.options.rowActions, $newRow);
 
             this._trigger('beforeRowDetailsSuccess', 0, {
@@ -1331,6 +1330,7 @@
         var $rows = $container.find(this.options.rowSelector);
 
         $rows.each($.proxy(function (idx, row) {
+
             var $row = $(row),
             objId = $row.data('objid');
 
@@ -1349,6 +1349,15 @@
                     }
                 }
             }
+
+            $currentRow.find('.grid_details').each(function (idx, detailsPart) {
+                var $detailsPart = $(detailsPart);
+                if ($detailsPart.hasClass('bs-editable') && $detailsPart.find('.bs-readonly:visible').length == 0) {
+                    var $newDetails = $row.find('#' + $detailsPart.attr('id'));
+                    $detailsPart.find('.bs-readonly').html($newDetails.find('.bs-readonly').html());
+                    $newDetails.replaceWith($detailsPart);
+                }
+            });
 
             $currentRow.replaceWith($row);
 

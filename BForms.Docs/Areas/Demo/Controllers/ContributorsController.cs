@@ -61,6 +61,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
                 {"pagerUrl", Url.Action("Pager")},
                 {"detailsUrl", Url.Action("Details")},
                 {"getRowUrl", Url.Action("GetRow")},
+                {"getRowsUrl", Url.Action("GetRows")},
                 {"enableDisableUrl", Url.Action("EnableDisable")},
                 {"exportExcelUrl", Url.Action("ExportExcel")},
                 {"updateUrl", Url.Action("Update")},
@@ -187,58 +188,15 @@ namespace BForms.Docs.Areas.Demo.Controllers
             }, status, msg);
         }
 
-        public BsJsonResult GetRow(int objId, bool getDetails = false)
+        public BsJsonResult GetRows(List<BsGridRowData<int>> items)
         {
             var msg = string.Empty;
             var status = BsResponseStatus.Success;
-            var row = string.Empty;
-            var details = string.Empty;
+            var rowsHtml = string.Empty;
 
             try
             {
-                var rowModel = _gridRepository.ReadRow(objId);
-
-                var viewModel = _gridRepository.ToBsGridViewModel(rowModel).Wrap<ContributorsViewModel>(x => x.Grid);
-
-                row = this.BsRenderPartialView("Grid/_Grid", viewModel);
-
-                if (getDetails)
-                {
-                    _gridRepository.FillDetails(rowModel);
-
-                    details = this.BsRenderPartialView("Grid/Details/_Index", rowModel.Details);
-                }
-
-            }
-            catch (Exception ex)
-            {
-                msg = Resource.ServerError;
-                status = BsResponseStatus.ServerError;
-            }
-
-            return new BsJsonResult(new
-            {
-                Row = row,
-                Details = details
-            }, status, msg);
-        }
-
-        public BsJsonResult Details(List<BsGridRowData<int>> items)
-        {
-            var msg = string.Empty;
-            var status = BsResponseStatus.Success;
-            var detailsHtml = new Dictionary<string, string>();
-
-            try
-            {
-
-                var details = _gridRepository.ReadDetails(items.Select(x => x.Id).ToList());
-
-                foreach (var model in details)
-                {
-                    detailsHtml.Add(model.Id.ToString(), this.BsRenderPartialView("Grid/Details/_Index", model));
-                }
-
+                rowsHtml = GetRowsHtml(items);
             }
             catch (Exception ex)
             {
@@ -248,10 +206,10 @@ namespace BForms.Docs.Areas.Demo.Controllers
 
             return new BsJsonResult(new
             {
-                DetailsHtml = detailsHtml
+                RowsHtml = rowsHtml
             }, status, msg);
         }
-
+        
         public BsJsonResult Delete(List<BsGridRowData<int>> items)
         {
             var msg = string.Empty;
@@ -298,12 +256,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
                     _gridRepository.EnableDisable(item.Id, enable);
                 }
 
-                var ids = items.Select(x => x.Id).ToList();
-                var rowsModel = _gridRepository.ReadRows(items.Select(x => x.Id).ToList());
-                var viewModel = _gridRepository.ToBsGridViewModel(rowsModel, row => row.Id, items, x=>ids.Contains(x.Id))
-                        .Wrap<ContributorsViewModel>(x => x.Grid);
-
-                rowsHtml = this.BsRenderPartialView("Grid/_Grid", viewModel);
+                rowsHtml = GetRowsHtml(items);
             }
             catch (Exception ex)
             {
@@ -374,6 +327,17 @@ namespace BForms.Docs.Areas.Demo.Controllers
         #endregion
 
         #region Helpers
+        [NonAction]
+        private string GetRowsHtml(List<BsGridRowData<int>> items)
+        {
+            var ids = items.Select(x => x.Id).ToList();
+            var rowsModel = _gridRepository.ReadRows(items.Select(x => x.Id).ToList());
+            var viewModel = _gridRepository.ToBsGridViewModel(rowsModel, row => row.Id, items, x => ids.Contains(x.Id))
+                    .Wrap<ContributorsViewModel>(x => x.Grid);
+
+            return this.BsRenderPartialView("Grid/_Grid", viewModel);
+        }
+
         [NonAction]
         public void ClearModelState(ModelStateDictionary ms, EditComponents componentId)
         {
