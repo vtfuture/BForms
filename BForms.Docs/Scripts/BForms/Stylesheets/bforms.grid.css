@@ -387,7 +387,8 @@ a.btn {
         text-overflow: ellipsis;
         white-space: nowrap;
         font-weight: normal;
-        color: #aaa; }
+        color: #aaa;
+        padding-right: 10px; }
       .grid_container .grid_view .grid_rows_wrapper .grid_row_details dl dd {
         margin-left: 30%;
         word-wrap: break-word; }
