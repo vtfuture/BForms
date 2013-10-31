@@ -1217,7 +1217,7 @@
         var data = {
             items: [{
                 Id: row.data('objid'),
-                GetDetails: getDetails || false
+                GetDetails: getDetails || true
             }]
         };
 
@@ -1242,43 +1242,7 @@
 
     Grid.prototype._updateRowAjaxSuccess = function (data, callbackData) {
 
-        var $html = $(data.Row),
-            $row = callbackData.row
-            $newRow = $html.find(this.options.rowSelector);
-            
-        if (callbackData.sent.getDetails) {
-
-            $newRow.addClass('open');
-            $newRow.data('hasdetails', true);
-            
-            this._createActions(this.options.rowActions, $newRow);
-
-            this._trigger('beforeRowDetailsSuccess', 0, {
-                $row: $newRow,
-                data: data
-            });
-        }
-
-        if (this.options.hasRowCheck) {
-            var checked = $row.find(this.options.rowCheckSelector).prop('checked');
-            $newRow.find(this.options.rowCheckSelector).prop('checked', checked);
-            $newRow.addClass('selected');
-        }
-
-        // replace row header with the updated one
-
-        if (callbackData.sent.onlyHeader) {
-            $row.find('header').replaceWith($newRow.find('header'));
-        } else {
-            $row.replaceWith($newRow);
-        }
-
-        if (callbackData.sent.getDetails) {
-            this._trigger('afterRowDetailsSuccess', 0, {
-                $row: $newRow,
-                data: data
-            });
-        }
+        this.updateRows(data.RowsHtml);
     };
 
     Grid.prototype._updateRowAjaxError = function (data) {
@@ -1326,7 +1290,7 @@
 
     Grid.prototype.updateRows = function (html) {
 
-        var $container = $('<div></div>').append(html);
+        var $container = $(html);
         var $rows = $container.find(this.options.rowSelector);
 
         $rows.each($.proxy(function (idx, row) {
@@ -1358,6 +1322,12 @@
                     $newDetails.replaceWith($detailsPart);
                 }
             });
+
+            //$row.find(this.options.rowCheckSelector).replaceWith($currentRow.find(this.options.rowCheckSelector));
+
+            //$currentRow.html($row.html());
+
+            //$row.attr('class', $currentRow.attr('class'));
 
             $currentRow.replaceWith($row);
 

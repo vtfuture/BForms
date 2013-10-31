@@ -174,6 +174,12 @@ namespace BForms.Docs.Areas.Demo.Controllers
                             html = this.BsRenderPartialView("Grid/Details/_ProjectRelatedReadonly", detailsModel);
                             break;
                     }
+
+                    var rowModel = _gridRepository.ReadRow(objId);
+
+                    var viewModel = _gridRepository.ToBsGridViewModel(rowModel, true).Wrap<ContributorsViewModel>(x => x.Grid);
+
+                    html = this.BsRenderPartialView("Grid/_Grid", viewModel);
                 }
             }
             catch (Exception ex)
@@ -184,12 +190,13 @@ namespace BForms.Docs.Areas.Demo.Controllers
 
             return new BsJsonResult(new
             {
-                Html = html
+                RowsHtml = html
             }, status, msg);
         }
 
         public BsJsonResult GetRows(List<BsGridRowData<int>> items)
         {
+            Thread.Sleep(1000);
             var msg = string.Empty;
             var status = BsResponseStatus.Success;
             var rowsHtml = string.Empty;
@@ -239,6 +246,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
 
         public BsJsonResult EnableDisable(List<BsGridRowData<int>> items, bool? enable)
         {
+            Thread.Sleep(1000);
             var msg = string.Empty;
             var status = BsResponseStatus.Success;
             var rowsHtml = string.Empty;

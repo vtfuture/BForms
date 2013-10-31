@@ -10,6 +10,9 @@
 
     var selectInput2 = function ($elem, opts) {
         this.$elem = $elem;
+
+        //if (this.$elem.hasClass('bs-hasBformsSelect')) return;
+
         this.options = opts;
         this.init();
     };
@@ -33,6 +36,8 @@
             this._selectSettings = this._getMultiSelectSettings(this.$elem);
             this._applySelect2(this.$elem);
         }
+
+        this.$elem.addClass('bs-hasBformsSelect');
     };
 
     selectInput2.prototype._initElement = function () {
