@@ -108,7 +108,11 @@ namespace BForms.Html
         public static MvcHtmlString BsValidationSummary(this HtmlHelper helper, IDictionary<string, object> htmlAttributes)
         {
             var prefix = helper.NameForModel().ToHtmlString();
-            string name = prefix + ".BsFormError";
+            if (!string.IsNullOrEmpty(prefix))
+            {
+                prefix += ".";
+            }
+            string name = prefix + "BsFormError";
 
             var isInvalid = helper.ViewData.ModelState[name] != null &&
                             helper.ViewData.ModelState[name].Errors != null &&
