@@ -68,6 +68,7 @@
         noResultsRowSelector: '.bs-noResultsRow',
 
         sortable: true,
+        rowClickExpandable: true,
 
         defaultFilterButtons: [{
             btnSelector: '.js-all',
@@ -244,6 +245,11 @@
                     })(opts, this);
                 }
             }
+
+            if (this.options.rowClickExpandable) {
+                this.element.on('click', this.options.rowSelector, $.proxy(this._onRowClick, this));
+            }
+
         }
 
         this.element.on('click', '.edit_col', $.proxy(this._evOnCellEdit, this));
@@ -898,6 +904,13 @@
             //}, this));
         }
     };
+
+    Grid.prototype._onRowClick = function (e) {
+        if (!this._isTextSelected()) {
+            var $row = $(e.currentTarget);
+            $row.find(this.options.detailsSelector).trigger('click');
+        }
+    };
     //#endregion
 
     //#region private methods
@@ -1106,8 +1119,8 @@
         if (closedRowsCount != rowsWithDetailsCount) {
             return false;
         }
-        
-        if (this.element.find(this.options.rowCheckSelector).filter(function() {
+
+        if (this.element.find(this.options.rowCheckSelector).filter(function () {
             return $(this).prop('checked');
         }).length > 0) {
             return false;
@@ -1208,6 +1221,16 @@
         }
     };
 
+    Grid.prototype._isTextSelected = function () {
+        var text = "";
+        if (typeof window.getSelection != "undefined") {
+            text = window.getSelection().toString();
+        } else if (typeof document.selection != "undefined" && document.selection.type == "Text") {
+            text = document.selection.createRange().text;
+        }
+        return text !== "";
+    };
+
     Grid.prototype.toggleBulkActions = function () {
         if (this.element.find(this.options.rowCheckSelector).length > 0) {
             this.element.find(this.options.groupActionsSelector).show();
@@ -1219,7 +1242,7 @@
 
     //#region row update
     Grid.prototype.updateRow = function (row, getDetails, onlyHeader) {
-        
+
         var data = {
             items: [{
                 Id: row.data('objid'),
@@ -1250,13 +1273,13 @@
 
         var $html = $(data.Row),
             $row = callbackData.row
-            $newRow = $html.find(this.options.rowSelector);
-            
+        $newRow = $html.find(this.options.rowSelector);
+
         if (callbackData.sent.getDetails) {
 
             $newRow.addClass('open');
             $newRow.data('hasdetails', true);
-            
+
             this._createActions(this.options.rowActions, $newRow);
 
             this._trigger('beforeRowDetailsSuccess', 0, {
@@ -1373,7 +1396,7 @@
 
 
         }, this));
-        
+
         this._updateExpandToggle();
     };
 
