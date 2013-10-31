@@ -68,6 +68,7 @@
         noResultsRowSelector: '.bs-noResultsRow',
 
         sortable: true,
+        rowClickExpandable: true,
 
         defaultFilterButtons: [{
             btnSelector: '.js-all',
@@ -130,7 +131,7 @@
         // when an action made on grid generates a refresh then this.needsRefresh is set to true
         this.needsRefresh = false;
 
-        if (this.options.sortable) {
+        if (this.options.sortable && ($.browser == null || $.browser.mobile == false)) {
             this._initSortable();
         }
 
@@ -192,6 +193,7 @@
                 })(opts, this);
             }
 
+            if (this.options.gridActions != null) {
             for (var i = 0; i < this.options.gridActions.length; i++) {
 
                 var opts = this.options.gridActions[i];
@@ -242,6 +244,12 @@
 
                 })(opts, this);
             }
+            }
+
+            if (this.options.rowClickExpandable) {
+                this.element.on('click', this.options.rowSelector, $.proxy(this._onRowClick, this));
+            }
+
         }
 
         this.element.on('click', '.edit_col', $.proxy(this._evOnCellEdit, this));
@@ -896,6 +904,13 @@
             //}, this));
         }
     };
+
+    Grid.prototype._onRowClick = function (e) {
+        if (!this._isTextSelected()) {
+            var $row = $(e.currentTarget);
+            $row.find(this.options.detailsSelector).trigger('click');
+        }
+    };
     //#endregion
 
     //#region private methods
@@ -1017,7 +1032,8 @@
 
     //#region sortable
     Grid.prototype._initSortable = function () {
-        this.$gridOrderContainer.sortable({
+  
+        this.$gridOrderContainer.find('header').sortable({
             start: $.proxy(this._onSortStart, this),
             stop: $.proxy(this._onSortStop, this),
             update: $.proxy(this._onSortUpdate, this),
@@ -1050,7 +1066,7 @@
         this.refreshModel.OrderColumns = this._getColumnsOrder();
         this._getPage();
 
-        this.$gridOrderContainer.find('div:first').prepend(this.$expandToggle.show());
+        this.$expandToggle.show();
     };
     //#endregion
 
@@ -1105,6 +1121,12 @@
             return false;
         }
 
+        if (this.element.find(this.options.rowCheckSelector).filter(function () {
+            return $(this).prop('checked');
+        }).length > 0) {
+            return false;
+        }
+
         return true;
     };
 
@@ -1142,12 +1164,10 @@
             allExpanded = true;
         }
 
-        var rowsWithDetailsCount = this.element.find(this.options.detailsSelector).length;
-
-        if (closedRowsCount < rowsWithDetailsCount) {
-            this._showResetGridButton();
-        } else {
+        if (this._isInitialState()) {
             this._hideResetGridButton();
+        } else {
+            this._showResetGridButton();
         }
 
 
@@ -1200,6 +1220,16 @@
                 data: detailsData
             });
         }
+    };
+
+    Grid.prototype._isTextSelected = function () {
+        var text = "";
+        if (typeof window.getSelection != "undefined") {
+            text = window.getSelection().toString();
+        } else if (typeof document.selection != "undefined" && document.selection.type == "Text") {
+            text = document.selection.createRange().text;
+        }
+        return text !== "";
     };
 
     Grid.prototype.toggleBulkActions = function () {
@@ -1337,6 +1367,8 @@
 
 
         }, this));
+
+        this._updateExpandToggle();
     };
 
     Grid.prototype.getSelectedRows = function () {

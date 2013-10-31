@@ -55,12 +55,10 @@ namespace BForms.Docs.Areas.Demo.Controllers
                     New = _gridRepository.GetNewForm()
                 }
             };
-
+            
             var options = new Dictionary<string, object>
             {
                 {"pagerUrl", Url.Action("Pager")},
-                {"detailsUrl", Url.Action("Details")},
-                {"getRowUrl", Url.Action("GetRow")},
                 {"getRowsUrl", Url.Action("GetRows")},
                 {"enableDisableUrl", Url.Action("EnableDisable")},
                 {"exportExcelUrl", Url.Action("ExportExcel")},
@@ -342,6 +340,8 @@ namespace BForms.Docs.Areas.Demo.Controllers
             var rowsModel = _gridRepository.ReadRows(items.Select(x => x.Id).ToList());
             var viewModel = _gridRepository.ToBsGridViewModel(rowsModel, row => row.Id, items, x => ids.Contains(x.Id))
                     .Wrap<ContributorsViewModel>(x => x.Grid);
+
+            viewModel.Grid.BaseSettings.OrderColumns = GetColumnOrder();
 
             return this.BsRenderPartialView("Grid/_Grid", viewModel);
         }

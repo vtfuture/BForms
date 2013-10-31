@@ -307,8 +307,7 @@ a.btn {
 				background: url(../images/pencil-small.png) right 50% no-repeat;
 				padding-right: 20px;
 			}
-			header {
-				padding: 0 25px;
+			header {				
 				&:after {
 					@extend .clear_all;
 				}
@@ -516,6 +515,7 @@ a.btn {
 						white-space: nowrap;
 						font-weight: normal;
 						color: #aaa;
+						padding-right: 10px;
 					}
 					dd {
 						margin-left: 30%;
@@ -576,7 +576,17 @@ a.btn {
 					}
 				}
 			}
-		}		
+		}
+		&.is_expandable {
+			header {
+				padding-left: 25px;
+			}
+		}
+		&.is_checkable {
+			header {
+				padding-right: 25px;
+			}
+		}
 	}	
 }
 

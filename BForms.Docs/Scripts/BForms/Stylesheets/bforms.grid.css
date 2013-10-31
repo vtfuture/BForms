@@ -235,8 +235,6 @@ a.btn {
       border-bottom: 1px dashed #45ada8;
       background: url(../images/pencil-small.png) right 50% no-repeat;
       padding-right: 20px; }
-    .grid_container .grid_view .grid_row header {
-      padding: 0 25px; }
     .grid_container .grid_view .grid_row .row_check {
       position: absolute;
       right: 10px;
@@ -389,7 +387,8 @@ a.btn {
         text-overflow: ellipsis;
         white-space: nowrap;
         font-weight: normal;
-        color: #aaa; }
+        color: #aaa;
+        padding-right: 10px; }
       .grid_container .grid_view .grid_rows_wrapper .grid_row_details dl dd {
         margin-left: 30%;
         word-wrap: break-word; }
@@ -426,6 +425,10 @@ a.btn {
       .grid_container .grid_view .grid_rows_wrapper .grid_row_details .check-list label span {
         font-size: 11px;
         display: block; }
+  .grid_container .grid_view.is_expandable header {
+    padding-left: 25px; }
+  .grid_container .grid_view.is_checkable header {
+    padding-right: 25px; }
 
 /* Action buttons component */
 .grid_bulk_controls .btn {
