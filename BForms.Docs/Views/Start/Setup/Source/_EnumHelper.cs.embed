@@ -1,0 +1,1 @@
+﻿demoModel.DemoDropdown = BsSelectList<int?>.FromEnum(typeof(DemoEnum));
