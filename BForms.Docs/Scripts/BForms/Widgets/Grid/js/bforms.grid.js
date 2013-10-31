@@ -131,7 +131,7 @@
         // when an action made on grid generates a refresh then this.needsRefresh is set to true
         this.needsRefresh = false;
 
-        if (this.options.sortable) {
+        if (this.options.sortable && ($.browser == null || $.browser.mobile == false)) {
             this._initSortable();
         }
 
@@ -1032,7 +1032,8 @@
 
     //#region sortable
     Grid.prototype._initSortable = function () {
-        this.$gridOrderContainer.sortable({
+  
+        this.$gridOrderContainer.find('header').sortable({
             start: $.proxy(this._onSortStart, this),
             stop: $.proxy(this._onSortStop, this),
             update: $.proxy(this._onSortUpdate, this),
@@ -1065,7 +1066,7 @@
         this.refreshModel.OrderColumns = this._getColumnsOrder();
         this._getPage();
 
-        this.$gridOrderContainer.find('div:first').prepend(this.$expandToggle.show());
+        this.$expandToggle.show();
     };
     //#endregion
 

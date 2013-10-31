@@ -333,6 +333,8 @@ namespace BForms.Docs.Areas.Demo.Controllers
             var viewModel = _gridRepository.ToBsGridViewModel(rowsModel, row => row.Id, items, x => ids.Contains(x.Id))
                     .Wrap<ContributorsViewModel>(x => x.Grid);
 
+            viewModel.Grid.BaseSettings.OrderColumns = GetColumnOrder();
+
             return this.BsRenderPartialView("Grid/_Grid", viewModel);
         }
 
