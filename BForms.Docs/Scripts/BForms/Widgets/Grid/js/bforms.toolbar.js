@@ -332,16 +332,35 @@
         return null;
     };
 
-    Toolbar.prototype.toggleControl = function (name) {
+    Toolbar.prototype.toggleControl = function (name, show) {
         var control = this.getControl(name);
 
         if (control != null && control.type == "tab") {
 
-            if (this._selectedTab != null && this._selectedTab.name != control.name) {
-                this._toggleTab(this._selectedTab);
-            }
+            if (typeof show !== "undefined") {
 
-            this._toggleTab(control);
+                if (show == true) {
+                    if (this._selectedTab != null) {
+                        if (this._selectedTab.name != control.name) {
+                            this._toggleTab(this._selectedTab);
+                            this._toggleTab(control);
+                        }
+                    } else {
+                        this._toggleTab(control);
+                    }
+                } else {
+                    if (this._selectedTab != null && this._selectedTab.name == control.name) {
+                        this._toggleTab(control);
+                    }
+                }
+
+            } else {
+                if (this._selectedTab != null && this._selectedTab.name != control.name) {
+                    this._toggleTab(this._selectedTab);
+                }
+
+                this._toggleTab(control);
+            }
         }
 
         return control;

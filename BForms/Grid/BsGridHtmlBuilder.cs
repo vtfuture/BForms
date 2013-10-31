@@ -216,8 +216,21 @@ namespace BForms.Grid
         private string RenderIndex()
         {
             var gridBuilder = new TagBuilder("div");
+            var hideDetails = this.HideDetails();
+
             gridBuilder.MergeAttribute("id", this.fullName.Split('.').Last().ToLower());
             gridBuilder.MergeClassAttribute("grid_view", this.htmlAttributes);
+
+            if (!hideDetails)
+            {
+                gridBuilder.AddCssClass("is_expandable");
+            }
+
+            if (this.hasBulkActions)
+            {
+                gridBuilder.AddCssClass("is_checkable");
+            }
+
             gridBuilder.MergeAttribute("data-settings",
                 HtmlHelper.AnonymousObjectToHtmlAttributes(this.model.BaseSettings).ToJsonString());
 
@@ -330,7 +343,7 @@ namespace BForms.Grid
                         detailsBuilder.AddCssClass("open");
                     }
 
-                    if (HideDetails())
+                    if (hideDetails)
                     {
                         detailsBuilder.MergeAttribute("style", "display:none");
                     }
@@ -855,13 +868,7 @@ namespace BForms.Grid
                 }
                 else if (this.model.Items != null && this.model.Items.Any())
                 {
-                    foreach (var item in this.model.Items)
-                    {
-                        if (this.rowDetails(item))
-                        {
-                            return false;
-                        }
-                    }
+                    return this.model.Items.All(item => !this.rowDetails(item));
                 }
             }
             return true;

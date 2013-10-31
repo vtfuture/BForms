@@ -192,55 +192,57 @@
                 })(opts, this);
             }
 
-            for (var i = 0; i < this.options.gridActions.length; i++) {
+            if (this.options.gridActions != null) {
+                for (var i = 0; i < this.options.gridActions.length; i++) {
 
-                var opts = this.options.gridActions[i];
+                    var opts = this.options.gridActions[i];
 
-                (function (opts, grid) {
+                    (function (opts, grid) {
 
-                    if (opts.popover) {
+                        if (opts.popover) {
 
-                        var $me = grid.$actionsContainer.find(opts.btnSelector);
+                            var $me = grid.$actionsContainer.find(opts.btnSelector);
 
-                        $me.popover({
-                            html: true,
-                            content: $('.popover-content').html(),
-                            placement: 'bottom'
-                        });
+                            $me.popover({
+                                html: true,
+                                content: $('.popover-content').html(),
+                                placement: 'bottom'
+                            });
 
-                        $me.on('show.bs.popover', $.proxy(function (e) {
+                            $me.on('show.bs.popover', $.proxy(function (e) {
 
-                            var tip = $me.data('bs.popover').tip();
+                                var tip = $me.data('bs.popover').tip();
 
-                            tip.one('click', '.bs-confirm', $.proxy(function (e) {
+                                tip.one('click', '.bs-confirm', $.proxy(function (e) {
 
-                                e.preventDefault();
+                                    e.preventDefault();
 
-                                $me.popover('toggle');
+                                    $me.popover('toggle');
+
+                                    opts.handler.call(this, this.element.find(this.options.rowSelector + '.selected'), this);
+
+                                }, this));
+
+                                tip.one('click', '.bs-cancel', function (e) {
+
+                                    e.preventDefault();
+
+                                    $me.popover('toggle');
+                                });
+
+                            }, grid));
+
+                        } else {
+
+                            grid.$actionsContainer.on('click', opts.btnSelector, $.proxy(function (e) {
 
                                 opts.handler.call(this, this.element.find(this.options.rowSelector + '.selected'), this);
 
-                            }, this));
+                            }, grid));
+                        }
 
-                            tip.one('click', '.bs-cancel', function (e) {
-
-                                e.preventDefault();
-
-                                $me.popover('toggle');
-                            });
-
-                        }, grid));
-
-                    } else {
-
-                        grid.$actionsContainer.on('click', opts.btnSelector, $.proxy(function (e) {
-
-                            opts.handler.call(this, this.element.find(this.options.rowSelector + '.selected'), this);
-
-                        }, grid));
-                    }
-
-                })(opts, this);
+                    })(opts, this);
+                }
             }
         }
 
@@ -1104,6 +1106,12 @@
         if (closedRowsCount != rowsWithDetailsCount) {
             return false;
         }
+        
+        if (this.element.find(this.options.rowCheckSelector).filter(function() {
+            return $(this).prop('checked');
+        }).length > 0) {
+            return false;
+        }
 
         return true;
     };
@@ -1128,8 +1136,10 @@
 
         if (this.element.find(this.options.detailsSelector).length > 0) {
             this.$expandToggle.show();
+            this.element.addClass('is_expandable');
         } else {
             this.$expandToggle.hide();
+            this.element.removeClass('is_expandable');
         }
 
         var allExpanded = false;
@@ -1142,12 +1152,10 @@
             allExpanded = true;
         }
 
-        var rowsWithDetailsCount = this.element.find(this.options.detailsSelector).length;
-
-        if (closedRowsCount < rowsWithDetailsCount) {
-            this._showResetGridButton();
-        } else {
+        if (this._isInitialState()) {
             this._hideResetGridButton();
+        } else {
+            this._showResetGridButton();
         }
 
 
@@ -1367,6 +1375,8 @@
 
 
         }, this));
+        
+        this._updateExpandToggle();
     };
 
     Grid.prototype.getSelectedRows = function () {
