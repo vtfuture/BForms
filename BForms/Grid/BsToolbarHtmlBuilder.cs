@@ -89,7 +89,7 @@ namespace BForms.Grid
         /// <summary>
         /// Appends html attributes to grid_toolbar div element
         /// </summary>
-        public BsToolbarHtmlBuilder<TToolbar> HtmlAttributes(Dictionary<string, object> htmlAttributes)
+        public BsToolbarHtmlBuilder<TToolbar> HtmlAttributes(IDictionary<string, object> htmlAttributes)
         {
             this.htmlAttributes = htmlAttributes;
             SetIdFromHtmlAttributes(htmlAttributes);
@@ -104,7 +104,7 @@ namespace BForms.Grid
             return HtmlAttributes(HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
         }
 
-        private void SetIdFromHtmlAttributes(Dictionary<string, object> htmlAttr)
+        private void SetIdFromHtmlAttributes(IDictionary<string, object> htmlAttr)
         {
             if (htmlAttr.Keys.Contains("id"))
             {
