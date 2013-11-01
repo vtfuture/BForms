@@ -142,6 +142,8 @@ code {
   word-break: break-word; }
 
 /* Main page */
+.bs-docs-section a {
+  text-decoration: underline; }
 .bs-docs-section .jumbotron {
   background: #fff;
   border: 1px solid #e8e8e8; }
@@ -158,12 +160,16 @@ code {
     margin-right: 10px; }
     .bs-docs-section .bs-link-buttons li.current-version {
       color: #45ada8; }
+  .bs-docs-section .bs-link-buttons a {
+    text-decoration: none; }
 .bs-docs-section .bs-docs-tech {
   margin: 0;
   background: #45ada8;
   color: #fff;
   display: table;
   position: relative; }
+  .bs-docs-section .bs-docs-tech a {
+    text-decoration: none; }
   .bs-docs-section .bs-docs-tech > div {
     border-right: 1px solid #3e9b96;
     border-left: 1px solid #52bab5;
