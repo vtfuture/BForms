@@ -62,7 +62,23 @@ namespace BForms.Grid
         //private BsBulkActionsFactory BulkActionsFactory { get; set; }
         private string noRecordsTemplate;
         private string noResultsTemplate;
-        
+
+        internal void SetPropsFromAttributes(object[] attributes)
+        {
+            foreach (var item in attributes)
+            {
+                var attr = item as BsGridAttribute;
+                if (attr != null)
+                {
+                    this.hasDetails = attr.HasDetails;
+                    if (attr.Theme > 0)
+                    {
+                        this.theme = attr.Theme;
+                    }
+                }
+            }
+        }
+
         public BsGridHtmlBuilder()
         {
             this.SetColumnsFromModel();
@@ -74,17 +90,6 @@ namespace BForms.Grid
             this.fullName = fullName;
             this.model = model;
             this.metadata = metadata;
-
-
-            BsGridAttribute gridAttr = null;
-            if (ReflectionHelpers.TryGetAttribute(fullName, typeof(TModel), out gridAttr))
-            {
-                this.hasDetails = gridAttr.HasDetails;
-                if (gridAttr.Theme > 0)
-                {
-                    this.theme = gridAttr.Theme;
-                }
-            }
 
             this.SetColumnsFromModel();
         }
