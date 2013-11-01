@@ -328,6 +328,15 @@ $Black: #424141;
 	}
 }
 
+
+.bs-inline-picker {
+	position: relative;
+	margin-top: 5px;
+	&.bs-range-picker {
+		overflow: hidden;
+	}
+}
+
 /* Other color schemes */
 
 /* BLUE*/
@@ -481,16 +490,27 @@ $Black: #424141;
 	}
 } 
 
-@media (max-width: 700px) {
+@media (max-width: 749px) {
 	.bs-range-picker {
+		max-width: 485px;
 		width: auto;
 		.ranges {
 			display: block;
 			margin-bottom: 10px;
+			width: 100%;
+			padding: 0 5px;
 		}
-		.bs-datetime-picker  {
-			display: block !important;
-			margin: 0 0 10px;
+		.bs-datetime-picker {
+			margin: 0 5px 10px;
 		}
+		&.bs-inline-picker {
+			max-width: 100%;
+		}
+	}
+}
+@media (max-width: 580px) { 
+	.bs-datetime-picker  {
+		margin: 5px 0 !important;
+		clear: both;
 	}
 }
