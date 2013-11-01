@@ -1,0 +1,10 @@
+﻿Scripts/
+    └── Controllers/
+        ├── Common/
+        │   └── main-script.js
+        │
+        ├── Root/
+        │   └── Home/
+        │	└──home-index.js
+        │
+        └── area_name/

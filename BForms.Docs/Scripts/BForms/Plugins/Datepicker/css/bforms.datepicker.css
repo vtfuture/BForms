@@ -84,7 +84,9 @@
       .bs-datetime-picker ul li a {
         display: block;
         height: 30px;
-        line-height: 30px; }
+        line-height: 30px;
+        padding: 0;
+        margin: 0; }
         .bs-datetime-picker ul li a:hover, .bs-datetime-picker ul li a:focus {
           background-color: #eee !important; }
       .bs-datetime-picker ul li.day {
@@ -240,6 +242,12 @@
   bottom: -6px;
   left: 7px; }
 
+.bs-inline-picker {
+  position: relative;
+  margin-top: 5px; }
+  .bs-inline-picker.bs-range-picker {
+    overflow: hidden; }
+
 /* Other color schemes */
 /* BLUE*/
 .bs-datetime-picker.blue .btn-default {
@@ -331,12 +339,30 @@
   .bs-range-picker.black .ranges .btn-default:hover, .bs-range-picker.black .ranges .btn-default:focus {
     background: #424141 !important; }
 
-@media (max-width: 700px) {
+@media (max-width: 749px) {
   .bs-range-picker {
+    max-width: 485px;
     width: auto; }
     .bs-range-picker .ranges {
       display: block;
-      margin-bottom: 10px; }
+      margin-bottom: 10px;
+      width: 100%;
+      padding: 0 5px; }
     .bs-range-picker .bs-datetime-picker {
-      display: block !important;
-      margin: 0 0 10px; } }
+      margin: 0 5px 10px; }
+    .bs-range-picker.bs-inline-picker {
+      max-width: 100%; } }
+@media (max-width: 580px) {
+  .bs-range-picker {
+    padding-bottom: 170px; }
+    .bs-range-picker .ranges {
+      position: absolute;
+      padding: 0;
+      bottom: 0;
+      left: 10px;
+      right: 10px;
+      width: auto; }
+
+  .bs-datetime-picker {
+    margin: 5px 0 !important;
+    clear: both; } }

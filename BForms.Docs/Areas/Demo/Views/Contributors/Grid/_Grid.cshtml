@@ -6,33 +6,13 @@
 @using BForms.Docs.Areas.Demo.Helpers
 @using BForms.Docs.Areas.Demo.Models
 @model ContributorsViewModel
-                                
-@(Html.BsGridFor(m => m.Grid)
-      //.NoTitle()
-      .Theme(Html.GetTheme())
-      .GridResetButton()
-      .ConfigureBulkActions(bulk =>
-      {
-          bulk.AddAction(BsBulkActionType.Excel);
-          bulk.AddAction().StyleClass("btn-success js-btn-enable_selected").Title("Enable selected").GlyphIcon(Glyphicon.Ok);
-          bulk.AddAction().StyleClass("btn-warning js-btn-disable_selected").Title("Disable selected").GlyphIcon(Glyphicon.Remove);
-          bulk.AddAction(BsBulkActionType.Delete);
-
-          bulk.AddSelector(BsBulkSelectorType.All);
-          bulk.AddSelector().StyleClass("js-actives").Text(@Resource.Enabled);
-          bulk.AddSelector().StyleClass("js-inactives").Text(@Resource.Disabled);
-          bulk.AddSelector(BsBulkSelectorType.None);
-
-          bulk.ForSelector(BsBulkSelectorType.All).Text(@Resource.All);
-          bulk.ForSelector(BsBulkSelectorType.None).Text(@Resource.None);
-      })
-      .HtmlAttributes(new { @class = "custom_class" })
-      //.AllowAddIfEmpty()
-      .ConfigureColumns(cols =>
+     
+@{
+    var builder = new BsGridHtmlBuilder<ContributorsViewModel, ContributorRowModel>().ConfigureColumns(cols =>
       {
           //cols.NoHeader();
           cols.For(row => row.Name).Name(Resource.Name)
-              .HtmlAttributes(c => new Dictionary<string, object>() { { "class", "test"} })
+              .HtmlAttributes(c => new Dictionary<string, object>() { { "class", "test" } })
               .SetWidth(2)
               .Sortable();
 
@@ -55,7 +35,30 @@
 
           cols.Add("Actions")
               .Text(RowButtonTemplate);
+      });
+}      
+@(Html.BsGridFor(m => m.Grid, builder)
+      //.NoTitle()
+      .Theme(Html.GetTheme())
+      .GridResetButton()
+      .ConfigureBulkActions(bulk =>
+      {
+          bulk.AddAction(BsBulkActionType.Excel);
+          bulk.AddAction().StyleClass("btn-success js-btn-enable_selected").Title("Enable selected").GlyphIcon(Glyphicon.Ok);
+          bulk.AddAction().StyleClass("btn-warning js-btn-disable_selected").Title("Disable selected").GlyphIcon(Glyphicon.Remove);
+          bulk.AddAction(BsBulkActionType.Delete);
+
+          bulk.AddSelector(BsBulkSelectorType.All);
+          bulk.AddSelector().StyleClass("js-actives").Text(@Resource.Enabled);
+          bulk.AddSelector().StyleClass("js-inactives").Text(@Resource.Disabled);
+          bulk.AddSelector(BsBulkSelectorType.None);
+
+          bulk.ForSelector(BsBulkSelectorType.All).Text(@Resource.All);
+          bulk.ForSelector(BsBulkSelectorType.None).Text(@Resource.None);
       })
+      .HtmlAttributes(new { @class = "custom_class" })
+      //.AllowAddIfEmpty()
+      
 
       .ConfigureRows(cfg => cfg.HasDetails(row => row.Enabled)
                                .DetailsTemplate(row => Html.Partial("Grid/Details/_Index", row.Details).ToString())

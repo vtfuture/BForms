@@ -199,7 +199,7 @@ a.btn {
     position: relative; }
     .grid_container .grid_view .grid_rows .expand {
       position: absolute;
-      left: 15px;
+      left: 10px;
       top: 12px;
       background: url(../images/icn-down_arrow-small.png) center center no-repeat;
       width: 17px;
@@ -378,26 +378,28 @@ a.btn {
           font-weight: bold; }
         .grid_container .grid_view .grid_rows_wrapper .grid_row_details .flow .flow_steps-editable .btn_minus {
           margin-top: 22px; }
-      .grid_container .grid_view .grid_rows_wrapper .grid_row_details dl dt {
-        float: left;
-        width: 30%;
-        overflow: hidden;
-        clear: left;
-        text-align: right;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        font-weight: normal;
-        color: #aaa;
-        padding-right: 10px; }
-      .grid_container .grid_view .grid_rows_wrapper .grid_row_details dl dd {
-        margin-left: 30%;
-        word-wrap: break-word; }
-      .grid_container .grid_view .grid_rows_wrapper .grid_row_details dl.to-left dt {
-        width: auto;
-        text-align: left; }
-      .grid_container .grid_view .grid_rows_wrapper .grid_row_details dl.to-left dd {
-        margin-left: 5px;
-        float: left; }
+      .grid_container .grid_view .grid_rows_wrapper .grid_row_details dl {
+        margin-bottom: 10px; }
+        .grid_container .grid_view .grid_rows_wrapper .grid_row_details dl dt {
+          float: left;
+          width: 30%;
+          overflow: hidden;
+          clear: left;
+          text-align: right;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          font-weight: normal;
+          color: #aaa;
+          padding-right: 10px; }
+        .grid_container .grid_view .grid_rows_wrapper .grid_row_details dl dd {
+          margin-left: 30%;
+          word-wrap: break-word; }
+        .grid_container .grid_view .grid_rows_wrapper .grid_row_details dl.to-left dt {
+          width: auto;
+          text-align: left; }
+        .grid_container .grid_view .grid_rows_wrapper .grid_row_details dl.to-left dd {
+          margin-left: 5px;
+          float: left; }
       .grid_container .grid_view .grid_rows_wrapper .grid_row_details .profile img {
         max-width: 64px;
         border: 1px solid #e8e8e8; }
@@ -426,7 +428,7 @@ a.btn {
         font-size: 11px;
         display: block; }
   .grid_container .grid_view.is_expandable header {
-    padding-left: 25px; }
+    padding-left: 27px; }
   .grid_container .grid_view.is_checkable header {
     padding-right: 25px; }
 

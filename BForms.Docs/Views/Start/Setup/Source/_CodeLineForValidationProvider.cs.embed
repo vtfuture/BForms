@@ -1,0 +1,1 @@
+﻿ModelValidatorProviders.Providers.Add(new BsModelValidatorProvider());

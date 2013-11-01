@@ -57,6 +57,12 @@
         return $(template);
     };
 
+    bDatepickerRenderer.prototype.renderModal = function (model) {
+        var template = this.r.modalPicker(model, true);
+
+        return $(template);
+    };
+
     bDatepickerRenderer.prototype.getTemplate = function (model) {
         return this.r.bDatepicker(model, true);
     };
@@ -121,6 +127,10 @@
 
             this.r.addTemplate("rangePicker", this.mainTemplates.rangeTemplate);
         }
+        
+        if (typeof this.r.modalPicker !== "function") {
+            this.r.addTemplate('modalPicker', this.mainTemplates.modalPickerTemplate);
+        }
 
     };
 
@@ -169,7 +179,21 @@
                                 '{{>timeContTemplate}}' +
                                 '{{>timeFooterTemplate}}' +
 
-                             '</div>'
+                             '</div>',
+        
+        modalPickerTemplate: '<div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">' +
+                           '<div class="modal-dialog">' +
+                               '<div class="modal-content">' +
+                                   '<div class="modal-header">' +
+                                       '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>' +
+                                        '<h4 class="modal-title">{{Title}}</h4>' +
+                                   '</div>' +
+                                   '<div class="modal-body">' +
+                                            '<div class="bs-modal-replace"></div>' +
+                                   '</div>' +
+                               '</div>' +
+                           '</div>' +
+                       '</div>'
     };
 
     bDatepickerRenderer.prototype.dateTemplates = {

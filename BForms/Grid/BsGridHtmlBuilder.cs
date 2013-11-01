@@ -27,7 +27,7 @@ namespace BForms.Grid
 
         private ModelMetadata metadata;
 
-        public ModelMetadata Metadata
+        internal ModelMetadata Metadata
         {
             get { return metadata; }
             set { metadata = value; }
@@ -35,7 +35,7 @@ namespace BForms.Grid
 
         private string fullName;
 
-        public string FullName
+        internal string FullName
         {
             get { return fullName; }
             set { fullName = value; }
@@ -63,7 +63,26 @@ namespace BForms.Grid
         private string noRecordsTemplate;
         private string noResultsTemplate;
 
-        public BsGridHtmlBuilder() { }
+        internal void SetPropsFromAttributes(object[] attributes)
+        {
+            foreach (var item in attributes)
+            {
+                var attr = item as BsGridAttribute;
+                if (attr != null)
+                {
+                    this.hasDetails = attr.HasDetails;
+                    if (attr.Theme > 0)
+                    {
+                        this.theme = attr.Theme;
+                    }
+                }
+            }
+        }
+
+        public BsGridHtmlBuilder()
+        {
+            this.SetColumnsFromModel();
+        }
 
         public BsGridHtmlBuilder(string fullName, BsGridModel<TRow> model, ModelMetadata metadata, ViewContext viewContext)
             : base(viewContext)
@@ -71,17 +90,6 @@ namespace BForms.Grid
             this.fullName = fullName;
             this.model = model;
             this.metadata = metadata;
-
-
-            BsGridAttribute gridAttr = null;
-            if (ReflectionHelpers.TryGetAttribute(fullName, typeof(TModel), out gridAttr))
-            {
-                this.hasDetails = gridAttr.HasDetails;
-                if (gridAttr.Theme > 0)
-                {
-                    this.theme = gridAttr.Theme;
-                }
-            }
 
             this.SetColumnsFromModel();
         }
@@ -101,6 +109,15 @@ namespace BForms.Grid
         public BsGridHtmlBuilder<TModel, TRow> HtmlAttributes(object htmlAttributes)
         {
             this.htmlAttributes = HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes);
+            return this;
+        }
+
+        /// <summary>
+        /// Set grids name
+        /// </summary>
+        public BsGridHtmlBuilder<TModel, TRow> DisplayName(string name)
+        {
+            this.metadata.DisplayName = name;
             return this;
         }
 

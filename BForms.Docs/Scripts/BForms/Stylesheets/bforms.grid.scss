@@ -262,7 +262,7 @@ a.btn {
 			position: relative;
 			.expand {
 				position: absolute;
-				left: 15px;
+				left: 10px;
 				top: 12px;
 				background: url(../images/icn-down_arrow-small.png) center center no-repeat;
 				width: 17px;
@@ -505,6 +505,7 @@ a.btn {
 					}
 				}
 				dl {
+					margin-bottom: 10px;
 					dt {
 						float: left;
 						width: 30%;
@@ -579,7 +580,7 @@ a.btn {
 		}
 		&.is_expandable {
 			header {
-				padding-left: 25px;
+				padding-left: 27px;
 			}
 		}
 		&.is_checkable {

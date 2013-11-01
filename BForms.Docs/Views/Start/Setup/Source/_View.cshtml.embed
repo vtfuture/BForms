@@ -1,0 +1,11 @@
+﻿@using (Html.BsBeginForm("Index", "Home", null,
+	FormMethod.Get,
+	new { @class = "js-demoForm" }))
+{
+	<div class="col-12 col-sm-12 col-lg-12 form-group ">
+		<div class="input-group">
+			@Html.BsSelectFor(s => s.DemoDropdown,
+			new { @class = "js-demoDropdown" })
+		</div>
+	</div>	
+}

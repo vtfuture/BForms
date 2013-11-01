@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+  <paths>
+    
+    <!--Common scripts-->
+    <path key="main-script" value="custom/common/main-script" />
+    
+  </paths>
+  <shim>
+  </shim>
+</configuration>

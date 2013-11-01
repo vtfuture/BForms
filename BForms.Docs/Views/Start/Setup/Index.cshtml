@@ -14,6 +14,8 @@
                         <li><a href="#validate">Validation provider</a></li>
                         <li><a href="#css">Include CSS</a></li>
                         <li><a href="#js">Include JS</a></li>
+                        <li><a href="#configure">RequireJS config</a></li>
+                        <li><a href="#example">BForms example</a></li>
                     </ul>
                 </li>
             </ul>
@@ -25,62 +27,217 @@
             <div class="page-header">
                 <h1 id="setup">Setup BForms for ASP.NET MVC step by step guide</h1>
             </div>
-            <h4 id="install">NuGet</h4>
+            <h3 id="install">1. NuGet</h3>
             <p>
-                Install <a href="http://www.nuget.org/packages/BForms.MVC/">BForms.MVC</a> package via NuGet Manager onto your MVC project, this will include in Script folder the BForms JS Framework and will
-                add reference to BForms and RequireJsNet assemblies. The JavaScript and CSS components come in two forms, as individual files and as <b>minified bundles</b>.
+                Install <a href="http://www.nuget.org/packages/BForms.MVC/">BForms.MVC</a> package via NuGet Manager onto your MVC project.
+                This process will include in Script folder BForms JS Framework and will add reference to BForms and RequireJsNet assemblies. 
+                The JavaScript and CSS components come in two forms, as individual files and as <b>minified bundles</b>.
             </p>
             <pre class="prettyprint bs-example">
 @Html.InsertFileContentCached("~/Views/Start/Setup/Source/_Files.embed")
             </pre>
             <br />
-            <h4 id="validate">Validation provider</h4>
+            <h3 id="validate">2. Validation provider</h3>           
+            <p>
+               BForms comes with a custom validation provider, set it up in Global.asax file by adding the following line to <code>Application_Start()</code> method:
+            </p>
             <h4 class="sub_title">Register BForms validation provider</h4>
             <pre class="prettyprint lang-cs bs-example">
 @Html.InsertFileContentCached("~/Views/Start/Setup/Source/_Global.cs.embed")
             </pre>
             <br />
-            <h4 id="css">Include CSS</h4>
+            <h3 id="css">3. Include CSS</h3>
             <p>
-                If you are using ASP.NET CSS bundles add the BFroms css file first.
+                Another step is to add BForms CSS file to your bundles. Go to RegisterBundles method in App_Start folder, in BundleConfig.cs file and add the following code:
             </p>
+
             <h4 class="sub_title">Register CSS bundles</h4>
             <pre class="prettyprint lang-cs bs-example">
 @Html.InsertFileContentCached("~/Views/Start/Setup/Source/_BundleConfig.cs.embed")
             </pre>
-
+            <br />
+            <p>
+                Ok! You have added a new bundle, but you also have to use it. Go to Layout.cshtml (or any other layout you are using) and modify the 
+                head tag like the one below.
+            </p>
             <h4 class="sub_title">Include CSS bundles in layout</h4>
             <pre class="prettyprint lang-html bs-example">
 @Html.InsertFileContentCached("~/Views/Start/Setup/Source/_LayoutCss.cshtml.embed")
             </pre>
             <br />
-            <h4 id="js">Include JS</h4>
+            <h3 id="js">4. Include JS</h3>
             <p>
-                There are two ways of working with BForms JS components, one way is with RequireJS.NET or to reference the js files
-                directly from the <code>~/Scripts/Bforms/Bundles/js</code> folder.
+                Next step is to include BForms javascript components in your project. There are two ways of working with BForms JS components,
+                 one way is with RequireJS.NET (recommended ) or to reference javascript files directly from the <code>~/Scripts/Bforms/Bundles/js</code> folder.
             </p>
+            <h4 class="sub_title">Using RequireJS</h4>
             <p>
-                To configure RequireJS you'll have to create a BaseController derived from RequireJSController and make your controllers inherit from it.
+                To configure RequireJS you'll have to create a <b>BaseController</b> that inherits from RequireJSController. 
+                Keep in mind that when you make a new controller it MUST inherit from BaseController 
+                (you just modifiy <code>public class MyController: Controller</code> to <code>public class MyController:BaseController</code> as you’ll see further in this step-by-step guide)
+                <br /><br />
+                You can find BaseController's definition below:
             </p>
-            <h4 class="sub_title">RequireJS Base Controller</h4>
             <pre class="prettyprint lang-cs bs-example">
 @Html.InsertFileContentCached("~/Views/Start/Setup/Source/_BaseController.cs.embed")
             </pre>
             <br />
+
             <p>
-                Inside the <code>~/Scripts/Bforms</code> folder there are two configuration files, the <code>RequireJS.Release.config</code> file contains
-                references to js & css bundles and should be used on deployments.
+                RequireJs comes in handy when you want a release version of your app. Inside the <code>~/Scripts/Bforms</code> folder there are 2 configuration files for javascript and css files : <code>RequireJS.config</code> and <code>RequireJS.Release.config</code>. To use them both include following code in your layout:
             </p>
-            <h4 class="sub_title">Include JS bundles and require entry point in layout</h4>
             <pre class="prettyprint lang-cs bs-example">
 @Html.InsertFileContentCached("~/Views/Start/Setup/Source/_LayoutRequire.cshtml.embed")
             </pre>
             <br />
-            <h4>Include JS with ASP.NET bundling</h4>
-            <h4 class="sub_title">Register JS bundles</h4>
+            <h4 class="sub_title">Wihtout RequireJS - Include JS with ASP.NET bundling</h4>
+            <p>
+                You need to include a bundle for javascript files too ( as you did before with css files ). Copy in your RegisterBundles the following code:
+            </p>
             <pre class="prettyprint lang-cs bs-example">
 @Html.InsertFileContentCached("~/Views/Start/Setup/Source/_BundleConfigJs.cs.embed")
             </pre>
+            <br />
+            <h3 id="configure">5. RequireJS configuration</h3>
+            <p>
+                First of all you need to remember this step is optional. You only need to do it if you want an extra configuration for your RequireJS.
+            </p>
+            <p>
+                Let's say you want to add one more script in your project. Create <code>RequireJS.config</code> and <code>RequireJS.Release.config</code> as in the image bellow:
+            </p>
+            <h4 class="sub_title">Configuration files</h4>
+            <div class="bs-example bs-img-example">
+                <img src="@Url.Content("~/Content/images/docs/require-config-files.PNG")" />
+            </div>
+            <p>
+                Note that selected files from the above image are new. BForms package comes with his own configuration, which you can find under <code>Scripts>BForms</code>.
+            </p>
+            <p>
+                Now that we have our files, let's add references to our scripts. To show you how to do this we have created a script called <code>main-script.js</code> under  <code>Scripts>Controllers>Common</code>, which contains only a <code>console.log</code> statement.
+            </p>
+            <h4 class="sub_title">Main-script file</h4>
+            <div class="bs-example bs-img-example">
+                <img src="@Url.Content("~/Content/images/docs/main-script-file.PNG")" />
+            </div>
+            <br />
+            <pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Setup/Source/_MainScriptDefinition.cs.embed")
+            </pre>
+            <br />
+            <p>
+                Add the path in your newly created configuration files.For example <code>RequierJS.config</code> should look like this:
+            </p>
+            <h4 class="sub_title">Configuration files content</h4>
+            <pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Setup/Source/_ScriptReference.cs.embed")
+            </pre>
+            <br />
+            <p>
+                As you can see in the code above we have added the path to our scripts ( just one in our case ). We don't need to prefix our path with <code>/Scripts</code> because RequireJS will automatically search there.
+                <br />
+                Also you don't need to add <code>.js</code> extension.
+            </p>
+
+            <h3 id="example">Example</h3>
+            <p>
+                Thumbs up ! Now that everything is set up you can start working on your new project. Let’s say you want to add a dropdown element somewhere in your application. Read the following steps and you’ll see how easy it is.
+            </p>
+            <h4 class="sub_title">Model definition - step 1</h4>
+            <p>
+                You need to create your model. Let’s name it <b>Demo</b>.
+                <br />As we said earlier, we need to add a dropdown property.
+            </p>
+            <pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Setup/Source/_ModelDefinition.cs.embed")
+            </pre>
+            <br />
+            <p>
+                If you haven’t read BForms documentation yet, BsControl and BsControlType enum are 2 elements that help you to describe a propery type. So, we defined a select input of type <code>BsControlType.DropDownList</code>.
+            </p>
+            <p>
+                Display annotation is from MVC and in our case it defines property Name ( the one you’ll see in view for a Html.BsLabelFor helper ) and Prompt ( a text shown on your dropdown before selecting something ).
+            </p>
+            <p>
+                Another important aspect is <code>BsSelectList&lt;int?&gt;</code>. If you have a form in your view, with a submit button, on sending the form to controller <code>DemoDropdown.SelectedValues</code> will be of type <code>int?</code>. If you have <code>BsSelectList&lt;string&gt;</code> than <code>DemoDropdown.SelectedValues</code> will be of type string and so on.
+            </p>
+            <h4 class="sub_title">Data binding - step 2</h4>
+            <p>
+                We have a dropdown but we need to fill it with some data ( actually you have to select some values from it, right ? ) . For example, you can do this from a database, but we will show you how can it be done from an enum.
+            </p>
+            <pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Setup/Source/_EnumDefinition.cs.embed")
+            </pre>
+            <br />
+            <p>
+                We recommend you to use our helper :
+            </p>
+            <pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Setup/Source/_EnumHelper.cs.embed")
+            </pre>
+            <br />
+            <p>
+                But, there’s also another way if you want to write more code:
+            </p>
+            <pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Setup/Source/_FillDropdown.cs.embed")
+            </pre>
+            <br />
+            <h4 class="sub_title">Controller - step 3</h4>
+            <p>
+                We showed  you earlier how to bind data and now you will see where to use it. We have our code in Controller because it’s small and it’s just for demo purpose, but we recommend you to use repositories for data binding, CRUD operations, mapping operations and so on.
+            </p>
+            <pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Setup/Source/_Controller.cs.embed")
+            </pre>
+            <h4 class="sub_title">View - step 4</h4>
+            <pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Setup/Source/_View.cshtml.embed")
+            </pre>
+            <br />
+            <p>
+                View is very simple. We have a form which has a class named <code>js-demoForm</code>  ( remember this because it is important ) and an Html helper <code>@@Html.BsSelectFor</code>  ( like a @@Html.TextBoxFor from original MVC ) that adds dropdown to our UI.
+            </p>
+            <p>
+                Don’t forget to add <code>@@model Demo</code> to your view.
+            </p>
+
+            <h4 class="sub_title">Javascript - step 5</h4>
+            <p>
+                First of all you need to create a folder named <code>Controllers</code> under <code>Scripts</code>. 
+                After that, if you don’t work in a MVC area create a folder called <code>Root</code> under Controllers (that you have created few seconds ago). 
+                Otherwise, replace Root with the area name.
+            </p>
+            <p>
+                Under last added folder create a new one which has the same name as your controller.<br />
+                Finally you just have to add javascript file which has to be defined like this :controller_name-action_name.js (eg: home-index.js).
+            </p>
+
+            <p>
+                In the end you should have something like this:
+            </p>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Setup/Source/_Scripts.embed")
+            </pre>
+            <br />
+            <p>Javascript code from <code>home-index.js</code>:</p>
+            <pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Setup/Source/_Javascript.cs.embed")
+            </pre>
+            <br />
+            <p>
+                The important part is in <code>HomeIndex.prototype.init</code> function. As you can see, we have selected our form 
+                (<code>.js-demoForm</code> remember ?) and we have applied bforms on it. That’s all you have to do.
+            </p>
+            <p>
+                This is how your home page should look like:
+            </p>
+            <div class="bs-example bs-img-example">
+                <img src="@Url.Content("~/Content/images/docs/project-setup-dropdown.PNG")" />
+            </div>
+            <br />
+            <div class="bs-example bs-img-example">
+                <img src="@Url.Content("~/Content/images/docs/project-setup-dropdown-open.PNG")" />
+            </div>
         </div>
 
     </main>
