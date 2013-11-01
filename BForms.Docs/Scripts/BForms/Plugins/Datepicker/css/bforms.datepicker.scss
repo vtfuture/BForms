@@ -511,6 +511,17 @@ $Black: #424141;
 	}
 }
 @media (max-width: 580px) { 
+	.bs-range-picker {
+		padding-bottom: 170px;
+		.ranges {
+			position: absolute;
+			padding: 0;
+			bottom: 0;
+			left: 10px;
+			right: 10px;
+			width: auto;
+		}
+	}
 	.bs-datetime-picker  {
 		margin: 5px 0 !important;
 		clear: both;
