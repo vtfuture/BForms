@@ -155,6 +155,10 @@
 
         if (this.hasDetails) {
             this.element.on('click', this.options.detailsSelector, $.proxy(this._evOnDetailsClick, this));
+            
+            if (this.options.rowClickExpandable) {
+                this.element.on('click', this.options.rowSelector, $.proxy(this._onRowClick, this));
+            }
         }
 
         if (this.options.hasOrder) {
@@ -194,62 +198,57 @@
             }
 
             if (this.options.gridActions != null) {
-            for (var i = 0; i < this.options.gridActions.length; i++) {
+                for (var i = 0; i < this.options.gridActions.length; i++) {
 
-                var opts = this.options.gridActions[i];
+                    var opts = this.options.gridActions[i];
 
-                (function (opts, grid) {
+                    (function (opts, grid) {
 
-                    if (opts.popover) {
+                        if (opts.popover) {
 
-                        var $me = grid.$actionsContainer.find(opts.btnSelector);
+                            var $me = grid.$actionsContainer.find(opts.btnSelector);
 
-                        $me.popover({
-                            html: true,
-                            content: $('.popover-content').html(),
-                            placement: 'bottom'
-                        });
+                            $me.popover({
+                                html: true,
+                                content: $('.popover-content').html(),
+                                placement: 'bottom'
+                            });
 
-                        $me.on('show.bs.popover', $.proxy(function (e) {
+                            $me.on('show.bs.popover', $.proxy(function (e) {
 
-                            var tip = $me.data('bs.popover').tip();
+                                var tip = $me.data('bs.popover').tip();
 
-                            tip.one('click', '.bs-confirm', $.proxy(function (e) {
+                                tip.one('click', '.bs-confirm', $.proxy(function (e) {
 
-                                e.preventDefault();
+                                    e.preventDefault();
 
-                                $me.popover('toggle');
+                                    $me.popover('toggle');
+
+                                    opts.handler.call(this, this.element.find(this.options.rowSelector + '.selected'), this);
+
+                                }, this));
+
+                                tip.one('click', '.bs-cancel', function (e) {
+
+                                    e.preventDefault();
+
+                                    $me.popover('toggle');
+                                });
+
+                            }, grid));
+
+                        } else {
+
+                            grid.$actionsContainer.on('click', opts.btnSelector, $.proxy(function (e) {
 
                                 opts.handler.call(this, this.element.find(this.options.rowSelector + '.selected'), this);
 
-                            }, this));
+                            }, grid));
+                        }
 
-                            tip.one('click', '.bs-cancel', function (e) {
-
-                                e.preventDefault();
-
-                                $me.popover('toggle');
-                            });
-
-                        }, grid));
-
-                    } else {
-
-                        grid.$actionsContainer.on('click', opts.btnSelector, $.proxy(function (e) {
-
-                            opts.handler.call(this, this.element.find(this.options.rowSelector + '.selected'), this);
-
-                        }, grid));
-                    }
-
-                })(opts, this);
+                    })(opts, this);
+                }
             }
-            }
-
-            if (this.options.rowClickExpandable) {
-                this.element.on('click', this.options.rowSelector, $.proxy(this._onRowClick, this));
-            }
-
         }
 
         this.element.on('click', '.edit_col', $.proxy(this._evOnCellEdit, this));
@@ -1036,7 +1035,7 @@
 
     //#region sortable
     Grid.prototype._initSortable = function () {
-  
+
         this.$gridOrderContainer.find('header').sortable({
             start: $.proxy(this._onSortStart, this),
             stop: $.proxy(this._onSortStop, this),
@@ -1247,7 +1246,7 @@
 
     //#region row update
     Grid.prototype.updateRow = function (row, getDetails, onlyHeader) {
-        
+
         var data = {
             items: [{
                 Id: row.data('objid'),

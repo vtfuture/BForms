@@ -99,8 +99,8 @@
 
             //set ui i18n
             var uiLocale = $('html').attr('lang') !== "undefined" ? $('html').attr('lang') : 'en';
-            if (requireConfig && requireConfig.websiteOptions && requireConfig.websiteOptions.locale) {
-                var locale = requireConfig.websiteOptions.locale;
+            if (requireConfig &&requireConfig.locale) {
+                var locale = requireConfig.locale;
                 if (typeof moment.langData(locale) !== "undefined") {
                     uiLocale = locale;
                 }
@@ -498,7 +498,7 @@
 
                                 startAltFields: [{ selector: $startInput }],
                                 endAltFields: [{ selector: $endInput }],
-                                language: locale
+                                language: uiLocale
                             }));
                         });
 
@@ -532,7 +532,7 @@
 
                                 startAltFields: [{ selector: $startInput }],
                                 endAltFields: [{ selector: $endInput }],
-                                language: locale
+                                language: uiLocale
                             }));
                         });
                     }
@@ -573,7 +573,7 @@
                                 },
                                 startAltFields: [{ selector: $startInput }],
                                 endAltFields: [{ selector: $endInput }],
-                                language: locale
+                                language: uiLocale
                             }));
                         });
 
@@ -605,7 +605,7 @@
                                 },
                                 startAltFields: [{ selector: $startInput }],
                                 endAltFields: [{ selector: $endInput }],
-                                language: locale
+                                language: uiLocale
                             }));
                         });
                     }
@@ -646,7 +646,7 @@
 
                                 startAltFields: [{ selector: $startInput }],
                                 endAltFields: [{ selector: $endInput }],
-                                language: locale
+                                language: uiLocale
                             }));
                         });
 
@@ -680,7 +680,7 @@
 
                                 startAltFields: [{ selector: $startInput }],
                                 endAltFields: [{ selector: $endInput }],
-                                language: locale
+                                language: uiLocale
                             }));
                         });
                     }

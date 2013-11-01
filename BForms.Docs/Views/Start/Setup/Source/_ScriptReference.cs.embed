@@ -3,7 +3,7 @@
   <paths>
     
     <!--Common scripts-->
-    <path key="main-script" value="custom/common/main-script" />
+    <path key="main-script" value="controllers/common/main-script" />
     
   </paths>
   <shim>
