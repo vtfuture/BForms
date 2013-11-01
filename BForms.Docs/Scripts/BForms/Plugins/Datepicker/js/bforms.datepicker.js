@@ -18,52 +18,74 @@
 
     //#region init
     bDatepicker.prototype.init = function () {
+
         this.renderer = new bDatepickerRenderer();
+      
+        if (this.options.checkForMobileDevice == true) {
+            this.options.inlineMobile = $.browser != null && $.browser.mobile == true;
+        }
 
-        if (this.$element.is('input')) {
-            this.$input = this.$element;
-            if (this.options.readonlyInput) {
-                this.$input.prop('readonly', true);
+        if (this.options.inlineMobile && this.options.inline != true) {
+
+            this._initInlineMobile();
+            
+            if (this.$element.is('input')) {
+                if (this.options.readonlyInput || ($.browser != null && $.browser.mobile == true)) {
+                    this.$element.prop('readonly', true);
+                }
             }
+
+        } else {
+
+            if (this.$element.is('input')) {
+                this.$input = this.$element;
+                if (this.options.readonlyInput || ($.browser != null && $.browser.mobile == true)) {
+                    this.$input.prop('readonly', true);
+                }
+            }
+
+            this.newMoment = moment().lang(this.options.language);
+
+            switch (this.options.type) {
+                case 'datepicker':
+                default:
+                    this._type = this.enums.Type.Datepicker;
+                    break;
+                case 'timepicker':
+                    this._type = this.enums.Type.Timepicker;
+                    break;
+                case 'datetimepicker':
+                    this._type = this.enums.Type.DateTimepicker;
+                    break;
+                case this.enums.Type.Datepicker:
+                case this.enums.Type.Timepicker:
+                case this.enums.Type.DateTimepicker:
+                    this._type = this.options.type;
+                    break;
+            }
+
+            this._visible = this.options.inline ? true : false;
+            if (this.options.visible == false) {
+                this._visible = false;
+            }
+            
+            this._getInitialValue();
+            this._initRenderModel();
+            this._initLang(this.options.language);
+            this._initOptions();
+
+            if (this.$input != null && this.$input.val() != '') {
+                this._updateDisplays();
+            }
+
+            this._buildElement();
+            this._addHandlers();
+
+            this.$element.addClass('hasDatepicker');
+            this.$element.data('bDatepicker', this);
+
+            this._timeoutHandler = null;
         }
-
-        this.newMoment = moment().lang(this.options.language);
-
-        switch (this.options.type) {
-            case 'datepicker':
-            default:
-                this._type = this.enums.Type.Datepicker;
-                break;
-            case 'timepicker':
-                this._type = this.enums.Type.Timepicker;
-                break;
-            case 'datetimepicker':
-                this._type = this.enums.Type.DateTimepicker;
-                break;
-            case this.enums.Type.Datepicker:
-            case this.enums.Type.Timepicker:
-            case this.enums.Type.DateTimepicker:
-                this._type = this.options.type;
-                break;
-        }
-
-        this._visible = false;
-        this._getInitialValue();
-        this._initRenderModel();
-        this._initLang(this.options.language);
-        this._initOptions();
-
-        if (this.$input != null && this.$input.val() != '') {
-            this._updateDisplays();
-        }
-
-        this._buildElement();
-        this._addHandlers();
-
-        this.$element.addClass('hasDatepicker');
-        this.$element.data('bDatepicker', this);
-
-        this._timeoutHandler = null;
     };
 
     bDatepicker.prototype._getInitialValue = function () {
@@ -185,6 +207,40 @@
         this.isInline = this.options.inline || false;
     };
 
+    bDatepicker.prototype._initInlineMobile = function () {
+
+        var modalPickerOptions = $.extend(true, {}, this.options, {
+            inline: true,
+            altFields: [{
+                selector: this.$element
+            }],
+            showClose: true,
+            visible: false,
+            closeOnBlur: false,
+            afterShow : $.proxy(function(data) {
+                var $picker = data.datepicker,
+                    elementTopOffset = this.$element.parent().offset().top,
+                    windowHeight = $(window).height(),
+                    pickerHeight = $picker.height(),
+                    scrollTo = elementTopOffset - windowHeight + pickerHeight + 50;
+
+                if ($(window).scrollTop() < scrollTo) {
+                    $('html, body').scrollTop(scrollTo);
+                }
+                
+            },this)
+        });
+
+        var $pickerReplace = $('<div class="bs-picker-replace"></div>');
+        this.$element.parent().after($pickerReplace);
+
+        $pickerReplace.bsDatepicker(modalPickerOptions);
+
+        this.$element.on('click', function () {
+            $pickerReplace.bsDatepicker('show');
+        });
+    };
+
     bDatepicker.prototype._initLang = function (lang) {
         this.renderModel.NowText = $.fn.bsDatepickerLang[lang].nowText;
         this.renderModel.SetDateText = $.fn.bsDatepickerLang[lang].setDateText;
@@ -193,7 +249,7 @@
 
     bDatepicker.prototype._addHandlers = function () {
 
-        if (!this.isInline) {
+        if (!this.isInline || this.options.inlineMobile) {
 
             if (this.options.closeOnBlur) {
 
@@ -236,7 +292,7 @@
 
                     var currentOpenOn = this.options.openOn[idxO];
                     this.unbindEvent(currentOpenOn.selector, currentOpenOn.event);
-                    
+
                     $('body').on(currentOpenOn.event, currentOpenOn.selector, $.proxy(function (e) {
                         this.show();
                     }, this));
@@ -259,7 +315,7 @@
                 for (var idxT in this.options.toggleButtons) {
 
                     var currentTogle = this.options.toggleButtons[idxT];
-                    
+
                     this.unbindEvent(currentTogle.selector, currentTogle.event);
                     $('body').on(currentTogle.event, currentTogle.selector, $.proxy(function (e) {
 
@@ -842,6 +898,10 @@
             $('body').append(this.$picker);
             this._positionPicker();
         }
+        
+        if (!this._visible) {
+            this.$picker.hide();
+        }
     };
 
     bDatepicker.prototype._updateDisplays = function (value) {
@@ -857,9 +917,9 @@
                 var $toUpdate = $(current.selector);
                 if ($toUpdate.length > 0) {
                     if ($toUpdate.is('input')) {
-                        $toUpdate.val(typeof value !== "undefined" ? value : (this.currentValue.format(typeof current.format !== "undefined" ? current.format : '')));
+                        $toUpdate.val(typeof value !== "undefined" ? value : (this.currentValue.format(typeof current.format !== "undefined" ? current.format : this._displayFormat)));
                     } else {
-                        $toUpdate.text(typeof value !== "undefined" ? value : (this.currentValue.format(typeof current.format !== "undefined" ? current.format : '')));
+                        $toUpdate.text(typeof value !== "undefined" ? value : (this.currentValue.format(typeof current.format !== "undefined" ? current.format : this._displayFormat)));
                     }
                 }
             }
@@ -877,7 +937,7 @@
 
         if (yOrient != 'below' && yOrient != 'above') {
 
-            var windowHeight = $(document).innerHeight(),
+            var windowHeight = $(window).innerHeight(),
                 scrollTop = $(document).scrollTop(),
                 elemHeight = this.$element.outerHeight(true);
 
@@ -995,6 +1055,14 @@
                 this.options.wrapperClass = 'bs-onlytime-picker ';
             }
         }
+        
+        if (this.isInline) {
+            if (typeof this.options.wrapperClass !== "undefined") {
+                this.options.wrapperClass += " bs-inline-picker";
+            } else {
+                this.options.wrapperClass = 'bs-inline-picker ';
+            }
+        }
 
         $.extend(true, model, {
             Is12Hours: this.options.is12Hours,
@@ -1107,18 +1175,25 @@
 
         if (this._visible !== true) {
 
-            this._trigger('beforeShow');
+            var showData = {
+                preventShow: false
+            };
 
-            this._positionPicker();
+            this._trigger('beforeShow', showData);
 
-            this.$picker.show();
-            this._visible = true;
+            if (showData.preventShow == false) {
 
-            this._trigger('afterShow', {
-                datepicker: this.$picker,
-                element: this.$element,
-                datepickerType: this._type
-            });
+                this._positionPicker();
+
+                this.$picker.show();
+                this._visible = true;
+
+                this._trigger('afterShow', {
+                    datepicker: this.$picker,
+                    element: this.$element,
+                    datepickerType: this._type
+                });
+            }
         }
 
         return this;
@@ -1128,16 +1203,23 @@
 
         if (this._visible !== false) {
 
-            this._trigger('beforeHide');
+            var hideData = {
+                preventHide: false
+            };
 
-            this.$picker.hide();
-            this._visible = false;
+            this._trigger('beforeHide', hideData);
 
-            this._trigger('afterHide', {
-                datepicker: this.$picker,
-                element: this.$element,
-                datepickerType: this._type
-            });
+            if (hideData.preventHide == false) {
+                
+                this.$picker.hide();
+                this._visible = false;
+
+                this._trigger('afterHide', {
+                    datepicker: this.$picker,
+                    element: this.$element,
+                    datepickerType: this._type
+                });
+            }
         }
 
         return this;
@@ -1422,7 +1504,7 @@
 
         return isValid;
     };
-    
+
     bDatepicker.prototype.unbindEvent = function (selector, event, $context) {
 
         if (typeof selector !== "undefined" && typeof event !== "undefined") {
@@ -1461,7 +1543,8 @@
         throwExceptions: false,
         ignoreClass: '',
         forceParse: true,
-        heightPosition: 20
+        heightPosition: 20,
+        checkForMobileDevice: true
     };
 
     $.fn.bsDatepickerLang = {

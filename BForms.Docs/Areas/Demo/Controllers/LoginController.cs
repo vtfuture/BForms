@@ -125,8 +125,8 @@ namespace BForms.Docs.Areas.Demo.Controllers
                 Birthday = new BsDateTime(),
                 Interval = new BsRange<DateTime?>
                 {
-                    From = from,
-                    To = to
+                    From = DateTime.Now,
+                    To = DateTime.Now.AddDays(12)
                 }
             };
         }
