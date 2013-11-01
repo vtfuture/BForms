@@ -27,17 +27,17 @@
             <div class="page-header">
                 <h1 id="setup">Setup BForms for ASP.NET MVC step by step guide</h1>
             </div>
-            <h4 id="install">1. NuGet</h4>
+            <h3 id="install">1. NuGet</h3>
             <p>
                 Install <a href="http://www.nuget.org/packages/BForms.MVC/">BForms.MVC</a> package via NuGet Manager onto your MVC project.
-                This process will include in Script folder BForms JS Framework and will add reference to BForms and to RequireJsNet assemblies. 
+                This process will include in Script folder BForms JS Framework and will add reference to BForms and RequireJsNet assemblies. 
                 The JavaScript and CSS components come in two forms, as individual files and as <b>minified bundles</b>.
             </p>
             <pre class="prettyprint bs-example">
 @Html.InsertFileContentCached("~/Views/Start/Setup/Source/_Files.embed")
             </pre>
             <br />
-            <h4 id="validate">2. Validation provider</h4>           
+            <h3 id="validate">2. Validation provider</h3>           
             <p>
                BForms comes with a custom validation provider, set it up in Global.asax file by adding the following line to <code>Application_Start()</code> method:
             </p>
@@ -46,7 +46,7 @@
 @Html.InsertFileContentCached("~/Views/Start/Setup/Source/_Global.cs.embed")
             </pre>
             <br />
-            <h4 id="css">3. Include CSS</h4>
+            <h3 id="css">3. Include CSS</h3>
             <p>
                 Another step is to add BForms CSS file to your bundles. Go to RegisterBundles method in App_Start folder, in BundleConfig.cs file and add the following code:
             </p>
@@ -65,7 +65,7 @@
 @Html.InsertFileContentCached("~/Views/Start/Setup/Source/_LayoutCss.cshtml.embed")
             </pre>
             <br />
-            <h4 id="js">4. Include JS</h4>
+            <h3 id="js">4. Include JS</h3>
             <p>
                 Next step is to include BForms javascript components in your project. There are two ways of working with BForms JS components,
                  one way is with RequireJS.NET (recommended ) or to reference javascript files directly from the <code>~/Scripts/Bforms/Bundles/js</code> folder.
@@ -98,7 +98,7 @@
 @Html.InsertFileContentCached("~/Views/Start/Setup/Source/_BundleConfigJs.cs.embed")
             </pre>
             <br />
-            <h4 id="configure">5. RequireJS configuration</h4>
+            <h3 id="configure">5. RequireJS configuration</h3>
             <p>
                 First of all you need to remember this step is optional. You only need to do it if you want an extra configuration for your RequireJS.
             </p>
@@ -138,7 +138,7 @@
                 Also you don't need to add <code>.js</code> extension.
             </p>
 
-            <h4 id="example">Example</h4>
+            <h3 id="example">Example</h3>
             <p>
                 Thumbs up ! Now that everything is set up you can start working on your new project. Let’s say you want to add a dropdown element somewhere in your application. Read the following steps and you’ll see how easy it is.
             </p>
