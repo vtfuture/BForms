@@ -13,7 +13,7 @@ using WebGrease.Css.Extensions;
 
 namespace BForms.Docs.Areas.Demo.Repositories
 {
-    public class ContributorsRepository : BsBaseGridRepository<Contributor, ContributorRowModel, ContributorSearchModel>
+    public class ContributorsRepository : BsBaseGridRepository<Contributor, ContributorRowModel>
     {
         #region Properties and Constructor
         private BFormsContext db;
@@ -22,7 +22,7 @@ namespace BForms.Docs.Areas.Demo.Repositories
         {
             get
             {
-                return settings;
+                return settings as BsGridRepositorySettings<ContributorSearchModel>;
             }
         }
 

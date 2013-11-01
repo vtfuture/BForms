@@ -16,12 +16,12 @@ namespace BForms.Grid
     /// <typeparam name="TEntity">Grid row bse model type. Usually maps on entity set</typeparam>
     /// <typeparam name="TRow">Grid row model type</typeparam>
     /// <typeparam name="TSearch">Grid search model type </typeparam>
-    public abstract class BsBaseGridRepository<TEntity, TRow, TSearch> where TEntity : class
+    public abstract class BsBaseGridRepository<TEntity, TRow> where TEntity : class
     {
         /// <summary>
         /// Basic settings for contructing query. Contains data for query filtering, ordering, paging sent from client
         /// </summary>
-        protected BsGridRepositorySettings<TSearch> settings;
+        protected BsGridBaseRepositorySettings settings;
 
         public interface IQueryCriteria<TEntity>
         {
@@ -223,7 +223,7 @@ namespace BForms.Grid
         /// <returns></returns>
         public BsGridModel<TRow> ToBsGridViewModel()
         {
-            var gridRepositorySettings = new BsGridRepositorySettings<TSearch>
+            var gridRepositorySettings = new BsGridBaseRepositorySettings
             {
                 Page = 1,
                 PageSize = 5
@@ -240,7 +240,7 @@ namespace BForms.Grid
         /// <returns></returns>
         public BsGridModel<TRow> ToBsGridViewModel(int page, int pageSize)
         {
-            var gridRepositorySettings = new BsGridRepositorySettings<TSearch>
+            var gridRepositorySettings = new BsGridBaseRepositorySettings
             {
                 Page = page,
                 PageSize = pageSize
@@ -334,7 +334,7 @@ namespace BForms.Grid
         /// <param name="settings">Settings</param>
         /// <param name="count">Total records</param>
         /// <returns>Wrapper model</returns>
-        public BsGridModel<TRow> ToBsGridViewModel(BsGridRepositorySettings<TSearch> settings, out int count)
+        public BsGridModel<TRow> ToBsGridViewModel(BsGridBaseRepositorySettings settings, out int count)
         {
             var grid = ToBsGridViewModel(settings);
 
@@ -348,7 +348,7 @@ namespace BForms.Grid
         /// </summary>
         /// <param name="settings">Requested settings</param>
         /// <returns>Grid model</returns>
-        public virtual BsGridModel<TRow> ToBsGridViewModel(BsGridRepositorySettings<TSearch> settings)
+        public virtual BsGridModel<TRow> ToBsGridViewModel(BsGridBaseRepositorySettings settings)
         {
             this.settings = settings;
 
@@ -404,7 +404,7 @@ namespace BForms.Grid
             }
 
             //sets base settings
-            result.BaseSettings = this.settings.BaseSettings;
+            result.BaseSettings = this.settings.GetBase();
 
             return result;
         }

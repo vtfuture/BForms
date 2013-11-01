@@ -35,7 +35,6 @@ namespace BForms.Docs.Areas.Demo.Controllers
         #region Pages
         public ActionResult Index()
         {
-
             var columnOrder = GetColumnOrder();
 
             var gridModel = _gridRepository.ToBsGridViewModel(new BsGridRepositorySettings<ContributorSearchModel>
