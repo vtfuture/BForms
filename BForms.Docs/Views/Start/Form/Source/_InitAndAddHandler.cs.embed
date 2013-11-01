@@ -1,0 +1,13 @@
+﻿SubscriberIndex.prototype.init = function () {
+        this.$subscriberForm = $('.js-subscriberForm');
+        this.$ajaxSubscribeBtn = $('.js-subscriberAjaxBtn');
+
+        //apply BForms plugins
+        this.$subscriberForm.bsInitUI(this.options.styleInputs);
+
+        this.addHandlers();
+    };
+
+    SubscriberIndex.prototype.addHandlers = function () {
+        this.$subscriberForm.on('click', '.js-subscriberAjaxBtn', $.proxy(this.onSubscribe, this));
+    };

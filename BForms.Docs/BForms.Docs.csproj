@@ -152,6 +152,9 @@
     <Content Include="Content\Images\Docs\project-setup-dropdown.PNG" />
     <Content Include="Content\Images\Docs\require-config-files.PNG" />
     <Content Include="Content\Images\favicon.png" />
+    <Content Include="Content\Images\Docs\ajax-subscribe.PNG" />
+    <Content Include="Content\Images\Docs\form-submited.PNG" />
+    <Content Include="Content\Images\Docs\subscribe-form.PNG" />
     <Content Include="Views\Start\Setup\Source\_BundleConfigJs.cs.embed" />
     <Content Include="Views\Start\Setup\Source\_Files.embed" />
     <Content Include="Areas\Demo\Views\Contributors\Grid\Details\_IdentityEditable.cshtml">
@@ -957,6 +960,26 @@
     <Content Include="Views\Start\Setup\Source\_FillDropdown.cs.embed" />
     <Content Include="Views\Start\Setup\Source\_Controller.cs.embed" />
     <Content Include="Views\Start\Setup\Source\_ModelDefinition.cs.embed" />
+    <Content Include="Views\Start\Form\Index.cshtml" />
+    <Content Include="Views\Start\Form\Source\_Model.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Form\Source\_AddFormError.cs.embed" />
+    <Content Include="Views\Start\Form\Source\_AjaxAction.cs.embed" />
+    <Content Include="Views\Start\Form\Source\_BsResponseStatusEnum.cs.embed" />
+    <Content Include="Views\Start\Form\Source\_Controller.cs.embed" />
+    <Content Include="Views\Start\Form\Source\_Enum.cs.embed" />
+    <Content Include="Views\Start\Form\Source\_EnumHelper.cs.embed" />
+    <Content Include="Views\Start\Form\Source\_Folders.embed" />
+    <Content Include="Views\Start\Form\Source\_InitAndAddHandler.cs.embed" />
+    <Content Include="Views\Start\Form\Source\_InitJsContent.cs.embed" />
+    <Content Include="Views\Start\Form\Source\_JsAddOptions.cs.embed" />
+    <Content Include="Views\Start\Form\Source\_LocalizedEnum.cs.embed" />
+    <Content Include="Views\Start\Form\Source\_MainModel.cs.embed" />
+    <Content Include="Views\Start\Form\Source\_OnSubscribe.cs.embed" />
+    <Content Include="Views\Start\Form\Source\_References.cs.embed" />
+    <Content Include="Views\Start\Form\Source\_SubscribeAjaxBtn.cs.embed" />
+    <Content Include="Views\Start\Form\Source\_View.cs.embed" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

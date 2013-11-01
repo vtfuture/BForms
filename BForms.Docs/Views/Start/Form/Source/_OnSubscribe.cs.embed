@@ -1,0 +1,34 @@
+﻿ SubscriberIndex.prototype.onSubscribe = function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+        var $target = $(e.currentTarget);
+
+        $.validator.unobtrusive.parse(this.$subscriberForm);
+        var validatedForm = this.$subscriberForm.validate();
+
+        if (this.$subscriberForm.valid()) {
+
+            var subscriberData = this.$subscriberForm.parseForm();
+
+            $target.prop('disabled', "disabled");
+
+            $.ajax({
+                url: this.options.subscriberUrl,
+                data: JSON.stringify(subscriberData),
+                type: 'POST',
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8'
+            }).then($.proxy(function (response, status, jqXHR) {
+                if (response.Status == 2) { //validation error
+                    validatedForm.showErrors(response.Data.Errors, true);
+                } else {
+                    //add your code here
+                }
+
+                $target.removeProp('disabled');
+
+            }, this), function () { //fail
+                $target.removeProp('disabled');
+            });
+        }
+    };

@@ -1,0 +1,11 @@
+﻿public enum SubscriberEnum : int
+{
+    [Display(Name = "Daily", ResourceType =typeof(Resource))]
+    Daily = 1,
+
+    [Display(Name = "Weekly", ResourceType = typeof(Resource))]
+    Weekly = 2,
+
+    [Display(Name = "Monthly", ResourceType = typeof(Resource))]
+    Monthly = 3
+}

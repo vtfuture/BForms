@@ -1,0 +1,23 @@
+﻿require([
+
+'bforms-initUI'
+
+], function () {
+
+    var SubscriberIndex = function (options) {
+        this.options = $.extend(true, {}, options);
+    };
+
+    SubscriberIndex.prototype.init = function () {
+        this.$subscriberForm = $('.js-subscriberForm');
+
+        //apply BForms plugins
+        this.$subscriberForm.bsInitUI(this.options.styleInputs);
+
+};
+
+   $(document).ready(function () {
+        var ctrl = new SubscriberIndex(requireConfig.pageOptions);
+        ctrl.init();
+    });
+});
