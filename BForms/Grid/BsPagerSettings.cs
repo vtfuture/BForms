@@ -96,7 +96,7 @@ namespace BForms.Grid
             }
             set
             {
-                this.hasPagesText = true;
+                this.hasPagesText = value;
             }
         }
 

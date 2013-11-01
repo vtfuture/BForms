@@ -7,6 +7,8 @@ using System.Linq.Expressions;
 using System.Web;
 using System.Web.Mvc;
 using BForms.Mvc;
+using BForms.Utilities;
+
 
 namespace BForms.Html
 {
@@ -28,6 +30,8 @@ namespace BForms.Html
 
             var fullName = ExpressionHelper.GetExpressionText(expression);
 
+            var attributes = expression.GetPropertyInfo().GetCustomAttributes(true);
+
             if (baseBuilder == null)
             {
                 baseBuilder = new BsGridHtmlBuilder<TModel, TRow>(fullName, grid, metadata, htmlHelper.ViewContext);
@@ -37,8 +41,10 @@ namespace BForms.Html
                 baseBuilder.Model = grid;
                 baseBuilder.FullName = fullName;
                 baseBuilder.Metadata = metadata;
-                baseBuilder.viewContext = htmlHelper.ViewContext;
+                baseBuilder.viewContext = htmlHelper.ViewContext;                
             }
+
+            baseBuilder.SetPropsFromAttributes(attributes);
 
             return baseBuilder;
         }
