@@ -62,7 +62,7 @@
     };
 
     navScroll.prototype._setHash = function () {
-        var fromTop = $(window).scrollTop() + $('header').height() + 600;
+        var fromTop = $(window).scrollTop() + $('header').height() + 300;
 
         var visibleElements = this.menuItems.map(function (idx, anchor) {
             var $anchor = $(anchor),
