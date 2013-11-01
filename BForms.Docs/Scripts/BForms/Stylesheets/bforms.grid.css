@@ -199,7 +199,7 @@ a.btn {
     position: relative; }
     .grid_container .grid_view .grid_rows .expand {
       position: absolute;
-      left: 15px;
+      left: 10px;
       top: 12px;
       background: url(../images/icn-down_arrow-small.png) center center no-repeat;
       width: 17px;
@@ -426,7 +426,7 @@ a.btn {
         font-size: 11px;
         display: block; }
   .grid_container .grid_view.is_expandable header {
-    padding-left: 25px; }
+    padding-left: 27px; }
   .grid_container .grid_view.is_checkable header {
     padding-right: 25px; }
 
