@@ -1,0 +1,1 @@
+﻿console.log("Message from main-script.js. Script was loaded because you have referenced it from your custom RequireJS.config/RequireJS.Release.config")

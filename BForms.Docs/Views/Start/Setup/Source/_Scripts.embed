@@ -1,0 +1,10 @@
+﻿Scripts/
+    └── Controllers/
+        ├── Root/
+        │   ├── Home/
+	|	  |__home-index.js
+        │   
+        │   
+        │   
+        ├── Administrator/
+        ├── Other_area_name/

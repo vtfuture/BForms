@@ -1,0 +1,10 @@
+﻿demoModel.DemoDropdown = new BsSelectList<int?>
+            {
+                Items = Enum.GetValues(typeof(DemoEnum)).Cast<DemoEnum>()
+                    .Select(x => new BsSelectListItem
+                    {
+                        Text = x.ToString(),
+                        Value = ((int)x).ToString()
+                    }).ToList(),
+            };
+
