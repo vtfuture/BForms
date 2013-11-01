@@ -1,0 +1,7 @@
+﻿Scripts/
+    └── Controllers/
+        ├── Root/
+        │   ├── Subscriber/
+        |                 |__ subscriber-index.js
+        │   
+        

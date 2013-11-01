@@ -1,0 +1,1 @@
+﻿RequireJsOptions.Add("subscriberUrl", Url.Action("SubscribeByAjax"));

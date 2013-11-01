@@ -1,0 +1,4 @@
+﻿  public class MainModel
+  {
+     public SubscriberModel Subscriber { get; set; }
+  }

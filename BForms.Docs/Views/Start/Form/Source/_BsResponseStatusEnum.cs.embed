@@ -1,0 +1,7 @@
+﻿ public enum BsResponseStatus
+  {
+    Success = 1,
+    ValidationError = 2,
+    AccessDenied = 3,
+    ServerError = 4,
+  }
