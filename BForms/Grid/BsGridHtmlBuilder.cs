@@ -27,7 +27,7 @@ namespace BForms.Grid
 
         private ModelMetadata metadata;
 
-        public ModelMetadata Metadata
+        internal ModelMetadata Metadata
         {
             get { return metadata; }
             set { metadata = value; }
@@ -35,7 +35,7 @@ namespace BForms.Grid
 
         private string fullName;
 
-        public string FullName
+        internal string FullName
         {
             get { return fullName; }
             set { fullName = value; }
@@ -62,8 +62,11 @@ namespace BForms.Grid
         //private BsBulkActionsFactory BulkActionsFactory { get; set; }
         private string noRecordsTemplate;
         private string noResultsTemplate;
-
-        public BsGridHtmlBuilder() { }
+        
+        public BsGridHtmlBuilder()
+        {
+            this.SetColumnsFromModel();
+        }
 
         public BsGridHtmlBuilder(string fullName, BsGridModel<TRow> model, ModelMetadata metadata, ViewContext viewContext)
             : base(viewContext)
@@ -101,6 +104,15 @@ namespace BForms.Grid
         public BsGridHtmlBuilder<TModel, TRow> HtmlAttributes(object htmlAttributes)
         {
             this.htmlAttributes = HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes);
+            return this;
+        }
+
+        /// <summary>
+        /// Set grids name
+        /// </summary>
+        public BsGridHtmlBuilder<TModel, TRow> DisplayName(string name)
+        {
+            this.metadata.DisplayName = name;
             return this;
         }
 

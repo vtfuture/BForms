@@ -7,7 +7,7 @@ namespace BForms.Mvc
 {
     public abstract class BaseComponent : IComponent
     {
-        protected ViewContext viewContext;
+        internal ViewContext viewContext;
 
         private Dictionary<string, object> htmlAttributes;
 

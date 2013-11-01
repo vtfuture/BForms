@@ -6,7 +6,7 @@
 @using BForms.Docs.Areas.Demo.Helpers
 @using BForms.Docs.Areas.Demo.Models
 @model ContributorsViewModel
-                                
+           
 @(Html.BsGridFor(m => m.Grid)
       //.NoTitle()
       .Theme(Html.GetTheme())
@@ -26,13 +26,11 @@
           bulk.ForSelector(BsBulkSelectorType.All).Text(@Resource.All);
           bulk.ForSelector(BsBulkSelectorType.None).Text(@Resource.None);
       })
-      .HtmlAttributes(new { @class = "custom_class" })
-      //.AllowAddIfEmpty()
       .ConfigureColumns(cols =>
       {
           //cols.NoHeader();
           cols.For(row => row.Name).Name(Resource.Name)
-              .HtmlAttributes(c => new Dictionary<string, object>() { { "class", "test"} })
+              .HtmlAttributes(c => new Dictionary<string, object>() { { "class", "test" } })
               .SetWidth(2)
               .Sortable();
 
@@ -56,6 +54,9 @@
           cols.Add("Actions")
               .Text(RowButtonTemplate);
       })
+      .HtmlAttributes(new { @class = "custom_class" })
+      //.AllowAddIfEmpty()
+      
 
       .ConfigureRows(cfg => cfg.HasDetails(row => row.Enabled)
                                .DetailsTemplate(row => Html.Partial("Grid/Details/_Index", row.Details).ToString())

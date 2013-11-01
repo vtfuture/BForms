@@ -37,6 +37,7 @@ namespace BForms.Html
                 baseBuilder.Model = grid;
                 baseBuilder.FullName = fullName;
                 baseBuilder.Metadata = metadata;
+                baseBuilder.viewContext = htmlHelper.ViewContext;
             }
 
             return baseBuilder;
