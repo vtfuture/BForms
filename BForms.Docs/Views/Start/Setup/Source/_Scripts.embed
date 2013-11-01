@@ -1,10 +1,10 @@
 ﻿Scripts/
     └── Controllers/
+        ├── Common/
+        │   └── main-script.js
+        │
         ├── Root/
-        │   ├── Home/
-	|	  |__home-index.js
-        │   
-        │   
-        │   
-        ├── Administrator/
-        ├── Other_area_name/
+        │   └── Home/
+        │	└──home-index.js
+        │
+        └── area_name/

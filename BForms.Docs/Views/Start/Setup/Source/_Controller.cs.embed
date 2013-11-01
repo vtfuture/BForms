@@ -1,10 +1,9 @@
 ﻿public ActionResult Index()
-        {
-          var demoModel = new Demo()
-            {
+{
+    var demoModel = new Demo()
+    {
 		DemoDropdown = BsSelectList<int?>.FromEnum(typeof (DemoEnum))
-            };
+    };
 
-
-            return View(demoModel);
-        }
+    return View(demoModel);
+}

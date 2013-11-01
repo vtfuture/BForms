@@ -942,15 +942,15 @@
   <ItemGroup>
     <Content Include="Views\Start\Setup\Source\_Javascript.cs.embed" />
     <Content Include="Views\Start\Setup\Source\_ScriptReference.cs.embed" />
-    <None Include="Views\Start\Setup\Source\_MainScriptDefinition.cs.embed" />
-    <None Include="Views\Start\Setup\Source\_Scripts.embed" />
-    <None Include="Views\Start\Setup\Source\_View.cshtml.embed" />
-    <None Include="Views\Start\Setup\Source\_CodeLineForValidationProvider.cs.embed" />
+    <Content Include="Views\Start\Setup\Source\_MainScriptDefinition.cs.embed" />
+    <Content Include="Views\Start\Setup\Source\_Scripts.embed" />
+    <Content Include="Views\Start\Setup\Source\_View.cshtml.embed" />
+    <Content Include="Views\Start\Setup\Source\_CodeLineForValidationProvider.cs.embed" />
     <Content Include="Views\Start\Setup\Source\_EnumDefinition.cs.embed" />
     <Content Include="Views\Start\Setup\Source\_EnumHelper.cs.embed" />
     <Content Include="Views\Start\Setup\Source\_FillDropdown.cs.embed" />
     <Content Include="Views\Start\Setup\Source\_Controller.cs.embed" />
-    <None Include="Views\Start\Setup\Source\_ModelDefinition.cs.embed" />
+    <Content Include="Views\Start\Setup\Source\_ModelDefinition.cs.embed" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
