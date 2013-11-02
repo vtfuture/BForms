@@ -8,12 +8,12 @@
         <div class="bs-sidebar">
             <ul class="nav bs-sidenav">
                 <li>
-                    <a href="#setup">Form</a>
+                    <a href="#setup">Simple form example</a>
                     <ul class="nav">
-                        <li><a href="#model">Create a model</a></li>
-                        <li><a href="#controller">Create a Controller</a></li>
-                        <li><a href="#view">Create the View</a></li>
-                        <li><a href="#js">Create the JavaScript</a></li>
+                        <li><a href="#model">Model</a></li>
+                        <li><a href="#view">View</a></li>
+                        <li><a href="#controller">Controller</a></li>
+                        <li><a href="#js">JavaScript</a></li>
                         <li><a href="#result">Final Result</a></li>
                     </ul>
                 </li>
@@ -61,7 +61,20 @@
 @Html.InsertFileContentCached("~/Views/Start/Form/Source/_LocalizedEnum.cs.embed")
             </pre>
             <br />
-            <h3 id="controller">2. Create a Controller </h3>
+            <h3 id="view">2. Create the View </h3>
+            <p>
+                As you could guess, in this view we have rendered all model properties. We used <code>BsInputFor</code>, which is a generic helper.
+                You can read more about this helper and about other BForms input controls <a href="@Url.Action("InputExtensions", "Docs")#input-section">here</a>.
+            </p>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Form/Source/_View.cs.embed")
+            </pre>
+            <br />
+            <p>
+                There are two ways of displaying forms validation errors: the <code>@@Html.BsValidationSummary()</code> helper will render an alert at the top of the form
+                and <code>@@Html.BsvalidationFor</code> that will render specific messages for each filed inside a tooltip.
+            </p>
+            <h3 id="controller">3. Create a Controller</h3>
             <p>
                 We showed you earlier how to bind data and now you will see where to use it. We have our code in Controller because it’s small and 
                 it’s just for demo purpose, but we recommend you to use repositories for data binding, CRUD operations, mapping operations and so on.
@@ -102,8 +115,8 @@
 @Html.InsertFileContentCached("~/Views/Start/Form/Source/_MainModel.cs.embed")
             </pre>
             <br/>
-            <h4 class="sub_title">Ajax Submit </h4>
-            <p>If you don’t want to use server side post, you can also submit your form by <em>Ajax</em>. </p>
+            <h4 class="sub_title">Ajax Submit</h4>
+            <p>If you don’t want to use server side post, you can also submit your form by <em>Ajax</em>.</p>
             <p>It's easy and we'll show you how.</p>
             <p>We use <code>RequireJS</code> so we can send action’s path to our ajax from controller. You can do this from the <code>GET</code> action as in the following code:</p>
             <pre class="prettyprint bs-example">
@@ -118,8 +131,8 @@
             <p>
                 In our case we use <code>RequireJsOptions.Add</code> with two parameters. The first one represents the option’s name sent to javascript file 
                 (you'll see further in this guide how to use it) and the second parameter is the actual path to our action. Here we sent the url to use it in ajax, 
-                but with <code>RequireJsOptions.Add</code> you can send practically everything to your js files. For example, if you have a list of int 
-                elements like <code>var myList= new List&lt;int&gt;(){1,2,3} </code>), the code for sending it to js it's like this :
+                but with <code>RequireJsOptions.Add</code> you can send practically any .NET object that supports JSON serialization. For example, if you have a list of int 
+                elements like <code>var myList= new List&lt;int&gt;(){1,2,3}</code>, the code for sending it to js it's like this:
             </p>
             <p><code>RequireJsOptions.Add("list_of_int",myList)</code></p>
             <p>Our ajax action:</p>
@@ -138,20 +151,7 @@
 @Html.InsertFileContentCached("~/Views/Start/Form/Source/_BsResponseStatusEnum.cs.embed")
             </pre>
             <br/>
-            <h3 id="view">3. Create the View </h3>
-            <p>
-                As you could guess, in this view we have rendered all model properties. We used <code>BsInputFor</code>, which is a general helper. 
-                At this link you can read more about this helper and about BForms <a href="@Url.Action("InputExtensions", "Docs")#input-section">Input controls</a>. 
-                If we hadn't declared <code>BsControlType</code> on our properties, we would have used a specific helper for each property in our view (like <code>BsTextBoxFor</code>).
-            </p>
-            <pre class="prettyprint bs-example">
-@Html.InsertFileContentCached("~/Views/Start/Form/Source/_View.cs.embed")
-            </pre>
-            <br />
-            <p>
-                We said earlier to remember that we added a validation error to form. That message is shown by the <code>@@Html.BsValidationSummary()</code> helper. 
-                Field validation errors are shown by <code>@@Html.BsvalidationFor</code> helper.
-            </p>
+
             <h3 id="js">4. Create the JavaScript </h3>
             <p>
                 First of all you need to create a folder named Controllers under Scripts. After that, if you don’t work in a MVC area, create a folder 
