@@ -1,1 +1,1 @@
-﻿ SubscriptionType = BsSelectList<int?>.FromEnum(typeof(SubscriberEnum))
+﻿SubscriptionType = BsSelectList<int?>.FromEnum(typeof(SubscriberEnum))

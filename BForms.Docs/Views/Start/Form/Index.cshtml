@@ -11,7 +11,7 @@
                     <a href="#setup">Form</a>
                     <ul class="nav">
                         <li><a href="#model">Create a model</a></li>
-                        <li><a href="#create">Create a Controller</a></li>
+                        <li><a href="#controller">Create a Controller</a></li>
                         <li><a href="#view">Create the View</a></li>
                         <li><a href="#js">Create the JavaScript</a></li>
                         <li><a href="#result">Final Result</a></li>
@@ -26,18 +26,20 @@
             <div class="page-header">
                 <h1 id="example">Simple form example</h1>
             </div>
-            <h4 id="introduction">Introduction</h4>
+            <h3 id="introduction">Introduction</h3>
             <p>
-                The purpose of this tutorial is to learn how to create a subscriber form.
+                This tutorial will guide you throw all the steps needed to create a responsive HTML form with client and server side validation.
             </p>
-            <h4 id="model"> 1. Create a model </h4>
-            <p>We need to create a model(for example: SubscriberModel) and define it’s properties as you can see in the image bellow. .</p>
+            <h3 id="model"> 1. Create a model </h3>
+            <p>We need to create a model (for example: SubscriberModel) and define it’s properties as you can see in the code bellow.</p>
             <pre class="prettyprint bs-example">
 @Html.InsertFileContentCached("~/Views/Start/Form/Source/_Model.cs.embed")
             </pre>
             <br />
             <p>
-                We use <code>BsControl</code> and <code>BsControlType</code> to describe a property type. Follow the link <code><a href="http://bforms.stefanprodan.eu/Docs/InputExtensions#input-section">Input controls</a></code> to read more about  BsControlType.Email,  BsControlType.TextBox, BsControlType.DropDownList and so on.
+                We use <code>BsControl</code> and <code>BsControlType</code> to describe a property type. Follow the link 
+                <a href="@Url.Action("InputExtensions", "Docs")#input-section">Input controls</a> to read more about  BsControlType.Email,  
+                BsControlType.TextBox, BsControlType.DropDownList and so on.
             </p>
             <h4 class="sub_title">Data binding </h4>
             <p>In order for SubscriptionType to be a valid dropdown we need to fill it with data. Let’s bind it to an enum :</p>
@@ -51,16 +53,18 @@
             </pre>
             <br/>
             <p>
-                Note that, if you have set display attribute on your enum’s elements, the name or the resource specified in the attribute will represent the dropdown option’s text. Otherwise option’s text will be the enum elements name.
+                Note that, if you have set display attribute on your enum’s elements, the name or the resource specified in the attribute will 
+                represent the dropdown option’s text. Otherwise option’s text will be the enum elements name.
             </p>
             <p>Here is an example where we use resources in the display attribute, as we mentioned in the previous paragraph.</p>
             <pre class="prettyprint bs-example">
 @Html.InsertFileContentCached("~/Views/Start/Form/Source/_LocalizedEnum.cs.embed")
             </pre>
             <br />
-            <h4 id="create">2. Create a Controller </h4>
+            <h3 id="controller">2. Create a Controller </h3>
             <p>
-                We showed you earlier how to bind data and now you will see where to use it. We have our code in Controller because it’s small and it’s just for demo purpose, but we recommend you to use repositories for data binding, CRUD operations, mapping operations and so on.
+                We showed you earlier how to bind data and now you will see where to use it. We have our code in Controller because it’s small and 
+                it’s just for demo purpose, but we recommend you to use repositories for data binding, CRUD operations, mapping operations and so on.
             </p>
             <p>
                 We created a controller named SubscriberController where we’ll put our actions for <code>HttpGet</code> and <code>HttpPost</code>.
@@ -74,17 +78,21 @@
             </p>
             <h4 class="sub_title">GET </h4>
             <p>
-                The one for <code>GET</code> returns a strongly-typed view which receives a new model of type SubscriberModel (that has SubscriberType property of type dropdown filled with data from our enum).
+                The one for <code>GET</code> returns a strongly-typed view which receives a new model of type SubscriberModel 
+                (that has SubscriberType property of type dropdown filled with data from our enum).
             </p>
             <h4 class="sub_title">POST </h4>
             <p>
-                The one for <code>POST</code> executes actions for subscribing in your application, but in this case we added some ModelState errors, because it’s just for demo purpose. As you can see, when we try to subscribe with the email <code>test@gmail.com</code> we added a validation error for email model’s property which throws you this message : <code>"This address has been already used"</code>.
+                The one for <code>POST</code> executes actions for subscribing in your application, but in this case we added some ModelState errors, 
+                because it’s just for demo purpose. As you can see, when we try to subscribe with the email <code>test@gmail.com</code> 
+                we added a validation error for email model’s property which throws you this message : <em>"This address has been already used"</em>.
             </p>
             <p>
                 Also, we added a form validation error (remember this). The first parameter of this method it’s empty(“”) because you don’t have a prefix for your form.
             </p>
             <p>
-                For example, if you have a main model which has a property of type <code>SubscriberModel</code> and your actions receive that model as a parameter than the prefix will be the name of the property. This explanation is illustrated bellow:
+                For example, if you have a main model which has a property of type <code>SubscriberModel</code> and your actions receive that model as a 
+                parameter than the prefix will be the name of the property. This explanation is illustrated bellow:
             </p>
             <pre class="prettyprint bs-example">
 @Html.InsertFileContentCached("~/Views/Start/Form/Source/_AddFormError.cs.embed")
@@ -95,7 +103,7 @@
             </pre>
             <br/>
             <h4 class="sub_title">Ajax Submit </h4>
-            <p>If you don’t want to use server side post, you can also submit your form by <code>ajax</code>. </p>
+            <p>If you don’t want to use server side post, you can also submit your form by <em>Ajax</em>. </p>
             <p>It's easy and we'll show you how.</p>
             <p>We use <code>RequireJS</code> so we can send action’s path to our ajax from controller. You can do this from the <code>GET</code> action as in the following code:</p>
             <pre class="prettyprint bs-example">
@@ -103,10 +111,15 @@
             </pre>
             <br/>
             <p>
-                In our case, we added the option above on server <code>POST</code> too, because we have two submit methods in the same form. As you could guess, if you press the server side submit button, when the page is reloaded, you’ll lose the url option because you don’t send it again. If you don’t have the same situation in your project, you don’t have to do this( it’s just for demo purpose).
+                In our case, we added the option above on server <code>POST</code> too, because we have two submit methods in the same form. 
+                As you could guess, if you press the server side submit button, when the page is reloaded, you’ll lose the url option because you don’t send it again. 
+                If you don’t have the same situation in your project, you don’t have to do this( it’s just for demo purpose).
             </p>
             <p>
-                In our case we use <code>RequireJsOptions.Add</code> with two parameters. The first one represents the option’s name sent to javascript file ( you'll see further in this guide how to use it ) and the second parameter is the actual path to our action. Here we sent the url to use it in ajax, but with <code>RequireJsOptions.Add</code> you can send practically everything to your js files. For example, if you have a list of int elements like <code>var myList= new List&lt;int&gt;(){1,2,3} </code>), the code for sending it to js it's like this :
+                In our case we use <code>RequireJsOptions.Add</code> with two parameters. The first one represents the option’s name sent to javascript file 
+                (you'll see further in this guide how to use it) and the second parameter is the actual path to our action. Here we sent the url to use it in ajax, 
+                but with <code>RequireJsOptions.Add</code> you can send practically everything to your js files. For example, if you have a list of int 
+                elements like <code>var myList= new List&lt;int&gt;(){1,2,3} </code>), the code for sending it to js it's like this :
             </p>
             <p><code>RequireJsOptions.Add("list_of_int",myList)</code></p>
             <p>Our ajax action:</p>
@@ -116,30 +129,38 @@
             <br/>
             <p>As you can see, there are not so many changes in the <code>SubscribeByAjax</code> action compared to server <code>POST</code> action, Index, which was presented few moments ago.</p>
             <p>
-                First of all, this action returns a <code>BsJsonResult</code> because it’s called by ajax. If the model is valid then the status of my response will be <code>Success</code>. Otherwise we serialize ModelState errors and we send them to ajax with a validation error status. In our case, we return the ModelState errors as we talked earlier.
+                First of all, this action returns a <code>BsJsonResult</code> because it’s called by ajax. If the model is valid then the status of my 
+                response will be <code>Success</code>. Otherwise we serialize ModelState errors and we send them to ajax with a validation error status. 
+                In our case, we return the ModelState errors as we talked earlier.
             </p>
             <p>As you can see, <code>BsResponseStatus</code> is an enum defined like this:</p>
             <pre class="prettyprint bs-example">
 @Html.InsertFileContentCached("~/Views/Start/Form/Source/_BsResponseStatusEnum.cs.embed")
             </pre>
             <br/>
-            <h4 id="view">3. Create the View </h4>
+            <h3 id="view">3. Create the View </h3>
             <p>
-                As you could guess, in this view we have rendered all model properties. We used <code>BsInputFor</code>, which is a general helper. At this link you can read more about this helper and about BForms <code><a href="http://bforms.stefanprodan.eu/Docs/InputExtensions#input-section">Input controls</a></code>. If we hadn't declared <code>BsControlType</code> on our properties, we would have used a specific helper for each property in our view (like <code>BsTextBoxFor</code>).
+                As you could guess, in this view we have rendered all model properties. We used <code>BsInputFor</code>, which is a general helper. 
+                At this link you can read more about this helper and about BForms <a href="@Url.Action("InputExtensions", "Docs")#input-section">Input controls</a>. 
+                If we hadn't declared <code>BsControlType</code> on our properties, we would have used a specific helper for each property in our view (like <code>BsTextBoxFor</code>).
             </p>
             <pre class="prettyprint bs-example">
 @Html.InsertFileContentCached("~/Views/Start/Form/Source/_View.cs.embed")
             </pre>
             <br />
             <p>
-                We said earlier to remember that we added a validation error to form. That message is shown by the <code>@@Html.BsValidationSummary()</code> helper. Field validation errors are shown by <code>@@Html.BsvalidationFor></code> helper.
+                We said earlier to remember that we added a validation error to form. That message is shown by the <code>@@Html.BsValidationSummary()</code> helper. 
+                Field validation errors are shown by <code>@@Html.BsvalidationFor</code> helper.
             </p>
-            <h4 id="js">4. Create the JavaScript </h4>
+            <h3 id="js">4. Create the JavaScript </h3>
             <p>
-                First of all you need to create a folder named Controllers under Scripts. After that, if you don’t work in a MVC area create a folder called Root under Controllers( that you have created few seconds ago ). Otherwise, replace Root with the area name. Under last added folder create a new one which has the same name as your controller.
+                First of all you need to create a folder named Controllers under Scripts. After that, if you don’t work in a MVC area, create a folder 
+                called Root under Controllers (that you have created few seconds ago). Otherwise, replace Root with the area name. 
+                Under last added folder create a new one which has the same name as your controller.
             </p>
             <p>
-                Finally we create our JavaScript file subscriber-index.js. This is a MUST! In order for requireJs to work, all your js files must be named like this: controller_name-action_name.js.
+                Finally we create our JavaScript file subscriber-index.js. In order for RequireJS.NET to work, 
+                all your js files must be named like <em>controller_name-action_name.js</em>.
             </p>
             <p>In the end you should have something like this: </p>
             <pre class="prettyprint bs-example">
@@ -164,7 +185,8 @@
 @Html.InsertFileContentCached("~/Views/Start/Form/Source/_SubscribeAjaxBtn.cs.embed")
             </pre>
             <br/>
-            <p>To do so, we took a variable named <code>this.$ajaxSubscribeBtn = $('.js-subscriberAjaxBtn');</code> . We also have to add a handler, which means an action that will be executed for an event (in our case a click event ).</p>
+            <p>To do so, we took a variable named <code>this.$ajaxSubscribeBtn = $('.js-subscriberAjaxBtn');</code> . We also have to add a handler, 
+            which means an action that will be executed for an event (in our case a click event).</p>
             <pre class="prettyprint bs-example">
 @Html.InsertFileContentCached("~/Views/Start/Form/Source/_InitAndAddHandler.cs.embed")
             </pre>
@@ -174,12 +196,17 @@
 @Html.InsertFileContentCached("~/Views/Start/Form/Source/_OnSubscribe.cs.embed")
             </pre>
             <br/>
-            <p>As you can see, we call <code>$.validator.unobtrusive.parse</code> and we validate the form. In case the form has no client side errors ( <code>if (this.$subscriberForm.valid()) {...}</code> ) we call our ajax.</p>
-            <p>Things you need to notice at ajax call is that url is referenced by <code>this.options.subscriberUrl</code> (we talked earlier about this; if you don't remember what is it, take a look again at the controller step )</p>
-            <p>When we receive a response for our ajax ( on .then function ), we first have to check if <code>response.Status</code> ( which in our case is an element from an enum - <code>BsResponseStatus</code>, which we presented you earlier at the controller step ) was sent as a validation error. If so, we show errors for the form using <code>.showErrors</code> function from <code>bforms.validate.js</code></p>
-            <p>If you don't know what is <code>.then</code> you can read more about it HERE: <code><a href="http://api.jquery.com/deferred.then/">jQuery .then</a></code>  </p>
+            <p>As you can see, we call <code>$.validator.unobtrusive.parse</code> and we validate the form. In case the form has no client side errors 
+            (<code>if (this.$subscriberForm.valid()) {...}</code>) we call our ajax.</p>
+            <p>Things you need to notice at ajax call is that url is referenced by <code>this.options.subscriberUrl</code> 
+            (we talked earlier about this; if you don't remember what is it, take a look again at the controller <a href="#controller">step</a>).</p>
+
+            <p>When we receive a response for our ajax (on <code>.then</code> function), we first have to check if <code>response.Status</code> 
+            (which in our case is an element from an enum - <code>BsResponseStatus</code>, which we presented you earlier at the controller step) 
+            was sent as a validation error. If so, we show errors for the form using <code>.showErrors</code> function from <code>bforms.validate.js</code>.</p>
+            <p>If you don't know what is <code>.then</code> you can read more about it here: <a href="http://api.jquery.com/deferred.then/">jQuery .then</a>.</p>
            <br/>
-             <h4 id="result">5. Final Result </h4>
+             <h3 id="result">5. Final Result </h3>
             <p>Here is a picture of what we achieved.</p>
             <div class="bs-example bs-img-example">
                 <img src="@Url.Content("~/Content/images/docs/subscribe-form.PNG")" />

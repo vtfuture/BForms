@@ -1,26 +1,26 @@
-﻿	[HttpGet]
-        public ActionResult Index()
-        {
-            var model = new SubscriberModel()
-            {
-                SubscriptionType = BsSelectList<int?>.FromEnum(typeof(SubscriberEnum))
-            };
+﻿[HttpGet]
+public ActionResult Index()
+{
+    var model = new SubscriberModel()
+    {
+        SubscriptionType = BsSelectList<int?>.FromEnum(typeof(SubscriberEnum))
+    };
 
-            return View(model);
-        }
+    return View(model);
+}
 
-        [HttpPost]
-        public ActionResult Index(SubscriberModel model)
-        {
-            model.SubscriptionType = BsSelectList<int?>.FromEnum(typeof(SubscriberEnum));
+[HttpPost]
+public ActionResult Index(SubscriberModel model)
+{
+    model.SubscriptionType = BsSelectList<int?>.FromEnum(typeof(SubscriberEnum));
 
-            //add field validation error
-            if (model.Email == "test@gmail.com")
-                ModelState.AddFieldError("Email", null, "This address has been already used");
+    //add field validation error
+    if (model.Email == "test@gmail.com")
+        ModelState.AddFieldError("Email", null, "This address has been already used");
 
-            //add global validation error
-            ModelState.AddFormError("",
-                "You can't subscribe at the moment");
+    //add global validation error
+    ModelState.AddFormError("",
+        "You can't subscribe at the moment");
 
-            return View(model);
-        }
+    return View(model);
+}

@@ -1,33 +1,33 @@
 ﻿public BsJsonResult SubscribeByAjax(SubscriberModel model)
+{
+
+    #region Demo - Add validation errors
+
+    //add field validation error
+    if (model.Email == "test@gmail.com")
+        ModelState.AddFieldError("Email", null, "This address has been already used");
+
+    //add global validation error
+    ModelState.AddFormError("",
+        "You can't subscribe at the moment");
+
+    #endregion
+
+    //re-bind data to dropdown
+    model.SubscriptionType = BsSelectList<int?>.FromEnum(typeof(SubscriberEnum));
+
+    if (!ModelState.IsValid)
+    {
+        //JSON serialize ModelState errors and send them to ajax
+        return new BsJsonResult(new Dictionary<string, object>
         {
+            { "Errors", ModelState.GetErrors() }
+        }, BsResponseStatus.ValidationError);
+    }
 
-            #region Demo - Add validation errors
+    return new BsJsonResult(new
+    {
+        Status = BsResponseStatus.Success
+    });
 
-            //add field validation error
-            if (model.Email == "test@gmail.com")
-                ModelState.AddFieldError("Email", null, "This address has been already used");
-
-            //add global validation error
-            ModelState.AddFormError("",
-                "You can't subscribe at the moment");
-
-            #endregion
-
-            //re-bind data to dropdown
-            model.SubscriptionType = BsSelectList<int?>.FromEnum(typeof(SubscriberEnum));
-
-            if (!ModelState.IsValid)
-            {
-                //JSON serialize ModelState errors and send them to ajax
-                return new BsJsonResult(new Dictionary<string, object>
-                {
-                    { "Errors", ModelState.GetErrors() }
-                }, BsResponseStatus.ValidationError);
-            }
-
-            return new BsJsonResult(new
-            {
-                Status = BsResponseStatus.Success
-            });
-
-        }
+}

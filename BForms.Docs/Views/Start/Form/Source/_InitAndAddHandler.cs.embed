@@ -1,13 +1,13 @@
 ﻿SubscriberIndex.prototype.init = function () {
-        this.$subscriberForm = $('.js-subscriberForm');
-        this.$ajaxSubscribeBtn = $('.js-subscriberAjaxBtn');
+    this.$subscriberForm = $('.js-subscriberForm');
+    this.$ajaxSubscribeBtn = $('.js-subscriberAjaxBtn');
 
-        //apply BForms plugins
-        this.$subscriberForm.bsInitUI(this.options.styleInputs);
+    //apply BForms plugins
+    this.$subscriberForm.bsInitUI(this.options.styleInputs);
 
-        this.addHandlers();
-    };
+    this.addHandlers();
+};
 
-    SubscriberIndex.prototype.addHandlers = function () {
-        this.$subscriberForm.on('click', '.js-subscriberAjaxBtn', $.proxy(this.onSubscribe, this));
-    };
+SubscriberIndex.prototype.addHandlers = function () {
+    this.$subscriberForm.on('click', '.js-subscriberAjaxBtn', $.proxy(this.onSubscribe, this));
+};
