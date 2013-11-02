@@ -5,11 +5,11 @@
 	FormMethod.Post, 
 	new {@class = "js-loginForm"}))
 {
-    <div class="col-12 col-sm-12 col-lg-12">
+    <div class="col-lg-12">
         @Html.BsValidationSummary()
     </div>
 
-    <div class="col-12 col-sm-12 col-lg-12 form-group @Html.BsValidationCssFor(m => m.Email)">
+    <div class="col-lg-12 form-group @Html.BsValidationCssFor(m => m.Email)">
         <div class="input-group">
             @Html.BsGlyphiconAddon(Glyphicon.Envelope)
             @Html.BsInputFor(m => m.Email)
@@ -17,7 +17,7 @@
         </div>
     </div>
 
-    <div class="col-12 col-sm-12 col-lg-12 form-group @Html.BsValidationCssFor(m => m.Password)">
+    <div class="col-lg-12 form-group @Html.BsValidationCssFor(m => m.Password)">
         <div class="input-group">
             @Html.BsGlyphiconAddon(Glyphicon.Lock)
             @Html.BsInputFor(m => m.Password)
@@ -25,12 +25,11 @@
         </div>
     </div>
 
-    <div class="col-12 col-sm-12 col-lg-12 form-group checkbox">
+    <div class="col-lg-12 form-group checkbox">
         @Html.BsInputFor(m => m.RememberMe)
     </div>
 
-    <div class="clearfix"></div>
-    <div class="col-12 col-sm-12 col-lg-12">
+    <div class="col-lg-12">
         <hr />
         <button class="btn btn-default js-loginBtn" type="submit">Login</button>
         <a class="btn btn-primary pull-right" href="@Url.Action("Index", new {mode = "register"})">Register</a>

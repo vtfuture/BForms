@@ -5,11 +5,11 @@
 	FormMethod.Post, 
 	new {@class = "js-registerForm"}))
 {
-    <div class="col-12 col-sm-12 col-lg-12 bs-validation_summary">
+    <div class="col-lg-12 bs-validation_summary">
         @Html.BsValidationSummary()
     </div>
 
-    <div class="col-12 col-sm-6 col-lg-6 form-group">
+    <div class="col-sm-6 col-md-6 col-lg-6 form-group">
         @Html.BsLabelFor(m => m.Name)
         <div class="input-group">
             @Html.BsGlyphiconAddon(Glyphicon.User)
@@ -18,7 +18,7 @@
         </div>
     </div>
 
-    <div class="col-12 col-sm-6 col-lg-6 form-group">
+    <div class="col-sm-6 col-md-6 col-lg-6 form-group">
         @Html.BsLabelFor(m => m.Email)
         <div class="input-group">
             @Html.BsGlyphiconAddon(Glyphicon.Envelope)
@@ -27,7 +27,7 @@
         </div>
     </div>
 
-    <div class="col-12 col-sm-6 col-lg-6 form-group">
+    <div class="col-sm-6 col-md-6 col-lg-6 form-group">
         @Html.BsLabelFor(m => m.Website)
         <div class="input-group">
             @Html.BsGlyphiconAddon(Glyphicon.Link)
@@ -36,7 +36,7 @@
         </div>
     </div>
 
-    <div class="col-12 col-sm-6 col-lg-6 form-group">
+    <div class="col-sm-6 col-md-6 col-lg-6 form-group">
         @Html.BsLabelFor(m => m.Password)
         <div class="input-group">
             @Html.BsGlyphiconAddon(Glyphicon.Lock)
@@ -45,7 +45,7 @@
         </div>
     </div>
 
-    <div class="col-12 col-sm-6 col-lg-6 form-group">
+    <div class="col-sm-6 col-md-6 col-lg-6 form-group">
         @Html.BsLabelFor(m => m.PasswordRetyped)
         <div class="input-group">
             @Html.BsGlyphiconAddon(Glyphicon.Lock)
@@ -54,7 +54,7 @@
         </div>
     </div>
 
-    <div class="col-12 col-sm-6 col-lg-6 form-group">
+    <div class="col-sm-6 col-md-6 col-lg-6 form-group">
         @Html.BsLabelFor(m => m.Interval)
         <div class="input-group">
             @Html.BsGlyphiconAddon(Glyphicon.Calendar)
@@ -63,7 +63,7 @@
         </div>
     </div>
 
-    <div class="col-12 col-sm-6 col-lg-6 form-group">
+    <div class="col-sm-6 col-md-6 col-lg-6 form-group">
         @Html.BsLabelFor(m => m.Birthday)
         <div class="input-group">
             @Html.BsInputFor(m => m.Birthday)
@@ -71,7 +71,7 @@
         </div>
     </div>
 
-    <div class="col-12 col-sm-6 col-lg-6 form-group">
+    <div class="col-sm-6 col-md-6 col-lg-6 form-group">
         @Html.BsLabelFor(m => m.NotificationList)
         <div class="input-group">
             @Html.BsSelectFor(m => m.NotificationList)
@@ -79,7 +79,7 @@
         </div>
     </div>
 
-    <div class="col-12 col-sm-6 col-lg-6 form-group">
+    <div class="col-sm-6 col-md-6 col-lg-6 form-group">
         @Html.BsLabelFor(m => m.NotificationTime)
         <div class="input-group">
             @Html.BsGlyphiconAddon(Glyphicon.Time)
@@ -88,7 +88,7 @@
         </div>
     </div>
 
-    <div class="col-12 col-sm-6 col-lg-6 form-group">
+    <div class="col-sm-6 col-md-6 col-lg-6 form-group">
         @Html.BsLabelFor(m => m.CountriesList)
         <div class="input-group">
             @Html.BsSelectFor(m => m.CountriesList)
@@ -96,7 +96,7 @@
         </div>
     </div>
 
-    <div class="col-12 col-sm-6 col-lg-6 form-group">
+    <div class="col-sm-6 col-md-6 col-lg-6 form-group">
         @Html.BsLabelFor(m => m.TechnologiesCheckboxList)
         <div class="input-group">
             @Html.BsSelectFor(m => m.TechnologiesCheckboxList)
@@ -104,7 +104,7 @@
         </div>
     </div>
 
-    <div class="col-12 col-sm-6 col-lg-6 form-group">
+    <div class="col-sm-6 col-md-6 col-lg-6 form-group">
         @Html.BsLabelFor(m => m.TechnologiesList)
         <div class="input-group">
             @Html.BsSelectFor(m => m.TechnologiesList)
@@ -112,7 +112,7 @@
         </div>
     </div>
 
-    <div class="col-12 col-sm-6 col-lg-6 form-group">
+    <div class="col-sm-6 col-md-6 col-lg-6 form-group">
         @Html.BsLabelFor(m => m.LanguagesList)
         <div class="input-group">
             @Html.BsSelectFor(m => m.LanguagesList)
@@ -120,7 +120,7 @@
         </div>
     </div>
 
-    <div class="col-12 col-sm-6 col-lg-6 form-group">
+    <div class="col-sm-6 col-md-6 col-lg-6 form-group">
         @Html.BsLabelFor(m => m.IdeList)
         <div class="input-group">
             @Html.BsSelectFor(m => m.IdeList)
@@ -128,7 +128,7 @@
         </div>
     </div>
 
-    <div class="col-12 col-sm-6 col-lg-6 form-group">
+    <div class="col-sm-6 col-md-6 col-lg-6 form-group">
         @Html.BsLabelFor(m => m.Gender)
         <div class="input-group">
             @Html.BsDropDownListFor(m => m.Gender, Model.GenderList)
@@ -136,7 +136,7 @@
         </div>
     </div>
 
-    <div class="col-12 col-sm-6 col-lg-6 form-group">
+    <div class="col-sm-6 col-md-6 col-lg-6 form-group">
         @Html.BsLabelFor(m => m.AnnualIncome)
         <div class="input-group">
             @Html.BsGlyphiconAddon(Glyphicon.Euro)
@@ -145,13 +145,12 @@
         </div>
     </div>
 
-    <div class="col-12 col-sm-6 col-lg-6 form-group checkbox">
+    <div class="col-sm-6 col-md-6 col-lg-6 form-group checkbox">
         @Html.BsInputFor(m => m.ConsentAgreement)
         @Html.BsValidationFor(m => m.ConsentAgreement)
     </div>
 
-    <div class="clearfix"></div>
-    <div class="col-12 col-sm-12 col-lg-12">
+    <div class="col-sm-12 col-md-12 col-lg-12">
         <hr />
         <button class="btn btn-primary js-registerBtn" type="submit">Register</button>
         <a class="btn btn-danger pull-right" href="@Url.Action("Index", new { mode="login"})">Cancel</a>
