@@ -355,7 +355,7 @@ namespace BForms.Grid
                     var detailsBuilder = new TagBuilder("a");
                     detailsBuilder.MergeAttribute("class", "expand bs-toggleExpand");
 
-                    if (this.model.BaseSettings.GetDetails)
+                    if (this.model.BaseSettings.DetailsAll || this.model.BaseSettings.DetailsStartIndex == 0 && this.model.BaseSettings.DetailsCount >= this.model.Items.Count())
                     {
                         detailsBuilder.AddCssClass("open");
                     }
@@ -504,14 +504,17 @@ namespace BForms.Grid
                     hasDetailsProp = rowType.GetProperty("HasDetails", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
                 }
 
-                foreach (var row in this.model.Items)
+                for (var rowIndex = 0; rowIndex < this.model.Items.Count(); rowIndex++)
                 {
+                    var row = this.model.Items.ElementAt(rowIndex);
+             
                     var rowBuilder = new TagBuilder("div");
                     rowBuilder.MergeAttribute("class", "row grid_row");
 
-                    if (this.model.BaseSettings.GetDetails)
+                    if (this.model.BaseSettings.DetailsAll || this.model.BaseSettings.HasDetails(rowIndex))
                     {
                         rowBuilder.AddCssClass("open");
+                        rowBuilder.MergeAttribute("data-hasdetails", true.ToString());
                     }
 
                     var rowHasDetails = this.hasDetails && (this.rowDetails == null || this.rowDetails(row));
@@ -603,7 +606,7 @@ namespace BForms.Grid
                         rowBuilder.InnerHtml += checkBuilder.ToString(TagRenderMode.SelfClosing);
                     }
 
-                    if (rowHasDetails && (this.model.BaseSettings.GetDetails || (hasDetailsProp != null && (bool)hasDetailsProp.GetValue(row))))
+                    if (rowHasDetails && ((hasDetailsProp != null && (bool)hasDetailsProp.GetValue(row)) || this.model.BaseSettings.HasDetails(rowIndex)))
                     {
                         rowBuilder.InnerHtml += this.rowDetailsTemplate(row);
                     }

@@ -25,16 +25,22 @@ namespace BForms.Grid
 
         public int PageSize { get; set; }
 
-        public bool GetDetails { get; set; }
+        public int DetailsStartIndex { get; set; }
+
+        public int DetailsCount { get; set; }
+
+        public bool DetailsAll { get; set; }
 
         public BsGridBaseRepositorySettings GetBase()
         {
             return new BsGridBaseRepositorySettings
             {
-                GetDetails = this.GetDetails,
                 OrderColumns = this.OrderColumns,
                 Page = this.Page,
-                PageSize = this.PageSize
+                PageSize = this.PageSize,
+                DetailsAll = DetailsAll,
+                DetailsCount = DetailsCount,
+                DetailsStartIndex = DetailsStartIndex
             };
         }
 
@@ -43,5 +49,22 @@ namespace BForms.Grid
             this.Page = 1;
             this.PageSize = 5;
         }
+
+        public void SetDetailsInterval(int count)
+        {
+            SetDetailsInterval(0, count);
+        }
+
+        public void SetDetailsInterval(int startIndex, int count)
+        {
+            this.DetailsStartIndex = startIndex;
+            this.DetailsCount = count;
+        }
+
+        public bool HasDetails(int index)
+        {
+            return this.DetailsAll || index >= DetailsStartIndex && index <= DetailsStartIndex + DetailsCount - 1;
+        }
     }
+ 
 }
