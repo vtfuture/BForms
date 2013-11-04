@@ -25,7 +25,7 @@
     <main class="col-md-9 col-lg-9" role="main">
         <div class="bs-docs-section">
             <div class="page-header">
-                <h1 id="example">Simple form example</h1>
+                <h1 id="example">Simple Grid example</h1>
             </div>
             <h3 id="introduction">Introduction</h3>
             <p>
@@ -45,6 +45,7 @@
             <pre class="prettyprint bs-example">
 @Html.InsertFileContentCached("~/Views/Start/Grid/Source/_ModelInitialization.cs.embed")
             </pre>
+            <br />
             <p>The <code>BFormsContext</code> Object will be instantiated in the <code>BaseController</code> class. All our controllers will inherit from <code>BaseController</code>. This way will have access to the <code>BFormsContext</code> from inside our controllers.</p>
             
             <h3 id="models">STEP 01. Creating the Models</h3>
@@ -57,10 +58,12 @@
             <pre class="prettyprint bs-example">
 @Html.InsertFileContentCached("~/Views/Start/Grid/Source/_RowModel.cs.embed")
             </pre>
+            <br />
             <p>Here is how our grid will look for this row model:</p>
             <div class="bs-example bs-img-example">
                 <img src="@Url.Content("~/Content/images/docs/eg-row-model.png")" />
             </div>
+            <br />
             <p>
                 As you can see width of each column corresponds to the width specified in the model. The total width must be 12. Also because we have set the IsSortable property to false for the GrossRevenue column, you can see that the sorting is disabled in the grid, while for the other columns is enabled.
             </p>
@@ -73,10 +76,12 @@
             <pre class="prettyprint bs-example">
 @Html.InsertFileContentCached("~/Views/Start/Grid/Source/_ViewModel.cs.embed")
             </pre>
+            <br />
             <p>Using Data Annotation we can set the properties for the grid. We use <code>Display(Name)</code> to set the name shown above the grid header. You can see the text ‘Top Movies’ next to the number representing the count.</p>
             <div class="bs-example bs-img-example">
                 <img src="@Url.Content("~/Content/images/docs/eg-view-model.png")" />
             </div>
+            <br />
             <p>We also set the <code>BsGrid(HasDetails)</code> to false. This means that the row will not expand to show more details. We’ll set this to true at a later time.</p>
             <p>If we’ll add the <code>BForms.Toolbar</code> widget, our MoviesViewModel will also contain the Toolbar model. We’ll add it at a later time. For now we only need the Grid Model.</p>
             
@@ -91,6 +96,7 @@
             <pre class="prettyprint bs-example">
 @Html.InsertFileContentCached("~/Views/Start/Grid/Source/_GridRepository.cs.embed")
             </pre>
+            <br />
             <p>
                 As you can see, we inherit from <code>BsBaseGridRepository</code> and we pass the Movie Entity and the Movies Row Model. We also initialize the <code>BFormsContext</code> that we will later use to query the data set.
             </p>
@@ -100,6 +106,7 @@
             <pre class="prettyprint bs-example">
 @Html.InsertFileContentCached("~/Views/Start/Grid/Source/_Query.cs.embed")
             </pre>
+            <br />
             <p>
                 This method is used to get the basic query. The items returned by this query will represent the total count, and will be ordered and mapped with the help of the methods we’ll implement next.
             </p>
@@ -109,6 +116,7 @@
             <pre class="prettyprint bs-example">
 @Html.InsertFileContentCached("~/Views/Start/Grid/Source/_OrderQuery.cs.embed")
             </pre>
+            <br />
             <p>
                 Here we use <code>orderQueryBuilder</code> property to order the query. In this example we order the query by WeekendRevenue descending. You can use any property of your model to set the initial order for your grid. Also if you have columns that don’t have an exact correspondent in your entity model, you have to use the <code>OrderFor()</code> method to specify the mapping. In this example we specify that the Recommended property of our row model will correspond to the IsRecommended property of our Movie Entity. Another usage of the OrderFor method would be to map one column to multiple properties of the entity.
             </p>
@@ -119,6 +127,7 @@
             <pre class="prettyprint bs-example">
 @Html.InsertFileContentCached("~/Views/Start/Grid/Source/_MapQuery.cs.embed")
             </pre>
+            <br />
             <p>
                 We have to also implement the MapMovie_MovieRowModel() used in the above example. This is how the mapper will look in our case:
             </p>
@@ -138,6 +147,7 @@
             <pre class="prettyprint bs-example">
 @Html.InsertFileContentCached("~/Views/Start/Grid/Source/_Controller.cs.embed")
             </pre>
+            <br />
             <p>
                 The index action of this controller will render the view that will contain our grid. However we have to do some changes before we can send the model our view will be expecting. We have to initialize our Grid Model with some initial settings like ‘Page’ and ‘PageSize’. Then we’ll use this model to initialize our View Model. The View Model will be send to the view. 
             </p>
@@ -150,12 +160,14 @@
             <pre class="prettyprint bs-example">
 @Html.InsertFileContentCached("~/Views/Start/Grid/Source/_IndexAction.cs.embed")
             </pre>
+            <br />
             <p>
                 Next we have to implement our <code>Pager()</code> Action that will be called by ajax from our grid and will return the requested page as <code>BsJsonResult</code>. Here is the final implementation of the method:
             </p>
             <pre class="prettyprint bs-example">
 @Html.InsertFileContentCached("~/Views/Start/Grid/Source/_PagerAction.cs.embed")
             </pre>
+            <br />
             <p>After we implement these actions, our controller is ready. Next we have to create the views.</p>
             
             <h3 id="views">STEP 04. Creating the Views</h3>
@@ -168,12 +180,14 @@
             <pre class="prettyprint bs-example">
 @Html.InsertFileContentCached("~/Views/Start/Grid/Source/_IndexView.cs.embed")
             </pre>
+            <br />
             <p>
                 This view is just a container for the grid view. Let’s now create the <code>_Grid</code> partial view. Here we use the <code>BsGridFor()</code> html helper to create our grid. This helper returns a <code>BsGridHtmlBuilder</code> used to build and configure the html of the grid. This way we can set the grid’s properties, add attributes on the rows, add and modify columns, set grid’s color theme, add bulk actions, etc. This is our grid partial view:
             </p>
             <pre class="prettyprint bs-example">
 @Html.InsertFileContentCached("~/Views/Start/Grid/Source/_GridView.cs.embed")
             </pre>
+            <br />
             <p>
                 To keep it simple for the moment we only set some properties for the pager with the help of the <code>PagerSettings()</code> method, and we modify two columns with the help of <code>ConfigureColumns()</code> method.
             </p>
@@ -186,6 +200,7 @@
             <div class="bs-example bs-img-example">
                 <img src="@Url.Content("~/Content/images/docs/eg-pager.png")" />
             </div>
+            <br />
             <p>
                 At this moment we still have to initialize the grid in javascript. We’ll do this next.
             </p>
@@ -197,6 +212,7 @@
             <div class="bs-example bs-img-example">
                 <img src="@Url.Content("~/Content/images/docs/eg-js-folder.png")" />
             </div>
+            <br />
             <p>
                 Inside the Scripts folder create the following folder structure corresponding to our Home Controller, Index page: <code>Controllers/Root/Home/home-index.js</code>
             </p>
@@ -206,6 +222,7 @@
             <pre class="prettyprint bs-example">
 @Html.InsertFileContentCached("~/Views/Start/Grid/Source/_HomeIndexJs.cs.embed")
             </pre>
+            <br />
             <p>
                 In this javascript file we require <code>bforms-grid</code>, <code>jquery</code> and <code>bootstrap</code>. We use the jQuery document ready method to initialize our page and to get the options send from the <code>HomeController</code>. As you remember we have send as an option the ‘pageUrl’, which is a link to the action that needs to be called by the pager, to get a different page or to change the number of entries displayed. On the page initialization we also find the grid by it’s id and initialize it with the minimum required parameters. We only set a <code>uniqueName</code> and the <code>pagerUrl</code> properties. We will later set more properties as we enhance the functionality of our grid. 
             </p>
@@ -215,6 +232,7 @@
             <div class="bs-example bs-img-example">
                 <img src="@Url.Content("~/Content/images/docs/eg-simple-grid.png")" />
             </div>
+            <br />
             <p>
                 Next step will be to enable details for the rows. This way we can modify the data and submit the changes to the server.
             </p>
