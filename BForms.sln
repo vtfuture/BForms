@@ -26,7 +26,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuspec", ".nuspec", "{19D53EFA-2B6C-4AB4-8E1A-68BA4883436A}"
 	ProjectSection(SolutionItems) = preProject
 		nuspec\BForms.MVC.nuspec = nuspec\BForms.MVC.nuspec
-		nuspec\BForms.MVC.symbols.nuspec = nuspec\BForms.MVC.symbols.nuspec
 	EndProjectSection
 EndProject
 Global
