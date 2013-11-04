@@ -1,7 +1,7 @@
 ﻿[HttpPost]
 public ActionResult Index(MainModel model)
 {
-...
- ModelState.AddFormError("Subscriber","You can't subscribe at the moment");
-...
+	 ModelState.AddFormError("Subscriber", "You can't subscribe at the moment");
+
+	 ...
 }

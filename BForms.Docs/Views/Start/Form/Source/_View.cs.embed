@@ -1,41 +1,38 @@
-﻿@using (Html.BeginForm("Index", "Subscriber", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "bs-form js-subscriberForm" }))
+﻿@using (Html.BeginForm("Index", "Subscriber", null, 
+	FormMethod.Post, new { @class = "js-subscriberForm" }))
 {
-    <div class="form-container loading">
-        <div class="col-12 col-sm-12 col-lg-12">
-            @Html.BsValidationSummary()
-        </div>
+    <div class="col-lg-12">
+        @Html.BsValidationSummary()
+    </div>
 
-        <div class="col-12 col-sm-12 col-lg-12 form-group @Html.BsValidationCssFor(m => m.Email)">
-            @Html.BsLabelFor(m => m.Email)
-            <div class="input-group">
-                @Html.BsGlyphiconAddon(Glyphicon.Envelope)
-                @Html.BsInputFor(m => m.Email)
-                @Html.BsValidationFor(m => m.Email)
-            </div>
+    <div class="col-lg-12 form-group @Html.BsValidationCssFor(m => m.Email)">
+        @Html.BsLabelFor(m => m.Email)
+        <div class="input-group">
+            @Html.BsGlyphiconAddon(Glyphicon.Envelope)
+            @Html.BsInputFor(m => m.Email)
+            @Html.BsValidationFor(m => m.Email)
         </div>
+    </div>
 
-        <div class="col-12 col-sm-12 col-lg-12 form-group @Html.BsValidationCssFor(m => m.Name)">
-            @Html.BsLabelFor(m => m.Name)
-            <div class="input-group">
-                @Html.BsGlyphiconAddon(Glyphicon.User)
-                @Html.BsInputFor(m => m.Name)
-                @Html.BsValidationFor(m => m.Name)
-            </div>
+    <div class="col-lg-12 form-group @Html.BsValidationCssFor(m => m.Name)">
+        @Html.BsLabelFor(m => m.Name)
+        <div class="input-group">
+            @Html.BsGlyphiconAddon(Glyphicon.User)
+            @Html.BsInputFor(m => m.Name)
+            @Html.BsValidationFor(m => m.Name)
         </div>
+    </div>
 
-        <div class="col-12 col-sm-12 col-lg-12 form-group @Html.BsValidationCssFor(m => m.SubscriptionType)">
-            @Html.BsLabelFor(m => m.SubscriptionType)
-            <div class="input-group">
-                @Html.BsGlyphiconAddon(Glyphicon.Inbox)
-                @Html.BsSelectFor(m => m.SubscriptionType)
-                @Html.BsValidationFor(m => m.SubscriptionType)
-            </div>
+    <div class="col-lg-12 form-group @Html.BsValidationCssFor(m => m.SubscriptionType)">
+        @Html.BsLabelFor(m => m.SubscriptionType)
+        <div class="input-group">
+            @Html.BsGlyphiconAddon(Glyphicon.Inbox)
+            @Html.BsSelectFor(m => m.SubscriptionType)
+            @Html.BsValidationFor(m => m.SubscriptionType)
         </div>
+    </div>
 
-        <div class="clearfix"></div>
-        <div class="col-12 col-sm-12 col-lg-12">
-            <button class="btn btn-default js-subscriberBtn" type="submit">Subscribe</button>
-        </div>
-
+    <div class="col-lg-12">
+        <button class="btn btn-default js-subscriberBtn" type="submit">Subscribe</button>
     </div>
 }

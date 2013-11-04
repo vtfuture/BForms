@@ -1,11 +1,11 @@
-﻿  public enum SubscriberEnum : int
-    {
-        [Display(Name = "Daily subscription")]
-        Daily = 1,
+﻿public enum SubscriberEnum : int
+{
+    [Display(Name = "Daily subscription")]
+    Daily = 1,
 
-        [Display(Name = "Weekly subscription")]
-        Weekly = 2,
+    [Display(Name = "Weekly subscription")]
+    Weekly = 2,
 
-        [Display(Name = "Monthly subscription")]
-        Monthly = 3
-    }
+    [Display(Name = "Monthly subscription")]
+    Monthly = 3
+}

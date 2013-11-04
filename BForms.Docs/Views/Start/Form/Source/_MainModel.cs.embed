@@ -1,4 +1,4 @@
-﻿  public class MainModel
-  {
-     public SubscriberModel Subscriber { get; set; }
-  }
+﻿public class MainModel
+{
+    public SubscriberModel Subscriber { get; set; }
+}

@@ -201,6 +201,9 @@ code {
 
 /* Main page */
 .bs-docs-section {
+	a {
+		text-decoration: underline;
+	}
 	.jumbotron {
 		background: #fff;
 		border: 1px solid $borderColor;
@@ -222,6 +225,9 @@ code {
 				color: $mainColor;
 			}
 		}
+		a {
+			text-decoration: none;
+		}
 	}
 	.bs-docs-tech {
 		margin: 0;
@@ -229,6 +235,9 @@ code {
 		color: #fff;
 		display: table;
 		position: relative;
+		a {
+			text-decoration: none;
+		}
 		> div {
 			border-right: 1px solid darken($mainColor, 5%);
 			border-left: 1px solid lighten($mainColor, 5%);

@@ -14,7 +14,7 @@
         new []
         {
             "~/Scripts/BForms/RequireJS.config",
-             "~/RequireJS.config"                  // added for extra configuration
+             "~/RequireJS.config"	// added for extra configuration
         })
     }
     else
@@ -24,7 +24,7 @@
         new []
         {
             "~/Scripts/BForms/RequireJS.Release.config",
-             "~/RequireJS.Release.config"        // added for extra configuration
+             "~/RequireJS.Release.config"	// added for extra configuration
         })
     }
 

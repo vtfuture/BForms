@@ -1,17 +1,17 @@
 ﻿ public class SubscriberModel
-    {
-        [Required]
-        [Display(Name = "Email", Prompt = "Email address")]
-        [BsControl(BsControlType.Email)]
-        public string Email { get; set; }
+{
+    [Required]
+    [Display(Name = "Email", Prompt = "Email address")]
+    [BsControl(BsControlType.Email)]
+    public string Email { get; set; }
 
-        [Required]
-        [Display(Name = "Name", Prompt = "Name and surname")]
-        [BsControl(BsControlType.TextBox)]
-        public string Name { get; set; }
+    [Required]
+    [Display(Name = "Name", Prompt = "Name and surname")]
+    [BsControl(BsControlType.TextBox)]
+    public string Name { get; set; }
 
-        [Required]
-        [Display(Name = "Subscription type", Prompt="Choose")]
-        [BsControl(BsControlType.DropDownList)]
-        public BsSelectList<int?> SubscriptionType { get; set; }
-    }
+    [Required]
+    [Display(Name = "Subscription type", Prompt="Choose")]
+    [BsControl(BsControlType.DropDownList)]
+    public BsSelectList<int?> SubscriptionType { get; set; }
+}

@@ -1,8 +1,6 @@
 ﻿require([
-'bforms-extensions',
 'bforms-validate-unobtrusive',
 'bforms-initUI'
-
 ], function () {
 
 ...
