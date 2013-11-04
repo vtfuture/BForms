@@ -155,6 +155,11 @@
     <Content Include="Content\Images\Docs\ajax-subscribe.PNG" />
     <Content Include="Content\Images\Docs\form-submited.PNG" />
     <Content Include="Content\Images\Docs\subscribe-form.PNG" />
+    <Content Include="Content\Images\Docs\eg-js-folder.png" />
+    <Content Include="Content\Images\Docs\eg-pager.png" />
+    <Content Include="Content\Images\Docs\eg-row-model.png" />
+    <Content Include="Content\Images\Docs\eg-simple-grid.png" />
+    <Content Include="Content\Images\Docs\eg-view-model.png" />
     <Content Include="Views\Start\Setup\Source\_BundleConfigJs.cs.embed" />
     <Content Include="Views\Start\Setup\Source\_Files.embed" />
     <Content Include="Areas\Demo\Views\Contributors\Grid\Details\_IdentityEditable.cshtml">
@@ -980,6 +985,52 @@
     <Content Include="Views\Start\Form\Source\_References.cs.embed" />
     <Content Include="Views\Start\Form\Source\_SubscribeAjaxBtn.cs.embed" />
     <Content Include="Views\Start\Form\Source\_View.cs.embed" />
+    <Content Include="Views\Start\Grid\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Source\_Model.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Source\_ModelInitialization.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Source\_RowModel.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Source\_ViewModel.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Source\_GridRepository.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Source\_Query.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Source\_OrderQuery.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Source\_MapQuery.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Source\_Mapper.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Source\_Controller.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Source\_IndexAction.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Source\_PagerAction.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Source\_IndexView.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Source\_GridView.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Source\_HomeIndexJs.cs.embed" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

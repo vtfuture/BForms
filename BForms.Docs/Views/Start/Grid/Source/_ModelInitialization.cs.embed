@@ -1,0 +1,13 @@
+﻿new Movie()
+{
+    Id = 1,
+    Title = "Jackass Presents: Bad Grandpa",
+    WeekendRevenue = 32.1m,
+    GrossRevenue = 32.1m,
+    ReleaseDate = new DateTime(2013, 10, 25),
+    Genres = string.Join(",", new List<MovieGenre>() {MovieGenre.Comedy}.ToArray()),
+    Rating = 7.0,
+    IsRecommended = false,
+    Poster ="http://ia.media-imdb.com/images/M/MV5BMT.jpg"
+}
+

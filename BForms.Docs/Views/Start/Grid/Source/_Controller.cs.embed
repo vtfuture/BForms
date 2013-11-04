@@ -1,0 +1,13 @@
+﻿public class HomeController : BaseController
+{
+    private readonly MoviesGridRepository _gridRepository;
+
+    public HomeController()
+    {
+        _gridRepository = new MoviesGridRepository(Db);
+    }
+    public ActionResult Index()
+    {
+        return View();
+    }
+}

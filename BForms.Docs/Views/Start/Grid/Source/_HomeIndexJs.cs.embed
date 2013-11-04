@@ -1,0 +1,27 @@
+﻿require([
+        'jquery',
+        'bforms-grid',
+        'bootstrap'
+], function () {
+    var homeIndex = function (options) {
+        this.options = $.extend(true, {}, options);
+        this.init();
+    };
+    
+    homeIndex.prototype.init = function () {
+        this.$grid = $('#grid');
+        this.initGrid();
+    };
+    
+    homeIndex.prototype.initGrid = function() {
+        this.$grid.bsGrid({
+            uniqueName: 'moviesGrid',
+            pagerUrl: this.options.pagerUrl
+        });
+    };
+
+    $(document).ready(function () {
+        var page = new homeIndex(window.requireConfig.pageOptions.index);
+    });
+});
+
