@@ -1,0 +1,18 @@
+﻿public ActionResult Index()
+{
+    var gridModel = _gridRepository.ToBsGridViewModel(new BsGridBaseRepositorySettings());
+
+    var model = new MoviesViewModel
+    {
+        Grid = gridModel,
+    };
+
+    var options = new Dictionary<string, string>
+    {
+        {"pagerUrl",  Url.Action("Pager")}
+    };
+
+    RequireJsOptions.Add("index", options);
+
+    return View(model);
+}

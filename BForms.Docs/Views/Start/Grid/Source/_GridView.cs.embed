@@ -1,0 +1,26 @@
+﻿@model MyGrid.Models.MoviesViewModel
+@using BForms.Html
+@using BForms.Grid
+@using BForms.Models
+
+
+@(
+Html.BsGridFor(m => m.Grid)
+.ConfigureColumns(cols =>
+{
+    cols.For(c => c.ReleaseDate)
+        .Name("Year")
+        .Text(x => x.ReleaseDate.Year);
+
+    cols.For(c => c.Recommended)
+        .Text(x => x.Recommended ? "Yes" : "No");
+})
+.PagerSettings(new BsPagerSettings
+     {
+        Size = 5,
+        ShowFirstLastButtons = true,
+        ShowPrevNextButtons = true,
+        HasPagesText = true,
+        HasPageSizeSelector = true
+     })
+)

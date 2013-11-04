@@ -1,0 +1,9 @@
+﻿public class MoviesGridRepository : BsBaseGridRepository<Movie, MoviesRowModel>
+    {
+    private BFormsContext db;
+
+    public MoviesGridRepository(BFormsContext _db)
+    {
+        db = _db;
+    }
+}

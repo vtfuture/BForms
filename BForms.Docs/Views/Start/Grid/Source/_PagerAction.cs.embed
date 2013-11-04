@@ -1,0 +1,26 @@
+﻿public BsJsonResult Pager(BsGridBaseRepositorySettings model)
+{
+    var msg = string.Empty;
+    var status = BsResponseStatus.Success;
+    var html = string.Empty;
+    var count = 0;
+
+    try
+    {
+        var viewModel = _gridRepository.ToBsGridViewModel(model, out count).Wrap<MoviesViewModel>(x => x.Grid);
+
+        html = this.BsRenderPartialView("Grid/_Grid", viewModel);
+    }
+    catch (Exception ex)
+    {
+        msg = ex.Message;
+        status = BsResponseStatus.ServerError;
+    }
+
+    return new BsJsonResult(new
+    {
+        Count = count,
+        Html = html
+    }, status, msg);
+}
+

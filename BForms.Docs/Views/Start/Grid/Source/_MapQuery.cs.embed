@@ -1,0 +1,4 @@
+﻿public override IEnumerable<MoviesRowModel> MapQuery(IQueryable<Movie> query)
+{
+    return query.Select(MapMovie_MovieRowModel);
+}

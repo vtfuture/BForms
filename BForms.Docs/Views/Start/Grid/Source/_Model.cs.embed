@@ -1,0 +1,12 @@
+﻿public class Movie
+{
+    public int Id { get; set; }
+    public string Title { get; set; }
+    public decimal WeekendRevenue { get; set; }
+    public decimal GrossRevenue { get; set; }
+    public DateTime ReleaseDate { get; set; }
+    public string Genres { get; set; } 
+    public double Rating { get; set; }
+    public bool IsRecommended { get; set; }
+    public string Poster { get; set; }
+}

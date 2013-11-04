@@ -1,0 +1,11 @@
+﻿public Func<Movie, MoviesRowModel> MapMovie_MovieRowModel = x =>
+new MoviesRowModel
+{
+           Id = x.Id,
+           Title = x.Title,
+           WeekendRevenue = x.WeekendRevenue,
+           GrossRevenue = x.GrossRevenue,
+           ReleaseDate = x.ReleaseDate,
+           Recommended = x.IsRecommended
+        };
+

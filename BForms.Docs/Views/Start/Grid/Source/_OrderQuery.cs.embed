@@ -1,0 +1,8 @@
+﻿public override IOrderedQueryable<Movie> OrderQuery(IQueryable<Movie> query)
+{
+    this.orderedQueryBuilder.OrderFor(x => x.Recommended, y => y.IsRecommended);
+
+    var ordered = this.orderedQueryBuilder.Order(query, x => x.WeekendRevenue, BsOrderType.Descending);
+
+    return ordered;
+}
