@@ -559,7 +559,7 @@
 
     Grid.prototype._getMultiDetails = function (items, $rows) {
 
-        console.log($rows);
+        var $loadingElement = this.$rowsContainer.find(this.options.rowSelector).length == $rows.length ? this.$rowsContainer : $rows;
 
         $.bforms.ajax({
             name: this.options.uniqueName + '|multiDetails',
@@ -573,7 +573,7 @@
             context: this,
             success: $.proxy(this._detailsAjaxSuccess, this),
             error: $.proxy(this._detailsAjaxError, this),
-            loadingElement: $rows,
+            loadingElement: $loadingElement,
             loadingClass: 'loading'
         });
     };
@@ -887,10 +887,8 @@
                     this._handleDetails($row);
                 } else if ($row.find(this.options.errorCloseSelector).length == 0) {
 
-                    console.log($toExpandRows);
                     $toExpandRows = $toExpandRows.add($row);
-                    console.log($toExpandRows);
-
+                    
                     return {
                         Id: $row.data('objid'),
                         getDetails: true
