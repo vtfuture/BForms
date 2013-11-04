@@ -12,6 +12,7 @@
     <tags>ASP.NET MVC, UI, JavaScript</tags>
     <language>en-US</language>
     <projectUrl>http://bforms.stefanprodan.eu</projectUrl>
+    <iconUrl>http://bforms.stefanprodan.eu/Content/images/bforms-32x32.png</iconUrl>
     <dependencies>
       <dependency id="Newtonsoft.Json" version="5.0.8" />
       <dependency id="RequireJsNet" version="1.0.7.0" />
