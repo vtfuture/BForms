@@ -20,8 +20,8 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="BForms\bin\Release\BForms.dll" target="lib\net45" />
-    <file src="BForms\bin\Release\BForms.xml" target="lib\net45" />
-    <file src="BForms.Docs\Scripts\BForms\**\*.*" target="Content\Scripts\BForms" />
+    <file src="..\BForms\bin\Release\BForms.dll" target="lib\net45" />
+    <file src="..\BForms\bin\Release\BForms.xml" target="lib\net45" />
+    <file src="..\BForms.Docs\Scripts\BForms\**\*.*" target="Content\Scripts\BForms" />
   </files>
 </package>
