@@ -3,21 +3,16 @@ using System.Collections.Generic;
 using System.Data.Common.EntitySql;
 using System.Linq;
 using System.Threading;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.UI.WebControls;
 using BForms.Docs.Areas.Demo.Models;
 using BForms.Docs.Areas.Demo.Repositories;
 using BForms.Docs.Controllers;
-using BForms.Docs.Helpers;
 using BForms.Docs.Resources;
 using BForms.Grid;
 using BForms.Models;
 using BForms.Mvc;
 using RequireJS;
-using BForms.Utilities;
 using BForms.Docs.Areas.Demo.Helpers;
-using System.Drawing;
 
 namespace BForms.Docs.Areas.Demo.Controllers
 {
@@ -41,8 +36,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
             {
                 Page = 1,
                 PageSize = 5,
-                OrderColumns = columnOrder,
-                GetDetails = false
+                OrderColumns = columnOrder
             });
 
             var model = new ContributorsViewModel

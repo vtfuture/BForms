@@ -294,7 +294,7 @@ namespace BForms.Grid
             //var finalQuery = this.MapQuery(basicQuery).Where(entityExpression);
 
             //rows = finalQuery.ToList();
-
+            
             foreach (var row in rows)
             {
                 var rowProp = rowExpression.GetPropertyInfo();
@@ -386,17 +386,21 @@ namespace BForms.Grid
                 // get items for current page
                 result.Items = finalQuery.ToList();
 
-                if (settings.GetDetails)
-                {
-                    foreach (var item in result.Items)
-                    {
-                        this.FillDetails(item);
-                    }
-                }
-
                 //sets pager
                 pager.CurrentPageRecords = result.Items.Count();
                 result.Pager = pager;
+
+                if (settings.DetailsAll || settings.DetailsCount > 0)
+                {
+                    for (var i = 0; i < pager.CurrentPageRecords; i++)
+                    {
+                        if (settings.HasDetails(i))
+                        {
+                            var row = result.Items.ElementAt(i);
+                            this.FillDetails(row);
+                        }
+                    }
+                }
             }
             else
             {

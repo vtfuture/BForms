@@ -115,6 +115,7 @@
         this._addDelegates();
 
         this.refreshModel = $.extend(true, {}, this.element.data('settings'), this._refreshModel);
+
         this.refreshModel.OrderColumns = this._getColumnsOrder();
         this._currentResultsCount = this.$gridCountContainer.text();
 
@@ -135,11 +136,9 @@
             this._initSortable();
         }
 
-        if (this.refreshModel.GetDetails == true) {
-            this.$rowsContainer.find(this.options.rowSelector).each($.proxy(function (idx, row) {
-                this._initInitialDetails($(row));
-            }, this));
-        }
+        this.$rowsContainer.find(this.options.rowSelector).each($.proxy(function (idx, row) {
+            this._initInitialDetails($(row));
+        }, this));
     };
 
     Grid.prototype._initDefaultOptions = function () {
@@ -155,7 +154,7 @@
 
         if (this.hasDetails) {
             this.element.on('click', this.options.detailsSelector, $.proxy(this._evOnDetailsClick, this));
-            
+
             if (this.options.rowClickExpandable) {
                 this.element.on('click', this.options.rowSelector, $.proxy(this._onRowClick, this));
             }
@@ -558,7 +557,10 @@
         this._updateExpandToggle();
     };
 
-    Grid.prototype._getMultiDetails = function (items) {
+    Grid.prototype._getMultiDetails = function (items, $rows) {
+
+        var $loadingElement = this.$rowsContainer.find(this.options.rowSelector).length == $rows.length ? this.$rowsContainer : $rows;
+
         $.bforms.ajax({
             name: this.options.uniqueName + '|multiDetails',
             url: this.options.detailsUrl,
@@ -571,7 +573,7 @@
             context: this,
             success: $.proxy(this._detailsAjaxSuccess, this),
             error: $.proxy(this._detailsAjaxError, this),
-            loadingElement: this.$rowsContainer,
+            loadingElement: $loadingElement,
             loadingClass: 'loading'
         });
     };
@@ -875,13 +877,18 @@
             });
         } else {
             var $rows = this.element.find(this.options.detailsSelector).parents(this.options.rowSelector).not('.open');
-
+            
+            var $toExpandRows = $();
+            
             var items = $rows.map($.proxy(function (idx, row) {
                 var $row = $(row);
 
                 if ($row.data('hasdetails')) {
                     this._handleDetails($row);
                 } else if ($row.find(this.options.errorCloseSelector).length == 0) {
+
+                    $toExpandRows = $toExpandRows.add($row);
+                    
                     return {
                         Id: $row.data('objid'),
                         getDetails: true
@@ -891,16 +898,8 @@
 
 
             if (items.length) {
-                this._getMultiDetails(items);
+                this._getMultiDetails(items, $toExpandRows);
             }
-
-
-            //$rows.each($.proxy(function (idx, el) {
-            //    var $row = $(el);
-            //    if ($row.find(this.options.errorCloseSelector).length == 0) {
-            //        $row.find(this.options.detailsSelector).trigger('click');
-            //    }
-            //}, this));
         }
     };
 
@@ -922,23 +921,7 @@
         this.needsRefresh = false;
 
         //serialize data
-        var data = {};
-
-        for (var k in this.refreshModel) {
-            if (k in this.refreshModel) {
-                var prop = this.refreshModel[k];
-
-                if (prop instanceof Array || typeof (prop) !== 'object') {
-                    data[k] = this.refreshModel[k];
-                } else {
-                    for (var j in prop) {
-                        if (j in prop) {
-                            data[j] = prop[j];
-                        }
-                    }
-                }
-            }
-        }
+        var data = this._serializeRefreshModel();
 
         if (typeof this.options.onRefresh === 'function') {
             this.options.onRefresh.call(this, data);
@@ -996,7 +979,7 @@
             $.bforms.scrollToElement(this.$gridHeader);
         }
 
-        if (this.refreshModel.GetDetails) {
+        if (this.refreshModel.DetailsAll || this.refreshModel.DetailsCount > 0) {
             var $rows = this.$rowsContainer.find(this.options.rowSelector);
 
             $rows.each($.proxy(function (idx, row) {
@@ -1241,6 +1224,28 @@
         } else {
             this.element.find(this.options.groupActionsSelector).hide();
         }
+    };
+
+    Grid.prototype._serializeRefreshModel = function () {
+        var data = {};
+
+        for (var k in this.refreshModel) {
+            if (k in this.refreshModel) {
+                var prop = this.refreshModel[k];
+
+                if (prop instanceof Array || typeof (prop) !== 'object') {
+                    data[k] = this.refreshModel[k];
+                } else {
+                    for (var j in prop) {
+                        if (j in prop) {
+                            data[j] = prop[j];
+                        }
+                    }
+                }
+            }
+        }
+
+        return data;
     };
     //#endregion
 
