@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.20827.3
+VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BForms", "BForms\BForms.csproj", "{60A6E254-CD66-4C0E-9191-5E95E70001EB}"
 EndProject
@@ -10,13 +10,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{FFE46F
 		.nuget\NuGet.Config = .nuget\NuGet.Config
 		.nuget\NuGet.exe = .nuget\NuGet.exe
 		.nuget\NuGet.targets = .nuget\NuGet.targets
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuspec", ".nuspec", "{FB12F3C3-E98E-4136-8D36-ED2B952082EE}"
-	ProjectSection(SolutionItems) = preProject
-		BForms.MVC.nuspec = BForms.MVC.nuspec
-		BForms.nuspec = BForms.nuspec
-		BForms.symbols.nuspec = BForms.symbols.nuspec
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BForms.Docs", "BForms.Docs\BForms.Docs.csproj", "{ACFAD539-59C8-4739-8DA4-6C76F7B1DE97}"
@@ -28,6 +21,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{E1ACF7B5
 		tools\MinifyBundlesTask.proj = tools\MinifyBundlesTask.proj
 		..\..\Visual Studio 2012\Projects\IndacoCMS-SCJ\IndacoCMS\Lib\Yahoo.Yui.Compressor.Build.MsBuild.dll = ..\..\Visual Studio 2012\Projects\IndacoCMS-SCJ\IndacoCMS\Lib\Yahoo.Yui.Compressor.Build.MsBuild.dll
 		tools\Yahoo.Yui.Compressor.dll = tools\Yahoo.Yui.Compressor.dll
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuspec", ".nuspec", "{19D53EFA-2B6C-4AB4-8E1A-68BA4883436A}"
+	ProjectSection(SolutionItems) = preProject
+		nuspec\BForms.MVC.nuspec = nuspec\BForms.MVC.nuspec
+		nuspec\BForms.MVC.symbols.nuspec = nuspec\BForms.MVC.symbols.nuspec
 	EndProjectSection
 EndProject
 Global
