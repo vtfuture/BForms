@@ -1,0 +1,7 @@
+﻿public class MoviesViewModel
+{
+    [BsGrid(HasDetails = true, Theme = BsTheme.Blue)]
+    [Display(Name = "Top Movies")]
+    public BsGridModel<MoviesRowModel> Grid { get; set; }
+}
+

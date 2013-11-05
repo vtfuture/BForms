@@ -1,0 +1,13 @@
+﻿@using BForms.Html
+@using BForms.Models
+@model MyGrid.Models.MovieDetailsModel
+
+<h3 class="editable">
+    @Html.BsGlyphicon(Glyphicon.Usd)
+    Revenue
+    @Html.BsGlyphicon(Glyphicon.Pencil, new Dictionary<string, object> { { "class", "open-editable" } })
+</h3>
+
+@Html.Partial("Grid/Details/_RevenueReadonly", Model)
+
+@Html.Partial("Grid/Details/_RevenueEditable", Model)

@@ -1,0 +1,8 @@
+﻿var options = new Dictionary<string, object>
+{
+    {"pagerUrl", Url.Action("Pager")},
+    {"getRowsUrl", Url.Action("GetRows")},
+	{"editComponents", RequireJsHtmlHelpers.ToJsonDictionary<EditComponents>()}
+};
+
+RequireJsOptions.Add("index", options);

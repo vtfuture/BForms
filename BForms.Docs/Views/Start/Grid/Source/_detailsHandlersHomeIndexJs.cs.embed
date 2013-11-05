@@ -1,0 +1,31 @@
+﻿ homeIndex.prototype._beforeDetailsSuccessHandler = function (e, data) {
+        var $row = data.$row,
+            response = data.data;
+
+        var infoOpt = this._editableOptions($row, this.options.editComponents.Info);
+        $row.find('.js-editableInfo').bsEditable(infoOpt);
+
+        var revenueOpt = this._editableOptions($row, this.options.editComponents.Revenue);
+        $row.find('.js-editableRevenue').bsEditable(revenueOpt);
+    };
+
+    homeIndex.prototype._editableOptions = function ($row, componentId) {
+        return $.extend(true, {}, {
+            url: this.options.updateUrl,
+            prefix: 'x' + $row.data('objid') + '.',
+            additionalData: {
+                objId: $row.data('objid'),
+                componentId: componentId
+            },
+            editSuccessHandler: $.proxy(function (editResponse) {
+                this.$grid.bsGrid('updateRows', editResponse.RowsHtml);
+            }, this)
+        });
+    };
+
+    homeIndex.prototype._afterDetailsSuccessHandler = function (e, data) {
+        var $row = data.$row;
+
+        $row.find('.js-editableInfo').bsEditable('initValidation');
+        $row.find('.js-editableRevenue').bsEditable('initValidation');
+    };

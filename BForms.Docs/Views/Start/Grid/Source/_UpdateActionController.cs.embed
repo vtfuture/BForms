@@ -1,0 +1,46 @@
+﻿public BsJsonResult Update(MovieDetailsModel model, int objId, EditComponents componentId)
+{
+            
+    var msg = string.Empty;
+    var status = BsResponseStatus.Success;
+    var html = string.Empty;
+
+            
+    try
+    {
+        ClearModelState(ModelState, componentId);
+
+        if (ModelState.IsValid)
+        {
+            var detailsModel = _gridRepository.Update(model, objId, componentId);
+
+
+            switch (componentId)
+            {
+                case EditComponents.Info:
+                    html = this.BsRenderPartialView("Grid/Details/_InfoReadonly", detailsModel);
+                    break;
+                case EditComponents.Revenue:
+                    html = this.BsRenderPartialView("Grid/Details/_RevenueReadonly", detailsModel);
+                    break;
+            }
+
+            var rowModel = _gridRepository.ReadRow(objId);
+
+            var viewModel = _gridRepository.ToBsGridViewModel(rowModel, true).Wrap<MoviesViewModel>(x => x.Grid);
+
+            html = this.BsRenderPartialView("Grid/_Grid", viewModel);
+        }
+    }
+    catch (Exception ex)
+    {
+        msg = "<strong>Server Error!</strong> " + ex.Message;
+        status = BsResponseStatus.ServerError;
+    }
+            
+
+    return new BsJsonResult(new
+    {
+        RowsHtml = html
+    }, status, msg);
+}

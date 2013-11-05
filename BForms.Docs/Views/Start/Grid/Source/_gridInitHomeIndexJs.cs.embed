@@ -1,0 +1,19 @@
+﻿    homeIndex.prototype.initGrid = function() {
+        this.$grid.bsGrid({
+            uniqueName: 'moviesGrid',
+            pagerUrl: this.options.pagerUrl,
+            detailsUrl: this.options.getRowsUrl,
+            beforeRowDetailsSuccess: $.proxy(this._beforeDetailsSuccessHandler, this),
+            afterRowDetailsSuccess: $.proxy(this._afterDetailsSuccessHandler, this),
+            rowActions: [{
+                btnSelector: '.js-btn_state',
+                url: this.options.recommendUnrecommendUrl,
+                handler: $.proxy(this._recommendUnrecommendHandler, this),
+            }, {
+                btnSelector: '.js-btn_delete',
+                url: this.options.deleteUrl,
+                init: $.proxy(this._deleteHandler, this),
+                context: this
+            }]
+        });
+    };

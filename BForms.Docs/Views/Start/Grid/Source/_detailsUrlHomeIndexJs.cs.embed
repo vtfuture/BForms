@@ -1,0 +1,10 @@
+﻿homeIndex.prototype.initGrid = function() {
+    this.$grid.bsGrid({
+        uniqueName: 'moviesGrid',
+        pagerUrl: this.options.pagerUrl,
+        detailsUrl: this.options.getRowsUrl,
+        beforeRowDetailsSuccess: $.proxy(this._beforeDetailsSuccessHandler, this),
+        afterRowDetailsSuccess: $.proxy(this._afterDetailsSuccessHandler, this)
+    });
+};
+

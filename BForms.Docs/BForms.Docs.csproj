@@ -147,8 +147,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
+    <Content Include="Content\Images\Docs\eg-grid-final.png" />
+    <Content Include="Content\Images\Docs\eg-grid-views.png" />
+    <Content Include="Content\Images\Docs\eg-info-editable.png" />
+    <Content Include="Content\Images\Docs\eg-info-readonly.png" />
     <Content Include="Content\Images\Docs\eg-js-folder.png" />
     <Content Include="Content\Images\Docs\eg-pager.png" />
+    <Content Include="Content\Images\Docs\eg-row-expand-readonly.png" />
     <Content Include="Content\Images\Docs\eg-row-model.png" />
     <Content Include="Content\Images\Docs\eg-simple-grid.png" />
     <Content Include="Content\Images\Docs\eg-view-model.png" />
@@ -987,6 +992,87 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Start\Grid\Source\_HomeIndexJs.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Source\_DetailsModel.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Source\_EditComponents.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Source\_RowModelDetails.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Source\_ViewModelDetails.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Source\_GridViewBuilder.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Source\_GridConfigureRows.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Source\_DetailsIndexView.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Source\_InfoView.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Source\_RevenueView.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Source\_InfoReadonlyView.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Source\_InfoEditableView.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Source\_UpdateActionController.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Source\_GetRowsActionController.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Source\_ReadRowsGridRepository.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Source\_OptionsGetRowsIndexAction.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Source\_detailsUrlHomeIndexJs.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Source\_detailsHandlersHomeIndexJs.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Source\_RequireHomeIndexJs.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Source\_ClearModelStateController.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Source\_UpdateGridRepository.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Source\_ReadRowGridRepository.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Source\_OptionsUpdateIndexAction.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Source\_gridInitHomeIndexJs.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Source\_rowActionsHandlersHomeIndexJs.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Source\_DeleteRecommendActionController.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Source\_DeleteRecommendGridRepository.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Source\_IndexActionFinal.cs.embed" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

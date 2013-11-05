@@ -1,0 +1,4 @@
+﻿public List<MoviesRowModel> ReadRows(List<int> objIds)
+{
+    return db.Movies.Where(x => objIds.Contains(x.Id)).Select(MapMovie_MovieRowModel).ToList();
+}

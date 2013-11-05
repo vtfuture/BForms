@@ -1,0 +1,19 @@
+﻿public class MoviesRowModel : BsGridRowModel<MovieDetailsModel>
+    {
+        public int Id { get; set; }
+
+        [BsGridColumn(Width = 4, IsEditable = true, IsSortable = true)]
+        public string Title { get; set; }
+
+        [BsGridColumn(Width = 2, IsEditable = false, IsSortable = true)]
+        public decimal WeekendRevenue { get; set; }
+
+        [BsGridColumn(Width = 2, IsEditable = false, IsSortable = false)]
+        public decimal GrossRevenue { get; set; }
+
+        [BsGridColumn(Width = 2, IsEditable = false, IsSortable = true)]
+        public DateTime ReleaseDate { get; set; }
+
+        [BsGridColumn(Width = 2, IsEditable = false, IsSortable = true)]
+        public bool Recommended { get; set; }
+    }

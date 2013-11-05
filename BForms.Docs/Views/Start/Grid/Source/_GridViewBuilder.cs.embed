@@ -1,0 +1,5 @@
+﻿@{
+    var builder = new BsGridHtmlBuilder<MoviesViewModel, MoviesRowModel>();
+}  
+
+@Html.BsGridFor(m => m.Grid, builder)

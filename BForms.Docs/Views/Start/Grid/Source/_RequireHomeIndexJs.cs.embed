@@ -1,0 +1,12 @@
+﻿require([
+        'jquery',
+        'bforms-namespace',
+        'bforms-grid',
+        'bootstrap',
+        'bforms-validate',
+        'bforms-validate-unobtrusive',
+        'bforms-ajax'
+], function () {
+      //...
+});
+
