@@ -1,0 +1,13 @@
+﻿[NonAction]
+public void ClearModelState(ModelStateDictionary ms, EditComponents componentId)
+{
+    switch (componentId)
+    {
+        case EditComponents.Info:
+            ms.ClearModelState(new List<string>() { "Title", "Poster", "Rating", "GenresList" });
+            break;
+        case EditComponents.Revenue:
+            ms.ClearModelState(new List<string>() { "GrossRevenue", "WeekendRevenue", "ReleaseDate" });
+            break;
+    }
+}

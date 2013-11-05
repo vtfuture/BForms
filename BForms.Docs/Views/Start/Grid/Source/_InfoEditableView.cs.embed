@@ -1,0 +1,41 @@
+﻿@using BForms.Html
+@using BForms.Models
+@model MyGrid.Models.MovieDetailsModel
+
+@using (Html.BsBeginForm())
+{
+    <div class="col-12 col-sm-12 col-lg-12 form-group @Html.BsValidationCssFor(m => m.Title)">
+        @Html.BsLabelFor(m => m.Title)
+        <div class="input-group">
+            @Html.BsGlyphiconAddon(Glyphicon.FacetimeVideo)
+            @Html.BsInputFor(m => m.Title)
+            @Html.BsValidationFor(m => m.Title)
+        </div>
+    </div>
+    
+    <div class="col-12 col-sm-12 col-lg-12 form-group @Html.BsValidationCssFor(m => m.Rating)">
+        @Html.BsLabelFor(m => m.Rating)
+        <div class="input-group">
+            @Html.BsGlyphiconAddon(Glyphicon.Star)
+            @Html.BsInputFor(m => m.Rating)
+            @Html.BsValidationFor(m => m.Rating)
+        </div>
+    </div>
+    
+    <div class="col-12 col-sm-12 col-lg-12 form-group @Html.BsValidationCssFor(m => m.GenresList)">
+        @Html.BsLabelFor(m => m.GenresList)
+        <div class="input-group">
+            @Html.BsSelectFor(m => m.GenresList)
+            @Html.BsValidationFor(m => m.GenresList)
+        </div>
+    </div>
+    
+    <div class="col-12 col-sm-12 col-lg-12 form-group @Html.BsValidationCssFor(m => m.Poster)">
+        @Html.BsLabelFor(m => m.Poster)
+        <div class="input-group">
+            @Html.BsGlyphiconAddon(Glyphicon.Picture)
+            @Html.BsTextBoxFor(m => m.Poster)
+            @Html.BsValidationFor(m => m.Poster)
+        </div>
+    </div>
+}

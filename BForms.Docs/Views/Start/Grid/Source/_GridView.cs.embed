@@ -9,11 +9,14 @@ Html.BsGridFor(m => m.Grid)
 .ConfigureColumns(cols =>
 {
     cols.For(c => c.ReleaseDate)
-        .Name("Year")
-        .Text(x => x.ReleaseDate.Year);
-
+        .Name("Released")
+        .Text(x => String.Format("{0:MMM yyyy}", x.ReleaseDate));
+    cols.For(c => c.WeekendRevenue)
+        .Text(x => x.WeekendRevenue + " mil$");
+    cols.For(c => c.GrossRevenue)
+        .Text(x => x.GrossRevenue + " mil$");
     cols.For(c => c.Recommended)
-        .Text(x => x.Recommended ? "Yes" : "No");
+        .Text(x => x.Recommended ? Html.BsGlyphicon(Glyphicon.ThumbsUp).ToHtmlString() : Html.BsGlyphicon(Glyphicon.ThumbsDown).ToHtmlString());
 })
 .PagerSettings(new BsPagerSettings
      {

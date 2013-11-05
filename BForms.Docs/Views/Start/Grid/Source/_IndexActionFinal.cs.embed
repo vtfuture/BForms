@@ -1,0 +1,23 @@
+﻿public ActionResult Index()
+{
+    var gridModel = _gridRepository.ToBsGridViewModel(new BsGridBaseRepositorySettings());
+
+    var model = new MoviesViewModel
+    {
+        Grid = gridModel,
+    };
+
+    var options = new Dictionary<string, object>
+    {
+        {"pagerUrl", Url.Action("Pager")},
+        {"getRowsUrl", Url.Action("GetRows")},
+        {"recommendUnrecommendUrl", Url.Action("RecommendUnrecommend")},
+        {"updateUrl", Url.Action("Update")},
+        {"deleteUrl", Url.Action("Delete")},
+        {"editComponents", RequireJsHtmlHelpers.ToJsonDictionary<EditComponents>()}
+    };
+
+    RequireJsOptions.Add("index", options);
+
+    return View(model);
+}

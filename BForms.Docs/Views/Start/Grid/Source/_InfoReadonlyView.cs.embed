@@ -1,0 +1,38 @@
+﻿@using BForms.Html
+@model MyGrid.Models.MovieDetailsModel
+
+<div class="bs-readonly">
+    <div class="col-12 col-sm-2 col-lg-2">
+        <img src="@Model.Poster" alt="@Model.Title" height="150">
+    </div>
+    <div class="col-12 col-sm-10 col-lg-10">
+        @if (!string.IsNullOrEmpty(Model.Title))
+        {
+            <dl>
+                <dt>Title &nbsp;</dt>
+                <dd>@Model.Title</dd>
+            </dl>
+        }
+        @if (Model.Rating > 0)
+        {
+            <dl>
+                <dt>Rating &nbsp;</dt>
+                <dd>@Model.Rating</dd>
+            </dl>
+        }
+        @if (Model.GenresList.SelectedValues.Count > 0)
+        {
+            <dl>
+                <dt>Genre &nbsp;</dt>
+                <dd>
+                    <ul>
+                        @foreach (var item in Model.GenresList.SelectedValues)
+                        {
+                            <li>@Model.GenresList.Items.Where(i => i.Value == item.ToString()).Select(x => x.Text).FirstOrDefault()</li>
+                        }
+                    </ul>
+                </dd>
+            </dl>
+        }
+    </div>
+</div>
