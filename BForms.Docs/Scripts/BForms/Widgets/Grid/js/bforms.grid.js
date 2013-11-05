@@ -1098,12 +1098,13 @@
             return false;
         }
 
-        var $rows = this.element.find(this.options.detailsSelector).parents(this.options.rowSelector).not('.open');
-        var closedRowsCount = $rows.length - $rows.find(this.options.errorCloseSelector).length;
-
-        var rowsWithDetailsCount = this.element.find(this.options.detailsSelector).length;
-
-        if (closedRowsCount != rowsWithDetailsCount) {
+        var $wantedOpen = this.element.find(this.options.detailsSelector).parents(this.options.rowSelector + '[data-expandedonload="True"]');
+        var $wantedClosed = this.element.find(this.options.detailsSelector).parents(this.options.rowSelector).not($wantedOpen);
+        
+        var openRowsLength = $wantedOpen.filter(function () { return $(this).hasClass('open'); }).length,
+            closedRowsLength = $wantedClosed.not('.open').length;
+        
+        if ($wantedOpen.length != openRowsLength || $wantedClosed.length != closedRowsLength) {
             return false;
         }
 

@@ -515,6 +515,7 @@ namespace BForms.Grid
                     {
                         rowBuilder.AddCssClass("open");
                         rowBuilder.MergeAttribute("data-hasdetails", true.ToString());
+                        rowBuilder.MergeAttribute("data-expandedonload", true.ToString());
                     }
 
                     var rowHasDetails = this.hasDetails && (this.rowDetails == null || this.rowDetails(row));
