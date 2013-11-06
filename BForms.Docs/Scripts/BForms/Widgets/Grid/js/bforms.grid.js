@@ -462,6 +462,8 @@
             $row.find(this.options.rowHeaderSelector).replaceWith($updatedRow.find(this.options.rowHeaderSelector));
             $row.append($updatedRow.find(this.options.rowDetailsSelector).hide());
 
+            data.$detailsHtml = $row.find(this.options.rowDetailsSelector);
+
             this._trigger('beforeRowDetailsSuccess', 0, {
                 $row: $row,
                 data: data
