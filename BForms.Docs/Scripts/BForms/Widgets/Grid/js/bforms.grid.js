@@ -908,7 +908,7 @@
     Grid.prototype._onRowClick = function (e) {
         if (!this._isTextSelected()) {
             var $row = $(e.currentTarget),
-                detailsClick = $(e.target).parents(this.options.rowDetailsSelector).length > 0;
+                detailsClick = $(e.target).closest(this.options.rowDetailsSelector).length > 0;
 
             if (!detailsClick) {
                 $row.find(this.options.detailsSelector).trigger('click');
