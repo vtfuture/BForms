@@ -1,0 +1,40 @@
+﻿public BsJsonResult GetRows(List<BsGridRowData<int>> items)
+{
+    var msg = string.Empty;
+    var status = BsResponseStatus.Success;
+    var rowsHtml = string.Empty;
+
+    try
+    {
+        rowsHtml = GetRowsHtml(items);
+    }
+    catch (Exception ex)
+    {
+        msg = "<strong>Server Error!</strong> " + ex.Message;
+        status = BsResponseStatus.ServerError;
+    }
+
+    return new BsJsonResult(new
+    {
+        RowsHtml = rowsHtml
+    }, status, msg);
+}
+
+[NonAction]
+private string GetRowsHtml(List<BsGridRowData<int>> items)
+{
+    var ids = items.Select(x => x.Id).ToList();
+    var rowsModel = _gridRepository.ReadRows(items.Select(x => x.Id).ToList());
+    var viewModel = _gridRepository.ToBsGridViewModel(rowsModel, row => row.Id, items, x => ids.Contains(x.Id))
+            .Wrap<MoviesViewModel>(x => x.Grid);
+
+    viewModel.Grid.BaseSettings.OrderColumns = GetColumnOrder();
+
+    return this.BsRenderPartialView("Grid/_Grid", viewModel);
+}
+
+[NonAction]
+public Dictionary<string, int> GetColumnOrder()
+{
+    return Session["ColumnOrder"] as Dictionary<string, int>;
+}

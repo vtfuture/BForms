@@ -16,6 +16,9 @@
                         <li><a href="#controller">Controller</a></li>
                         <li><a href="#views">Views</a></li>
                         <li><a href="#javascript">Javascript</a></li>
+                        <li><a href="#details">Row Details</a></li>
+                        <li><a href="#update">Row Update</a></li>
+                        <li><a href="#rowactions">Row Actions</a></li>
                     </ul>
                 </li>
             </ul>
@@ -25,12 +28,21 @@
     <main class="col-md-9 col-lg-9" role="main">
         <div class="bs-docs-section">
             <div class="page-header">
-                <h1 id="example">Simple Grid example</h1>
+                <h1 id="example">Building Grids and Toolbars</h1>
             </div>
+            <p>
+                BForms Grid and Toolbar components are designed to provide rich functionality, cross-browser, cross-device and internationalization support for tabular data providing full CRUD and search operations over complex datasets.
+            </p>
+            <p>
+                The feature set includes AJAX-enabled paging, sorting, editing, filtering and built-in data repository adapted for Entity Framework that can be customized with your own query logic. The UI is touch friendly and HTML5 enhanced featuring edit in place, master-details view and multi row select with bulk actions.
+            </p>
+            <p>
+                On the client side, the Grid is deployed as an AMD jQuery widget that supports theming and templates. The styling is done using bootstrap v3 CSS grid system.
+            </p>
             <h3 id="introduction">Introduction</h3>
             <p>
                 In this tutorial, you will learn how to implement the <code>BForms.Grid</code> from scratch. We start by presenting the models we’ll use. Then will begin building the grid to present our data, step by step, adding more functionality as we go. At this step you will have a grid that displays your data, with sorting and pagination capabilities. Next step is to add editing capabilities to our rows by enabling the details for each row. We’ll also implement the Bulk Actions that will help us modify multiple rows at a time.
-</p>
+            </p>
             <h3 id="initial"> Initial Project </h3>
             <p>We will start from an empty MVC Project. The project will be setup to use RequireJS and BForms.  To see a guide on how to setup your initial project please follow this link: <a href="@Url.Action("Setup", "Start", new { area = "" })#setup">Setup BForms for ASP.NET MVC</a></p>
             <p>We will work with mocked data that will fake a movies database.</p>
@@ -48,7 +60,7 @@
             <br />
             <p>The <code>BFormsContext</code> Object will be instantiated in the <code>BaseController</code> class. All our controllers will inherit from <code>BaseController</code>. This way will have access to the <code>BFormsContext</code> from inside our controllers.</p>
             
-            <h3 id="models">STEP 01. Creating the Models</h3>
+            <h3 id="models">1. Creating the Models</h3>
             <p>
                 In this step we will create the models needed to build the grid. In our project let’s create a folder named ‘Models’. Add a new empty class file to this folder Named ‘MoviesModels.cs’.  This file will contain all our grid related models.
             </p>
@@ -85,7 +97,7 @@
             <p>We also set the <code>BsGrid(HasDetails)</code> to false. This means that the row will not expand to show more details. We’ll set this to true at a later time.</p>
             <p>If we’ll add the <code>BForms.Toolbar</code> widget, our MoviesViewModel will also contain the Toolbar model. We’ll add it at a later time. For now we only need the Grid Model.</p>
             
-            <h3 id="repository">STEP 02. Creating the Grid Repository</h3>
+            <h3 id="repository">2. Creating the Grid Repository</h3>
             <p>
                 In this step we will create the Movies Grid Repository. This repository will inherit from <code>BsBaseGridRepository</code> and will have to override a few methods. These methods will be used to filter and sort the grid.
             </p>
@@ -137,7 +149,7 @@
             <p>This is a delegate that will take a Movie Entity and will return a <code>MovieRowModel</code>.</p>
             <p>At a later time we will enhance these methods to support search and filtering functionality.</p>
             
-            <h3 id="controller">STEP 03. Creating the Controller</h3>
+            <h3 id="controller">3. Creating the Controller</h3>
             <p>
                 In this step we will create the Grid Controller. This controller will contain the actions needed to display the grid. We will display our grid on the home page so our controller will be named 'HomeController'.
             </p>
@@ -170,7 +182,7 @@
             <br />
             <p>After we implement these actions, our controller is ready. Next we have to create the views.</p>
             
-            <h3 id="views">STEP 04. Creating the Views</h3>
+            <h3 id="views">4. Creating the Views</h3>
             <p>
                 In this step we will create the Grid Views. The Grid view will be implemented as a partial view rendered inside the Index View. Let’s first create the index view. To do this right click on the index action and choose ‘Add View’.
             </p>
@@ -205,7 +217,7 @@
                 At this moment we still have to initialize the grid in javascript. We’ll do this next.
             </p>
             
-            <h3 id="javascript">STEP 05. Initializing the Grid Widget</h3>
+            <h3 id="javascript">5. Initializing the Grid Widget</h3>
             <p>
                 In this step we will create the javascript file that will be executed when the index page loads. There are two ways of working with the BForms JS components. One way is to use <code>RequireJS.NET</code> and the other is to reference the js files directly from the <code>~/Scripts/BForms/Bundles/js</code> folder. In this example we’ll use the RequireJS way. For this let’s create the folder structure that the RequireJs expects for our views.
             </p>
@@ -236,6 +248,289 @@
             <p>
                 Next step will be to enable details for the rows. This way we can modify the data and submit the changes to the server.
             </p>
+            <h3 id="details">6. Enable Row Details</h3>
+            <p>
+                In this step we will modify our code to support row editing. For this we'll have to add a Details Model, create Details partial views, add new Actions to our Controller and add new options to our javascript Grid Widget.
+            </p>
+            <h4>Details Model</h4>
+            <p>
+                First step is to create our <code>MovieDetailsModel</code>.
+            </p>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Grid/Source/_DetailsModel.cs.embed")
+            </pre>
+            <br />
+            <p>
+                You should include in your <code>DetailsModel</code> all the properties from your base model that you want to modify. The details view will enable us to edit these properties.
+            </p>
+            <p>
+                A good approach would be to split our properties in multiple parts, to reduce the data send to the server each time a user wants to modify a property. Let’s say we want to change only the <code>WeekendRevenue</code> and the <code>GrossRevenue</code> of our model. If we keep all the properties as fields in the same form, all the data will be send to the server on each request. If we separate the fields in multiple forms on the details view, only part of the data will be send. In our case we will have our model split in two parts: Info and Revenue.
+            </p>
+            <p>
+                To implement this we need an enum that contains all the parts. This is how our <code>EditComponents</code> enum will look:
+            </p>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Grid/Source/_EditComponents.cs.embed")
+            </pre>
+            <br />
+            <p>
+                The <code>Info</code> view will contain the <code>Title</code>, <code>Poster</code>, <code>Genre</code> and <code>Rating</code> fields. 
+            </p>
+            <p>
+                The <code>Revenue</code> view will contain the <code>WeekendRevenue</code>, <code>GrossRevenue</code> and <code>ReleaseDate</code> fields.
+            </p>
+            <h4>Row Model</h4>
+            <p>
+                We also need to change the <code>MoviesRowModel</code> to inherit from the <code>BsGridRowModel&lt;MovieDetailsModel&gt;</code>. We'll need this in our Grid Partial View to create a <code>BsGridHtmlBuilder</code> object.
+            </p>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Grid/Source/_RowModelDetails.cs.embed")
+            </pre>
+            <br />
+            <h4>View Model</h4>
+            <p>
+                The final change we make to our models is to set the <code>HasDetails</code> parameter to <code>true</code> on the <code>MoviesViewModel</code>'s <code>Grid</code> property.
+            </p>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Grid/Source/_ViewModelDetails.cs.embed")
+            </pre>
+            <br />
+            <h4>The Detail Views</h4>
+            <p>
+                Now that we have the Models we can move on to the Views. Before adding the details partial views we need to make some changes to the <code>_Grid</code> partial view.
+            </p>
+            <p>We use an overloaded method for <code>Html.BsGridFor()</code> helper that takes two parameters. The first one is the Grid Model, and we pass it from our View Model. The second parameter is a <code>BSGridHtmlBuilder</code> object. We need to create this object first.</p>
+            <p>
+                Here is the code that needs to be modified on the <code>_Grid</code> partial view:
+            </p>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Grid/Source/_GridViewBuilder.cs.embed")
+            </pre>
+            <br />
+            <p>
+                We can now use the <code>ConfigureRows()</code> method to customize the rows. We set a details template, then we add <code>objid</code> as a custom data attribute, and finaly we set a row highliter based on the <code>Recommended</code> property of our model.
+            </p>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Grid/Source/_GridConfigureRows.cs.embed")
+            </pre>
+            <br />
+            <p>
+                In the previous step we have set the <code>DetailsTemplate</code> for the rows to <code>Grid/Details/_Index</code>. We also pass the <code>MovieDetailsModel</code>. Now we have to create this template.
+            </p>
+            <p>
+                As you know we have split our details model in two parts: <code>Info</code> and <code>Revenue</code>. This will correspond to two partial views named <code>_Info</code> and <code>_Revenue</code>. Each of these views will include a <code>Readonly</code> and an <code>Editable</code> partial views.
+            </p>
+            <p>
+                The final structure of the Views Folder will look like this:
+            </p>
+            <div class="bs-example bs-img-example">
+                <img src="@Url.Content("~/Content/images/docs/eg-grid-views.png")" />
+            </div>
+            <br />
+            <p>In the next part we'll take a look at the code for each view.</p>
+            <h4>Details Index View</h4>
+            <p>
+                The <code>_Index</code> view includes the <code>_Info</code> and the <code>_Revenue</code> partial views using the <code>Html.BsPartialPrefixed()</code> helper method.
+            </p>
+            <p>
+                Also in this view we add two buttons for that will be available in each row. The <code>State</code> Button which will toggle the Recommended property of our model, and the <code>Delete</code> Button which will delete the row from the grid and from the database.
+            </p>
+            <p>
+                The classes used on this button elements will be later used in the javascript file to identify the buttons and to attach event handlers on them. We used <code>js-btn_state</code> for the Recommended Button, and <code>js-btn_delete</code> for the Delete Button.
+            </p>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Grid/Source/_DetailsIndexView.cs.embed")
+            </pre>
+            <br/>
+            <p>This is how a expanded row will look like at the end:</p>
+            <div class="bs-example bs-img-example">
+                <img src="@Url.Content("~/Content/images/docs/eg-row-expand-readonly.png")" />
+            </div>
+            <br />
+            <p>We still need to implement our <code>_Info</code> and <code>Review</code> pages.</p>
+            <p>
+                The <code>_Info</code> view creates an editable widget and loads the <code>_InfoReadonly</code> and <code>_InfoEditable</code> partial views. By default the Readonly page is displayed. To enable editing the user has to click the 'Pencil' icon in the <code>&lt;h3&gt;</code> that has the class <code>open-editable</code>.
+            </p>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Grid/Source/_InfoView.cs.embed")
+            </pre>
+            <br />
+            <p>
+                The <code>_InfoReadonly</code> partial view shows the <code>Poster</code>, <code>Title</code>, <code>Rating</code> and <code>GenresList</code> properties of our <code>MoviesDetailsModel</code>.
+            </p>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Grid/Source/_InfoReadonlyView.cs.embed")
+            </pre>
+            <div class="bs-example bs-img-example">
+                <img src="@Url.Content("~/Content/images/docs/eg-info-readonly.png")" />
+            </div>
+            <br />
+            <p>
+                <code>_InfoEditable</code> partial views uses some <code>BForms</code> helpers to render the form fields.
+            </p>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Grid/Source/_InfoEditableView.cs.embed")
+            </pre>
+            <div class="bs-example bs-img-example">
+                <img src="@Url.Content("~/Content/images/docs/eg-info-editable.png")" />
+            </div>
+            <br />
+            <p>
+                The code to save, delete or toggle the <code>Recommended</code> property will be later implemented in the Controller.
+            </p>
+            <p>
+                The <code>_Revenue</code> view is similar.
+            </p>
+            <h3>The Controller</h3>
+            <p>
+                In order to display the details on our page we have to make an ajax request to the server. The server will return the html used to render the details. For this we have to add a <code>GetRows</code> Action to our controller.
+            </p>
+            <p>This is how the <code>GetRows</code> Action will look:</p>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Grid/Source/_GetRowsActionController.cs.embed")
+            </pre>
+            <br />
+            <p>
+                As you can see in the code, <code>GetRows()</code> Action calls <code>GetRowsHtml()</code> NonAction, to return the details for the requested rows. <code>GetRowsHtml()</code> calls <code>ReadRows()</code> in the repository.
+            </p>
+            <p>
+                The <code>ReadRows()</code> method gets the entities from the database by their Ids, converts them to RowModel and returns them as a List.
+            </p>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Grid/Source/_ReadRowsGridRepository.cs.embed")
+            </pre>
+            <br />
+            <p>
+                Finally we have to add the <code>getRowsUrl</code> and <code>editComponents</code> options to the RequireJs options dictionary. This way we can access them from the javascript file.
+            </p>
+            <p>
+                Here is how the <code>options</code> dictionary will look like for the <code>Index</code> Action:
+            </p>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Grid/Source/_OptionsGetRowsIndexAction.cs.embed")
+            </pre>
+            <br />
+            <h3>The Details JavaScript</h3>
+            <p>
+                In this section we'll write the code we need in our <code>home-index.js</code> script file to display the details for each row.
+            </p>
+            <p>
+                Now that we have the <code>getRowsUrl</code> from the controller we can pass it to our grid. We also need to pass two handles that will be called before and after the <code>Row Details</code> ajax call is successful. The grid properties that need to be set are <code>beforeRowDetailsSuccess</code> and <code>afterRowDetailsSuccess</code>.
+            </p>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Grid/Source/_detailsUrlHomeIndexJs.cs.embed")
+            </pre>
+            <br />
+            <p>
+                The <code>_beforeDetailsSuccessHandler</code> sets the options for the editable views, like the <code>updateUrl</code> and <code>editSuccessHandler</code>, by calling the <code>_editableOptions()</code> method.
+            </p>
+            <p>
+                The <code>_afterDetailsSuccessHandler</code> validates the returned row.
+            </p>
+            <p>
+                Here is the code that needs to be implemented:
+            </p>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Grid/Source/_detailsHandlersHomeIndexJs.cs.embed")
+            </pre>
+            <br />
+            <p>
+                For the validation we need to require more scripts before this page loads. The scripts that we need are <code>bforms-validate</code>, <code>bforms-validate-unobtrusive</code> and also <code>bforms-ajax</code>.
+            </p>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Grid/Source/_RequireHomeIndexJs.cs.embed")
+            </pre>
+            <br />
+            <p>
+                The <code>_editableOptions()</code> method needs to know the <code>updateUrl</code>. This url will be called when the user clicks the save button in the editable view. We also need to implement the Update Action in the Controller.
+            </p>
+
+            <h3 id="update">7. Editing and Updating the Rows</h3>
+            <p>
+                To update the changes made to a row the grid will make an ajax call to the <code>Update</code> action on the controller.
+            </p>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Grid/Source/_UpdateActionController.cs.embed")
+            </pre>
+            <br />
+            <p>
+                The <code>Update</code> Action receives the modified <code>MovieDetailsModel</code> and the <code>EditComponents</code> componentId. It clears the state of the model based on the component id by calling the <code>ClearModelState</code> NonAction in the same controller.
+            </p>
+            <p>
+                This is how the <code>ClearModelState</code> NonAction is implemented:
+            </p>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Grid/Source/_ClearModelStateController.cs.embed")
+            </pre>
+            <br />
+            <p>
+                After the model state is cleared, the <code>Update()</code> method in the repository is called. This will save the changes in the database and will return the details model after it fills the dropdowns and lists used in the model.
+            </p>
+            <p>This is the code for the <code>Update</code> method in the repository.</p>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Grid/Source/_UpdateGridRepository.cs.embed")
+            </pre>
+            <br />
+            <p>
+                Also in the <code>Update</code> Action we call the <code>ReadRow</code> method in the repository to return the row model.
+            </p>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Grid/Source/_ReadRowGridRepository.cs.embed")
+            </pre>
+            <br />
+            <p>
+                We also need to add the <code>updateUrl</code> to the RequireJs options.
+            </p>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Grid/Source/_OptionsUpdateIndexAction.cs.embed")
+            </pre>
+            <br />
+            <h3 id="rowactions">8. Row Actions</h3>
+            <p>
+                To implement the <code>Delete</code> and <code>Recommended</code> buttons we to provide to the grid an array of <code>rowActions</code>. We implement this in the <code>home-index.js</code> file. This is how the <code>initGrid</code> method will look at the end:
+            </p>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Grid/Source/_gridInitHomeIndexJs.cs.embed")
+            </pre>
+            <br />
+            <p>
+                The <code>rowActions</code> option takes an array of json objects. One object for each button. In each object we set the url for the action on the server, the selector for the button element and the handler.
+            </p>
+            <p>
+                Here are the handlers for the <code>Delete</code> and <code>Recommended</code> buttons in the javascript file:
+            </p>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Grid/Source/_rowActionsHandlersHomeIndexJs.cs.embed")
+            </pre>
+            <br />
+            <p>
+                The handlers make ajax calls to the server. We need to implement the <code>Delete</code> and the <code>Recommended</code> actions on the Controller.
+            </p>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Grid/Source/_DeleteRecommendActionController.cs.embed")
+            </pre>
+            <br />
+            <p>
+                We also need to implement the actual <code>Delete</code> and <code>Recommend</code> toggle methods in the repository.
+            </p>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Grid/Source/_DeleteRecommendGridRepository.cs.embed")
+            </pre>
+            <br />
+            <p>
+                The final step is to add the <code>deleteUrl</code> and <code>recommendUrl</code> to the RequireJs options.
+            </p>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Grid/Source/_IndexActionFinal.cs.embed")
+            </pre>
+            <br />
+            <p>
+                Now we have a functional grid. We can edit, delete, toggle rows. This is how the grid looks like with an expanded row.
+            </p>
+            <div class="bs-example bs-img-example">
+                <img src="@Url.Content("~/Content/images/docs/eg-grid-final.png")" />
+            </div>
+            <br />
         </div>
     </main>
 </div>

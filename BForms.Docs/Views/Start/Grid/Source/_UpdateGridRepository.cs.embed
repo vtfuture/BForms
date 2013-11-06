@@ -1,0 +1,45 @@
+﻿public MovieDetailsModel Update(MovieDetailsModel model, int objId, EditComponents componentId)
+{
+    var entity = db.Movies.FirstOrDefault(x => x.Id == objId);
+
+    if (entity != null)
+    {
+        switch (componentId)
+        {
+            case EditComponents.Info:
+                entity.Title = model.Title;
+                entity.IsRecommended = model.IsRecommendedRadioButton.SelectedValues == YesNoValueTypes.Yes ? true : false;
+                if(!string.IsNullOrEmpty(model.Poster))
+                    entity.Poster = model.Poster;
+                entity.Rating = model.Rating;
+                entity.Genres = string.Join(",",model.GenresList.SelectedValues);
+                break;
+            case EditComponents.Revenue:
+                entity.GrossRevenue = model.GrossRevenue;
+                entity.WeekendRevenue = model.WeekendRevenue;
+                if (model.ReleaseDate.DateValue.HasValue)
+                    entity.ReleaseDate = model.ReleaseDate.DateValue.Value;
+                break;
+        }
+        db.SaveChanges();
+    }
+
+    return FillDetailsProperties(MapMovie_MovieDetailsModel(entity));
+}
+
+public MovieDetailsModel FillDetailsProperties(MovieDetailsModel detailsModel)
+{
+    detailsModel.IsRecommendedRadioButton.SelectedValues = detailsModel.Recommended ? YesNoValueTypes.Yes : YesNoValueTypes.No;
+    detailsModel.GenresList = new BsSelectList<List<int>>();
+    detailsModel.GenresList.ItemsFromEnum(typeof(MovieGenre));
+    detailsModel.GenresList.SelectedValues = new List<int>();
+    var options = detailsModel.Genres.Split(',').ToList();
+    foreach (string option in options)
+    {
+        MovieGenre genre;
+        if (Enum.TryParse(option, true, out genre))
+            detailsModel.GenresList.SelectedValues.Add((int)genre);
+    }
+
+    return detailsModel;
+}

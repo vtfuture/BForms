@@ -1,0 +1,47 @@
+﻿public BsJsonResult Delete(List<BsGridRowData<int>> items)
+{
+    var msg = string.Empty;
+    var status = BsResponseStatus.Success;
+
+    try
+    {
+        foreach (var item in items)
+        {
+            _gridRepository.Delete(item.Id);
+        }
+    }
+    catch (Exception ex)
+    {
+        msg = "<strong>Server Error!</strong> " + ex.Message;
+        status = BsResponseStatus.ServerError;
+    }
+
+    return new BsJsonResult(null, status, msg);
+}
+
+public BsJsonResult RecommendUnrecommend(List<BsGridRowData<int>> items, bool? recommended)
+{
+    var msg = string.Empty;
+    var status = BsResponseStatus.Success;
+    var rowsHtml = string.Empty;
+
+    try
+    {
+        foreach (var item in items)
+        {
+            _gridRepository.RecommendUnrecommend(item.Id, recommended);
+        }
+
+        rowsHtml = GetRowsHtml(items);
+    }
+    catch (Exception ex)
+    {
+        msg = "<strong>Server Error!</strong> " + ex.Message;
+        status = BsResponseStatus.ServerError;
+    }
+
+    return new BsJsonResult(new
+    {
+        RowsHtml = rowsHtml
+    }, status, msg);
+}

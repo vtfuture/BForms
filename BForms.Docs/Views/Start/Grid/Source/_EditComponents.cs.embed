@@ -1,0 +1,5 @@
+﻿    public enum EditComponents
+    {
+        Info = 1,
+        Revenue = 2
+    }

@@ -1,0 +1,30 @@
+﻿@using BForms.Html
+@model MyGrid.Models.MovieDetailsModel
+
+<div class="row grid_row_details" data-rowdetailsid="@Model.Id">
+    <div class="col-lg-6">
+        <div id="movies_info" class="grid_details description js-editableInfo">
+
+            @Html.BsPartialPrefixed(x => x, "Grid/Details/_Info", Model, "x" + Model.Id.ToString())
+
+        </div>
+    </div>
+    
+    <div class="col-lg-6">
+        <div id="movies_revenue" class="grid_details description js-editableRevenue">
+
+            @Html.BsPartialPrefixed(x => x, "Grid/Details/_Revenue", Model, "x" + Model.Id.ToString())
+
+        </div>
+    </div>
+
+    <div class="col-lg-12 bs-row_controls">
+        <hr />
+        @{
+            var stateText = Model.Recommended ? "Not Recommended" : "Recommended";
+            var recommended = Model.Recommended;
+        }
+        <button type="button" class="btn btn-warning js-btn_state" data-recommended="@recommended.ToString().ToLower()">@stateText</button>
+        <button type="button" class="btn btn-danger pull-right js-btn_delete">Delete</button>
+    </div>
+</div>

@@ -1,0 +1,4 @@
+﻿public MoviesRowModel ReadRow(int objId)
+{
+    return db.Movies.Where(x => x.Id == objId).Select(MapMovie_MovieRowModel).FirstOrDefault();
+}

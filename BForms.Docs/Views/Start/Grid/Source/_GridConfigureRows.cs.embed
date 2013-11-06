@@ -1,0 +1,4 @@
+﻿.ConfigureRows(cfg => cfg.HasCheckbox(row => row.Recommended)
+                                   .DetailsTemplate(row => Html.Partial("Grid/Details/_Index", row.Details).ToString())
+                                   .HtmlAttributes(row => new Dictionary<string, object> { { "data-objid", row.Id }, { "data-active", row.Recommended } })
+                                   .Highlighter(row => row.Recommended ? "#59b444" : "#f0ad4e"))

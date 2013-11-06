@@ -1,0 +1,21 @@
+﻿public void Delete(int objId)
+{
+    var entity = db.Movies.FirstOrDefault(x => x.Id == objId);
+
+    if (entity != null)
+    {
+        db.Movies.Remove(entity);
+        db.SaveChanges();
+    }
+}
+
+public void RecommendUnrecommend(int objId, bool? recommended)
+{
+    var entity = db.Movies.FirstOrDefault(x => x.Id == objId);
+
+    if (entity != null)
+    {
+        entity.IsRecommended = recommended.HasValue ? recommended.Value : !entity.IsRecommended;
+        db.SaveChanges();
+    }
+}

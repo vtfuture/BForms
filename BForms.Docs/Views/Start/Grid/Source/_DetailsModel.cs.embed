@@ -1,0 +1,49 @@
+﻿    public class MovieDetailsModel
+    {
+        public MovieDetailsModel()
+        {
+            IsRecommendedRadioButton = new BsSelectList<YesNoValueTypes>();
+            IsRecommendedRadioButton.ItemsFromEnum(typeof(YesNoValueTypes), YesNoValueTypes.Both);
+            IsRecommendedRadioButton.SelectedValues = YesNoValueTypes.Both;
+        }
+
+        public int Id { get; set; }
+
+        [Required]
+        [Display(Name = "Title")]
+        [BsControl(BsControlType.TextBox)]
+        public string Title { get; set; }
+
+        [Required]
+        [Display(Name = "Weekend Revenue")]
+        [BsControl(BsControlType.Number)]
+        public decimal WeekendRevenue { get; set; }
+
+        [Display(Name = "Gross Revenue")]
+        [BsControl(BsControlType.Number)]
+        public decimal GrossRevenue { get; set; }
+
+        [Required]
+        [Display(Name = "Release Date")]
+        [BsControl(BsControlType.DatePicker)]
+        public BsDateTime ReleaseDate { get; set; }
+
+        [Display(Name = "Genres")]
+        [BsControl(BsControlType.ListBox)]
+        public BsSelectList<List<int>> GenresList { get; set; }
+        public string Genres { get; set; }
+
+        [Display(Name = "Rating")]
+        [BsControl(BsControlType.Number)]
+        public double Rating { get; set; }
+
+        [Required]
+        [Display(Name = "Recomended")]
+        [BsControl(BsControlType.RadioButtonList)]
+        public BsSelectList<YesNoValueTypes> IsRecommendedRadioButton { get; set; }
+        public bool Recommended { get; set; }
+
+        [Display(Name = "Poster Image")]
+        [BsControl(BsControlType.Url)]
+        public string Poster { get; set; }
+    }

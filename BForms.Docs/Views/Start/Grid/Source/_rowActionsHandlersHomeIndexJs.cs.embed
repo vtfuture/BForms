@@ -1,0 +1,80 @@
+﻿homeIndex.prototype._recommendUnrecommendHandler = function (e, options, $row, context) {
+
+    var data = [];
+
+    data.push({
+        Id: $row.data('objid'),
+        GetDetails: $row.hasClass('open')
+    });
+
+    this._ajaxRecommendUnrecommend($row, data, options.url, function (response) {
+
+        context.updateRows(response.RowsHtml);
+
+    }, function (response) {
+        context._rowActionAjaxError(response, $row);
+    });
+
+};
+
+homeIndex.prototype._ajaxRecommendUnrecommend = function ($html, data, url, success, error) {
+    var ajaxOptions = {
+        name: '|recommendUnrecommend|' + $html.data('objid'),
+        url: url,
+        data: data,
+        context: this,
+        success: success,
+        error: error,
+        loadingElement: $html,
+        loadingClass: 'loading'
+    };
+    $.bforms.ajax(ajaxOptions);
+};
+
+homeIndex.prototype._deleteHandler = function (options, $row, context) {
+
+    //add popover widget
+    var $me = $row.find(options.btnSelector);
+    $me.popover({
+        html: true,
+        placement: 'left',
+        content: $('.popover-content').html()
+    });
+
+    // add delegates to popover buttons
+    var tip = $me.data('bs.popover').tip();
+    tip.on('click', '.bs-confirm', $.proxy(function (e) {
+        e.preventDefault();
+
+        var data = [];
+        data.push({
+            Id: $row.data('objid')
+        });
+
+        this._ajaxDelete($row, data, options.url, function () {
+            $row.remove();
+        }, function (response) {
+            context._rowActionAjaxError(response, $row);
+        });
+
+        $me.popover('hide');
+    }, this));
+    tip.on('click', '.bs-cancel', function (e) {
+        e.preventDefault();
+        $me.popover('hide');
+    });
+};
+
+homeIndex.prototype._ajaxDelete = function ($html, data, url, success, error) {
+    var ajaxOptions = {
+        name: '|delete|' + data,
+        url: url,
+        data: data,
+        context: this,
+        success: success,
+        error: error,
+        loadingElement: $html,
+        loadingClass: 'loading'
+    };
+    $.bforms.ajax(ajaxOptions);
+};
