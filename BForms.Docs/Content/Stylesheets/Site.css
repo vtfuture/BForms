@@ -107,7 +107,8 @@ header .navbar {
     margin-right: 0;
     border: none;
     background-image: none;
-    background: #585858; }
+    background: #585858;
+    outline: none; }
     header .navbar .navbar-toggle:hover {
       background: #dadada; }
 

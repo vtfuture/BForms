@@ -124,6 +124,8 @@ textarea {
     font-family: Calibri, "Helvetica Neue", Helvetica, Arial, sans-serif;
     margin-top: 3px;
     padding: 5px 8px; }
+  .custom_select-multi .select2-choices .select2-default {
+    text-overflow: ellipsis; }
   .custom_select-multi .select2-choices .select2-search-choice {
     background: #fff;
     background-image: none;

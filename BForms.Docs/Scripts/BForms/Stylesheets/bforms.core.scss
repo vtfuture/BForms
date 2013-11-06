@@ -171,7 +171,9 @@ textarea {
 				
 			}
 		}
-		
+		.select2-default {
+			text-overflow: ellipsis;
+		}
 		.select2-search-choice {
 			background: #fff;
 			background-image: none;
