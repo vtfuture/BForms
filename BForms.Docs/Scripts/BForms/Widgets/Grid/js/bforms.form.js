@@ -148,15 +148,12 @@
                 success: $.proxy(this._btnClickAjaxSuccess, this),
                 error: $.proxy(this._btnClickAjaxError, this),
                 loadingElement: this.element,
-                loadingClass: 'loading'/*,
+                loadingClass: 'loading',
                 validationError: function (response) {
                     if (response != null && response.Errors != null) {
-                        validator.showErrors(response.Errors);
+                        validatedForm.showErrors(response.Errors);
                     }
-                },
-
-                loadingElement: e.elem,
-                loadingClass: 'loading'*/
+                }
             });
         } else {
             if (typeof buttonOpt.handler !== 'function') {
