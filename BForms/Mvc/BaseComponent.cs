@@ -9,8 +9,6 @@ namespace BForms.Mvc
     {
         internal ViewContext viewContext;
 
-        private Dictionary<string, object> htmlAttributes;
-
         public BaseComponent() { }
 
         public BaseComponent(ViewContext viewContext)

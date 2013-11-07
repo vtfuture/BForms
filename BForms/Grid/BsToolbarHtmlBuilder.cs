@@ -175,6 +175,14 @@ namespace BForms.Grid
                         var tabId = this.id + "_tab_" + tabNr;
 
                         var tabBuilder = new TagBuilder("div");
+                        if (defaultAction.HtmlAttr != null)
+                        {
+                            if (defaultAction.HtmlAttr.ContainsKey("class"))
+                            {
+                                tabBuilder.AddCssClass(defaultAction.HtmlAttr["class"] as string);
+                            }
+                            tabBuilder.MergeAttributes(defaultAction.HtmlAttr);
+                        }
                         tabBuilder.AddCssClass("grid_toolbar_form");
                         tabBuilder.MergeAttribute("style", "display:none;");
                         tabBuilder.MergeAttribute("id", tabId);

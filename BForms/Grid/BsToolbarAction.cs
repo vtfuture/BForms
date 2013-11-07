@@ -17,6 +17,8 @@ namespace BForms.Grid
         #region Properties and constructors
         private string descriptorClass;
 
+        private IDictionary<string, object> htmlAttributes;
+
         private string styleClasses;
 
         private string title;
@@ -33,6 +35,14 @@ namespace BForms.Grid
             get
             {
                 return this.tabDelegate;
+            }
+        }
+
+        internal IDictionary<string, object> HtmlAttr
+        {
+            get
+            {
+                return this.htmlAttributes;
             }
         }
 
@@ -138,6 +148,33 @@ namespace BForms.Grid
         /// </summary>
         /// <returns>BsToolbarAction</returns>
         public BsToolbarAction<TToolbar> Tab(Func<TToolbar, MvcHtmlString> tabDelegate)
+        {
+            this.tabDelegate = tabDelegate;
+            return this;
+        }
+
+        /// <summary>
+        /// Set html attributes
+        /// </summary>
+        public BsToolbarAction<TToolbar> HtmlAttributes(IDictionary<string, object> htmlAttributes)
+        {
+            this.htmlAttributes = htmlAttributes;
+            return this;
+        }
+
+        /// <summary>
+        /// Set html attributes
+        /// </summary>
+        public BsToolbarAction<TToolbar> HtmlAttributes(object htmlAttributes)
+        {
+            return HtmlAttributes(HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+        }
+
+        /// <summary>
+        /// Sets html attributes
+        /// </summary>
+        /// <returns>BsToolbarAction</returns>
+        public BsToolbarAction<TToolbar> HtmlAttributes(Func<TToolbar, MvcHtmlString> tabDelegate)
         {
             this.tabDelegate = tabDelegate;
             return this;
