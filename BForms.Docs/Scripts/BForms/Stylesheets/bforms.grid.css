@@ -431,6 +431,8 @@ a.btn {
     padding-left: 27px; }
   .grid_container .grid_view.is_checkable header {
     padding-right: 25px; }
+  .grid_container .grid_view + .grid_view {
+    margin-top: 20px; }
 
 /* Action buttons component */
 .grid_bulk_controls .btn {
