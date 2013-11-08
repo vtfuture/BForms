@@ -36,18 +36,15 @@ namespace BForms.Utilities
         #region Internal
         internal static string Resource(string key)
         {
-            if (_resourceManager == null)
+            if (_resourceManager != null)
             {
-                throw new Exception("Register resource type in app start global.asx");
+                var resource = _resourceManager.GetString(key);
+
+                if (!string.IsNullOrEmpty(resource))
+                {
+                    return resource;
+                }
             }
-
-            var resource = _resourceManager.GetString(key);
-
-            if (!string.IsNullOrEmpty(resource))
-            {
-                return resource;
-            }
-
             return _localResources[key];
         }
         #endregion

@@ -15,6 +15,7 @@
                         <li><a href="#css">Include CSS</a></li>
                         <li><a href="#js">Include JS</a></li>
                         <li><a href="#configure">RequireJS config</a></li>
+                        <li><a href="#internationalization">Internationalization</a></li>
                         <li><a href="#example">BForms example</a></li>
                     </ul>
                 </li>
@@ -153,6 +154,32 @@
             <pre class="prettyprint lang-cs bs-example">
 @Html.InsertFileContentCached("~/Views/Start/Setup/Source/_LayoutRequireUpdated.cshtml.embed")
             </pre>
+
+            <h3 id="internationalization">Internationalization</h3>
+            <p>
+                In order to setup the resources, you first need to add the following line in the <code>Application_Start()</code> method (Global.asax):
+            </p>
+            <pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Setup/Source/_Internalization.cs.embed")
+            </pre>
+            <br />
+
+            <h3>Keys</h3>
+            <p>
+                After setting that up, you should now define the keys in your resource files.
+            </p>
+            <h4 class="sub_title">Grid</h4>
+            <div class="bs-example bs-img-example">
+                <img src="~/Content/images/docs/grid-pager.png">
+            </div>
+            <br/>
+            <p>
+                <code>Of</code> Default value: "of" <br/>
+                <code>NoResults</code> Default value: "There are no results" <br />
+                <code>Items</code> Default value: "items" <br/>
+                <code>ResultsPerPage</code> Default value: "results per page"
+            </p>
+
             <h3 id="example">Example</h3>
             <p>
                 Thumbs up! Now that everything is set up you can start working on your new project. Let's say you want to add a dropdown element 

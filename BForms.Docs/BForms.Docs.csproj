@@ -1117,6 +1117,9 @@
   <ItemGroup>
     <Content Include="Views\Start\Grid\Source\_IndexActionFinal.cs.embed" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Setup\Source\_Internalization.cs.embed" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
