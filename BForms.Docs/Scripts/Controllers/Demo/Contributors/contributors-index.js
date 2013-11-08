@@ -5,7 +5,7 @@
         'bforms-toolbar',
         'bootstrap',
         'bforms-ajax',
-        //'bforms-popover',
+        'bforms-popover',
         'main-script'
 ], function () {
 

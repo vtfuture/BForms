@@ -170,6 +170,7 @@
     <Content Include="Content\Images\Docs\eg-simple-grid.png" />
     <Content Include="Content\Images\Docs\eg-view-model.png" />
     <Content Include="Scripts\BForms\Images\bg-user.png" />
+    <Content Include="Scripts\BForms\Widgets\Popover\bforms.popover.js" />
     <Content Include="Scripts\Controllers\Demo\UserProfile\userprofile-index.js" />
     <Content Include="Views\Start\Setup\Source\_BundleConfigJs.cs.embed" />
     <Content Include="Views\Start\Setup\Source\_Files.embed" />
