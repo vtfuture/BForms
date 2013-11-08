@@ -16,17 +16,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BForms.Docs", "BForms.Docs\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{E1ACF7B5-009B-437B-9113-64A6E09E69FF}"
 	ProjectSection(SolutionItems) = preProject
-		tools\EcmaScript.NET.dll = tools\EcmaScript.NET.dll
-		tools\Iesi.Collections.dll = tools\Iesi.Collections.dll
 		tools\MinifyBundlesTask.proj = tools\MinifyBundlesTask.proj
-		..\..\Visual Studio 2012\Projects\IndacoCMS-SCJ\IndacoCMS\Lib\Yahoo.Yui.Compressor.Build.MsBuild.dll = ..\..\Visual Studio 2012\Projects\IndacoCMS-SCJ\IndacoCMS\Lib\Yahoo.Yui.Compressor.Build.MsBuild.dll
-		tools\Yahoo.Yui.Compressor.dll = tools\Yahoo.Yui.Compressor.dll
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuspec", ".nuspec", "{19D53EFA-2B6C-4AB4-8E1A-68BA4883436A}"
 	ProjectSection(SolutionItems) = preProject
 		nuspec\BForms.MVC.nuspec = nuspec\BForms.MVC.nuspec
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BForms.Build", "BForms.Build\BForms.Build.csproj", "{753D9542-D557-48F0-8039-002EE268D1E5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -42,6 +40,10 @@ Global
 		{ACFAD539-59C8-4739-8DA4-6C76F7B1DE97}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ACFAD539-59C8-4739-8DA4-6C76F7B1DE97}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ACFAD539-59C8-4739-8DA4-6C76F7B1DE97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{753D9542-D557-48F0-8039-002EE268D1E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{753D9542-D557-48F0-8039-002EE268D1E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{753D9542-D557-48F0-8039-002EE268D1E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{753D9542-D557-48F0-8039-002EE268D1E5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

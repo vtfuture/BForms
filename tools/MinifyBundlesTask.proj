@@ -1,6 +1,7 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <UsingTask TaskName="JavaScriptCompressorTask" AssemblyFile="..\tools\Yahoo.Yui.Compressor.Build.MsBuild.dll" />
-  <UsingTask TaskName="CssCompressorTask" AssemblyFile="..\tools\Yahoo.Yui.Compressor.Build.MsBuild.dll" />
+  <UsingTask TaskName="JavaScriptCompressorTask" AssemblyFile="$(MSBuildProjectDirectory)\$(OutputPath)RequireJsNet.Compressor.dll" />
+  <UsingTask TaskName="CssCompressorTask" AssemblyFile="$(MSBuildProjectDirectory)\$(OutputPath)RequireJsNet.Compressor.dll" />
+  <UsingTask TaskName="RequireCompressorTask" AssemblyFile="$(MSBuildProjectDirectory)\$(OutputPath)RequireJsNet.Compressor.dll" />
 
   <!--NuGet Deploy-->
   <Target Name="MinifyForBuild" AfterTargets="AfterBuild" Condition="'$(Configuration)'=='Release'">
@@ -10,7 +11,7 @@
 
   <!--Azure Deploy-->
   <Target Name="MinifyForDeploy" AfterTargets="CopyAllFilesToSingleFolderForPackage" Condition="'$(Configuration)'=='Release'">
-    <MsBuild Projects="$(MSBuildProjectFile)" Targets="MinifyBundles" Properties="DestinationDir=$(_PackageTempDir)\Scripts\BForms\Bundles\" />
+    <MsBuild Projects="$(MSBuildProjectFile)"  Targets="MinifyBundles" Properties="DestinationDir=$(_PackageTempDir)\Scripts\BForms\Bundles\" />
     <Message Text="Minifying for deploy" Importance="high"/>
   </Target>
 
@@ -33,6 +34,19 @@
     </ItemGroup>
     <MakeDir Directories="@(BundlesFolder)"/>
     
+    <!-- The config files have to be specified explicitly since the BForms.Build  doesn't have them-->
+    <ItemGroup>
+      <ComponentsConfigs Include="..\BForms.Docs\**\RequireJS.config" />
+    </ItemGroup>
+    
+    <RequireCompressorTask LoggingType="Debug" 
+                           EncodingType="UTF8" 
+                           ProjectPath="$(MSBuildProjectDirectory)" 
+                           PackagePath="$(DestinationDir)\rq\" 
+                           RequireConfigs="@(ComponentsConfigs)" 
+                           EntryPointOverride="$(MSBuildProjectDirectory)\..\BForms.Docs\Scripts\"
+    />
+    
     <ItemGroup>
       <ComponentsFiles Include="..\BForms.Docs\Scripts\BForms\Components\jQuery\*.js" />
       <ComponentsFiles Include="..\BForms.Docs\Scripts\BForms\Components\jQuery-ui\*.js" />
@@ -41,11 +55,7 @@
     </ItemGroup>
     <JavaScriptCompressorTask LoggingType="Debug" EncodingType="UTF8" SourceFiles="@(ComponentsFiles)" OutputFile="$(DestinationDir)js\components.js" />
 
-    <ItemGroup>
-      <IeFiles Include="..\BForms.Docs\Scripts\BForms\Components\Html5shiv\*.js" />
-      <IeFiles Include="..\BForms.Docs\Scripts\BForms\Components\Respond\*.js" />
-    </ItemGroup>
-    <JavaScriptCompressorTask LoggingType="Debug" EncodingType="UTF8" SourceFiles="@(IeFiles)" OutputFile="$(DestinationDir)js\iefix.js" />
+   
     
     <ItemGroup>
       <WidgetsFiles Include="..\BForms.Docs\Scripts\BForms\Widgets\**\*.js" />
@@ -56,6 +66,14 @@
       <PluginsFiles Include="..\BForms.Docs\Scripts\BForms\Plugins\**\*.js" />
     </ItemGroup>
     <JavaScriptCompressorTask LoggingType="Debug" EncodingType="UTF8" SourceFiles="@(PluginsFiles)" OutputFile="$(DestinationDir)js\plugins.js" />
+    
+    
+
+    <ItemGroup>
+      <IeFiles Include="..\BForms.Docs\Scripts\BForms\Components\Html5shiv\*.js" />
+      <IeFiles Include="..\BForms.Docs\Scripts\BForms\Components\Respond\*.js" />
+    </ItemGroup>
+    <JavaScriptCompressorTask LoggingType="Debug" EncodingType="UTF8" SourceFiles="@(IeFiles)" OutputFile="$(DestinationDir)js\iefix.js" />
 
     <ItemGroup>
       <CssFiles Include="..\BForms.Docs\Scripts\BForms\Components\Bootstrap\css\*.css" />

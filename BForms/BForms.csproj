@@ -169,5 +169,5 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <Import Project="..\tools\MinifyBundlesTask.proj" />
+  
 </Project>
