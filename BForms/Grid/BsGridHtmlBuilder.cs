@@ -416,7 +416,7 @@ namespace BForms.Grid
                     dropdownContainerBuilder.AddCssClass("dropdown dropup");
 
                     var resPerPageTagBuilder = new TagBuilder("span");
-                    resPerPageTagBuilder.SetInnerText("results per page");
+                    resPerPageTagBuilder.SetInnerText(BsGridResourceManager.Resource("ResultsPerPage").ToLower());
                     resPerPageTagBuilder.AddCssClass("results_per_page_container");
 
                     dropdownContainerBuilder.InnerHtml += resPerPageTagBuilder.ToString();
@@ -632,7 +632,7 @@ namespace BForms.Grid
                 infoBuilder.MergeAttribute("class", "alert alert-info");
 
 
-                infoBuilder.InnerHtml += "There are no results. ";
+                infoBuilder.InnerHtml += BsGridResourceManager.Resource("NoResults");
 
                 if (this.allowAddIfEmpty)
                 {
@@ -794,7 +794,7 @@ namespace BForms.Grid
                     totalCountBuilder.InnerHtml += this.model.Pager.TotalRecords;
 
                     //TODO:
-                    var template = "{0}-{1} of {2} items";
+                    var template = "{0}-{1} " + BsGridResourceManager.Resource("Of") + " {2} " + BsGridResourceManager.Resource("Items");
                     var result = string.Format(template, firstIdx, lastIdx, totalCountBuilder.ToString()); //"Rezultate " + firstIdx + "–" + lastIdx + " din";
 
                     textBuilder.InnerHtml += result;
