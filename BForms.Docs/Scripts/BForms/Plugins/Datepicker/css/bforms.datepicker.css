@@ -72,7 +72,8 @@
       .bs-datetime-picker .bs-date-action a.btn-right {
         background: url(../images/icn-arr-right.png) 50% 50% no-repeat; }
       .bs-datetime-picker .bs-date-action a:hover {
-        background-color: #EEE; }
+        background-color: #EEE;
+        text-decoration: none; }
   .bs-datetime-picker ul {
     list-style: none;
     padding: 0;
@@ -80,7 +81,8 @@
     .bs-datetime-picker ul li {
       text-align: center;
       float: left;
-      width: 14.28%; }
+      width: 14.28%;
+      margin: 0; }
       .bs-datetime-picker ul li a {
         display: block;
         height: 30px;
@@ -247,6 +249,10 @@
   margin-top: 5px; }
   .bs-inline-picker.bs-range-picker {
     overflow: hidden; }
+
+.form-control.hasRangepicker,
+.form-control.hasDatepicker {
+  cursor: text; }
 
 /* Other color schemes */
 /* BLUE*/
