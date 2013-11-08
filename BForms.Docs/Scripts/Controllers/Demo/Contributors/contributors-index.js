@@ -304,7 +304,22 @@
 
     //#region DeleteHandler
     GridIndex.prototype._deleteHandler = function (options, $row, context) {
-        
+        //console.log($row.find(options.btnSelector))
+        //$row.find(options.btnSelector).bsPopover({
+        //    question: "Esti sigur ca vrei sa stergi?",
+        //    buttons: [{
+        //            text: 'Yes',
+        //            callback: function() {
+        //                console.log('yes');
+        //            }
+        //        }, {
+        //            text: 'No',
+        //            callback: function() {
+        //                console.log('no');
+        //            }
+        //        }]
+        //});
+
         //add popover widget
         var $me = $row.find(options.btnSelector);
         $me.popover({
@@ -313,7 +328,7 @@
             content: $('.popover-content').html()
         });
 
-        // add delegates to popover buttons
+        //// add delegates to popover buttons
         var tip = $me.data('bs.popover').tip();
         tip.on('click', '.bs-confirm', $.proxy(function (e) {
             e.preventDefault();

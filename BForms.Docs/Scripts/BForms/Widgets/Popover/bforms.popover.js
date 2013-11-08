@@ -14,12 +14,12 @@
         template : '<div class="popover fade bottom in">'+
                         '<div class="arrow">' +
                         '</div>'+
-                         '<div class="popover-content"'+
-                            '<p>{{Question}}</p>'+
+                         '<div class="popover-content">'+
+                            '<p>{{question}}</p>'+
                             '<hr />' + 
-                            '{{#Buttons}}' + 
-                                '<button type="button" class="btn bs-popoverBtn {{CssClass}}"> {{Text}} </button>' +
-                            '{{/Buttons}}' +
+                            '{{#buttons}}' + 
+                                '<button type="button" class="btn bs-popoverBtn {{cssClass}}"> {{text}} </button>' +
+                            '{{/buttons}}' +
                           '</div>' +
                     '</div>'
     };
