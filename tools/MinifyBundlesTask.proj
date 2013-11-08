@@ -42,33 +42,11 @@
     <RequireCompressorTask LoggingType="Debug" 
                            EncodingType="UTF8" 
                            ProjectPath="$(MSBuildProjectDirectory)" 
-                           PackagePath="$(DestinationDir)\rq\" 
+                           PackagePath="$(DestinationDir)\" 
                            RequireConfigs="@(ComponentsConfigs)" 
                            EntryPointOverride="$(MSBuildProjectDirectory)\..\BForms.Docs\Scripts\"
     />
-    
-    <ItemGroup>
-      <ComponentsFiles Include="..\BForms.Docs\Scripts\BForms\Components\jQuery\*.js" />
-      <ComponentsFiles Include="..\BForms.Docs\Scripts\BForms\Components\jQuery-ui\*.js" />
-      <ComponentsFiles Include="..\BForms.Docs\Scripts\BForms\Components\Amplify\*.js" />
-      <ComponentsFiles Include="..\BForms.Docs\Scripts\BForms\Components\Bootstrap\js\*.js" />
-    </ItemGroup>
-    <JavaScriptCompressorTask LoggingType="Debug" EncodingType="UTF8" SourceFiles="@(ComponentsFiles)" OutputFile="$(DestinationDir)js\components.js" />
-
    
-    
-    <ItemGroup>
-      <WidgetsFiles Include="..\BForms.Docs\Scripts\BForms\Widgets\**\*.js" />
-    </ItemGroup>
-    <JavaScriptCompressorTask LoggingType="Debug" EncodingType="UTF8" SourceFiles="@(WidgetsFiles)" OutputFile="$(DestinationDir)js\widgets.js" />
-
-    <ItemGroup>
-      <PluginsFiles Include="..\BForms.Docs\Scripts\BForms\Plugins\**\*.js" />
-    </ItemGroup>
-    <JavaScriptCompressorTask LoggingType="Debug" EncodingType="UTF8" SourceFiles="@(PluginsFiles)" OutputFile="$(DestinationDir)js\plugins.js" />
-    
-    
-
     <ItemGroup>
       <IeFiles Include="..\BForms.Docs\Scripts\BForms\Components\Html5shiv\*.js" />
       <IeFiles Include="..\BForms.Docs\Scripts\BForms\Components\Respond\*.js" />
