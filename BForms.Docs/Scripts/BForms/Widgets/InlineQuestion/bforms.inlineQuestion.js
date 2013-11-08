@@ -1,6 +1,6 @@
 ﻿(function(factory) {
     if (typeof define === "function" && define.amd) {
-            define('bforms-popover', ['jquery', 'bootstrap', 'jquery-ui-core', 'icanhaz'], factory);
+            define('bforms-inlineQuestion', ['jquery', 'bootstrap', 'jquery-ui-core', 'icanhaz'], factory);
     } else {
         factory(window.jQuery);
     }
@@ -26,7 +26,7 @@
 
     bsPopover.prototype._init = function() {
         this.$element = this.element;
-        
+
         ich.addTemplate('renderPopoverQuestion', this.options.template);
         this._addPopover();
     };
@@ -35,11 +35,11 @@
 
         var i = 0,
             l = this.options.buttons;
-        
+
         for (i; i < l; i++) {
             var currentBtn = this.options.buttons[i],
                 self = this;
-            
+
             (function (current) {
                 this.$element.on('click','.bs-popoverBtn', $.proxy(function () {
                     e.preventDefault();
