@@ -147,12 +147,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
+    <Content Include="Content\Images\Docs\eg-bulk-actions.png" />
+    <Content Include="Content\Images\Docs\eg-filter-buttons.png" />
     <Content Include="Content\Images\Docs\eg-grid-final.png" />
     <Content Include="Content\Images\Docs\eg-grid-views.png" />
     <Content Include="Content\Images\Docs\eg-info-editable.png" />
     <Content Include="Content\Images\Docs\eg-info-readonly.png" />
     <Content Include="Content\Images\Docs\eg-js-folder.png" />
     <Content Include="Content\Images\Docs\eg-pager.png" />
+    <Content Include="Content\Images\Docs\eg-popup.png" />
+    <Content Include="Content\Images\Docs\eg-row-actions.png" />
     <Content Include="Content\Images\Docs\eg-row-expand-readonly.png" />
     <Content Include="Content\Images\Docs\eg-row-model.png" />
     <Content Include="Content\Images\Docs\eg-simple-grid.png" />
@@ -1073,6 +1077,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Start\Grid\Source\_IndexActionFinal.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Source\_GridViewBulkActions.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Source\_BulkActionsHomeIndexJs.cs.embed" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
