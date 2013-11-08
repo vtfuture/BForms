@@ -23,7 +23,7 @@ namespace BForms.Docs
             //register BForms validation provider
             ModelValidatorProviders.Providers.Add(new BsModelValidatorProvider());
 
-            BForms.Grid.BsGridResourceManager.Register(typeof(Resources.Resource));
+            BForms.Utilities.BsResourceManager.Register(Resources.Resource.ResourceManager);
         }
     }
 }
