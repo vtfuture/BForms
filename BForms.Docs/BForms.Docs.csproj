@@ -123,6 +123,7 @@
     <Compile Include="Areas\Demo\Controllers\ContributorsController.cs" />
     <Compile Include="Areas\Demo\Controllers\LoginController.cs" />
     <Compile Include="Areas\Demo\Controllers\UserGroupController.cs" />
+    <Compile Include="Areas\Demo\Controllers\UserProfileController.cs" />
     <Compile Include="Areas\Demo\DemoAreaRegistration.cs" />
     <Compile Include="Areas\Demo\Helpers\Utils.cs" />
     <Compile Include="Areas\Demo\Mock\Entities.cs" />
@@ -168,6 +169,8 @@
     <Content Include="Content\Images\Docs\eg-row-model.png" />
     <Content Include="Content\Images\Docs\eg-simple-grid.png" />
     <Content Include="Content\Images\Docs\eg-view-model.png" />
+    <Content Include="Scripts\BForms\Widgets\Popover\bforms.popover.js" />
+    <Content Include="Scripts\Controllers\Demo\UserProfile\userprofile-index.js" />
     <Content Include="Views\Start\Setup\Source\_BundleConfigJs.cs.embed" />
     <Content Include="Views\Start\Setup\Source\_Files.embed" />
     <Content Include="Areas\Demo\Views\Contributors\Grid\Details\_IdentityEditable.cshtml">
@@ -1119,6 +1122,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Start\Setup\Source\_Internalization.cs.embed" />
+    <Content Include="Areas\Demo\Views\UserProfile\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

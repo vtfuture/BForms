@@ -5,6 +5,7 @@
         'bforms-toolbar',
         'bootstrap',
         'bforms-ajax',
+        'bforms-popover',
         'main-script'
 ], function () {
 
@@ -303,7 +304,7 @@
 
     //#region DeleteHandler
     GridIndex.prototype._deleteHandler = function (options, $row, context) {
-
+        
         //add popover widget
         var $me = $row.find(options.btnSelector);
         $me.popover({

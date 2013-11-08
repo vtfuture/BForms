@@ -8,8 +8,8 @@
 ], function () {
 
     var Grid = function (opt) {
-        this.options = opt;
-        this._create();
+        this.options = $.extend(true, {}, this.options, opt);
+        this._init();
     };
 
     Grid.prototype.options = {
