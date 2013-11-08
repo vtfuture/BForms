@@ -55,6 +55,32 @@ textarea {
   .form_container.row {
     margin: 0; }
 
+/* Horizontal form*/
+.row > .form_container_horizontal {
+  margin: 0 15px; }
+
+/* Panel group horizontal form */
+.row > .panel-group {
+  margin: 0 15px; }
+  .row > .panel-group .panel-title .caret {
+    margin: -2px 5px 0 0; }
+  @media (max-width: 756px) {
+    .row > .panel-group .panel-body .row {
+      margin-right: -15px;
+      margin-left: -15px; } }
+  .row > .panel-group .panel-body .control-label {
+    color: #aaa; }
+
+/* Avatar view */
+.avatar_view {
+  border: 1px solid #dddddd;
+  display: inline-block;
+  padding: 5px; }
+  .avatar_view .avatar_controls {
+    margin-top: 5px; }
+    .avatar_view .avatar_controls .btn {
+      padding: 2px 8px; }
+
 /* Custom UI*/
 .custom_select {
   width: 100% !important;
