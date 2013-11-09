@@ -37,8 +37,7 @@
     <!-- The config files have to be specified explicitly since the BForms.Build  doesn't have them-->
     <ItemGroup>
       <ComponentsConfigs Include="..\BForms.Docs\**\RequireJS.config" />
-    </ItemGroup>
-    
+    </ItemGroup>   
     <RequireCompressorTask LoggingType="Debug" 
                            EncodingType="UTF8" 
                            ProjectPath="$(MSBuildProjectDirectory)" 
@@ -51,7 +50,11 @@
       <IeFiles Include="..\BForms.Docs\Scripts\BForms\Components\Html5shiv\*.js" />
       <IeFiles Include="..\BForms.Docs\Scripts\BForms\Components\Respond\*.js" />
     </ItemGroup>
-    <JavaScriptCompressorTask LoggingType="Debug" EncodingType="UTF8" SourceFiles="@(IeFiles)" OutputFile="$(DestinationDir)js\iefix.js" />
+    <JavaScriptCompressorTask LoggingType="Debug" 
+                              EncodingType="UTF8" 
+                              SourceFiles="@(IeFiles)" 
+                              OutputFile="$(DestinationDir)js\iefix.js" 
+    />
 
     <ItemGroup>
       <CssFiles Include="..\BForms.Docs\Scripts\BForms\Components\Bootstrap\css\*.css" />
@@ -59,7 +62,11 @@
       <CssFiles Include="..\BForms.Docs\Scripts\BForms\Plugins\Select2\css\*.css" />
       <CssFiles Include="..\BForms.Docs\Scripts\BForms\Stylesheets\*.css" />
     </ItemGroup>
-    <CssCompressorTask LoggingType="Debug" EncodingType="UTF8" SourceFiles="@(CssFiles)" OutputFile="$(DestinationDir)css\stylesheets.css" />
+    <CssCompressorTask LoggingType="Debug" 
+                       EncodingType="UTF8" 
+                       SourceFiles="@(CssFiles)" 
+                       OutputFile="$(DestinationDir)css\stylesheets.css" 
+    />
 
     <ItemGroup>
       <FontsFiles Include="..\BForms.Docs\Scripts\BForms\Components\Bootstrap\fonts\*.*" />

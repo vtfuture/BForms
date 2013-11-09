@@ -8,7 +8,7 @@
         <div class="bs-sidebar">
             <ul class="nav bs-sidenav">
                 <li>
-                    <a href="#setup">Simple form example</a>
+                    <a href="#setup">Forms Tutorial</a>
                     <ul class="nav">
                         <li><a href="#model">Model</a></li>
                         <li><a href="#view">View</a></li>
@@ -24,7 +24,7 @@
     <main class="col-md-9 col-lg-9" role="main">
         <div class="bs-docs-section">
             <div class="page-header">
-                <h1 id="example">Simple form example</h1>
+                <h1 id="example">Building forms</h1>
             </div>
             <h3 id="introduction">Introduction</h3>
             <p>
@@ -199,7 +199,7 @@
             <p>As you can see, we call <code>$.validator.unobtrusive.parse</code> and we validate the form. In case the form has no client side errors 
             (<code>if (this.$subscriberForm.valid()) {...}</code>) we call our ajax.</p>
             <p>Things you need to notice at ajax call is that url is referenced by <code>this.options.subscriberUrl</code> 
-            (we talked earlier about this; if you don't remember what is it, take a look again at the controller <a href="#controller">step</a>).</p>
+            (we talked earlier about <a href="#controller">this</a>).</p>
 
             <p>When we receive a response for our ajax (on <code>.then</code> function), we first have to check if <code>response.Status</code> 
             (which in our case is an element from an enum - <code>BsResponseStatus</code>, which we presented you earlier at the controller step) 
