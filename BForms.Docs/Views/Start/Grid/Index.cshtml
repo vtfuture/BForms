@@ -19,6 +19,7 @@
                         <li><a href="#details">Row Details</a></li>
                         <li><a href="#update">Row Update</a></li>
                         <li><a href="#rowactions">Row Actions</a></li>
+                        <li><a href="#bulkactions">Bulk Actions</a></li>
                     </ul>
                 </li>
             </ul>
@@ -487,7 +488,14 @@
             <br />
             <h3 id="rowactions">8. Row Actions</h3>
             <p>
-                To implement the <code>Delete</code> and <code>Recommended</code> buttons we to provide to the grid an array of <code>rowActions</code>. We implement this in the <code>home-index.js</code> file. This is how the <code>initGrid</code> method will look at the end:
+                We want to add two buttons to each row. One to toggle the <code>Recommended</code> property and one to delete the row. The buttons will be visible when the row is expanded.
+            </p>
+            <div class="bs-example bs-img-example">
+                <img src="@Url.Content("~/Content/images/docs/eg-row-actions.png")" />
+            </div>
+            <br />
+            <p>
+                To implement the <code>Delete</code> and <code>Recommended</code> buttons we have to provide to the grid an array of <code>rowAction</code> objects. We implement this in the <code>home-index.js</code> file. This is how the <code>initGrid</code> method will look at the end:
             </p>
             <pre class="prettyprint bs-example">
 @Html.InsertFileContentCached("~/Views/Start/Grid/Source/_gridInitHomeIndexJs.cs.embed")
@@ -525,12 +533,65 @@
             </pre>
             <br />
             <p>
-                Now we have a functional grid. We can edit, delete, toggle rows. This is how the grid looks like with an expanded row.
+                Now we have a functional grid. We can edit, delete and toggle rows. This is how the grid looks like with an expanded row.
             </p>
             <div class="bs-example bs-img-example">
                 <img src="@Url.Content("~/Content/images/docs/eg-grid-final.png")" />
             </div>
             <br />
+            <h3 id="bulkactions">8. Bulk Actions</h3>
+            <p>
+                Bulk Actions are actions applied to multiple rows at the same time. When Bulk Actions are enabled a checkbox control is rendered next to each row. You can manually select multiple rows, or you can apply a filter.
+            </p>
+            <p>
+                In our Top Movies Grid we will filter the columns by the <code>Recommended</code> property. For example, we will be able to select all recommended Movies and call the delete bulk action to erase all the selected rows from the grid at the same time. 
+            </p>
+            <h4>Adding Bulk Actions to the Grid View</h4>
+            <div class="bs-example bs-img-example">
+                <img src="@Url.Content("~/Content/images/docs/eg-bulk-actions.png")" />
+            </div>
+            <br />
+            <p>
+                To render the buttons on the page, we need to call two functions on the <code>Html.BsGridFor()</code> Helper. <code>GridResetButton()</code> to render a Bulk Reset Button and <code>ConfigureBulkActions()</code> to add three more buttons - Recommend, Unrecommend and Delete.
+            </p>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Grid/Source/_GridViewBulkActions.cs.embed")
+            </pre>
+            <br />
+            <p>
+                As you can see in the above code, we use <code>AddAction()</code> to add the buttons, and <code>AddSelector()</code> to add the options for the filter dropdown.
+            </p>
+            <p>
+                Here is how the grid should look like:
+            </p>
+            <div class="bs-example bs-img-example">
+                <img src="@Url.Content("~/Content/images/docs/eg-filter-buttons.png")" />
+            </div>
+            <br />
+            <h4>Bulk Actions Javascript</h4>
+            <p>
+                Now that we have the buttons added to the page we have to initialize them in the javascript file. 
+            </p>
+            <p>
+                To initialize the Filter Selector we pass an array of objects to the <code>filterButtons</code> property of our grid widget, representing the selector and the filter function that will be called when the filter is selected.
+            </p>
+            <p>
+                To initialize the Bulk Action buttons we need to pass an array of objects to the <code>gridActions</code> property of our Movies Grid widget, representing the selector and handler for each button.
+            </p>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Grid/Source/_BulkActionsHomeIndexJs.cs.embed")
+            </pre>
+            <br />
+            <p>
+                In the delete action we also set the <code>popover</code> option to <code>true</code>. This will enable the confirmation popup for the delete action.
+            </p>
+            <div class="bs-example bs-img-example">
+                <img src="@Url.Content("~/Content/images/docs/eg-popup.png")" />
+            </div>
+            <br />
+            <p>
+                Now the Bulk Actions are functional. On the server we call the existing methods for delete and recommend/unrecommend actions. If you implement a custom action you have to send the URL in the RequireJs Options from the controller.
+            </p>
         </div>
     </main>
 </div>

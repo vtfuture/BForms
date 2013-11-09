@@ -1,0 +1,72 @@
+﻿...
+    homeIndex.prototype.initGrid = function() {
+        this.$grid.bsGrid({
+		...
+            filterButtons: [{
+                btnSelector: '.js-actives',
+                filter: function ($el) {
+                    return $el.data('active') == 'True';
+                }
+            }, {
+                btnSelector: '.js-inactives',
+                filter: function ($el) {
+                    return $el.data('active') != 'True';
+                },
+            }],
+
+            gridActions: [{
+                btnSelector: '.js-btn-recommend_selected',
+                handler: $.proxy(function ($rows, context) {
+                    var data = {};
+
+                    var items = context.getSelectedRows();
+
+                    data.items = items;
+                    data.recommended = true;
+
+                    this._ajaxRecommendUnrecommend($rows, data, this.options.recommendUnrecommendUrl, function (response) {
+
+                        context.updateRows(response.RowsHtml);
+
+                    }, function (response) {
+                        context._pagerAjaxError(response);
+                    });
+                }, this)
+            }, {
+                btnSelector: '.js-btn-unrecommend_selected',
+                handler: $.proxy(function ($rows, context) {
+                    var data = {};
+
+                    var items = context.getSelectedRows();
+                    data.items = items;
+                    data.recommended = false;
+
+                    this._ajaxRecommendUnrecommend($rows, data, this.options.recommendUnrecommendUrl, function (response) {
+
+                        context.updateRows(response.RowsHtml);
+
+                    }, function (response) {
+                        context._pagerAjaxError(response);
+                    });
+                }, this)
+            }, {
+                btnSelector: '.js-btn-delete_selected',
+                handler: $.proxy(function ($rows, context) {
+
+                    var items = context.getSelectedRows();
+
+                    this._ajaxDelete($rows, items, this.options.deleteUrl, $.proxy(function () {
+                        $rows.remove();
+                        context._evOnRowCheckChange($rows);
+                        if (this.$grid.find('.grid_row[data-objid]').length == 0) {
+                            this.$grid.bsGrid('refresh');
+                        }
+                    }, this), function (response) {
+                        context._pagerAjaxError(response);
+                    });
+                }, this),
+                popover: true
+            }]
+        });
+    };
+...

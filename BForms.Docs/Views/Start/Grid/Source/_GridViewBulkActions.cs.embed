@@ -1,0 +1,17 @@
+﻿
+Html.BsGridFor(m => m.Grid)
+.GridResetButton()
+.ConfigureBulkActions(bulk =>
+        {
+            bulk.AddAction().StyleClass("btn-success js-btn-recommend_selected").Title("Recommend selected").GlyphIcon(Glyphicon.ThumbsUp);
+            bulk.AddAction().StyleClass("btn-warning js-btn-unrecommend_selected").Title("Unrecommend selected").GlyphIcon(Glyphicon.ThumbsDown);
+            bulk.AddAction(BsBulkActionType.Delete);
+
+            bulk.AddSelector(BsBulkSelectorType.All);
+            bulk.AddSelector().StyleClass("js-actives").Text("Recomended");
+            bulk.AddSelector().StyleClass("js-inactives").Text("Unrecommended");
+            bulk.AddSelector(BsBulkSelectorType.None);
+
+            bulk.ForSelector(BsBulkSelectorType.All).Text("All");
+            bulk.ForSelector(BsBulkSelectorType.None).Text("None");
+        })
