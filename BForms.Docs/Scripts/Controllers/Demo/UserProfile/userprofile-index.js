@@ -1,5 +1,10 @@
 ﻿require(['bforms-namespace',
-        'main-script'
-    ], function () {
+        'main-script',
+        'bforms-boxForm'
+], function () {
+
+    $('.bs-userInfo').bsBoxForm({
+        name :'test'
+    });
 
 });

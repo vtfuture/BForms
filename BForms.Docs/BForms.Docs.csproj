@@ -1146,6 +1146,9 @@
   <ItemGroup>
     <Content Include="Views\Start\Grid\Source\_BulkActionsHomeIndexJs.cs.embed" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\BForms\Widgets\BoxForm\bforms.boxForm.js" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
