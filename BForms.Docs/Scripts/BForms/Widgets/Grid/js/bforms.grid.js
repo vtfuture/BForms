@@ -207,34 +207,25 @@
 
                             var $me = grid.$actionsContainer.find(opts.btnSelector);
 
-                            $me.popover({
-                                html: true,
-                                content: $('.popover-content').html(),
-                                placement: 'bottom'
-                            });
-
-                            $me.on('show.bs.popover', $.proxy(function (e) {
-
-                                var tip = $me.data('bs.popover').tip();
-
-                                tip.one('click', '.bs-confirm', $.proxy(function (e) {
-
-                                    e.preventDefault();
-
-                                    $me.popover('toggle');
-
-                                    opts.handler.call(this, this.element.find(this.options.rowSelector + '.selected'), this);
-
-                                }, this));
-
-                                tip.one('click', '.bs-cancel', function (e) {
-
-                                    e.preventDefault();
-
-                                    $me.popover('toggle');
-                                });
-
-                            }, grid));
+                            $me.bsInlineQuestion({
+                                placement: 'bottom',
+                                question: 'Are you sure?',
+                                buttons: [{
+                                    text: 'Yes',
+                                    cssClass: 'btn-primary bs-confirm',
+                                    callback: $.proxy(function () {
+                                        $me.bsInlineQuestion('hide');
+                                        opts.handler.call(this, this.element.find(this.options.rowSelector + '.selected'), this);
+                                    }, grid)
+                                },
+                               {
+                                   text: 'No',
+                                   cssClass: 'btn-default bs-cancel',
+                                   callback: function (e) {
+                                       $me.bsInlineQuestion('hide');
+                                   }
+                               }]
+                            });                         
 
                         } else {
 

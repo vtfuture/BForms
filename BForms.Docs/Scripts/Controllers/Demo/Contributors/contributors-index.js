@@ -52,7 +52,7 @@
                 btnSelector: '.js-btn-exportExcel_selected',
                 handler: $.proxy(function ($rows, context) {
                     var data = {};
-                    
+
                     var items = context.getSelectedRows();
 
                     data.items = items;
@@ -67,14 +67,14 @@
                     var data = {};
 
                     var items = context.getSelectedRows();
-                    
+
                     data.items = items;
                     data.enable = true;
 
                     this._ajaxEnableDisable($rows, data, this.options.enableDisableUrl, function (response) {
-                        
+
                         context.updateRows(response.RowsHtml);
-                       
+
                     }, function (response) {
                         context._pagerAjaxError(response);
                     });
@@ -83,13 +83,13 @@
                 btnSelector: '.js-btn-disable_selected',
                 handler: $.proxy(function ($rows, context) {
                     var data = {};
-                    
+
                     var items = context.getSelectedRows();
                     data.items = items;
                     data.enable = false;
 
                     this._ajaxEnableDisable($rows, data, this.options.enableDisableUrl, function (response) {
-                        
+
                         context.updateRows(response.RowsHtml);
 
                     }, function (response) {
@@ -99,9 +99,9 @@
             }, {
                 btnSelector: '.js-btn-delete_selected',
                 handler: $.proxy(function ($rows, context) {
-                    
+
                     var items = context.getSelectedRows();
-                    
+
                     this._ajaxDelete($rows, items, this.options.deleteUrl, $.proxy(function () {
                         $rows.remove();
                         context._evOnRowCheckChange($rows);
@@ -232,7 +232,7 @@
             response = data.data;
 
         var identityOpt = this._editableOptions($row, this.options.editComponents.Identity);
-        
+
         $row.find('.js-editableIdentity').bsEditable(identityOpt);
 
         var projectOpt = this._editableOptions($row, this.options.editComponents.ProjectRelated);
@@ -304,52 +304,37 @@
 
     //#region DeleteHandler
     GridIndex.prototype._deleteHandler = function (options, $row, context) {
-        //console.log($row.find(options.btnSelector))
-        //$row.find(options.btnSelector).bsPopover({
-        //    question: "Esti sigur ca vrei sa stergi?",
-        //    buttons: [{
-        //            text: 'Yes',
-        //            callback: function() {
-        //                console.log('yes');
-        //            }
-        //        }, {
-        //            text: 'No',
-        //            callback: function() {
-        //                console.log('no');
-        //            }
-        //        }]
-        //});
 
-        //add popover widget
-        var $me = $row.find(options.btnSelector);
-        $me.popover({
-            html: true,
-            placement: 'left',
-            content: $('.popover-content').html()
-        });
+        var $btn = $row.find(options.btnSelector);
 
-        //// add delegates to popover buttons
-        var tip = $me.data('bs.popover').tip();
-        tip.on('click', '.bs-confirm', $.proxy(function (e) {
-            e.preventDefault();
+        $btn.bsInlineQuestion({
+            question: "Are you sure?",
+            buttons: [{
+                text: 'Yes',
+                cssClass: 'btn-primary bs-confirm',
+                callback: $.proxy(function () {
+                    var data = [];
+                    data.push({
+                        Id: $row.data('objid')
+                    });
 
-            var data = [];
-            data.push({
-                Id : $row.data('objid')
-            });
+                    this._ajaxDelete($row, data, options.url, function () {
+                        $row.remove();
+                    }, function (response) {
+                        context._rowActionAjaxError(response, $row);
+                    });
 
-            this._ajaxDelete($row, data, options.url, function () {
-                $row.remove();
-            }, function (response) {
-                context._rowActionAjaxError(response, $row);
-            });
-
-            $me.popover('hide');
-        }, this));
-        tip.on('click', '.bs-cancel', function (e) {
-            e.preventDefault();
-            $me.popover('hide');
-        });
+                    $btn.bsInlineQuestion('hide');
+                }, this)
+                },
+                {
+                    text: 'No',
+                    cssClass: 'btn-default bs-cancel',
+                    callback: function (e) {
+                        $btn.bsInlineQuestion('hide');
+                    }
+                }]
+        });      
     };
 
     GridIndex.prototype._ajaxDelete = function ($html, data, url, success, error) {
