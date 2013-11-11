@@ -143,7 +143,9 @@
     <Compile Include="Areas\Demo\Mock\Lists.cs" />
     <Compile Include="Areas\Demo\Models\ContributorsModels.cs" />
     <Compile Include="Areas\Demo\Models\LoginModels.cs" />
+    <Compile Include="Areas\Demo\Models\UserProfileModel.cs" />
     <Compile Include="Areas\Demo\Repositories\ContributorsRepository.cs" />
+    <Compile Include="Areas\Demo\Repositories\UserProfileRepository.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\StartController.cs" />
@@ -343,6 +345,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Demo\Views\Shared\" />
+    <Folder Include="Areas\Demo\Views\UserProfile\Editable\" />
     <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>
   <ItemGroup>
@@ -1149,6 +1152,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\BForms\Widgets\BoxForm\bforms.boxForm.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Demo\Views\UserProfile\Readonly\_Basic.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

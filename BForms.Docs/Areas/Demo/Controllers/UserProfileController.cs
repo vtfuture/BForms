@@ -15,9 +15,21 @@ namespace BForms.Docs.Areas.Demo.Controllers
         // GET: /Demo/UserProfile/
         public ActionResult Index()
         {
-            var model = new RegisterModel();
+            var model = GetContributorModel();
 
             return View(model);
         }
+
+        private UserProfileModel GetContributorModel()
+        {
+            return new UserProfileModel()
+            {
+                Firstname = "John",
+                Lastname = "Doe",
+                Department = "Web",
+                Organization = "Google"
+            };
+        }
+
 	}
 }
