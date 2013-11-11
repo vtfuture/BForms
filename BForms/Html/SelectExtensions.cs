@@ -43,6 +43,17 @@ namespace BForms.Html
         /// Returns a BForms select element based on BsControlAttribute
         /// </summary>
         public static MvcHtmlString BsSelectFor<TModel, TKey>(this HtmlHelper<TModel> htmlHelper,
+            Expression<Func<TModel, BsSelectList<TKey>>> expression, IDictionary<string, object> htmlAttributes)
+        {
+            return htmlHelper.BsSelectFor(expression,
+                htmlAttributes,
+                null);
+        }
+
+        /// <summary>
+        /// Returns a BForms select element based on BsControlAttribute
+        /// </summary>
+        public static MvcHtmlString BsSelectFor<TModel, TKey>(this HtmlHelper<TModel> htmlHelper,
             Expression<Func<TModel, BsSelectList<TKey>>> expression, object htmlAttributes, object dataOptions)
         {
             return htmlHelper.BsSelectFor(expression,
