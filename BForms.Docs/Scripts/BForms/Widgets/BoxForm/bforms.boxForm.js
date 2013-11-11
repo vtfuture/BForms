@@ -75,7 +75,7 @@
 
 	//#region private methods
 	boxForm.prototype._saveState = function () {
-		amplify.store(this._key, this._state)
+	    amplify.store(this._key, this._state);
 	};
 
 	boxForm.prototype._loadState = function () {
