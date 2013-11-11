@@ -8,4 +8,11 @@ using System.Web.Mvc;
 
 namespace BForms.Html
 {
+    public static class BsBoxFormExtensions
+    {
+        public static BsBoxFormHtmlBuilder BsBoxForm(this HtmlHelper html)
+        {
+            return new BsBoxFormHtmlBuilder(html.ViewContext);
+        }
+    }
 }
