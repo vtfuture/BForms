@@ -52,8 +52,11 @@
     };
 
     navScroll.prototype.addHandlers = function () {
+
         $(window).on('hashchange', $.proxy(this.updateHash, this));
         $(window).on('scroll', $.proxy(this.onScroll, this));
+
+        this.$element.on('click', 'a:first', $.proxy(this._firstAnchorClick, this));
     };
 
     navScroll.prototype.onScroll = function (e) {
@@ -162,6 +165,13 @@
 
         $active.addClass(this.options.activeClass);
 
+    };
+
+    navScroll.prototype._firstAnchorClick = function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        $(window).scrollTop(0);
     };
 
     navScroll.prototype.removePrevious = function () {
