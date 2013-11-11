@@ -920,6 +920,12 @@
             this.options.onRefresh.call(this, data);
         }
 
+        if (typeof this.options.additionalData !== "undefined") {
+            $.extend(true, data, this.options.additionalData);
+        }
+
+        this._trigger('beforePager', data);
+
         //ajax
         var ajaxOptions = {
             name: this.options.uniqueName + '|pager',
