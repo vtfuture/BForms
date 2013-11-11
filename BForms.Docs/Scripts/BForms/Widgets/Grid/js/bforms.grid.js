@@ -214,7 +214,7 @@
                                     text: 'Yes',
                                     cssClass: 'btn-primary bs-confirm',
                                     callback: $.proxy(function () {
-                                        $me.bsInlineQuestion('hide');
+                                        $me.bsInlineQuestion('toggle');
                                         opts.handler.call(this, this.element.find(this.options.rowSelector + '.selected'), this);
                                     }, grid)
                                 },
@@ -222,7 +222,7 @@
                                    text: 'No',
                                    cssClass: 'btn-default bs-cancel',
                                    callback: function (e) {
-                                       $me.bsInlineQuestion('hide');
+                                       $me.bsInlineQuestion('toggle');
                                    }
                                }]
                             });                         
