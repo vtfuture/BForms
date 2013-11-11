@@ -161,7 +161,21 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
-    <Content Include="Content\Images\Banners\BForms-Controls.jpg" />
+    <Content Include="Content\Images\Banners\BForms_Banner_Turquoise_1024x368_v1.jpg" />
+    <Content Include="Content\Images\Banners\BForms_Banner_Turquoise_1024x368_v2.jpg" />
+    <Content Include="Content\Images\Banners\BForms_Banner_Turquoise_1024x368_v3.jpg" />
+    <Content Include="Content\Images\Banners\BForms_Banner_Turquoise_300x250_v1.jpg" />
+    <Content Include="Content\Images\Banners\BForms_Banner_Turquoise_300x250_v2.jpg" />
+    <Content Include="Content\Images\Banners\BForms_Banner_Turquoise_300x250_v3.jpg" />
+    <Content Include="Content\Images\Banners\BForms_Banner_Turquoise_620x368.jpg" />
+    <Content Include="Content\Images\Banners\BForms_Banner_Turquoise_620x368_v2.jpg" />
+    <Content Include="Content\Images\Banners\BForms_Banner_Turquoise_620x368_v3.jpg" />
+    <Content Include="Content\Images\Banners\BForms_Banner_Turquoise_620x368_v4.jpg" />
+    <Content Include="Content\Images\Banners\BForms_Banner_Turquoise_940x250_v1.jpg" />
+    <Content Include="Content\Images\Banners\BForms_Banner_Turquoise_940x250_v2.jpg" />
+    <Content Include="Content\Images\Banners\BForms_Banner_Turquoise_940x90_v1.jpg" />
+    <Content Include="Content\Images\Banners\BForms_Banner_Turquoise_940x90_v2.jpg" />
+    <Content Include="Content\Images\Banners\GooglePlus_Cover_Photo_BForms_2120x1192.jpg" />
     <Content Include="Content\Images\bforms-200x200.png" />
     <Content Include="Content\Images\bforms-32x32.png" />
     <Content Include="Content\Images\Docs\main-script-file.PNG" />
