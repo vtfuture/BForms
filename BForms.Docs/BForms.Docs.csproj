@@ -186,6 +186,7 @@
     <Content Include="Content\Images\Docs\eg-row-model.png" />
     <Content Include="Content\Images\Docs\eg-simple-grid.png" />
     <Content Include="Content\Images\Docs\eg-view-model.png" />
+    <Content Include="Content\Images\logo-bforms%402x.png" />
     <Content Include="Scripts\BForms\Images\bg-user.png" />
     <Content Include="Scripts\BForms\Widgets\InlineQuestion\bforms.inlineQuestion.js" />
     <Content Include="Scripts\Controllers\Demo\UserProfile\userprofile-index.js" />
