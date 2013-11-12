@@ -10,37 +10,53 @@ using BForms.Docs.Resources;
 
 namespace BForms.Docs.Areas.Demo.Models
 {
+    #region Readonly
     public class UserProfileModel
     {
-        public int Id { get; set; }
+        public UserProfileBasicModel Basic { get; set; }
+        public UserProfileInfoModel UserInfo { get; set; }
+        public UserProfileContactModel Contact { get; set; }
+    }
 
+    public class UserProfileBasicModel
+    {
         public string Username { get; set; }
 
+        public string Department { get; set; }
+
+        public string Organization { get; set; }
+    }
+
+    public class UserProfileContactModel
+    {
+        public string Mail { get; set; }
+
+        public string Website { get; set; }
+    }
+
+    public class UserProfileInfoModel
+    {
         public string Firstname { get; set; }
 
         public string Lastname { get; set; }
 
-        public string Department { get; set; }
+        public string Password { get; set; }
 
         public string Role { get; set; }
 
-        public string Password { get; set; }
-
-        public string Organization { get; set; }
-
-        public string Mail { get; set; }
-
-        public string Phone { get; set; }
-
         public DateTime HireDate { get; set; }
     }
+    #endregion
 
+    #region Editable
     public class UserProfileEditableModel
     {
-        public UserProfileInfoModel UserInfo { get; set; }
+        public UserProfileInfoEditableModel UserInfo { get; set; }
+
+        public UserProfileContactEditableModel Contact { get; set; }
     }
 
-    public class UserProfileInfoModel
+    public class UserProfileInfoEditableModel
     {
         [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
         [Display(Name = "FirstName", ResourceType = typeof(Resource))]
@@ -54,13 +70,13 @@ namespace BForms.Docs.Areas.Demo.Models
 
         [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
         [Display(Name = "Password", ResourceType = typeof(Resource))]
-        [BsControl(BsControlType.Password)]        
+        [BsControl(BsControlType.Password)]
         public string Password { get; set; }
 
         [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
         [Display(Name = "RetypePassword", ResourceType = typeof(Resource))]
         [BsControl(BsControlType.Password)]
-        [Compare("Password")]  
+        [Compare("Password")]
         public string RetypePassword { get; set; }
 
         [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
@@ -68,6 +84,26 @@ namespace BForms.Docs.Areas.Demo.Models
         [BsControl(BsControlType.DatePicker)]
         public BsDateTime HireDate { get; set; }
 
+    }
+
+    public class UserProfileContactEditableModel
+    {
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
+        [Display(Name = "Email", Prompt = "EmailPrompt", ResourceType = typeof(Resource))]
+        [BsControl(BsControlType.Email)]
+        public string Mail { get; set; }
+
+        [Display(Name = "PersonalWebsite", Prompt = "SitePrompt", ResourceType = typeof(Resource))]
+        [BsControl(BsControlType.Url)]
+        public string Website { get; set; }
+    }
+    #endregion
+
+    public enum PanelComponentsEnum
+    {
+        Basic = 1,
+        UserInfo = 2,
+        Contact = 3
     }
 
 }

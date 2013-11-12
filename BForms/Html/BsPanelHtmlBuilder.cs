@@ -19,6 +19,8 @@ namespace BForms.Html
         private string _readonlyUrl;
         private string _editableUrl;
         private string _content;
+
+        private int _id;
         private IDictionary<string, object> _htmlAttributes;
 
         /// <summary>
@@ -34,6 +36,13 @@ namespace BForms.Html
         public BsPanelHtmlBuilder Name(string name)
         {
             this._name = name;
+            return this;
+        }
+
+
+        public BsPanelHtmlBuilder Id(int id)
+        {
+            this._id = id;
             return this;
         }
 
@@ -135,6 +144,7 @@ namespace BForms.Html
                 container.MergeAttribute("data-readonlyurl", this._readonlyUrl);
             }
 
+            container.MergeAttribute("data-component",this._id.ToString());
 
             container.AddCssClass("panel panel-default");
 

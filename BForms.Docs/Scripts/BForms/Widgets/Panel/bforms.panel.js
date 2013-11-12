@@ -52,6 +52,12 @@
 	        throw "boxForm required an unique name";
 	    }
 
+	    this._componentId = this.$element.data('component');
+	    
+        if (typeof this._componentId === "undefined") {
+            console.warn("No component id specified for " + this._name);
+        }
+
 	    this._key = window.location.pathname + '|BoxForm|' + this._name;
 
 	    this.options.readonlyUrl = this.options.readonlyUrl || this.$element.data('readonlyurl');
@@ -175,13 +181,29 @@
                 .find(this.options.cancelEditSelector).show();
         }
     };
+
+    bsPanel.prototype._getXhrData = function () {
+        
+        return {
+            component: this._componentId
+        };
+        
+    };
 	//#endregion
 
 	//#region ajax
     bsPanel.prototype._loadReadonlyContent = function () {
+
+        var data = this._getXhrData();
+        
+        this._trigger('beforeReadonlyLoad', data);
+
 	    return $.bforms.ajax({
             name : 'BsPanel|LoadReadonly|' + this._name,
             url: this.options.readonlyUrl,
+            
+            data: data,
+            
             context : this,
             success: this._onReadonlyLoadSuccess,
             error : this._onReadonlyLoadError
@@ -200,10 +222,18 @@
 	};
 
     bsPanel.prototype._loadEditableContent = function () {
+        
+        var data = this._getXhrData();
+
+        this._trigger('beforeEditableLoad', data);
+
 	    return $.bforms.ajax({
 	        name: 'BsPanel|LoadEditable|' + this._name,
 	        url: this.options.editableUrl,
 	        context: this,
+	        
+            data : data,
+
 	        success: this._onEditableLoadSuccess,
 	        error: this._onEditableLoadError
 	    });

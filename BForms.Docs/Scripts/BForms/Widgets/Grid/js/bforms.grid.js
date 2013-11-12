@@ -4,7 +4,8 @@
     'bforms-pager',
     'bforms-editable',
     'bforms-ajax',
-    'bforms-namespace'
+    'bforms-namespace',
+    'bforms-inlineQuestion'
 ], function () {
 
     var Grid = function (opt) {

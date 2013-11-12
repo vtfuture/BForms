@@ -1,4 +1,5 @@
 ﻿@model BForms.Docs.Areas.Demo.Models.UserProfileModel
+@using BForms.Docs.Areas.Demo.Models
 @using BForms.Html
 
 @{
@@ -13,11 +14,11 @@
 
     <div class="panel-group" id="accordion">
 
-        @Html.BsPanel().Name("User").Expandable(false).Content(Html.Partial("Readonly/_Basic").ToString())    
+        @Html.BsPanel().Name("User").Id((int)PanelComponentsEnum.Basic).Expandable(false).Content(Html.Partial("Readonly/_Basic", Model.Basic).ToString())    
 
-        @Html.BsPanel().Name("User info").ReadonlyUrl(Url.Action("GetUserInfo")).EditableUrl(Url.Action("GetUserInfoForm")).HtmlAttributes(new { @class = "bs-userInfo" })
+        @Html.BsPanel().Name("User info").Id((int)PanelComponentsEnum.UserInfo).ReadonlyUrl(Url.Action("GetReadonlyContent")).EditableUrl(Url.Action("GetEditableContent")).HtmlAttributes(new { @class = "bs-userInfo" })
 
-        @Html.BsPanel().Name("Contact info").ReadonlyUrl(Url.Action("GetUserContact")).EditableUrl(Url.Action("GetUserContactForm"))
+        @Html.BsPanel().Name("Contact info").Id((int)PanelComponentsEnum.Contact).ReadonlyUrl(Url.Action("GetReadonlyContent")).EditableUrl(Url.Action("GetEditableContent")).HtmlAttributes(new { @class = "bs-contact" })
 
 
         @*<div class="panel panel-default bs-userInfo">

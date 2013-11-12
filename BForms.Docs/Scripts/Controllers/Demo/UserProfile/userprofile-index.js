@@ -4,7 +4,11 @@
 ], function () {
 
     $('.bs-userInfo').bsPanel({
-        name :'test'
+       name : 'userInfo'
     });
-
+    
+    $('.bs-contact').bsPanel({
+        name: 'contact'
+    });
+    
 });
