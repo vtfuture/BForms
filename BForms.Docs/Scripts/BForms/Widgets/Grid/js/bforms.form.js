@@ -14,9 +14,9 @@
 
     Form.prototype.options = {
         uniqueName: null,
-        hasGroupToggle: false,
+        hasGroupToggle: true,
         style: {},
-        groupToggleSelector: '.bs-selector',
+        groupToggleSelector: '.bs-groupToggle',
         actions: []         //[{
                             //    name: 'refresh',
                             //    selector: '.bs-refreshBtn',
