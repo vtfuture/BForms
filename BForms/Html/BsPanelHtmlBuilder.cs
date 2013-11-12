@@ -8,7 +8,7 @@ using BForms.Mvc;
 
 namespace BForms.Html
 {
-    public class BsBoxFormHtmlBuilder : BaseComponent
+    public class BsPanelHtmlBuilder : BaseComponent
     {
         private string _name;
         private bool _isEditable;
@@ -24,14 +24,14 @@ namespace BForms.Html
         /// <summary>
         /// Sets the ViewContext property for the BaseComponent
         /// </summary>
-        public BsBoxFormHtmlBuilder(ViewContext context)
+        public BsPanelHtmlBuilder(ViewContext context)
             : base(context)
         { }
 
         /// <summary>
         /// Sets the display name
         /// </summary>
-        public BsBoxFormHtmlBuilder Name(string name)
+        public BsPanelHtmlBuilder Name(string name)
         {
             this._name = name;
             return this;
@@ -40,7 +40,7 @@ namespace BForms.Html
         /// <summary>
         /// Specify if the box form has an editable component
         /// </summary>
-        public BsBoxFormHtmlBuilder Editable(bool isEditable)
+        public BsPanelHtmlBuilder Editable(bool isEditable)
         {
             this._isEditable = isEditable;
             return this;
@@ -49,7 +49,7 @@ namespace BForms.Html
         /// <summary>
         /// Specify if the box form is already expanded
         /// </summary>
-        public BsBoxFormHtmlBuilder Expanded(bool isExpanded)
+        public BsPanelHtmlBuilder Expanded(bool isExpanded)
         {
             this._isExpanded = isExpanded;
             return this;
@@ -58,7 +58,7 @@ namespace BForms.Html
         /// <summary>
         /// Specify if the box form is expandable or static
         /// </summary>
-        public BsBoxFormHtmlBuilder Expandable(bool isExpandable)
+        public BsPanelHtmlBuilder Expandable(bool isExpandable)
         {
             this._isExpandable = isExpandable;
             return this;
@@ -67,7 +67,7 @@ namespace BForms.Html
         /// <summary>
         /// Specify url from where the readonly form will be loaded
         /// </summary>
-        public BsBoxFormHtmlBuilder ReadonlyUrl(string url)
+        public BsPanelHtmlBuilder ReadonlyUrl(string url)
         {
             this._readonlyUrl = url;
             return this;
@@ -77,7 +77,7 @@ namespace BForms.Html
         /// Specify url from where the editable form will be loaded
         /// It will assume that the box form is editable
         /// </summary>
-        public BsBoxFormHtmlBuilder EditableUrl(string url)
+        public BsPanelHtmlBuilder EditableUrl(string url)
         {
             this._editableUrl = url;
             this._isEditable = true;
@@ -89,7 +89,7 @@ namespace BForms.Html
         /// Sets the content of the box form
         /// It will also set the box as expanded and loaded
         /// </summary>
-        public BsBoxFormHtmlBuilder Content(string content)
+        public BsPanelHtmlBuilder Content(string content)
         {
             this._content = content;
             this._isExpanded = true;
@@ -101,7 +101,7 @@ namespace BForms.Html
         /// <summary>
         /// Appends html attributes to panel div element
         /// </summary>
-        public BsBoxFormHtmlBuilder HtmlAttributes(Dictionary<string, object> htmlAttributes)
+        public BsPanelHtmlBuilder HtmlAttributes(Dictionary<string, object> htmlAttributes)
         {
             this._htmlAttributes = htmlAttributes;
             return this;
@@ -110,7 +110,7 @@ namespace BForms.Html
         /// <summary>
         /// Appends html attributes to panel div element
         /// </summary>
-        public BsBoxFormHtmlBuilder HtmlAttributes(object htmlAttributes)
+        public BsPanelHtmlBuilder HtmlAttributes(object htmlAttributes)
         {
             this._htmlAttributes = HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes);
             return this;
@@ -145,12 +145,12 @@ namespace BForms.Html
             headerTitleTag.AddCssClass("panel-title");
 
             var nameTag = new TagBuilder("a");
-            nameTag.AddCssClass("bs-toggleBox");
+            nameTag.AddCssClass("bs-togglePanel");
             nameTag.MergeAttribute("href", "#");
 
             var loaderImg = new TagBuilder("img");
             loaderImg.MergeAttribute("src", "../Scripts/BForms/Images/preloader-small.gif");
-            loaderImg.AddCssClass("bs-boxLoader");
+            loaderImg.AddCssClass("bs-panelLoader");
 
             if (this._isLoaded)
             {
@@ -162,7 +162,7 @@ namespace BForms.Html
             if (this._isExpandable)
             {
                 var caretTag = new TagBuilder("span");
-                caretTag.AddCssClass("caret bs-boxCaret");
+                caretTag.AddCssClass("caret bs-panelCaret");
 
                 if (!this._isLoaded)
                 {
@@ -188,7 +188,7 @@ namespace BForms.Html
             {
                 var editableTag = new TagBuilder("a");
                 editableTag.MergeAttribute("href", "#");
-                editableTag.AddCssClass("pull-right bs-editBox");
+                editableTag.AddCssClass("pull-right bs-editPanel");
 
                 var glyphTag = new TagBuilder("span");
                 glyphTag.AddCssClass("glyphicon glyphicon-pencil");
@@ -219,7 +219,7 @@ namespace BForms.Html
             container.InnerHtml += headerTag.ToString();
 
             var contentDiv = new TagBuilder("div");
-            contentDiv.AddCssClass("panel-collapse bs-containerBox");
+            contentDiv.AddCssClass("panel-collapse bs-containerPanel");
 
             if (!this._isExpanded)
             {
@@ -228,7 +228,7 @@ namespace BForms.Html
 
 
             var panelBody = new TagBuilder("div");
-            panelBody.AddCssClass("panel-body bs-contentBox");
+            panelBody.AddCssClass("panel-body bs-contentPanel");
             panelBody.InnerHtml += this._content;
 
             contentDiv.InnerHtml += panelBody.ToString();

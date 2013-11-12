@@ -1161,7 +1161,7 @@
     <Content Include="Views\Start\Grid\Source\_BulkActionsHomeIndexJs.cs.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Scripts\BForms\Widgets\BoxForm\bforms.boxForm.js" />
+    <Content Include="Scripts\BForms\Widgets\Panel\bforms.panel.js" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Demo\Views\UserProfile\Readonly\_Basic.cshtml" />

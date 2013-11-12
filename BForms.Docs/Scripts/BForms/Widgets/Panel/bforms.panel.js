@@ -1,33 +1,33 @@
 ﻿(function (factory) {
 	if (typeof define === "function" && define.amd) {
-		define('bforms-boxForm', ['jquery', 'bootstrap', 'amplify', 'bforms-ajax', 'bforms-form'], factory);
+		define('bforms-panel', ['jquery', 'bootstrap', 'amplify', 'bforms-ajax', 'bforms-form'], factory);
 	} else {
 		factory(window.jQuery);
 	}
 })(function ($) {
 
-	var boxForm = function () {
+	var bsPanel = function () {
 
 	};
 
-	boxForm.prototype.options = {
+	bsPanel.prototype.options = {
 		collapse: true,
 		loaded: false,
 		editable : true,
 
-		toggleSelector: '.bs-toggleBox',
+		toggleSelector: '.bs-togglePanel',
 
-		editSelector: '.bs-editBox',
+		editSelector: '.bs-editPanel',
 		cancelEditSelector: '.bs-cancelEdit',
-        saveFormSelector : '.bs-saveBox',
+        saveFormSelector : '.bs-savePanel',
 
-        containerSelector : '.bs-containerBox',
-        contentSelector: '.bs-contentBox',
+        containerSelector : '.bs-containerPanel',
+        contentSelector: '.bs-contentPanel',
 
         cacheReadonlyContent : false
 	};
 
-	boxForm.prototype._init = function () {
+	bsPanel.prototype._init = function () {
 		this.$element = this.element;
 
 		this._initDefaultProperties();
@@ -45,7 +45,7 @@
 		}
 	};
 
-	boxForm.prototype._initDefaultProperties = function () {
+	bsPanel.prototype._initDefaultProperties = function () {
 	    this._name = this.options.name || this.element.prop('id');
 
 	    if (typeof this._name === "undefined" || this._name == '') {
@@ -59,12 +59,12 @@
 
 	};
 
-	boxForm.prototype._initSelectors = function () {
+	bsPanel.prototype._initSelectors = function () {
 	    this.$container = this.$element.find(this.options.containerSelector);
 	    this.$content = this.$element.find(this.options.contentSelector);
 	};
 
-	boxForm.prototype._delegateEvents = function () {
+	bsPanel.prototype._delegateEvents = function () {
 
 		this.$element.on('click', this.options.toggleSelector, $.proxy(this._onToggleClick, this));
 
@@ -74,7 +74,7 @@
 	};
 
 	//#region events
-	boxForm.prototype._onToggleClick = function (e) {
+	bsPanel.prototype._onToggleClick = function (e) {
 		e.preventDefault();
 		e.stopPropagation();
 
@@ -86,7 +86,7 @@
 
 	};
 
-	boxForm.prototype._onEditClick = function (e) {
+	bsPanel.prototype._onEditClick = function (e) {
 		e.preventDefault();
 		e.stopPropagation();
 
@@ -97,7 +97,7 @@
 		},this));
 	};
 
-	boxForm.prototype._onCancelEditClick = function (e) {
+	bsPanel.prototype._onCancelEditClick = function (e) {
 	    e.preventDefault();
 	    e.stopPropagation();
 
@@ -123,11 +123,11 @@
 	//#endregion
 
 	//#region private methods
-	boxForm.prototype._saveState = function () {
+	bsPanel.prototype._saveState = function () {
 	    amplify.store(this._key, this._state);
 	};
 
-	boxForm.prototype._loadState = function () {
+	bsPanel.prototype._loadState = function () {
 
 		var lastState = amplify.store(this._key);
 
@@ -142,7 +142,7 @@
 
 	};
 
-	boxForm.prototype._initControls = function () {
+	bsPanel.prototype._initControls = function () {
 
 		if (this.options.editable) {
 		    this._toggleEditBtn(true);
@@ -150,37 +150,37 @@
 
 	};
 
-	boxForm.prototype._toggleLoading = function (show) {
+	bsPanel.prototype._toggleLoading = function (show) {
 	    if (show) {
-	        this.$element.find('.bs-boxLoader').show();
+	        this.$element.find('.bs-panelLoader').show();
 	    } else {
-	        this.$element.find('.bs-boxLoader').hide();
+	        this.$element.find('.bs-panelLoader').hide();
 	    }
 	};
 
-	boxForm.prototype._toggleCaret = function (show) {
+	bsPanel.prototype._toggleCaret = function (show) {
 	    if (show) {
-	        this.$element.find('.bs-boxCaret').show();
+	        this.$element.find('.bs-panelCaret').show();
 	    } else {
-	        this.$element.find('.bs-boxCaret').hide();
+	        this.$element.find('.bs-panelCaret').hide();
 	    }
 	};
 
-	boxForm.prototype._toggleEditBtn = function (show) {
-	    if (show) {
-	        this.$element.find(this.options.cancelEditSelector).hide().end()
-                         .find(this.options.editSelector).show();
-	    } else {
-	        this.$element.find(this.options.editSelector).hide().end()
-                         .find(this.options.cancelEditSelector).show();
-	    }
-	}
+    bsPanel.prototype._toggleEditBtn = function(show) {
+        if (show) {
+            this.$element.find(this.options.cancelEditSelector).hide().end()
+                .find(this.options.editSelector).show();
+        } else {
+            this.$element.find(this.options.editSelector).hide().end()
+                .find(this.options.cancelEditSelector).show();
+        }
+    };
 	//#endregion
 
 	//#region ajax
-	boxForm.prototype._loadReadonlyContent = function () {    
+    bsPanel.prototype._loadReadonlyContent = function () {
 	    return $.bforms.ajax({
-            name : 'BoxForm|LoadReadonly|' + this._name,
+            name : 'BsPanel|LoadReadonly|' + this._name,
             url: this.options.readonlyUrl,
             context : this,
             success: this._onReadonlyLoadSuccess,
@@ -188,20 +188,20 @@
 	    });
 	};
 
-	boxForm.prototype._onReadonlyLoadSuccess = function (response) {
+    bsPanel.prototype._onReadonlyLoadSuccess = function (response) {
 	    this.$content.html(response.Html);
 
 	    this._toggleLoading();
 	    this._toggleCaret(true);
 	};
 
-	boxForm.prototype._onReadonlyLoadError = function () {
+    bsPanel.prototype._onReadonlyLoadError = function () {
 
 	};
 
-	boxForm.prototype._loadEditableContent = function () {
+    bsPanel.prototype._loadEditableContent = function () {
 	    return $.bforms.ajax({
-	        name: 'BoxForm|LoadEditable|' + this._name,
+	        name: 'BsPanel|LoadEditable|' + this._name,
 	        url: this.options.editableUrl,
 	        context: this,
 	        success: this._onEditableLoadSuccess,
@@ -209,7 +209,7 @@
 	    });
 	};
 
-	boxForm.prototype._onEditableLoadSuccess = function (response) {
+    bsPanel.prototype._onEditableLoadSuccess = function (response) {
 
 	    if (this.options.cacheReadonlyContent) {
 	        this._cachedReadonlyContent = this.$content.html();
@@ -239,13 +239,13 @@
 	    this._toggleEditBtn();
 	};
 
-	boxForm.prototype._onEditableLoadError = function () {
+    bsPanel.prototype._onEditableLoadError = function () {
 
 	};
 	//#endregion
 
 	//#region public methods
-	boxForm.prototype.open = function () {
+    bsPanel.prototype.open = function () {
 		var openData = {
 			allowOpen: true,
 			$content: this.$content
@@ -264,7 +264,7 @@
 		this._trigger('afterOpen');
 	};
 
-	boxForm.prototype.close = function () {
+    bsPanel.prototype.close = function () {
 		var closeData = {
 			allowClose: true,
 			$content: this.$content
@@ -285,7 +285,7 @@
 	};
 	//#endregion
 
-	$.widget('bforms.bsBoxForm', boxForm.prototype);
+    $.widget('bforms.bsPanel', bsPanel.prototype);
 
-	return boxForm;
+	return bsPanel;
 });
