@@ -1,6 +1,6 @@
 ﻿(function (factory) {
 	if (typeof define === "function" && define.amd) {
-		define('bforms-boxForm', ['jquery', 'bootstrap', 'amplify', 'bforms-ajax'], factory);
+		define('bforms-boxForm', ['jquery', 'bootstrap', 'amplify', 'bforms-ajax', 'bforms-form'], factory);
 	} else {
 		factory(window.jQuery);
 	}
@@ -16,9 +16,15 @@
 		editable : true,
 
 		toggleSelector: '.bs-toggleBox',
+
 		editSelector: '.bs-editBox',
+		cancelEditSelector: '.bs-cancelEdit',
+        saveFormSelector : '.bs-saveBox',
+
         containerSelector : '.bs-containerBox',
-		contentSelector: '.bs-contentBox',        
+        contentSelector: '.bs-contentBox',
+
+        cacheReadonlyContent : false
 	};
 
 	boxForm.prototype._init = function () {
@@ -32,7 +38,10 @@
 			this._initControls();
 			this._loadState();
 		} else {
-			this._loadReadonlyContent().then($.proxy(this._loadState, this));
+		    this._loadReadonlyContent().then($.proxy(function () {
+		        this._initControls();
+		        this._loadState();
+		    }, this));
 		}
 	};
 
@@ -60,14 +69,14 @@
 		this.$element.on('click', this.options.toggleSelector, $.proxy(this._onToggleClick, this));
 
 		this.$element.on('click', this.options.editSelector, $.proxy(this._onEditClick, this));
+
+		this.$element.on('click', this.options.cancelEditSelector, $.proxy(this._onCancelEditClick, this));
 	};
 
 	//#region events
 	boxForm.prototype._onToggleClick = function (e) {
 		e.preventDefault();
 		e.stopPropagation();
-
-        console.log(this._state)
 
 		if (this._state) {
 			this.close();
@@ -81,7 +90,36 @@
 		e.preventDefault();
 		e.stopPropagation();
 
+		this._loadEditableContent().then($.proxy(function () {
+		    if (!this._state) {
+		        this.open();
+		    }
+		},this));
 	};
+
+	boxForm.prototype._onCancelEditClick = function (e) {
+	    e.preventDefault();
+	    e.stopPropagation();
+
+	    if (this.options.cacheReadonlyContent && this._cachedReadonlyContent) {
+
+	        this.$content.html(this._cachedReadonlyContent);
+	        this._toggleEditBtn(true);
+
+	        if (!this._state) {
+	            this.open();
+	        }
+	    } else {
+	        this._loadReadonlyContent().then($.proxy(function () {
+	            this._toggleEditBtn(true);
+
+	            if (!this._state) {
+	                this.open();
+	            }
+	        },this));
+	    }
+	};
+
 	//#endregion
 
 	//#region private methods
@@ -107,7 +145,7 @@
 	boxForm.prototype._initControls = function () {
 
 		if (this.options.editable) {
-			this.$element.find(this.options.editSelector).show();
+		    this._toggleEditBtn(true);
 		}
 
 	};
@@ -127,14 +165,20 @@
 	        this.$element.find('.bs-boxCaret').hide();
 	    }
 	};
+
+	boxForm.prototype._toggleEditBtn = function (show) {
+	    if (show) {
+	        this.$element.find(this.options.cancelEditSelector).hide().end()
+                         .find(this.options.editSelector).show();
+	    } else {
+	        this.$element.find(this.options.editSelector).hide().end()
+                         .find(this.options.cancelEditSelector).show();
+	    }
+	}
 	//#endregion
 
 	//#region ajax
-	boxForm.prototype._loadReadonlyContent = function () {
-
-	    var $loadedDef = $.Deferred();
-	    var loadedPromise = $loadedDef.promise();
-
+	boxForm.prototype._loadReadonlyContent = function () {    
 	    return $.bforms.ajax({
             name : 'BoxForm|LoadReadonly|' + this._name,
             url: this.options.readonlyUrl,
@@ -146,6 +190,7 @@
 
 	boxForm.prototype._onReadonlyLoadSuccess = function (response) {
 	    this.$content.html(response.Html);
+
 	    this._toggleLoading();
 	    this._toggleCaret(true);
 	};
@@ -155,6 +200,46 @@
 	};
 
 	boxForm.prototype._loadEditableContent = function () {
+	    return $.bforms.ajax({
+	        name: 'BoxForm|LoadEditable|' + this._name,
+	        url: this.options.editableUrl,
+	        context: this,
+	        success: this._onEditableLoadSuccess,
+	        error: this._onEditableLoadError
+	    });
+	};
+
+	boxForm.prototype._onEditableLoadSuccess = function (response) {
+
+	    if (this.options.cacheReadonlyContent) {
+	        this._cachedReadonlyContent = this.$content.html();
+	    }
+
+	    this.$content.html(response.Html);
+
+	    var $form = this.$content.find('form'),
+            $saveBtn = $form.find(this.options.saveFormSelector);
+
+	    if ($form.length == 0) {
+	        console.warn('No editable form found');
+	    }
+
+	    if ($saveBtn.length == 0) {
+	        console.warn("No save button found");
+	    }
+
+	    this.$content.find('form').bsForm({
+	        actions: [{
+	            name: 'save',
+	            selector: this.options.saveFormSelector,
+                validate : true
+	        }]
+	    });
+
+	    this._toggleEditBtn();
+	};
+
+	boxForm.prototype._onEditableLoadError = function () {
 
 	};
 	//#endregion
@@ -190,7 +275,6 @@
 		if (closeData.allowClose === true) {
 		    this.$container.stop(true, true).slideUp(300);
 		    this.$element.find(this.options.toggleSelector).removeClass('dropup');
-
 		}
 
 		this._state = false;

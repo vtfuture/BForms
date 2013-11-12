@@ -31,8 +31,21 @@ namespace BForms.Docs.Areas.Demo.Controllers
                 Lastname = "Doe",
                 Department = "Web",
                 Organization = "Google",
+                Role = "Team leader",
                 Password = "password1",
                 HireDate = DateTime.Now
+            };
+        }
+
+        private UserProfileEditableModel GetUserProfileModelEditable()
+        {
+            return new UserProfileEditableModel()
+            {
+                UserInfo = new UserProfileInfoModel
+                {
+                    Firstname = "John",
+                    Lastname = "Doe"
+                }
             };
         }
 
@@ -44,6 +57,23 @@ namespace BForms.Docs.Areas.Demo.Controllers
             return new BsJsonResult(new
             {
                 Html = html
+            });
+        }
+
+        public BsJsonResult GetUserInfoForm()
+        {
+            var html = this.BsRenderPartialView("Editable/_UserInfo", GetUserProfileModelEditable().UserInfo);
+
+            return new BsJsonResult(new
+            {
+                Html = html
+            });
+        }
+
+        public BsJsonResult SaveUserInfoForm()
+        {
+            return new BsJsonResult(new
+            {             
             });
         }
         #endregion

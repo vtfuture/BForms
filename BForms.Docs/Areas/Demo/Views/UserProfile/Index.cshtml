@@ -15,9 +15,9 @@
 
         @Html.BsBoxForm().Name("User").Expandable(false).Content(Html.Partial("Readonly/_Basic").ToString())    
 
-        @Html.BsBoxForm().Name("User info").ReadonlyUrl(Url.Action("GetUserInfo")).EditableUrl(Url.Action("SaveUserInfo")).HtmlAttributes(new { @class = "bs-userInfo"})
+        @Html.BsBoxForm().Name("User info").ReadonlyUrl(Url.Action("GetUserInfo")).EditableUrl(Url.Action("GetUserInfoForm")).HtmlAttributes(new { @class = "bs-userInfo"})
 
-        @Html.BsBoxForm().Name("Contact info").ReadonlyUrl(Url.Action("GetUserContact")).EditableUrl(Url.Action("SaveUserContact"))
+        @Html.BsBoxForm().Name("Contact info").ReadonlyUrl(Url.Action("GetUserContact")).EditableUrl(Url.Action("GetUserContactForm"))
 
 
         @*<div class="panel panel-default bs-userInfo">

@@ -195,7 +195,24 @@ namespace BForms.Html
 
                 editableTag.InnerHtml += glyphTag.ToString();
 
+                if (!this._isLoaded)
+                {
+                    editableTag.MergeAttribute("style", "display:none");
+                }
+
+                var cancelEditableTag = new TagBuilder("a");
+                cancelEditableTag.MergeAttribute("href", "#");
+                cancelEditableTag.AddCssClass("pull-right bs-cancelEdit");
+                cancelEditableTag.MergeAttribute("style", "display:none");
+
+
+                var cancelGlyphTag = new TagBuilder("span");
+                cancelGlyphTag.AddCssClass("glyphicon glyphicon-remove");
+
+                cancelEditableTag.InnerHtml += cancelGlyphTag.ToString();
+
                 headerTitleTag.InnerHtml += editableTag.ToString();
+                headerTitleTag.InnerHtml += cancelEditableTag.ToString();
             }
 
             headerTag.InnerHtml += headerTitleTag.ToString();

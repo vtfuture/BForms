@@ -76,7 +76,7 @@
             prevXhr.aborted = true;
             prevXhr.finished = true;
             prevXhr.jqXHR.abort();
-            
+
             this._xhrStack[name] = prevXhr;
             this._toggleLoading(prevXhr, true);
         }
@@ -94,7 +94,7 @@
                     this.loadingTimeout = window.setTimeout(function () {
                         loadingClass == null ? $elem.show() : $elem.addClass(loadingClass);
                     }, data.settings.loadingDelay);
-                } else {                   
+                } else {
                     loadingClass == null ? $elem.hide() : $elem.removeClass(loadingClass);
                 }
             }
@@ -142,7 +142,7 @@
                     opts.error.apply(opts.context, args);
                 }
             }
-            
+
             if (status === this._statusEnum.ServerError) {
                 if (typeof opts.serverError === "function") {
                     opts.serverError.apply(opts.context, args);
@@ -152,7 +152,7 @@
                     opts.error.apply(opts.context, args);
                 }
             }
-            
+
             if (status === this._statusEnum.Denied) {
                 if (typeof opts.denied === "function") {
                     opts.denied.apply(opts.context, args);
@@ -228,11 +228,18 @@
                         deferredXHR.reject(response.Status, [response, jqXHR, textStatus, null, xhrSettings.callbackData]);
                     }
                 } catch (ex) {
-                    window.console.log(ex.stack);
+                   
+
+                    if (typeof ex.stack !== "undefined") {
+                        console.warn("Exception occurred in ajax request");
+                        console.log(ex.stack);
+                    } else {
+                        console.warn("Exception occurred in ajax request: " + ex);
+                    }
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                
+
                 var xhrReq = self._xhrStack[xhrSettings.name];
                 if (typeof xhrReq !== 'undefined' && xhrReq != null && xhrReq.aborted === true) return;
 

@@ -297,4 +297,7 @@
   <data name="Of" xml:space="preserve">
     <value>of</value>
   </data>
+  <data name="HireDate" xml:space="preserve">
+    <value>Hire date</value>
+  </data>
 </root>

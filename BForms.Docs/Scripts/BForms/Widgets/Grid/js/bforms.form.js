@@ -19,10 +19,10 @@
         groupToggleSelector: '.bs-selector',
         actions: []         //[{
                             //    name: 'refresh',
-                            //    btnSelector: '.bs-refreshBtn',
+                            //    selector: '.bs-refreshBtn',
                             //    url: '',
-        //    handler: '',
-        // setAdditionalData: null,
+                            //    handler: '',
+                            // setAdditionalData: null,
                             //    validate: true,
                             //    parse: true
                             //}]
@@ -59,7 +59,7 @@
 
     Form.prototype._initSelectors = function () {
 
-        this.$form = this.element.find('form');
+        this.$form = this.element.is('form') ? this.element : this.element.find('form');
 
     };
 
