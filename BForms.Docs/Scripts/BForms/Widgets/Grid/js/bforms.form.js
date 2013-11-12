@@ -16,7 +16,8 @@
         uniqueName: null,
         hasGroupToggle: true,
         style: {},
-        groupToggleSelector: '.bs-groupToggle',
+        groupToggleSelector: '.bs-group_toggle',
+        groupToggleContainerSelector: '.bs-group_toggle_container',
         actions: []         //[{
                             //    name: 'refresh',
                             //    selector: '.bs-refreshBtn',
@@ -187,7 +188,7 @@
 
         var $elem = $(e.currentTarget);
 
-        $elem.toggleClass('open').parent().next().slideToggle();
+        $elem.toggleClass('open').closest(this.options.groupToggleContainerSelector).next().slideToggle();
 
     };
 
