@@ -628,8 +628,7 @@ namespace BForms.Grid
             }
             else
             {
-                rowsBuilder.MergeAttribute("style","display:none");
-                result += rowsBuilder.ToString();
+                rowsBuilder.AddCssClass("no_results");
 
                 var rowBuilder = new TagBuilder("div");
                 rowBuilder.MergeAttribute("class", "row grid_row");
@@ -658,7 +657,9 @@ namespace BForms.Grid
                 divBuilder.InnerHtml += infoBuilder.ToString();
                 rowBuilder.InnerHtml += divBuilder.ToString();
 
-                result += rowBuilder.ToString();
+                rowsBuilder.InnerHtml += rowBuilder.ToString();
+
+                result += rowsBuilder.ToString();
             }
 
             return result;
