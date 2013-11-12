@@ -55,6 +55,8 @@ namespace BForms.Grid
 
         public int? Order { get; set; }
 
+        public BsOrderType OrderType = BsOrderType.Default;
+
         private List<BsColumnWidth> widthSizes = new List<BsColumnWidth>() 
         { 
             new BsColumnWidth
@@ -213,6 +215,16 @@ namespace BForms.Grid
                 var linkBuilder = new TagBuilder("a");
                 linkBuilder.MergeAttribute("href", "#");
                 linkBuilder.MergeAttribute("class", "bs-orderColumn");
+
+                if (this.OrderType == BsOrderType.Ascending)
+                {
+                    linkBuilder.AddCssClass("sort_asc");
+                }
+                else if (this.OrderType == BsOrderType.Descending)
+                {
+                    linkBuilder.AddCssClass("sort_desc");
+                }
+
                 linkBuilder.InnerHtml = this.DisplayName;
 
                 columnBuilder.InnerHtml += linkBuilder.ToString();

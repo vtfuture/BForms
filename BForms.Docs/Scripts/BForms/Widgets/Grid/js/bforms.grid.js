@@ -580,13 +580,7 @@
 
         if (data.pageSize) {
             this.refreshModel.PageSize = data.pageSize;
-            pageChanged = false;
-
-            if (data.pageSize != this._initialModel.PageSize) {
-                this._showResetGridButton();
-            } else {
-                this._hideResetGridButton();
-            }
+            pageChanged = false;        
         }
 
         this._getPage(pageChanged);
@@ -1077,21 +1071,10 @@
     };
 
     Grid.prototype._isInitialState = function () {
-        var orderLength = this.refreshModel.OrderableColumns.length,
-            orderIt = 0;
-
-        for (; orderIt < orderLength; orderIt++) {
-            if (this.refreshModel.OrderableColumns[orderIt].Type != 0)
-                return false;
-        }
 
         if (this.$filterIcon.is(':visible')) {
             return false;
-        }
-
-        if (this.refreshModel.PageSize != this._initialModel.PageSize) {
-            return false;
-        }
+        }       
 
         if (this.element.find(this.options.errorCloseSelector).length) {
             return false;

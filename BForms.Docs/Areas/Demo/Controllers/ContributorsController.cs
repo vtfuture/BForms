@@ -30,14 +30,22 @@ namespace BForms.Docs.Areas.Demo.Controllers
         #region Pages
         public ActionResult Index()
         {
-            var columnOrder = GetColumnOrder();
-
-            var gridModel = _gridRepository.ToBsGridViewModel(new BsGridRepositorySettings<ContributorSearchModel>
+            var savedSettings = GetGridSettings();
+            
+            var bsGridSettings = new BsGridRepositorySettings<ContributorSearchModel>
             {
                 Page = 1,
-                PageSize = 5,
-                OrderColumns = columnOrder
-            });
+                PageSize = 5
+            };
+
+            if (savedSettings != null)
+            {
+                bsGridSettings.OrderableColumns = savedSettings.OrderableColumns;
+                bsGridSettings.OrderColumns = savedSettings.OrderColumns;
+                bsGridSettings.PageSize = savedSettings.PageSize;
+            }
+
+            var gridModel = _gridRepository.ToBsGridViewModel(bsGridSettings);
 
             var model = new ContributorsViewModel
             {
@@ -48,7 +56,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
                     New = _gridRepository.GetNewForm()
                 }
             };
-            
+
             var options = new Dictionary<string, object>
             {
                 {"pagerUrl", Url.Action("Pager")},
@@ -72,7 +80,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
             var msg = string.Empty;
             var status = BsResponseStatus.Success;
             var html = string.Empty;
-            var count = 0;  
+            var count = 0;
 
             try
             {
@@ -82,7 +90,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
                     throw new Exception("This is how an exception message is displayed in grid header");
                 }
 
-                SaveColumnOrder(settings);
+                SaveGridSettings(settings);
 
                 var viewModel = _gridRepository.ToBsGridViewModel(settings, out count).Wrap<ContributorsViewModel>(x => x.Grid);
 
@@ -207,7 +215,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
                 RowsHtml = rowsHtml
             }, status, msg);
         }
-        
+
         public BsJsonResult Delete(List<BsGridRowData<int>> items)
         {
             var msg = string.Empty;
@@ -271,7 +279,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
 
         public ActionResult ExportExcel(BsGridRepositorySettings<ContributorSearchModel> settings, List<BsGridRowData<int>> items)
         {
-            var rows = _gridRepository.GetItems(settings, items.Select(x=>x.Id).ToList());
+            var rows = _gridRepository.GetItems(settings, items.Select(x => x.Id).ToList());
 
             try
             {
@@ -334,7 +342,14 @@ namespace BForms.Docs.Areas.Demo.Controllers
             var viewModel = _gridRepository.ToBsGridViewModel(rowsModel, row => row.Id, items, x => ids.Contains(x.Id))
                     .Wrap<ContributorsViewModel>(x => x.Grid);
 
-            viewModel.Grid.BaseSettings.OrderColumns = GetColumnOrder();
+            var savedSettings = GetGridSettings();
+
+            if (savedSettings != null)
+            {
+                viewModel.Grid.BaseSettings.OrderableColumns = savedSettings.OrderableColumns;
+                viewModel.Grid.BaseSettings.OrderColumns = savedSettings.OrderColumns;
+                viewModel.Grid.BaseSettings.PageSize = savedSettings.PageSize;
+            }
 
             return this.BsRenderPartialView("Grid/_Grid", viewModel);
         }
@@ -354,18 +369,33 @@ namespace BForms.Docs.Areas.Demo.Controllers
         }
 
         [NonAction]
-        public void SaveColumnOrder(BsGridRepositorySettings<ContributorSearchModel> settings)
+        public void SaveGridSettings(BsGridRepositorySettings<ContributorSearchModel> settings)
         {
             if (settings.OrderColumns != null)
             {
-                Session["ColumnOrder"] = settings.OrderColumns;
+                Session["GridSettings"] = new BsGridSavedSettings
+                {
+                    PageSize = settings.PageSize,
+                    OrderableColumns = settings.OrderableColumns,
+                    OrderColumns = settings.OrderColumns
+                };
             }
         }
 
         [NonAction]
-        public Dictionary<string, int> GetColumnOrder()
+        public BsGridSavedSettings GetGridSettings()
         {
-            return Session["ColumnOrder"] as Dictionary<string, int>;
+            return Session["GridSettings"] as BsGridSavedSettings;
+        }
+
+        [Serializable]
+        public class BsGridSavedSettings
+        {
+            public int PageSize { get; set; }
+
+            public List<BsColumnOrder> OrderableColumns { get; set; } // order grid by column
+
+            public Dictionary<string, int>  OrderColumns{ get; set; } // swap columns order
         }
         #endregion
     }

@@ -376,6 +376,16 @@ namespace BForms.Grid
                 for (var i = 0; i < this.columns.Count; i++)
                 {
                     var column = this.columns[i];
+
+                    if (this.model.BaseSettings.OrderableColumns != null)
+                    {
+                        var orderModel = this.model.BaseSettings.OrderableColumns.Find(x => x.Name == column.PrivateName);
+                        if (orderModel != null)
+                        {
+                            column.OrderType = orderModel.Type;
+                        }
+                    }
+
                     headerBuilder.InnerHtml += column.Render();
                 }
 

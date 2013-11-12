@@ -36,6 +36,7 @@ namespace BForms.Grid
             return new BsGridBaseRepositorySettings
             {
                 OrderColumns = this.OrderColumns,
+                OrderableColumns = this.OrderableColumns,
                 Page = this.Page,
                 PageSize = this.PageSize,
                 DetailsAll = DetailsAll,

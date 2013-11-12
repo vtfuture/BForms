@@ -363,6 +363,9 @@ namespace BForms.Grid
             //add column order
             result.BaseSettings.OrderColumns = settings.OrderColumns;
 
+            //add orderable columns
+            result.BaseSettings.OrderableColumns = settings.OrderableColumns;
+
             if (totalRecords > 0)
             {
                 var pager = new BsPagerModel(totalRecords, this.settings.PageSize, this.settings.Page);
