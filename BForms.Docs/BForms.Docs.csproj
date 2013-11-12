@@ -359,7 +359,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Demo\Views\Shared\" />
-    <Folder Include="Areas\Demo\Views\UserProfile\Editable\" />
     <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>
   <ItemGroup>
@@ -660,9 +659,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Demo\Views\Contributors\Grid\Details\_Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Demo\Views\Contributors\Grid\_Actions.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Docs\Grid\Index.cshtml" />
@@ -1165,10 +1161,22 @@
     <Content Include="Views\Start\Grid\Source\_BulkActionsHomeIndexJs.cs.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Scripts\BForms\Widgets\BoxForm\bforms.boxForm.js" />
+    <Content Include="Scripts\BForms\Widgets\Panel\bforms.panel.js" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Demo\Views\UserProfile\Readonly\_Basic.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Demo\Views\UserProfile\Readonly\_UserInfo.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Demo\Views\UserProfile\Editable\_UserInfo.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Demo\Views\UserProfile\Editable\_Contact.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Demo\Views\UserProfile\Readonly\_Contact.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

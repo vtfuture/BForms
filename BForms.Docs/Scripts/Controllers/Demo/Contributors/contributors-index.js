@@ -325,14 +325,14 @@
                         context._rowActionAjaxError(response, $row);
                     });
 
-                    $btn.bsInlineQuestion('hide');
+                    $btn.bsInlineQuestion('toggle');
                 }, this)
                 },
                 {
                     text: 'No',
                     cssClass: 'btn-default bs-cancel',
                     callback: function (e) {
-                        $btn.bsInlineQuestion('hide');
+                        $btn.bsInlineQuestion('toggle');
                     }
                 }]
         });      
