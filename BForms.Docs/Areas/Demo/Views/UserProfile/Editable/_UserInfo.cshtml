@@ -7,9 +7,10 @@
 
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <form class="form-horizontal" role="form" id="userinfoeditable">
+        @using (Html.BsBeginForm(null, null, null, FormMethod.Post, new { @class = "form-horizontal" , role = "form" , id = "userinfoeditable"  }, Html.GetTheme()))
+        {
             <div class="form-group">
-                @Html.BsLabelFor(m => m.Firstname, new { @class = "col-sm-2"})
+                @Html.BsLabelFor(m => m.Firstname, new { @class = "col-sm-2" })
                 <div class="col-sm-10">
                     <div class="input-group">
                         @Html.BsGlyphiconAddon(Glyphicon.User)
@@ -71,6 +72,6 @@
                     <button type="submit" class="btn btn-danger pull-right bs-cancelEdit">Cancel</button>
                 </div>
             </div>
-        </form>
+        }
     </div>
 </div>

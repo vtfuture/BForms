@@ -14,11 +14,11 @@
 
     <div class="panel-group" id="accordion">
 
-        @Html.BsPanel().Name("User").Id((int)PanelComponentsEnum.Basic).Expandable(false).Content(Html.Partial("Readonly/_Basic", Model.Basic).ToString())    
+        @Html.BsPanel().Name("User").Id((int)PanelComponentsEnum.Basic).Expandable(false).Content(Html.Partial("Readonly/_Basic", Model.Basic).ToString()) 
 
-        @Html.BsPanel().Name("User info").Id((int)PanelComponentsEnum.UserInfo).ReadonlyUrl(Url.Action("GetReadonlyContent")).EditableUrl(Url.Action("GetEditableContent")).HtmlAttributes(new { @class = "bs-userInfo" })
+        @Html.BsPanel().Name("User info").Id((int)PanelComponentsEnum.UserInfo).ReadonlyUrl(Url.Action("GetReadonlyContent")).EditableUrl(Url.Action("GetEditableContent")).SaveUrl(Url.Action("SetContent")).HtmlAttributes(new { @class = "bs-userInfo" })
 
-        @Html.BsPanel().Name("Contact info").Id((int)PanelComponentsEnum.Contact).ReadonlyUrl(Url.Action("GetReadonlyContent")).EditableUrl(Url.Action("GetEditableContent")).HtmlAttributes(new { @class = "bs-contact" })
+        @Html.BsPanel().Name("Contact info").Id((int)PanelComponentsEnum.Contact).ReadonlyUrl(Url.Action("GetReadonlyContent")).EditableUrl(Url.Action("GetEditableContent")).SaveUrl(Url.Action("SetContent")).HtmlAttributes(new { @class = "bs-contact" })
 
 
         @*<div class="panel panel-default bs-userInfo">

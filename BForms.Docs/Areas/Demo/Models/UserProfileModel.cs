@@ -11,6 +11,7 @@ using BForms.Docs.Resources;
 namespace BForms.Docs.Areas.Demo.Models
 {
     #region Readonly
+    [Serializable]
     public class UserProfileModel
     {
         public UserProfileBasicModel Basic { get; set; }
@@ -18,6 +19,7 @@ namespace BForms.Docs.Areas.Demo.Models
         public UserProfileContactModel Contact { get; set; }
     }
 
+    [Serializable]
     public class UserProfileBasicModel
     {
         public string Username { get; set; }
@@ -27,6 +29,7 @@ namespace BForms.Docs.Areas.Demo.Models
         public string Organization { get; set; }
     }
 
+    [Serializable]
     public class UserProfileContactModel
     {
         public string Mail { get; set; }

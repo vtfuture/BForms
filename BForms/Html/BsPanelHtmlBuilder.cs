@@ -18,6 +18,8 @@ namespace BForms.Html
 
         private string _readonlyUrl;
         private string _editableUrl;
+        private string _saveUrl;
+
         private string _content;
 
         private int _id;
@@ -94,6 +96,13 @@ namespace BForms.Html
             return this;
         }
 
+        public BsPanelHtmlBuilder SaveUrl(string url)
+        {
+            this._saveUrl = url;
+
+            return this;
+        }
+
         /// <summary>
         /// Sets the content of the box form
         /// It will also set the box as expanded and loaded
@@ -142,6 +151,11 @@ namespace BForms.Html
             if (!String.IsNullOrEmpty(this._readonlyUrl))
             {
                 container.MergeAttribute("data-readonlyurl", this._readonlyUrl);
+            }
+
+            if (!String.IsNullOrEmpty(this._saveUrl))
+            {
+                container.MergeAttribute("data-saveurl", this._saveUrl);
             }
 
             container.MergeAttribute("data-component",this._id.ToString());

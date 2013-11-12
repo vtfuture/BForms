@@ -133,11 +133,11 @@
         if (buttonOpt.parse) {
             data = this._parse();
             if (typeof buttonOpt.getExtraData === 'function') {
-                buttonOpt.setExtraData.call(this, data);
+                buttonOpt.getExtraData.call(this, data);
             }
         }
 
-        var action = $me.data('action');
+        var action = $me.data('action') || buttonOpt.actionUrl;
         if (action) {
             $.bforms.ajax({
                 name: this.options.uniqueName,
@@ -154,7 +154,15 @@
                 loadingElement: this.element,
                 loadingClass: 'loading',
                 validationError: function (response) {
+
                     if (response != null && response.Errors != null) {
+                        
+                        if (typeof validatedForm === "undefined") {
+                            
+                            $.validator.unobtrusive.parse(this.$form);
+                            validatedForm = this.$form.validate();
+                        }
+
                         validatedForm.showErrors(response.Errors);
                     }
                 }
