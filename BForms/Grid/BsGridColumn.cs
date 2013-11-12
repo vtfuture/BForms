@@ -41,7 +41,7 @@ namespace BForms.Grid
     {
         internal string PrivateName { get; set; }
 
-        internal Dictionary<string, object> HtmlAttr { get; set; }
+        internal Dictionary<string, object> htmlAttributes { get; set; }
         
         public PropertyInfo Property { get; set; }
 
@@ -114,7 +114,7 @@ namespace BForms.Grid
 
         public BsGridColumn<TRow> HtmlAttributes(Func<TRow, Dictionary<string, object>> configurator)
         {
-            this.HtmlAttr = configurator(new TRow());
+            this.htmlAttributes = configurator(new TRow());
 
             return this;
         }
@@ -227,6 +227,10 @@ namespace BForms.Grid
                 columnBuilder.InnerHtml += this.EditableContent;
             }
 
+            if (this.htmlAttributes != null)
+            {
+                columnBuilder.MergeAttributes(this.htmlAttributes);
+            }
             columnBuilder.AddCssClass(this.GetWidthClasses());
             columnBuilder.MergeAttribute("data-name", this.PrivateName);
 

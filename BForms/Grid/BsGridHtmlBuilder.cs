@@ -554,9 +554,9 @@ namespace BForms.Grid
 
                         var cellBuilder = new TagBuilder("div");
 
-                        if (column.HtmlAttr != null)
+                        if (column.htmlAttributes != null)
                         {
-                            cellBuilder.MergeAttributes(column.HtmlAttr);
+                            cellBuilder.MergeAttributes(column.htmlAttributes);
                         }
 
                         cellBuilder.AddCssClass(column.GetWidthClasses());
