@@ -18,6 +18,9 @@
         style: {},
         groupToggleSelector: '.bs-group_toggle',
         groupToggleContainerSelector: '.bs-group_toggle_container',
+        groupToggleUp: 'glyphicon-chevron-up',
+        groupToggleDown: 'glyphicon-chevron-down',
+        glyphClass: '.glyphicon',
         actions: []         //[{
                             //    name: 'refresh',
                             //    selector: '.bs-refreshBtn',
@@ -185,11 +188,9 @@
     };
 
     Form.prototype._evToggleGroup = function (e) {
-
         var $elem = $(e.currentTarget);
-
-        $elem.toggleClass('open').closest(this.options.groupToggleContainerSelector).next().slideToggle();
-
+        $elem.find(this.options.glyphClass).toggleClass(this.options.groupToggleUp).toggleClass(this.options.groupToggleDown);
+        $elem.toggleClass('open').closest(this.options.groupToggleContainerSelector).next().stop().slideToggle();
     };
 
     Form.prototype.getFormData = function (data) {
