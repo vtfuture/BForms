@@ -952,6 +952,7 @@
         if (this._currentResultsCount) {
             this.$rowsContainer.html($html.html());
             this.$rowsContainer.removeClass('no_results');
+            this.element.find('.bs-pager').show();
         } else {
             this.$rowsContainer.html($wrapper.find(this.options.noResultsRowSelector));
             this.$rowsContainer.addClass('no_results');

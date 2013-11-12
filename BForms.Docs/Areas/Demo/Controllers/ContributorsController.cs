@@ -49,7 +49,12 @@ namespace BForms.Docs.Areas.Demo.Controllers
 
             var model = new ContributorsViewModel
             {
-                Grid = gridModel,
+                Grid = new BsGridModel<ContributorRowModel>
+                {
+
+                    Items = new List<ContributorRowModel>(),
+                    Pager = new BsPagerModel(0, 5, 1)
+                },
                 Toolbar = new BsToolbarModel<ContributorSearchModel, ContributorNewModel>
                 {
                     Search = _gridRepository.GetSearchForm(),

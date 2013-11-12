@@ -400,9 +400,14 @@ namespace BForms.Grid
             gridBuilder.InnerHtml += wrapper.ToString();
 
             #region pager builder
-            if (this.renderPager && this.model.Pager != null && this.model.Pager.TotalRecords > 0)
+            if (this.renderPager)
             {
                 var pagerWrapper = new TagBuilder("div");
+
+                if (this.model.Pager == null || this.model.Pager.TotalRecords == 0)
+                {
+                    pagerWrapper.MergeAttribute("style", "display: none;");
+                }
                 pagerWrapper.AddCssClass("row bs-pager");
                 pagerWrapper.AddCssClass(theme.GetDescription());
 
