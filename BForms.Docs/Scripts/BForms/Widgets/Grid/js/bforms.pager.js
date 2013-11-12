@@ -90,7 +90,7 @@
 
         var $pageSizeContainer = this.element.find(this.options.pageSizeContainerSelector)
 
-        this.element.find(this.options.pagesContainerSelector).html($pagesHtml.children());
+        this.element.html($pagesHtml);
 
         $pagesHtml.length == 0 ? $pageSizeContainer.hide() : $pageSizeContainer.show();
 
