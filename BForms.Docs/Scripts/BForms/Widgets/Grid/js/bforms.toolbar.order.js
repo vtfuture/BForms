@@ -25,7 +25,7 @@
         var controls = [];
 
         for (var k in this._controls) {
-            if (k in this._controls) {
+            if (this._controls.hasOwnProperty(k)) {
                 controls.push(this._controls[k]);
             }
         }

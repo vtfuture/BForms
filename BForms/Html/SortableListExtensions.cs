@@ -307,16 +307,5 @@ namespace BForms.Html
 
     }
 
-    #region Helper classes
-
-    public class HtmlItemAttributes
-    {
-        public string Text { get; set; }
-        public IDictionary<string, object> HtmlAttributes { get; set; }
-        public IDictionary<string, object> DataAttributes { get; set; }
-    }
-
-    #endregion
-
 
 }
