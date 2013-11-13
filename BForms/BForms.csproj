@@ -104,8 +104,6 @@
     <Compile Include="Panels\BsPanelExtensions.cs" />
     <Compile Include="Panels\BsPanelHtmlBuilder.cs" />
     <Compile Include="GroupEditor\BsEditorToolbarHtmlBuilder.cs" />
-    <Compile Include="Html\BsPanelExtensions.cs" />
-    <Compile Include="Html\BsPanelHtmlBuilder.cs" />
     <Compile Include="Html\GroupEditorExtensions.cs" />
     <Compile Include="Models\BsGroupEditor.cs" />
     <Compile Include="Mvc\BsGroupEditorAttribute.cs" />
