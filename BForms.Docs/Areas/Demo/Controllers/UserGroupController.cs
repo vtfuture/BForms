@@ -15,13 +15,30 @@ using BForms.Docs.Controllers;
 
 namespace BForms.Docs.Areas.Demo.Controllers
 {
+    public class UserGroupViewModel
+    {
+        [BsGroupEditor(Name = "Contributors1", Id = YesNoValueTypes.Yes)]
+        public BsGridModel<Contributor> Contributors { get; set; }
+
+        [BsGroupEditor(Name = "Contributors2", Id = YesNoValueTypes.No)]
+        public BsGridModel<Contributor> Contributors2 { get; set; }
+    }
+
     public class UserGroupController : BaseController
     {
         //
         // GET: /Demo/UserGroup/
         public ActionResult Index()
         {
-            return View();
+            var model = new UserGroupViewModel()
+            {
+                Contributors = new BsGridModel<Contributor>
+                {
+                    Items = new List<Contributor>(),
+                    Pager = new BsPagerModel(10)
+                }
+            };
+            return View(model);
         }
-	}
+    }
 }
