@@ -980,8 +980,6 @@
 
         if (this.options.fixedPicker === true && this.$picker.css('position') == 'fixed') return;
 
-        this.options.yOrient = 'below';
-
         var xOrient = this.options.xOrient,
             yOrient = this.options.yOrient,
             pickerHeight = this.$picker.outerHeight(true),
