@@ -98,8 +98,9 @@
     <Compile Include="GroupEditor\BsEditorHtmlBuilder.cs" />
     <Compile Include="GroupEditor\BsEditorTabBuilder.cs" />
     <Compile Include="GroupEditor\BsEditorTabConfigurator.cs" />
-    <Compile Include="Html\BsPanelExtensions.cs" />
-    <Compile Include="Html\BsPanelHtmlBuilder.cs" />
+    <Compile Include="Mvc\BsPanelAttribute.cs" />
+    <Compile Include="Panels\BsPanelExtensions.cs" />
+    <Compile Include="Panels\BsPanelHtmlBuilder.cs" />
     <Compile Include="Html\GroupEditorExtensions.cs" />
     <Compile Include="Mvc\BsGroupEditorAttribute.cs" />
     <Compile Include="Html\SortableListExtensions.cs" />

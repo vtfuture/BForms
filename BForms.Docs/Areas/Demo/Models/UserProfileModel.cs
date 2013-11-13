@@ -14,8 +14,13 @@ namespace BForms.Docs.Areas.Demo.Models
     [Serializable]
     public class UserProfileModel
     {
+        [BsPanel(Id = PanelComponentsEnum.Basic)]
         public UserProfileBasicModel Basic { get; set; }
+
+        [BsPanel(Id = PanelComponentsEnum.UserInfo)]
         public UserProfileInfoModel UserInfo { get; set; }
+
+        [BsPanel(Id = PanelComponentsEnum.Contact)]
         public UserProfileContactModel Contact { get; set; }
     }
 

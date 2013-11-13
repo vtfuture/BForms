@@ -13,6 +13,14 @@
 
 
     <div class="panel-group" id="accordion">
+        
+        @*@Html.BsPanels(Model).ConfigurePanels(cfg =>
+        {
+            cfg.ReadonlyUrl = "";
+            cfg.UpdateUrl = "";
+
+            cfg.For(q => q.Info).Content().ReadonlyUrl().UpdateUrl();
+        });*@
 
         @Html.BsPanel().Name("User").Id((int)PanelComponentsEnum.Basic).Expandable(false).Content(Html.Partial("Readonly/_Basic", Model.Basic).ToString()) 
 
