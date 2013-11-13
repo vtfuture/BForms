@@ -978,6 +978,8 @@
     bDatepicker.prototype._positionPicker = function () {
         if (this.isInline) return;
 
+        if (this.options.fixedPicker === true && this.$picker.css('position') == 'fixed') return;
+
         this.options.yOrient = 'below';
 
         var xOrient = this.options.xOrient,
@@ -1032,6 +1034,10 @@
             newLeft = elemOffset.left + this.$element.outerWidth() - this.$picker.outerWidth();
         }
         
+        if (this.options.fixedPicker === true) {
+            this.$picker.css('position','fixed');
+        }
+
         if (typeof this._savedPosition === "undefined") {
 
             this._initialPosition = {
@@ -1061,36 +1067,6 @@
             }
 
             return;
-
-            //if (newTop !== -1) {
-                
-            //    if (typeof savedTop !== "undefined") {
-
-            //        var currentTop = this.$picker.position().top;
-
-            //        var newTopOffset = this._initialPosition.top > newTop ? this._initialPosition.top - newTop : newTop - this._initialPosition.top;
-
-            //        this.$picker.css('top', currentTop + newTopOffset);
-
-            //    } else {
-            //        this.$picker.css('top', newTop);
-            //    }
-            //}
-            
-            //if (newLeft !== -1) {
-            //    if (typeof savedLeft !== "undefined") {
-
-            //        var currentLeft = this.$picker.position().left;
-
-            //        var newLeftOffset = this._initialPosition.left > newLeft ? this._initialPosition.newLeft - newTop : newLeft - this._initialPosition.left;
-
-            //        this.$picker.css('left', currentLeft + newLeftOffset);
-
-            //    } else {
-            //        this.$picker.css('left', newLeft);
-            //    }
-            //}
-
         }
 
     };
