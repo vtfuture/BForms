@@ -2,11 +2,12 @@
     'bforms-toolbar-advancedSearch',
     'bforms-toolbar-add',
     'bforms-toolbar-quickSearch',
+    'bforms-toolbar-order',
     'jquery',
     'jquery-ui-core',
     'amplify',
     'bforms-form'
-], function (AdvancedSearch, Add, QuickSearch) {
+], function (AdvancedSearch, Add, QuickSearch, Order) {
 
     jQuery.nsx('bforms.toolbar.defaults');
     jQuery.nsx('bforms.toolbar.controls');
@@ -37,6 +38,7 @@
         $.bforms.toolbar.defaults.AdvancedSearch = AdvancedSearch;
         $.bforms.toolbar.defaults.Add = Add;
         $.bforms.toolbar.defaults.QuickSearch = QuickSearch;
+        $.bforms.toolbar.defaults.Order = Order;
 
     };
 
@@ -194,7 +196,7 @@
 
     Toolbar.prototype._addTab = function (tab) {
 
-        tab.$container = $('#' + tab.$element.data('tabid'))
+        tab.$container = $('#' + tab.$element.data('tabid'));
 
         tab.$element.on('click', { tab: tab }, $.proxy(this._evBtnTabClick, this));
 

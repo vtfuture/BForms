@@ -310,6 +310,21 @@ namespace BForms.Docs.Areas.Demo.Repositories
             return FillDetailsProperties(MapContributor_ContributorDetailsModel(entity));
         }
 
+        public void Reorder(List<ContributorOrderModel> model)
+        {
+            foreach (var item in model)
+            {
+                var entity = db.Contributors.FirstOrDefault(x => x.Id == item.Id);
+
+                if (entity != null)
+                {
+                    entity.Order = item.Order;
+                }
+            }
+
+            db.SaveChanges();
+        }
+
         public void EnableDisable(int objId, bool? enable)
         {
             var entity = db.Contributors.FirstOrDefault(x => x.Id == objId);
@@ -356,6 +371,80 @@ namespace BForms.Docs.Areas.Demo.Repositories
                 CountriesList = Lists.AllCounties<string>(false),
                 LanguagesList = Lists.AllLanguages<List<string>>()
             };
+        }
+
+        public List<ContributorOrderModel> GetOrderForm(bool searchInDepth = false, int depthLevel = 0)
+        {
+            if (!searchInDepth)
+            {
+                return db.Contributors.Where(x => x.Id_Coordinator == null).Select(x => new ContributorOrderModel
+                {
+                    Id = x.Id,
+                    Order = x.Order,
+                    Name = x.FirstName + " " + x.LastName,
+                    Role = x.Role,
+                    Depth = depthLevel,
+                    Subordinates =
+                        db.Contributors.Where(y => y.Id_Coordinator == x.Id).Select(y => new ContributorOrderModel
+                        {
+                            Id = y.Id,
+                            Order = y.Order,
+                            Name = y.FirstName + " " + y.LastName,
+                            Role = y.Role,
+                            Depth = depthLevel + 1,
+                            Subordinates = null
+
+                        }).OrderBy(y => y.Order).ToList()
+
+                }).OrderBy(x => x.Order).ToList();
+            }
+
+            return db.Contributors.Where(x => x.Id_Coordinator == null).Select(x => new ContributorOrderModel
+            {
+                Id = x.Id,
+                Order = x.Order,
+                Name = x.FirstName + " " + x.LastName,
+                Role = x.Role,
+                Depth = depthLevel,
+                Subordinates = GetSubordinatesFor(x.Id, depthLevel + 1)
+            }).OrderBy(x => x.Order).ToList();
+
+
+        }
+        
+
+        public List<ContributorOrderModel> GetSubordinatesFor(int coordinatorId, int depthLevel = 0)
+        {
+            var subordinates = new List<ContributorOrderModel>();
+
+            var children = db.Contributors.Where(y => y.Id_Coordinator == coordinatorId)
+                .Select(y => new ContributorOrderModel
+                {
+                    Id = y.Id,
+                    Order = y.Order,
+                    Name = y.FirstName + " " + y.LastName,
+                    Role = y.Role,
+                    Depth = depthLevel
+
+                }).OrderBy(y => y.Order);
+
+            if (children != null && children.Any())
+            {
+                foreach (var child in children)
+                {
+                    subordinates.Add(new ContributorOrderModel
+                    {
+                        Id = child.Id,
+                        Name = child.Name,
+                        Order = child.Order,
+                        Role = child.Role,
+                        Depth = depthLevel,
+                        Subordinates = GetSubordinatesFor(child.Id, depthLevel + 1)
+                    });
+                }
+            }
+
+            return subordinates.Any() ? subordinates : null;
         }
 
         public ContributorDetailsModel FillDetailsProperties(ContributorDetailsModel model)

@@ -29,7 +29,6 @@
     Add.prototype.init = function () {
 
         var $elem = this.$container.find(this._defaultOptions.selector);
-
         var controls = [];
         for (var k in this._controls) {
             if (k in this._controls) {

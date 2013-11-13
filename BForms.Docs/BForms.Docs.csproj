@@ -187,6 +187,7 @@
     <Content Include="Content\Images\Docs\eg-simple-grid.png" />
     <Content Include="Content\Images\Docs\eg-view-model.png" />
     <Content Include="Scripts\BForms\Images\bg-user.png" />
+    <Content Include="Scripts\BForms\Widgets\Grid\js\bforms.toolbar.order.js" />
     <Content Include="Scripts\BForms\Widgets\InlineQuestion\bforms.inlineQuestion.js" />
     <Content Include="Scripts\Controllers\Demo\UserProfile\userprofile-index.js" />
     <Content Include="Views\Start\Setup\Source\_BundleConfigJs.cs.embed" />
@@ -1148,6 +1149,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\BForms\Widgets\BoxForm\bforms.boxForm.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Demo\Views\Contributors\Toolbar\_Order.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

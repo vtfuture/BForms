@@ -95,6 +95,7 @@
     <Compile Include="Grid\BsGridHtmlBuilder.cs" />
     <Compile Include="Grid\BsGridRepositorySettings.cs" />
     <Compile Include="Grid\BsGridExcelColumnFactory.cs" />
+    <Compile Include="Html\SortableListExtensions.cs" />
     <Compile Include="Utilities\BsResourceManager.cs" />
     <Compile Include="Grid\BsGridRowConfigurator.cs" />
     <Compile Include="Html\FormExtensions.cs" />
@@ -169,5 +170,4 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  
 </Project>

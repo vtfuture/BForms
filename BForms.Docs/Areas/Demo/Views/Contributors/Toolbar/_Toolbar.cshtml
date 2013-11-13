@@ -14,6 +14,10 @@
             .Text(Resource.Add)
             .Tab(x => Html.BsPartialPrefixed(y => y.New, "Toolbar/_New", x));
 
+        ca.Add(BsToolbarActionType.Order)
+            .Text(Resource.Order)
+            .Tab(x => Html.BsPartialPrefixed(y => y.Order, "Toolbar/_Order", x));
+        
         ca.Add<BsToolbarQuickSearch>()
           .Placeholder(Resource.Search);
         

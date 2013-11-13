@@ -297,4 +297,10 @@
   <data name="Of" xml:space="preserve">
     <value>of</value>
   </data>
+  <data name="Order" xml:space="preserve">
+    <value>Order</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
 </root>
