@@ -1214,10 +1214,6 @@
     //#region public methods
     bDatepicker.prototype.show = function (position) {
 
-        if (typeof position !== "undefined") {
-            this.updatePosition(position);
-        }
-
         if (this._visible !== true) {
 
             var showData = {
@@ -1229,6 +1225,10 @@
             if (showData.preventShow == false) {
 
                 this._positionPicker();
+
+                if (typeof position !== "undefined") {
+                    this.updatePosition(position);
+                }
 
                 this.$picker.show();
                 this._visible = true;
