@@ -3,163 +3,150 @@ using BForms.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using BForms.Utilities;
 
 namespace BForms.GroupEditor
 {
-    public class BsEditorTabConfigurator : BaseComponent
+    public class BsEditorTabConfigurator<TModel> : BaseComponent
     {
-        #region TabProperties
-        private class TabProperties
-        {
-            internal bool Selected {get; set;}
-            internal string Name {get; set;}
-            internal string Id { get; set; }
-        }
-        #endregion
-
         #region Properties and Constructor
-        private List<TabProperties> TabsProperties { get; set; }
-        internal Dictionary<string, BaseComponent> Tabs { get; set; }
+        internal Dictionary<object, BsEditorTabBuilder> Tabs { get; set; }
+        private BsEditorNavBuilder navBuilder { get; set; }
 
-        public BsEditorTabConfigurator()
+        public BsEditorTabConfigurator(ViewContext viewContext)
         {
-            Tabs = new Dictionary<string, BaseComponent>();
-            TabsProperties = new List<TabProperties>();
+            this.Tabs = new Dictionary<object, BsEditorTabBuilder>();
+            this.navBuilder = new BsEditorNavBuilder();
+            this.viewContext = viewContext;
         }
         #endregion
 
         #region Config
-        public BsEditorTabConfigurator AddTab(string name, string id)
+        public BsEditorTabBuilder<TRow, TSearch, TNew> For<TRow, TSearch, TNew>(Expression<Func<TModel, BsGroupEditor<TRow, TSearch, TNew>>> expression) where TRow : new()
         {
-            var tabProp = new TabProperties()
-            {
-                Name = name,
-                Id = id
-            };
+            var builder = this.GetTab(expression);
 
-            this.TabsProperties.Add(tabProp);
-
-            return this;
+            return builder as BsEditorTabBuilder<TRow, TSearch, TNew>;
         }
 
-        public BsEditorTabBuilder<TRow> Add<TRow>(BsGroupEditorAttribute attr, BsGridModel<TRow> model) where TRow : new()
+        public BsEditorTabBuilder<TRow, TSearch> For<TRow, TSearch>(Expression<Func<TModel, BsGroupEditor<TRow, TSearch>>> expression) where TRow : new()
         {
-            var uid = attr.Id.ToString();
-            var tab = new BsEditorTabBuilder<TRow>(attr.Name, uid);
+            var builder = this.GetTab(expression);
 
-            SetSelectedTab(attr.Name);
+            return builder as BsEditorTabBuilder<TRow, TSearch>;
+        }
 
-            this.Tabs.Add(uid, tab);
+        public BsEditorTabBuilder<TRow> For<TRow>(Expression<Func<TModel, BsGroupEditor<TRow>>> expression) where TRow : new()
+        {
+            var builder = this.GetTab(expression);
 
-            return tab;
+            return builder as BsEditorTabBuilder<TRow>;
+        }
+
+        private BsEditorTabBuilder GetTab<TValue>(Expression<Func<TModel, TValue>> expression)
+        {
+            var prop = expression.GetPropertyInfo<TModel, TValue>();
+
+            BsGroupEditorAttribute attr = null;
+
+            if (ReflectionHelpers.TryGetAttribute(prop, out attr))
+            {
+                var id = attr.Id;
+
+                return this.Tabs[id];
+            }
+
+            throw new Exception("Property " + prop.Name + " has no BsGroupEditorAttribute");
         }
         #endregion
 
         #region Render
         public override string Render()
         {
-            return RenderNavigation();
-        }
+            var result = navBuilder.Render();
 
-        private string RenderNavigation()
-        {
-            var nav = new TagBuilder("nav");
-
-            nav.AddCssClass("navbar navbar-default");
-            nav.MergeAttribute("role", "navigation");
-
-            var navHeader = new TagBuilder("div");
-
-            navHeader.AddCssClass("navbar-header");
-
-            var navToggle = new TagBuilder("button");
-            navToggle.AddCssClass("navbar-toggle");
-            navToggle.MergeAttributes(new Dictionary<string, object>
+            foreach (var tab in this.Tabs)
             {
-                { "type", "button" }, 
-                { "data-toggle", "collapse" },
-                { "data-target", ".navbar-ex1-collapse" },
-            });
-
-            var span = new TagBuilder("span");
-            span.AddCssClass("sr-only");
-
-            navToggle.InnerHtml += span;
-
-            span = new TagBuilder("span");
-            span.AddCssClass("icon-bar");
-
-            navToggle.InnerHtml += span;
-
-            navToggle.InnerHtml += span;
-
-            navToggle.InnerHtml += span;
-
-            navHeader.InnerHtml += navToggle;
-
-            var navbar = new TagBuilder("div");
-            navbar.AddCssClass("collapse navbar-collapse navbar-ex1-collapse");
-
-            var list = new TagBuilder("ul");
-
-            list.AddCssClass("nav navbar-nav");
-
-            foreach (var tab in this.TabsProperties)
-            {
-                if (!string.IsNullOrEmpty(tab.Name))
-                {
-                    var item = new TagBuilder("li");
-
-                    if (tab.Selected)
-                    {
-                        item.AddCssClass("active");
-                    }
-
-                    var anchor = new TagBuilder("a");
-
-                    anchor.MergeAttribute("href", "#");
-                    anchor.MergeAttribute("data-toggle", "tab");
-
-                    if (!string.IsNullOrEmpty(tab.Id))
-                    {
-                        anchor.MergeAttribute("data-id", tab.Id);
-                    }
-                    else
-                    {
-                        throw new Exception("Tab property Id is not set for tab " + tab.Name);
-                    }
-
-                    anchor.InnerHtml += tab.Name;
-
-                    item.InnerHtml += anchor;
-
-                    list.InnerHtml += item;
-                }
-                else
-                {
-                    throw new Exception("Tab property Name is not set in BsGroupEditorAttribute");
-                }
+                result += tab.Value.Render();
             }
 
-            navbar.InnerHtml += list;
-
-            return navbar.ToString(); 
+            return result;
         }
         #endregion
 
         #region Helpers
-        private void SetSelectedTab(string name)
+        private void InsertTab<TRow>(object id, BsEditorTabBuilder<TRow> tabBuilder) where TRow : new ()
         {
-            this.TabsProperties.ForEach(x =>
+            if (tabBuilder.IsSelected())
             {
-                if (x.Name == name)
+                foreach (var tab in this.Tabs)
                 {
-                    x.Selected = true;
+                    if (tab.Key == id)
+                    {
+                        throw new Exception("Duplicate tab id " + id.ToString());
+                    }
+
+                    if (tab.Value.IsSelected())
+                    {
+                        tab.Value.SetSelected(false);
+                    }
                 }
-            });
+            }
+            this.Tabs.Add(id, tabBuilder);
+        }
+
+        internal void AddTab(BsGroupEditorAttribute attr)
+        {
+            navBuilder.AddTab(attr);
+        }
+
+        private void Add<TRow>(BsGroupEditorAttribute attr, BsGroupEditor<TRow> model) where TRow : new()
+        {
+            var tab = new BsEditorTabBuilder<TRow>(model.Grid, model.InlineSearch, this.viewContext)
+                       .DisplayName(attr.Name)
+                       .Id(attr.Id)
+                       .Selected(attr.Selected);
+
+            if (attr.Selected)
+            {
+                navBuilder.Selected(attr.Id);
+            }
+
+            InsertTab(attr.Id, tab);
+        }
+
+        private void AddWithSearch<TRow, TSearch>(BsGroupEditorAttribute attr, BsGroupEditor<TRow, TSearch> model) where TRow : new()
+        {
+            var tab = new BsEditorTabBuilder<TRow, TSearch>(model, this.viewContext)
+                        .DisplayName(attr.Name)
+                        .Id(attr.Id)
+                        .Selected(attr.Selected);
+
+            if (attr.Selected)
+            {
+                navBuilder.Selected(attr.Id);
+            }
+
+            InsertTab(attr.Id, tab);
+        }
+
+        private void AddWithNew<TRow, TSearch, TNew>(BsGroupEditorAttribute attr, BsGroupEditor<TRow, TSearch, TNew> model) where TRow : new()
+        {
+            var tab = new BsEditorTabBuilder<TRow, TSearch, TNew>(model, this.viewContext)
+                        .DisplayName(attr.Name)
+                        .Id(attr.Id)
+                        .Selected(attr.Selected);
+
+            if (attr.Selected)
+            {
+                navBuilder.Selected(attr.Id);
+            }
+
+            InsertTab(attr.Id, tab);
         }
         #endregion
     }

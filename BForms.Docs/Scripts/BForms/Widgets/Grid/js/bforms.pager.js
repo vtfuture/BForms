@@ -90,10 +90,19 @@
 
         var $pageSizeContainer = this.element.find(this.options.pageSizeContainerSelector)
 
-        this.element.html($pagesHtml);
+        var $pagesContainer = this.element.find(this.options.pagesContainerSelector);
+
+        if ($pagesContainer.length > 0) {
+
+            $pagesContainer.html($pagesHtml.children());
+
+        } else {
+
+            this.element.html($pagesHtml);
+
+        }
 
         $pagesHtml.length == 0 ? $pageSizeContainer.hide() : $pageSizeContainer.show();
-
     };
 
     Pager.prototype.updateTotal = function (total) {

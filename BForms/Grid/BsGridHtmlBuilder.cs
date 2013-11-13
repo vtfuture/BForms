@@ -41,6 +41,7 @@ namespace BForms.Grid
             set { fullName = value; }
         }
 
+        private BsGridPagerBuilder pagerBuilder;
         private IDictionary<string, object> htmlAttributes;
         private bool renderTitle = true;
         private string resetButtonHtml;
@@ -402,97 +403,9 @@ namespace BForms.Grid
             #region pager builder
             if (this.renderPager)
             {
-                var pagerWrapper = new TagBuilder("div");
+                var pagerWrapper = pagerBuilder.Render();
 
-                if (this.model.Pager == null || this.model.Pager.TotalRecords == 0)
-                {
-                    pagerWrapper.MergeAttribute("style", "display: none;");
-                }
-                pagerWrapper.AddCssClass("row bs-pager");
-                pagerWrapper.AddCssClass(theme.GetDescription());
-
-                pagerWrapper.InnerHtml += this.RenderPages();
-
-                if (this.pagerSettings.HasPageSizeSelector)
-                {
-                    int pageSize = this.model.Pager != null ? this.model.Pager.PageSize : this.model.BaseSettings.PageSize;
-                    if (!this.pagerSettings.PageSizeValues.Contains(pageSize))
-                        throw new ArgumentOutOfRangeException("The page size you selected is not in the list");
-
-                    var selectWrapperBuilder = new TagBuilder("div");
-                    selectWrapperBuilder.AddCssClass("col-md-6 col-lg-6 results_per_page");
-
-                    TagBuilder divBuilder = new TagBuilder("div");
-                    divBuilder.AddCssClass("pull-right");
-
-                    #region right side
-                    var dropdownContainerBuilder = new TagBuilder("div");
-                    dropdownContainerBuilder.AddCssClass("dropdown dropup");
-
-                    var resPerPageTagBuilder = new TagBuilder("span");
-                    resPerPageTagBuilder.SetInnerText(BsResourceManager.Resource("ResultsPerPage").ToLower());
-                    resPerPageTagBuilder.AddCssClass("results_per_page_container");
-
-                    dropdownContainerBuilder.InnerHtml += resPerPageTagBuilder.ToString();
-
-                    var dropdownTriggerBuilder = new TagBuilder("a");
-                    dropdownTriggerBuilder.MergeAttribute("data-toggle", "dropdown");
-                    dropdownTriggerBuilder.MergeAttribute("href", "#");
-
-
-
-                    var dropdownListBuilder = new TagBuilder("ul");
-                    dropdownListBuilder.MergeAttribute("class", "dropdown-menu");
-                    dropdownListBuilder.MergeAttribute("role", "menu");
-
-                    foreach (var item in this.pagerSettings.PageSizeValues)
-                    {
-                        var dropdownLiBuilder = new TagBuilder("li");
-                        var dropdownLiAnchorBuilder = new TagBuilder("a");
-
-                        if (pageSize == item)
-                        {
-                            var dropdownCountBuilder = new TagBuilder("span");
-                            dropdownCountBuilder.AddCssClass("btn btn-default bs-perPageDisplay");
-                            var caret = new TagBuilder("span");
-                            caret.AddCssClass("caret");
-                            dropdownCountBuilder.InnerHtml += item.ToString() + caret.ToString();
-                            dropdownTriggerBuilder.InnerHtml += dropdownCountBuilder.ToString();
-
-                            dropdownLiAnchorBuilder.AddCssClass("selected");
-                        }
-
-                        dropdownLiAnchorBuilder.InnerHtml += item;
-                        dropdownLiAnchorBuilder.MergeAttribute("data-value", item.ToString());
-                        dropdownLiAnchorBuilder.AddCssClass("bs-perPage");
-                        dropdownLiAnchorBuilder.Attributes.Add("href", "#");
-
-                        dropdownLiBuilder.InnerHtml += dropdownLiAnchorBuilder.ToString();
-                        dropdownListBuilder.InnerHtml += dropdownLiBuilder.ToString();
-                    }
-
-                    dropdownContainerBuilder.InnerHtml += dropdownTriggerBuilder.ToString();
-                    dropdownContainerBuilder.InnerHtml += dropdownListBuilder.ToString();
-
-                    divBuilder.InnerHtml += dropdownContainerBuilder.ToString();
-
-                    var goTopBuilder = new TagBuilder("button");
-                    goTopBuilder.AddCssClass("btn btn-default btn-go_up bs-goTop");
-                    goTopBuilder.MergeAttribute("title", "Go top");
-                    var goTopSpanBuilder = new TagBuilder("span");
-                    goTopSpanBuilder.AddCssClass("glyphicon glyphicon-arrow-up");
-
-                    goTopBuilder.InnerHtml += goTopSpanBuilder.ToString();
-
-                    divBuilder.InnerHtml += goTopBuilder.ToString();
-                    #endregion
-
-                    selectWrapperBuilder.InnerHtml += divBuilder.ToString();
-
-                    pagerWrapper.InnerHtml += selectWrapperBuilder.ToString();
-                }
-
-                gridBuilder.InnerHtml += pagerWrapper.ToString();
+                gridBuilder.InnerHtml += pagerWrapper;
             }
 
             #endregion
@@ -671,160 +584,7 @@ namespace BForms.Grid
 
         private string RenderPages()
         {
-            if (this.model.Pager != null)
-            {
-                var pagesBuilder = new TagBuilder("div");
-                pagesBuilder.AddCssClass("col-md-6 col-lg-6 bs-pages");
-
-                #region pagination
-
-                var paginationBuilder = new TagBuilder("ul");
-                paginationBuilder.AddCssClass("pagination pagination-md");
-
-                #region first page button
-
-                if (pagerSettings.ShowFirstLastButtons)
-                {
-                    var firstPageBuilder = new TagBuilder("li");
-                    if (this.model.Pager.CurrentPage == 1)
-                    {
-                        firstPageBuilder.MergeAttribute("class", "disabled");
-                    }
-                    var anchorBuilder = new TagBuilder("a");
-                    anchorBuilder.MergeAttribute("href", "#");
-                    anchorBuilder.MergeAttribute("data-page", "1");
-                    anchorBuilder.InnerHtml += "&laquo;";
-
-                    firstPageBuilder.InnerHtml += anchorBuilder.ToString();
-
-                    paginationBuilder.InnerHtml += firstPageBuilder.ToString();
-                }
-
-                #endregion
-
-                #region prev page button
-
-                if (pagerSettings.ShowPrevNextButtons)
-                {
-                    var prevPageBuilder = new TagBuilder("li");
-                    if (this.model.Pager.CurrentPage == 1)
-                    {
-                        prevPageBuilder.MergeAttribute("class", "disabled");
-                    }
-                    var anchorBuilder = new TagBuilder("a");
-                    anchorBuilder.MergeAttribute("href", "#");
-                    anchorBuilder.MergeAttribute("data-page", (model.Pager.CurrentPage - 1).ToString());
-                    anchorBuilder.InnerHtml += "&lsaquo;";
-
-                    prevPageBuilder.InnerHtml += anchorBuilder.ToString();
-
-                    paginationBuilder.InnerHtml += prevPageBuilder.ToString();
-                }
-
-                #endregion
-
-                #region pages buttons
-
-                var startPage = this.model.Pager.GetStartPage(this.pagerSettings.Size);
-                int nr = this.pagerSettings.Size > this.model.Pager.TotalPages ? this.model.Pager.TotalPages % this.pagerSettings.Size : this.pagerSettings.Size;
-                for (int i = 0; i < nr; i++)
-                {
-                    var page = i + startPage;
-                    var pageBtnBuilder = new TagBuilder("li");
-                    if (this.model.Pager.CurrentPage == page)
-                    {
-                        pageBtnBuilder.MergeAttribute("class", "active");
-                    }
-                    var anchorBuilder = new TagBuilder("a");
-                    anchorBuilder.MergeAttribute("href", "#");
-                    anchorBuilder.MergeAttribute("data-page", page.ToString());
-                    anchorBuilder.InnerHtml += page;
-
-                    pageBtnBuilder.InnerHtml += anchorBuilder.ToString();
-
-                    paginationBuilder.InnerHtml += pageBtnBuilder.ToString();
-                }
-
-                #endregion
-
-                #region next page button
-
-                if (pagerSettings.ShowPrevNextButtons)
-                {
-                    var nextPageBuilder = new TagBuilder("li");
-                    if (this.model.Pager.CurrentPage == this.model.Pager.TotalPages)
-                    {
-                        nextPageBuilder.MergeAttribute("class", "disabled");
-                    }
-                    var anchorBuilder = new TagBuilder("a");
-                    anchorBuilder.MergeAttribute("href", "#");
-                    anchorBuilder.MergeAttribute("data-page", (model.Pager.CurrentPage + 1).ToString());
-                    anchorBuilder.InnerHtml += "&rsaquo;";
-
-                    nextPageBuilder.InnerHtml += anchorBuilder.ToString();
-
-                    paginationBuilder.InnerHtml += nextPageBuilder.ToString();
-                }
-
-                #endregion
-
-                #region last page button
-
-                if (pagerSettings.ShowFirstLastButtons)
-                {
-                    var lastPageBuilder = new TagBuilder("li");
-                    if (this.model.Pager.CurrentPage == this.model.Pager.TotalPages)
-                    {
-                        lastPageBuilder.MergeAttribute("class", "disabled");
-                    }
-                    var anchorBuilder = new TagBuilder("a");
-                    anchorBuilder.MergeAttribute("href", "#");
-                    anchorBuilder.MergeAttribute("data-page", this.model.Pager.TotalPages.ToString());
-                    anchorBuilder.InnerHtml += "&raquo;";
-
-                    lastPageBuilder.InnerHtml += anchorBuilder.ToString();
-
-                    paginationBuilder.InnerHtml += lastPageBuilder.ToString();
-                }
-
-                #endregion
-
-                pagesBuilder.InnerHtml += paginationBuilder.ToString();
-
-                #endregion
-
-                #region text
-
-                if (this.pagerSettings.HasPagesText)
-                {
-                    var textBuilder = new TagBuilder("div");
-                    textBuilder.MergeAttribute("class", "results_number");
-
-                    var firstIdx = (this.model.Pager.CurrentPage - 1) * this.model.Pager.PageSize + 1;
-                    var lastIdx = this.model.Pager.CurrentPage == this.model.Pager.TotalPages
-                                      ? this.model.Pager.TotalRecords
-                                      : this.model.Pager.CurrentPage * this.model.Pager.PageSize;
-
-                    var totalCountBuilder = new TagBuilder("span");
-                    totalCountBuilder.InnerHtml += this.model.Pager.TotalRecords;
-
-                    //TODO:
-                    var template = "{0}-{1} " + BsResourceManager.Resource("Of") + " {2} " + BsResourceManager.Resource("Items");
-                    var result = string.Format(template, firstIdx, lastIdx, totalCountBuilder.ToString()); //"Rezultate " + firstIdx + "–" + lastIdx + " din";
-
-                    textBuilder.InnerHtml += result;
-
-                    pagesBuilder.InnerHtml += textBuilder.ToString();
-                }
-
-                #endregion
-
-                return pagesBuilder.ToString();
-            }
-            else
-            {
-                return string.Empty;
-            }
+            return pagerBuilder.RenderPages();
         }
 
         private string RenderAjax()
@@ -834,6 +594,8 @@ namespace BForms.Grid
 
         public override string Render()
         {
+            this.pagerBuilder = new BsGridPagerBuilder(this.model.Pager, this.pagerSettings, this.model.BaseSettings).Theme(this.theme);
+
             var result = this.viewContext.RequestContext.HttpContext.Request.IsAjaxRequest() ?
                 this.RenderAjax() :
                 this.RenderIndex();

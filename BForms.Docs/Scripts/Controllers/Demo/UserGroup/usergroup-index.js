@@ -1,6 +1,6 @@
 ﻿require([
         'bforms-namespace',
-        'bforms-iniUI',
+        'bforms-initUI',
         'bforms-ajax',
         'main-script'
 ], function () {

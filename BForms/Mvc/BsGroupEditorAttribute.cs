@@ -13,6 +13,8 @@ namespace BForms.Mvc
 
         public object Id { get; set; }
 
+        public bool Selected { get; set; }
+
         /// <summary>
         /// Empty ctor
         /// </summary>

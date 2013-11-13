@@ -12,9 +12,30 @@
     body { max-width: 1400px;}
 </style>
 
+
+
+
 <div class="grid_container">
-    @Html.BsGroupEditorFor(Model)
+
+    @Html.BsGroupEditorFor(Model).ConfigureTabs(cfg =>
+    {
+        cfg.For(x => x.Contributors3)
+           .Template(x => x.Grid, "_TabItem")
+           .Template(x => x.Search, "_Search")
+           .Template(x => x.New, "_New");
+
+        cfg.For(x => x.Contributors2)
+            .Template(x => x.Grid, "_TabItem");
+
+        cfg.For(x => x.Contributors)
+            .Template(x => x.Grid, "_TabItem")
+            .Template(x => x.Search, "_Search");
+    })
+
 </div>
+
+
+
 
 <div class="grid_container">
     <div class="group_editor">
