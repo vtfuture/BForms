@@ -415,7 +415,7 @@ namespace BForms.Grid
 
                 if (this.pagerSettings.HasPageSizeSelector)
                 {
-                    int pageSize = this.model.Pager.PageSize;
+                    int pageSize = this.model.Pager != null ? this.model.Pager.PageSize : this.model.BaseSettings.PageSize;
                     if (!this.pagerSettings.PageSizeValues.Contains(pageSize))
                         throw new ArgumentOutOfRangeException("The page size you selected is not in the list");
 
@@ -426,7 +426,6 @@ namespace BForms.Grid
                     divBuilder.AddCssClass("pull-right");
 
                     #region right side
-                    var selectedVal = this.model.Pager.PageSize;
                     var dropdownContainerBuilder = new TagBuilder("div");
                     dropdownContainerBuilder.AddCssClass("dropdown dropup");
 
@@ -451,7 +450,7 @@ namespace BForms.Grid
                         var dropdownLiBuilder = new TagBuilder("li");
                         var dropdownLiAnchorBuilder = new TagBuilder("a");
 
-                        if (selectedVal == item)
+                        if (pageSize == item)
                         {
                             var dropdownCountBuilder = new TagBuilder("span");
                             dropdownCountBuilder.AddCssClass("btn btn-default bs-perPageDisplay");

@@ -65,7 +65,7 @@
                                .HasCheckbox(row => (row.Enabled || !row.Name.StartsWith("M")))
                                .HtmlAttributes(row => new Dictionary<string, object> { { "data-objid", row.Id }, { "data-active", row.Enabled } })
                                .Highlighter(row => row.Enabled ? "#59b444" : "#f0ad4e"))
-      .PagerSettings(new BsPagerSettings { Size = 5 }))
+      .PagerSettings(new BsPagerSettings { Size = 5, HasPageSizeSelector = false, HasPagesText = true }))
 
 
 @helper RowButtonTemplate(ContributorRowModel row) 
