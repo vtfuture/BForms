@@ -141,7 +141,12 @@ namespace BForms.Models
         /// File upload input element
         /// </summary>
         [Description("bs-color")]
-        ColorPicker
+        ColorPicker,
+        /// <summary>
+        /// Sortable list element
+        /// </summary>
+        [Description("bs-sortable")]
+        SortableList
     }
 
 }

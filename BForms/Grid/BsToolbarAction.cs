@@ -78,6 +78,13 @@ namespace BForms.Grid
                         this.glyphIcon = Glyphicon.Filter;
                         break;
                     }
+                case BsToolbarActionType.Order:
+                    {
+                        this.descriptorClass = "btn btn_order bs-show_order";
+                        this.title = "Order";
+                        this.glyphIcon = Glyphicon.Sort;
+                        break;
+                    }
             }
         }
 

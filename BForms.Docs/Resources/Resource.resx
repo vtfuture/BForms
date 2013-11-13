@@ -297,6 +297,12 @@
   <data name="Of" xml:space="preserve">
     <value />
   </data>
+  <data name="Order" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value />
+  </data>
   <data name="HireDate" xml:space="preserve">
     <value />
   </data>

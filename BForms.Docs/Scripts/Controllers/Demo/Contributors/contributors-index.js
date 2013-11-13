@@ -369,6 +369,8 @@
                 $.bforms.toolbar.controls.yourCustomControl
             ]*/
         });
+        
+
 
         //// after init
         //this.$toolbar.bsToolbar('controls', [$.bforms.toolbar.controls.yourCustomControl]);

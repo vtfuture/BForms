@@ -18,7 +18,7 @@ namespace BForms.Docs.Areas.Demo.Models
 
         [BsToolbar(Theme=BsTheme.Black)]
         [Display(Name = "Contributors", ResourceType = typeof(Resource))]
-        public BsToolbarModel<ContributorSearchModel, ContributorNewModel> Toolbar { get; set; }
+        public BsToolbarModel<ContributorSearchModel, ContributorNewModel, List<ContributorOrderModel>> Toolbar { get; set; }
     }
 
     public class ContributorDetailsModel : ContributorNewModel
@@ -139,6 +139,18 @@ namespace BForms.Docs.Areas.Demo.Models
         [Display(Name = "LastName", ResourceType = typeof(Resource))]
         [BsControl(BsControlType.TextBox)]
         public string LastName { get; set; }
+    }
+
+    public class ContributorOrderModel
+    {
+        public int Id { get; set; }
+        public int Order { get; set; }
+        public string Name { get; set; }
+        public ProjectRole Role { get; set; }
+        public int Depth { get; set; }
+
+        [BsControl(BsControlType.SortableList)]
+        public IEnumerable<ContributorOrderModel> Subordinates { get; set; }
     }
 
     public class ContributorRowModel : BsGridRowModel<ContributorDetailsModel>

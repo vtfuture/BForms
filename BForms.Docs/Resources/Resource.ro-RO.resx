@@ -297,6 +297,12 @@
   <data name="Of" xml:space="preserve">
     <value>din</value>
   </data>
+  <data name="Order" xml:space="preserve">
+    <value>Ordonează</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Salvează</value>
+  </data>
   <data name="HireDate" xml:space="preserve">
     <value>Data angajării</value>
   </data>

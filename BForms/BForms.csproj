@@ -102,6 +102,7 @@
     <Compile Include="Html\BsPanelHtmlBuilder.cs" />
     <Compile Include="Html\GroupEditorExtensions.cs" />
     <Compile Include="Mvc\BsGroupEditorAttribute.cs" />
+    <Compile Include="Html\SortableListExtensions.cs" />
     <Compile Include="Utilities\BsResourceManager.cs" />
     <Compile Include="Grid\BsGridRowConfigurator.cs" />
     <Compile Include="Html\FormExtensions.cs" />

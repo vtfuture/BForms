@@ -27,7 +27,8 @@ namespace BForms.Docs.Areas.Demo.Mock
                             StartDate = new DateTime(2013, 8, 1),
                             Languages = new List<string>() { "C#", "Javascript", "SQL", "Objective-C" },
                             Url = "http://www.stefanprodan.eu/",
-                            Contributions = "concept, api design, razor helpers, documentation, c# bug fixing, testing"
+                            Contributions = "concept, api design, razor helpers, documentation, c# bug fixing, testing",
+                            Order = 1
                         },
                         new Contributor()
                         {
@@ -39,7 +40,8 @@ namespace BForms.Docs.Areas.Demo.Mock
                             Role = ProjectRole.Developer,
                             StartDate = new DateTime(2013, 9, 1),
                             Languages = new List<string>() { "C#", "Javascript", "SQL" },
-                            Contributions = "grid component, razor helpers, bug fixing"
+                            Contributions = "grid component, razor helpers, bug fixing",
+                            Order = 2
                         },
                         
                         new Contributor()
@@ -52,7 +54,8 @@ namespace BForms.Docs.Areas.Demo.Mock
                             Role = ProjectRole.Developer,
                             Languages = new List<string>() { "C#", "Javascript", "SQL", "PHP" },
                             StartDate = new DateTime(2013, 8, 15),
-                            Contributions = "documentation, razor helpers"
+                            Contributions = "documentation, razor helpers",
+                            Order = 3
                         },
                         new Contributor()
                         {
@@ -64,7 +67,8 @@ namespace BForms.Docs.Areas.Demo.Mock
                             Role = ProjectRole.Developer,
                             StartDate = new DateTime(2013, 8, 10),
                             Languages = new List<string>() { "Javascript", "C#" },
-                            Contributions = "js framework, datetime picker, automated tests for js"
+                            Contributions = "js framework, datetime picker, automated tests for js",
+                            Order = 3
                         },
                         new Contributor()
                         {
@@ -76,7 +80,8 @@ namespace BForms.Docs.Areas.Demo.Mock
                             Role = ProjectRole.Developer,
                             StartDate = new DateTime(2013, 10, 1),
                             Languages = new List<string>() { "C#", "Javascript" },
-                            Contributions = "grid component, bug fixing"
+                            Contributions = "grid component, bug fixing",
+                            Order = 4
                         },
                         new Contributor()
                         {
@@ -88,7 +93,8 @@ namespace BForms.Docs.Areas.Demo.Mock
                             Role = ProjectRole.Developer,
                             StartDate = new DateTime(2013, 8, 5),
                             Languages = new List<string>() { "CSS", "HTML", "SASS" },
-                            Contributions = "UI & UX, css master"
+                            Contributions = "UI & UX, css master",
+                            Order = 5
                         },
                         new Contributor()
                         {
@@ -100,7 +106,9 @@ namespace BForms.Docs.Areas.Demo.Mock
                             Role = ProjectRole.Tester,
                             StartDate = new DateTime(2013, 10, 14),
                             Languages = new List<string>() { "C#", "Javascript" },
-                            Contributions = "testing, bug fixing"
+                            Contributions = "testing, bug fixing",
+                            Order = 6,
+                            Id_Coordinator = 1
                         },
                         new Contributor()
                         {
@@ -112,7 +120,9 @@ namespace BForms.Docs.Areas.Demo.Mock
                             Role = ProjectRole.Tester,
                             StartDate = new DateTime(2013, 10, 14),
                             Languages = new List<string>() { "C#", "Javascript" },
-                            Contributions = "testing, bug fixing"
+                            Contributions = "testing, bug fixing",
+                            Order = 7,
+                            Id_Coordinator = 7
                         },
                         new Contributor()
                         {
@@ -124,7 +134,9 @@ namespace BForms.Docs.Areas.Demo.Mock
                             Role = ProjectRole.Tester,
                             StartDate = new DateTime(2013, 10, 14),
                             Languages = new List<string>() { "C#", "Javascript" },
-                            Contributions = "testing, bug fixing"
+                            Contributions = "testing, bug fixing",
+                            Order = 8,
+                            Id_Coordinator = 3
                         },
                         new Contributor()
                         {
@@ -136,7 +148,9 @@ namespace BForms.Docs.Areas.Demo.Mock
                             Role = ProjectRole.Tester,
                             StartDate = new DateTime(2013, 10, 14),
                             Languages = new List<string>() { "C#", "Javascript" },
-                            Contributions = "testing, bug fixing"
+                            Contributions = "testing, bug fixing",
+                            Order = 9,
+                            Id_Coordinator = 3
                         },
                         new Contributor()
                         {
@@ -148,7 +162,9 @@ namespace BForms.Docs.Areas.Demo.Mock
                             Role = ProjectRole.Tester,
                             StartDate = new DateTime(2013, 10, 14),
                             Languages = new List<string>() { "C#", "Javascript" },
-                            Contributions = "testing, bug fixing"
+                            Contributions = "testing, bug fixing",
+                            Order = 10,
+                            Id_Coordinator = 3
                         },
                         new Contributor()
                         {
@@ -160,7 +176,9 @@ namespace BForms.Docs.Areas.Demo.Mock
                             Role = ProjectRole.Tester,
                             StartDate = new DateTime(2013, 10, 14),
                             Languages = new List<string>() { "C#", "Javascript" },
-                            Contributions = "testing, bug fixing"
+                            Contributions = "testing, bug fixing",
+                            Order = 11,
+                            Id_Coordinator = 7
                         },
                         new Contributor()
                         {
@@ -172,7 +190,9 @@ namespace BForms.Docs.Areas.Demo.Mock
                             Role = ProjectRole.Tester,
                             StartDate = new DateTime(2013, 10, 14),
                             Languages = new List<string>() { "C#", "Javascript" },
-                            Contributions = "testing, bug fixing"
+                            Contributions = "testing, bug fixing",
+                            Order = 12,
+                            Id_Coordinator = 14
                         },
                         new Contributor()
                         {
@@ -184,7 +204,9 @@ namespace BForms.Docs.Areas.Demo.Mock
                             Role = ProjectRole.Tester,
                             StartDate = new DateTime(2013, 10, 14),
                             Languages = new List<string>() { "C#", "Javascript" },
-                            Contributions = "testing, bug fixing"
+                            Contributions = "testing, bug fixing",
+                            Order = 13,
+                            Id_Coordinator = 1
                         },
                         new Contributor()
                         {
@@ -196,7 +218,9 @@ namespace BForms.Docs.Areas.Demo.Mock
                             Role = ProjectRole.Tester,
                             StartDate = new DateTime(2013, 10, 14),
                             Languages = new List<string>() { "C#", "Javascript" },
-                            Contributions = "testing, bug fixing"
+                            Contributions = "testing, bug fixing",
+                            Order = 14,
+                            Id_Coordinator = 14
                         },
                     };
             #endregion
@@ -238,6 +262,8 @@ namespace BForms.Docs.Areas.Demo.Mock
         public ProjectRole Role { get; set; }
         public List<string> Languages { get; set; }
         public string Contributions { get; set; }
+        public int Order { get; set; }
+        public int? Id_Coordinator { get; set; }
     }
     #endregion
 }

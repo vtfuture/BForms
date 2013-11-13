@@ -33,4 +33,17 @@ namespace BForms.Models
         public TSearch Search { get; set; }
         public TNew New { get; set; }
     }
+
+    /// <summary>
+    /// Helper class used when toolbar has advanced search and add new entity forms
+    /// </summary>
+    /// <typeparam name="TSearch"></typeparam>
+    /// <typeparam name="TNew"></typeparam>
+    /// <typeparam name="TOrder"></typeparam>
+    public class BsToolbarModel<TSearch, TNew, TOrder>
+    {
+        public TSearch Search { get; set; }
+        public TNew New { get; set; }
+        public TOrder Order { get; set; }
+    }
 }

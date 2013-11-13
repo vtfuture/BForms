@@ -23,6 +23,10 @@ namespace BForms.Grid
         /// <summary>
         /// Toggles create form
         /// </summary>
-        Add = 3
+        Add = 3,
+        /// <summary>
+        /// Toggles order form
+        /// </summary>
+        Order = 4
     }
 }

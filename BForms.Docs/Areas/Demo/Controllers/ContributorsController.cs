@@ -50,10 +50,11 @@ namespace BForms.Docs.Areas.Demo.Controllers
             var model = new ContributorsViewModel
             {
                 Grid = gridModel,
-                Toolbar = new BsToolbarModel<ContributorSearchModel, ContributorNewModel>
+                Toolbar = new BsToolbarModel<ContributorSearchModel, ContributorNewModel, List<ContributorOrderModel>>
                 {
                     Search = _gridRepository.GetSearchForm(),
-                    New = _gridRepository.GetNewForm()
+                    New = _gridRepository.GetNewForm(),
+                    Order = _gridRepository.GetOrderForm(true)
                 }
             };
 
@@ -191,6 +192,24 @@ namespace BForms.Docs.Areas.Demo.Controllers
             {
                 RowsHtml = html
             }, status, msg);
+        }
+
+        public BsJsonResult Reorder(List<ContributorOrderModel> model)
+        {
+            var status = BsResponseStatus.Success;
+            var msg = string.Empty;
+
+            try
+            {
+                _gridRepository.Reorder(model);
+            }
+            catch (Exception ex)
+            {
+                msg = "<strong>" + Resource.ServerError + "!</strong> " + ex.Message;
+                status = BsResponseStatus.ServerError;
+            }
+
+            return new BsJsonResult(null, status, msg);
         }
 
         public BsJsonResult GetRows(List<BsGridRowData<int>> items)
