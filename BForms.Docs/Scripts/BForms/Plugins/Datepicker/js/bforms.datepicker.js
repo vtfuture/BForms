@@ -356,8 +356,12 @@
 
             $(document).on('scroll', $.proxy(function () {
                 if (this._visible) {
-                    window.clearTimeout(this._timeoutHandler);
-                    this._timeoutHandler = window.setTimeout($.proxy(this._positionPicker, this), 20);
+                    if (this.options.withScrollTimeout) {
+                        window.clearTimeout(this._timeoutHandler);
+                        this._timeoutHandler = window.setTimeout($.proxy(this._positionPicker, this), 20);
+                    } else {
+                        this._positionPicker();
+                    }
                 }
             }, this));
 
@@ -377,15 +381,15 @@
 
         if (typeof this.options.buttons === "undefined" || !$.isArray(this.options.buttons)) {
 
-            this.$picker.on('click', '.bs-setTimeBtn', $.proxy(function(e) {
+            this.$picker.on('click', '.bs-setTimeBtn', $.proxy(function (e) {
                 this.showTimeClick(e);
             }, this));
 
-            this.$picker.on('click', '.bs-dateNow', $.proxy(function(e) {
+            this.$picker.on('click', '.bs-dateNow', $.proxy(function (e) {
                 this.dateNowClick(e);
             }, this));
 
-            this.$picker.on('click', '.bs-timeNow', $.proxy(function(e) {
+            this.$picker.on('click', '.bs-timeNow', $.proxy(function (e) {
                 this.timeNowClick(e);
             }, this));
         } else {
@@ -393,7 +397,7 @@
 
                 var index = this.$picker.find('.bs-customPickerBtn').index(e.currentTarget),
                     btn = this.options.buttons[index];
-                
+
                 if (typeof btn !== "undefined" && typeof btn.handler === "function") {
                     btn.handler.apply(btn.context || this, arguments);
                 }
@@ -974,7 +978,9 @@
         var xOrient = this.options.xOrient,
             yOrient = this.options.yOrient,
             pickerHeight = this.$picker.outerHeight(true),
-            elemOffset = this.$element.offset();
+            elemOffset = this.$element.offset(),
+            newTop = -1,
+            newLeft = -1;
 
         if (yOrient != 'below' && yOrient != 'above') {
 
@@ -994,17 +1000,15 @@
 
 
         if (yOrient == 'below') {
-            this.$picker.css({
-                top: elemOffset.top + this.$element.height() + this.options.heightPosition
-            });
+            
+            newTop = elemOffset.top + this.$element.height() + this.options.heightPosition;
 
             this.$picker.removeClass('open-above');
             this.$picker.addClass('open-below');
 
         } else if (yOrient == 'above') {
-            this.$picker.css({
-                top: elemOffset.top - this.$element.height() - pickerHeight + 16
-            });
+
+            newTop = elemOffset.top - this.$element.height() - pickerHeight + 16;
 
             this.$picker.removeClass('open-below');
             this.$picker.addClass('open-above');
@@ -1015,9 +1019,65 @@
         }
 
         if (xOrient == 'left') {
-            this.$picker.css('left', elemOffset.left);
+
+            newLeft = elemOffset.left;
+            
         } else if (xOrient == 'right') {
-            this.$picker.css('left', elemOffset.left + this.$element.outerWidth() - this.$picker.outerWidth());
+
+            newLeft = elemOffset.left + this.$element.outerWidth() - this.$picker.outerWidth();
+        }
+        
+        if (typeof this._savedPosition === "undefined") {
+
+            this._initialPosition = {
+                top: newTop,
+                left: newLeft
+            };
+
+            if (newTop !== -1) {
+                this.$picker.css('top', newTop);
+            }
+
+            if (newLeft !== -1) {
+                this.$picker.css('left', newLeft);
+            }
+
+        } else {
+
+            return;                
+
+            var savedTop = this._savedPosition.top,
+                savedLeft = this._savedPosition.left;
+
+            if (newTop !== -1) {
+                
+                if (typeof savedTop !== "undefined") {
+
+                    var currentTop = this.$picker.position().top;
+
+                    var newTopOffset = this._initialPosition.top > newTop ? this._initialPosition.top - newTop : newTop - this._initialPosition.top;
+
+                    this.$picker.css('top', currentTop + newTopOffset);
+
+                } else {
+                    this.$picker.css('top', newTop);
+                }
+            }
+            
+            if (newLeft !== -1) {
+                if (typeof savedLeft !== "undefined") {
+
+                    var currentLeft = this.$picker.position().left;
+
+                    var newLeftOffset = this._initialPosition.left > newLeft ? this._initialPosition.newLeft - newTop : newLeft - this._initialPosition.left;
+
+                    this.$picker.css('left', currentLeft + newLeftOffset);
+
+                } else {
+                    this.$picker.css('left', newLeft);
+                }
+            }
+
         }
 
     };
@@ -1373,6 +1433,8 @@
                     }
                 }
             }
+
+            this._savedPosition = position;
         }
     };
 
