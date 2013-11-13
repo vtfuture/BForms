@@ -1685,7 +1685,8 @@
         ignoreClass: '',
         forceParse: true,
         heightPosition: 20,
-        checkForMobileDevice: true
+        checkForMobileDevice: true,
+        withScrollTimeout : true
     };
 
     $.fn.bsDatepickerLang = {

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using BForms.Panels;
 
 namespace BForms.Html
 {
@@ -13,6 +14,14 @@ namespace BForms.Html
         public static BsPanelHtmlBuilder BsPanel(this HtmlHelper html)
         {
             return new BsPanelHtmlBuilder(html.ViewContext);
+        }
+
+        public static BsPanelsHtmlBuilder<TModel> BsPanelsFor<TModel>(this HtmlHelper<TModel> htmlHelper,
+             TModel model)
+        {
+            var baseBuilder = new BsPanelsHtmlBuilder<TModel>(model, htmlHelper.ViewContext);
+
+            return baseBuilder;
         }
     }
 }
