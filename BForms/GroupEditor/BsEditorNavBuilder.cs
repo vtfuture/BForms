@@ -72,7 +72,7 @@ namespace BForms.GroupEditor
 
             var list = new TagBuilder("ul");
 
-            list.AddCssClass("nav navbar-nav");
+            list.AddCssClass("nav navbar-nav bs-navbar");
 
             foreach (var tab in this.TabsProperties)
             {

@@ -374,6 +374,13 @@ namespace BForms.Grid
 
                 var headerBuilder = new TagBuilder("header");
 
+                headerBuilder.AddCssClass("bs-header");
+
+                if (this.model.Items == null || !this.model.Items.Any())
+                {
+                    headerBuilder.MergeAttribute("style", "display: none;");
+                }
+
                 for (var i = 0; i < this.columns.Count; i++)
                 {
                     var column = this.columns[i];
@@ -558,7 +565,9 @@ namespace BForms.Grid
                 infoBuilder.MergeAttribute("class", "alert alert-info");
 
 
-                infoBuilder.InnerHtml += BsResourceManager.Resource("NoResults");
+                infoBuilder.InnerHtml += !string.IsNullOrEmpty(this.noResultsTemplate) ? 
+                                    this.viewContext.Controller.BsRenderPartialView(this.noResultsTemplate, null) : 
+                                    BsResourceManager.Resource("NoResults");
 
                 if (this.allowAddIfEmpty)
                 {

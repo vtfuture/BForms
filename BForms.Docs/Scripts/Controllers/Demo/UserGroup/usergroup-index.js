@@ -1,4 +1,5 @@
 ﻿require([
+        'bforms-groupEditor',
         'bforms-namespace',
         'bforms-initUI',
         'bforms-ajax',
@@ -12,7 +13,7 @@
     };
 
     UserGroupIndex.prototype.init = function () {
-
+        $('#myGroupEditor').bsGroupEditor();
     };
     //#endregion
 

@@ -31,6 +31,7 @@
         goTopElement: null,
 
         uniqueName: null,
+        gridRowsHeaderSelector: '.bs-header',
         gridContainerSelector: '.grid_rows',
         gridCountContainerSelector: 'h2 > .badge',
         gridHeaderSelector: 'h2',
@@ -270,6 +271,7 @@
         this.$actionsContainer = this.element.find(this.options.groupActionsSelector);
         this.$gridHeader = this.element.find(this.options.gridHeaderSelector);
         this.$expandToggle = this.element.find(this.options.expandToggleSelector);
+        this.$gridRowsHeader = this.element.find(this.options.gridRowsHeaderSelector);
     };
 
     Grid.prototype._createActions = function (rowActions, $row) {
@@ -953,6 +955,7 @@
             this.$rowsContainer.html($html.html());
             this.$rowsContainer.removeClass('no_results');
             this.element.find('.bs-pager').show();
+            this.$gridRowsHeader.show();
         } else {
             this.$rowsContainer.html($wrapper.find(this.options.noResultsRowSelector));
             this.$rowsContainer.addClass('no_results');

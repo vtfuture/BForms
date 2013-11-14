@@ -20,10 +20,13 @@ namespace BForms.GroupEditor
         protected string name { get; set; }
         protected object uid { get; set; }
         protected bool selected { get; set; }
+        internal bool HasModel { get; set; }
         #endregion
 
         #region Methods
         internal abstract BsGroupEditor GetModel();
+
+        internal abstract string RenderAjax();
 
         internal abstract bool IsSelected();
 
@@ -71,8 +74,10 @@ namespace BForms.GroupEditor
         #endregion
 
         #region Render
-        internal override void BeforeRender() 
+        internal override void BeforeRender()
         {
+
+
             this.toolbar.Add(searchPart);
         }
         #endregion
@@ -125,7 +130,7 @@ namespace BForms.GroupEditor
         #endregion
 
         #region Render
-        internal override void BeforeRender() 
+        internal override void BeforeRender()
         {
             this.toolbar.Add(searchPart);
             this.toolbar.Add(newPart);
@@ -140,6 +145,7 @@ namespace BForms.GroupEditor
         #region Properties and Constructor
         protected BsEditorToolbarHtmlBuilder toolbar { get; set; }
         protected bool inlineSearch { get; set; }
+        protected bool hasItems { get; set; }
         private BsGridPagerBuilder pagerBuilder;
         private BsGroupEditor<TRow> model;
 
@@ -157,6 +163,8 @@ namespace BForms.GroupEditor
         {
             this.viewContext = viewContext;
             this.model = model;
+            this.HasModel = this.model != null && this.model.Grid != null;
+            this.hasItems = this.HasModel ? this.model.Grid.Items != null && this.model.Grid.Items.Any() : false;
             this.toolbar = new BsEditorToolbarHtmlBuilder(this);
             this.pagerSettings = new BsPagerSettings();
         }
@@ -219,95 +227,113 @@ namespace BForms.GroupEditor
         #endregion
 
         #region Render
+        internal virtual void BeforeRender()
+        {
+
+        }
+
+        internal string RenderPager()
+        {
+            this.pagerBuilder = new BsGridPagerBuilder(this.model.Grid.Pager, this.pagerSettings, this.model.Grid.BaseSettings);
+
+            return this.pagerBuilder.Render();
+        }
+
         internal string RenderItems()
         {
             var result = "";
 
-            if (this.model.Grid.Items != null && this.model.Grid.Items.Any())
+            if (!string.IsNullOrEmpty(this.rowTemplate))
             {
-                if (!string.IsNullOrEmpty(this.rowTemplate))
+                var list = new TagBuilder("ul");
+
+                list.AddCssClass("group_profiles");
+
+                foreach (var item in this.model.Grid.Items)
                 {
-                    var list = new TagBuilder("ul");
+                    var listItem = new TagBuilder("li");
 
-                    list.AddCssClass("group_profiles");
+                    var listItemWrapper = new TagBuilder("div");
 
-                    foreach (var item in this.model.Grid.Items)
-                    {
-                        var listItem = new TagBuilder("li");
+                    listItemWrapper.AddCssClass("media profile large");
 
-                        var listItemWrapper = new TagBuilder("div");
+                    var anchorLeft = new TagBuilder("a");
 
-                        listItemWrapper.AddCssClass("media profile large");
+                    anchorLeft.MergeAttribute("href", "#");
 
-                        var anchorLeft = new TagBuilder("a");
+                    anchorLeft.AddCssClass("pull-left");
 
-                        anchorLeft.MergeAttribute("href", "#");
+                    var img = new TagBuilder("img");
 
-                        anchorLeft.AddCssClass("pull-left");
+                    img.AddCssClass("media-object");
 
-                        var img = new TagBuilder("img");
+                    img.MergeAttribute("src", "http://www.cloverwos.ro/1.0.0.217/Content/images/bg-user.png");
 
-                        img.AddCssClass("media-object");
+                    anchorLeft.InnerHtml += img;
 
-                        img.MergeAttribute("src", "http://www.cloverwos.ro/1.0.0.217/Content/images/bg-user.png");
+                    listItemWrapper.InnerHtml += anchorLeft;
 
-                        anchorLeft.InnerHtml += img;
+                    var anchorRight = new TagBuilder("a");
 
-                        listItemWrapper.InnerHtml += anchorLeft;
+                    anchorRight.MergeAttribute("href", "#");
 
-                        var anchorRight = new TagBuilder("a");
+                    anchorRight.AddCssClass("btn btn-default select_profile");
 
-                        anchorRight.MergeAttribute("href", "#");
+                    anchorRight.InnerHtml += GetGlyphcon(Glyphicon.Ok);
 
-                        anchorRight.AddCssClass("btn btn-default select_profile");
+                    listItemWrapper.InnerHtml += anchorRight;
 
-                        anchorRight.InnerHtml += GetGlyphcon(Glyphicon.Ok);
+                    var templateWrapper = new TagBuilder("div");
 
-                        listItemWrapper.InnerHtml += anchorRight;
+                    templateWrapper.AddCssClass("media-body");
 
-                        var templateWrapper = new TagBuilder("div");
+                    templateWrapper.InnerHtml += this.viewContext.Controller.BsRenderPartialView(this.rowTemplate, item);
 
-                        templateWrapper.AddCssClass("media-body");
+                    listItemWrapper.InnerHtml += templateWrapper;
 
-                        templateWrapper.InnerHtml += this.viewContext.Controller.BsRenderPartialView(this.rowTemplate, item);
+                    listItem.InnerHtml += listItemWrapper;
 
-                        listItemWrapper.InnerHtml += templateWrapper;
-
-                        listItem.InnerHtml += listItemWrapper;
-
-                        list.InnerHtml += listItem;
-                    }
-
-                    result += list;
+                    list.InnerHtml += listItem;
                 }
-                else
-                {
-                    throw new Exception("You must set the template for tab " + this.uid.ToString());
-                }
+
+                result += list;
+            }
+            else
+            {
+                throw new Exception("You must set the template for tab " + this.uid.ToString());
             }
 
             return result;
-        }
-
-        internal virtual void BeforeRender()
-        {
         }
 
         internal string RenderContent()
         {
             BeforeRender();
 
-            this.pagerBuilder = new BsGridPagerBuilder(this.model.Grid.Pager, this.pagerSettings, this.model.Grid.BaseSettings);
+            if (this.HasModel)
+            {
+                var result = this.toolbar.Render();
 
-            return this.toolbar.Render() + this.RenderItems() + this.pagerBuilder.Render();
+                if (this.hasItems)
+                {
+                    result += this.RenderItems();
+                }
+
+                result += RenderPager();
+
+                return result;
+            }
+
+            return "";
         }
 
         public override string Render()
         {
-
             var wrapper = new TagBuilder("div");
 
             wrapper.MergeAttribute("data-tabid", ((int)this.uid).ToString());
+
+            wrapper.MergeAttribute("data-loaded", this.HasModel.ToString());
 
             if (!this.selected)
             {
@@ -318,6 +344,21 @@ namespace BForms.GroupEditor
 
             return wrapper.ToString();
         }
+
+        internal override string RenderAjax()
+        {
+            var result = "";
+
+            if (this.hasItems)
+            {
+                result += this.RenderItems();
+            }
+
+            result += RenderPager();
+
+            return result;
+        }
+
         #endregion
     }
     #endregion

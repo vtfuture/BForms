@@ -64,14 +64,14 @@ namespace BForms.Docs.Areas.Demo.Controllers
                     Search = repo.GetSearchForm(),
                     Order = new ContributorsOrderModel()
                 },
-                Contributors2 = new BsGroupEditor<ContributorRowModel>
-                {
-                    Grid = new BsGridModel<ContributorRowModel>
-                    {
-                        Items = new List<ContributorRowModel>(),
-                        Pager = new BsPagerModel(5)
-                    }
-                },
+                //Contributors2 = new BsGroupEditor<ContributorRowModel>
+                //{
+                //    Grid = new BsGridModel<ContributorRowModel>
+                //    {
+                //        Items = new List<ContributorRowModel>(),
+                //        Pager = new BsPagerModel(5)
+                //    }
+                //},
                 Contributors3 = new BsGroupEditor<ContributorRowModel, ContributorSearchModel, ContributorNewModel>
                 {
                     Grid = repo.ToBsGridViewModel(new BsGridRepositorySettings<ContributorSearchModel>

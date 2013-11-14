@@ -47,6 +47,8 @@ namespace BForms.Docs.Areas.Demo.Controllers
 
             var gridModel = _gridRepository.ToBsGridViewModel(bsGridSettings);
 
+            gridModel.Items = new List<ContributorRowModel>();
+
             var model = new ContributorsViewModel
             {
                 Grid = gridModel,

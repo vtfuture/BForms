@@ -41,10 +41,7 @@ namespace BForms.GroupEditor
 
                     var value = prop.GetValue(model);
 
-                    if (value != null)
-                    {
-                        InvokeAddTabConfig(value, prop, attr);
-                    }
+                    InvokeAddTabConfig(value, prop, attr);
                 }
             }
         }
@@ -61,7 +58,7 @@ namespace BForms.GroupEditor
 
         public string RenderAjax()
         {
-            return tabConfigurator.Render();
+            return tabConfigurator.RenderAjax();
         }
 
         public string RenderIndex()
@@ -69,6 +66,11 @@ namespace BForms.GroupEditor
             var container = new TagBuilder("div");
 
             container.AddCssClass("group_editor");
+
+            if (this.htmlAttributes != null)
+            {
+                container.MergeAttributes(this.htmlAttributes);
+            }
 
             #region Left
             var left = new TagBuilder("div");
@@ -96,6 +98,7 @@ namespace BForms.GroupEditor
         public BsEditorHtmlBuilder<TModel> HtmlAttributes(Dictionary<string, object> htmlAttributes)
         {
             this.htmlAttributes = htmlAttributes;
+
             return this;
         }
 

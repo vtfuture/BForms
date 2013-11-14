@@ -46,13 +46,6 @@ namespace BForms.GroupEditor
 
             return builder as BsEditorTabBuilder<TRow>;
         }
-
-        //public BsEditorTabBuilder<TRow> For<TValue>(Expression<Func<TModel, TValue> expression)
-        //{
-        //    var builder = this.GetTab(expression);
-
-        //    return builder as BsEditorTabBuilder<TRow>;
-        //}
         #endregion
 
         #region Render
@@ -63,6 +56,21 @@ namespace BForms.GroupEditor
             foreach (var tab in this.Tabs)
             {
                 result += tab.Value.Render();
+            }
+
+            return result;
+        }
+
+        public string RenderAjax()
+        {
+            var result = "";
+
+            foreach (var tab in this.Tabs)
+            {
+                if (tab.Value.HasModel)
+                {
+                    result += tab.Value.RenderAjax();
+                }
             }
 
             return result;
