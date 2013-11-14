@@ -1,0 +1,66 @@
+@using BForms.Docs.Resources
+@using BForms.Html
+@using BForms.Docs.Areas.Demo.Models
+
+@model IEnumerable<ContributorOrderModel>
+
+
+@using (Html.BeginForm())
+{
+    @*@Html.BsSortableListFor(model: Model,
+                config: m=> new BsSortableListConfiguration
+                {
+                    Id = m.Id.ToString(),
+                    Order = m.Order.ToString(),
+                    Text = m.Name
+                },
+                listProperties: m => new HtmlProperties
+                {
+                    
+                }, 
+                itemProperties: m => new HtmlProperties
+                {
+                    
+                }, 
+                labelProperties: m => new HtmlProperties
+                {
+                    //Text = m.Name
+                }, 
+                badgeProperties: m => new HtmlProperties
+                {
+                    HtmlAttributes = new Dictionary<string, object> {
+                        {
+                            "class",
+                            m.Role == ProjectRole.Tester ? "label-danger" : m.Role == ProjectRole.TeamLeader ? "label-success" : "label-info"
+                        } },
+                    Text = m.Role.ToString()
+                })*@
+    
+    @Html.BsSortableListFor(Model, m => new BsSortableListConfiguration
+    {
+        Id = m.Id.ToString(),
+        Order = m.Order.ToString(),
+        Text = m.Name
+    }).ListProperties(m => new HtmlProperties
+    {
+        HtmlAttributes = new Dictionary<string, object> { { "class", "custom_class"} }
+    }).BadgeProperties(m => new HtmlProperties
+    {
+        HtmlAttributes = new Dictionary<string, object> {
+                        {
+                            "class",
+                            m.Role == ProjectRole.Tester ? "label-danger" : m.Role == ProjectRole.TeamLeader ? "label-success" : "label-info"
+                        } },
+        Text = m.Role.ToString()
+    })
+
+    <div class="col-12 col-sm-12 col-lg-12 bs-validation_summary">
+        @Html.BsValidationSummary()
+    </div>
+
+    <div class="grid_toolbar_submit">
+        <button type="submit" class="btn btn-default js-btn-save_order" data-url="@Url.Action("Reorder")">@Resource.Save</button>
+        <a href="#" class="js-btn-reset">@Resource.Refresh</a>
+    </div>
+    
+}
