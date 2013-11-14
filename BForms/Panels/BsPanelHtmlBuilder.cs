@@ -11,18 +11,18 @@ namespace BForms.Html
     public class BsPanelHtmlBuilder : BaseComponent
     {
         private string _name;
-        private bool _isEditable;
-        private bool _isExpanded;
-        private bool _isExpandable = true;
-        private bool _isLoaded;
+        internal bool isEditable;
+        internal bool isExpanded;
+        internal bool isExpandable = true;
+        internal bool isLoaded;
 
-        private string _readonlyUrl;
-        private string _editableUrl;
-        private string _saveUrl;
+        internal string readonlyUrl;
+        internal string editableUrl;
+        internal string saveUrl;
 
         private string _content;
 
-        private int _id;
+        internal object _id;
         private IDictionary<string, object> _htmlAttributes;
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace BForms.Html
         /// </summary>
         public BsPanelHtmlBuilder Editable(bool isEditable)
         {
-            this._isEditable = isEditable;
+            this.isEditable = isEditable;
             return this;
         }
 
@@ -62,7 +62,7 @@ namespace BForms.Html
         /// </summary>
         public BsPanelHtmlBuilder Expanded(bool isExpanded)
         {
-            this._isExpanded = isExpanded;
+            this.isExpanded = isExpanded;
             return this;
         }
 
@@ -71,7 +71,7 @@ namespace BForms.Html
         /// </summary>
         public BsPanelHtmlBuilder Expandable(bool isExpandable)
         {
-            this._isExpandable = isExpandable;
+            this.isExpandable = isExpandable;
             return this;
         }
 
@@ -80,7 +80,7 @@ namespace BForms.Html
         /// </summary>
         public BsPanelHtmlBuilder ReadonlyUrl(string url)
         {
-            this._readonlyUrl = url;
+            this.readonlyUrl = url;
             return this;
         }
 
@@ -90,15 +90,15 @@ namespace BForms.Html
         /// </summary>
         public BsPanelHtmlBuilder EditableUrl(string url)
         {
-            this._editableUrl = url;
-            this._isEditable = true;
+            this.editableUrl = url;
+            this.isEditable = true;
 
             return this;
         }
 
         public BsPanelHtmlBuilder SaveUrl(string url)
         {
-            this._saveUrl = url;
+            this.saveUrl = url;
 
             return this;
         }
@@ -110,8 +110,8 @@ namespace BForms.Html
         public BsPanelHtmlBuilder Content(string content)
         {
             this._content = content;
-            this._isExpanded = true;
-            this._isLoaded = true;
+            this.isExpanded = true;
+            this.isLoaded = true;
 
             return this;
         }
@@ -134,34 +134,36 @@ namespace BForms.Html
             return this;
         }
 
-        /// <summary>
-        /// Renders the component
-        /// </summary>
-        public override string Render()
+        public TagBuilder GetContainer()
         {
             var container = new TagBuilder("div");
 
             container.MergeAttributes(this._htmlAttributes, true);
 
-            if (!String.IsNullOrEmpty(this._editableUrl))
+            if (!String.IsNullOrEmpty(this.editableUrl))
             {
-                container.MergeAttribute("data-editableurl", this._editableUrl);
+                container.MergeAttribute("data-editableurl", this.editableUrl);
             }
 
-            if (!String.IsNullOrEmpty(this._readonlyUrl))
+            if (!String.IsNullOrEmpty(this.readonlyUrl))
             {
-                container.MergeAttribute("data-readonlyurl", this._readonlyUrl);
+                container.MergeAttribute("data-readonlyurl", this.readonlyUrl);
             }
 
-            if (!String.IsNullOrEmpty(this._saveUrl))
+            if (!String.IsNullOrEmpty(this.saveUrl))
             {
-                container.MergeAttribute("data-saveurl", this._saveUrl);
+                container.MergeAttribute("data-saveurl", this.saveUrl);
             }
 
-            container.MergeAttribute("data-component",this._id.ToString());
+            container.MergeAttribute("data-component", this._id.ToString());
 
             container.AddCssClass("panel panel-default");
 
+            return container;
+        }
+
+        public string RenderHeader()
+        {
             var headerTag = new TagBuilder("div");
             headerTag.AddCssClass("panel-heading");
 
@@ -172,35 +174,34 @@ namespace BForms.Html
             nameTag.AddCssClass("bs-togglePanel");
             nameTag.MergeAttribute("href", "#");
 
-            var loaderImg = new TagBuilder("img");
-            loaderImg.MergeAttribute("src", "../Scripts/BForms/Images/preloader-small.gif");
-            loaderImg.AddCssClass("bs-panelLoader");
+            var loaderImg = new TagBuilder("span");
+            loaderImg.AddCssClass("bs-panelLoader loading-spinner");
 
-            if (this._isLoaded)
+            if (this.isLoaded)
             {
                 loaderImg.MergeAttribute("style", "display:none");
             }
 
             nameTag.InnerHtml += loaderImg.ToString();
 
-            if (this._isExpandable)
+            if (this.isExpandable)
             {
                 var caretTag = new TagBuilder("span");
                 caretTag.AddCssClass("caret bs-panelCaret");
 
-                if (!this._isLoaded)
+                if (!this.isLoaded)
                 {
                     caretTag.MergeAttribute("style", "display:none");
                 }
 
-                nameTag.InnerHtml += caretTag.ToString();                
+                nameTag.InnerHtml += caretTag.ToString();
 
-                if (this._isExpanded)
+                if (this.isExpanded)
                 {
                     nameTag.AddCssClass("dropup");
                 }
 
-                nameTag.MergeAttribute("data-expandable", "true");               
+                nameTag.MergeAttribute("data-expandable", "true");
             }
 
 
@@ -208,7 +209,7 @@ namespace BForms.Html
 
             headerTitleTag.InnerHtml += nameTag.ToString();
 
-            if (this._isEditable)
+            if (this.isEditable)
             {
                 var editableTag = new TagBuilder("a");
                 editableTag.MergeAttribute("href", "#");
@@ -219,7 +220,7 @@ namespace BForms.Html
 
                 editableTag.InnerHtml += glyphTag.ToString();
 
-                if (!this._isLoaded)
+                if (!this.isLoaded)
                 {
                     editableTag.MergeAttribute("style", "display:none");
                 }
@@ -240,12 +241,15 @@ namespace BForms.Html
             }
 
             headerTag.InnerHtml += headerTitleTag.ToString();
-            container.InnerHtml += headerTag.ToString();
+            return headerTag.ToString();
+        }
 
+        public string RenderContent()
+        {
             var contentDiv = new TagBuilder("div");
             contentDiv.AddCssClass("panel-collapse bs-containerPanel");
 
-            if (!this._isExpanded)
+            if (!this.isExpanded)
             {
                 contentDiv.AddCssClass("collapse");
             }
@@ -256,7 +260,20 @@ namespace BForms.Html
             panelBody.InnerHtml += this._content;
 
             contentDiv.InnerHtml += panelBody.ToString();
-            container.InnerHtml += contentDiv.ToString();
+
+            return contentDiv.ToString();
+        }
+
+        /// <summary>
+        /// Renders the component
+        /// </summary>
+        public override string Render()
+        {
+            var container = this.GetContainer();
+
+            container.InnerHtml += this.RenderHeader();
+
+            container.InnerHtml += this.RenderContent();
 
             return container.ToString();
         }

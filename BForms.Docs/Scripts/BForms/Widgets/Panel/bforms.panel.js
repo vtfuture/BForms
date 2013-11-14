@@ -237,12 +237,7 @@
 
             context: this,
             success: this._onReadonlyLoadSuccess,
-            error: this._onReadonlyLoadError,
-
-
-            loadingElement: this.$content.find('form'),
-            loadingClass: 'loading',
-            loadingDelay: 100
+            error: this._onReadonlyLoadError
         });
     };
 

@@ -1,4 +1,5 @@
-﻿using BForms.Models;
+﻿using System.ComponentModel;
+using BForms.Models;
 using BForms.Mvc;
 using System;
 using System.Collections.Generic;
@@ -14,13 +15,16 @@ namespace BForms.Docs.Areas.Demo.Models
     [Serializable]
     public class UserProfileModel
     {
-        [BsPanel(Id = PanelComponentsEnum.Basic)]
+        [BsPanel(Id = PanelComponentsEnum.Basic, Expandable = false, Editable = false)]
+        [Display(Name = "User")]
         public UserProfileBasicModel Basic { get; set; }
 
         [BsPanel(Id = PanelComponentsEnum.UserInfo)]
+        [Display(Name = "User Info")]
         public UserProfileInfoModel UserInfo { get; set; }
 
         [BsPanel(Id = PanelComponentsEnum.Contact)]
+        [Display(Name = "Contact")]
         public UserProfileContactModel Contact { get; set; }
     }
 
