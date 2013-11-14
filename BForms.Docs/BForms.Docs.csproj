@@ -132,7 +132,6 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Areas\Demo\Controllers\BsGridRepositorySettings.cs" />
     <Compile Include="Areas\Demo\Controllers\ContributorsController.cs" />
     <Compile Include="Areas\Demo\Controllers\LoginController.cs" />
     <Compile Include="Areas\Demo\Controllers\UserGroupController.cs" />

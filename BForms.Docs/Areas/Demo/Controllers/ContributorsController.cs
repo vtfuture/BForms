@@ -35,7 +35,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
             var bsGridSettings = new BsGridRepositorySettings<ContributorSearchModel>
             {
                 Page = 1,
-                PageSize = 5
+                PageSize = 10
             };
 
             if (savedSettings != null)

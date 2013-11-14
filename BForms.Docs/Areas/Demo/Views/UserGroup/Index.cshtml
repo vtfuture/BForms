@@ -22,9 +22,9 @@
     {
         var tab3 = cfg.For(x => x.Contributors3)
            .PagerSettings(new BsPagerSettings
-            {
+           {
                 HasPagesText = false
-            })
+           })
            .Template(x => x.Grid, "_TabItem")
            .Template(x => x.Search, "_Search")
            .Template(x => x.New, "_New");

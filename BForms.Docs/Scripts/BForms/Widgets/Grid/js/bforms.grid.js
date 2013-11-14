@@ -115,7 +115,7 @@
 
         this._addDelegates();
 
-        this.refreshModel = $.extend(true, {}, this.element.data('settings'), this._refreshModel);
+        this.refreshModel = $.extend(true, {}, this._refreshModel, this.element.data('settings'));
 
         this.refreshModel.OrderColumns = this._getColumnsOrder();
         this._currentResultsCount = this.$gridCountContainer.text();

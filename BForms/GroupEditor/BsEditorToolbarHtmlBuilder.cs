@@ -7,7 +7,6 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using BForms.Models;
 
 namespace BForms.GroupEditor
 {
@@ -58,6 +57,7 @@ namespace BForms.GroupEditor
     }
     #endregion
 
+    #region BsEditorToolbarPart
     public class BsEditorToolbarPart
     {
         #region Properties and Constructor
@@ -87,6 +87,7 @@ namespace BForms.GroupEditor
         }
         #endregion
     }
+    #endregion
 
     #region BsEditorToolbarHtmlBuilder
     public class BsEditorToolbarHtmlBuilder : BaseComponent
