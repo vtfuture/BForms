@@ -425,6 +425,8 @@
             }]
         };
 
+        this._addAdditionalData(sendData);
+
         var ajaxOptions = {
             name: this.options.uniqueName + '|details|' + $row.data('objId'),
             url: this.options.detailsUrl,
@@ -555,14 +557,17 @@
 
     Grid.prototype._getMultiDetails = function (items, $rows) {
 
-        var $loadingElement = this.$rowsContainer.find(this.options.rowSelector).length == $rows.length ? this.$rowsContainer : $rows;
+        var $loadingElement = this.$rowsContainer.find(this.options.rowSelector).length == $rows.length ? this.$rowsContainer : $rows,
+            data = {
+                items: items
+            };
+
+        this._addAdditionalData(data);
 
         $.bforms.ajax({
             name: this.options.uniqueName + '|multiDetails',
             url: this.options.detailsUrl,
-            data: {
-                items: items
-            },
+            data: data,
             callbackData: {
                 items: items
             },
@@ -917,9 +922,7 @@
             this.options.onRefresh.call(this, data);
         }
 
-        if (typeof this.options.additionalData !== "undefined") {
-            $.extend(true, data, this.options.additionalData);
-        }
+        this._addAdditionalData(data);
 
         this._trigger('beforePager', data);
 
@@ -1235,6 +1238,12 @@
 
         return data;
     };
+
+    Grid.prototype._addAdditionalData = function (data) {
+        if (typeof this.options.additionalData !== "undefined") {
+            $.extend(true, data, this.options.additionalData);
+        }
+    }
     //#endregion
 
     //#region row update
@@ -1246,6 +1255,8 @@
                 GetDetails: getDetails || true
             }]
         };
+
+        this._addAdditionalData(data);
 
         var ajaxOptions = {
             name: this.options.uniqueName + '|UpdateRow|' + data.objId,
