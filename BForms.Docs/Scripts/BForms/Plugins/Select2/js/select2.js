@@ -2724,8 +2724,6 @@ the specific language governing permissions and limitations under the Apache Lic
                     maxWidth = this.getMaxSearchWidth();
 
                 if (placeholder !== undefined && this.getVal().length === 0 && this.search.hasClass("select2-focused") === false) {
-                    console.log(maxWidth);
-                  
                     this.search.width(maxWidth > 0 ? maxWidth : this.container.css("width"));
                 }
             }, this));

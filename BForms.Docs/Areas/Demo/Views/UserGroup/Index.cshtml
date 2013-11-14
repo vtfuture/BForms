@@ -2,7 +2,7 @@
 @using BForms.Docs.Resources
 @using BForms.Models
 
-@model BForms.Docs.Areas.Demo.Models.ContributorsViewModel
+@model BForms.Docs.Areas.Demo.Controllers.UserGroupViewModel
 
 @{
     ViewBag.Title = "Group Editor Demo";
@@ -11,6 +11,10 @@
 <style type="text/css">
     body { max-width: 1400px;}
 </style>
+
+<div class="grid_container">
+    @Html.BsGroupEditorFor(Model)
+</div>
 
 <div class="grid_container">
     <div class="group_editor">

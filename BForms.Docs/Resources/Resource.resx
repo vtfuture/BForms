@@ -303,4 +303,7 @@
   <data name="Save" xml:space="preserve">
     <value />
   </data>
+  <data name="HireDate" xml:space="preserve">
+    <value />
+  </data>
 </root>

@@ -1,10 +1,14 @@
 ﻿require(['bforms-namespace',
         'main-script',
-        'bforms-boxForm'
+        'bforms-panel'
 ], function () {
 
-    $('.bs-userInfo').bsBoxForm({
-        name :'test'
+    $('.bs-userInfo').bsPanel({
+       name : 'userInfo'
     });
-
+    
+    $('.bs-contact').bsPanel({
+        name: 'contact'
+    });
+    
 });

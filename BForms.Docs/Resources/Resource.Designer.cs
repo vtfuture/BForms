@@ -288,6 +288,15 @@ namespace BForms.Docs.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string HireDate {
+            get {
+                return ResourceManager.GetString("HireDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string Info {
             get {
                 return ResourceManager.GetString("Info", resourceCulture);

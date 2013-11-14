@@ -143,7 +143,9 @@
     <Compile Include="Areas\Demo\Mock\Lists.cs" />
     <Compile Include="Areas\Demo\Models\ContributorsModels.cs" />
     <Compile Include="Areas\Demo\Models\LoginModels.cs" />
+    <Compile Include="Areas\Demo\Models\UserProfileModel.cs" />
     <Compile Include="Areas\Demo\Repositories\ContributorsRepository.cs" />
+    <Compile Include="Areas\Demo\Repositories\UserProfileRepository.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\StartController.cs" />
@@ -161,7 +163,21 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
-    <Content Include="Content\Images\Banners\BForms-Controls.jpg" />
+    <Content Include="Content\Images\Banners\BForms_Banner_Turquoise_1024x368_v1.jpg" />
+    <Content Include="Content\Images\Banners\BForms_Banner_Turquoise_1024x368_v2.jpg" />
+    <Content Include="Content\Images\Banners\BForms_Banner_Turquoise_1024x368_v3.jpg" />
+    <Content Include="Content\Images\Banners\BForms_Banner_Turquoise_300x250_v1.jpg" />
+    <Content Include="Content\Images\Banners\BForms_Banner_Turquoise_300x250_v2.jpg" />
+    <Content Include="Content\Images\Banners\BForms_Banner_Turquoise_300x250_v3.jpg" />
+    <Content Include="Content\Images\Banners\BForms_Banner_Turquoise_620x368.jpg" />
+    <Content Include="Content\Images\Banners\BForms_Banner_Turquoise_620x368_v2.jpg" />
+    <Content Include="Content\Images\Banners\BForms_Banner_Turquoise_620x368_v3.jpg" />
+    <Content Include="Content\Images\Banners\BForms_Banner_Turquoise_620x368_v4.jpg" />
+    <Content Include="Content\Images\Banners\BForms_Banner_Turquoise_940x250_v1.jpg" />
+    <Content Include="Content\Images\Banners\BForms_Banner_Turquoise_940x250_v2.jpg" />
+    <Content Include="Content\Images\Banners\BForms_Banner_Turquoise_940x90_v1.jpg" />
+    <Content Include="Content\Images\Banners\BForms_Banner_Turquoise_940x90_v2.jpg" />
+    <Content Include="Content\Images\Banners\GooglePlus_Cover_Photo_BForms_2120x1192.jpg" />
     <Content Include="Content\Images\bforms-200x200.png" />
     <Content Include="Content\Images\bforms-32x32.png" />
     <Content Include="Content\Images\Docs\main-script-file.PNG" />
@@ -186,6 +202,7 @@
     <Content Include="Content\Images\Docs\eg-row-model.png" />
     <Content Include="Content\Images\Docs\eg-simple-grid.png" />
     <Content Include="Content\Images\Docs\eg-view-model.png" />
+    <Content Include="Content\Images\logo-bforms%402x.png" />
     <Content Include="Scripts\BForms\Images\bg-user.png" />
     <Content Include="Scripts\BForms\Widgets\Grid\js\bforms.toolbar.order.js" />
     <Content Include="Scripts\BForms\Widgets\InlineQuestion\bforms.inlineQuestion.js" />
@@ -643,9 +660,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Demo\Views\Contributors\Grid\Details\_Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Demo\Views\Contributors\Grid\_Actions.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Docs\Grid\Index.cshtml" />
@@ -1148,7 +1162,22 @@
     <Content Include="Views\Start\Grid\Source\_BulkActionsHomeIndexJs.cs.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Scripts\BForms\Widgets\BoxForm\bforms.boxForm.js" />
+    <Content Include="Scripts\BForms\Widgets\Panel\bforms.panel.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Demo\Views\UserProfile\Readonly\_Basic.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Demo\Views\UserProfile\Readonly\_UserInfo.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Demo\Views\UserProfile\Editable\_UserInfo.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Demo\Views\UserProfile\Editable\_Contact.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Demo\Views\UserProfile\Readonly\_Contact.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Demo\Views\Contributors\Toolbar\_Order.cshtml" />

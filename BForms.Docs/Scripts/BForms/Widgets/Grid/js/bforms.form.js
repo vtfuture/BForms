@@ -14,15 +14,19 @@
 
     Form.prototype.options = {
         uniqueName: null,
-        hasGroupToggle: false,
+        hasGroupToggle: true,
         style: {},
-        groupToggleSelector: '.bs-selector',
+        groupToggleSelector: '.bs-group_toggle',
+        groupToggleContainerSelector: '.bs-group_toggle_container',
+        groupToggleUp: 'glyphicon-chevron-up',
+        groupToggleDown: 'glyphicon-chevron-down',
+        glyphClass: '.glyphicon',
         actions: []         //[{
                             //    name: 'refresh',
-                            //    btnSelector: '.bs-refreshBtn',
+                            //    selector: '.bs-refreshBtn',
                             //    url: '',
-        //    handler: '',
-        // setAdditionalData: null,
+                            //    handler: '',
+                            // setAdditionalData: null,
                             //    validate: true,
                             //    parse: true
                             //}]
@@ -59,7 +63,7 @@
 
     Form.prototype._initSelectors = function () {
 
-        this.$form = this.element.find('form');
+        this.$form = this.element.is('form') ? this.element : this.element.find('form');
 
     };
 
@@ -129,11 +133,11 @@
         if (buttonOpt.parse) {
             data = this._parse();
             if (typeof buttonOpt.getExtraData === 'function') {
-                buttonOpt.setExtraData.call(this, data);
+                buttonOpt.getExtraData.call(this, data);
             }
         }
 
-        var action = $me.data('action');
+        var action = $me.data('action') || buttonOpt.actionUrl;
         if (action) {
             $.bforms.ajax({
                 name: this.options.uniqueName,
@@ -150,7 +154,15 @@
                 loadingElement: this.element,
                 loadingClass: 'loading',
                 validationError: function (response) {
+
                     if (response != null && response.Errors != null) {
+                        
+                        if (typeof validatedForm === "undefined") {
+                            
+                            $.validator.unobtrusive.parse(this.$form);
+                            validatedForm = this.$form.validate();
+                        }
+
                         validatedForm.showErrors(response.Errors);
                     }
                 }
@@ -184,11 +196,9 @@
     };
 
     Form.prototype._evToggleGroup = function (e) {
-
         var $elem = $(e.currentTarget);
-
-        $elem.toggleClass('open').parent().next().slideToggle();
-
+        $elem.find(this.options.glyphClass).toggleClass(this.options.groupToggleUp).toggleClass(this.options.groupToggleDown);
+        $elem.toggleClass('open').closest(this.options.groupToggleContainerSelector).next().stop().slideToggle();
     };
 
     Form.prototype.getFormData = function (data) {

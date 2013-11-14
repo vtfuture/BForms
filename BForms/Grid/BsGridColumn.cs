@@ -41,7 +41,7 @@ namespace BForms.Grid
     {
         internal string PrivateName { get; set; }
 
-        internal Dictionary<string, object> HtmlAttr { get; set; }
+        internal Dictionary<string, object> htmlAttributes { get; set; }
         
         public PropertyInfo Property { get; set; }
 
@@ -54,6 +54,8 @@ namespace BForms.Grid
         public string DisplayName { get; set; }
 
         public int? Order { get; set; }
+
+        public BsOrderType OrderType = BsOrderType.Default;
 
         private List<BsColumnWidth> widthSizes = new List<BsColumnWidth>() 
         { 
@@ -114,7 +116,7 @@ namespace BForms.Grid
 
         public BsGridColumn<TRow> HtmlAttributes(Func<TRow, Dictionary<string, object>> configurator)
         {
-            this.HtmlAttr = configurator(new TRow());
+            this.htmlAttributes = configurator(new TRow());
 
             return this;
         }
@@ -213,6 +215,16 @@ namespace BForms.Grid
                 var linkBuilder = new TagBuilder("a");
                 linkBuilder.MergeAttribute("href", "#");
                 linkBuilder.MergeAttribute("class", "bs-orderColumn");
+
+                if (this.OrderType == BsOrderType.Ascending)
+                {
+                    linkBuilder.AddCssClass("sort_asc");
+                }
+                else if (this.OrderType == BsOrderType.Descending)
+                {
+                    linkBuilder.AddCssClass("sort_desc");
+                }
+
                 linkBuilder.InnerHtml = this.DisplayName;
 
                 columnBuilder.InnerHtml += linkBuilder.ToString();
@@ -227,6 +239,10 @@ namespace BForms.Grid
                 columnBuilder.InnerHtml += this.EditableContent;
             }
 
+            if (this.htmlAttributes != null)
+            {
+                columnBuilder.MergeAttributes(this.htmlAttributes);
+            }
             columnBuilder.AddCssClass(this.GetWidthClasses());
             columnBuilder.MergeAttribute("data-name", this.PrivateName);
 

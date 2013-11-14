@@ -22,18 +22,8 @@
     
     Pager.prototype._create = function () {
         
-        this._initSelectors();
-
         this._addDelegates();
         
-    };
-
-    Pager.prototype._initSelectors = function () {
-
-        this.$pagesContainer = this.element.find(this.options.pagesContainerSelector);
-        this.$totalContainer = this.element.find(this.options.totalsContainerSelector);
-        this.$pageSizeContainer = this.element.find(this.options.pageSizeContainerSelector);
-
     };
 
     Pager.prototype._addDelegates = function () {
@@ -98,15 +88,17 @@
     
     Pager.prototype.update = function ($pagesHtml) {
 
-        this.$pagesContainer.html($pagesHtml.children());
+        var $pageSizeContainer = this.element.find(this.options.pageSizeContainerSelector)
 
-        $pagesHtml.length == 0 ? this.$pageSizeContainer.hide() : this.$pageSizeContainer.show();
+        this.element.html($pagesHtml);
+
+        $pagesHtml.length == 0 ? $pageSizeContainer.hide() : $pageSizeContainer.show();
 
     };
 
     Pager.prototype.updateTotal = function (total) {
 
-        this.$totalContainer.html(total);
+        this.element.find(this.options.totalsContainerSelector).html(total);
 
     };
 

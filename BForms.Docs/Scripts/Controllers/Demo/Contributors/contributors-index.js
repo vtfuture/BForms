@@ -103,11 +103,12 @@
                     var items = context.getSelectedRows();
 
                     this._ajaxDelete($rows, items, this.options.deleteUrl, $.proxy(function () {
-                        $rows.remove();
+                        context._getPage(true);
+                        //$rows.remove();
                         context._evOnRowCheckChange($rows);
-                        if (this.$grid.find('.grid_row[data-objid]').length == 0) {
-                            this.$grid.bsGrid('refresh');
-                        }
+                        //if (this.$grid.find('.grid_row[data-objid]').length == 0) {
+                        //    this.$grid.bsGrid('refresh');
+                        //}
                     }, this), function (response) {
                         context._pagerAjaxError(response);
                     });
@@ -319,19 +320,19 @@
                     });
 
                     this._ajaxDelete($row, data, options.url, function () {
-                        $row.remove();
+                        context._getPage(true);
                     }, function (response) {
                         context._rowActionAjaxError(response, $row);
                     });
 
-                    $btn.bsInlineQuestion('hide');
+                    $btn.bsInlineQuestion('toggle');
                 }, this)
                 },
                 {
                     text: 'No',
                     cssClass: 'btn-default bs-cancel',
                     callback: function (e) {
-                        $btn.bsInlineQuestion('hide');
+                        $btn.bsInlineQuestion('toggle');
                     }
                 }]
         });      

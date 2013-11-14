@@ -209,8 +209,15 @@
                       '{{>daysTemplate}}',
 
         secondaryActions: '<div class="bs-secondary-action">' +
-                            '{{#DateNowButton}}<a href="#" class="btn btn-default bs-dateNow">{{NowText}}</a>{{/DateNowButton}}' +
-                            '{{#WithTime}}<a href="#" class="btn btn-set time pull-right bs-setTimeBtn">{{SetTimeText}}</a>{{/WithTime}}' +
+                            '{{#HasCustomButtons}}' +
+                                '{{#Buttons}}' +
+                                        '<a href="#" class="{{cssClass}} bs-customPickerBtn">{{text}}</a>' +
+                                '{{/Buttons}}' +
+                            '{{/HasCustomButtons}}' +
+                            '{{^HasCustomButtons}}' +
+                                '{{#DateNowButton}}<a href="#" class="btn btn-default bs-dateNow">{{NowText}}</a>{{/DateNowButton}}' +
+                                '{{#WithTime}}<a href="#" class="btn btn-set time pull-right bs-setTimeBtn">{{SetTimeText}}</a>{{/WithTime}}' +
+                             '{{/HasCustomButtons}}' +
                         '</div>',
 
         yearsTemplate: '<ul class="years" {{#HideYears}}style="display:none"{{/HideYears}}>' +

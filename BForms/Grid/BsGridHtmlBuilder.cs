@@ -376,6 +376,16 @@ namespace BForms.Grid
                 for (var i = 0; i < this.columns.Count; i++)
                 {
                     var column = this.columns[i];
+
+                    if (this.model.BaseSettings.OrderableColumns != null)
+                    {
+                        var orderModel = this.model.BaseSettings.OrderableColumns.Find(x => x.Name == column.PrivateName);
+                        if (orderModel != null)
+                        {
+                            column.OrderType = orderModel.Type;
+                        }
+                    }
+
                     headerBuilder.InnerHtml += column.Render();
                 }
 
@@ -390,9 +400,14 @@ namespace BForms.Grid
             gridBuilder.InnerHtml += wrapper.ToString();
 
             #region pager builder
-            if (this.renderPager && this.model.Pager != null && this.model.Pager.TotalRecords > 0)
+            if (this.renderPager)
             {
                 var pagerWrapper = new TagBuilder("div");
+
+                if (this.model.Pager == null || this.model.Pager.TotalRecords == 0)
+                {
+                    pagerWrapper.MergeAttribute("style", "display: none;");
+                }
                 pagerWrapper.AddCssClass("row bs-pager");
                 pagerWrapper.AddCssClass(theme.GetDescription());
 
@@ -400,7 +415,7 @@ namespace BForms.Grid
 
                 if (this.pagerSettings.HasPageSizeSelector)
                 {
-                    int pageSize = this.model.Pager.PageSize;
+                    int pageSize = this.model.Pager != null ? this.model.Pager.PageSize : this.model.BaseSettings.PageSize;
                     if (!this.pagerSettings.PageSizeValues.Contains(pageSize))
                         throw new ArgumentOutOfRangeException("The page size you selected is not in the list");
 
@@ -411,7 +426,6 @@ namespace BForms.Grid
                     divBuilder.AddCssClass("pull-right");
 
                     #region right side
-                    var selectedVal = this.model.Pager.PageSize;
                     var dropdownContainerBuilder = new TagBuilder("div");
                     dropdownContainerBuilder.AddCssClass("dropdown dropup");
 
@@ -436,7 +450,7 @@ namespace BForms.Grid
                         var dropdownLiBuilder = new TagBuilder("li");
                         var dropdownLiAnchorBuilder = new TagBuilder("a");
 
-                        if (selectedVal == item)
+                        if (pageSize == item)
                         {
                             var dropdownCountBuilder = new TagBuilder("span");
                             dropdownCountBuilder.AddCssClass("btn btn-default bs-perPageDisplay");
@@ -554,9 +568,9 @@ namespace BForms.Grid
 
                         var cellBuilder = new TagBuilder("div");
 
-                        if (column.HtmlAttr != null)
+                        if (column.htmlAttributes != null)
                         {
-                            cellBuilder.MergeAttributes(column.HtmlAttr);
+                            cellBuilder.MergeAttributes(column.htmlAttributes);
                         }
 
                         cellBuilder.AddCssClass(column.GetWidthClasses());
@@ -618,8 +632,7 @@ namespace BForms.Grid
             }
             else
             {
-                rowsBuilder.MergeAttribute("style","display:none");
-                result += rowsBuilder.ToString();
+                rowsBuilder.AddCssClass("no_results");
 
                 var rowBuilder = new TagBuilder("div");
                 rowBuilder.MergeAttribute("class", "row grid_row");
@@ -648,7 +661,9 @@ namespace BForms.Grid
                 divBuilder.InnerHtml += infoBuilder.ToString();
                 rowBuilder.InnerHtml += divBuilder.ToString();
 
-                result += rowBuilder.ToString();
+                rowsBuilder.InnerHtml += rowBuilder.ToString();
+
+                result += rowsBuilder.ToString();
             }
 
             return result;

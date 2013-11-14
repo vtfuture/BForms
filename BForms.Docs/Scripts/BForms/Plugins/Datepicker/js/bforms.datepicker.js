@@ -20,7 +20,7 @@
     bDatepicker.prototype.init = function () {
 
         this.renderer = new bDatepickerRenderer();
-      
+
         if (this.options.checkForMobileDevice == true) {
             this.options.inlineMobile = $.browser != null && $.browser.mobile == true;
         }
@@ -28,7 +28,7 @@
         if (this.options.inlineMobile && this.options.inline != true) {
 
             this._initInlineMobile();
-            
+
             if (this.$element.is('input')) {
                 if (this.options.readonlyInput || ($.browser != null && $.browser.mobile == true)) {
                     this.$element.prop('readonly', true);
@@ -68,7 +68,7 @@
             if (this.options.visible == false) {
                 this._visible = false;
             }
-            
+
             this._getInitialValue();
             this._initRenderModel();
             this._initLang(this.options.language);
@@ -149,6 +149,31 @@
         }
 
         this.renderModel.ShowClose = this.options.showClose || false;
+
+        if (typeof this.options.buttons !== "undefined" && $.isArray(this.options.buttons)) {
+
+            this.renderModel.Buttons = [];
+
+            for (var btn in this.options.buttons) {
+                var currentBtn = this.options.buttons[btn];
+
+                var btnModel = {
+                    cssClass: currentBtn.cssClass,
+                    text: currentBtn.text
+                };
+
+                btnModel.cssClass += ' btn';
+
+                if (currentBtn.placement == 'left') {
+                    btnModel.cssClass += ' pull-left';
+                } else if (currentBtn.placement == 'right') {
+                    btnModel.cssClass += ' pull-right';
+                }
+
+                this.renderModel.Buttons.push(btnModel);
+                this.renderModel.HasCustomButtons = true;
+            }
+        }
     };
 
     bDatepicker.prototype._initOptions = function () {
@@ -217,7 +242,7 @@
             showClose: true,
             visible: false,
             closeOnBlur: false,
-            afterShow : $.proxy(function(data) {
+            afterShow: $.proxy(function (data) {
                 var $picker = data.datepicker,
                     elementTopOffset = this.$element.parent().offset().top,
                     windowHeight = $(window).height(),
@@ -227,8 +252,8 @@
                 if ($(window).scrollTop() < scrollTo) {
                     $('html, body').scrollTop(scrollTo);
                 }
-                
-            },this)
+
+            }, this)
         });
 
         var $pickerReplace = $('<div class="bs-picker-replace"></div>');
@@ -350,9 +375,32 @@
             this.$input.on('change', $.proxy(this.onInputChange, this));
         }
 
-        this.$picker.on('click', '.bs-setTimeBtn', $.proxy(function (e) {
-            this.showTimeClick(e);
-        }, this));
+        if (typeof this.options.buttons === "undefined" || !$.isArray(this.options.buttons)) {
+
+            this.$picker.on('click', '.bs-setTimeBtn', $.proxy(function(e) {
+                this.showTimeClick(e);
+            }, this));
+
+            this.$picker.on('click', '.bs-dateNow', $.proxy(function(e) {
+                this.dateNowClick(e);
+            }, this));
+
+            this.$picker.on('click', '.bs-timeNow', $.proxy(function(e) {
+                this.timeNowClick(e);
+            }, this));
+        } else {
+            this.$picker.on('click', '.bs-customPickerBtn', $.proxy(function (e) {
+
+                var index = this.$picker.find('.bs-customPickerBtn').index(e.currentTarget),
+                    btn = this.options.buttons[index];
+                
+                if (typeof btn !== "undefined" && typeof btn.handler === "function") {
+                    btn.handler.apply(btn.context || this, arguments);
+                }
+
+            }, this));
+        }
+
 
         this.$picker.on('click', '.bs-setDateBtn', $.proxy(function (e) {
             this.showDateClick(e);
@@ -382,13 +430,6 @@
             this.yearValueClick(e);
         }, this));
 
-        this.$picker.on('click', '.bs-dateNow', $.proxy(function (e) {
-            this.dateNowClick(e);
-        }, this));
-
-        this.$picker.on('click', '.bs-timeNow', $.proxy(function (e) {
-            this.timeNowClick(e);
-        }, this));
 
         this.$picker.on('click', '.bs-hourUp', $.proxy(function (e) {
             this.hourUpClick(e);
@@ -898,7 +939,7 @@
             $('body').append(this.$picker);
             this._positionPicker();
         }
-        
+
         if (!this._visible) {
             this.$picker.hide();
         }
@@ -1055,7 +1096,7 @@
                 this.options.wrapperClass = 'bs-onlytime-picker ';
             }
         }
-        
+
         if (this.isInline) {
             if (typeof this.options.wrapperClass !== "undefined") {
                 this.options.wrapperClass += " bs-inline-picker";
@@ -1171,7 +1212,7 @@
     //#endregion
 
     //#region public methods
-    bDatepicker.prototype.show = function () {
+    bDatepicker.prototype.show = function (position) {
 
         if (this._visible !== true) {
 
@@ -1184,6 +1225,10 @@
             if (showData.preventShow == false) {
 
                 this._positionPicker();
+
+                if (typeof position !== "undefined") {
+                    this.updatePosition(position);
+                }
 
                 this.$picker.show();
                 this._visible = true;
@@ -1210,7 +1255,7 @@
             this._trigger('beforeHide', hideData);
 
             if (hideData.preventHide == false) {
-                
+
                 this.$picker.hide();
                 this._visible = false;
 
@@ -1282,6 +1327,51 @@
 
             if (typeof this["option_" + name] === "function") {
                 this["option_" + name].apply(this, [value]);
+            }
+        }
+    };
+
+    bDatepicker.prototype.updatePosition = function (position) {
+
+        if (typeof position !== "undefined" && position != null) {
+
+            var top = position.top,
+                left = position.left;
+
+            if (top != null) {
+                if (typeof top === "number") {
+                    this.$picker.css({
+                        'top': top
+                    });
+
+                } else if (typeof top === "string") {
+
+                    var currentTop = this.$picker.position().top,
+                        topValue = window.parseInt(top, 10);
+
+                    if (top.indexOf('-') !== -1 || top.indexOf('+') !== -1) {
+                        this.$picker.css({
+                            'top': currentTop + topValue
+                        });
+                    }
+                }
+            }
+
+            if (left != null) {
+                if (typeof left === "number") {
+                    this.$picker.css({
+                        'left': left
+                    });
+                } else if (typeof left === "string") {
+                    var currentLeft = this.$picker.position().left,
+                        leftValue = window.parseInt(left, 10);
+
+                    if (left.indexOf('-') !== -1 || left.indexOf('+') !== -1) {
+                        this.$picker.css({
+                            'left': currentLeft + leftValue
+                        });
+                    }
+                }
             }
         }
     };

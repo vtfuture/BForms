@@ -4,7 +4,8 @@
     'bforms-pager',
     'bforms-editable',
     'bforms-ajax',
-    'bforms-namespace'
+    'bforms-namespace',
+    'bforms-inlineQuestion'
 ], function () {
 
     var Grid = function (opt) {
@@ -580,13 +581,7 @@
 
         if (data.pageSize) {
             this.refreshModel.PageSize = data.pageSize;
-            pageChanged = false;
-
-            if (data.pageSize != this._initialModel.PageSize) {
-                this._showResetGridButton();
-            } else {
-                this._hideResetGridButton();
-            }
+            pageChanged = false;        
         }
 
         this._getPage(pageChanged);
@@ -920,6 +915,12 @@
             this.options.onRefresh.call(this, data);
         }
 
+        if (typeof this.options.additionalData !== "undefined") {
+            $.extend(true, data, this.options.additionalData);
+        }
+
+        this._trigger('beforePager', data);
+
         //ajax
         var ajaxOptions = {
             name: this.options.uniqueName + '|pager',
@@ -951,6 +952,7 @@
         if (this._currentResultsCount) {
             this.$rowsContainer.html($html.html());
             this.$rowsContainer.removeClass('no_results');
+            this.element.find('.bs-pager').show();
         } else {
             this.$rowsContainer.html($wrapper.find(this.options.noResultsRowSelector));
             this.$rowsContainer.addClass('no_results');
@@ -1071,21 +1073,10 @@
     };
 
     Grid.prototype._isInitialState = function () {
-        var orderLength = this.refreshModel.OrderableColumns.length,
-            orderIt = 0;
-
-        for (; orderIt < orderLength; orderIt++) {
-            if (this.refreshModel.OrderableColumns[orderIt].Type != 0)
-                return false;
-        }
 
         if (this.$filterIcon.is(':visible')) {
             return false;
-        }
-
-        if (this.refreshModel.PageSize != this._initialModel.PageSize) {
-            return false;
-        }
+        }       
 
         if (this.element.find(this.options.errorCloseSelector).length) {
             return false;

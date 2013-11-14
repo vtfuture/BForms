@@ -95,6 +95,13 @@
     <Compile Include="Grid\BsGridHtmlBuilder.cs" />
     <Compile Include="Grid\BsGridRepositorySettings.cs" />
     <Compile Include="Grid\BsGridExcelColumnFactory.cs" />
+    <Compile Include="GroupEditor\BsEditorHtmlBuilder.cs" />
+    <Compile Include="GroupEditor\BsEditorTabBuilder.cs" />
+    <Compile Include="GroupEditor\BsEditorTabConfigurator.cs" />
+    <Compile Include="Html\BsPanelExtensions.cs" />
+    <Compile Include="Html\BsPanelHtmlBuilder.cs" />
+    <Compile Include="Html\GroupEditorExtensions.cs" />
+    <Compile Include="Mvc\BsGroupEditorAttribute.cs" />
     <Compile Include="Html\SortableListExtensions.cs" />
     <Compile Include="Utilities\BsResourceManager.cs" />
     <Compile Include="Grid\BsGridRowConfigurator.cs" />
