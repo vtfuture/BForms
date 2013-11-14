@@ -17,7 +17,7 @@
 		uniqueName: '',
 		navbarSelector: '.bs-navbar',
 		pagerSelector: '.bs-pager',
-
+		tabContentSelector: '.bs-tabContent',
         getTabUrl: '',
 	};
 	//#endregion
@@ -36,6 +36,8 @@
 		this._initSelectors();
 
 		this._addDelegates();
+
+		this._initSelectedTab();
 	};
 
 	GroupEditor.prototype._initSelectors = function () {
@@ -49,6 +51,55 @@
 		this.$navbar.on('click', 'a', $.proxy(this._evChangeTab, this));
 
 	};
+
+	GroupEditor.prototype._initSelectedTab = function () {
+
+	    var $container = this.element.find('div[data-tabid]:visible'),
+			tabId = $container.data('tabid'),
+	        loaded = this._isLoaded($container);
+
+	    this._initTab({
+            container: $container,
+            loaded: loaded,
+            id: tabId
+	    });
+	};
+
+	GroupEditor.prototype._initTab = function (tabModel) {
+
+	    var self = this;
+
+	    if (tabModel) {
+
+	        if (!tabModel.loaded) {
+
+	            this._ajaxGetTab({
+	                tabModel: tabModel,
+	                data: {
+	                    tabId: tabModel.id
+	                }
+	            });
+	        }
+
+	        if (tabModel.html) {
+
+	            tabModel.container.find(this.options.tabContentSelector).html(tabModel.html);
+	        }
+
+	        if (!tabModel.pager) {
+
+	            tabModel.pager = tabModel.container.find(this.options.pagerSelector);
+	            tabModel.pager.bsPager({
+	                pagerUpdate: function (e, data) {
+	                    self._evChangePage(data, tabModel);
+	                },
+	                pagerGoTop: $.proxy(this._evGoTop, this)
+	            });
+	        }
+
+	        tabModel.container.show();
+	    }
+	};
 	//#endregion
 
 	//#region Events
@@ -57,8 +108,7 @@
 		var $el = $(e.currentTarget),
 			tabId = $el.data('tabid'),
 			$container = this.element.find('div[data-tabid="' + tabId + '"]'),
-            dataLoaded = $container.data('loaded'),
-			loaded = dataLoaded == "true" || dataLoaded == "True";
+            loaded = this._isLoaded($container);
 
 		this._hideTabs();
 
@@ -67,6 +117,21 @@
 			loaded: loaded,
 			id: tabId
 		});
+	};
+
+	GroupEditor.prototype._evChangePage = function (data, tabModel) {
+	    this._ajaxGetTab({
+	        tabModel: tabModel,
+	        data: {
+	            page: data.page,
+	            pageSize: data.pageSize || 5,
+	            tabId: tabModel.id
+	        }
+	    });
+	};
+
+	GroupEditor.prototype._evGoTop = function () {
+	    console.log(" -- go to top --", arguments);
 	};
 	//#endregion
 
@@ -90,6 +155,7 @@
 
 	GroupEditor.prototype._ajaxGetTabSuccess = function (response, callback) {
 	    if (response) {
+
 	        var container = callback.tabModel.container;
 	        container.data('loaded', 'true');
 
@@ -97,7 +163,8 @@
 	            this._initTab({
 	                container: container,
 	                loaded: true,
-                    html: response.Html
+	                html: response.Html,
+	                id: callback.tabModel.id
 	            });
 	        }
 	    }
@@ -109,40 +176,18 @@
 	//#endregion
 
 	//#region Helpers
-	GroupEditor.prototype._initTab = function (tabModel) {
-
-	    if (tabModel) {
-
-			if (!tabModel.pager) {
-				tabModel.pager = tabModel.container.find(this.options.pagerSelector);
-				tabModel.pager.bsPager({
-					pagerUpdate: function () { console.log("page change"); },
-					pagerGoTop: function () { console.log("go to top"); }
-				});
-			}
-
-			if (!tabModel.loaded) {
-			    this._ajaxGetTab({
-                    tabModel: tabModel,
-                    data: {
-                        tabId: tabModel.id
-                    }
-			    });
-			}
-
-			if (tabModel.html) {
-			    tabModel.container.html(tabModel.html);
-			}
-
-			tabModel.container.show();
-		}
-	};
-
 	GroupEditor.prototype._hideTabs = function () {
 
 		var $containers = this.element.find('div[data-tabid]');
 
 		$containers.hide();
+	};
+
+	GroupEditor.prototype._isLoaded = function ($element) {
+
+        var dataLoaded = $element.data('loaded');
+
+        return dataLoaded == "true" || dataLoaded == "True" || dataLoaded == true
 	};
 	//#endregion
 

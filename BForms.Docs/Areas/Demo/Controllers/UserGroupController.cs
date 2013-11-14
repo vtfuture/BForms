@@ -82,7 +82,34 @@ namespace BForms.Docs.Areas.Demo.Controllers
             return View(model);
         }
 
-        public BsJsonResult GetTab(YesNoValueTypes tabId)
+        public class GroupEditorRequest
+        {
+            public int Page { get; set; }
+            public int PageSize { get; set; }
+            public int TabId { get; set; }
+            public ContributorSearchModel Search1 { get; set; }
+            public ContributorSearchModel Search2 { get; set; }
+
+            public BsGridRepositorySettings<T> GetRepositorySettings<T>()
+            {
+                foreach (var item in this.GetType().GetProperties())
+                {
+                    if (item.PropertyType.IsAssignableFrom(typeof(T)))
+                    {
+                        return new BsGridRepositorySettings<T>
+                        {
+                            Search = (T)item.GetValue(this),
+                            Page = this.Page,
+                            PageSize = this.PageSize
+                        };
+                    }
+                }
+
+                throw new ArgumentException("The generic type was not found in object props");
+            }
+        }
+
+        public BsJsonResult GetTab(YesNoValueTypes tabId, int? page, int? pageSize /*, GroupEditorRequest request*/)
         {
             var msg = string.Empty;
             var status = BsResponseStatus.Success;
@@ -92,27 +119,54 @@ namespace BForms.Docs.Areas.Demo.Controllers
             try
             {
                 UserGroupViewModel viewModel = new UserGroupViewModel();
-
+                
                 switch (tabId)
                 {
                     case YesNoValueTypes.No:
 
-                        var gridModel = repo.ToBsGridViewModel(new BsGridRepositorySettings<ContributorSearchModel>()
+                        //var grid2 = repo.ToBsGridViewModel(request.GetRepositorySettings<ContributorSearchModel>(), out count);
+                        var grid2 = repo.ToBsGridViewModel(new BsGridRepositorySettings<ContributorSearchModel>()
                         {
-                            Page = 1,
-                            PageSize = 5
+                            Page = page ?? 1,
+                            PageSize = pageSize ?? 5
                         }, out count);
 
                         viewModel.Contributors2 = new BsGroupEditor<ContributorRowModel>
                         {
-                            Grid = gridModel
+                            Grid = grid2
                         };
+                        break;
 
-                        html = this.BsRenderPartialView("_GroupEditor", viewModel);
+                    case YesNoValueTypes.Yes:
+
+                        var grid1 = repo.ToBsGridViewModel(new BsGridRepositorySettings<ContributorSearchModel>()
+                        {
+                            Page = page ?? 1,
+                            PageSize = pageSize ?? 5
+                        }, out count); 
+
+                        viewModel.Contributors = new ContributorsInheritExample
+                        {
+                            Grid = grid1
+                        };
+                        break;
+
+                    case YesNoValueTypes.Both:
+
+                        var grid3 = repo.ToBsGridViewModel(new BsGridRepositorySettings<ContributorSearchModel>()
+                        {
+                            Page = page ?? 1,
+                            PageSize = pageSize ?? 5
+                        }, out count);
+
+                        viewModel.Contributors3 = new BsGroupEditor<ContributorRowModel, ContributorSearchModel, ContributorNewModel>
+                        {
+                            Grid = grid3
+                        };
                         break;
                 }
 
-
+                html = this.BsRenderPartialView("_GroupEditor", viewModel);
             }
             catch (Exception ex)
             {

@@ -148,11 +148,15 @@ namespace BForms.GroupEditor
         {
             this.buttons = this.parts.Where(x => x.button != null).Select(x => x.button).ToList();
 
+            var result = string.Empty;
+
+            var container = new TagBuilder("div");
+
+            container.AddCssClass("search");
+
             if (this.inlineSearch || this.buttons.Any())
             {
-                var container = new TagBuilder("div");
-
-                container.AddCssClass("search inline");
+                container.AddCssClass("inline");
 
                 var group = new TagBuilder("div");
 
@@ -196,11 +200,11 @@ namespace BForms.GroupEditor
                 #endregion
 
                 container.InnerHtml += group;
-
-                return container.ToString();
             }
 
-            return string.Empty;
+            result += container;
+
+            return result;
         }
         #endregion
     }

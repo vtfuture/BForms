@@ -14,7 +14,9 @@
 
     UserGroupIndex.prototype.init = function () {
         $('#myGroupEditor').bsGroupEditor({
+
             getTabUrl: this.options.getTabUrl
+
         });
     };
     //#endregion

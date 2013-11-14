@@ -312,16 +312,16 @@ namespace BForms.GroupEditor
 
             var result = this.toolbar.Render();
 
+            var wrapper = new TagBuilder("div");
+
+            wrapper.AddCssClass("bs-tabContent");
+
             if (this.HasModel)
             {
-                var wrapper = new TagBuilder("div");
-
-                wrapper.AddCssClass("bs-tabContent");
-
                 wrapper.InnerHtml += RenderAjax();
-
-                result += wrapper;
             }
+
+            result += wrapper;
 
             return result;
         }
