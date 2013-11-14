@@ -7,16 +7,52 @@
 
 @using (Html.BeginForm())
 {
-    @Html.BsSortableListFor(Model,
-        m => m.Name,
-        m => m.Id.ToString(),
-        m => m.Order.ToString(),
-        m => new Dictionary<string, object>{{"class", "sortable_item"}}, 
-        m => new Dictionary<string, object>{{"depth", m.Depth}}, 
-        m => new Dictionary<string, object>{{"class", "item_label"}},
-        m => m.Role.ToString(),
-        m => new Dictionary<string, object>{{"class",
-            m.Role == ProjectRole.Tester ? "label-danger" : m.Role == ProjectRole.TeamLeader ? "label-success" : "label-info"}})
+    @*@Html.BsSortableListFor(model: Model,
+                config: m=> new BsSortableListConfiguration
+                {
+                    Id = m.Id.ToString(),
+                    Order = m.Order.ToString(),
+                    Text = m.Name
+                },
+                listProperties: m => new HtmlProperties
+                {
+                    
+                }, 
+                itemProperties: m => new HtmlProperties
+                {
+                    
+                }, 
+                labelProperties: m => new HtmlProperties
+                {
+                    //Text = m.Name
+                }, 
+                badgeProperties: m => new HtmlProperties
+                {
+                    HtmlAttributes = new Dictionary<string, object> {
+                        {
+                            "class",
+                            m.Role == ProjectRole.Tester ? "label-danger" : m.Role == ProjectRole.TeamLeader ? "label-success" : "label-info"
+                        } },
+                    Text = m.Role.ToString()
+                })*@
+    
+    @Html.BsSortableListFor(Model, m => new BsSortableListConfiguration
+    {
+        Id = m.Id.ToString(),
+        Order = m.Order.ToString(),
+        Text = m.Name
+    }).ListProperties(m => new HtmlProperties
+    {
+        HtmlAttributes = new Dictionary<string, object> { { "class", "custom_class"} }
+    }).BadgeProperties(m => new HtmlProperties
+    {
+        HtmlAttributes = new Dictionary<string, object> {
+                        {
+                            "class",
+                            m.Role == ProjectRole.Tester ? "label-danger" : m.Role == ProjectRole.TeamLeader ? "label-success" : "label-info"
+                        } },
+        Text = m.Role.ToString()
+    })
 
     <div class="col-12 col-sm-12 col-lg-12 bs-validation_summary">
         @Html.BsValidationSummary()

@@ -94,6 +94,8 @@
             opacity: 0.8,
             items: '> ' + this.options.itemsSelector,
             cursor: 'move',
+            connectWith: this.options.sortableElementSelector,
+            zIndex: 9999,
             update: $.proxy(function (event, ui) {
                 var reorderedList = [];
 
