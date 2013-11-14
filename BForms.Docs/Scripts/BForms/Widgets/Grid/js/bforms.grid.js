@@ -948,6 +948,8 @@
 
     Grid.prototype._pagerAjaxSuccess = function (data, callbackData) {
 
+        this._trigger('beforePaginationSuccess', 0, data);
+
         this._currentResultsCount = data.Count || 0;
 
         var $html = $(data.Html),
@@ -990,6 +992,8 @@
 
         this.toggleBulkActions();
         this._updateExpandToggle();
+
+        this._trigger('afterPaginationSuccess', 0, data);
     };
 
     Grid.prototype._changeCount = function () {

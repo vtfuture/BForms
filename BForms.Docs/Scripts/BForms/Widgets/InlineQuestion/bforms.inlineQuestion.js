@@ -16,7 +16,9 @@
                     '{{#buttons}}' + 
                         '<button type="button" class="btn bs-popoverBtn {{cssClass}}"> {{text}} </button> ' +
                     '{{/buttons}}',
-        placement : 'left'
+        placement: 'left',
+        content : undefined,
+        closeOnOuterClick : true,
     };
 
     bsInlineQuestion.prototype._init = function () {
@@ -42,13 +44,33 @@
             }
 
         }, this));
+        
+
+        if (this.options.closeOnOuterClick && $(document).data('bsPopoverClickHandler') !== true) {
+            $(document).on('click', function (e) {
+                var $target = $(e.target);
+                
+                var $openPopovers = $('.bs-hasInlineQuestion').filter(function(idx, elem) {
+                    var $elem = $(elem),
+                        $tip = $elem.data('bs.popover').$tip;
+
+                    return $tip.is(':visible') && $elem[0] != $target[0] && $elem.find($target).length == 0 && $target[0] != $tip[0] && $tip.find($target).length == 0;
+                });
+
+                $openPopovers.bsInlineQuestion('hide');
+
+            }).data('bsPopoverClickHandler', true);
+        }
     };
 
     bsInlineQuestion.prototype._addPopover = function () {
         this.$element.popover({
             html: true,
             placement: this.options.placement,
-            content: this._renderPopover()
+            content: this.options.content || this._renderPopover()
+        }).addClass('bs-hasInlineQuestion');
+
+        this.$element.on('show.bs.popover', function() {
         });
 
 
