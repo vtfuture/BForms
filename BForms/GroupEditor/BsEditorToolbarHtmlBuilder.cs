@@ -121,7 +121,7 @@ namespace BForms.GroupEditor
             var property = type.GetProperty(name);
 
             //TValue value = (TValue)property.GetValue((TModel)this.tabBuilder);
-            var value = property.GetValue((TModel)this.tabBuilder);
+            var value = this.tabBuilder != null ? property.GetValue((TModel)this.tabBuilder) : null;
 
             var part = new BsEditorToolbarPart()
             {

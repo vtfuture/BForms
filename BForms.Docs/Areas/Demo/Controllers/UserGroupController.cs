@@ -14,13 +14,11 @@ using BForms.Docs.Areas.Demo.Helpers;
 using BForms.Docs.Controllers;
 using BForms.Docs.Areas.Demo.Repositories;
 using BForms.Grid;
+using RequireJS;
 
 namespace BForms.Docs.Areas.Demo.Controllers
 {
-    public class ContributorsOrderModel
-    {
-
-    }
+    public class ContributorsOrderModel {}
 
     public class ContributorsInheritExample : BsGroupEditor<ContributorRowModel, ContributorSearchModel>
     {
@@ -56,22 +54,14 @@ namespace BForms.Docs.Areas.Demo.Controllers
             {
                 Contributors = new ContributorsInheritExample
                 {
-                    Grid = new BsGridModel<ContributorRowModel>
+                    Grid = repo.ToBsGridViewModel(new BsGridRepositorySettings<ContributorSearchModel>
                     {
-                        Items = new List<ContributorRowModel>(),
-                        Pager = new BsPagerModel(5)
-                    },
+                        Page = 1,
+                        PageSize = 10
+                    }),
                     Search = repo.GetSearchForm(),
                     Order = new ContributorsOrderModel()
                 },
-                //Contributors2 = new BsGroupEditor<ContributorRowModel>
-                //{
-                //    Grid = new BsGridModel<ContributorRowModel>
-                //    {
-                //        Items = new List<ContributorRowModel>(),
-                //        Pager = new BsPagerModel(5)
-                //    }
-                //},
                 Contributors3 = new BsGroupEditor<ContributorRowModel, ContributorSearchModel, ContributorNewModel>
                 {
                     Grid = repo.ToBsGridViewModel(new BsGridRepositorySettings<ContributorSearchModel>
@@ -81,7 +71,60 @@ namespace BForms.Docs.Areas.Demo.Controllers
                     })
                 }
             };
+
+            var options = new Dictionary<string, object>
+            {
+                {"getTabUrl", Url.Action("GetTab")},
+            };
+
+            RequireJsOptions.Add("index", options);
+
             return View(model);
+        }
+
+        public BsJsonResult GetTab(YesNoValueTypes tabId)
+        {
+            var msg = string.Empty;
+            var status = BsResponseStatus.Success;
+            var html = string.Empty;
+            var count = 0;
+
+            try
+            {
+                UserGroupViewModel viewModel = new UserGroupViewModel();
+
+                switch (tabId)
+                {
+                    case YesNoValueTypes.No:
+
+                        var gridModel = repo.ToBsGridViewModel(new BsGridRepositorySettings<ContributorSearchModel>()
+                        {
+                            Page = 1,
+                            PageSize = 10
+                        }, out count);
+
+                        viewModel.Contributors2 = new BsGroupEditor<ContributorRowModel>
+                        {
+                            Grid = gridModel
+                        };
+
+                        html = this.BsRenderPartialView("_GroupEditor", viewModel);
+                        break;
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                msg = ex.Message;
+                status = BsResponseStatus.ServerError;
+            }
+
+            return new BsJsonResult(new
+            {
+                Count = count,
+                Html = html
+            }, status, msg);
         }
     }
 }

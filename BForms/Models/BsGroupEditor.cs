@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using BForms.Utilities;
 
 namespace BForms.Models
 {
     public abstract class BsGroupEditor
     {
+        
     }
 
     public class BsGroupEditor<TRow> : BsGroupEditor
@@ -24,4 +27,6 @@ namespace BForms.Models
     {
         public TNew New { get; set; }
     }
+
+
 }

@@ -13,13 +13,17 @@
     };
 
     UserGroupIndex.prototype.init = function () {
-        $('#myGroupEditor').bsGroupEditor();
+        $('#myGroupEditor').bsGroupEditor({
+            getTabUrl: this.options.getTabUrl
+        });
     };
     //#endregion
 
     //#region Dom Ready
     $(document).ready(function () {
+
         var ctrl = new UserGroupIndex(window.requireConfig.pageOptions.index);
+
     });
     //#endregion
 });

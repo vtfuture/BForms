@@ -565,8 +565,8 @@ namespace BForms.Grid
                 infoBuilder.MergeAttribute("class", "alert alert-info");
 
 
-                infoBuilder.InnerHtml += !string.IsNullOrEmpty(this.noResultsTemplate) ? 
-                                    this.viewContext.Controller.BsRenderPartialView(this.noResultsTemplate, null) : 
+                infoBuilder.InnerHtml += !string.IsNullOrEmpty(this.noRecordsTemplate) ?
+                                    this.viewContext.Controller.BsRenderPartialView(this.noRecordsTemplate, null) : 
                                     BsResourceManager.Resource("NoResults");
 
                 if (this.allowAddIfEmpty)
@@ -598,6 +598,8 @@ namespace BForms.Grid
 
         private string RenderAjax()
         {
+            this.noRecordsTemplate = this.noResultsTemplate;
+
             return this.RenderRows() + this.RenderPages();
         }
 

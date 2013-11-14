@@ -6,8 +6,6 @@ using DocumentFormat.OpenXml.Bibliography;
 
 namespace BForms.Grid
 {
-
-
     public class BsGridRepositorySettings<TSearch> : BsGridBaseRepositorySettings
     {
         public TSearch Search { get; set; }

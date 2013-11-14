@@ -35,7 +35,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
             var bsGridSettings = new BsGridRepositorySettings<ContributorSearchModel>
             {
                 Page = 1,
-                PageSize = 10
+                PageSize = 5
             };
 
             if (savedSettings != null)
@@ -47,7 +47,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
 
             var gridModel = _gridRepository.ToBsGridViewModel(bsGridSettings);
 
-            gridModel.Items = new List<ContributorRowModel>();
+            //gridModel.Items = new List<ContributorRowModel>();
 
             var model = new ContributorsViewModel
             {

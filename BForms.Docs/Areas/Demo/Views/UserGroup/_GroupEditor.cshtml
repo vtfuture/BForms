@@ -1,0 +1,36 @@
+﻿@using BForms.Html
+@using BForms.Docs.Resources
+@using BForms.Models
+@using BForms.Grid
+@using BForms.Docs.Areas.Demo.Controllers
+@model BForms.Docs.Areas.Demo.Controllers.UserGroupViewModel
+
+
+@(Html.BsGroupEditorFor(Model)
+      .HtmlAttributes(new Dictionary<string, object>() { { "id", "myGroupEditor" } })
+      .ConfigureTabs(cfg =>
+        {
+            var tab3 = cfg.For(x => x.Contributors3)
+                .PagerSettings(new BsPagerSettings
+                {
+                    HasPagesText = false
+                })
+                .Template(x => x.Grid, "_TabItem")
+                .Template(x => x.Search, "_Search")
+                .Template(x => x.New, "_New");
+
+            tab3.InlineSearch = true;
+
+            cfg.For(x => x.Contributors2)
+                .Template(x => x.Grid, "_TabItem");
+
+            var tab1 = cfg.For(x => x.Contributors)
+                .Template(x => x.Grid, "_TabItem")
+                .Template(x => x.Search, "_Search");
+
+            tab1.Toolbar.Add<ContributorsInheritExample, ContributorsOrderModel>(x => x.Order, "_Order")
+                        .Button("Order", Glyphicon.List)
+                        .Template("_Order");
+
+            tab1.Toolbar.InlineSearch = true;
+        }))

@@ -10,47 +10,17 @@
 }
 
 <style type="text/css">
-    body { max-width: 1400px;}
+    body {
+        max-width: 1400px;
+    }
 </style>
-
-
 
 
 <div class="grid_container">
 
-    @(Html.BsGroupEditorFor(Model)
-         .HtmlAttributes(new Dictionary<string, object>() { { "id", "myGroupEditor" }})
-         .ConfigureTabs(cfg =>
-            {
-                var tab3 = cfg.For(x => x.Contributors3)
-                   .PagerSettings(new BsPagerSettings
-                   {
-                       HasPagesText = false
-                   })
-                   .Template(x => x.Grid, "_TabItem")
-                   .Template(x => x.Search, "_Search")
-                   .Template(x => x.New, "_New");
-
-                tab3.InlineSearch = true;
-
-                cfg.For(x => x.Contributors2)
-                   .Template(x => x.Grid, "_TabItem");
-
-                var tab1 = cfg.For(x => x.Contributors)
-                    .Template(x => x.Grid, "_TabItem")
-                    .Template(x => x.Search, "_Search");
-
-                tab1.Toolbar.Add<ContributorsInheritExample, ContributorsOrderModel>(x => x.Order, "_Order")
-                            .Button("Order", Glyphicon.List)
-                            .Template("_Order");
-
-                tab1.Toolbar.InlineSearch = true;
-            }))
+    @Html.Partial("_GroupEditor", Model)
 
 </div>
-
-
-
 
 <div class="grid_container">
     <div class="group_editor">
@@ -128,93 +98,93 @@
                 </div>
             </div>
 
-        <div class="search inline">
-            <div class="input-group">
-                
-                <input type="text" class="form-control" placeholder="Cauta">
-                <div class="input-group-btn">
-                    <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-search"></span> Cauta</button>
-                    <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Adauga</button>
+            <div class="search inline">
+                <div class="input-group">
 
+                    <input type="text" class="form-control" placeholder="Cauta">
+                    <div class="input-group-btn">
+                        <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-search"></span> Cauta</button>
+                        <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Adauga</button>
+
+                    </div>
                 </div>
             </div>
-        </div>
 
-                <ul class="group_profiles">
-                    <li>
-                        <div class="media profile large">
-                            <a class="pull-left" href="#">
-                                <img class="media-object" src="http://www.cloverwos.ro/1.0.0.217/Content/images/bg-user.png">
-                            </a>
-                            <a href="#" class="btn btn-default select_profile">@Html.BsGlyphicon(Glyphicon.Plus)</a>
-                            <div class="media-body">
-                                <dl class="to-left">
-                                    <dt>Seria:</dt>
-                                    <dd>Test</dd>
+            <ul class="group_profiles">
+                <li>
+                    <div class="media profile large">
+                        <a class="pull-left" href="#">
+                            <img class="media-object" src="http://www.cloverwos.ro/1.0.0.217/Content/images/bg-user.png">
+                        </a>
+                        <a href="#" class="btn btn-default select_profile">@Html.BsGlyphicon(Glyphicon.Plus)</a>
+                        <div class="media-body">
+                            <dl class="to-left">
+                                <dt>Seria:</dt>
+                                <dd>Test</dd>
 
-                                    <dt>Inregistrat de către:</dt>
-                                    <dd><a href="#">Cristian Pufu</a> 19.02.2004</dd>
+                                <dt>Inregistrat de către:</dt>
+                                <dd><a href="#">Cristian Pufu</a> 19.02.2004</dd>
 
-                                    <dt>Dată:</dt>
-                                    <dd>04.07.2013</dd>
-                                </dl>
-                            </div>
-
+                                <dt>Dată:</dt>
+                                <dd>04.07.2013</dd>
+                            </dl>
                         </div>
-                    </li>
-                    <li class="selected">
-                        <div class="media profile large">
-                            <a class="pull-left" href="#">
-                                <img class="media-object" src="http://www.cloverwos.ro/1.0.0.217/Content/images/bg-user.png">
-                            </a>
-                            <a href="#" class="btn btn-default select_profile">@Html.BsGlyphicon(Glyphicon.Ok)</a>
-                            <div class="media-body">
-                                <dl class="to-left">
-                                    <dt>Seria:</dt>
-                                    <dd>Test</dd>
 
-                                    <dt>Inregistrat de către:</dt>
-                                    <dd><a href="#">Cristian Pufu</a> 19.02.2004</dd>
-
-                                    <dt>Dată:</dt>
-                                    <dd>04.07.2013</dd>
-                                </dl>
-                            </div>
-
-                        </div>
-                    </li>
-                </ul>
-
-                <div class="row bs-pager">
-                    <div class="col-sm-8 col-md-8 col-lg-8 bs-pages">
-                        <ul class="pagination pagination-sm">
-                            <li class="disabled"><a data-page="1" href="#">«</a></li>
-                            <li class="disabled"><a data-page="0" href="#">‹</a></li>
-                            <li class="active"><a data-page="1" href="#">1</a></li>
-                            <li><a data-page="2" href="#">2</a></li>
-                            <li><a data-page="3" href="#">3</a></li>
-                            <li><a data-page="2" href="#">›</a></li>
-                            <li><a data-page="3" href="#">»</a></li>
-                        </ul>
-                        <div class="results_number">1-5 of <span>15</span> items</div>
                     </div>
-                    <div class="col-sm-4 col-md-4 col-lg-4 results_per_page">
-                        <div class="pull-right">
-                            <div class="dropdown dropup">
-                                <span class="results_per_page_container">results per page</span>
-                                <a data-toggle="dropdown" href="#"><span class="btn btn-default bs-perPageDisplay">5<span class="caret"></span></span></a>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li><a class="bs-perPage selected" data-value="5" href="#">5</a></li>
-                                    <li><a class="bs-perPage" data-value="10" href="#">10</a></li>
-                                    <li><a class="bs-perPage" data-value="50" href="#">50</a></li>
-                                    <li><a class="bs-perPage" data-value="100" href="#">100</a></li>
-                                    <li><a class="bs-perPage" data-value="500" href="#">500</a></li>
-                                </ul>
-                            </div>
+                </li>
+                <li class="selected">
+                    <div class="media profile large">
+                        <a class="pull-left" href="#">
+                            <img class="media-object" src="http://www.cloverwos.ro/1.0.0.217/Content/images/bg-user.png">
+                        </a>
+                        <a href="#" class="btn btn-default select_profile">@Html.BsGlyphicon(Glyphicon.Ok)</a>
+                        <div class="media-body">
+                            <dl class="to-left">
+                                <dt>Seria:</dt>
+                                <dd>Test</dd>
+
+                                <dt>Inregistrat de către:</dt>
+                                <dd><a href="#">Cristian Pufu</a> 19.02.2004</dd>
+
+                                <dt>Dată:</dt>
+                                <dd>04.07.2013</dd>
+                            </dl>
+                        </div>
+
+                    </div>
+                </li>
+            </ul>
+
+            <div class="row bs-pager">
+                <div class="col-sm-8 col-md-8 col-lg-8 bs-pages">
+                    <ul class="pagination pagination-sm">
+                        <li class="disabled"><a data-page="1" href="#">«</a></li>
+                        <li class="disabled"><a data-page="0" href="#">‹</a></li>
+                        <li class="active"><a data-page="1" href="#">1</a></li>
+                        <li><a data-page="2" href="#">2</a></li>
+                        <li><a data-page="3" href="#">3</a></li>
+                        <li><a data-page="2" href="#">›</a></li>
+                        <li><a data-page="3" href="#">»</a></li>
+                    </ul>
+                    <div class="results_number">1-5 of <span>15</span> items</div>
+                </div>
+                <div class="col-sm-4 col-md-4 col-lg-4 results_per_page">
+                    <div class="pull-right">
+                        <div class="dropdown dropup">
+                            <span class="results_per_page_container">results per page</span>
+                            <a data-toggle="dropdown" href="#"><span class="btn btn-default bs-perPageDisplay">5<span class="caret"></span></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a class="bs-perPage selected" data-value="5" href="#">5</a></li>
+                                <li><a class="bs-perPage" data-value="10" href="#">10</a></li>
+                                <li><a class="bs-perPage" data-value="50" href="#">50</a></li>
+                                <li><a class="bs-perPage" data-value="100" href="#">100</a></li>
+                                <li><a class="bs-perPage" data-value="500" href="#">500</a></li>
+                            </ul>
                         </div>
                     </div>
                 </div>
-            </div>  @*first column end  *@
+            </div>
+        </div>  @*first column end  *@
 
         <div class="right">
             <div class="grid_view">
@@ -253,7 +223,7 @@
 
                                         <h3 class="">
                                             <span class="glyphicon glyphicon-user"></span>
-                                            Identity                                            
+                                            Identity
                                         </h3>
 
                                         <form action="/BForms.Docs/Demo/Contributors/Details" method="post" novalidate="novalidate" style="display: block;">
@@ -421,7 +391,7 @@
                                     <button type="button" class="btn btn-danger pull-right js-btn_delete" data-original-title="" title="">Delete</button>
                                 </div>
                             </div>
-                            
+
                             <div class="turqoise form_container row">
                                 <hr />
                                 <div class="col-sm-12 col-lg-12 bs-validation_summary"></div>

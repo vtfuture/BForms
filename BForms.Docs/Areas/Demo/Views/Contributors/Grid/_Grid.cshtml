@@ -40,6 +40,7 @@
 @(Html.BsGridFor(m => m.Grid, builder)
       //.NoTitle()
       .NoResultsTemplate("Grid/_NoResults")
+      .NoRecordsTemplate("Grid/_NoRecords")
       .Theme(Html.GetTheme())
       .GridResetButton()
       .ConfigureBulkActions(bulk =>

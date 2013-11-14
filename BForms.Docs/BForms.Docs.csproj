@@ -1189,6 +1189,12 @@
   <ItemGroup>
     <Content Include="Areas\Demo\Views\Contributors\Grid\_NoResults.cshtml" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Demo\Views\UserGroup\_GroupEditor.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Demo\Views\Contributors\Grid\_NoRecords.cshtml" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
