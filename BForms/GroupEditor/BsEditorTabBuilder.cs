@@ -310,21 +310,20 @@ namespace BForms.GroupEditor
         {
             BeforeRender();
 
+            var result = this.toolbar.Render();
+
             if (this.HasModel)
             {
-                var result = this.toolbar.Render();
+                var wrapper = new TagBuilder("div");
 
-                if (this.hasItems)
-                {
-                    result += this.RenderItems();
-                }
+                wrapper.AddCssClass("bs-tabContent");
 
-                result += RenderPager();
+                wrapper.InnerHtml += RenderAjax();
 
-                return result;
+                result += wrapper;
             }
 
-            return "";
+            return result;
         }
 
         public override string Render()

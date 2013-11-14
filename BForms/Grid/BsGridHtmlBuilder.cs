@@ -63,6 +63,7 @@ namespace BForms.Grid
         //private BsBulkActionsFactory BulkActionsFactory { get; set; }
         private string noRecordsTemplate;
         private string noResultsTemplate;
+        private bool isAjaxRequest = false;
 
         internal void SetPropsFromAttributes(object[] attributes)
         {
@@ -565,8 +566,24 @@ namespace BForms.Grid
                 infoBuilder.MergeAttribute("class", "alert alert-info");
 
 
-                infoBuilder.InnerHtml += !string.IsNullOrEmpty(this.noRecordsTemplate) ?
-                                    this.viewContext.Controller.BsRenderPartialView(this.noRecordsTemplate, null) : 
+                var template = string.Empty;
+                var stateClass = string.Empty;
+
+                if (this.isAjaxRequest)
+                {
+                    template = this.noResultsTemplate;
+                    stateClass = "noresults-state";
+                }
+                else
+                {
+                    template = this.noRecordsTemplate;
+                    stateClass = "blank-state";
+                }
+
+                infoBuilder.AddCssClass(stateClass);
+
+                infoBuilder.InnerHtml += !string.IsNullOrEmpty(template) ?
+                                    this.viewContext.Controller.BsRenderPartialView(template, null) :
                                     BsResourceManager.Resource("NoResults");
 
                 if (this.allowAddIfEmpty)
@@ -598,7 +615,7 @@ namespace BForms.Grid
 
         private string RenderAjax()
         {
-            this.noRecordsTemplate = this.noResultsTemplate;
+            this.isAjaxRequest = true;
 
             return this.RenderRows() + this.RenderPages();
         }

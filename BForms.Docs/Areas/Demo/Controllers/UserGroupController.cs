@@ -57,7 +57,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
                     Grid = repo.ToBsGridViewModel(new BsGridRepositorySettings<ContributorSearchModel>
                     {
                         Page = 1,
-                        PageSize = 10
+                        PageSize = 5
                     }),
                     Search = repo.GetSearchForm(),
                     Order = new ContributorsOrderModel()
@@ -100,7 +100,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
                         var gridModel = repo.ToBsGridViewModel(new BsGridRepositorySettings<ContributorSearchModel>()
                         {
                             Page = 1,
-                            PageSize = 10
+                            PageSize = 5
                         }, out count);
 
                         viewModel.Contributors2 = new BsGroupEditor<ContributorRowModel>
