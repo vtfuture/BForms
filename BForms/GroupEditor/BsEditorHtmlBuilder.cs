@@ -37,7 +37,7 @@ namespace BForms.GroupEditor
 
                 if (ReflectionHelpers.TryGetAttribute(prop, out attr))
                 {
-                    tabConfigurator.AddTab(attr);
+                    tabConfigurator.AddNavTab(attr);
 
                     var value = prop.GetValue(model);
 
@@ -92,7 +92,7 @@ namespace BForms.GroupEditor
         }
         #endregion
 
-        #region Config
+        #region Public Methods
         public BsEditorHtmlBuilder<TModel> HtmlAttributes(Dictionary<string, object> htmlAttributes)
         {
             this.htmlAttributes = htmlAttributes;
@@ -110,10 +110,20 @@ namespace BForms.GroupEditor
         #region Helpers
         private void InvokeAddTabConfig(object value, PropertyInfo prop, BsGroupEditorAttribute attr)
         {
-            var genericArgs = prop.PropertyType.GetGenericArguments();
+            var propertyType = prop.PropertyType;
+            var genericArgs = propertyType.GetGenericArguments();
 
             var count = genericArgs.Count();
             var bindings = BindingFlags.Default | BindingFlags.CreateInstance | BindingFlags.Instance | BindingFlags.NonPublic;
+
+            if (count == 0)
+            {
+                var baseType = propertyType.BaseType;
+
+                genericArgs = baseType.GetGenericArguments();
+
+                count = genericArgs.Count();
+            }
 
             if (count > 0)
             {

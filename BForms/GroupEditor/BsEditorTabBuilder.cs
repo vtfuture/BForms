@@ -11,37 +11,46 @@ using System.Web.Mvc;
 
 namespace BForms.GroupEditor
 {
+    #region BsEditorTabBuilder Base
     public abstract class BsEditorTabBuilder : BaseComponent
     {
+        #region Properties
         protected string rowTemplate { get; set; }
+        protected BsPagerSettings pagerSettings;
+        protected string name { get; set; }
+        protected object uid { get; set; }
+        protected bool selected { get; set; }
+        #endregion
+
+        #region Methods
+        internal abstract BsGroupEditor GetModel();
 
         internal abstract bool IsSelected();
 
         internal abstract void SetSelected(bool selected);
-
-        public BsEditorTabBuilder<TRow, TSearch> For<TModel, TRow, TSearch>(TModel model, Expression<Func<TModel, BsGroupEditor<TRow, TSearch>>> expression) where TRow : new ()
-        {
-            return this as BsEditorTabBuilder<TRow, TSearch>;
-        }
+        #endregion
     }
+    #endregion
 
-    public class BsEditorTabBuilder<TRow, TSearch> : BsEditorTabBuilder<TRow> where TRow : new ()
+    #region BsEditorTabBuilder Search
+    public class BsEditorTabBuilder<TRow, TSearch> : BsEditorTabBuilder<TRow> where TRow : new()
     {
+        #region Constructor and Properties
         private BsGroupEditor<TRow, TSearch> model;
-        protected string searchTemplate;
+        protected BsEditorToolbarPart searchPart;
 
         public BsEditorTabBuilder(BsGroupEditor<TRow, TSearch> model, ViewContext viewContext)
-            : base(model.Grid, model.InlineSearch, viewContext)
+            : base(model, viewContext)
         {
             this.model = model;
-            this.toolbar = new BsEditorToolbarHtmlBuilder(model.InlineSearch);
-                                    
-            this.toolbar.AddButton(Glyphicon.Search).DisplayName("Cauta");
+            this.searchPart = new BsEditorToolbarPart().Button("Cauta", Glyphicon.Search);
         }
+        #endregion
 
+        #region Public Methods
         public BsEditorTabBuilder<TRow, TSearch> Template(Expression<Func<BsGroupEditor<TRow, TSearch>, TSearch>> expression, string template)
         {
-            this.searchTemplate = template;
+            this.searchPart.Template(template);
 
             return this;
         }
@@ -52,33 +61,50 @@ namespace BForms.GroupEditor
 
             return this;
         }
-    }
 
-    public class BsEditorTabBuilder<TRow, TSearch, TNew> : BsEditorTabBuilder<TRow, TSearch> where TRow : new ()
+        public BsEditorTabBuilder<TRow, TSearch> PagerSettings(BsPagerSettings pagerSettings)
+        {
+            this.pagerSettings = pagerSettings;
+
+            return this;
+        }
+        #endregion
+
+        #region Render
+        internal override void BeforeRender() 
+        {
+            this.toolbar.Add(searchPart);
+        }
+        #endregion
+    }
+    #endregion
+
+    #region BsEditorTabBuilder Search and New
+    public class BsEditorTabBuilder<TRow, TSearch, TNew> : BsEditorTabBuilder<TRow, TSearch> where TRow : new()
     {
+        #region Constructor and Properties
         private BsGroupEditor<TRow, TSearch, TNew> model;
-        protected string newTemplate;
+        private BsEditorToolbarPart newPart;
 
         public BsEditorTabBuilder(BsGroupEditor<TRow, TSearch, TNew> model, ViewContext viewContext)
             : base(model, viewContext)
         {
             this.model = model;
-            this.toolbar = new BsEditorToolbarHtmlBuilder(model.InlineSearch);
-
-            this.toolbar.AddButton(Glyphicon.Search).DisplayName("Cauta");
-            this.toolbar.AddButton(Glyphicon.Plus).DisplayName("Adauga");
+            this.newPart = new BsEditorToolbarPart().Button("Adauga", Glyphicon.Plus);
         }
+        #endregion
 
+        #region Public Methods
         public BsEditorTabBuilder<TRow, TSearch, TNew> Template(Expression<Func<BsGroupEditor<TRow, TSearch, TNew>, TSearch>> expression, string template)
         {
-            this.searchTemplate = template;
+            this.searchPart.Template(template);
 
             return this;
         }
 
         public BsEditorTabBuilder<TRow, TSearch, TNew> Template(Expression<Func<BsGroupEditor<TRow, TSearch, TNew>, TNew>> expression, string template)
         {
-            this.newTemplate = template;
+            this.newPart.Template(template);
 
             return this;
         }
@@ -89,40 +115,54 @@ namespace BForms.GroupEditor
 
             return this;
         }
-    }
 
+        public BsEditorTabBuilder<TRow, TSearch, TNew> PagerSettings(BsPagerSettings pagerSettings)
+        {
+            this.pagerSettings = pagerSettings;
+
+            return this;
+        }
+        #endregion
+
+        #region Render
+        internal override void BeforeRender() 
+        {
+            this.toolbar.Add(searchPart);
+            this.toolbar.Add(newPart);
+        }
+        #endregion
+    }
+    #endregion
+
+    #region BsEditorTabBuilder Basic
     public class BsEditorTabBuilder<TRow> : BsEditorTabBuilder where TRow : new()
     {
         #region Properties and Constructor
         protected BsEditorToolbarHtmlBuilder toolbar { get; set; }
+        protected bool inlineSearch { get; set; }
         private BsGridPagerBuilder pagerBuilder;
-        private BsPagerSettings pagerSettings;
-        private BsGridModel<TRow> model;
+        private BsGroupEditor<TRow> model;
 
-        private string name { get; set; }
-        private object uid { get; set; }
-        private bool selected { get; set; }
-
-        internal string Name
+        public BsEditorToolbarHtmlBuilder Toolbar { get { return this.toolbar; } }
+        public bool InlineSearch
         {
-            get { return this.name; }
+            set
+            {
+                this.toolbar.InlineSearch = value;
+                this.inlineSearch = value;
+            }
         }
 
-        internal object Uid
-        {
-            get { return this.uid; }
-        }
-
-        public BsEditorTabBuilder(BsGridModel<TRow> model, bool inlineSearch, ViewContext viewContext)
+        public BsEditorTabBuilder(BsGroupEditor<TRow> model, ViewContext viewContext)
         {
             this.viewContext = viewContext;
             this.model = model;
-            this.toolbar = new BsEditorToolbarHtmlBuilder(inlineSearch);
+            this.toolbar = new BsEditorToolbarHtmlBuilder(this);
             this.pagerSettings = new BsPagerSettings();
         }
         #endregion
 
-        #region Config
+        #region Public Methods
         public BsEditorTabBuilder<TRow> Template(Expression<Func<BsGroupEditor<TRow>, BsGridModel<TRow>>> expression, string template)
         {
             this.rowTemplate = template;
@@ -137,25 +177,34 @@ namespace BForms.GroupEditor
             return this;
         }
 
-        public BsEditorTabBuilder<TRow> DisplayName(string name)
+        public BsEditorTabBuilder<TRow> PagerSettings(BsPagerSettings pagerSettings)
+        {
+            this.pagerSettings = pagerSettings;
+
+            return this;
+        }
+        #endregion
+
+        #region Helpers
+        internal BsEditorTabBuilder<TRow> DisplayName(string name)
         {
             this.name = name;
 
             return this;
         }
 
-        public BsEditorTabBuilder<TRow> Id(object uid)
+        internal BsEditorTabBuilder<TRow> Id(object uid)
         {
             this.uid = uid;
 
             return this;
         }
+        #endregion
 
-        public BsEditorTabBuilder<TRow> PagerSettings(BsPagerSettings pagerSettings)
+        #region Override
+        internal override BsGroupEditor GetModel()
         {
-            this.pagerSettings = pagerSettings;
-
-            return this;
+            return this.model;
         }
 
         internal override bool IsSelected()
@@ -174,7 +223,7 @@ namespace BForms.GroupEditor
         {
             var result = "";
 
-            if (this.model.Items != null && this.model.Items.Any())
+            if (this.model.Grid.Items != null && this.model.Grid.Items.Any())
             {
                 if (!string.IsNullOrEmpty(this.rowTemplate))
                 {
@@ -182,7 +231,7 @@ namespace BForms.GroupEditor
 
                     list.AddCssClass("group_profiles");
 
-                    foreach (var item in this.model.Items)
+                    foreach (var item in this.model.Grid.Items)
                     {
                         var listItem = new TagBuilder("li");
 
@@ -240,14 +289,21 @@ namespace BForms.GroupEditor
             return result;
         }
 
+        internal virtual void BeforeRender()
+        {
+        }
+
         internal string RenderContent()
         {
+            BeforeRender();
+
+            this.pagerBuilder = new BsGridPagerBuilder(this.model.Grid.Pager, this.pagerSettings, this.model.Grid.BaseSettings);
+
             return this.toolbar.Render() + this.RenderItems() + this.pagerBuilder.Render();
         }
 
         public override string Render()
         {
-            this.pagerBuilder = new BsGridPagerBuilder(model.Pager, this.pagerSettings, model.BaseSettings);
 
             var wrapper = new TagBuilder("div");
 
@@ -264,4 +320,5 @@ namespace BForms.GroupEditor
         }
         #endregion
     }
+    #endregion
 }

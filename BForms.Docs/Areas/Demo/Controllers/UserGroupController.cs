@@ -17,10 +17,20 @@ using BForms.Grid;
 
 namespace BForms.Docs.Areas.Demo.Controllers
 {
+    public class ContributorsOrderModel
+    {
+
+    }
+
+    public class ContributorsInheritExample : BsGroupEditor<ContributorRowModel, ContributorSearchModel>
+    {
+        public ContributorsOrderModel Order { get; set; }
+    }
+
     public class UserGroupViewModel
     {
         [BsGroupEditor(Name = "Contributors1", Id = YesNoValueTypes.Yes, Selected = false)]
-        public BsGroupEditor<ContributorRowModel, ContributorSearchModel> Contributors { get; set; }
+        public ContributorsInheritExample Contributors { get; set; }
 
         [BsGroupEditor(Name = "Contributors2", Id = YesNoValueTypes.No, Selected = false)]
         public BsGroupEditor<ContributorRowModel> Contributors2 { get; set; }
@@ -44,7 +54,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
         {
             var model = new UserGroupViewModel()
             {
-                Contributors = new BsGroupEditor<ContributorRowModel, ContributorSearchModel>
+                Contributors = new ContributorsInheritExample
                 {
                     Grid = new BsGridModel<ContributorRowModel>
                     {
@@ -52,7 +62,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
                         Pager = new BsPagerModel(5)
                     },
                     Search = repo.GetSearchForm(),
-                    InlineSearch = true
+                    Order = new ContributorsOrderModel()
                 },
                 Contributors2 = new BsGroupEditor<ContributorRowModel>
                 {

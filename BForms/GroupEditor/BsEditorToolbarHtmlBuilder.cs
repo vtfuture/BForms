@@ -3,21 +3,27 @@ using BForms.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using BForms.Models;
 
 namespace BForms.GroupEditor
 {
+    #region BsEditorToolbarButton
     public class BsEditorToolbarButton : BaseComponent
     {
+        #region Constructor and Properties
         private Glyphicon glyph { get; set; }
         private string name { get; set; }
 
         public BsEditorToolbarButton()
         {
         }
+        #endregion
 
+        #region Public Methods
         public BsEditorToolbarButton Glyph(Glyphicon glyph)
         {
             this.glyph = glyph;
@@ -31,7 +37,9 @@ namespace BForms.GroupEditor
 
             return this;
         }
+        #endregion
 
+        #region Render
         public override string Render()
         {
             var btn = new TagBuilder("button");
@@ -46,35 +54,99 @@ namespace BForms.GroupEditor
 
             return btn.ToString();
         }
+        #endregion
     }
+    #endregion
 
-    public class BsEditorToolbarHtmlBuilder : BaseComponent
+    public class BsEditorToolbarPart
     {
         #region Properties and Constructor
-        private List<BsEditorToolbarButton> buttons { get; set; }
-        private bool inlineSearch { get; set; }
+        internal BsEditorToolbarButton button { get; set; }
+        internal string name { get; set; }
+        internal string template { get; set; }
+        internal object value { get; set; }
 
-        public BsEditorToolbarHtmlBuilder(bool inlineSearch)
+        public BsEditorToolbarPart()
         {
-            this.inlineSearch = inlineSearch;
-            this.buttons = new List<BsEditorToolbarButton>();
         }
         #endregion
 
-        #region Config
-        public BsEditorToolbarButton AddButton(Glyphicon glyph)
+        #region Public Methods
+        public BsEditorToolbarPart Template(string template)
         {
-            var button = new BsEditorToolbarButton().Glyph(glyph);
+            this.template = template;
 
-            buttons.Add(button);
+            return this;
+        }
 
-            return button;
+        public BsEditorToolbarPart Button(string name, Glyphicon glyph)
+        {
+            this.button = new BsEditorToolbarButton().DisplayName(name).Glyph(glyph);
+
+            return this;
+        }
+        #endregion
+    }
+
+    #region BsEditorToolbarHtmlBuilder
+    public class BsEditorToolbarHtmlBuilder : BaseComponent
+    {
+        #region Properties and Constructor
+        private BsGroupEditor tabBuilder { get; set; }
+        private List<BsEditorToolbarPart> parts { get; set; }
+        private List<BsEditorToolbarButton> buttons { get; set; }
+        private bool inlineSearch { get; set; }
+
+        public bool InlineSearch { get { return this.inlineSearch; } set { this.inlineSearch = value; } }
+
+        public BsEditorToolbarHtmlBuilder(BsEditorTabBuilder tabBuilder)
+        {
+            this.parts = new List<BsEditorToolbarPart>();
+            this.tabBuilder = tabBuilder.GetModel();
+        }
+        #endregion
+
+        #region Public Methods
+        public BsEditorToolbarPart Add<TModel, TValue>(Expression<Func<TModel, TValue>> expression) where TModel : BsGroupEditor
+        {
+            return Add<TModel, TValue>(expression, "");
+        }
+
+        public BsEditorToolbarPart Add<TModel, TValue>(Expression<Func<TModel, TValue>> expression, string template) where TModel : BsGroupEditor
+        {
+            var name = ((TModel)this.tabBuilder).GetPropertyName(expression);
+            var type = typeof(TModel);
+
+            var property = type.GetProperty(name);
+
+            //TValue value = (TValue)property.GetValue((TModel)this.tabBuilder);
+            var value = property.GetValue((TModel)this.tabBuilder);
+
+            var part = new BsEditorToolbarPart()
+            {
+                name = name,
+                template = template,
+                value = value
+            };
+
+            this.parts.Add(part);
+
+            return part;
+        }
+        #endregion
+
+        #region Helpers
+        internal void Add(BsEditorToolbarPart part)
+        {
+            this.parts.Add(part);
         }
         #endregion
 
         #region Render
         public override string Render()
         {
+            this.buttons = this.parts.Where(x => x.button != null).Select(x => x.button).ToList();
+
             if (this.inlineSearch || this.buttons.Any())
             {
                 var container = new TagBuilder("div");
@@ -131,4 +203,5 @@ namespace BForms.GroupEditor
         }
         #endregion
     }
+    #endregion
 }

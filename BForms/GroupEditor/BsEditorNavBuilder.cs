@@ -19,7 +19,7 @@ namespace BForms.GroupEditor
         }
         #endregion
 
-        #region Methods
+        #region Public Methods
         public BsEditorNavBuilder AddTab(BsGroupEditorAttribute attr)
         {
             this.TabsProperties.Add(attr);

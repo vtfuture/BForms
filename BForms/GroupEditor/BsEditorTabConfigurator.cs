@@ -25,7 +25,7 @@ namespace BForms.GroupEditor
         }
         #endregion
 
-        #region Config
+        #region Public Methods
         public BsEditorTabBuilder<TRow, TSearch, TNew> For<TRow, TSearch, TNew>(Expression<Func<TModel, BsGroupEditor<TRow, TSearch, TNew>>> expression) where TRow : new()
         {
             var builder = this.GetTab(expression);
@@ -47,21 +47,12 @@ namespace BForms.GroupEditor
             return builder as BsEditorTabBuilder<TRow>;
         }
 
-        private BsEditorTabBuilder GetTab<TValue>(Expression<Func<TModel, TValue>> expression)
-        {
-            var prop = expression.GetPropertyInfo<TModel, TValue>();
+        //public BsEditorTabBuilder<TRow> For<TValue>(Expression<Func<TModel, TValue> expression)
+        //{
+        //    var builder = this.GetTab(expression);
 
-            BsGroupEditorAttribute attr = null;
-
-            if (ReflectionHelpers.TryGetAttribute(prop, out attr))
-            {
-                var id = attr.Id;
-
-                return this.Tabs[id];
-            }
-
-            throw new Exception("Property " + prop.Name + " has no BsGroupEditorAttribute");
-        }
+        //    return builder as BsEditorTabBuilder<TRow>;
+        //}
         #endregion
 
         #region Render
@@ -99,14 +90,30 @@ namespace BForms.GroupEditor
             this.Tabs.Add(id, tabBuilder);
         }
 
-        internal void AddTab(BsGroupEditorAttribute attr)
+        private BsEditorTabBuilder GetTab<TValue>(Expression<Func<TModel, TValue>> expression)
+        {
+            var prop = expression.GetPropertyInfo<TModel, TValue>();
+
+            BsGroupEditorAttribute attr = null;
+
+            if (ReflectionHelpers.TryGetAttribute(prop, out attr))
+            {
+                var id = attr.Id;
+
+                return this.Tabs[id];
+            }
+
+            throw new Exception("Property " + prop.Name + " has no BsGroupEditorAttribute");
+        }
+
+        internal void AddNavTab(BsGroupEditorAttribute attr)
         {
             navBuilder.AddTab(attr);
         }
 
         private void Add<TRow>(BsGroupEditorAttribute attr, BsGroupEditor<TRow> model) where TRow : new()
         {
-            var tab = new BsEditorTabBuilder<TRow>(model.Grid, model.InlineSearch, this.viewContext)
+            var tab = new BsEditorTabBuilder<TRow>(model, this.viewContext)
                        .DisplayName(attr.Name)
                        .Id(attr.Id)
                        .Selected(attr.Selected);

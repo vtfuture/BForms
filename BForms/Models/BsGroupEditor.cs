@@ -6,23 +6,13 @@ using System.Threading.Tasks;
 
 namespace BForms.Models
 {
-    public class BsGroupEditor<TRow>
+    public abstract class BsGroupEditor
     {
-        private bool inlineSearch = true;
+    }
 
+    public class BsGroupEditor<TRow> : BsGroupEditor
+    {
         public BsGridModel<TRow> Grid { get; set; }
-
-        public bool InlineSearch
-        {
-            get
-            {
-                return this.inlineSearch;
-            }
-            set
-            {
-                this.inlineSearch = value;
-            }
-        }
     }
 
     public class BsGroupEditor<TRow, TSearch> : BsGroupEditor<TRow>
