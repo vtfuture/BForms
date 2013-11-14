@@ -64,6 +64,13 @@ textarea {
   margin: 0 15px; }
   .row > .panel-group .panel-title .caret {
     margin: -2px 7px 0 3px; }
+  .row > .panel-group .panel-title .loading-spinner {
+    background: url(../images/preloader-small.gif) 0 0 no-repeat;
+    width: 16px;
+    height: 16px;
+    margin: 0 7px 0 -5px;
+    display: inline-block;
+    vertical-align: bottom; }
   @media (max-width: 756px) {
     .row > .panel-group .panel-body .row {
       margin-right: -15px;

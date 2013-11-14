@@ -90,8 +90,18 @@ textarea {
 /* Panel group horizontal form */
 .row > .panel-group {
 	margin: 0 15px;
-	.panel-title .caret {
-		margin: -2px 7px 0 3px;
+	.panel-title {	
+		.caret {
+			margin: -2px 7px 0 3px;
+		}
+		.loading-spinner {
+			background: url(../images/preloader-small.gif) 0 0 no-repeat;
+			width: 16px;
+			height: 16px;
+			margin: 0 7px 0 -5px;
+			display: inline-block;
+			vertical-align: bottom;
+		}
 	}
 	.panel-body {
 		@media (max-width: 756px) {
