@@ -98,111 +98,114 @@ namespace BForms.Docs.Areas.Demo.Repositories
 
         public IQueryable<Contributor> Filter(IQueryable<Contributor> query)
         {
-            if (!string.IsNullOrEmpty(Settings.QuickSearch))
+            if (this.Settings != null)
             {
-                //join query with correspondant enum strings
-                var roleTypes = Enum.GetValues(typeof(ProjectRole));
-                var displayedRoles = new List<KeyValuePair<int, string>>();
-                foreach (Enum roleType in roleTypes)
+                if (!string.IsNullOrEmpty(Settings.QuickSearch))
                 {
-                    var displayName = ReflectionHelpers.EnumDisplayName(typeof(ProjectRole), roleType);
-                    displayedRoles.Add(new KeyValuePair<int, string>((int)(ProjectRole)roleType, displayName.ToLower()));
-                }
-
-                var searched = Settings.QuickSearch.ToLower();
-
-                //filter by fields that are strings on enums
-                var queryQuick = query.Join(displayedRoles, x => (int)x.Role, y => y.Key, (x, y) => new { Contributer = x, RoleText = y });
-                queryQuick = queryQuick.Where(x => x.Contributer.FirstName.ToLower().Contains(searched) ||
-                                                    x.Contributer.LastName.ToLower().Contains(searched) ||
-                                                    x.Contributer.Country.ToLower().Contains(searched) ||
-                                                    x.RoleText.Value.Contains(searched) ||
-                                                    x.Contributer.Languages != null && x.Contributer.Languages.Any(y => y.Contains(searched)) ||
-                                                    x.Contributer.Contributions.Contains(searched));
-
-                //select back TEntity
-                query = queryQuick.Select(x => x.Contributer);
-            }
-            else if (Settings.Search != null)
-            {
-                #region Name
-                if (!string.IsNullOrEmpty(Settings.Search.Name))
-                {
-                    var name = Settings.Search.Name.ToLower();
-                    query = query.Where(x => x.FirstName.ToLower().Contains(name) ||
-                                             x.LastName.ToLower().Contains(name));
-                }
-                #endregion
-
-                #region Enabled
-                if (Settings.Search.IsEnabled.SelectedValues.HasValue)
-                {
-                    var isEnabled = Settings.Search.IsEnabled.SelectedValues.Value;
-
-                    if (isEnabled == YesNoValueTypes.Yes)
+                    //join query with correspondant enum strings
+                    var roleTypes = Enum.GetValues(typeof(ProjectRole));
+                    var displayedRoles = new List<KeyValuePair<int, string>>();
+                    foreach (Enum roleType in roleTypes)
                     {
-                        query = query.Where(x => x.Enabled);
-                    }
-                    else if (isEnabled == YesNoValueTypes.No)
-                    {
-                        query = query.Where(x => !x.Enabled);
-                    }
-                }
-                #endregion
-
-                #region Contributor since range
-                if (Settings.Search.StartDateRange != null)
-                {
-                    var fromDate = Settings.Search.StartDateRange.From;
-                    var toDate = Settings.Search.StartDateRange.To;
-
-                    if (fromDate.HasValue)
-                    {
-                        query = query.Where(x => x.StartDate >= fromDate.Value);
+                        var displayName = ReflectionHelpers.EnumDisplayName(typeof(ProjectRole), roleType);
+                        displayedRoles.Add(new KeyValuePair<int, string>((int)(ProjectRole)roleType, displayName.ToLower()));
                     }
 
-                    if (toDate.HasValue)
-                    {
-                        query = query.Where(x => x.StartDate <= toDate.Value);
-                    }
-                }
-                #endregion
+                    var searched = Settings.QuickSearch.ToLower();
 
-                #region Location
-                if (Settings.Search.CountriesList != null)
+                    //filter by fields that are strings on enums
+                    var queryQuick = query.Join(displayedRoles, x => (int)x.Role, y => y.Key, (x, y) => new { Contributer = x, RoleText = y });
+                    queryQuick = queryQuick.Where(x => x.Contributer.FirstName.ToLower().Contains(searched) ||
+                                                        x.Contributer.LastName.ToLower().Contains(searched) ||
+                                                        x.Contributer.Country.ToLower().Contains(searched) ||
+                                                        x.RoleText.Value.Contains(searched) ||
+                                                        x.Contributer.Languages != null && x.Contributer.Languages.Any(y => y.Contains(searched)) ||
+                                                        x.Contributer.Contributions.Contains(searched));
+
+                    //select back TEntity
+                    query = queryQuick.Select(x => x.Contributer);
+                }
+                else if (Settings.Search != null)
                 {
-                    var country = Settings.Search.CountriesList.SelectedValues;
-
-                    if (!string.IsNullOrEmpty(country))
+                    #region Name
+                    if (!string.IsNullOrEmpty(Settings.Search.Name))
                     {
-                        query = query.Where(x => x.Country == country);
+                        var name = Settings.Search.Name.ToLower();
+                        query = query.Where(x => x.FirstName.ToLower().Contains(name) ||
+                                                 x.LastName.ToLower().Contains(name));
                     }
-                }
-                #endregion
+                    #endregion
 
-                #region Role
-                if (Settings.Search.RoleList != null)
-                {
-                    var role = Settings.Search.RoleList.SelectedValues;
-
-                    if (role.HasValue)
+                    #region Enabled
+                    if (Settings.Search.IsEnabled.SelectedValues.HasValue)
                     {
-                        query = query.Where(x => x.Role == role);
+                        var isEnabled = Settings.Search.IsEnabled.SelectedValues.Value;
+
+                        if (isEnabled == YesNoValueTypes.Yes)
+                        {
+                            query = query.Where(x => x.Enabled);
+                        }
+                        else if (isEnabled == YesNoValueTypes.No)
+                        {
+                            query = query.Where(x => !x.Enabled);
+                        }
                     }
-                }
-                #endregion
+                    #endregion
 
-                #region Programming Languages
-                if (Settings.Search.LanguagesList != null)
-                {
-                    var languages = Settings.Search.LanguagesList.SelectedValues;
-
-                    if (languages != null)
+                    #region Contributor since range
+                    if (Settings.Search.StartDateRange != null)
                     {
-                        query = query.Where(x => x.Languages != null && x.Languages.Any(y => languages.Contains(y)));
+                        var fromDate = Settings.Search.StartDateRange.From;
+                        var toDate = Settings.Search.StartDateRange.To;
+
+                        if (fromDate.HasValue)
+                        {
+                            query = query.Where(x => x.StartDate >= fromDate.Value);
+                        }
+
+                        if (toDate.HasValue)
+                        {
+                            query = query.Where(x => x.StartDate <= toDate.Value);
+                        }
                     }
+                    #endregion
+
+                    #region Location
+                    if (Settings.Search.CountriesList != null)
+                    {
+                        var country = Settings.Search.CountriesList.SelectedValues;
+
+                        if (!string.IsNullOrEmpty(country))
+                        {
+                            query = query.Where(x => x.Country == country);
+                        }
+                    }
+                    #endregion
+
+                    #region Role
+                    if (Settings.Search.RoleList != null)
+                    {
+                        var role = Settings.Search.RoleList.SelectedValues;
+
+                        if (role.HasValue)
+                        {
+                            query = query.Where(x => x.Role == role);
+                        }
+                    }
+                    #endregion
+
+                    #region Programming Languages
+                    if (Settings.Search.LanguagesList != null)
+                    {
+                        var languages = Settings.Search.LanguagesList.SelectedValues;
+
+                        if (languages != null)
+                        {
+                            query = query.Where(x => x.Languages != null && x.Languages.Any(y => languages.Contains(y)));
+                        }
+                    }
+                    #endregion
                 }
-                #endregion
             }
 
             return query;

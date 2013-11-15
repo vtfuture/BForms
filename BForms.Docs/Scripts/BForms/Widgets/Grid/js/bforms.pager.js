@@ -50,7 +50,7 @@
         
         this._trigger('pagerUpdate', e, {
             page: $me.data('page'),
-            pageSize: this.element.find(this.options.pageSizeSelector).val()
+            pageSize: this.element.find(this.options.pageSizeSelector + '.selected').data('value')
         });
 
     };

@@ -1,0 +1,36 @@
+﻿@using BForms.Html
+@using BForms.Docs.Resources
+@using BForms.Models
+@using BForms.Grid
+@using BForms.Docs.Areas.Demo.Controllers
+@model BForms.Docs.Areas.Demo.Controllers.UserGroupViewModel
+@using BForms.GroupEditor
+
+@{
+    var builder = Html.BsGroupEditorFor(x => x.Editor2)
+      .ConfigureTabs(cfg =>
+        {
+            var tab3 = cfg.For(x => x.Contributors3)
+                .Template(x => x.Grid, "_TabItem")
+                .Template(x => x.Search, "~/Areas/Demo/Views/Contributors/Toolbar/_Search.cshtml")
+                .Template(x => x.New, "~/Areas/Demo/Views/Contributors/Toolbar/_New.cshtml");
+
+            cfg.For(x => x.Contributors2)
+                .Template(x => x.Grid, "_TabItem");
+
+            var tab1 = cfg.For(x => x.Contributors)
+                .Template(x => x.Grid, "_TabItem")
+                .Template(x => x.Search, "~/Areas/Demo/Views/Contributors/Toolbar/_Search.cshtml");
+        });
+
+    ViewData["builder"] = builder;
+}
+
+@if (Model.Editor1 != null)
+{
+    Html.Partial("_GroupEditor", Model.Editor1);
+}
+@if (Model.Editor2 != null)
+{
+    Html.Partial("_GroupEditor2", Model.Editor2);
+}

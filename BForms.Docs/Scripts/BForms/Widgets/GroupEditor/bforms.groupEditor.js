@@ -4,9 +4,10 @@
     'bforms-pager',
     'bforms-ajax',
     'bforms-namespace',
-    'bforms-inlineQuestion'
+    'bforms-inlineQuestion',
+    'bforms-form'
 ], function () {
-
+      
 	//#region Constructor and Properties
 	var GroupEditor = function (opt) {
 		this.options = $.extend(true, {}, this.options, opt);
@@ -16,6 +17,8 @@
 	GroupEditor.prototype.options = {
 		uniqueName: '',
 		navbarSelector: '.bs-navbar',
+		toolbarBtnSelector: '.bs-toolbarBtn',
+	    editorFormSelector: '.bs-editorForm',
 		pagerSelector: '.bs-pager',
 		tabContentSelector: '.bs-tabContent',
         getTabUrl: '',
@@ -38,6 +41,8 @@
 		this._addDelegates();
 
 		this._initSelectedTab();
+
+		this._initTabForms();
 	};
 
 	GroupEditor.prototype._initSelectors = function () {
@@ -48,20 +53,23 @@
 
 	GroupEditor.prototype._addDelegates = function () {
 
-		this.$navbar.on('click', 'a', $.proxy(this._evChangeTab, this));
+	    this.$navbar.on('click', 'a', $.proxy(this._evChangeTab, this));
+
+	    this.element.find('div[data-tabid]').on('click', 'button' + this.options.toolbarBtnSelector, $.proxy(this._evChangeToolbarForm, this));
 
 	};
 
 	GroupEditor.prototype._initSelectedTab = function () {
+	    this._initTab(this._getSelectedTab());
+	};
 
-	    var $container = this.element.find('div[data-tabid]:visible'),
-			tabId = $container.data('tabid'),
-	        loaded = this._isLoaded($container);
+	GroupEditor.prototype._initTabForms = function () {
+	    var forms = this.element.find(this.options.editorFormSelector);
 
-	    this._initTab({
-            container: $container,
-            loaded: loaded,
-            id: tabId
+	    $.each(forms, function (idx) {
+	        $(this).bsForm({
+	            uniqueName: $(this).data('uid') + idx
+	        });
 	    });
 	};
 
@@ -76,7 +84,7 @@
 	            this._ajaxGetTab({
 	                tabModel: tabModel,
 	                data: {
-	                    tabId: tabModel.id
+	                    TabId: tabModel.id
 	                }
 	            });
 	        }
@@ -102,7 +110,22 @@
 	};
 	//#endregion
 
-	//#region Events
+    //#region Events
+	GroupEditor.prototype._evChangeToolbarForm = function (e) {
+	    var $el = $(e.currentTarget),
+            uid = $el.data('uid'),
+            tab = this._getSelectedTab(),
+            $container = tab.container,
+            visibleForm = $container.find("div[data-uid]:visible"),
+            visibleUid = visibleForm.data('uid');
+
+	    visibleForm.slideUp();
+
+	    if (visibleUid != uid) {
+	        $container.find("div[data-uid='" + uid + "']").slideDown();
+	    }
+	};
+
 	GroupEditor.prototype._evChangeTab = function (e) {
 
 		var $el = $(e.currentTarget),
@@ -123,9 +146,9 @@
 	    this._ajaxGetTab({
 	        tabModel: tabModel,
 	        data: {
-	            page: data.page,
-	            pageSize: data.pageSize || 5,
-	            tabId: tabModel.id
+	            Page: data.page,
+	            PageSize: data.pageSize || 5,
+	            TabId: tabModel.id
 	        }
 	    });
 	};
@@ -175,7 +198,20 @@
 	};
 	//#endregion
 
-	//#region Helpers
+    //#region Helpers
+	GroupEditor.prototype._getSelectedTab = function () {
+
+	    var $container = this.element.find('div[data-tabid]:visible'),
+			tabId = $container.data('tabid'),
+	        loaded = this._isLoaded($container);
+
+	    return {
+	        container: $container,
+	        tabId: tabId,
+            loaded: loaded
+	    };
+	};
+
 	GroupEditor.prototype._hideTabs = function () {
 
 		var $containers = this.element.find('div[data-tabid]');

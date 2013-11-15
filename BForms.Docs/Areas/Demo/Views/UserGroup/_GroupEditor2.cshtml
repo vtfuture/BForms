@@ -12,13 +12,13 @@
 
 @(Html.BsGroupEditorFor(Model, builder)
       .HtmlAttributes(new Dictionary<string, object>() { { "id", "myGroupEditor" } })
-      .ConfigureTabs(cfg =>
+        .ConfigureTabs(cfg =>
         {
-            var tab3 = cfg.For(x => x.Contributors3)
-                .PagerSettings(new BsPagerSettings
-                {
-                    HasPagesText = false
-                });
+            var tab1 = cfg.For(x => x.Contributors);
 
-            tab3.InlineSearch = true;
+            tab1.Toolbar.Add<ContributorsInheritExample, ContributorsOrderModel>(x => x.Order, "_Order")
+                        .Button("Order", Glyphicon.List)
+                        .Template("_Order");
+
+            tab1.Toolbar.InlineSearch = true;
         }))

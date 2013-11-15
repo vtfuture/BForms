@@ -15,6 +15,7 @@ using BForms.Docs.Controllers;
 using BForms.Docs.Areas.Demo.Repositories;
 using BForms.Grid;
 using RequireJS;
+using BForms.GroupEditor;
 
 namespace BForms.Docs.Areas.Demo.Controllers
 {
@@ -25,7 +26,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
         public ContributorsOrderModel Order { get; set; }
     }
 
-    public class UserGroupViewModel
+    public class UserGroupEditorViewModel
     {
         [BsGroupEditor(Name = "Contributors1", Id = YesNoValueTypes.Yes, Selected = false)]
         public ContributorsInheritExample Contributors { get; set; }
@@ -35,6 +36,12 @@ namespace BForms.Docs.Areas.Demo.Controllers
 
         [BsGroupEditor(Name = "Contributors3", Id = YesNoValueTypes.Both, Selected = true)]
         public BsGroupEditor<ContributorRowModel, ContributorSearchModel, ContributorNewModel> Contributors3 { get; set; }
+    }
+
+    public class UserGroupViewModel
+    {
+        public UserGroupEditorViewModel Editor1 { get; set; }
+        public UserGroupEditorViewModel Editor2 { get; set; }
     }
 
     public class UserGroupController : BaseController
@@ -50,7 +57,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
         // GET: /Demo/UserGroup/
         public ActionResult Index()
         {
-            var model = new UserGroupViewModel()
+            var model = new UserGroupEditorViewModel()
             {
                 Contributors = new ContributorsInheritExample
                 {
@@ -68,8 +75,15 @@ namespace BForms.Docs.Areas.Demo.Controllers
                     {
                         Page = 1,
                         PageSize = 5
-                    })
+                    }),
+                    Search = repo.GetSearchForm(),
+                    New = repo.GetNewForm()
                 }
+            };
+
+            var viewModel = new UserGroupViewModel
+            {
+                Editor2 = model
             };
 
             var options = new Dictionary<string, object>
@@ -79,7 +93,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
 
             RequireJsOptions.Add("index", options);
 
-            return View(model);
+            return View(viewModel);
         }
 
         public class GroupEditorRequest
@@ -109,7 +123,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
             }
         }
 
-        public BsJsonResult GetTab(YesNoValueTypes tabId, int? page, int? pageSize /*, GroupEditorRequest request*/)
+        public BsJsonResult GetTab(BsGroupEditorRepositorySettings<YesNoValueTypes> settings)
         {
             var msg = string.Empty;
             var status = BsResponseStatus.Success;
@@ -118,20 +132,16 @@ namespace BForms.Docs.Areas.Demo.Controllers
 
             try
             {
-                UserGroupViewModel viewModel = new UserGroupViewModel();
+                UserGroupEditorViewModel model = new UserGroupEditorViewModel();
                 
-                switch (tabId)
+                switch (settings.TabId)
                 {
                     case YesNoValueTypes.No:
 
                         //var grid2 = repo.ToBsGridViewModel(request.GetRepositorySettings<ContributorSearchModel>(), out count);
-                        var grid2 = repo.ToBsGridViewModel(new BsGridRepositorySettings<ContributorSearchModel>()
-                        {
-                            Page = page ?? 1,
-                            PageSize = pageSize ?? 5
-                        }, out count);
+                        var grid2 = repo.ToBsGridViewModel(settings.ToBaseGridRepositorySettings(), out count);
 
-                        viewModel.Contributors2 = new BsGroupEditor<ContributorRowModel>
+                        model.Contributors2 = new BsGroupEditor<ContributorRowModel>
                         {
                             Grid = grid2
                         };
@@ -139,13 +149,9 @@ namespace BForms.Docs.Areas.Demo.Controllers
 
                     case YesNoValueTypes.Yes:
 
-                        var grid1 = repo.ToBsGridViewModel(new BsGridRepositorySettings<ContributorSearchModel>()
-                        {
-                            Page = page ?? 1,
-                            PageSize = pageSize ?? 5
-                        }, out count); 
+                        var grid1 = repo.ToBsGridViewModel(settings.ToGridRepositorySettings<ContributorSearchModel>(), out count);
 
-                        viewModel.Contributors = new ContributorsInheritExample
+                        model.Contributors = new ContributorsInheritExample
                         {
                             Grid = grid1
                         };
@@ -153,20 +159,21 @@ namespace BForms.Docs.Areas.Demo.Controllers
 
                     case YesNoValueTypes.Both:
 
-                        var grid3 = repo.ToBsGridViewModel(new BsGridRepositorySettings<ContributorSearchModel>()
-                        {
-                            Page = page ?? 1,
-                            PageSize = pageSize ?? 5
-                        }, out count);
+                        var grid3 = repo.ToBsGridViewModel(settings.ToGridRepositorySettings<ContributorSearchModel>(), out count);
 
-                        viewModel.Contributors3 = new BsGroupEditor<ContributorRowModel, ContributorSearchModel, ContributorNewModel>
+                        model.Contributors3 = new BsGroupEditor<ContributorRowModel, ContributorSearchModel, ContributorNewModel>
                         {
                             Grid = grid3
                         };
                         break;
                 }
 
-                html = this.BsRenderPartialView("_GroupEditor", viewModel);
+                var viewModel = new UserGroupViewModel()
+                {
+                    Editor2 = model
+                };
+
+                html = this.BsRenderPartialView("_Editors", viewModel);
             }
             catch (Exception ex)
             {

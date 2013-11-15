@@ -7,6 +7,7 @@ namespace BForms.Mvc
 {
     public abstract class BaseComponent : IComponent
     {
+        internal string template;
         internal ViewContext viewContext;
 
         public BaseComponent() { }

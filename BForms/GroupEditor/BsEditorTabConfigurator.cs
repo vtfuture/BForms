@@ -26,14 +26,19 @@ namespace BForms.GroupEditor
         #endregion
 
         #region Public Methods
-        public BsEditorTabBuilder<TRow, TSearch, TNew> For<TRow, TSearch, TNew>(Expression<Func<TModel, BsGroupEditor<TRow, TSearch, TNew>>> expression) where TRow : new()
+        public BsEditorTabBuilder<TRow, TSearch, TNew> For<TRow, TSearch, TNew>(Expression<Func<TModel, BsGroupEditor<TRow, TSearch, TNew>>> expression) 
+            where TRow : new() 
+            where TSearch : class 
+            where TNew : class
         {
             var builder = this.GetTab(expression);
 
             return builder as BsEditorTabBuilder<TRow, TSearch, TNew>;
         }
 
-        public BsEditorTabBuilder<TRow, TSearch> For<TRow, TSearch>(Expression<Func<TModel, BsGroupEditor<TRow, TSearch>>> expression) where TRow : new()
+        public BsEditorTabBuilder<TRow, TSearch> For<TRow, TSearch>(Expression<Func<TModel, BsGroupEditor<TRow, TSearch>>> expression) 
+            where TRow : new()
+            where TSearch : class
         {
             var builder = this.GetTab(expression);
 
@@ -134,7 +139,9 @@ namespace BForms.GroupEditor
             InsertTab(attr.Id, tab);
         }
 
-        private void AddWithSearch<TRow, TSearch>(BsGroupEditorAttribute attr, BsGroupEditor<TRow, TSearch> model) where TRow : new()
+        private void AddWithSearch<TRow, TSearch>(BsGroupEditorAttribute attr, BsGroupEditor<TRow, TSearch> model) 
+            where TRow : new()
+            where TSearch : class
         {
             var tab = new BsEditorTabBuilder<TRow, TSearch>(model, this.viewContext)
                         .DisplayName(attr.Name)
@@ -149,7 +156,10 @@ namespace BForms.GroupEditor
             InsertTab(attr.Id, tab);
         }
 
-        private void AddWithNew<TRow, TSearch, TNew>(BsGroupEditorAttribute attr, BsGroupEditor<TRow, TSearch, TNew> model) where TRow : new()
+        private void AddWithNew<TRow, TSearch, TNew>(BsGroupEditorAttribute attr, BsGroupEditor<TRow, TSearch, TNew> model) 
+            where TRow : new()
+            where TSearch : class
+            where TNew : class
         {
             var tab = new BsEditorTabBuilder<TRow, TSearch, TNew>(model, this.viewContext)
                         .DisplayName(attr.Name)

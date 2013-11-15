@@ -36,24 +36,30 @@ namespace BForms.GroupEditor
     #endregion
 
     #region BsEditorTabBuilder Search
-    public class BsEditorTabBuilder<TRow, TSearch> : BsEditorTabBuilder<TRow> where TRow : new()
+    public class BsEditorTabBuilder<TRow, TSearch> : BsEditorTabBuilder<TRow> 
+        where TRow : new() 
+        where TSearch : class
     {
         #region Constructor and Properties
         private BsGroupEditor<TRow, TSearch> model;
-        protected BsEditorToolbarPart searchPart;
+        protected BsEditorToolbarPart searchPart = new BsEditorToolbarPart();
+        protected TSearch searchModel;
 
         public BsEditorTabBuilder(BsGroupEditor<TRow, TSearch> model, ViewContext viewContext)
             : base(model, viewContext)
         {
             this.model = model;
-            this.searchPart = new BsEditorToolbarPart().Button("Cauta", Glyphicon.Search);
         }
         #endregion
 
         #region Public Methods
+        
+
         public BsEditorTabBuilder<TRow, TSearch> Template(Expression<Func<BsGroupEditor<TRow, TSearch>, TSearch>> expression, string template)
         {
-            this.searchPart.Template(template);
+            this.searchPart.template = template;
+
+            FillDetails(this.model, expression, this.searchPart).Button("Cauta", Glyphicon.Search);
 
             return this;
         }
@@ -73,11 +79,28 @@ namespace BForms.GroupEditor
         }
         #endregion
 
+        #region Helpers
+        public BsEditorToolbarPart FillDetails<TModel, TValue>(TModel model, Expression<Func<TModel, TValue>> expression, BsEditorToolbarPart part) where TValue : class
+        {
+            var name = model.GetPropertyName(expression);
+
+            var type = typeof(TModel);
+
+            var property = type.GetProperty(name);
+
+            var value = this.model != null ? (TValue)property.GetValue(model) : null;
+
+            part.uid = name;
+
+            part.form = new BsEditorToolbarForm<TValue>((TValue)value, name, this.viewContext).Hide();
+
+            return part;
+        }
+        #endregion
+
         #region Render
         internal override void BeforeRender()
         {
-
-
             this.toolbar.Add(searchPart);
         }
         #endregion
@@ -85,24 +108,29 @@ namespace BForms.GroupEditor
     #endregion
 
     #region BsEditorTabBuilder Search and New
-    public class BsEditorTabBuilder<TRow, TSearch, TNew> : BsEditorTabBuilder<TRow, TSearch> where TRow : new()
+    public class BsEditorTabBuilder<TRow, TSearch, TNew> : BsEditorTabBuilder<TRow, TSearch>
+        where TRow : new() 
+        where TSearch : class
+        where TNew : class
     {
         #region Constructor and Properties
         private BsGroupEditor<TRow, TSearch, TNew> model;
-        private BsEditorToolbarPart newPart;
+        private BsEditorToolbarPart newPart = new BsEditorToolbarPart();
+        private TNew newModel;
 
         public BsEditorTabBuilder(BsGroupEditor<TRow, TSearch, TNew> model, ViewContext viewContext)
             : base(model, viewContext)
         {
             this.model = model;
-            this.newPart = new BsEditorToolbarPart().Button("Adauga", Glyphicon.Plus);
         }
         #endregion
 
         #region Public Methods
         public BsEditorTabBuilder<TRow, TSearch, TNew> Template(Expression<Func<BsGroupEditor<TRow, TSearch, TNew>, TSearch>> expression, string template)
         {
-            this.searchPart.Template(template);
+            this.searchPart.template = template;
+
+            FillDetails(this.model, expression, this.searchPart).Button("Cauta", Glyphicon.Search);
 
             return this;
         }
@@ -110,6 +138,8 @@ namespace BForms.GroupEditor
         public BsEditorTabBuilder<TRow, TSearch, TNew> Template(Expression<Func<BsGroupEditor<TRow, TSearch, TNew>, TNew>> expression, string template)
         {
             this.newPart.Template(template);
+
+            FillDetails(this.model, expression, this.newPart).Button("Adauga", Glyphicon.Plus);
 
             return this;
         }
@@ -165,7 +195,7 @@ namespace BForms.GroupEditor
             this.model = model;
             this.HasModel = this.model != null && this.model.Grid != null;
             this.hasItems = this.HasModel ? this.model.Grid.Items != null && this.model.Grid.Items.Any() : false;
-            this.toolbar = new BsEditorToolbarHtmlBuilder(this);
+            this.toolbar = new BsEditorToolbarHtmlBuilder(this, viewContext);
             this.pagerSettings = new BsPagerSettings();
         }
         #endregion

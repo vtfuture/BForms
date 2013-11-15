@@ -13,15 +13,13 @@ namespace BForms.Grid
         public string QuickSearch { get; set; }
     }
 
-    public class BsGridBaseRepositorySettings
+
+
+    public class BsGridBaseRepositorySettings : BsBaseRepositorySettings
     {
         public List<BsColumnOrder> OrderableColumns { get; set; } // order grid by column
 
         public Dictionary<string, int> OrderColumns { get; set; } // swap columns order
-
-        public int Page { get; set; }
-
-        public int PageSize { get; set; }
 
         public int DetailsStartIndex { get; set; }
 
@@ -65,5 +63,17 @@ namespace BForms.Grid
             return this.DetailsAll || index >= DetailsStartIndex && index <= DetailsStartIndex + DetailsCount - 1;
         }
     }
- 
+
+    public class BsBaseRepositorySettings
+    {
+        public BsBaseRepositorySettings()
+        {
+            this.Page = 1;
+            this.PageSize = 5;
+        }
+
+        public int Page { get; set; }
+
+        public int PageSize { get; set; }
+    }
 }

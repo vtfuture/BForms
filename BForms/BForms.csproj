@@ -100,6 +100,7 @@
     <Compile Include="GroupEditor\BsEditorNavBuilder.cs" />
     <Compile Include="GroupEditor\BsEditorTabBuilder.cs" />
     <Compile Include="GroupEditor\BsEditorTabConfigurator.cs" />
+    <Compile Include="GroupEditor\BsGroupEditorRepositorySettings.cs" />
     <Compile Include="Mvc\BsPanelAttribute.cs" />
     <Compile Include="Panels\BsPanelExtensions.cs" />
     <Compile Include="Panels\BsPanelHtmlBuilder.cs" />
