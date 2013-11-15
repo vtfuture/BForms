@@ -199,9 +199,9 @@
     bDatepickerRenderer.prototype.dateTemplates = {
         headTemplate: '<div class="bs-date-action">' +
 
-                           '<a href="#" class="btn btn-left bs-prevView"></a>' +
+                           '<a href="#" class="btn btn-left bs-prevView {{#disabledPrev}}disabled{{/disabledPrev}}"></a>' +
                            '<a href="#" class="month bs-upView">{{HeadText}}</a>' +
-                           '<a href="#" class="btn btn-right bs-nextView"></a>' +
+                           '<a href="#" class="btn btn-right bs-nextView {{#disabledNext}}disabled{{/disabledNext}}"></a>' +
 
                         '</div>',
         contTemplate: '{{>yearsTemplate}}' +

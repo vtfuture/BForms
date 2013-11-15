@@ -177,9 +177,7 @@
     };
 
     Form.prototype._parse = function () {
-
-        return this.element.parseForm();
-
+        return this.element.parseForm(this.options.prefix ? this.options.prefix : '');
     };
 
     Form.prototype._btnClickAjaxSuccess = function (data, callbackData) {
@@ -217,7 +215,7 @@
         });
 
         if (form.valid()) {
-            data = this.element.parseForm();
+            data = this._parse();
         }
        
     };

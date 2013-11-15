@@ -23,10 +23,12 @@
 
         containerSelector: '.bs-containerPanel',
         contentSelector: '.bs-contentPanel',
-        
-        retrySelector : '.bs-retryBtn',
 
-        cacheReadonlyContent: true
+        retrySelector: '.bs-retryBtn',
+
+        cacheReadonlyContent: true,
+        additionalData: {
+        }
     };
 
     bsPanel.prototype._init = function () {
@@ -133,7 +135,7 @@
         }
     };
 
-    bsPanel.prototype._onRetryClick = function(e) {
+    bsPanel.prototype._onRetryClick = function (e) {
         var $target = $(e.currentTarget),
             method = $target.data('method');
 
@@ -199,9 +201,9 @@
 
     bsPanel.prototype._getXhrData = function () {
 
-        return {
+        return $.extend(true, {}, {
             component: this._componentId
-        };
+        }, this.options.additionalData);
 
     };
 
@@ -252,6 +254,8 @@
         if (this.options.cacheReadonlyContent) {
             this._cachedReadonlyContent = this.$content.html();
         }
+
+        this._trigger('onReadonlyLoadSuccess', 0, response);
     };
 
     bsPanel.prototype._onReadonlyLoadError = function (data) {
@@ -315,6 +319,7 @@
         }
 
         this.$content.find('form').bsForm({
+            prefix : this.options.prefix,
             actions: [{
                 name: 'save',
                 selector: this.options.saveFormSelector,
@@ -335,11 +340,14 @@
                         this._cachedReadonlyContent = this.$content.html();
                     }
 
+                    this._trigger('editSuccessHandler', 0, response);
                 }, this)
             }]
         });
 
         this._toggleEditBtn();
+
+        this._trigger('onEditableLoadSuccess', 0, response);
     };
 
     bsPanel.prototype._onEditableLoadError = function () {

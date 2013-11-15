@@ -565,6 +565,9 @@
                 }
                 break;
             case this.enums.Display.Years:
+
+                if ($(e.currentTarget).hasClass('disabled')) return;
+
                 this.value.subtract('year', 10);
                 hasChanged = true;
                 break;
@@ -594,6 +597,9 @@
                 }
                 break;
             case this.enums.Display.Years:
+
+                if ($(e.currentTarget).hasClass('disabled')) return;
+
                 this.value.add('year', 10);
                 hasChanged = true;
                 break;
@@ -1168,6 +1174,73 @@
             WrapperClass: this.options.wrapperClass,
             DaysNames: this.getDaysNames()
         });
+
+        var prevValue = this.value.clone(),
+            nextValue = this.value.clone();
+
+        if (model.HideDays == false) {
+            
+            prevValue = prevValue.startOf('month').subtract('day', 1);
+            nextValue = nextValue.endOf('month').add('day', 1);
+
+            if (!this.isValidDate(prevValue, true, {
+                format: 'month',
+                allowSame: true
+            })) {
+                model.disabledPrev = true;
+            }
+
+            if (!this.isValidDate(nextValue, true, {
+                format: 'month',
+                allowSame: true
+            })) {
+                model.disabledNext = true;
+            }
+        }
+
+        if (model.HideMonths == false) {
+            prevValue.subtract('year', 1);
+            nextValue.add('year', 1);
+
+            if (!this.isValidDate(prevValue, true, {
+                format: 'year',
+                allowSame: true
+            })) {
+                model.disabledPrev = true;
+            }
+
+            if (!this.isValidDate(nextValue, true, {
+                format: 'year',
+                allowSame: true
+            })) {
+                model.disabledNext = true;
+            }
+        }
+
+        if (model.HideYears == false) {
+
+            var year = prevValue.format('YYYY'),
+             startOfDecade = year - year % 10;
+
+            prevValue.year(startOfDecade).subtract('year', 1);
+
+            if (!this.isValidDate(prevValue, true, {
+                format: 'year',
+                allowSame: true
+            })) {
+                model.disabledPrev = true;
+            }
+
+            nextValue.year(startOfDecade).add('year', 10);
+
+            if (!this.isValidDate(nextValue, true, {
+                format: 'year',
+                allowSame: true
+            })) {
+                model.disabledNext = true;
+            }
+
+        }
 
         return model;
     };
