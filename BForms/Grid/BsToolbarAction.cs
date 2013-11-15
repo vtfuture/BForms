@@ -6,28 +6,31 @@ using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using BForms.Models;
 using BForms.Mvc;
+using BForms.Renderers;
 
 namespace BForms.Grid
 {
     /// <summary>
     /// Grid toolbar default control component
     /// </summary>
-    public class BsToolbarAction<TToolbar> : BaseComponent
+    public class BsToolbarAction<TToolbar> : BsBaseComponent
     {
         #region Properties and constructors
-        private string descriptorClass;
+        internal string descriptorClass;
 
-        private IDictionary<string, object> htmlAttributes;
+        internal IDictionary<string, object> htmlAttributes;
 
-        private string styleClasses;
+        internal string styleClasses;
 
-        private string title;
+        internal string title;
 
-        private string text;
+        internal string text;
 
-        private Glyphicon? glyphIcon;
+        internal Glyphicon? glyphIcon;
 
-        private string href;
+        internal string href;
+
+        internal string tabId;
 
         private Func<TToolbar, MvcHtmlString> tabDelegate;
         public Func<TToolbar, MvcHtmlString> TabDelegate
@@ -46,14 +49,29 @@ namespace BForms.Grid
             }
         }
 
-        private string tabId;
+        public BsToolbarAction()
+        {
+            this.renderer = new BsToolbarActionRenderer<TToolbar>(this);
+        }
 
         public BsToolbarAction(ViewContext viewContext)
-            :base(viewContext) { }
+            : base(viewContext) 
+        {
+            this.renderer = new BsToolbarActionRenderer<TToolbar>(this);
+        }
+
+        public BsToolbarAction(string descriptorClass, ViewContext viewContext)
+            : base(viewContext)
+        {
+            this.renderer = new BsToolbarActionRenderer<TToolbar>(this);
+            this.descriptorClass = descriptorClass;
+        }
 
         public BsToolbarAction(BsToolbarActionType type, ViewContext viewContext)
             : base(viewContext)
         {
+            this.renderer = new BsToolbarActionRenderer<TToolbar>(this);
+
             // Set default control action properties
             switch (type)
             {
@@ -93,11 +111,6 @@ namespace BForms.Grid
             return this.descriptorClass;
         }
 
-        public BsToolbarAction(string descriptorClass, ViewContext viewContext)
-            : base(viewContext)
-        {
-            this.descriptorClass = descriptorClass;
-        }
         #endregion
 
         /// <summary>
@@ -195,31 +208,6 @@ namespace BForms.Grid
         {
             this.href = action;
             return this;
-        }
-
-        /// <summary>
-        /// Renders component
-        /// </summary>
-        public override string Render()
-        {
-            var actionBuilder = new TagBuilder("a");
-            actionBuilder.AddCssClass(descriptorClass);
-            actionBuilder.AddCssClass(this.styleClasses);
-            actionBuilder.MergeAttribute("href", this.href ?? "#");
-
-            if (!string.IsNullOrEmpty(this.tabId))
-            {
-                actionBuilder.MergeAttribute("data-tabid", this.tabId);
-            }
-
-            if (!string.IsNullOrEmpty(this.title))
-            {
-                actionBuilder.MergeAttribute("title", this.title);
-            }
-
-            actionBuilder.InnerHtml += (this.glyphIcon.HasValue ? GetGlyphcon(this.glyphIcon.Value) + " " : "") + this.text;
-
-            return actionBuilder.ToString();
         }
 
         internal void SetTabId(string tabId)

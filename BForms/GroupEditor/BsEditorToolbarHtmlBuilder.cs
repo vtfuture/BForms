@@ -1,5 +1,6 @@
 ﻿using BForms.Models;
 using BForms.Mvc;
+using BForms.Renderers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,121 +11,14 @@ using System.Web.Mvc;
 
 namespace BForms.GroupEditor
 {
-    #region BsEditorToolbarButton
-    public class BsEditorToolbarButton : BaseComponent
-    {
-        #region Constructor and Properties
-        private Glyphicon glyph { get; set; }
-        private string name { get; set; }
-        private string uid { get; set; } 
-
-        public BsEditorToolbarButton(string uid)
-        {
-            this.uid = uid;
-        }
-        #endregion
-
-        #region Public Methods
-        public BsEditorToolbarButton Glyph(Glyphicon glyph)
-        {
-            this.glyph = glyph;
-
-            return this;
-        }
-
-        public BsEditorToolbarButton DisplayName(string name)
-        {
-            this.name = name;
-
-            return this;
-        }
-        #endregion
-
-        #region Render
-        public override string Render()
-        {
-            var btn = new TagBuilder("button");
-
-            btn.MergeAttribute("type", "button");
-
-            btn.MergeAttribute("data-uid", this.uid);
-
-            btn.AddCssClass("btn btn-default bs-toolbarBtn");
-
-            btn.InnerHtml += GetGlyphcon(this.glyph);
-
-            btn.InnerHtml += " " + this.name;
-
-            return btn.ToString();
-        }
-        #endregion
-    }
-    #endregion
-
-    #region BsEditorToolbarForm
-    public class BsEditorToolbarForm<TModel> : BaseComponent
-    {
-        #region Properties and Constructor
-        private TModel model { get; set; }
-        private string uid { get; set; }
-        private bool hide { get; set; }
-
-        public BsEditorToolbarForm(TModel model, string uid, ViewContext viewContext)
-        {
-            this.model = model;
-            this.uid = uid;
-            this.viewContext = viewContext;
-        }
-        #endregion
-
-        #region Public Methods
-        public BsEditorToolbarForm<TModel> Template(string template)
-        {
-            this.template = template;
-
-            return this;
-        }
-
-        public BsEditorToolbarForm<TModel> Hide()
-        {
-            this.hide = true;
-
-            return this;
-        }
-        #endregion
-
-        #region Render
-        public override string Render()
-        {
-            var container = new TagBuilder("div");
-
-            if (this.hide)
-            {
-                container.MergeAttribute("style", "display: none;");
-            }
-
-            container.AddCssClass("bs-editorForm");
-
-            container.MergeAttribute("data-uid", this.uid);
-
-            var partialView = viewContext.Controller.BsRenderPartialView(this.template, model);
-
-            container.InnerHtml += partialView;
-
-            return container.ToString();
-        }
-        #endregion
-    }
-    #endregion
-
     #region BsEditorToolbarPart
     public class BsEditorToolbarPart
     {
         #region Properties and Constructor
-        internal BsEditorToolbarButton button { get; set; }
+        internal BsEditorToolbarButtonBuilder button { get; set; }
         internal string uid { get; set; }
         internal string template { get; set; }
-        internal BaseComponent form { get; set; }
+        internal BsBaseComponent form { get; set; }
 
         public BsEditorToolbarPart()
         {
@@ -141,7 +35,7 @@ namespace BForms.GroupEditor
 
         public BsEditorToolbarPart Button(string name, Glyphicon glyph)
         {
-            this.button = new BsEditorToolbarButton(this.uid).DisplayName(name).Glyph(glyph);
+            this.button = new BsEditorToolbarButtonBuilder(this.uid).DisplayName(name).Glyph(glyph);
 
             return this;
         }
@@ -150,19 +44,20 @@ namespace BForms.GroupEditor
     #endregion
 
     #region BsEditorToolbarHtmlBuilder
-    public class BsEditorToolbarHtmlBuilder : BaseComponent
+    public class BsEditorToolbarHtmlBuilder : BsBaseComponent
     {
         #region Properties and Constructor
         private BsGroupEditor tabBuilder { get; set; }
-        private List<BsEditorToolbarPart> parts { get; set; }
-        private List<BsEditorToolbarButton> buttons { get; set; }
-        private List<BaseComponent> forms { get; set; }
-        private bool inlineSearch { get; set; }
+        internal List<BsEditorToolbarPart> parts { get; set; }
+        internal List<BsEditorToolbarButtonBuilder> buttons { get; set; }
+        internal List<BsBaseComponent> forms { get; set; }
+        internal bool inlineSearch { get; set; }
 
         public bool InlineSearch { get { return this.inlineSearch; } set { this.inlineSearch = value; } }
 
         public BsEditorToolbarHtmlBuilder(BsEditorTabBuilder tabBuilder, ViewContext viewContext)
         {
+            this.renderer = new BsEditorToolbarBaseRenderer(this);
             this.parts = new List<BsEditorToolbarPart>();
             this.tabBuilder = tabBuilder.GetModel();
             this.viewContext = viewContext;
@@ -188,7 +83,7 @@ namespace BForms.GroupEditor
             {
                 uid = name,
                 template = template,
-                form = new BsEditorToolbarForm<TValue>((TValue)value, name, this.viewContext).Hide()
+                form = new BsEditorToolbarFormBuilder<TValue>((TValue)value, name, this.viewContext).Hide()
             };
 
             this.parts.Add(part);
@@ -201,80 +96,6 @@ namespace BForms.GroupEditor
         internal void Add(BsEditorToolbarPart part)
         {
             this.parts.Add(part);
-        }
-        #endregion
-
-        #region Render
-        public override string Render()
-        {
-            var buttons = this.parts.Where(x => x.button != null);
-
-            var forms = this.parts.Where(x => x.form != null);
-
-            var result = string.Empty;
-
-            var container = new TagBuilder("div");
-
-            container.AddCssClass("search");
-
-            if (this.inlineSearch || buttons.Any())
-            {
-                container.AddCssClass("inline");
-
-                var group = new TagBuilder("div");
-
-                group.AddCssClass("input-group");
-
-                #region Inline Search
-                if (this.inlineSearch)
-                {
-                    container.AddCssClass("inline");
-
-                    var glyph = GetGlyphcon(Glyphicon.Search, true);
-
-                    var input = new TagBuilder("input");
-
-                    input.MergeAttribute("type", "text");
-
-                    input.MergeAttribute("placeholder", "Cauta");
-
-                    input.AddCssClass("form-control");
-
-                    group.InnerHtml += glyph;
-
-                    group.InnerHtml += input;
-                }
-                #endregion
-
-                #region Buttons
-                if (buttons.Any())
-                {
-                    var wrapper = new TagBuilder("div");
-
-                    wrapper.AddCssClass("input-group-btn");
-
-                    foreach (var btn in buttons.Select(x => x.button))
-                    {
-                        wrapper.InnerHtml += btn.Render();
-                    }
-
-                    group.InnerHtml += wrapper;
-                }
-                #endregion
-
-                container.InnerHtml += group;
-            }
-
-            forms.ToList().ForEach(x => x.form.template = x.template);
-
-            foreach (var form in forms.Select(x => x.form))
-            {
-                container.InnerHtml += form.Render();
-            }
-
-            result += container;
-
-            return result;
         }
         #endregion
     }

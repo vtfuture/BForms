@@ -15,14 +15,14 @@ using DocumentFormat.OpenXml.EMMA;
 
 namespace BForms.Panels
 {
-    public class BsPanelsConfigurator<TModel> : BaseComponent /* where TPanel : BsPanelHtmlBuilder */
+    public class BsPanelsConfigurator<TModel>
     {
         #region Private properties
         internal List<BsPanelHtmlBuilder> Panels { get; set; }
-
-        private string _readonlyUrl;
-        private string _editableUrl;
-        private string _saveUrl;
+        internal ViewContext viewContext { get; set; }
+        internal string readonlyUrl;
+        internal string editableUrl;
+        internal string saveUrl;
 
         private bool _isEditable;
         #endregion
@@ -32,11 +32,11 @@ namespace BForms.Panels
         {
             get
             {
-                return _readonlyUrl;
+                return readonlyUrl;
             }
             set
             {
-                _readonlyUrl = value;
+                readonlyUrl = value;
             }
         }
 
@@ -44,11 +44,11 @@ namespace BForms.Panels
         {
             get
             {
-                return _editableUrl;
+                return editableUrl;
             }
             set
             {
-                _editableUrl = value;
+                editableUrl = value;
                 _isEditable = true;
             }
         }
@@ -57,25 +57,25 @@ namespace BForms.Panels
         {
             get
             {
-                return _saveUrl;
+                return saveUrl;
             }
             set
             {
-                _saveUrl = value;
+                saveUrl = value;
             }
         }
         #endregion
 
         public BsPanelsConfigurator(ViewContext viewContext)
         {
-            this.Panels = new List<BsPanelHtmlBuilder>();
             this.viewContext = viewContext;
+            this.Panels = new List<BsPanelHtmlBuilder>();
         }
 
         #region Public methods
         public BsPanelHtmlBuilder AddPanel(BsPanelAttribute panelAttr, DisplayAttribute displayAttr)
         {
-            var newPanel = new BsPanelHtmlBuilder(viewContext);
+            var newPanel = new BsPanelHtmlBuilder(this.viewContext);
 
             if (panelAttr != null)
             {
@@ -132,33 +132,5 @@ namespace BForms.Panels
             return this;
         }
         #endregion
-
-        public override string Render()
-        {
-            var panelsHtml = string.Empty;
-
-            foreach (var panel in Panels)
-            {
-
-                if (string.IsNullOrEmpty(panel.readonlyUrl) && !string.IsNullOrEmpty(_readonlyUrl))
-                {
-                    panel.ReadonlyUrl(_readonlyUrl);
-                }
-
-                if (string.IsNullOrEmpty(panel.editableUrl) && !string.IsNullOrEmpty(_editableUrl) && panel.isEditable)
-                {
-                    panel.EditableUrl(_editableUrl);
-                }
-
-                if (string.IsNullOrEmpty(panel.saveUrl) && !string.IsNullOrEmpty(_saveUrl))
-                {
-                    panel.SaveUrl(_saveUrl);
-                }
-
-                panelsHtml += panel.Render();
-            }
-
-            return panelsHtml;
-        }
     }
 }

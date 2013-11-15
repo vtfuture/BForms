@@ -1,6 +1,7 @@
 ﻿using BForms.Grid;
 using BForms.Models;
 using BForms.Mvc;
+using BForms.Renderers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,21 +13,19 @@ using System.Web.Mvc;
 namespace BForms.GroupEditor
 {
     #region BsEditorTabBuilder Base
-    public abstract class BsEditorTabBuilder : BaseComponent
+    public abstract class BsEditorTabBuilder : BsBaseComponent
     {
         #region Properties
-        protected string rowTemplate { get; set; }
+        internal string rowTemplate { get; set; }
         protected BsPagerSettings pagerSettings;
         protected string name { get; set; }
-        protected object uid { get; set; }
-        protected bool selected { get; set; }
+        internal object uid { get; set; }
+        internal bool selected { get; set; }
         internal bool HasModel { get; set; }
         #endregion
 
         #region Methods
         internal abstract BsGroupEditor GetModel();
-
-        internal abstract string RenderAjax();
 
         internal abstract bool IsSelected();
 
@@ -92,7 +91,7 @@ namespace BForms.GroupEditor
 
             part.uid = name;
 
-            part.form = new BsEditorToolbarForm<TValue>((TValue)value, name, this.viewContext).Hide();
+            part.form = new BsEditorToolbarFormBuilder<TValue>((TValue)value, name, this.viewContext).Hide();
 
             return part;
         }
@@ -173,11 +172,11 @@ namespace BForms.GroupEditor
     public class BsEditorTabBuilder<TRow> : BsEditorTabBuilder where TRow : new()
     {
         #region Properties and Constructor
-        protected BsEditorToolbarHtmlBuilder toolbar { get; set; }
-        protected bool inlineSearch { get; set; }
-        protected bool hasItems { get; set; }
-        private BsGridPagerBuilder pagerBuilder;
-        private BsGroupEditor<TRow> model;
+        internal BsEditorToolbarHtmlBuilder toolbar { get; set; }
+        internal bool inlineSearch { get; set; }
+        internal bool hasItems { get; set; }
+        internal BsGridPagerBuilder pagerBuilder;
+        internal BsGroupEditor<TRow> model;
 
         public BsEditorToolbarHtmlBuilder Toolbar { get { return this.toolbar; } }
         public bool InlineSearch
@@ -191,6 +190,7 @@ namespace BForms.GroupEditor
 
         public BsEditorTabBuilder(BsGroupEditor<TRow> model, ViewContext viewContext)
         {
+            this.renderer = new BsEditorTabBaseRenderer<TRow>(this);
             this.viewContext = viewContext;
             this.model = model;
             this.HasModel = this.model != null && this.model.Grid != null;
@@ -257,137 +257,18 @@ namespace BForms.GroupEditor
         #endregion
 
         #region Render
+        internal virtual void InitPager()
+        {
+            if (this.model != null)
+            {
+                this.pagerBuilder = new BsGridPagerBuilder(this.model.Grid.Pager, this.pagerSettings, this.model.Grid.BaseSettings);
+            }
+        }
+
         internal virtual void BeforeRender()
         {
-
+            
         }
-
-        internal string RenderPager()
-        {
-            this.pagerBuilder = new BsGridPagerBuilder(this.model.Grid.Pager, this.pagerSettings, this.model.Grid.BaseSettings);
-
-            return this.pagerBuilder.Render();
-        }
-
-        internal string RenderItems()
-        {
-            var result = "";
-
-            if (!string.IsNullOrEmpty(this.rowTemplate))
-            {
-                var list = new TagBuilder("ul");
-
-                list.AddCssClass("group_profiles");
-
-                foreach (var item in this.model.Grid.Items)
-                {
-                    var listItem = new TagBuilder("li");
-
-                    var listItemWrapper = new TagBuilder("div");
-
-                    listItemWrapper.AddCssClass("media profile large");
-
-                    var anchorLeft = new TagBuilder("a");
-
-                    anchorLeft.MergeAttribute("href", "#");
-
-                    anchorLeft.AddCssClass("pull-left");
-
-                    var img = new TagBuilder("img");
-
-                    img.AddCssClass("media-object");
-
-                    img.MergeAttribute("src", "http://www.cloverwos.ro/1.0.0.217/Content/images/bg-user.png");
-
-                    anchorLeft.InnerHtml += img;
-
-                    listItemWrapper.InnerHtml += anchorLeft;
-
-                    var anchorRight = new TagBuilder("a");
-
-                    anchorRight.MergeAttribute("href", "#");
-
-                    anchorRight.AddCssClass("btn btn-default select_profile");
-
-                    anchorRight.InnerHtml += GetGlyphcon(Glyphicon.Ok);
-
-                    listItemWrapper.InnerHtml += anchorRight;
-
-                    var templateWrapper = new TagBuilder("div");
-
-                    templateWrapper.AddCssClass("media-body");
-
-                    templateWrapper.InnerHtml += this.viewContext.Controller.BsRenderPartialView(this.rowTemplate, item);
-
-                    listItemWrapper.InnerHtml += templateWrapper;
-
-                    listItem.InnerHtml += listItemWrapper;
-
-                    list.InnerHtml += listItem;
-                }
-
-                result += list;
-            }
-            else
-            {
-                throw new Exception("You must set the template for tab " + this.uid.ToString());
-            }
-
-            return result;
-        }
-
-        internal string RenderContent()
-        {
-            BeforeRender();
-
-            var result = this.toolbar.Render();
-
-            var wrapper = new TagBuilder("div");
-
-            wrapper.AddCssClass("bs-tabContent");
-
-            if (this.HasModel)
-            {
-                wrapper.InnerHtml += RenderAjax();
-            }
-
-            result += wrapper;
-
-            return result;
-        }
-
-        public override string Render()
-        {
-            var wrapper = new TagBuilder("div");
-
-            wrapper.MergeAttribute("data-tabid", ((int)this.uid).ToString());
-
-            wrapper.MergeAttribute("data-loaded", this.HasModel.ToString());
-
-            if (!this.selected)
-            {
-                wrapper.MergeAttribute("style", "display: none;");
-            }
-
-            wrapper.InnerHtml += this.RenderContent();
-
-            return wrapper.ToString();
-        }
-
-        internal override string RenderAjax()
-        {
-            var result = "";
-
-            if (this.hasItems)
-            {
-                result += this.RenderItems();
-            }
-
-            result += RenderPager();
-
-            return result;
-        }
-
         #endregion
     }
     #endregion

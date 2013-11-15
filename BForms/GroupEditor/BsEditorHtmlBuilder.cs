@@ -1,5 +1,6 @@
 ﻿using BForms.Models;
 using BForms.Mvc;
+using BForms.Renderers;
 using BForms.Utilities;
 using System;
 using System.Collections.Generic;
@@ -11,21 +12,23 @@ using System.Web.Mvc;
 
 namespace BForms.GroupEditor
 {
-    public class BsEditorHtmlBuilder<TModel> : BaseComponent
+    public class BsEditorHtmlBuilder<TModel> : BsBaseComponent
     {
         #region Properties and Constructor
-        private BsEditorTabConfigurator<TModel> tabConfigurator;
-        private IDictionary<string, object> htmlAttributes;
+        internal BsEditorTabConfigurator<TModel> tabConfigurator;
+        internal IDictionary<string, object> htmlAttributes;
 
         public BsEditorHtmlBuilder(TModel model)
         {
-
+            this.renderer = new BsEditorBaseRenderer<TModel>(this);
         }
 
         public BsEditorHtmlBuilder(TModel model, ViewContext viewContext)
             : base(viewContext)
         {
             this.viewContext = viewContext;
+
+            this.renderer = new BsEditorBaseRenderer<TModel>(this);
 
             this.tabConfigurator = new BsEditorTabConfigurator<TModel>(viewContext);
 
@@ -44,53 +47,6 @@ namespace BForms.GroupEditor
                     InvokeAddTabConfig(value, prop, attr);
                 }
             }
-        }
-        #endregion
-
-        #region Render
-        public override string Render()
-        {
-            var result = this.viewContext.RequestContext.HttpContext.Request.IsAjaxRequest() ?
-                this.RenderAjax() :
-                this.RenderIndex();
-            return result;
-        }
-
-        public string RenderAjax()
-        {
-            return tabConfigurator.RenderAjax();
-        }
-
-        public string RenderIndex()
-        {
-            var container = new TagBuilder("div");
-
-            container.AddCssClass("group_editor");
-
-            if (this.htmlAttributes != null)
-            {
-                container.MergeAttributes(this.htmlAttributes);
-            }
-
-            #region Left
-            var left = new TagBuilder("div");
-
-            left.AddCssClass("left");
-
-            left.InnerHtml += tabConfigurator.Render();
-
-            container.InnerHtml += left;
-            #endregion
-
-            #region Right
-            var right = new TagBuilder("div");
-
-            right.AddCssClass("right");
-
-            container.InnerHtml += right;
-            #endregion
-
-            return container.ToString();
         }
         #endregion
 

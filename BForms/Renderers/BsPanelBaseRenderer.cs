@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using BForms.Html;
+using BForms.Panels;
 
 namespace BForms.Renderers
 {
@@ -145,6 +145,19 @@ namespace BForms.Renderers
             body = container;
 
             return container;
+        }
+
+        public override string Render()
+        {
+            TagBuilder result;
+
+            var container = this.GetContainer(out result);
+
+            container.InnerHtml += this.RenderHeader();
+
+            container.InnerHtml += this.RenderContent();
+
+            return result.ToString();
         }
     }
 }

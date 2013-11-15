@@ -11,16 +11,16 @@ using BForms.Utilities;
 
 namespace BForms.GroupEditor
 {
-    public class BsEditorTabConfigurator<TModel> : BaseComponent
+    public class BsEditorTabConfigurator<TModel> : BsBaseComponent
     {
         #region Properties and Constructor
         internal Dictionary<object, BsEditorTabBuilder> Tabs { get; set; }
-        private BsEditorNavBuilder navBuilder { get; set; }
+        internal BsEditorNavBuilder navBuilder { get; set; }
 
-        public BsEditorTabConfigurator(ViewContext viewContext)
+        public BsEditorTabConfigurator(ViewContext viewContext) : base(viewContext)
         {
             this.Tabs = new Dictionary<object, BsEditorTabBuilder>();
-            this.navBuilder = new BsEditorNavBuilder();
+            this.navBuilder = new BsEditorNavBuilder(viewContext);
             this.viewContext = viewContext;
         }
         #endregion
@@ -50,35 +50,6 @@ namespace BForms.GroupEditor
             var builder = this.GetTab(expression);
 
             return builder as BsEditorTabBuilder<TRow>;
-        }
-        #endregion
-
-        #region Render
-        public override string Render()
-        {
-            var result = navBuilder.Render();
-
-            foreach (var tab in this.Tabs)
-            {
-                result += tab.Value.Render();
-            }
-
-            return result;
-        }
-
-        public string RenderAjax()
-        {
-            var result = "";
-
-            foreach (var tab in this.Tabs)
-            {
-                if (tab.Value.HasModel)
-                {
-                    result += tab.Value.RenderAjax();
-                }
-            }
-
-            return result;
         }
         #endregion
 

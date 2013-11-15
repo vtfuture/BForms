@@ -6,42 +6,43 @@ using System.Web.Mvc;
 using BForms.Models;
 using BForms.Mvc;
 using BForms.Utilities;
+using BForms.Renderers;
 
 namespace BForms.Grid
 {
-    public class BsToolbarHtmlBuilder<TToolbar> : BaseComponent
+    public class BsToolbarHtmlBuilder<TToolbar> : BsBaseComponent
     {
         /// <summary>
         /// Text that will be displayed in header
         /// </summary>
-        private string displayName;
+        internal string displayName;
 
         /// <summary>
         /// Html attributes that will decorate toolbar container
         /// </summary>
-        private IDictionary<string, object> htmlAttributes;
+        internal IDictionary<string, object> htmlAttributes;
 
         /// <summary>
         /// Utility class used for action 
         /// </summary>
-        private BsToolbarActionsFactory<TToolbar> ActionsFactory { get; set; }
+        internal BsToolbarActionsFactory<TToolbar> ActionsFactory { get; set; }
 
         /// <summary>
         /// Theme
         /// </summary>
-        private BsTheme theme = BsTheme.Default;
+        internal BsTheme theme = BsTheme.Default;
 
         /// <summary>
         /// Toolbar name based on class hierarchy
         /// </summary>
         private readonly string fullName;
 
-        private string id;
+        internal string id;
 
         /// <summary>
         /// Toolbar model
         /// </summary>
-        private readonly TToolbar model;
+        internal readonly TToolbar model;
 
         /// <summary>
         /// Toolbar model metadata
@@ -53,11 +54,15 @@ namespace BForms.Grid
         /// </summary>
         private readonly object[] attributes;
 
-        public BsToolbarHtmlBuilder() { }
+        public BsToolbarHtmlBuilder()
+        {
+            this.renderer = new BsToolbarBaseRenderer<TToolbar>(this);
+        }
 
         public BsToolbarHtmlBuilder(string fullName, TToolbar model, ModelMetadata metadata, object[] attributes, ViewContext viewContext)
             : base(viewContext)
         {
+            this.renderer = new BsToolbarBaseRenderer<TToolbar>(this);
             this.fullName = fullName;
             this.model = model;
             this.metadata = metadata;
@@ -136,75 +141,6 @@ namespace BForms.Grid
             return this;
         }
 
-        /// <summary>
-        /// Renders toolbar
-        /// </summary>
-        public override string Render()
-        {
-            var toolbarBuilder = new TagBuilder("div");
-            toolbarBuilder.MergeAttribute("id", this.id);
-            toolbarBuilder.MergeClassAttribute("grid_toolbar", this.htmlAttributes);
-            toolbarBuilder.MergeAttributes(this.htmlAttributes, true);
-
-            toolbarBuilder.AddCssClass(this.theme.GetDescription());
-
-            var toolbarHeaderBuilder = new TagBuilder("div");
-            toolbarHeaderBuilder.AddCssClass("grid_toolbar_header");
-
-            var headerBulder = new TagBuilder("h1");
-            headerBulder.InnerHtml += this.displayName;
-            toolbarHeaderBuilder.InnerHtml += headerBulder.ToString();
-            
-            string tabs = string.Empty;
-
-            if (this.ActionsFactory != null)
-            {
-                var controlsBuilder = new TagBuilder("div");
-                controlsBuilder.AddCssClass("grid_toolbar_controls");
-
-                int tabNr = 0;
-
-                foreach (var action in this.ActionsFactory.Actions)
-                {
-                    // check if action is default
-                    var defaultAction = action as BsToolbarAction<TToolbar>;
-
-                    // renders tab content if any
-                    if (defaultAction != null && defaultAction.TabDelegate != null)
-                    {
-                        var tabId = this.id + "_tab_" + tabNr;
-
-                        var tabBuilder = new TagBuilder("div");
-                        if (defaultAction.HtmlAttr != null)
-                        {
-                            if (defaultAction.HtmlAttr.ContainsKey("class"))
-                            {
-                                tabBuilder.AddCssClass(defaultAction.HtmlAttr["class"] as string);
-                            }
-                            tabBuilder.MergeAttributes(defaultAction.HtmlAttr);
-                        }
-                        tabBuilder.AddCssClass("grid_toolbar_form");
-                        tabBuilder.MergeAttribute("style", "display:none;");
-                        tabBuilder.MergeAttribute("id", tabId);
-                        tabBuilder.InnerHtml += defaultAction.TabDelegate(this.model);
-
-                        tabs += tabBuilder.ToString();
-
-                        //sets tab container id for tab - button correlation
-                        defaultAction.SetTabId(tabId);
-
-                        tabNr++;
-                    }
-
-                    controlsBuilder.InnerHtml += action.Render();
-                }
-                toolbarHeaderBuilder.InnerHtml += controlsBuilder.ToString();
-            }
-
-            toolbarBuilder.InnerHtml += toolbarHeaderBuilder.ToString();
-            toolbarBuilder.InnerHtml += tabs;
-
-            return toolbarBuilder.ToString();
-        }
+        
     }
 }

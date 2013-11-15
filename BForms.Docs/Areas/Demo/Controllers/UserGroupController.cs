@@ -96,33 +96,6 @@ namespace BForms.Docs.Areas.Demo.Controllers
             return View(viewModel);
         }
 
-        public class GroupEditorRequest
-        {
-            public int Page { get; set; }
-            public int PageSize { get; set; }
-            public int TabId { get; set; }
-            public ContributorSearchModel Search1 { get; set; }
-            public ContributorSearchModel Search2 { get; set; }
-
-            public BsGridRepositorySettings<T> GetRepositorySettings<T>()
-            {
-                foreach (var item in this.GetType().GetProperties())
-                {
-                    if (item.PropertyType.IsAssignableFrom(typeof(T)))
-                    {
-                        return new BsGridRepositorySettings<T>
-                        {
-                            Search = (T)item.GetValue(this),
-                            Page = this.Page,
-                            PageSize = this.PageSize
-                        };
-                    }
-                }
-
-                throw new ArgumentException("The generic type was not found in object props");
-            }
-        }
-
         public BsJsonResult GetTab(BsGroupEditorRepositorySettings<YesNoValueTypes> settings)
         {
             var msg = string.Empty;

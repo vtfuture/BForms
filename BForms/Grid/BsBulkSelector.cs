@@ -5,26 +5,33 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using BForms.Mvc;
+using BForms.Renderers;
 
 namespace BForms.Grid
 {
-    public class BsBulkSelector : BaseComponent
+    public class BsBulkSelector : BsBaseComponent
     {
-        private string text { get; set; }
-        private string styleClass { get; set; }
+        internal string text { get; set; }
+        internal string styleClass { get; set; }
         public int Order { get; set; }
         public BsBulkSelectorType? Type { get; set; }
 
-          public BsBulkSelector()
+        public BsBulkSelector()
         {
+            this.renderer = new BsBulkSelectorRenderer(this);
         }
 
         public BsBulkSelector(ViewContext viewContext)
-            : base(viewContext) { }
+            : base(viewContext) 
+        {
+            this.renderer = new BsBulkSelectorRenderer(this);
+        }
 
         public BsBulkSelector(BsBulkSelectorType type, ViewContext viewContext)
             : base(viewContext)
         {
+            this.renderer = new BsBulkSelectorRenderer(this);
+
             switch (type)
             {
                 case BsBulkSelectorType.All:
@@ -51,19 +58,6 @@ namespace BForms.Grid
         {
             this.styleClass = styleClass;
             return this;
-        }
-
-        public override string Render()
-        {
-            var bulkSelector = new TagBuilder("li");
-            var bulkSelectorAnchor = new TagBuilder("a");
-            bulkSelectorAnchor.MergeAttribute("href","#");
-            bulkSelectorAnchor.MergeAttribute("class",this.styleClass);
-            bulkSelectorAnchor.InnerHtml += this.text;
-
-            bulkSelector.InnerHtml += bulkSelectorAnchor.ToString();
-
-            return bulkSelector.ToString();
         }
     }
 }

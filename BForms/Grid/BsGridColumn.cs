@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using BForms.Mvc;
 using BForms.Models;
+using BForms.Renderers;
 
 namespace BForms.Grid
 {
@@ -37,7 +38,7 @@ namespace BForms.Grid
         public int Size { get; set; }
     }
 
-    public class BsGridColumn<TRow> : BaseComponent where TRow : new()
+    public class BsGridColumn<TRow> : BsBaseComponent where TRow : new()
     {
         internal string PrivateName { get; set; }
 
@@ -86,17 +87,28 @@ namespace BForms.Grid
 
         internal Func<TRow, object> CellText { get; set; }
 
-        public BsGridColumn(ViewContext viewContext) : base(viewContext) { }
+        public BsGridColumn()
+        {
+            this.renderer = new BsGridColumnRenderer<TRow>(this);
+        }
+
+        public BsGridColumn(ViewContext viewContext) : base(viewContext) 
+        {
+            this.renderer = new BsGridColumnRenderer<TRow>(this);
+        }
 
         public BsGridColumn(string name, ViewContext viewContext)
             : base(viewContext)
         {
+            this.renderer = new BsGridColumnRenderer<TRow>(this);
+
             this.PrivateName = name;
         }
 
         public BsGridColumn(PropertyInfo property, ViewContext viewContext)
             : base(viewContext)
         {
+            this.renderer = new BsGridColumnRenderer<TRow>(this);
             this.Property = property;
             this.PrivateName = this.Property.Name;
         }
@@ -204,49 +216,6 @@ namespace BForms.Grid
             }
 
             return classes;
-        }
-     
-        public override string Render()
-        {
-            var columnBuilder = new TagBuilder("div");
-            
-            if (this.Property != null && this.IsSortable)
-            {
-                var linkBuilder = new TagBuilder("a");
-                linkBuilder.MergeAttribute("href", "#");
-                linkBuilder.MergeAttribute("class", "bs-orderColumn");
-
-                if (this.OrderType == BsOrderType.Ascending)
-                {
-                    linkBuilder.AddCssClass("sort_asc");
-                }
-                else if (this.OrderType == BsOrderType.Descending)
-                {
-                    linkBuilder.AddCssClass("sort_desc");
-                }
-
-                linkBuilder.InnerHtml = this.DisplayName;
-
-                columnBuilder.InnerHtml += linkBuilder.ToString();
-            }
-            else
-            {
-                columnBuilder.InnerHtml += this.DisplayName;
-            }
-
-            if (this.IsEditable)
-            {
-                columnBuilder.InnerHtml += this.EditableContent;
-            }
-
-            if (this.htmlAttributes != null)
-            {
-                columnBuilder.MergeAttributes(this.htmlAttributes);
-            }
-            columnBuilder.AddCssClass(this.GetWidthClasses());
-            columnBuilder.MergeAttribute("data-name", this.PrivateName);
-
-            return columnBuilder.ToString();
         }
     }
 }

@@ -6,31 +6,38 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using BForms.Models;
 using BForms.Mvc;
+using BForms.Renderers;
 
 namespace BForms.Grid
 {
     /// <summary>
     /// BulkActions component
     /// </summary>
-    public class BsBulkAction : BaseComponent
+    public class BsBulkAction : BsBaseComponent
     {
-        private string buttonClass;
-        private string title;
-        private Glyphicon? glyphIcon;
+        internal string buttonClass;
+        internal string title;
+        internal Glyphicon? glyphIcon;
         public BsBulkActionType? Type;
-        private string text;
+        internal string text;
         public int? BulkActionOrder;
 
         public BsBulkAction()
         {
+            this.renderer = new BsBulkActionRenderer(this);
         }
 
         public BsBulkAction(ViewContext viewContext)
-            : base(viewContext) { }
+            : base(viewContext) 
+        {
+            this.renderer = new BsBulkActionRenderer(this);
+        }
 
         public BsBulkAction(BsBulkActionType type, ViewContext viewContext)
             : base(viewContext)
         {
+            this.renderer = new BsBulkActionRenderer(this);
+
             switch (type)
             {
                 case BsBulkActionType.Excel:
@@ -77,29 +84,6 @@ namespace BForms.Grid
         {
             this.BulkActionOrder = order;
             return this;
-        }
-
-        public override string Render()
-        {
-            var bulkButton = new TagBuilder("button");
-
-            if (!String.IsNullOrEmpty(this.buttonClass))
-            {
-                bulkButton.AddCssClass(this.buttonClass);
-            }
-
-            bulkButton.AddCssClass("btn");
-
-            bulkButton.MergeAttribute("style","display:none");
-
-            if (!String.IsNullOrEmpty(this.title))
-            {
-                bulkButton.MergeAttribute("title", this.title);
-            }
-
-            bulkButton.InnerHtml += (this.glyphIcon.HasValue ? GetGlyphcon(this.glyphIcon.Value) + " " : "") + this.text;
-
-            return bulkButton.ToString();
         }
     }
 }

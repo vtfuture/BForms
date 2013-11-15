@@ -9,10 +9,10 @@ namespace BForms.Grid
 {
     public class BsToolbarActionsFactory<TToolbar>
     {
-        private List<BaseComponent> actions = new List<BaseComponent>();
+        private List<BsBaseComponent> actions = new List<BsBaseComponent>();
         private readonly ViewContext viewContext;
 
-        internal List<BaseComponent> Actions
+        internal List<BsBaseComponent> Actions
         {
             get
             {
@@ -59,7 +59,7 @@ namespace BForms.Grid
         public TCustomAction Add<TCustomAction>() where TCustomAction:new()
         {
             var toolbarAction = new TCustomAction();
-            actions.Add(toolbarAction as BaseComponent);
+            actions.Add(toolbarAction as BsBaseComponent);
             return toolbarAction;
         }
     }

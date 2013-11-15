@@ -8,11 +8,10 @@ using System.Web.UI;
 using BForms.Mvc;
 using BForms.Renderers;
 
-namespace BForms.Html
+namespace BForms.Panels
 {
-    public class BsPanelHtmlBuilder : BaseComponent
+    public class BsPanelHtmlBuilder : BsBaseComponent
     {
-        protected BsPanelBaseRenderer renderer;
         internal string name;
         internal bool isEditable;
         internal bool isExpanded;
@@ -140,60 +139,6 @@ namespace BForms.Html
             this.renderer = renderer;
 
             return this;
-        }
-
-        //public TagBuilder GetContainer()
-        //{
-        //    var container = new TagBuilder("div");
-
-        //    container.MergeAttributes(this._htmlAttributes, true);
-
-        //    if (!String.IsNullOrEmpty(this.editableUrl))
-        //    {
-        //        container.MergeAttribute("data-editableurl", this.editableUrl);
-        //    }
-
-        //    if (!String.IsNullOrEmpty(this.readonlyUrl))
-        //    {
-        //        container.MergeAttribute("data-readonlyurl", this.readonlyUrl);
-        //    }
-
-        //    if (!String.IsNullOrEmpty(this.saveUrl))
-        //    {
-        //        container.MergeAttribute("data-saveurl", this.saveUrl);
-        //    }
-
-        //    container.MergeAttribute("data-component", this.id.ToString());
-
-        //    container.AddCssClass("panel panel-default");
-
-        //    return container;
-        //}
-
-        public virtual string RenderHeader()
-        {
-            return this.renderer.RenderHeader();
-        }
-
-        public string RenderContent()
-        {
-            return this.renderer.RenderContent();
-        }
-
-        /// <summary>
-        /// Renders the component
-        /// </summary>
-        public override string Render()
-        {
-            TagBuilder result;
-
-            var container = renderer.GetContainer(out result);
-
-            container.InnerHtml += this.RenderHeader();
-
-            container.InnerHtml += this.RenderContent();
-
-            return result.ToString();
         }
     }
 }
