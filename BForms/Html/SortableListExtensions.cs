@@ -16,6 +16,7 @@ using BForms.Models;
 using BForms.Mvc;
 using BForms.Utilities;
 using DocumentFormat.OpenXml.Drawing;
+using DocumentFormat.OpenXml.Drawing.Charts;
 using DocumentFormat.OpenXml.Office.CustomUI;
 using DocumentFormat.OpenXml.Wordprocessing;
 
@@ -26,7 +27,7 @@ namespace BForms.Html
 
         public static BsSortableListHtmlBuilder<TOrderModel> BsSortableListFor<TOrderModel>(this HtmlHelper helper,
             IEnumerable<TOrderModel> model,
-            Expression<Func<TOrderModel, BsSortableListConfiguration>> config,
+            Expression<Func<TOrderModel, BsSortableListConfiguration<TOrderModel>>> config,
             Expression<Func<TOrderModel, HtmlProperties>> listProperties,
             Expression<Func<TOrderModel, HtmlProperties>> itemProperties,
             Expression<Func<TOrderModel, HtmlProperties>> labelProperties,
@@ -42,14 +43,14 @@ namespace BForms.Html
 
         public static BsSortableListHtmlBuilder<TOrderModel> BsSortableListFor<TOrderModel>(this HtmlHelper helper,
             IEnumerable<TOrderModel> model,
-            Expression<Func<TOrderModel, BsSortableListConfiguration>> config)
+            Expression<Func<TOrderModel, BsSortableListConfiguration<TOrderModel>>> config)
         {
             return BsSortableListFor(helper, model, config, null, null, null, null);
         }
 
         public static BsSortableListHtmlBuilder<TOrderModel> BsSortableListFor<TOrderModel>(this HtmlHelper helper,
             IEnumerable<TOrderModel> model,
-            Expression<Func<TOrderModel, BsSortableListConfiguration>> config,
+            Expression<Func<TOrderModel, BsSortableListConfiguration<TOrderModel>>> config,
             Expression<Func<TOrderModel, HtmlProperties>> listProperties)
         {
             return BsSortableListFor(helper, model, config, listProperties, null, null, null);
@@ -57,7 +58,7 @@ namespace BForms.Html
 
         public static BsSortableListHtmlBuilder<TOrderModel> BsSortableListFor<TOrderModel>(this HtmlHelper helper,
             IEnumerable<TOrderModel> model,
-            Expression<Func<TOrderModel, BsSortableListConfiguration>> config,
+            Expression<Func<TOrderModel, BsSortableListConfiguration<TOrderModel>>> config,
             Expression<Func<TOrderModel, HtmlProperties>> listProperties,
             Expression<Func<TOrderModel, HtmlProperties>> itemProperties)
         {
@@ -125,6 +126,13 @@ namespace BForms.Html
             HtmlAttributes = htmlAttributes ?? new Dictionary<string, object>();
             DataAttributes = dataAttributes ?? new Dictionary<string, object>();
         }
+
+        public HtmlProperties(string text, object htmlAttributes, object dataAttributes)
+        {
+            Text = text;
+            HtmlAttributes = HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes);
+            DataAttributes = HtmlHelper.AnonymousObjectToHtmlAttributes(dataAttributes);
+        }
     }
 
     public class UnwrappedHtmlProperties
@@ -134,11 +142,14 @@ namespace BForms.Html
         public object DataAttributes { get; set; }
     }
 
-    public class BsSortableListConfiguration
+    public class BsSortableListConfiguration<TModel>
     {
         public string Id { get; set; }
         public string Order { get; set; }
         public string Text { get; set; }
+
+        // TODO : give this member a more sugestive name 
+        public Expression<Func<TModel, bool>> AppendsTo { get; set; }
     }
 
 
@@ -146,19 +157,22 @@ namespace BForms.Html
     {
         public SortableListItemWrapper List { get; set; }
         public IEnumerable<TModel> Model { get; set; }
+        private IEnumerable<TModel> _reducedTree;
+        private Dictionary<string, IEnumerable<string>> _permitedConnections;
+        private Dictionary<string, object> _globalHtmlAttributes;
+        private Dictionary<string, object> _globalDataAttributes;
 
         // Each of these expressions represents the last given configuration for a specific property
         // Storing them prevents erasing allready configured properties after each @List rebuilding
-        private Expression<Func<TModel, BsSortableListConfiguration>> _config;
+        private Expression<Func<TModel, BsSortableListConfiguration<TModel>>> _config;
         private Expression<Func<TModel, HtmlProperties>> _globalProperties;
         private Expression<Func<TModel, HtmlProperties>> _itemProperties;
         private Expression<Func<TModel, HtmlProperties>> _labelProperties;
         private Expression<Func<TModel, HtmlProperties>> _badgeProperties;
 
-
         public BsSortableListHtmlBuilder(IEnumerable<TModel> model,
             ViewContext viewContext,
-            Expression<Func<TModel, BsSortableListConfiguration>> config,
+            Expression<Func<TModel, BsSortableListConfiguration<TModel>>> config,
             Expression<Func<TModel, HtmlProperties>> globalProperties,
             Expression<Func<TModel, HtmlProperties>> itemProperties,
             Expression<Func<TModel, HtmlProperties>> labelProperties,
@@ -167,19 +181,24 @@ namespace BForms.Html
         {
             Model = model;
 
-            this.List = Build(model, config, globalProperties, itemProperties, labelProperties, badgeProperties);
+            _reducedTree = GetReducedTree(model);
+
+            List = Build(model, config, globalProperties, itemProperties, labelProperties, badgeProperties);
 
             _config = config;
             _globalProperties = globalProperties;
             _itemProperties = itemProperties;
             _labelProperties = labelProperties;
             _badgeProperties = badgeProperties;
+
+            _globalHtmlAttributes = new Dictionary<string, object>();
+            _globalDataAttributes = new Dictionary<string, object>(){{"migration-permited", true}};
         }
 
         #region Build & Render
 
         private SortableListItemWrapper Build(IEnumerable<TModel> modelList,
-            Expression<Func<TModel, BsSortableListConfiguration>> config,
+            Expression<Func<TModel, BsSortableListConfiguration<TModel>>> config,
             Expression<Func<TModel, HtmlProperties>> globalProperties,
             Expression<Func<TModel, HtmlProperties>> itemProperties,
             Expression<Func<TModel, HtmlProperties>> labelProperties,
@@ -191,6 +210,8 @@ namespace BForms.Html
             {
                 sortableListItemWrapper.Children = new List<SortableListItemWrapper>();
 
+                _permitedConnections = GetPermitedConnections(_reducedTree, config);
+
                 foreach (var item in modelList)
                 {
                     sortableListItemWrapper.Children.Add(Build(item, config, globalProperties, itemProperties, labelProperties, badgeProperties));
@@ -201,7 +222,7 @@ namespace BForms.Html
         }
 
         private SortableListItemWrapper Build(TModel model,
-            Expression<Func<TModel, BsSortableListConfiguration>> config,
+            Expression<Func<TModel, BsSortableListConfiguration<TModel>>> config,
             Expression<Func<TModel, HtmlProperties>> globalProperties,
             Expression<Func<TModel, HtmlProperties>> itemProperties,
             Expression<Func<TModel, HtmlProperties>> labelProperties,
@@ -226,10 +247,13 @@ namespace BForms.Html
 
             #region Item
 
+            var connectionString = String.Join(" ", _permitedConnections[configProps.Id].OrderBy(x => x)); 
+
             if (configProps != null)
             {
                 itemProps.DataAttributes.Add("id", configProps.Id);
                 itemProps.DataAttributes.Add("order", configProps.Order);
+                itemProps.DataAttributes.Add("appends-to", connectionString);
             }
 
             sortableListItemWrapper.ItemTag.MergeAttributes(itemProps.HtmlAttributes ?? new Dictionary<string, object>());
@@ -310,6 +334,122 @@ namespace BForms.Html
             return sortableListItemWrapper;
         }
 
+        private Dictionary<string, IEnumerable<string>> GetPermitedConnections(IEnumerable<TModel> model, Expression<Func<TModel, BsSortableListConfiguration<TModel>>> config)
+        {
+            var connections = new Dictionary<string, IEnumerable<string>>();
+
+            if (config == null)
+            {
+                return null;
+            }
+
+            foreach (var item in model)
+            {
+                var permitedConnections = new List<string>();
+                var configValues = config.Compile().Invoke(item);
+                var candidateItems = model.Where(x => !x.Equals(item));
+                Expression<Func<TModel, bool>> validationExpression = configValues != null
+                    ? configValues.AppendsTo
+                    : null;
+
+                var itemId = configValues != null ? configValues.Id : String.Empty;
+
+                foreach (var candidateItem in candidateItems)
+                {
+                    if (IsValidConnection(item, candidateItem, validationExpression))
+                    {
+                        var candidateId = config.Compile().Invoke(candidateItem).Id;
+
+                        permitedConnections.Add(candidateId);
+                    }
+                }
+
+                connections.Add(itemId, permitedConnections);
+            }
+
+            return connections;
+        }
+
+        private IEnumerable<TModel> GetReducedTree(TModel model)
+        {
+            var items = new List<TModel>();
+
+            var children = GetNestedTreeProperty(model);
+
+            if (children != null)
+            {
+                items = items.Concat(GetReducedTree(children)).ToList();
+            }
+
+            return items;
+        }
+
+        private IEnumerable<TModel> GetReducedTree(IEnumerable<TModel> tree)
+        {
+            var items = new List<TModel>();
+
+
+            if (tree != null && tree.Any())
+            {
+                foreach (var item in tree)
+                {
+                    items.Add(item);
+
+                    var children = GetNestedTreeProperty(item);
+
+                    if (children != null)
+                    {
+                        items = items.Concat(GetReducedTree(children)).ToList();
+                    }
+                }
+            }
+
+            return items;
+        }
+
+        private IEnumerable<TModel> GetNestedTreeProperty(TModel model)
+        {
+            var properties = model.GetType().GetProperties();
+            PropertyInfo nestedValuesProperty = null;
+
+            // Find the first property in @model's properties 
+            // decorated with a BsControlAttribute matching BsControlType.SortableList
+            foreach (PropertyInfo prop in properties)
+            {
+                if (nestedValuesProperty != null)
+                {
+                    break;
+                }
+
+                var attributes = prop.GetCustomAttributes(true);
+
+                foreach (var attr in attributes)
+                {
+                    var bsControl = attr as BsControlAttribute;
+
+                    if (bsControl != null && bsControl.ControlType == BsControlType.SortableList)
+                    {
+                        nestedValuesProperty = prop;
+                        break;
+                    }
+                }
+            }
+
+            if (nestedValuesProperty != null)
+            {
+                var value = nestedValuesProperty.GetValue(model, null);
+
+                return value != null && (value as IEnumerable<TModel>) != null ? value as IEnumerable<TModel> : null;
+            }
+
+            return null;
+        }
+
+        private bool IsValidConnection(TModel model, TModel candidateModel, Expression<Func<TModel, bool>> expression)
+        {
+            return expression == null || expression.Compile().Invoke(candidateModel);
+        }
+
         public string RenderInternal(SortableListItemWrapper list)
         {
             var htmlString = String.Empty;
@@ -350,19 +490,19 @@ namespace BForms.Html
 
             #region Nested elements
 
+            if (list.RootTag.Attributes.ContainsKey("class"))
+            {
+                list.RootTag.Attributes["class"] += " bs-sortable";
+            }
+            else
+            {
+                list.RootTag.Attributes.Add("class", "bs-sortable");
+            }
+
             if (list.Children != null && list.Children.Any())
             {
                 foreach (var child in list.Children)
                 {
-                    if (list.RootTag.Attributes.ContainsKey("class"))
-                    {
-                        list.RootTag.Attributes["class"] += " bs-sortable";
-                    }
-                    else
-                    {
-                        list.RootTag.Attributes.Add("class", "bs-sortable");
-                    }
-
                     list.RootTag.InnerHtml += RenderInternal(child);
                 }
             }
@@ -387,6 +527,9 @@ namespace BForms.Html
 
             var ol = new TagBuilder("ol") { InnerHtml = innerHtml };
 
+            ol.MergeAttributes(_globalHtmlAttributes);
+            ol.MergeAttributes(_globalDataAttributes.ToDictionary(x => "data-" + x.Key, y => y.Value));
+
             ol.Attributes.Add("class", "bs-sortable");
 
             return ol.ToString();
@@ -395,7 +538,7 @@ namespace BForms.Html
         #endregion
 
 
-        #region Builder methods
+        #region Fluent methods
 
         public BsSortableListHtmlBuilder<TModel> ItemProperties(Expression<Func<TModel, HtmlProperties>> itemProperties)
         {
@@ -433,11 +576,25 @@ namespace BForms.Html
             return this;
         }
 
-        public BsSortableListHtmlBuilder<TModel> Configure(Expression<Func<TModel, BsSortableListConfiguration>> config)
+        public BsSortableListHtmlBuilder<TModel> Configure(Expression<Func<TModel, BsSortableListConfiguration<TModel>>> config)
         {
             this.List = Build(this.Model, config, _globalProperties, _itemProperties, _labelProperties, _badgeProperties);
 
             _config = config;
+
+            return this;
+        }
+
+        public BsSortableListHtmlBuilder<TModel> MigrationPermited(bool permited)
+        {
+            if (_globalDataAttributes.ContainsKey("migration-permited"))
+            {
+                _globalDataAttributes["migration-permited"] = permited;
+            }
+            else
+            {
+                _globalDataAttributes.Add("migration-permited", permited);
+            }
 
             return this;
         }

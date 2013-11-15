@@ -36,11 +36,12 @@
                     Text = m.Role.ToString()
                 })*@
     
-    @Html.BsSortableListFor(Model, m => new BsSortableListConfiguration
+    @Html.BsSortableListFor(Model, m => new BsSortableListConfiguration<ContributorOrderModel>
     {
         Id = m.Id.ToString(),
         Order = m.Order.ToString(),
-        Text = m.Name
+        Text = m.Name,
+        AppendsTo = parent => (int)parent.Role < (int)m.Role
     }).ListProperties(m => new HtmlProperties
     {
         HtmlAttributes = new Dictionary<string, object> { { "class", "custom_class"} }
@@ -52,7 +53,7 @@
                             m.Role == ProjectRole.Tester ? "label-danger" : m.Role == ProjectRole.TeamLeader ? "label-success" : "label-info"
                         } },
         Text = m.Role.ToString()
-    })
+    }).MigrationPermited(true)
 
     <div class="col-12 col-sm-12 col-lg-12 bs-validation_summary">
         @Html.BsValidationSummary()

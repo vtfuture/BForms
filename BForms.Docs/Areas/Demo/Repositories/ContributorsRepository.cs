@@ -321,6 +321,7 @@ namespace BForms.Docs.Areas.Demo.Repositories
                     if (entity != null)
                     {
                         entity.Order = item.Order;
+                        entity.Id_Coordinator = item.ParentId;
                     }
                 }
 
