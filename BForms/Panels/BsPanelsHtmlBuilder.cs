@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using BForms.Html;
 using BForms.Mvc;
 using BForms.Utilities;
 
@@ -40,6 +41,7 @@ namespace BForms.Panels
         public BsPanelsHtmlBuilder<TModel> ConfigurePanels(Action<BsPanelsConfigurator<TModel>> config)
         {
             config(this._panelsConfigurator);
+
             return this;
         }
 

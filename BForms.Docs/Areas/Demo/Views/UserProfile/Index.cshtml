@@ -2,6 +2,7 @@
 @using BForms.Docs.Areas.Demo.Models
 @using BForms.Docs.Controllers
 @using BForms.Html
+@using BForms.Renderers
 
 @{
     ViewBag.Title = "Index";
@@ -12,112 +13,21 @@
         <h1><span class="glyphicon glyphicon-star-empty"></span> User profile</h1>
     </div>
 
-    
-    @Html.BsPanelsFor(Model).ConfigurePanels(cfg =>
+
+    @(Html.BsPanelsFor(Model).ConfigurePanels(cfg =>
         {
+            cfg.Renderer<BsPanelBaseRenderer>();
+            
             cfg.GetReadonlyUrl = Url.Action("GetReadonlyContent");
             cfg.GetEditableUrl = Url.Action("GetEditableContent");
             cfg.UpdateUrl = Url.Action("SetContent");
 
             cfg.For(x => x.Basic).Content(Html.Partial("Readonly/_Basic", Model.Basic).ToString());
 
-            cfg.For(x => x.UserInfo).HtmlAttributes(new { @class = "bs-userInfo" });
-            
-            cfg.For(x => x.Contact).HtmlAttributes(new { @class = "bs-contact" });
-        })
+            cfg.For(x => x.UserInfo).HtmlAttributes(new {@class = "bs-userInfo"});
 
-    <div class="panel-group" id="accordion">
-
-        @*@Html.BsPanel().Name("User").Id((int)PanelComponentsEnum.Basic).Expandable(false).Content(Html.Partial("Readonly/_Basic", Model.Basic).ToString()) 
-
-        @Html.BsPanel().Name("User info").Id((int)PanelComponentsEnum.UserInfo).ReadonlyUrl(Url.Action("GetReadonlyContent")).EditableUrl(Url.Action("GetEditableContent")).SaveUrl(Url.Action("SetContent")).HtmlAttributes(new { @class = "bs-userInfo" })
-
-        @Html.BsPanel().Name("Contact info").Id((int)PanelComponentsEnum.Contact).ReadonlyUrl(Url.Action("GetReadonlyContent")).EditableUrl(Url.Action("GetEditableContent")).SaveUrl(Url.Action("SetContent")).HtmlAttributes(new { @class = "bs-contact" })*@
-
-
-        @*<div class="panel panel-default bs-userInfo">
-            <div class="panel-heading">
-                <h4 class="panel-title">
-                    <a href="#" class="bs-toggleBox">
-                        <span class="caret"></span> User info
-                    </a>
-                    <a href="#" class="pull-right bs-editBox" style="display:none"><span class="glyphicon glyphicon-pencil"></span> </a>
-                </h4>
-            </div>
-            <div id="collapseTwo" class="panel-collapse collapse bs-contentBox">
-                <div class="panel-body">
-                    <form class="form-horizontal form_container_horizontal" role="form">
-                        <div class="form-group">
-                            <label for="inputPassword3" class="col-sm-2 control-label">Name</label>
-                            <div class="col-sm-10">
-                                <div class="input-group">
-                                    <span class="glyphicon glyphicon-user input-group-addon"></span>
-                                    <input type="text" class="form-control" id="inputName2" placeholder="Name">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
-                            <div class="col-sm-10">
-                                <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
-                            <div class="col-sm-10">
-                                <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-offset-2 col-sm-10">
-                                <button type="submit" class="btn btn-default">Save</button>
-                                <button type="submit" class="btn btn-danger pull-right">Cancel</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-                        <img src="~/Scripts/BForms/Images/preloader-small.gif" /> Contact Info
-                    </a>
-                </h4>
-            </div>
-            <div id="collapseThree" class="panel-collapse collapse">
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <form class="form-horizontal" role="form">
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">Phone:</label>
-                                    <div class="col-sm-10">
-                                        <p class="form-control-static">555 444 333</p>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">E-mail:</label>
-                                    <div class="col-sm-10">
-                                        <p class="form-control-static">JohnDoe@mail.com</p>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">Website:</label>
-                                    <div class="col-sm-10">
-                                        <p class="form-control-static">http://bforms.stefanprodan.eu</p>
-                                    </div>
-                                </div>
-
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>*@
-    </div>
+            cfg.For(x => x.Contact).HtmlAttributes(new {@class = "bs-contact"});
+        }))
 
 </div>
 

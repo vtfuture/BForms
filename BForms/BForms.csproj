@@ -109,8 +109,11 @@
     <Compile Include="Models\BsGroupEditor.cs" />
     <Compile Include="Mvc\BsGroupEditorAttribute.cs" />
     <Compile Include="Html\SortableListExtensions.cs" />
+    <Compile Include="Panels\BsPanelLightTheme.cs" />
     <Compile Include="Panels\BsPanelsConfigurator.cs" />
     <Compile Include="Panels\BsPanelsHtmlBuilder.cs" />
+    <Compile Include="Renderers\BsBaseRenderer.cs" />
+    <Compile Include="Renderers\BsPanelBaseRenderer.cs" />
     <Compile Include="Utilities\BsResourceManager.cs" />
     <Compile Include="Grid\BsGridRowConfigurator.cs" />
     <Compile Include="Html\FormExtensions.cs" />

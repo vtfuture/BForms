@@ -9,12 +9,13 @@ using System.Web.Mvc;
 using System.Web.UI.WebControls;
 using BForms.Html;
 using BForms.Mvc;
+using BForms.Renderers;
 using BForms.Utilities;
 using DocumentFormat.OpenXml.EMMA;
 
 namespace BForms.Panels
 {
-    public class BsPanelsConfigurator<TModel> : BaseComponent
+    public class BsPanelsConfigurator<TModel> : BaseComponent /* where TPanel : BsPanelHtmlBuilder */
     {
         #region Private properties
         internal List<BsPanelHtmlBuilder> Panels { get; set; }
@@ -78,7 +79,7 @@ namespace BForms.Panels
 
             if (panelAttr != null)
             {
-                newPanel.Id((int)panelAttr.Id);
+                newPanel.Id(panelAttr.Id);
                 newPanel.Expandable(panelAttr.Expandable);
                 newPanel.Editable(panelAttr.Editable);
             }
@@ -116,7 +117,19 @@ namespace BForms.Panels
         #region Internal methods
         public BsPanelHtmlBuilder GetPanel(object id)
         {
-            return Panels.FirstOrDefault(p => (int)p._id == (int)id);
+            return Panels.FirstOrDefault(p => p.id.Equals(id));
+        }
+
+        public BsPanelsConfigurator<TModel> Renderer<TPanel>() where TPanel : BsPanelBaseRenderer, new()
+        {
+            this.Panels.ForEach(x =>
+            {
+                var panelRenderer = new TPanel();
+
+                x.Theme((BsPanelBaseRenderer)panelRenderer.Register(x));
+            });
+
+            return this;
         }
         #endregion
 
