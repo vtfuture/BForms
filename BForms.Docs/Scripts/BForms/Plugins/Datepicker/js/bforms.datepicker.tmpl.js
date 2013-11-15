@@ -222,13 +222,13 @@
 
         yearsTemplate: '<ul class="years" {{#HideYears}}style="display:none"{{/HideYears}}>' +
                            '{{#Years}}' +
-                                '<li class="{{#selected}}active{{/selected}} {{#otherDecade}}new{{/otherDecade}}"><a href="#" class="bs-yearValue" data-value="{{value}}">{{year}}</a></li>' +
+                                '<li class="{{#selected}}active{{/selected}} {{#otherDecade}} new {{/otherDecade}} {{^selectable}} inactive bs-notSelectable{{/selectable}}"><a href="#" class="bs-yearValue" data-value="{{value}}">{{year}}</a></li>' +
                            '{{/Years}}' +
                         '</ul>',
 
         monthsTemplate: '<ul class="months" {{#HideMonths}}style="display:none"{{/HideMonths}}>' +
                             '{{#Months}}' +
-                                '<li class="{{#selected}}active{{/selected}}"><a href="#" class="bs-monthValue" data-value="{{value}}">{{month}}</a></li>' +
+                                '<li class="{{#selected}}active{{/selected}} {{^selectable}}inactive bs-notSelectable{{/selectable}}"><a href="#" class="bs-monthValue" data-value="{{value}}">{{month}}</a></li>' +
                             '{{/Months}}' +
                          '</ul>',
         daysTemplate: '<ul class="days" {{#HideDays}}style="display:none"{{/HideDays}}>' +

@@ -653,6 +653,8 @@
         var $target = $(e.currentTarget),
             value = $target.data('value');
 
+        if ($target.parents().hasClass('bs-notSelectable')) return;
+
         if (this._selectOn === this.enums.Display.Months) {
             if (this.isValidDate(moment(value).lang(this.options.language))) {
                 this._setCurrentValue(moment(value).lang(this.options.language));
@@ -672,6 +674,7 @@
         var $target = $(e.currentTarget),
             value = $target.data('value');
 
+        if ($target.parents().hasClass('bs-notSelectable')) return;
 
         if (this._selectOn === this.enums.Display.Years) {
             if (this.isValidDate(moment(value).lang(this.options.language))) {
@@ -1005,7 +1008,7 @@
 
 
         if (yOrient == 'below') {
-            
+
             newTop = elemOffset.top + this.$element.height() + this.options.heightPosition;
 
             this.$picker.removeClass('open-above');
@@ -1026,14 +1029,14 @@
         if (xOrient == 'left') {
 
             newLeft = elemOffset.left;
-            
+
         } else if (xOrient == 'right') {
 
             newLeft = elemOffset.left + this.$element.outerWidth() - this.$picker.outerWidth();
         }
-        
+
         if (this.options.fixedPicker === true) {
-            this.$picker.css('position','fixed');
+            this.$picker.css('position', 'fixed');
         }
 
         if (typeof this._savedPosition === "undefined") {
@@ -1059,7 +1062,7 @@
             if (typeof savedTop === "undefined") {
                 this.$picker.css('top', newTop);
             }
-            
+
             if (typeof savedLeft === "undefined") {
                 this.$picker.css('left', newLeft);
             }
@@ -1532,7 +1535,8 @@
             months.push({
                 month: it.format('MMM'),
                 value: it.format(),
-                selected: it.isSame(this.currentValue, 'month') && it.isSame(this.currentValue, 'year')
+                selected: it.isSame(this.currentValue, 'month') && it.isSame(this.currentValue, 'year'),
+                selectable: this.isValidDate(it, true)
             });
 
             it.add(1, 'month');
@@ -1549,33 +1553,58 @@
 
         it.year(startOfDecade).subtract('year', 1);
 
-        years.push({
+        var prevYear = {
             year: it.format('YYYY'),
-            otherDecade: true,
-            value: it.format()
-        });
+            value: it.format(),
+            selectable: this.isValidDate(it, true, {
+                format: 'year',
+                allowSame: true
+            })
+        };
+
+        if (prevYear.selectable) {
+            prevYear.otherDecade = true;
+        }
+
+        years.push(prevYear);
 
         var i = 0;
 
         for (; i < 10;) {
 
             it.add('year', 1);
-            years.push({
+
+            var yearObj = {
                 year: it.format('YYYY'),
                 otherDecade: false,
                 value: it.format(),
-                selected: it.isSame(this.currentValue, 'year')
-            });
+                selected: it.isSame(this.currentValue, 'year'),
+                selectable: this.isValidDate(it, true, {
+                    format: 'year',
+                    allowSame: true
+                })
+            };
+
+            years.push(yearObj);
             i++;
         }
 
         it.add('year', 1);
 
-        years.push({
+        var nextYear = {
             year: it.format('YYYY'),
-            otherDecade: true,
-            value: it.format()
-        });
+            value: it.format(),
+            selectable: this.isValidDate(it, true, {
+                format: 'year',
+                allowSame: true
+            })
+        };
+
+        if (nextYear.selectable) {
+            nextYear.otherDecade = true;
+        }
+
+        years.push(nextYear);
         return years;
     };
 
@@ -1594,12 +1623,13 @@
         return displayType === this._currentDisplay;
     };
 
-    bDatepicker.prototype.isValidDate = function (date, allowInvalidDate) {
+    bDatepicker.prototype.isValidDate = function (date, allowInvalidDate, options) {
 
         var maxDate = null,
             minDate = null,
             withMin = false,
-            withMax = false;
+            withMax = false,
+            allowSame = false;
 
         if (typeof this.options.maxDate !== "undefined" && this.options.maxDate !== null) {
             maxDate = moment(this.options.maxDate).lang(this.options.language);
@@ -1634,11 +1664,23 @@
             }
         }
 
+        if (typeof options !== "undefined") {
+            if (options.format) {
+                format = options.format;
+            }
+
+            if (options.allowSame) {
+                allowSame = true;
+            }
+        }
+
         if (withMin) {
-            isValid = date.isAfter(minDate, format) && isValid;
+            isValid = (date.isAfter(minDate, format) || (allowSame && date.isSame(minDate, format))) && isValid;
+
         }
         if (withMax) {
-            isValid = date.isBefore(maxDate, format) && isValid;
+            isValid = (date.isBefore(maxDate, format) || (allowSame && date.isSame(maxDate, format))) && isValid;
+
         }
 
         return isValid;
@@ -1684,7 +1726,7 @@
         forceParse: true,
         heightPosition: 20,
         checkForMobileDevice: true,
-        withScrollTimeout : true
+        withScrollTimeout: true
     };
 
     $.fn.bsDatepickerLang = {
