@@ -40,6 +40,13 @@
       color: #FFF; }
       .bs-datetime-picker .btn.btn-default:hover, .bs-datetime-picker .btn.btn-default:focus {
         background: #45ada8 !important; }
+    .bs-datetime-picker .btn.disabled {
+      opacity: 0.3;
+      filter: Alpha(opacity=30);
+      cursor: not-allowed;
+      pointer-events: none;
+      -webkit-box-shadow: none;
+      box-shadow: none; }
   .bs-datetime-picker .btn-close {
     position: absolute;
     right: -10px;
