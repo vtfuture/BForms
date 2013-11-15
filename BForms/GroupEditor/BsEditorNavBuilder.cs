@@ -28,6 +28,13 @@ namespace BForms.GroupEditor
 
             return this;
         }
+
+        public BsEditorNavBuilder HtmlAttributes(Dictionary<string, object> htmlAttributes)
+        {
+            base.HtmlAttributes(htmlAttributes);
+
+            return this;
+        }
         #endregion
 
         #region Helpers

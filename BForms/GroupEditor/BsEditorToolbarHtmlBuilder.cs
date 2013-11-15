@@ -65,6 +65,13 @@ namespace BForms.GroupEditor
         #endregion
 
         #region Public Methods
+        public BsEditorToolbarHtmlBuilder HtmlAttributes(Dictionary<string, object> htmlAttributes)
+        {
+            base.HtmlAttributes(htmlAttributes);
+
+            return this;
+        }
+
         public BsEditorToolbarPart Add<TModel, TValue>(Expression<Func<TModel, TValue>> expression) where TModel : BsGroupEditor
         {
             return Add<TModel, TValue>(expression, "");

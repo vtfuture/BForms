@@ -14,7 +14,6 @@ namespace BForms.Panels
 {
     public class BsPanelsHtmlBuilder<TModel> : BsBaseComponent
     {
-        private IDictionary<string, object> _htmlAttributes;
         internal BsPanelsConfigurator<TModel> panelsConfig;
 
         public BsPanelsHtmlBuilder(TModel model, ViewContext viewContext)
@@ -43,6 +42,20 @@ namespace BForms.Panels
         public BsPanelsHtmlBuilder<TModel> ConfigurePanels(Action<BsPanelsConfigurator<TModel>> config)
         {
             config(this.panelsConfig);
+
+            return this;
+        }
+
+        public BsPanelsHtmlBuilder<TModel> HtmlAttributes(Dictionary<string, object> htmlAttributes)
+        {
+            base.HtmlAttributes(htmlAttributes);
+
+            return this;
+        }
+
+        public BsPanelsHtmlBuilder<TModel> HtmlAttributes(object htmlAttributes)
+        {
+            base.HtmlAttributes(HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
 
             return this;
         }

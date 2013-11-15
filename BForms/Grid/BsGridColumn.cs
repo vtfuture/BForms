@@ -42,8 +42,6 @@ namespace BForms.Grid
     {
         internal string PrivateName { get; set; }
 
-        internal Dictionary<string, object> htmlAttributes { get; set; }
-        
         public PropertyInfo Property { get; set; }
 
         public bool IsSortable { get; set; }
@@ -128,7 +126,7 @@ namespace BForms.Grid
 
         public BsGridColumn<TRow> HtmlAttributes(Func<TRow, Dictionary<string, object>> configurator)
         {
-            this.htmlAttributes = configurator(new TRow());
+            base.HtmlAttributes(configurator(new TRow()));
 
             return this;
         }

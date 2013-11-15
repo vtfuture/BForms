@@ -16,7 +16,6 @@ namespace BForms.GroupEditor
     {
         #region Properties and Constructor
         internal BsEditorTabConfigurator<TModel> tabConfigurator;
-        internal IDictionary<string, object> htmlAttributes;
 
         public BsEditorHtmlBuilder(TModel model)
         {
@@ -53,7 +52,7 @@ namespace BForms.GroupEditor
         #region Public Methods
         public BsEditorHtmlBuilder<TModel> HtmlAttributes(Dictionary<string, object> htmlAttributes)
         {
-            this.htmlAttributes = htmlAttributes;
+            base.HtmlAttributes(htmlAttributes);
 
             return this;
         }

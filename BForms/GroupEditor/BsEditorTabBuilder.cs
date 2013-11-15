@@ -52,7 +52,12 @@ namespace BForms.GroupEditor
         #endregion
 
         #region Public Methods
-        
+        public BsEditorTabBuilder<TRow, TSearch> HtmlAttributes(Dictionary<string, object> htmlAttributes)
+        {
+            base.HtmlAttributes(htmlAttributes);
+
+            return this;
+        }
 
         public BsEditorTabBuilder<TRow, TSearch> Template(Expression<Func<BsGroupEditor<TRow, TSearch>, TSearch>> expression, string template)
         {
@@ -125,6 +130,13 @@ namespace BForms.GroupEditor
         #endregion
 
         #region Public Methods
+        public BsEditorTabBuilder<TRow, TSearch, TNew> HtmlAttributes(Dictionary<string, object> htmlAttributes)
+        {
+            base.HtmlAttributes(htmlAttributes);
+
+            return this;
+        }
+
         public BsEditorTabBuilder<TRow, TSearch, TNew> Template(Expression<Func<BsGroupEditor<TRow, TSearch, TNew>, TSearch>> expression, string template)
         {
             this.searchPart.template = template;
@@ -201,6 +213,13 @@ namespace BForms.GroupEditor
         #endregion
 
         #region Public Methods
+        public BsEditorTabBuilder<TRow> HtmlAttributes(Dictionary<string, object> htmlAttributes)
+        {
+            base.HtmlAttributes(htmlAttributes);
+
+            return this;
+        }
+
         public BsEditorTabBuilder<TRow> Template(Expression<Func<BsGroupEditor<TRow>, BsGridModel<TRow>>> expression, string template)
         {
             this.rowTemplate = template;

@@ -22,7 +22,6 @@ namespace BForms.Panels
         internal string saveUrl;
         internal string content;
         internal object id;
-        internal IDictionary<string, object> htmlAttributes;
 
         /// <summary>
         /// Sets the ViewContext property for the BaseComponent
@@ -121,7 +120,8 @@ namespace BForms.Panels
         /// </summary>
         public BsPanelHtmlBuilder HtmlAttributes(Dictionary<string, object> htmlAttributes)
         {
-            this.htmlAttributes = htmlAttributes;
+            base.HtmlAttributes(htmlAttributes);
+
             return this;
         }
 
@@ -130,7 +130,8 @@ namespace BForms.Panels
         /// </summary>
         public BsPanelHtmlBuilder HtmlAttributes(object htmlAttributes)
         {
-            this.htmlAttributes = HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes);
+            base.HtmlAttributes(HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+
             return this;
         }
 

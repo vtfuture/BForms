@@ -18,8 +18,6 @@ namespace BForms.Grid
         #region Properties and constructors
         internal string descriptorClass;
 
-        internal IDictionary<string, object> htmlAttributes;
-
         internal string styleClasses;
 
         internal string title;

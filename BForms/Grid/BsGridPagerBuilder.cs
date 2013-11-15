@@ -35,6 +35,13 @@ namespace BForms.Grid
 
             return this;
         }
+
+        public BsGridPagerBuilder HtmlAttributes(Dictionary<string, object> htmlAttributes)
+        {
+            base.HtmlAttributes(htmlAttributes);
+
+            return this;
+        }
         #endregion
     }
 }

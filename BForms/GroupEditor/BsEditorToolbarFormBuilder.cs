@@ -32,6 +32,13 @@ namespace BForms.GroupEditor
         #endregion
 
         #region Public Methods
+        public BsEditorToolbarFormBuilder<TModel> HtmlAttributes(Dictionary<string, object> htmlAttributes)
+        {
+            base.HtmlAttributes(htmlAttributes);
+
+            return this;
+        }
+
         public BsEditorToolbarFormBuilder<TModel> Template(string template)
         {
             this.template = template;

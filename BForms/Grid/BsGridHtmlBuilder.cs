@@ -48,7 +48,6 @@ namespace BForms.Grid
         }
 
         internal BsGridPagerBuilder pagerBuilder;
-        internal IDictionary<string, object> htmlAttributes;
         internal bool renderTitle = true;
         internal string resetButtonHtml;
         internal Func<TRow, string> rowHighlighter;
@@ -111,7 +110,8 @@ namespace BForms.Grid
         /// </summary>
         public BsGridHtmlBuilder<TModel, TRow> HtmlAttributes(Dictionary<string, object> htmlAttributes)
         {
-            this.htmlAttributes = htmlAttributes;
+            base.HtmlAttributes(htmlAttributes);
+
             return this;
         }
 
@@ -120,7 +120,8 @@ namespace BForms.Grid
         /// </summary>
         public BsGridHtmlBuilder<TModel, TRow> HtmlAttributes(object htmlAttributes)
         {
-            this.htmlAttributes = HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes);
+            base.HtmlAttributes(HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+
             return this;
         }
 

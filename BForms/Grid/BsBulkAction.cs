@@ -85,5 +85,12 @@ namespace BForms.Grid
             this.BulkActionOrder = order;
             return this;
         }
+
+        public BsBulkAction HtmlAttributes(Dictionary<string, object> htmlAttributes)
+        {
+            base.HtmlAttributes(htmlAttributes);
+
+            return this;
+        }
     }
 }

@@ -18,11 +18,6 @@ namespace BForms.Grid
         internal string displayName;
 
         /// <summary>
-        /// Html attributes that will decorate toolbar container
-        /// </summary>
-        internal IDictionary<string, object> htmlAttributes;
-
-        /// <summary>
         /// Utility class used for action 
         /// </summary>
         internal BsToolbarActionsFactory<TToolbar> ActionsFactory { get; set; }
@@ -96,8 +91,10 @@ namespace BForms.Grid
         /// </summary>
         public BsToolbarHtmlBuilder<TToolbar> HtmlAttributes(IDictionary<string, object> htmlAttributes)
         {
-            this.htmlAttributes = htmlAttributes;
+            base.HtmlAttributes(htmlAttributes);
+
             SetIdFromHtmlAttributes(htmlAttributes);
+
             return this;
         }
 

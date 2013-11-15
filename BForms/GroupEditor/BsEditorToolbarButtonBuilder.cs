@@ -44,6 +44,13 @@ namespace BForms.GroupEditor
 
             return this;
         }
+
+        public BsEditorToolbarButtonBuilder HtmlAttributes(Dictionary<string, object> htmlAttributes)
+        {
+            base.HtmlAttributes(htmlAttributes);
+
+            return this;
+        }
         #endregion
     }
     #endregion
