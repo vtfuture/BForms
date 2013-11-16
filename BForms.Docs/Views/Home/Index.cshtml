@@ -2,19 +2,26 @@
 @using BForms.Models
 @{
     ViewBag.Title = "Bootstrap Enabled MVC Controls";
+    var releaseDate = new DateTime(2013, 11, 1);
 }
+
+@section PageMeta
+{
+<meta property="article:published_time" content="@releaseDate.ToString("o")" />
+}
+
 <div class="bs-docs-section">
+
     <div class="media">
         <img src="~/Content/Images/Banners/BForms_Banner_Turquoise_1024x368_v2.jpg" style="max-width:100%;" alt="Be Fast. Be Responsive. BForms" class="media-object" />
     </div>
+
     <div class="jumbotron">
         <p>The BForms open source framework consists of a collection of ASP.NET MVC HTML Helpers, Javascript AMD modules, custom CSS made with SASS that extends Twitter Bootstrap v3
          and makes development of rich user interfaces easy.</p>
         <a class="btn btn-lg btn-default" href="@Url.Action("Setup", "Start")">Get started »</a>
         
     </div>
-
-
 
     <div class="bs-link">
             <ul class="bs-link-buttons">

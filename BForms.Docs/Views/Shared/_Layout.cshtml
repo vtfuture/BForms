@@ -1,4 +1,5 @@
 ﻿@using BForms.Docs.Helpers
+@using BForms.Docs.Areas.Demo.Helpers
 @using BForms.Html
 @using RequireJS
 
@@ -13,6 +14,8 @@
         <meta name="description" content="BForms open source UI framework for ASP.NET MVC">
         <meta name="author" content="Stefan Prodan">
         <meta name="keywords" content="UI framework, bootstrap, open source, asp.net, mvc, javascript, amd js, html5, css, sass, responsive design, mobile first">
+        <meta property="article:modified_time" content="@Utils.BFromsDate().ToString("o")" />   
+        @RenderSection("PageMeta", required: false)
         <link rel="icon" type="image/png" href="@Url.Content("~/Content/images/favicon.png")" />
         <title>@ViewBag.Title - BForms</title>
         
