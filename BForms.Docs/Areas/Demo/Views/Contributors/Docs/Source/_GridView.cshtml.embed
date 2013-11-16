@@ -56,8 +56,7 @@
 
         cols.Add(c => c.Contributions).Name("Contributions")
                             .SetWidth(4)
-                            .Sortable()
-                            .Text(row => string.IsNullOrEmpty(row.Contributions) ? "" : String.Join(", ", row.Contributions.Split(new[] { ',' }).Take(2)));
+                            .Sortable();
 
         cols.For(c => c.Name).Name(Resource.Name);
     })

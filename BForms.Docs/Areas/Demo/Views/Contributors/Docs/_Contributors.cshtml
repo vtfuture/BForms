@@ -17,8 +17,8 @@
 
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#models" data-toggle="tab">Models</a></li>
-                <li><a href="#views" data-toggle="tab">Views</a></li>
+                <li><a href="#models" data-toggle="tab">Models</a></li>
+                <li class="active"><a href="#views" data-toggle="tab">Views</a></li>
                 <li><a href="#ccontroller" data-toggle="tab">ASP.NET Controller</a></li>
                 <li><a href="#jscontroller" data-toggle="tab">JS Controller</a></li>
             </ul>
@@ -29,12 +29,12 @@
     </nav>
 
     <div class="tab-content">
-        <div class="tab-pane fade in active" id="models">
+        <div class="tab-pane fade" id="models">
             <pre class="prettyprint lang-cs bs-example">
 @Html.InsertFileContentCached("~/Areas/Demo/Views/Contributors/Docs/Source/_GridModel.cs.embed")
             </pre>
         </div>
-        <div class="tab-pane fade" id="views">
+        <div class="tab-pane fade in active" id="views">
             <pre class="prettyprint lang-cs bs-example">
 @Html.InsertFileContentCached("~/Areas/Demo/Views/Contributors/Docs/Source/_GridView.cshtml.embed")
             </pre>
