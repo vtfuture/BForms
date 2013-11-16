@@ -16,9 +16,10 @@
         <meta name="keywords" content="UI framework, bootstrap, open source, asp.net, mvc, javascript, amd js, html5, css, sass, responsive design, mobile first">
         <meta property="article:modified_time" content="@Utils.BFromsDate().ToString("o")" />   
         @RenderSection("PageMeta", required: false)
-        <link rel="icon" type="image/png" href="@Url.Content("~/Content/images/favicon.png")" />
+        @Html.Partial("_Icons")
+
         <title>@ViewBag.Title - BForms</title>
-        
+
         @Styles.Render("~/css")
 
          @*For IE7-8 support of HTML5 elements and responsive*@
@@ -51,7 +52,7 @@
         </div>
 
         @*Highlight source code*@
-        <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+        >><script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
 
         @if (HttpContext.Current.IsDebuggingEnabled)
         {

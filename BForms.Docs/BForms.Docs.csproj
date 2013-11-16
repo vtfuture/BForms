@@ -163,6 +163,18 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
+    <Content Include="Content\Images\Apple\32_bforms-152x152.png" />
+    <Content Include="Content\Images\Apple\64_bforms-152x152.png" />
+    <Content Include="Content\Images\Apple\apple-touch-icon-114x114.png" />
+    <Content Include="Content\Images\Apple\apple-touch-icon-120x120.png" />
+    <Content Include="Content\Images\Apple\apple-touch-icon-144x144.png" />
+    <Content Include="Content\Images\Apple\apple-touch-icon-152x152.png" />
+    <Content Include="Content\Images\Apple\apple-touch-icon-57x57.png" />
+    <Content Include="Content\Images\Apple\apple-touch-icon-60x60.png" />
+    <Content Include="Content\Images\Apple\apple-touch-icon-72x72.png" />
+    <Content Include="Content\Images\Apple\apple-touch-icon-76x76.png" />
+    <Content Include="Content\Images\Apple\apple-touch-icon.png" />
+    <Content Include="Content\Images\Apple\favicon.ico" />
     <Content Include="Content\Images\Banners\BForms_Banner_Turquoise_1024x368_v1.jpg" />
     <Content Include="Content\Images\Banners\BForms_Banner_Turquoise_1024x368_v2.jpg" />
     <Content Include="Content\Images\Banners\BForms_Banner_Turquoise_1024x368_v3.jpg" />
@@ -1203,6 +1215,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Demo\Views\UserGroup\_Order.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_Icons.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
