@@ -32,7 +32,7 @@ namespace BForms.Renderers
 
             foreach (var tab in this.Builder.tabConfigurator.Tabs)
             {
-                if (tab.Value.HasModel)
+                if (tab.Value.hasModel)
                 {
                     result += tab.Value.renderer.RenderAjax();
                 }

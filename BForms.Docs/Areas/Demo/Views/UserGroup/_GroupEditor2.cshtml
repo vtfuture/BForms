@@ -11,12 +11,14 @@
 }
 
 @(Html.BsGroupEditorFor(Model, builder)
-      .HtmlAttributes(new Dictionary<string, object>() { { "id", "myGroupEditor" } })
+        .HtmlAttributes(new Dictionary<string, object>() { { "id", "myGroupEditor" } })
         .ConfigureTabs(cfg =>
         {
             var tab1 = cfg.For(x => x.Contributors);
 
-            tab1.Toolbar.Add<ContributorsInheritExample, ContributorsOrderModel>(x => x.Order, "_Order")
+            tab1.For(x => x.Search).Button("Test", Glyphicon.Plus);
+
+            tab1.Toolbar.Add(x => x.Order, "_Order")
                         .Button("Order", Glyphicon.List)
                         .Template("_Order");
 

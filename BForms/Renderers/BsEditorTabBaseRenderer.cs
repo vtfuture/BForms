@@ -7,33 +7,39 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using BForms.Mvc;
+using BForms.Grid;
 
 namespace BForms.Renderers
 {
-    public class BsEditorTabBaseRenderer<TRow> : BsBaseRenderer<BsEditorTabBuilder<TRow>> where TRow : new()
+    public class BsEditorTabBaseRenderer<TModel, TRow> : BsBaseRenderer<BsEditorTabBuilder<TModel>> where TModel : BsGroupEditor
     {
-        public BsEditorTabBaseRenderer()
+        public BsEditorTabBaseRenderer(){}
+
+        public BsEditorTabBaseRenderer(BsEditorTabBuilder<TModel> builder)
+            : base(builder){}
+
+        protected void InitPager()
         {
-
-        }
-
-        public BsEditorTabBaseRenderer(BsEditorTabBuilder<TRow> builder)
-            : base(builder)
-        { 
-
+            if (this.Builder.model != null)
+            {
+                this.Builder.pagerBuilder = new BsGridPagerBuilder(
+                this.Builder.model.GetGrid<TRow>().Pager,
+                this.Builder.pagerSettings,
+                this.Builder.model.GetGrid<TRow>().BaseSettings);
+            }
         }
 
         protected virtual string RenderItems()
         {
             var result = "";
 
-            if (!string.IsNullOrEmpty(this.Builder.rowTemplate))
+            if (!string.IsNullOrEmpty(this.Builder.RowTemplate))
             {
                 var list = new TagBuilder("ul");
 
                 list.AddCssClass("group_profiles");
 
-                foreach (var item in this.Builder.model.Grid.Items)
+                foreach (var item in this.Builder.model.GetItems<TRow>())
                 {
                     var listItem = new TagBuilder("li");
 
@@ -97,17 +103,13 @@ namespace BForms.Renderers
 
         protected virtual string RenderContent()
         {
-            this.Builder.BeforeRender();
-
-            this.Builder.InitPager();
-
             var result = this.Builder.toolbar.renderer.Render();
 
             var wrapper = new TagBuilder("div");
 
             wrapper.AddCssClass("bs-tabContent");
 
-            if (this.Builder.HasModel)
+            if (this.Builder.hasModel)
             {
                 wrapper.InnerHtml += RenderAjax();
             }
@@ -119,7 +121,7 @@ namespace BForms.Renderers
 
         public override string RenderAjax()
         {
-            this.Builder.InitPager();
+            this.InitPager();
 
             var result = "";
 
@@ -135,11 +137,13 @@ namespace BForms.Renderers
 
         public override string Render()
         {
+            this.InitPager();
+
             var wrapper = new TagBuilder("div");
 
             wrapper.MergeAttribute("data-tabid", ((int)this.Builder.uid).ToString());
 
-            wrapper.MergeAttribute("data-loaded", this.Builder.HasModel.ToString());
+            wrapper.MergeAttribute("data-loaded", this.Builder.hasModel.ToString());
 
             if (!this.Builder.selected)
             {

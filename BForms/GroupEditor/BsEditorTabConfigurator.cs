@@ -26,35 +26,19 @@ namespace BForms.GroupEditor
         #endregion
 
         #region Public Methods
-        public BsEditorTabBuilder<TRow, TSearch, TNew> For<TRow, TSearch, TNew>(Expression<Func<TModel, BsGroupEditor<TRow, TSearch, TNew>>> expression) 
-            where TRow : new() 
-            where TSearch : class 
-            where TNew : class
+        public BsEditorTabBuilder<TEditor> For<TEditor>(Expression<Func<TModel, TEditor>> expression)
+            where TEditor : BsGroupEditor
         {
             var builder = this.GetTab(expression);
 
-            return builder as BsEditorTabBuilder<TRow, TSearch, TNew>;
-        }
-
-        public BsEditorTabBuilder<TRow, TSearch> For<TRow, TSearch>(Expression<Func<TModel, BsGroupEditor<TRow, TSearch>>> expression) 
-            where TRow : new()
-            where TSearch : class
-        {
-            var builder = this.GetTab(expression);
-
-            return builder as BsEditorTabBuilder<TRow, TSearch>;
-        }
-
-        public BsEditorTabBuilder<TRow> For<TRow>(Expression<Func<TModel, BsGroupEditor<TRow>>> expression) where TRow : new()
-        {
-            var builder = this.GetTab(expression);
-
-            return builder as BsEditorTabBuilder<TRow>;
+            return builder as BsEditorTabBuilder<TEditor>;
         }
         #endregion
 
         #region Helpers
-        private void InsertTab<TRow>(object id, BsEditorTabBuilder<TRow> tabBuilder) where TRow : new ()
+        private void InsertTab<TEditor, TRow>(object id, BsEditorTabBuilder<TEditor> tabBuilder)
+            where TEditor : BsGroupEditor
+            where TRow : new ()
         {
             if (tabBuilder.IsSelected())
             {
@@ -95,54 +79,23 @@ namespace BForms.GroupEditor
             navBuilder.AddTab(attr);
         }
 
-        private void Add<TRow>(BsGroupEditorAttribute attr, BsGroupEditor<TRow> model) where TRow : new()
+        private void Add<TEditor, TRow>(BsGroupEditorAttribute attr, BsGroupEditor<TRow> model)
+            where TEditor : BsGroupEditor
+            where TRow : new()
         {
-            var tab = new BsEditorTabBuilder<TRow>(model, this.viewContext)
+            var tab = new BsEditorTabBuilder<TEditor>(model, this.viewContext)
                        .DisplayName(attr.Name)
                        .Id(attr.Id)
                        .Selected(attr.Selected);
 
-            if (attr.Selected)
-            {
-                navBuilder.Selected(attr.Id);
-            }
-
-            InsertTab(attr.Id, tab);
-        }
-
-        private void AddWithSearch<TRow, TSearch>(BsGroupEditorAttribute attr, BsGroupEditor<TRow, TSearch> model) 
-            where TRow : new()
-            where TSearch : class
-        {
-            var tab = new BsEditorTabBuilder<TRow, TSearch>(model, this.viewContext)
-                        .DisplayName(attr.Name)
-                        .Id(attr.Id)
-                        .Selected(attr.Selected);
+            tab.InitRenderer<TRow>();
 
             if (attr.Selected)
             {
                 navBuilder.Selected(attr.Id);
             }
 
-            InsertTab(attr.Id, tab);
-        }
-
-        private void AddWithNew<TRow, TSearch, TNew>(BsGroupEditorAttribute attr, BsGroupEditor<TRow, TSearch, TNew> model) 
-            where TRow : new()
-            where TSearch : class
-            where TNew : class
-        {
-            var tab = new BsEditorTabBuilder<TRow, TSearch, TNew>(model, this.viewContext)
-                        .DisplayName(attr.Name)
-                        .Id(attr.Id)
-                        .Selected(attr.Selected);
-
-            if (attr.Selected)
-            {
-                navBuilder.Selected(attr.Id);
-            }
-
-            InsertTab(attr.Id, tab);
+            InsertTab<TEditor, TRow>(attr.Id, tab);
         }
         #endregion
     }

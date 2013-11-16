@@ -9,16 +9,16 @@ using System.Web.Mvc;
 
 namespace BForms.Renderers
 {
-    public class BsEditorToolbarBaseRenderer : BsBaseRenderer<BsEditorToolbarHtmlBuilder>
+    public class BsEditorToolbarBaseRenderer<TModel> : BsBaseRenderer<BsEditorToolbarHtmlBuilder<TModel>> where TModel : BsGroupEditor
     {
         public BsEditorToolbarBaseRenderer()
         {
 
         }
 
-        public BsEditorToolbarBaseRenderer(BsEditorToolbarHtmlBuilder builder)
+        public BsEditorToolbarBaseRenderer(BsEditorToolbarHtmlBuilder<TModel> builder)
             : base(builder)
-        { 
+        {
 
         }
 
@@ -82,7 +82,13 @@ namespace BForms.Renderers
                 container.InnerHtml += group;
             }
 
-            forms.ToList().ForEach(x => x.form.template = x.template);
+            forms.ToList().ForEach(x => 
+            {
+                if (string.IsNullOrEmpty(x.form.template)) 
+                {
+                    x.form.template = x.template;
+                }
+            });
 
             foreach (var form in forms.Select(x => x.form))
             {

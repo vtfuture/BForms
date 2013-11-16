@@ -89,28 +89,8 @@ namespace BForms.GroupEditor
 
                 Type rowType = genericArgs[0];
 
-                if (count == 1)
-                {
-                    method = typeof(BsEditorTabConfigurator<TModel>).GetMethod("Add", bindings);
-                    generic = method.MakeGenericMethod(rowType);
-                }
-
-                if (count == 2)
-                {
-                    Type searchType = genericArgs[1];
-
-                    method = typeof(BsEditorTabConfigurator<TModel>).GetMethod("AddWithSearch", bindings);
-                    generic = method.MakeGenericMethod(rowType, searchType);
-                }
-
-                if (count == 3)
-                {
-                    Type searchType = genericArgs[1];
-                    Type newType = genericArgs[2];
-
-                    method = typeof(BsEditorTabConfigurator<TModel>).GetMethod("AddWithNew", bindings);
-                    generic = method.MakeGenericMethod(rowType, searchType, newType);
-                }
+                method = typeof(BsEditorTabConfigurator<TModel>).GetMethod("Add", bindings);
+                generic = method.MakeGenericMethod(propertyType, rowType);
 
                 generic.Invoke(tabConfigurator, new object[] { attr, value });
             }

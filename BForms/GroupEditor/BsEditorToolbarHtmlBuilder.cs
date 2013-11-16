@@ -44,10 +44,10 @@ namespace BForms.GroupEditor
     #endregion
 
     #region BsEditorToolbarHtmlBuilder
-    public class BsEditorToolbarHtmlBuilder : BsBaseComponent
+    public class BsEditorToolbarHtmlBuilder<TModel> : BsBaseComponent where TModel : BsGroupEditor
     {
         #region Properties and Constructor
-        private BsGroupEditor tabBuilder { get; set; }
+        private BsGroupEditor model { get; set; }
         internal List<BsEditorToolbarPart> parts { get; set; }
         internal List<BsEditorToolbarButtonBuilder> buttons { get; set; }
         internal List<BsBaseComponent> forms { get; set; }
@@ -57,49 +57,58 @@ namespace BForms.GroupEditor
 
         public BsEditorToolbarHtmlBuilder(BsEditorTabBuilder tabBuilder, ViewContext viewContext)
         {
-            this.renderer = new BsEditorToolbarBaseRenderer(this);
+            this.renderer = new BsEditorToolbarBaseRenderer<TModel>(this);
             this.parts = new List<BsEditorToolbarPart>();
-            this.tabBuilder = tabBuilder.GetModel();
+            this.model = tabBuilder.GetModel();
             this.viewContext = viewContext;
         }
         #endregion
 
         #region Public Methods
-        public BsEditorToolbarHtmlBuilder HtmlAttributes(Dictionary<string, object> htmlAttributes)
+        public BsEditorToolbarHtmlBuilder<TModel> HtmlAttributes(Dictionary<string, object> htmlAttributes)
         {
             base.HtmlAttributes(htmlAttributes);
 
             return this;
         }
 
-        public BsEditorToolbarPart Add<TModel, TValue>(Expression<Func<TModel, TValue>> expression) where TModel : BsGroupEditor
+        public BsEditorToolbarPart Add<TValue>(Expression<Func<TModel, TValue>> expression) where TValue : class
         {
-            return Add<TModel, TValue>(expression, "");
+            return Add<TValue>(expression, "");
         }
 
-        public BsEditorToolbarPart Add<TModel, TValue>(Expression<Func<TModel, TValue>> expression, string template) where TModel : BsGroupEditor
+        public BsEditorToolbarPart Add<TValue>(Expression<Func<TModel, TValue>> expression, string template) where TValue : class
         {
-            var name = ((TModel)this.tabBuilder).GetPropertyName(expression);
-            var type = typeof(TModel);
+            var part = new BsEditorToolbarPart();
 
-            var property = type.GetProperty(name);
+            part.Template(template);
 
-            var value = this.tabBuilder != null ? property.GetValue((TModel)this.tabBuilder) : null;
+            this.FillDetails<TValue>((TModel)this.model, expression, part);
 
-            var part = new BsEditorToolbarPart()
-            {
-                uid = name,
-                template = template,
-                form = new BsEditorToolbarFormBuilder<TValue>((TValue)value, name, this.viewContext).Hide()
-            };
-
-            this.parts.Add(part);
+            Add(part);
 
             return part;
         }
         #endregion
 
         #region Helpers
+        internal BsEditorToolbarPart FillDetails<TValue>(TModel model, Expression<Func<TModel, TValue>> expression, BsEditorToolbarPart part) where TValue : class
+        {
+            var name = model.GetPropertyName(expression);
+
+            var type = typeof(TModel);
+
+            var property = type.GetProperty(name);
+
+            var value = model != null ? (TValue)property.GetValue(model) : null;
+
+            part.uid = name;
+
+            part.form = new BsEditorToolbarFormBuilder<TValue>((TValue)value, name, this.viewContext).Hide();
+
+            return part;
+        }
+
         internal void Add(BsEditorToolbarPart part)
         {
             this.parts.Add(part);

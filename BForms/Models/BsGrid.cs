@@ -36,6 +36,11 @@ namespace BForms.Models
             gridProp.SetValue(model, this);
             return model;
         }
+
+        public bool IsEmpty()
+        {
+            return this.Items != null && this.Items.Any();
+        }
     }
 
     public class BsGridRowData<T>

@@ -10,12 +10,28 @@ namespace BForms.Models
 {
     public abstract class BsGroupEditor
     {
-        
+        internal abstract BsGridModel<TRow> GetGrid<TRow>();
+
+        internal abstract IEnumerable<TRow> GetItems<TRow>();
     }
 
     public class BsGroupEditor<TRow> : BsGroupEditor
     {
         public BsGridModel<TRow> Grid { get; set; }
+
+        internal override BsGridModel<T> GetGrid<T>()
+        {
+            return this.Grid as BsGridModel<T>;
+        }
+
+        internal override IEnumerable<TRow> GetItems<TRow>()
+        {
+            if (this.Grid == null)
+            {
+                throw new Exception("Grid is null");
+            }
+            return this.Grid.Items as IEnumerable<TRow>;
+        }
     }
 
     public class BsGroupEditor<TRow, TSearch> : BsGroupEditor<TRow>
@@ -27,6 +43,4 @@ namespace BForms.Models
     {
         public TNew New { get; set; }
     }
-
-
 }

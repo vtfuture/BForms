@@ -84,7 +84,7 @@
 	            this._ajaxGetTab({
 	                tabModel: tabModel,
 	                data: {
-	                    TabId: tabModel.id
+	                    TabId: tabModel.tabId
 	                }
 	            });
 	        }
@@ -138,7 +138,7 @@
 		this._initTab({
 			container: $container,
 			loaded: loaded,
-			id: tabId
+			tabId: tabId
 		});
 	};
 
@@ -148,7 +148,7 @@
 	        data: {
 	            Page: data.page,
 	            PageSize: data.pageSize || 5,
-	            TabId: tabModel.id
+	            TabId: tabModel.tabId
 	        }
 	    });
 	};
@@ -160,7 +160,6 @@
 
 	//#region Ajax
 	GroupEditor.prototype._ajaxGetTab = function (param) {
-
 	    var ajaxOptions = {
 	        name: this.options.uniqueName + "|getTab",
 	        url: this.options.getTabUrl,
@@ -187,7 +186,7 @@
 	                container: container,
 	                loaded: true,
 	                html: response.Html,
-	                id: callback.tabModel.id
+	                tabId: callback.tabModel.tabId
 	            });
 	        }
 	    }
