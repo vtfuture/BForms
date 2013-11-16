@@ -1,7 +1,7 @@
 ![Logo](https://github.com/stefanprodan/BForms/raw/master/BForms.Docs/Content/Images/logo-bforms.png)
 ======
 
-### Fast Fluid Responsive ASP.NET MVC Controls
+### Boostrap enabled ASP.NET MVC Controls
 
 The BForms open source framework consists of a collection of ASP.NET MVC HTML Helpers, Javascript AMD modules, custom CSS made with SASS that extends Twitter Bootstrap v3 and makes development of rich user interfaces easy.
 
