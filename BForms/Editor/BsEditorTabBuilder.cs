@@ -10,13 +10,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
-namespace BForms.GroupEditor
+namespace BForms.Editor
 {
     #region BsEditorTabBuilder Base
     public abstract class BsEditorTabBuilder : BsBaseComponent
     {
         #region Properties
-        internal string rowTemplate { get; set; }
         internal BsPagerSettings pagerSettings;
         protected string name { get; set; }
         internal object uid { get; set; }
@@ -25,7 +24,7 @@ namespace BForms.GroupEditor
         #endregion
 
         #region Methods
-        internal abstract BsGroupEditor GetModel();
+        internal abstract IBsEditorTabModel GetModel();
 
         internal abstract bool IsSelected();
 
@@ -35,34 +34,26 @@ namespace BForms.GroupEditor
     #endregion
 
     #region BsEditorTabBuilder Basic
-    public class BsEditorTabBuilder<TModel> : BsEditorTabBuilder where TModel : BsGroupEditor
+    public class BsEditorTabBuilder<TModel> : BsEditorTabBuilder where TModel : IBsEditorTabModel
     {
         #region Properties and Constructor
         internal BsEditorToolbarHtmlBuilder<TModel> toolbar { get; set; }
-        internal bool inlineSearch { get; set; }
+        internal bool quickSearch { get; set; }
         internal bool hasItems { get; set; }
         internal BsGridPagerBuilder pagerBuilder;
         internal TModel model;
         public BsEditorToolbarHtmlBuilder<TModel> Toolbar { get { return this.toolbar; } }
 
-        public string RowTemplate
-        {
-            get
-            {
-                return this.rowTemplate;
-            }
-        }
-
-        public bool InlineSearch
+        public bool QuickSearch
         {
             set
             {
-                this.toolbar.InlineSearch = value;
-                this.inlineSearch = value;
+                this.toolbar.QuickSearch = value;
+                this.quickSearch = value;
             }
         }
 
-        public BsEditorTabBuilder(BsGroupEditor model, ViewContext viewContext)
+        public BsEditorTabBuilder(IBsEditorTabModel model, ViewContext viewContext)
         {
             this.viewContext = viewContext;
             this.model = (TModel)model;
@@ -73,9 +64,9 @@ namespace BForms.GroupEditor
 
         public void InitRenderer<TRow>()
         {
-            this.renderer = new BsEditorTabBaseRenderer<TModel, TRow>(this);
+            this.renderer = new BsEditorTabRenderer<TModel, TRow>(this);
             this.hasModel = this.model != null && this.model.GetGrid<TRow>() != null;
-            this.hasItems = this.hasModel ? this.model.GetGrid<TRow>().IsEmpty() : false;
+            this.hasItems = this.hasModel ? !this.model.GetGrid<TRow>().IsEmpty() : false;
         }
         #endregion
 
@@ -99,13 +90,18 @@ namespace BForms.GroupEditor
             throw new Exception("Couldn't find " + key + " toolbar part in the tab builder");
         }
 
+        public void For<TRow>(Expression<Func<TModel, BsGridModel<TRow>>> expression)
+        {
+            // return some configurator for rows
+        }
+
         public BsEditorTabBuilder<TModel> Template<TValue>(Expression<Func<TModel, TValue>> expression, string template) where TValue : class
         {
             var key = this.model.GetPropertyName(expression);
 
             if (key == "Grid")
             {
-                this.rowTemplate = template;
+                this.template = template;
             }
             else
             {
@@ -156,7 +152,7 @@ namespace BForms.GroupEditor
         #endregion
 
         #region Override
-        internal override BsGroupEditor GetModel()
+        internal override IBsEditorTabModel GetModel()
         {
             return this.model;
         }

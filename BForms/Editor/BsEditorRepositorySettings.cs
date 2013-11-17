@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BForms.GroupEditor
+namespace BForms.Editor
 {
-    public class BsGroupEditorRepositorySettings<TId> : BsBaseRepositorySettings
+    public class BsEditorRepositorySettings<TId> : BsBaseRepositorySettings
     {
         public TId TabId { get; set; }
 

@@ -7,22 +7,22 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
-namespace BForms.GroupEditor
+namespace BForms.Editor
 {
     public class BsEditorNavBuilder : BsBaseComponent
     {
         #region Properties and Constructor
-        internal List<BsGroupEditorAttribute> TabsProperties { get; set; }
+        internal List<BsEditorTabAttribute> TabsProperties { get; set; }
 
         public BsEditorNavBuilder(ViewContext viewContext) : base(viewContext)
         {
-            this.renderer = new BsEditorNavBaseRenderer(this);
-            this.TabsProperties = new List<BsGroupEditorAttribute>();
+            this.renderer = new BsEditorNavRenderer(this);
+            this.TabsProperties = new List<BsEditorTabAttribute>();
         }
         #endregion
 
         #region Public Methods
-        public BsEditorNavBuilder AddTab(BsGroupEditorAttribute attr)
+        public BsEditorNavBuilder AddTab(BsEditorTabAttribute attr)
         {
             this.TabsProperties.Add(attr);
 

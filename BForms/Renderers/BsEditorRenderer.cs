@@ -1,4 +1,4 @@
-﻿using BForms.GroupEditor;
+﻿using BForms.Editor;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,11 +8,11 @@ using System.Web.Mvc;
 
 namespace BForms.Renderers
 {
-    public class BsEditorBaseRenderer<TModel> : BsBaseRenderer<BsEditorHtmlBuilder<TModel>>
+    public class BsEditorRenderer<TModel> : BsBaseRenderer<BsEditorHtmlBuilder<TModel>>
     {
-        public BsEditorBaseRenderer(){}
+        public BsEditorRenderer(){}
 
-        public BsEditorBaseRenderer(BsEditorHtmlBuilder<TModel> builder)
+        public BsEditorRenderer(BsEditorHtmlBuilder<TModel> builder)
             : base(builder)
         { 
 
@@ -53,6 +53,20 @@ namespace BForms.Renderers
             return result;
         }
 
+        public string RenderGroups()
+        {
+            var div = new TagBuilder("div");
+
+            div.AddCssClass("grid_view");
+
+            foreach (var group in this.Builder.groupConfigurator.Groups)
+            {
+                div.InnerHtml += group.Value.ToString();
+            }
+
+            return div.ToString();
+        }
+
         public string RenderIndex()
         {
             var container = new TagBuilder("div");
@@ -78,6 +92,8 @@ namespace BForms.Renderers
             var right = new TagBuilder("div");
 
             right.AddCssClass("right");
+
+            right.InnerHtml += RenderGroups();
 
             container.InnerHtml += right;
             #endregion

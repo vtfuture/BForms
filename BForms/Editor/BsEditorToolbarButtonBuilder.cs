@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
-namespace BForms.GroupEditor
+namespace BForms.Editor
 {
     #region BsEditorToolbarButton
     public class BsEditorToolbarButtonBuilder : BsBaseComponent

@@ -3,8 +3,8 @@
 @using BForms.Models
 @using BForms.Grid
 @using BForms.Docs.Areas.Demo.Controllers
-@model BForms.Docs.Areas.Demo.Controllers.UserGroupViewModel
-@using BForms.GroupEditor
+@model BForms.Docs.Areas.Demo.Controllers.UserViewModel
+@using BForms.Editor
 
 @{
     var builder = Html.BsGroupEditorFor(x => x.Editor2)
@@ -21,6 +21,17 @@
             var tab1 = cfg.For(x => x.Contributors)
                 .Template(x => x.Grid, "_TabItem")
                 .Template(x => x.Search, "~/Areas/Demo/Views/Contributors/Toolbar/_Search.cshtml");
+        })
+      .ConfigureGroups(cfg =>
+        {
+            cfg.For(x => x.Group1)
+               .DisplayText("Adauga la grup 1")
+               .DisplayName("Group1");
+
+            cfg.For(x => x.Group2)
+               .DisplayText("Adauga la grup 2")
+               .DisplayName("Group2");
+
         });
 
     ViewData["builder"] = builder;

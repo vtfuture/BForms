@@ -3,22 +3,22 @@
 @using BForms.Models
 @using BForms.Grid
 @using BForms.Docs.Areas.Demo.Controllers
-@model BForms.Docs.Areas.Demo.Controllers.UserGroupEditorViewModel
-@using BForms.GroupEditor
+@model BForms.Docs.Areas.Demo.Controllers.UserEditorViewModel
+@using BForms.Editor
 
 @{
-    var builder = (BsEditorHtmlBuilder<UserGroupEditorViewModel>)ViewData["builder"];
+    var builder = (BsEditorHtmlBuilder<UserEditorViewModel>)ViewData["builder"];
 }
 
 @(Html.BsGroupEditorFor(Model, builder)
       .HtmlAttributes(new Dictionary<string, object>() { { "id", "myGroupEditor" } })
       .ConfigureTabs(cfg =>
         {
-            @*var tab3 = cfg.For(x => x.Contributors3)
+            var tab3 = cfg.For(x => x.Contributors3)
                 .PagerSettings(new BsPagerSettings
                 {
                     HasPagesText = false
                 });
 
-            tab3.InlineSearch = true;*@
+            tab3.QuickSearch = true;
         }))

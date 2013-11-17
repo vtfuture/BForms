@@ -1,4 +1,4 @@
-﻿using BForms.GroupEditor;
+﻿using BForms.Editor;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,11 +8,11 @@ using System.Web.Mvc;
 
 namespace BForms.Renderers
 {
-    public class BsEditorNavBaseRenderer : BsBaseRenderer<BsEditorNavBuilder>
+    public class BsEditorNavRenderer : BsBaseRenderer<BsEditorNavBuilder>
     {
-        public BsEditorNavBaseRenderer(){}
+        public BsEditorNavRenderer(){}
 
-        public BsEditorNavBaseRenderer(BsEditorNavBuilder builder)
+        public BsEditorNavRenderer(BsEditorNavBuilder builder)
             : base(builder)
         { 
         }

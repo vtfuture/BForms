@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
-namespace BForms.GroupEditor
+namespace BForms.Editor
 {
     #region BsEditorToolbarPart
     public class BsEditorToolbarPart
@@ -44,20 +44,20 @@ namespace BForms.GroupEditor
     #endregion
 
     #region BsEditorToolbarHtmlBuilder
-    public class BsEditorToolbarHtmlBuilder<TModel> : BsBaseComponent where TModel : BsGroupEditor
+    public class BsEditorToolbarHtmlBuilder<TModel> : BsBaseComponent where TModel : IBsEditorTabModel
     {
         #region Properties and Constructor
-        private BsGroupEditor model { get; set; }
+        private IBsEditorTabModel model { get; set; }
         internal List<BsEditorToolbarPart> parts { get; set; }
         internal List<BsEditorToolbarButtonBuilder> buttons { get; set; }
         internal List<BsBaseComponent> forms { get; set; }
-        internal bool inlineSearch { get; set; }
+        internal bool quickSearch { get; set; }
 
-        public bool InlineSearch { get { return this.inlineSearch; } set { this.inlineSearch = value; } }
+        public bool QuickSearch { get { return this.quickSearch; } set { this.quickSearch = value; } }
 
         public BsEditorToolbarHtmlBuilder(BsEditorTabBuilder tabBuilder, ViewContext viewContext)
         {
-            this.renderer = new BsEditorToolbarBaseRenderer<TModel>(this);
+            this.renderer = new BsEditorToolbarRenderer<TModel>(this);
             this.parts = new List<BsEditorToolbarPart>();
             this.model = tabBuilder.GetModel();
             this.viewContext = viewContext;

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace BForms.Mvc
 {
     [AttributeUsage(AttributeTargets.Method | AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Parameter, AllowMultiple = false)]
-    public class BsGroupEditorAttribute : Attribute
+    public class BsEditorTabAttribute : Attribute
     {
         public string Name { get; set; }
 
@@ -18,8 +18,22 @@ namespace BForms.Mvc
         /// <summary>
         /// Empty ctor
         /// </summary>
-        public BsGroupEditorAttribute()
+        public BsEditorTabAttribute()
         {
+        }
+    }
+
+    [AttributeUsage(AttributeTargets.Method | AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Parameter, AllowMultiple = false)]
+    public class BsEditorGroupAttribute : Attribute
+    {
+        public object Id { get; set; }
+
+        /// <summary>
+        /// Empty ctor
+        /// </summary>
+        public BsEditorGroupAttribute()
+        {
+
         }
     }
 }

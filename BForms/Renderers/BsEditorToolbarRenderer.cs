@@ -1,4 +1,4 @@
-﻿using BForms.GroupEditor;
+﻿using BForms.Editor;
 using BForms.Models;
 using System;
 using System.Collections.Generic;
@@ -9,14 +9,14 @@ using System.Web.Mvc;
 
 namespace BForms.Renderers
 {
-    public class BsEditorToolbarBaseRenderer<TModel> : BsBaseRenderer<BsEditorToolbarHtmlBuilder<TModel>> where TModel : BsGroupEditor
+    public class BsEditorToolbarRenderer<TModel> : BsBaseRenderer<BsEditorToolbarHtmlBuilder<TModel>> where TModel : IBsEditorTabModel
     {
-        public BsEditorToolbarBaseRenderer()
+        public BsEditorToolbarRenderer()
         {
 
         }
 
-        public BsEditorToolbarBaseRenderer(BsEditorToolbarHtmlBuilder<TModel> builder)
+        public BsEditorToolbarRenderer(BsEditorToolbarHtmlBuilder<TModel> builder)
             : base(builder)
         {
 
@@ -34,7 +34,7 @@ namespace BForms.Renderers
 
             container.AddCssClass("search");
 
-            if (this.Builder.inlineSearch || buttons.Any())
+            if (this.Builder.quickSearch || buttons.Any())
             {
                 container.AddCssClass("inline");
 
@@ -43,7 +43,7 @@ namespace BForms.Renderers
                 group.AddCssClass("input-group");
 
                 #region Inline Search
-                if (this.Builder.inlineSearch)
+                if (this.Builder.quickSearch)
                 {
                     container.AddCssClass("inline");
 
@@ -84,7 +84,7 @@ namespace BForms.Renderers
 
             forms.ToList().ForEach(x => 
             {
-                if (string.IsNullOrEmpty(x.form.template)) 
+                if (string.IsNullOrEmpty(x.form.TemplatePath)) 
                 {
                     x.form.template = x.template;
                 }

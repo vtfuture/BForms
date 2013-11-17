@@ -3,6 +3,7 @@ using System.Web;
 using System.Web.Mvc;
 using BForms.Models;
 using BForms.Renderers;
+using System;
 
 namespace BForms.Mvc
 {
@@ -13,6 +14,14 @@ namespace BForms.Mvc
         internal ViewContext viewContext;
         internal BsBaseRenderer renderer;
         internal IDictionary<string, object> htmlAttributes;
+
+        public string TemplatePath
+        {
+            get
+            {
+                return this.template;
+            }
+        }
 
         public BsBaseComponent(){}
 
@@ -34,10 +43,27 @@ namespace BForms.Mvc
         #region Helpers
         internal bool IsAjaxRequest()
         {
+            if (this.viewContext == null)
+                throw new Exception("View context is null");
+
             return this.viewContext.RequestContext.HttpContext.Request.IsAjaxRequest();
         }
 
-        public T GetInstance<T>() where T : BsBaseComponent
+        internal string RenderModel<T>(T model)
+        {
+            if (string.IsNullOrEmpty(this.template))
+                throw new Exception("Template path is null or empty");
+
+            if (model == null)
+                throw new Exception("Model is null");
+
+            if (this.viewContext == null)
+                throw new Exception("View context is null");
+
+            return this.viewContext.Controller.BsRenderPartialView(this.template, model);
+        }
+
+        internal T GetInstance<T>() where T : BsBaseComponent
         {
             return (T)this;
         }
@@ -46,21 +72,20 @@ namespace BForms.Mvc
         #region ToString ToHtmlString
         public override string ToString()
         {
+            if (this.renderer == null)
+                throw new Exception("Renderer is null");
+
             return this.renderer.Render();
         }
 
         public virtual string ToHtmlString()
         {
-            var result = this.renderer.Render();
+            if (this.viewContext == null)
+                throw new Exception("View context is null");
 
-            if (this.viewContext != null)
-            {
-                var writer = new System.IO.StringWriter();
-                this.viewContext.Writer.Write(result);
-                return writer.ToString();
-            }
-
-            return result;
+            var writer = new System.IO.StringWriter();
+            this.viewContext.Writer.Write(this.ToString());
+            return writer.ToString();
         }
         #endregion
     }

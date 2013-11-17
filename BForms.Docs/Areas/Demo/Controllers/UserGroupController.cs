@@ -15,33 +15,51 @@ using BForms.Docs.Controllers;
 using BForms.Docs.Areas.Demo.Repositories;
 using BForms.Grid;
 using RequireJS;
-using BForms.GroupEditor;
+using BForms.Editor;
+using BForms.Docs.Resources;
 
 namespace BForms.Docs.Areas.Demo.Controllers
 {
+    public class ContributorsRowFormModel
+    {
+        [Display(Name = "Name", ResourceType = typeof(Resource))]
+        [BsControl(BsControlType.TextBox)]
+        public string Name { get; set; }
+
+        [Display(Name = "Location", Prompt = "PromptLocation", ResourceType = typeof(Resource))]
+        [BsControl(BsControlType.DropDownList)]
+        public BsSelectList<string> CountriesList { get; set; }
+    }
+
     public class ContributorsOrderModel {}
 
-    public class ContributorsInheritExample : BsGroupEditor<ContributorRowModel, ContributorSearchModel>
+    public class ContributorsInheritExample : BsEditorTabModel<ContributorRowModel, ContributorSearchModel>
     {
         public ContributorsOrderModel Order { get; set; }
     }
 
-    public class UserGroupEditorViewModel
+    public class UserEditorViewModel
     {
-        [BsGroupEditor(Name = "Contributors1", Id = YesNoValueTypes.Yes, Selected = false)]
+        [BsEditorTab(Name = "Contributors1", Id = YesNoValueTypes.Yes, Selected = false)]
         public ContributorsInheritExample Contributors { get; set; }
 
-        [BsGroupEditor(Name = "Contributors2", Id = YesNoValueTypes.No, Selected = false)]
-        public BsGroupEditor<ContributorRowModel> Contributors2 { get; set; }
+        [BsEditorTab(Name = "Contributors2", Id = YesNoValueTypes.No, Selected = false)]
+        public BsEditorTabModel<ContributorRowModel> Contributors2 { get; set; }
 
-        [BsGroupEditor(Name = "Contributors3", Id = YesNoValueTypes.Both, Selected = true)]
-        public BsGroupEditor<ContributorRowModel, ContributorSearchModel, ContributorNewModel> Contributors3 { get; set; }
+        [BsEditorTab(Name = "Contributors3", Id = YesNoValueTypes.Both, Selected = true)]
+        public BsEditorTabModel<ContributorRowModel, ContributorSearchModel, ContributorNewModel> Contributors3 { get; set; }
+
+        [BsEditorGroup(Id = NotificationType.Daily)]
+        public BsEditorGroupModel<ContributorRowModel, ContributorsRowFormModel> Group1 { get; set; }
+
+        [BsEditorGroup(Id = NotificationType.Monthly)]
+        public BsEditorGroupModel<ContributorRowModel> Group2 { get; set; }
     }
 
-    public class UserGroupViewModel
+    public class UserViewModel
     {
-        public UserGroupEditorViewModel Editor1 { get; set; }
-        public UserGroupEditorViewModel Editor2 { get; set; }
+        public UserEditorViewModel Editor1 { get; set; }
+        public UserEditorViewModel Editor2 { get; set; }
     }
 
     public class UserGroupController : BaseController
@@ -57,7 +75,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
         // GET: /Demo/UserGroup/
         public ActionResult Index()
         {
-            var model = new UserGroupEditorViewModel()
+            var model = new UserEditorViewModel()
             {
                 Contributors = new ContributorsInheritExample
                 {
@@ -69,7 +87,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
                     Search = repo.GetSearchForm(),
                     Order = new ContributorsOrderModel()
                 },
-                Contributors3 = new BsGroupEditor<ContributorRowModel, ContributorSearchModel, ContributorNewModel>
+                Contributors3 = new BsEditorTabModel<ContributorRowModel, ContributorSearchModel, ContributorNewModel>
                 {
                     Grid = repo.ToBsGridViewModel(new BsGridRepositorySettings<ContributorSearchModel>
                     {
@@ -81,7 +99,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
                 }
             };
 
-            var viewModel = new UserGroupViewModel
+            var viewModel = new UserViewModel
             {
                 Editor2 = model
             };
@@ -96,7 +114,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
             return View(viewModel);
         }
 
-        public BsJsonResult GetTab(BsGroupEditorRepositorySettings<YesNoValueTypes> settings)
+        public BsJsonResult GetTab(BsEditorRepositorySettings<YesNoValueTypes> settings)
         {
             var msg = string.Empty;
             var status = BsResponseStatus.Success;
@@ -105,7 +123,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
 
             try
             {
-                UserGroupEditorViewModel model = new UserGroupEditorViewModel();
+                UserEditorViewModel model = new UserEditorViewModel();
                 
                 switch (settings.TabId)
                 {
@@ -114,7 +132,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
                         //var grid2 = repo.ToBsGridViewModel(request.GetRepositorySettings<ContributorSearchModel>(), out count);
                         var grid2 = repo.ToBsGridViewModel(settings.ToBaseGridRepositorySettings(), out count);
 
-                        model.Contributors2 = new BsGroupEditor<ContributorRowModel>
+                        model.Contributors2 = new BsEditorTabModel<ContributorRowModel>
                         {
                             Grid = grid2
                         };
@@ -134,14 +152,14 @@ namespace BForms.Docs.Areas.Demo.Controllers
 
                         var grid3 = repo.ToBsGridViewModel(settings.ToGridRepositorySettings<ContributorSearchModel>(), out count);
 
-                        model.Contributors3 = new BsGroupEditor<ContributorRowModel, ContributorSearchModel, ContributorNewModel>
+                        model.Contributors3 = new BsEditorTabModel<ContributorRowModel, ContributorSearchModel, ContributorNewModel>
                         {
                             Grid = grid3
                         };
                         break;
                 }
 
-                var viewModel = new UserGroupViewModel()
+                var viewModel = new UserViewModel()
                 {
                     Editor2 = model
                 };

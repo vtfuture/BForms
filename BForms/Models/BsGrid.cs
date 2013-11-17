@@ -9,10 +9,13 @@ using BForms.Utilities;
 
 namespace BForms.Models
 {
-    public class BsGridModel<T>
+    public abstract class BsItemsModel<T>
     {
         public IEnumerable<T> Items { get; set; }
+    }
 
+    public class BsGridModel<T> : BsItemsModel<T>
+    {
         public BsPagerModel Pager { get; set; }
 
         public BsGridBaseRepositorySettings BaseSettings { get; set; }
@@ -39,7 +42,7 @@ namespace BForms.Models
 
         public bool IsEmpty()
         {
-            return this.Items != null && this.Items.Any();
+            return this.Items == null || !this.Items.Any();
         }
     }
 

@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using BForms.Utilities;
 
-namespace BForms.GroupEditor
+namespace BForms.Editor
 {
-    public class BsEditorTabConfigurator<TModel> : BsBaseComponent
+    public class BsEditorTabConfigurator<TModel> : BsBaseConfigurator
     {
         #region Properties and Constructor
         internal Dictionary<object, BsEditorTabBuilder> Tabs { get; set; }
@@ -27,7 +27,7 @@ namespace BForms.GroupEditor
 
         #region Public Methods
         public BsEditorTabBuilder<TEditor> For<TEditor>(Expression<Func<TModel, TEditor>> expression)
-            where TEditor : BsGroupEditor
+            where TEditor : IBsEditorTabModel
         {
             var builder = this.GetTab(expression);
 
@@ -37,7 +37,7 @@ namespace BForms.GroupEditor
 
         #region Helpers
         private void InsertTab<TEditor, TRow>(object id, BsEditorTabBuilder<TEditor> tabBuilder)
-            where TEditor : BsGroupEditor
+            where TEditor : IBsEditorTabModel
             where TRow : new ()
         {
             if (tabBuilder.IsSelected())
@@ -62,7 +62,7 @@ namespace BForms.GroupEditor
         {
             var prop = expression.GetPropertyInfo<TModel, TValue>();
 
-            BsGroupEditorAttribute attr = null;
+            BsEditorTabAttribute attr = null;
 
             if (ReflectionHelpers.TryGetAttribute(prop, out attr))
             {
@@ -74,13 +74,13 @@ namespace BForms.GroupEditor
             throw new Exception("Property " + prop.Name + " has no BsGroupEditorAttribute");
         }
 
-        internal void AddNavTab(BsGroupEditorAttribute attr)
+        internal void AddNavTab(BsEditorTabAttribute attr)
         {
             navBuilder.AddTab(attr);
         }
 
-        private void Add<TEditor, TRow>(BsGroupEditorAttribute attr, BsGroupEditor<TRow> model)
-            where TEditor : BsGroupEditor
+        private void Add<TEditor, TRow>(BsEditorTabAttribute attr, BsEditorTabModel<TRow> model)
+            where TEditor : IBsEditorTabModel
             where TRow : new()
         {
             var tab = new BsEditorTabBuilder<TEditor>(model, this.viewContext)

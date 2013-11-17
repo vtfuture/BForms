@@ -1,4 +1,4 @@
-﻿using BForms.GroupEditor;
+﻿using BForms.Editor;
 using BForms.Models;
 using System;
 using System.Collections.Generic;
@@ -11,11 +11,11 @@ using BForms.Grid;
 
 namespace BForms.Renderers
 {
-    public class BsEditorTabBaseRenderer<TModel, TRow> : BsBaseRenderer<BsEditorTabBuilder<TModel>> where TModel : BsGroupEditor
+    public class BsEditorTabRenderer<TModel, TRow> : BsBaseRenderer<BsEditorTabBuilder<TModel>> where TModel : IBsEditorTabModel
     {
-        public BsEditorTabBaseRenderer(){}
+        public BsEditorTabRenderer(){}
 
-        public BsEditorTabBaseRenderer(BsEditorTabBuilder<TModel> builder)
+        public BsEditorTabRenderer(BsEditorTabBuilder<TModel> builder)
             : base(builder){}
 
         protected void InitPager()
@@ -33,7 +33,7 @@ namespace BForms.Renderers
         {
             var result = "";
 
-            if (!string.IsNullOrEmpty(this.Builder.RowTemplate))
+            if (!string.IsNullOrEmpty(this.Builder.TemplatePath))
             {
                 var list = new TagBuilder("ul");
 
@@ -77,7 +77,7 @@ namespace BForms.Renderers
 
                     templateWrapper.AddCssClass("media-body");
 
-                    templateWrapper.InnerHtml += this.Builder.viewContext.Controller.BsRenderPartialView(this.Builder.rowTemplate, item);
+                    templateWrapper.InnerHtml += this.Builder.RenderModel<TRow>(item);
 
                     listItemWrapper.InnerHtml += templateWrapper;
 

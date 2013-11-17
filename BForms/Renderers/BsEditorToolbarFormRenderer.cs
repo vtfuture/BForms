@@ -1,4 +1,4 @@
-﻿using BForms.GroupEditor;
+﻿using BForms.Editor;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,7 +30,7 @@ namespace BForms.Renderers
 
             container.MergeAttribute("data-uid", this.Builder.uid);
 
-            container.InnerHtml += this.Builder.CompileModel();
+            container.InnerHtml += this.Builder.RenderModel<TModel>(this.Builder.Model);
 
             return container.ToString();
         }

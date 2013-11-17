@@ -81,6 +81,11 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Editor\BsEditorGroupBuilder.cs" />
+    <Compile Include="Editor\BsEditorGroupConfigurator.cs" />
+    <Compile Include="Editor\BsEditorHtmlBuilder.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Grid\BsBaseGridRepository.cs" />
     <Compile Include="Grid\BsBulkAction.cs" />
     <Compile Include="Grid\BsBulkActionsFactory.cs" />
@@ -96,21 +101,22 @@
     <Compile Include="Grid\BsGridPagerBuilder.cs" />
     <Compile Include="Grid\BsGridRepositorySettings.cs" />
     <Compile Include="Grid\BsGridExcelColumnFactory.cs" />
-    <Compile Include="GroupEditor\BsEditorHtmlBuilder.cs" />
-    <Compile Include="GroupEditor\BsEditorNavBuilder.cs" />
-    <Compile Include="GroupEditor\BsEditorTabBuilder.cs" />
-    <Compile Include="GroupEditor\BsEditorTabConfigurator.cs" />
-    <Compile Include="GroupEditor\BsEditorToolbarButtonBuilder.cs" />
-    <Compile Include="GroupEditor\BsEditorToolbarFormBuilder.cs" />
-    <Compile Include="GroupEditor\BsGroupEditorRepositorySettings.cs" />
-    <Compile Include="GroupEditor\Class1.cs" />
+    <Compile Include="Editor\BsEditorNavBuilder.cs" />
+    <Compile Include="Editor\BsEditorTabBuilder.cs" />
+    <Compile Include="Editor\BsEditorTabConfigurator.cs" />
+    <Compile Include="Editor\BsEditorToolbarButtonBuilder.cs" />
+    <Compile Include="Editor\BsEditorToolbarFormBuilder.cs" />
+    <Compile Include="Editor\BsEditorRepositorySettings.cs" />
+    <Compile Include="Models\BsEditor.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Mvc\BsBaseConfigurator.cs" />
     <Compile Include="Mvc\BsPanelAttribute.cs" />
     <Compile Include="Panels\BsPanelExtensions.cs" />
     <Compile Include="Panels\BsPanelHtmlBuilder.cs" />
-    <Compile Include="GroupEditor\BsEditorToolbarHtmlBuilder.cs" />
+    <Compile Include="Editor\BsEditorToolbarHtmlBuilder.cs" />
     <Compile Include="Html\GroupEditorExtensions.cs" />
-    <Compile Include="Models\BsGroupEditor.cs" />
-    <Compile Include="Mvc\BsGroupEditorAttribute.cs" />
+    <Compile Include="Mvc\BsEditorAttribute.cs" />
     <Compile Include="Html\SortableListExtensions.cs" />
     <Compile Include="Panels\BsPanelLightTheme.cs" />
     <Compile Include="Panels\BsPanelsConfigurator.cs" />
@@ -118,10 +124,13 @@
     <Compile Include="Renderers\BsBaseRenderer.cs" />
     <Compile Include="Renderers\BsBulkActionRenderer.cs" />
     <Compile Include="Renderers\BsBulkSelectorRenderer.cs" />
-    <Compile Include="Renderers\BsEditorBaseRenderer.cs" />
-    <Compile Include="Renderers\BsEditorNavBaseRenderer.cs" />
-    <Compile Include="Renderers\BsEditorTabBaseRenderer.cs" />
-    <Compile Include="Renderers\BsEditorToolbarBaseRenderer.cs" />
+    <Compile Include="Renderers\BsEditorNavRenderer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Renderers\BsEditorRenderer.cs" />
+    <Compile Include="Renderers\BsEditorGroupRenderer.cs" />
+    <Compile Include="Renderers\BsEditorTabRenderer.cs" />
+    <Compile Include="Renderers\BsEditorToolbarRenderer.cs" />
     <Compile Include="Renderers\BsEditorToolbarButtonRenderer.cs" />
     <Compile Include="Renderers\BsEditorToolbarFormRenderer.cs" />
     <Compile Include="Renderers\BsGridBaseRenderer.cs" />

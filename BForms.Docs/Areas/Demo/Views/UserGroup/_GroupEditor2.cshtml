@@ -3,11 +3,11 @@
 @using BForms.Models
 @using BForms.Grid
 @using BForms.Docs.Areas.Demo.Controllers
-@model BForms.Docs.Areas.Demo.Controllers.UserGroupEditorViewModel
-@using BForms.GroupEditor
+@model BForms.Docs.Areas.Demo.Controllers.UserEditorViewModel
+@using BForms.Editor
 
 @{
-    var builder = (BsEditorHtmlBuilder<UserGroupEditorViewModel>)ViewData["builder"];
+    var builder = (BsEditorHtmlBuilder<UserEditorViewModel>)ViewData["builder"];
 }
 
 @(Html.BsGroupEditorFor(Model, builder)
@@ -18,9 +18,11 @@
 
             tab1.For(x => x.Search).Button("Test", Glyphicon.Plus);
 
+            tab1.For(x => x.Grid); // TODO
+
             tab1.Toolbar.Add(x => x.Order, "_Order")
                         .Button("Order", Glyphicon.List)
                         .Template("_Order");
 
-            tab1.Toolbar.InlineSearch = true;
+            tab1.Toolbar.QuickSearch = true;
         }))

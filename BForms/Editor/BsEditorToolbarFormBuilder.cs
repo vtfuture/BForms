@@ -7,15 +7,23 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
-namespace BForms.GroupEditor
+namespace BForms.Editor
 {
     #region BsEditorToolbarForm
     public class BsEditorToolbarFormBuilder<TModel> : BsBaseComponent
     {
         #region Properties and Constructor
-        private TModel model { get; set; }
+        protected TModel model { get; set; }
         internal string uid { get; set; }
         internal bool hide { get; set; }
+
+        internal TModel Model
+        {
+            get
+            {
+                return this.model;
+            }
+        }
 
         public BsEditorToolbarFormBuilder()
         {
@@ -51,13 +59,6 @@ namespace BForms.GroupEditor
             this.hide = true;
 
             return this;
-        }
-        #endregion
-
-        #region Helper
-        public string CompileModel()
-        {
-            return viewContext.Controller.BsRenderPartialView(this.template, model);
         }
         #endregion
     }
