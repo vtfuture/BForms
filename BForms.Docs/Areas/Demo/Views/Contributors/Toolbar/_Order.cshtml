@@ -1,4 +1,4 @@
-﻿@using BForms.Docs.Resources
+@using BForms.Docs.Resources
 @using BForms.Html
 @using BForms.Docs.Areas.Demo.Models
 
@@ -7,23 +7,28 @@
 
 @using (Html.BeginForm())
 {
-    @Html.BsSortableListFor(Model,
-        m => m.Name,
-        m => m.Id.ToString(),
-        m => m.Order.ToString(),
-        m => new Dictionary<string, object>{{"class", "sortable_item"}}, 
-        m => new Dictionary<string, object>{{"depth", m.Depth}}, 
-        m => new Dictionary<string, object>{{"class", "item_label"}},
-        m => m.Role.ToString(),
-        m => new Dictionary<string, object>{{"class",
-            m.Role == ProjectRole.Tester ? "label-danger" : m.Role == ProjectRole.TeamLeader ? "label-success" : "label-info"}})
+    
+    @Html.BsSortableListFor(Model, m => new BsSortableListConfiguration<ContributorOrderModel>
+    {
+        Id = m.Id.ToString(),
+     //   Order = m.Order.ToString(),
+        Text = m.Name,
+        AppendsTo = parent => (int)parent.Role < (int)m.Role
+    }).ListProperties(m => new HtmlProperties
+    {
+        HtmlAttributes = new { @class = "custom_class"}
+    }).BadgeProperties(m => new HtmlProperties
+    {
+        HtmlAttributes = new {@class = m.Role == ProjectRole.Tester ? "label-danger" : m.Role == ProjectRole.TeamLeader ? "label-success" : "label-info"},
+        Text = m.Role.ToString()
+    })
 
     <div class="col-12 col-sm-12 col-lg-12 bs-validation_summary">
         @Html.BsValidationSummary()
     </div>
 
     <div class="grid_toolbar_submit">
-        <button type="submit" class="btn btn-white js-btn-save_order" data-url="@Url.Action("Reorder")">@Resource.Save</button>
+        <button type="submit" class="btn btn-default js-btn-save_order" data-url="@Url.Action("Reorder")">@Resource.Save</button>
         <a href="#" class="js-btn-reset">@Resource.Refresh</a>
     </div>
     

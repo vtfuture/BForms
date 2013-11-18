@@ -315,17 +315,22 @@ namespace BForms.Docs.Areas.Demo.Repositories
 
         public void Reorder(List<ContributorOrderModel> model)
         {
-            foreach (var item in model)
+            if (model != null)
             {
-                var entity = db.Contributors.FirstOrDefault(x => x.Id == item.Id);
-
-                if (entity != null)
+                foreach (var item in model)
                 {
-                    entity.Order = item.Order;
+                    var entity = db.Contributors.FirstOrDefault(x => x.Id == item.Id);
+
+                    if (entity != null)
+                    {
+                        entity.Order = item.Order;
+                        entity.Id_Coordinator = item.ParentId;
+                    }
                 }
+
+                db.SaveChanges();
             }
 
-            db.SaveChanges();
         }
 
         public void EnableDisable(int objId, bool? enable)
@@ -387,6 +392,7 @@ namespace BForms.Docs.Areas.Demo.Repositories
                     Name = x.FirstName + " " + x.LastName,
                     Role = x.Role,
                     Depth = depthLevel,
+                    ParentId = null,
                     Subordinates =
                         db.Contributors.Where(y => y.Id_Coordinator == x.Id).Select(y => new ContributorOrderModel
                         {
@@ -395,6 +401,7 @@ namespace BForms.Docs.Areas.Demo.Repositories
                             Name = y.FirstName + " " + y.LastName,
                             Role = y.Role,
                             Depth = depthLevel + 1,
+                            ParentId = x.Id,
                             Subordinates = null
 
                         }).OrderBy(y => y.Order).ToList()
@@ -409,6 +416,7 @@ namespace BForms.Docs.Areas.Demo.Repositories
                 Name = x.FirstName + " " + x.LastName,
                 Role = x.Role,
                 Depth = depthLevel,
+                ParentId = null,
                 Subordinates = GetSubordinatesFor(x.Id, depthLevel + 1)
             }).OrderBy(x => x.Order).ToList();
 
@@ -427,7 +435,8 @@ namespace BForms.Docs.Areas.Demo.Repositories
                     Order = y.Order,
                     Name = y.FirstName + " " + y.LastName,
                     Role = y.Role,
-                    Depth = depthLevel
+                    Depth = depthLevel,
+                    ParentId = coordinatorId
 
                 }).OrderBy(y => y.Order);
 
@@ -442,6 +451,7 @@ namespace BForms.Docs.Areas.Demo.Repositories
                         Order = child.Order,
                         Role = child.Role,
                         Depth = depthLevel,
+                        ParentId = coordinatorId,
                         Subordinates = GetSubordinatesFor(child.Id, depthLevel + 1)
                     });
                 }

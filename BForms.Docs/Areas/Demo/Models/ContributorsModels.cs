@@ -148,6 +148,7 @@ namespace BForms.Docs.Areas.Demo.Models
         public string Name { get; set; }
         public ProjectRole Role { get; set; }
         public int Depth { get; set; }
+        public int? ParentId { get; set; }
 
         [BsControl(BsControlType.SortableList)]
         public IEnumerable<ContributorOrderModel> Subordinates { get; set; }
