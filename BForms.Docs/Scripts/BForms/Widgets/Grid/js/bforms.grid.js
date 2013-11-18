@@ -843,14 +843,21 @@
         }
 
         if (this.options.$toolbar != null && this.$filterIcon.is(':visible')) {
-            this.options.$toolbar.bsToolbar('reset');
+            this.options.$toolbar.bsToolbar('reset', {
+                preventPagination : false
+            });
         }
+        else {
+            if (goToFirstPage === true) {
+                this.refreshModel.Page = 1;
+            }
 
-        if (goToFirstPage === true) {
-            this.refreshModel.Page = 1;
+            this._getPage();
         }
+        
+       
 
-        this._getPage();
+        
     };
 
     Grid.prototype._evOnErrorRemove = function (e) {

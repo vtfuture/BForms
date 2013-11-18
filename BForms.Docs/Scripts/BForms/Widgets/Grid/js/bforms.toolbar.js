@@ -105,24 +105,30 @@
     };
 
     Toolbar.prototype.reset = function () {
-        this._reset();
+        this._reset(arguments);
         if (typeof this.options.reset === "function") {
             this.options.reset.apply(this, arguments);
         }
     };
 
-    Toolbar.prototype._reset = function () {
+    Toolbar.prototype._reset = function (options) {
+
+        var preventPagination = true,
+            quickSearch = this.getControl('quickSearch');
+        
+        if (typeof options !== "undefined") {
+            preventPagination = options.preventPagination;
+        }
 
         // reset quick search if any
-        var quickSearch = this.getControl('quickSearch');
-
         if (quickSearch != null) {
             quickSearch.$element.find('input').val('');
         }
 
         // reset advanced search if any
-        var advancedSearch = this.getControl('advancedSearch');
-        var data;
+        var advancedSearch = this.getControl('advancedSearch'),
+            data;
+        
         if (advancedSearch != null) {
             advancedSearch.$container.bsForm('reset');
             data = advancedSearch.$container.bsForm('parse');
@@ -131,7 +137,7 @@
         // reset grid
         var widget = this.element.data('bformsBsToolbar');
         for (var i = 0; i < widget.subscribers.length; i++) {
-            widget.subscribers[i].bsGrid('reset', data, true);
+            widget.subscribers[i].bsGrid('reset', data, preventPagination);
         }
 
     };
