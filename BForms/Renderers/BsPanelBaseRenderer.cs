@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using BForms.Models;
 using BForms.Panels;
 
 namespace BForms.Renderers
@@ -56,7 +57,6 @@ namespace BForms.Renderers
                 nameTag.MergeAttribute("data-expandable", "true");
             }
 
-
             nameTag.InnerHtml += this.Builder.name;
 
             headerTitleTag.InnerHtml += nameTag.ToString();
@@ -67,10 +67,9 @@ namespace BForms.Renderers
                 editableTag.MergeAttribute("href", "#");
                 editableTag.AddCssClass("pull-right bs-editPanel");
 
-                var glyphTag = new TagBuilder("span");
-                glyphTag.AddCssClass("glyphicon glyphicon-pencil");
+                var glyphTag = this.GetGlyphcon(Glyphicon.Pencil);
 
-                editableTag.InnerHtml += glyphTag.ToString();
+                editableTag.InnerHtml += glyphTag;
 
                 if (!this.Builder.isLoaded)
                 {
@@ -82,11 +81,9 @@ namespace BForms.Renderers
                 cancelEditableTag.AddCssClass("pull-right bs-cancelEdit");
                 cancelEditableTag.MergeAttribute("style", "display:none");
 
+                var cancelGlyphTag = this.GetGlyphcon(Glyphicon.Remove);
 
-                var cancelGlyphTag = new TagBuilder("span");
-                cancelGlyphTag.AddCssClass("glyphicon glyphicon-remove");
-
-                cancelEditableTag.InnerHtml += cancelGlyphTag.ToString();
+                cancelEditableTag.InnerHtml += cancelGlyphTag;
 
                 headerTitleTag.InnerHtml += editableTag.ToString();
                 headerTitleTag.InnerHtml += cancelEditableTag.ToString();

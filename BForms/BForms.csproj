@@ -138,6 +138,7 @@
     <Compile Include="Renderers\BsGridColumnRenderer.cs" />
     <Compile Include="Renderers\BsPagerBaseRenderer.cs" />
     <Compile Include="Renderers\BsPanelBaseRenderer.cs" />
+    <Compile Include="Renderers\BsPanelLightRenderer.cs" />
     <Compile Include="Renderers\BsPanelsBaseRenderer.cs" />
     <Compile Include="Renderers\BsToolbarActionRenderer.cs" />
     <Compile Include="Renderers\BsToolbarBaseRenderer.cs" />

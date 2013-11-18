@@ -48,6 +48,11 @@ namespace BForms.Renderers
 
         public override string GetGlyphcon(Glyphicon icon, bool forInput = false)
         {
+            return this.GetGlyphiconTag(icon, forInput).ToString();
+        }
+
+        public TagBuilder GetGlyphiconTag(Glyphicon icon, bool forInput = false)
+        {
             var spanTag = new TagBuilder("span");
             spanTag.AddCssClass(Utilities.ReflectionHelpers.GetDescription(icon));
             spanTag.AddCssClass("glyphicon");
@@ -55,7 +60,8 @@ namespace BForms.Renderers
             {
                 spanTag.AddCssClass("input-group-addon");
             }
-            return spanTag.ToString(TagRenderMode.Normal);
+
+            return spanTag;
         }
 
         public override string Render()

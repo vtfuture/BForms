@@ -1,12 +1,15 @@
 ﻿@using BForms.Docs.Resources
 @using BForms.Html
 @using BForms.Models
+@using BForms.Renderers
 @model BForms.Docs.Areas.Demo.Models.ContributorDetailsModel
 
 <div class="row grid_row_details" data-rowdetailsid="@Model.Id">
 
     <div class="col-lg-6">
         <div id="contributor_identity" class="grid_details description js-editableIdentity bs-editable">
+            
+            @*@Html.BsPanel().Renderer(new BsPanelLightRenderer()).Editable(true).Id(1).Name("Identity").Content(Html.Partial("Grid/Details/_IdentityReadonly",Model).ToString())*@
 
             @Html.BsPartialPrefixed(x => x, "Grid/Details/_Identity", Model, "x" + Model.Id.ToString())
 

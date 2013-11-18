@@ -15,11 +15,10 @@ using DocumentFormat.OpenXml.EMMA;
 
 namespace BForms.Panels
 {
-    public class BsPanelsConfigurator<TModel>
+    public class BsPanelsConfigurator<TModel> : BsBaseConfigurator
     {
         #region Private properties
         internal List<BsPanelHtmlBuilder> Panels { get; set; }
-        internal ViewContext viewContext { get; set; }
         internal string readonlyUrl;
         internal string editableUrl;
         internal string saveUrl;
@@ -66,7 +65,7 @@ namespace BForms.Panels
         }
         #endregion
 
-        public BsPanelsConfigurator(ViewContext viewContext)
+        public BsPanelsConfigurator(ViewContext viewContext) : base(viewContext)
         {
             this.viewContext = viewContext;
             this.Panels = new List<BsPanelHtmlBuilder>();
@@ -126,7 +125,7 @@ namespace BForms.Panels
             {
                 var panelRenderer = new TPanel();
 
-                x.Theme((BsPanelBaseRenderer)panelRenderer.Register(x));
+                x.Renderer(panelRenderer);
             });
 
             return this;

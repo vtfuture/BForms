@@ -12,7 +12,10 @@ namespace BForms.Mvc
         #region Properties and Constructor
         internal string template;
         internal BsBaseRenderer renderer;
-        protected IDictionary<string, object> htmlAttributes;
+
+        internal IDictionary<string, object> htmlAttributes;
+        internal Dictionary<string, object> options = new Dictionary<string, object>();
+
 
         internal IDictionary<string, object> HtmlAttr
         {
@@ -67,6 +70,32 @@ namespace BForms.Mvc
         internal T GetInstance<T>() where T : BsBaseComponent
         {
             return (T)this;
+        }
+        #endregion
+
+        #region Options
+        public void SetOption<T>(string key, T value)
+        {
+            if (this.options.ContainsKey(key))
+            {
+                this.options[key] = value;
+            }
+            else
+            {
+                this.options.Add(key,value);
+            }
+        }
+
+        public void TryGetOption<T>(string key, out T value) where T : class
+        {
+            if (this.options.ContainsKey(key))
+            {
+                value = this.options[key] as T;
+            }
+            else
+            {
+                value = default(T);
+            }
         }
         #endregion
 

@@ -169,6 +169,8 @@
         // add aditional data
         $.extend(true, data, this.options.additionalData);
 
+        this._trigger('beforeSaveAjax', 0, data);
+
         // add part type
         data.Type = this.element.data('type');
 

@@ -28,7 +28,10 @@
 
         cacheReadonlyContent: true,
         additionalData: {
-        }
+        },
+         formOptions : {
+             
+         }
     };
 
     bsPanel.prototype._init = function () {
@@ -318,20 +321,20 @@
             console.warn("No save button found");
         }
 
-        this.$content.find('form').bsForm({
-            prefix : this.options.prefix,
+        var formOptions = $.extend(true, {}, {
+            prefix: this.options.prefix,
             actions: [{
                 name: 'save',
                 selector: this.options.saveFormSelector,
                 validate: true,
                 actionUrl: this.options.saveUrl,
                 parse: true,
-                getExtraData: $.proxy(function (data) {
+                getExtraData: $.proxy(function(data) {
                     data.component = this._componentId;
                 }, this),
-                handler: $.proxy(function (sent, response) {
+                handler: $.proxy(function(sent, data) {
 
-                    this.$content.html(response.Html);
+                    this.$content.html(data.Html);
 
                     this._toggleLoading();
                     this._toggleEditBtn(true);
@@ -340,10 +343,12 @@
                         this._cachedReadonlyContent = this.$content.html();
                     }
 
-                    this._trigger('editSuccessHandler', 0, response);
+                    this._trigger('editSuccessHandler', 0, data);
                 }, this)
             }]
-        });
+        }, this.options.formOptions);
+
+        this.$content.find('form').bsForm(formOptions);
 
         this._toggleEditBtn();
 

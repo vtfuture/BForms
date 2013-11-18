@@ -135,8 +135,9 @@ namespace BForms.Panels
             return this;
         }
 
-        public BsPanelHtmlBuilder Theme(BsPanelBaseRenderer renderer)
+        public BsPanelHtmlBuilder Renderer(BsPanelBaseRenderer renderer)
         {
+            renderer.Register(this);
             this.renderer = renderer;
 
             return this;

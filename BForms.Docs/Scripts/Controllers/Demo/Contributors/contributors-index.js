@@ -134,12 +134,14 @@
 
         this.$grid.on('click', 'header .js-inline_delete', $.proxy(function (e) {
             e.preventDefault();
+            
             this._deleteHandler({
                 btnSelector: '.js-inline_delete',
                 url: this.options.deleteUrl,
                 init: this._deleteHandler,
                 context: this
             }, $(e.currentTarget).closest('.grid_row'), this);
+            
         }, this));
 
         //this.$grid.bsGrid({
@@ -307,7 +309,7 @@
     GridIndex.prototype._deleteHandler = function (options, $row, context) {
 
         var $btn = $row.find(options.btnSelector);
-
+        
         $btn.bsInlineQuestion({
             question: "Are you sure?",
             buttons: [{

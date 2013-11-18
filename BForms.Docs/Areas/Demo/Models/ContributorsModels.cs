@@ -56,11 +56,6 @@ namespace BForms.Docs.Areas.Demo.Models
         public BsDateTime StartDate { get; set; }
 
         [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
-        [Display(Name = "Location", Prompt = "Choose your country")]
-        [BsControl(BsControlType.DropDownList)]
-        public BsSelectList<string> CountriesList { get; set; }
-
-        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
         [Display(Name = "Role", Description = "Your main role in project")]
         [BsControl(BsControlType.RadioButtonList)]
         public BsSelectList<ProjectRole?> RoleList { get; set; }
@@ -139,6 +134,11 @@ namespace BForms.Docs.Areas.Demo.Models
         [Display(Name = "LastName", ResourceType = typeof(Resource))]
         [BsControl(BsControlType.TextBox)]
         public string LastName { get; set; }
+
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
+        [Display(Name = "Location", Prompt = "Choose your country")]
+        [BsControl(BsControlType.DropDownList)]
+        public BsSelectList<string> CountriesList { get; set; }
     }
 
     public class ContributorOrderModel
