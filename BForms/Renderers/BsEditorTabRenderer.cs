@@ -8,24 +8,30 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using BForms.Mvc;
 using BForms.Grid;
+using BForms.Utilities;
 
 namespace BForms.Renderers
 {
     public class BsEditorTabRenderer<TModel, TRow> : BsBaseRenderer<BsEditorTabBuilder<TModel>> where TModel : IBsEditorTabModel
     {
+        protected BsEditorRowConfigurator<TRow> rowConfigurator;
+
         public BsEditorTabRenderer(){}
 
         public BsEditorTabRenderer(BsEditorTabBuilder<TModel> builder)
-            : base(builder){}
+            : base(builder)
+        {
+            this.rowConfigurator = (BsEditorRowConfigurator<TRow>)builder.rowConfigurator;
+        }
 
         protected void InitPager()
         {
-            if (this.Builder.model != null)
+            if (this.Builder.Model != null)
             {
-                this.Builder.pagerBuilder = new BsGridPagerBuilder(
-                this.Builder.model.GetGrid<TRow>().Pager,
+                this.Builder.PagerBuilder = new BsGridPagerBuilder(
+                this.Builder.Model.GetGrid<TRow>().Pager,
                 this.Builder.pagerSettings,
-                this.Builder.model.GetGrid<TRow>().BaseSettings);
+                this.Builder.Model.GetGrid<TRow>().BaseSettings);
             }
         }
 
@@ -39,29 +45,45 @@ namespace BForms.Renderers
 
                 list.AddCssClass("group_profiles");
 
-                foreach (var item in this.Builder.model.GetItems<TRow>())
+                foreach (var item in this.Builder.Model.GetItems<TRow>())
                 {
                     var listItem = new TagBuilder("li");
+
+                    IDictionary<string, object> itemAttributes = null;
+
+                    if (this.rowConfigurator.htmlExpression != null)
+                    {
+                        itemAttributes = this.rowConfigurator.htmlExpression.Compile().Invoke(item);
+                    }
+
+                    listItem.MergeAttributes(itemAttributes);
+
+                    listItem.MergeClassAttribute("bs-tabItem", itemAttributes);
 
                     var listItemWrapper = new TagBuilder("div");
 
                     listItemWrapper.AddCssClass("media profile large");
 
-                    var anchorLeft = new TagBuilder("a");
+                    if (this.rowConfigurator.avatarExpression != null)
+                    {
+                        var anchorLeft = new TagBuilder("a");
 
-                    anchorLeft.MergeAttribute("href", "#");
+                        anchorLeft.MergeAttribute("href", "#");
 
-                    anchorLeft.AddCssClass("pull-left");
+                        anchorLeft.AddCssClass("pull-left");
 
-                    var img = new TagBuilder("img");
+                        var img = new TagBuilder("img");
 
-                    img.AddCssClass("media-object");
+                        img.AddCssClass("media-object");
 
-                    img.MergeAttribute("src", "http://www.cloverwos.ro/1.0.0.217/Content/images/bg-user.png");
+                        string avatar = this.rowConfigurator.avatarExpression.Compile().Invoke(item);
 
-                    anchorLeft.InnerHtml += img;
+                        img.MergeAttribute("src", avatar);
 
-                    listItemWrapper.InnerHtml += anchorLeft;
+                        anchorLeft.InnerHtml += img;
+
+                        listItemWrapper.InnerHtml += anchorLeft;
+                    }
 
                     var anchorRight = new TagBuilder("a");
 
@@ -69,7 +91,7 @@ namespace BForms.Renderers
 
                     anchorRight.AddCssClass("btn btn-default select_profile");
 
-                    anchorRight.InnerHtml += GetGlyphcon(Glyphicon.Ok);
+                    anchorRight.InnerHtml += GetGlyphcon(Glyphicon.Plus);
 
                     listItemWrapper.InnerHtml += anchorRight;
 
@@ -90,7 +112,7 @@ namespace BForms.Renderers
             }
             else
             {
-                throw new Exception("You must set the template for tab " + this.Builder.uid.ToString());
+                throw new Exception("You must set the template for tab " + this.Builder.Uid.ToString());
             }
 
             return result;
@@ -98,18 +120,18 @@ namespace BForms.Renderers
 
         protected virtual string RenderPager()
         {
-            return this.Builder.pagerBuilder.ToString();
+            return this.Builder.PagerBuilder.ToString();
         }
 
         protected virtual string RenderContent()
         {
-            var result = this.Builder.toolbar.renderer.Render();
+            var result = this.Builder.Toolbar.ToString();
 
             var wrapper = new TagBuilder("div");
 
             wrapper.AddCssClass("bs-tabContent");
 
-            if (this.Builder.hasModel)
+            if (this.Builder.HasModel)
             {
                 wrapper.InnerHtml += RenderAjax();
             }
@@ -125,7 +147,7 @@ namespace BForms.Renderers
 
             var result = "";
 
-            if (this.Builder.hasItems)
+            if (this.Builder.HasItems)
             {
                 result += RenderItems();
             }
@@ -141,9 +163,14 @@ namespace BForms.Renderers
 
             var wrapper = new TagBuilder("div");
 
-            wrapper.MergeAttribute("data-tabid", ((int)this.Builder.uid).ToString());
+            wrapper.MergeAttribute("data-tabid", ((int)this.Builder.Uid).ToString());
 
-            wrapper.MergeAttribute("data-loaded", this.Builder.hasModel.ToString());
+            if (this.Builder.ConnectsWithIds != null)
+            {
+                wrapper.MergeAttribute("data-connectswith", MvcHelpers.Serialize(this.Builder.ConnectsWithIds));
+            }
+
+            wrapper.MergeAttribute("data-loaded", this.Builder.HasModel.ToString());
 
             if (!this.Builder.selected)
             {

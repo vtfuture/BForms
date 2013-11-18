@@ -29,8 +29,8 @@ namespace BForms.Renderers
         {
             var toolbarBuilder = new TagBuilder("div");
             toolbarBuilder.MergeAttribute("id", this.Builder.id);
-            toolbarBuilder.MergeClassAttribute("grid_toolbar", this.Builder.htmlAttributes);
-            toolbarBuilder.MergeAttributes(this.Builder.htmlAttributes, true);
+            toolbarBuilder.MergeClassAttribute("grid_toolbar", this.Builder.HtmlAttr);
+            toolbarBuilder.MergeAttributes(this.Builder.HtmlAttr, true);
 
             toolbarBuilder.AddCssClass(this.Builder.theme.GetDescription());
 

@@ -30,9 +30,9 @@ namespace BForms.Renderers
         {
             var result = "";
 
-            foreach (var tab in this.Builder.tabConfigurator.Tabs)
+            foreach (var tab in this.Builder.TabConfigurator.Tabs)
             {
-                if (tab.Value.hasModel)
+                if (tab.Value.HasModel)
                 {
                     result += tab.Value.renderer.RenderAjax();
                 }
@@ -43,9 +43,9 @@ namespace BForms.Renderers
 
         public string RenderTabs()
         {
-            var result = this.Builder.tabConfigurator.navBuilder.ToString();
+            var result = this.Builder.TabConfigurator.NavigationBuilder.ToString();
 
-            foreach (var tab in this.Builder.tabConfigurator.Tabs)
+            foreach (var tab in this.Builder.TabConfigurator.Tabs)
             {
                 result += tab.Value.ToString();
             }
@@ -59,7 +59,7 @@ namespace BForms.Renderers
 
             div.AddCssClass("grid_view");
 
-            foreach (var group in this.Builder.groupConfigurator.Groups)
+            foreach (var group in this.Builder.GroupConfigurator.Groups)
             {
                 div.InnerHtml += group.Value.ToString();
             }
@@ -73,9 +73,9 @@ namespace BForms.Renderers
 
             container.AddCssClass("group_editor");
 
-            if (this.Builder.htmlAttributes != null)
+            if (this.Builder.HtmlAttr != null)
             {
-                container.MergeAttributes(this.Builder.htmlAttributes);
+                container.MergeAttributes(this.Builder.HtmlAttr);
             }
 
             #region Left

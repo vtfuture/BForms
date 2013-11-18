@@ -86,6 +86,7 @@
     <Compile Include="Editor\BsEditorHtmlBuilder.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Editor\BsEditorRowConfigurator.cs" />
     <Compile Include="Grid\BsBaseGridRepository.cs" />
     <Compile Include="Grid\BsBulkAction.cs" />
     <Compile Include="Grid\BsBulkActionsFactory.cs" />

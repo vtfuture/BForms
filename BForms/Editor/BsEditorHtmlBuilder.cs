@@ -15,8 +15,24 @@ namespace BForms.Editor
     public class BsEditorHtmlBuilder<TModel> : BsBaseComponent
     {
         #region Properties and Constructor
-        internal BsEditorTabConfigurator<TModel> tabConfigurator;
-        internal BsEditorGroupConfigurator<TModel> groupConfigurator;
+        protected BsEditorTabConfigurator<TModel> tabConfigurator;
+        protected BsEditorGroupConfigurator<TModel> groupConfigurator;
+
+        internal BsEditorTabConfigurator<TModel> TabConfigurator
+        {
+            get
+            {
+                return this.tabConfigurator;
+            }
+        }
+
+        internal BsEditorGroupConfigurator<TModel> GroupConfigurator
+        {
+            get
+            {
+                return this.groupConfigurator;
+            }
+        }
 
         public BsEditorHtmlBuilder(TModel model)
         {

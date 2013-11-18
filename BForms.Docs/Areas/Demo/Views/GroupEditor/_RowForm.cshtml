@@ -1,0 +1,14 @@
+﻿@model BForms.Docs.Areas.Demo.Controllers.ContributorsRowFormModel
+@using BForms.Html
+
+@using (Html.BsBeginForm())
+{
+    <div class="col-12 col-sm-6 col-lg-6 form-group @Html.BsValidationCssFor(m => m.Name)">
+        @Html.BsLabelFor(m => m.Name)
+        <div class="input-group">
+            @Html.BsGlyphiconAddon(BForms.Models.Glyphicon.User)
+            @Html.BsInputFor(m => m.Name)
+            @Html.BsValidationFor(m => m.Name)
+        </div>
+    </div>
+}

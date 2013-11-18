@@ -9,14 +9,19 @@ using BForms.Utilities;
 namespace BForms.Models
 {
     #region Group Model
+    public class BsEditorGroupItemModel
+    {
+        public object TabId { get; set; }
+    }
+
     public interface IBsEditorGroupModel{}
 
-    public class BsEditorGroupModel<TRow> : BsItemsModel<TRow>, IBsEditorGroupModel
+    public class BsEditorGroupModel<TRow> : BsItemsModel<TRow>, IBsEditorGroupModel where TRow : BsEditorGroupItemModel
     {
 
     }
 
-    public class BsEditorGroupModel<TRow, TRowForm> : BsEditorGroupModel<TRow>
+    public class BsEditorGroupModel<TRow, TRowForm> : BsEditorGroupModel<TRow> where TRow : BsEditorGroupItemModel
     {
         public TRowForm Form { get; set; }
     }

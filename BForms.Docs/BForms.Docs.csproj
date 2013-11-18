@@ -134,7 +134,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Demo\Controllers\ContributorsController.cs" />
     <Compile Include="Areas\Demo\Controllers\LoginController.cs" />
-    <Compile Include="Areas\Demo\Controllers\UserGroupController.cs" />
+    <Compile Include="Areas\Demo\Controllers\GroupEditorController.cs" />
     <Compile Include="Areas\Demo\Controllers\UserProfileController.cs" />
     <Compile Include="Areas\Demo\DemoAreaRegistration.cs" />
     <Compile Include="Areas\Demo\Helpers\Utils.cs" />
@@ -289,7 +289,7 @@
     <Content Include="Scripts\BForms\Images\preloader-small.gif" />
     <Content Include="Scripts\Controllers\Common\main-script.js" />
     <Content Include="Scripts\Controllers\Demo\Contributors\contributors-index.js" />
-    <Content Include="Scripts\Controllers\Demo\UserGroup\usergroup-index.js" />
+    <Content Include="Scripts\Controllers\Demo\GroupEditor\groupeditor-index.js" />
     <Content Include="Scripts\Controllers\Root\Docs\docs-excel.js" />
     <Content Include="Scripts\Controllers\Root\Docs\docs-toolbar.js" />
     <Content Include="Scripts\Controllers\Root\Docs\docs-rangeextensions.js" />
@@ -953,7 +953,7 @@
     <Content Include="Areas\Demo\Views\Login\Docs\Source\_RegisterController.js.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Demo\Views\UserGroup\Index.cshtml" />
+    <Content Include="Areas\Demo\Views\GroupEditor\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\BForms\Stylesheets\bforms.pager.scss" />
@@ -1193,7 +1193,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Demo\Views\Contributors\Toolbar\_Order.cshtml" />
-    <Content Include="Areas\Demo\Views\UserGroup\_TabItem.cshtml" />
+    <Content Include="Areas\Demo\Views\GroupEditor\_TabItem.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\BForms\Widgets\GroupEditor\bforms.groupEditor.js" />
@@ -1202,22 +1202,28 @@
     <Content Include="Areas\Demo\Views\Contributors\Grid\_NoResults.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Demo\Views\UserGroup\_GroupEditor.cshtml" />
+    <Content Include="Areas\Demo\Views\GroupEditor\_GroupEditor.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Demo\Views\Contributors\Grid\_NoRecords.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Demo\Views\UserGroup\_GroupEditor2.cshtml" />
+    <Content Include="Areas\Demo\Views\GroupEditor\_GroupEditor2.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Demo\Views\UserGroup\_Editors.cshtml" />
+    <Content Include="Areas\Demo\Views\GroupEditor\_Editors.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Demo\Views\UserGroup\_Order.cshtml" />
+    <Content Include="Areas\Demo\Views\GroupEditor\_Order.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\_Icons.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Demo\Views\GroupEditor\_RowForm.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Demo\Views\GroupEditor\_GroupItem.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

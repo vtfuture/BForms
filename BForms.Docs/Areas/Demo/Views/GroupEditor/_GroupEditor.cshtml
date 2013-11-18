@@ -3,11 +3,11 @@
 @using BForms.Models
 @using BForms.Grid
 @using BForms.Docs.Areas.Demo.Controllers
-@model BForms.Docs.Areas.Demo.Controllers.UserEditorViewModel
+@model BForms.Docs.Areas.Demo.Controllers.GroupEditorModel
 @using BForms.Editor
 
 @{
-    var builder = (BsEditorHtmlBuilder<UserEditorViewModel>)ViewData["builder"];
+    var builder = (BsEditorHtmlBuilder<GroupEditorModel>)ViewData["builder"];
 }
 
 @(Html.BsGroupEditorFor(Model, builder)

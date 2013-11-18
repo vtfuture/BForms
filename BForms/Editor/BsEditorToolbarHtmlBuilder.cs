@@ -47,7 +47,7 @@ namespace BForms.Editor
     public class BsEditorToolbarHtmlBuilder<TModel> : BsBaseComponent where TModel : IBsEditorTabModel
     {
         #region Properties and Constructor
-        private IBsEditorTabModel model { get; set; }
+        private TModel model { get; set; }
         internal List<BsEditorToolbarPart> parts { get; set; }
         internal List<BsEditorToolbarButtonBuilder> buttons { get; set; }
         internal List<BsBaseComponent> forms { get; set; }
@@ -59,7 +59,7 @@ namespace BForms.Editor
         {
             this.renderer = new BsEditorToolbarRenderer<TModel>(this);
             this.parts = new List<BsEditorToolbarPart>();
-            this.model = tabBuilder.GetModel();
+            this.model = (TModel)tabBuilder.GetModel();
             this.viewContext = viewContext;
         }
         #endregion
@@ -89,6 +89,18 @@ namespace BForms.Editor
 
             return part;
         }
+
+        public BsEditorToolbarPart For<TValue>(Expression<Func<TModel, TValue>> expression)
+        {
+            var key = this.model.GetPropertyName(expression);
+
+            if (this.parts.Any(x => x.uid == key))
+            {
+                return this.parts.FirstOrDefault(x => x.uid == key);
+            }
+
+            throw new Exception("Couldn't find " + key + " toolbar part in the tab builder");
+        }
         #endregion
 
         #region Helpers
@@ -104,7 +116,7 @@ namespace BForms.Editor
 
             part.uid = name;
 
-            part.form = new BsEditorToolbarFormBuilder<TValue>((TValue)value, name, this.viewContext).Hide();
+            part.form = new BsEditorFormBuilder<TValue>((TValue)value, name, this.viewContext).Hide();
 
             return part;
         }

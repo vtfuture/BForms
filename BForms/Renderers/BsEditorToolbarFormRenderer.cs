@@ -8,11 +8,11 @@ using System.Web.Mvc;
 
 namespace BForms.Renderers
 {
-    public class BsEditorToolbarFormRenderer<TModel> : BsBaseRenderer<BsEditorToolbarFormBuilder<TModel>>
+    public class BsEditorFormRenderer<TModel> : BsBaseRenderer<BsEditorFormBuilder<TModel>>
     {
-        public BsEditorToolbarFormRenderer(){}
+        public BsEditorFormRenderer(){}
 
-        public BsEditorToolbarFormRenderer(BsEditorToolbarFormBuilder<TModel> builder)
+        public BsEditorFormRenderer(BsEditorFormBuilder<TModel> builder)
             : base(builder)
         { 
         }

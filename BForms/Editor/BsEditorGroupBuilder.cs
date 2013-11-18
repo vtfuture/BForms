@@ -3,25 +3,69 @@ using BForms.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using BForms.Utilities;
 
 namespace BForms.Editor
 {
     public abstract class BsEditorGroupBuilder : BsBaseComponent
     {
-        internal object uid { get; set; }
-        internal string name { get; set; }
-        internal string text { get; set; }
+        protected object uid { get; set; }
+        protected string name { get; set; }
+        protected string text { get; set; }
+
+        internal object Uid
+        {
+            get
+            {
+                return this.uid;
+            }
+        }
+
+        internal string Name
+        {
+            get
+            {
+                return this.name;
+            }
+        }
+
+        internal string Text
+        {
+            get
+            {
+                return this.text;
+            }
+        }
     }
 
     public class BsEditorGroupBuilder<TModel> : BsEditorGroupBuilder where TModel : IBsEditorGroupModel
     {
-        internal TModel model {get; set;}
+        protected TModel model {get; set;}
+        protected Dictionary<string, BsEditorFormBuilder> forms { get; set; }
+
+        internal Dictionary<string, BsEditorFormBuilder> RowForms
+        {
+            get
+            {
+                return this.forms;
+            }
+        }
+
+        internal TModel Model
+        {
+            get
+            {
+                return this.model;
+            }
+        }
 
         public BsEditorGroupBuilder(IBsEditorGroupModel model, ViewContext viewContext)
         {
+            this.forms = new Dictionary<string, BsEditorFormBuilder>();
             this.viewContext = viewContext;
             this.model = (TModel)model;
         }
@@ -43,6 +87,36 @@ namespace BForms.Editor
         public BsEditorGroupBuilder<TModel> DisplayName(string name)
         {
             this.name = name;
+
+            return this;
+        }
+
+        public BsEditorGroupBuilder<TModel> Template<TValue>(Expression<Func<TModel, TValue>> expression, string template) where TValue : class
+        {
+            var key = this.model.GetPropertyName(expression);
+
+            if (key == "Items")
+            {
+                this.template = template;
+            }
+            else
+            {
+                if (this.model == null)
+                {
+                    throw new Exception("Trying to set property " + key + " from group model " + this.uid + ". Model is null");
+                }
+
+                var model = (TValue)expression.GetPropertyInfo().GetValue(this.model);
+
+                if (model == null)
+                {
+                    throw new Exception("Property " + key + " is null" + " from group model " + this.uid);
+                }
+
+                var formBuilder = new BsEditorFormBuilder<TValue>(model, key, this.viewContext).Template(template);
+
+                this.forms.Add(key, formBuilder);
+            }
 
             return this;
         }

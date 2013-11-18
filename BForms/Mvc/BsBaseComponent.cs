@@ -13,9 +13,17 @@ namespace BForms.Mvc
         internal string template;
         internal ViewContext viewContext;
         internal BsBaseRenderer renderer;
-        internal IDictionary<string, object> htmlAttributes;
+        protected IDictionary<string, object> htmlAttributes;
 
-        public string TemplatePath
+        internal IDictionary<string, object> HtmlAttr
+        {
+            get
+            {
+                return this.htmlAttributes;
+            }
+        }
+
+        internal string TemplatePath
         {
             get
             {

@@ -1,10 +1,11 @@
-﻿@using BForms.Html
+﻿@model BForms.Docs.Areas.Demo.Controllers.GroupEditorViewModel
+@using BForms.Html
 @using BForms.Docs.Resources
 @using BForms.Models
 @using BForms.Grid
 @using BForms.Docs.Areas.Demo.Controllers
-@model BForms.Docs.Areas.Demo.Controllers.UserViewModel
 @using BForms.Editor
+@using BForms.Docs.Areas.Demo.Mock
 
 @{
     var builder = Html.BsGroupEditorFor(x => x.Editor2)
@@ -20,17 +21,22 @@
 
             var tab1 = cfg.For(x => x.Contributors)
                 .Template(x => x.Grid, "_TabItem")
-                .Template(x => x.Search, "~/Areas/Demo/Views/Contributors/Toolbar/_Search.cshtml");
+                .Template(x => x.Search, "~/Areas/Demo/Views/Contributors/Toolbar/_Search.cshtml")
+                .Template(x => x.Order, "_Order")
+                .ConnectsWith(NotificationType.Monthly, NotificationType.Daily);
         })
       .ConfigureGroups(cfg =>
         {
             cfg.For(x => x.Group1)
                .DisplayText("Adauga la grup 1")
-               .DisplayName("Group1");
+               .DisplayName("Group1")
+               .Template(x => x.Items, "_GroupItem")
+               .Template(x => x.Form, "_RowForm");
 
             cfg.For(x => x.Group2)
                .DisplayText("Adauga la grup 2")
-               .DisplayName("Group2");
+               .DisplayName("Group2")
+               .Template(x => x.Items, "_GroupItem");
 
         });
 

@@ -50,9 +50,9 @@ namespace BForms.Editor
             throw new Exception("Property " + prop.Name + " has no BsGroupEditorAttribute");
         }
 
-        private void Add<TEditor, TRow>(BsEditorGroupAttribute attr, IBsEditorGroupModel model)
+        private void Add<TEditor, TRow>(BsEditorGroupAttribute attr, IBsEditorGroupModel model) 
             where TEditor : IBsEditorGroupModel
-            where TRow : new()
+            where TRow : BsEditorGroupItemModel
         {
             var group = new BsEditorGroupBuilder<TEditor>(model, this.viewContext)
                        .Id(attr.Id);
@@ -64,7 +64,7 @@ namespace BForms.Editor
 
         private void InsertGroup<TEditor, TRow>(object id, BsEditorGroupBuilder<TEditor> tabBuilder)
             where TEditor : IBsEditorGroupModel
-            where TRow : new()
+            where TRow : BsEditorGroupItemModel
         {
             this.Groups.Add(id, tabBuilder);
         }

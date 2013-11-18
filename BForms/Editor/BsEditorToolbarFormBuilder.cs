@@ -9,8 +9,13 @@ using System.Web.Mvc;
 
 namespace BForms.Editor
 {
+    public class BsEditorFormBuilder : BsBaseComponent
+    {
+
+    }
+
     #region BsEditorToolbarForm
-    public class BsEditorToolbarFormBuilder<TModel> : BsBaseComponent
+    public class BsEditorFormBuilder<TModel> : BsEditorFormBuilder
     {
         #region Properties and Constructor
         protected TModel model { get; set; }
@@ -25,36 +30,36 @@ namespace BForms.Editor
             }
         }
 
-        public BsEditorToolbarFormBuilder()
+        public BsEditorFormBuilder()
         {
-            this.renderer = new BsEditorToolbarFormRenderer<TModel>(this);
+            this.renderer = new BsEditorFormRenderer<TModel>(this);
         }
 
-        public BsEditorToolbarFormBuilder(TModel model, string uid, ViewContext viewContext)
+        public BsEditorFormBuilder(TModel model, string uid, ViewContext viewContext)
         {
             this.model = model;
             this.uid = uid;
             this.viewContext = viewContext;
-            this.renderer = new BsEditorToolbarFormRenderer<TModel>(this);
+            this.renderer = new BsEditorFormRenderer<TModel>(this);
         }
         #endregion
 
         #region Public Methods
-        public BsEditorToolbarFormBuilder<TModel> HtmlAttributes(Dictionary<string, object> htmlAttributes)
+        public BsEditorFormBuilder<TModel> HtmlAttributes(Dictionary<string, object> htmlAttributes)
         {
             base.HtmlAttributes(htmlAttributes);
 
             return this;
         }
 
-        public BsEditorToolbarFormBuilder<TModel> Template(string template)
+        public BsEditorFormBuilder<TModel> Template(string template)
         {
             this.template = template;
 
             return this;
         }
 
-        public BsEditorToolbarFormBuilder<TModel> Hide()
+        public BsEditorFormBuilder<TModel> Hide()
         {
             this.hide = true;
 

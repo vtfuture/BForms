@@ -5,10 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Routing;
+using System.Web.Script.Serialization;
 
 namespace BForms.Utilities
 {
-    internal static class  MvcHelpers
+    internal static class MvcHelpers
     {
         internal static RouteValueDictionary ExtractRouteValues(this HtmlHelper htmlHelper)
         {
@@ -37,6 +38,11 @@ namespace BForms.Utilities
             }
 
             tagBuilder.MergeAttribute(key, value, true);
+        }
+
+        internal static string Serialize(object o)
+        {
+            return new JavaScriptSerializer().Serialize(o);
         }
     }
 }

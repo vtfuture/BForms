@@ -14,12 +14,28 @@ namespace BForms.Editor
     public class BsEditorTabConfigurator<TModel> : BsBaseConfigurator
     {
         #region Properties and Constructor
-        internal Dictionary<object, BsEditorTabBuilder> Tabs { get; set; }
-        internal BsEditorNavBuilder navBuilder { get; set; }
+        protected Dictionary<object, BsEditorTabBuilder> tabs { get; set; }
+        protected BsEditorNavBuilder navBuilder { get; set; }
+
+        internal Dictionary<object, BsEditorTabBuilder> Tabs
+        {
+            get
+            {
+                return this.tabs;
+            }
+        }
+
+        internal BsEditorNavBuilder NavigationBuilder
+        {
+            get
+            {
+                return this.navBuilder;
+            }
+        }
 
         public BsEditorTabConfigurator(ViewContext viewContext) : base(viewContext)
         {
-            this.Tabs = new Dictionary<object, BsEditorTabBuilder>();
+            this.tabs = new Dictionary<object, BsEditorTabBuilder>();
             this.navBuilder = new BsEditorNavBuilder(viewContext);
             this.viewContext = viewContext;
         }

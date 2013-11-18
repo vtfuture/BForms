@@ -49,7 +49,7 @@ namespace BForms.Renderers
             var hideDetails = this.Builder.HideDetails();
 
             gridBuilder.MergeAttribute("id", this.Builder.FullName.Split('.').Last().ToLower());
-            gridBuilder.MergeClassAttribute("grid_view", this.Builder.htmlAttributes);
+            gridBuilder.MergeClassAttribute("grid_view", this.Builder.HtmlAttr);
 
             if (this.Builder.hasDetails)
             {
@@ -64,7 +64,7 @@ namespace BForms.Renderers
             gridBuilder.MergeAttribute("data-settings",
                 HtmlHelper.AnonymousObjectToHtmlAttributes(this.Builder.Model.BaseSettings).ToJsonString());
 
-            gridBuilder.MergeAttributes(this.Builder.htmlAttributes, true);
+            gridBuilder.MergeAttributes(this.Builder.HtmlAttr, true);
 
             gridBuilder.AddCssClass(this.Builder.theme.GetDescription());
 
@@ -305,9 +305,9 @@ namespace BForms.Renderers
 
                         var cellBuilder = new TagBuilder("div");
 
-                        if (column.htmlAttributes != null)
+                        if (column.HtmlAttr != null)
                         {
-                            cellBuilder.MergeAttributes(column.htmlAttributes);
+                            cellBuilder.MergeAttributes(column.HtmlAttr);
                         }
 
                         cellBuilder.AddCssClass(column.GetWidthClasses());

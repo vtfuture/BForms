@@ -18,9 +18,34 @@ namespace BForms.Editor
         #region Properties
         internal BsPagerSettings pagerSettings;
         protected string name { get; set; }
-        internal object uid { get; set; }
+        protected object uid { get; set; }
         internal bool selected { get; set; }
-        internal bool hasModel { get; set; }
+        protected bool hasModel { get; set; }
+        protected bool hasItems { get; set; }
+
+        internal object Uid
+        {
+            get
+            {
+                return this.uid;
+            }
+        }
+
+        internal bool HasModel
+        {
+            get
+            {
+                return this.hasModel;
+            }
+        }
+
+        internal bool HasItems
+        {
+            get
+            {
+                return this.hasItems;
+            }
+        }
         #endregion
 
         #region Methods
@@ -39,9 +64,39 @@ namespace BForms.Editor
         #region Properties and Constructor
         internal BsEditorToolbarHtmlBuilder<TModel> toolbar { get; set; }
         internal bool quickSearch { get; set; }
-        internal bool hasItems { get; set; }
-        internal BsGridPagerBuilder pagerBuilder;
-        internal TModel model;
+        private BsGridPagerBuilder pagerBuilder;
+        private TModel model;
+        private object[] connectsWith { get; set; }
+        internal IBsEditorRowConfigurator rowConfigurator;
+
+        internal object[] ConnectsWithIds
+        {
+            get
+            {
+                return this.connectsWith;
+            }
+        }
+
+        internal TModel Model
+        {
+            get
+            {
+                return this.model;
+            }
+        }
+
+        internal BsGridPagerBuilder PagerBuilder
+        {
+            get
+            {
+                return this.pagerBuilder;
+            }
+            set
+            {
+                this.pagerBuilder = value;
+            }
+        }
+
         public BsEditorToolbarHtmlBuilder<TModel> Toolbar { get { return this.toolbar; } }
 
         public bool QuickSearch
@@ -62,8 +117,9 @@ namespace BForms.Editor
             this.pagerSettings = new BsPagerSettings();
         }
 
-        public void InitRenderer<TRow>()
+        internal void InitRenderer<TRow>()
         {
+            this.rowConfigurator = new BsEditorRowConfigurator<TRow>(this.viewContext);
             this.renderer = new BsEditorTabRenderer<TModel, TRow>(this);
             this.hasModel = this.model != null && this.model.GetGrid<TRow>() != null;
             this.hasItems = this.hasModel ? !this.model.GetGrid<TRow>().IsEmpty() : false;
@@ -90,9 +146,9 @@ namespace BForms.Editor
             throw new Exception("Couldn't find " + key + " toolbar part in the tab builder");
         }
 
-        public void For<TRow>(Expression<Func<TModel, BsGridModel<TRow>>> expression)
+        public BsEditorRowConfigurator<TRow> For<TRow>(Expression<Func<TModel, BsGridModel<TRow>>> expression)
         {
-            // return some configurator for rows
+            return (BsEditorRowConfigurator<TRow>)this.rowConfigurator;
         }
 
         public BsEditorTabBuilder<TModel> Template<TValue>(Expression<Func<TModel, TValue>> expression, string template) where TValue : class
@@ -133,19 +189,24 @@ namespace BForms.Editor
 
             return this;
         }
-        #endregion
 
-        #region Helpers
-        internal BsEditorTabBuilder<TModel> DisplayName(string name)
+        public BsEditorTabBuilder<TModel> DisplayName(string name)
         {
             this.name = name;
 
             return this;
         }
 
-        internal BsEditorTabBuilder<TModel> Id(object uid)
+        public BsEditorTabBuilder<TModel> Id(object uid)
         {
             this.uid = uid;
+
+            return this;
+        }
+
+        public BsEditorTabBuilder<TModel> ConnectsWith(params object[] ids)
+        {
+            this.connectsWith = ids;
 
             return this;
         }
