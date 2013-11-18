@@ -190,7 +190,7 @@ namespace BForms.Renderers
 
                 if (this.Builder.Model.Items == null || !this.Builder.Model.Items.Any())
                 {
-                    headerBuilder.MergeAttribute("style", "display: none;");
+                    columnsBuilder.MergeAttribute("style", "display: none;");
                 }
 
                 for (var i = 0; i < this.Builder.columns.Count; i++)
