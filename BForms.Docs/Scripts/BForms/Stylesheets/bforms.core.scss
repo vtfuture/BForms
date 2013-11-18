@@ -106,8 +106,8 @@ textarea {
 	.panel-body {
 		@media (max-width: 756px) {
 			.row {
-				margin-right: -15px;
-				margin-left: -15px;
+				margin-right: -10px;
+				margin-left: -10px;
 			}
 		}
 		.control-label {
@@ -116,7 +116,7 @@ textarea {
 	}
 	@media (max-width: 756px) {
 	.pull-right {
-		float: right !important;
+			float: right !important;
 		}
 	}
 }
