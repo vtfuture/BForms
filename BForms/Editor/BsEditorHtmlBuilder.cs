@@ -67,6 +67,8 @@ namespace BForms.Editor
                     InvokeAddTabConfig(value, prop, tabAttr);
                 }
 
+                if (this.IsAjaxRequest()) continue; // we don't care about groups
+
                 if (ReflectionHelpers.TryGetAttribute(prop, out groupAttr))
                 {
                     var value = prop.GetValue(model);

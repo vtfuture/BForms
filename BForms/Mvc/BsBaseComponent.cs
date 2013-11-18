@@ -7,11 +7,10 @@ using System;
 
 namespace BForms.Mvc
 {
-    public abstract class BsBaseComponent : IHtmlString
+    public abstract class BsBaseComponent : BsBaseConfigurator, IHtmlString
     {
         #region Properties and Constructor
         internal string template;
-        internal ViewContext viewContext;
         internal BsBaseRenderer renderer;
         protected IDictionary<string, object> htmlAttributes;
 
@@ -33,9 +32,9 @@ namespace BForms.Mvc
 
         public BsBaseComponent(){}
 
-        public BsBaseComponent(ViewContext viewContext)
+        public BsBaseComponent(ViewContext viewContext) : base(viewContext)
         {
-            this.viewContext = viewContext;
+
         }
         #endregion
 
@@ -49,13 +48,7 @@ namespace BForms.Mvc
         #endregion
 
         #region Helpers
-        internal bool IsAjaxRequest()
-        {
-            if (this.viewContext == null)
-                throw new Exception("View context is null");
-
-            return this.viewContext.RequestContext.HttpContext.Request.IsAjaxRequest();
-        }
+        
 
         internal string RenderModel<T>(T model)
         {

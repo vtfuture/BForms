@@ -63,6 +63,11 @@ namespace BForms.Editor
             }
         }
 
+        public BsEditorGroupBuilder(ViewContext viewContext)
+        {
+            this.viewContext = viewContext;
+        }
+
         public BsEditorGroupBuilder(IBsEditorGroupModel model, ViewContext viewContext)
         {
             this.forms = new Dictionary<string, BsEditorFormBuilder>();
@@ -93,29 +98,32 @@ namespace BForms.Editor
 
         public BsEditorGroupBuilder<TModel> Template<TValue>(Expression<Func<TModel, TValue>> expression, string template) where TValue : class
         {
-            var key = this.model.GetPropertyName(expression);
-
-            if (key == "Items")
+            if (!this.IsAjaxRequest())
             {
-                this.template = template;
-            }
-            else
-            {
-                if (this.model == null)
+                var key = this.model.GetPropertyName(expression);
+
+                if (key == "Items")
                 {
-                    throw new Exception("Trying to set property " + key + " from group model " + this.uid + ". Model is null");
+                    this.template = template;
                 }
-
-                var model = (TValue)expression.GetPropertyInfo().GetValue(this.model);
-
-                if (model == null)
+                else
                 {
-                    throw new Exception("Property " + key + " is null" + " from group model " + this.uid);
+                    if (this.model == null)
+                    {
+                        throw new Exception("Trying to set property " + key + " from group model " + this.uid + ". Model is null");
+                    }
+
+                    var model = (TValue)expression.GetPropertyInfo().GetValue(this.model);
+
+                    if (model == null)
+                    {
+                        throw new Exception("Property " + key + " is null" + " from group model " + this.uid);
+                    }
+
+                    var formBuilder = new BsEditorFormBuilder<TValue>(model, key, this.viewContext).Template(template);
+
+                    this.forms.Add(key, formBuilder);
                 }
-
-                var formBuilder = new BsEditorFormBuilder<TValue>(model, key, this.viewContext).Template(template);
-
-                this.forms.Add(key, formBuilder);
             }
 
             return this;

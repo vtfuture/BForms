@@ -15,7 +15,9 @@
 	};
 
 	GroupEditor.prototype.options = {
-		uniqueName: '',
+	    uniqueName: '',
+	    tabsSelector: '.left',
+        groupsSelector: '.right',
 		navbarSelector: '.bs-navbar',
 		toolbarBtnSelector: '.bs-toolbarBtn',
 	    editorFormSelector: '.bs-editorForm',
@@ -49,13 +51,16 @@
 
 		this.$navbar = this.element.find(this.options.navbarSelector);
 
+		this.$tabs = this.element.find(this.options.tabsSelector);
+
+		this.$groups = this.element.find(this.options.groupsSelector);
 	};
 
 	GroupEditor.prototype._addDelegates = function () {
 
 	    this.$navbar.on('click', 'a', $.proxy(this._evChangeTab, this));
 
-	    this.element.find('div[data-tabid]').on('click', 'button' + this.options.toolbarBtnSelector, $.proxy(this._evChangeToolbarForm, this));
+	    this.$tabs.find('div[data-tabid]').on('click', 'button' + this.options.toolbarBtnSelector, $.proxy(this._evChangeToolbarForm, this));
 
 	};
 
@@ -130,7 +135,7 @@
 
 		var $el = $(e.currentTarget),
 			tabId = $el.data('tabid'),
-			$container = this.element.find('div[data-tabid="' + tabId + '"]'),
+			$container = this.$tabs.find('div[data-tabid="' + tabId + '"]'),
             loaded = this._isLoaded($container);
 
 		this._hideTabs();
@@ -200,7 +205,7 @@
     //#region Helpers
 	GroupEditor.prototype._getSelectedTab = function () {
 
-	    var $container = this.element.find('div[data-tabid]:visible'),
+	    var $container = this.$tabs.find('div[data-tabid]:visible'),
 			tabId = $container.data('tabid'),
 	        loaded = this._isLoaded($container);
 
@@ -213,7 +218,7 @@
 
 	GroupEditor.prototype._hideTabs = function () {
 
-		var $containers = this.element.find('div[data-tabid]');
+	    var $containers = this.$tabs.find('div[data-tabid]');
 
 		$containers.hide();
 	};

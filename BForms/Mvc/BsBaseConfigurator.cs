@@ -9,11 +9,23 @@ namespace BForms.Mvc
 {
     public class BsBaseConfigurator
     {
-        protected ViewContext viewContext { get; set; }
+        internal ViewContext viewContext { get; set; }
+
+        public BsBaseConfigurator()
+        {
+        }
 
         public BsBaseConfigurator(ViewContext viewContext)
         {
             this.viewContext = viewContext;
+        }
+
+        internal bool IsAjaxRequest()
+        {
+            if (this.viewContext == null)
+                throw new Exception("View context is null");
+
+            return this.viewContext.RequestContext.HttpContext.Request.IsAjaxRequest();
         }
     }
 }

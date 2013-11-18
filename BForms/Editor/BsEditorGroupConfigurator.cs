@@ -27,7 +27,16 @@ namespace BForms.Editor
         public BsEditorGroupBuilder<TEditor> For<TEditor>(Expression<Func<TModel, TEditor>> expression)
             where TEditor : IBsEditorGroupModel
         {
-            var builder = this.GetGroup(expression);
+            BsEditorGroupBuilder builder;
+
+            if (this.IsAjaxRequest())
+            {
+                builder = new BsEditorGroupBuilder<TEditor>(this.viewContext);
+            }
+            else
+            {
+                builder = this.GetGroup(expression);
+            }
 
             return builder as BsEditorGroupBuilder<TEditor>;
         }
