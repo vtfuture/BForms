@@ -488,6 +488,11 @@ a.btn {
 .grid_view.blue .dropdown-menu a:hover, .grid_view.blue .dropdown-menu a:focus {
   background: none !important;
   color: #559ed6 !important; }
+.grid_view.blue .btn-default {
+  background: #3086c8;
+  border-color: #3086c8; }
+  .grid_view.blue .btn-default:hover, .grid_view.blue .btn-default:focus {
+    background: #559ed6 !important; }
 
 /* GREEN*/
 .grid_toolbar.green .grid_toolbar_header {
@@ -509,6 +514,11 @@ a.btn {
 .grid_view.green .dropdown-menu a:hover, .grid_view.green .dropdown-menu a:focus {
   background: none !important;
   color: #59b390 !important; }
+.grid_view.green .btn-default {
+  background: #449575;
+  border-color: #449575; }
+  .grid_view.green .btn-default:hover, .grid_view.green .btn-default:focus {
+    background: #59b390 !important; }
 
 /* PURPLE*/
 .grid_toolbar.purple .grid_toolbar_header {
@@ -530,6 +540,11 @@ a.btn {
 .grid_view.purple .dropdown-menu a:hover, .grid_view.purple .dropdown-menu a:focus {
   background: none !important;
   color: #703d6f !important; }
+.grid_view.purple .btn-default {
+  background: #4f2b4e;
+  border-color: #4f2b4e; }
+  .grid_view.purple .btn-default:hover, .grid_view.purple .btn-default:focus {
+    background: #703d6f !important; }
 
 /* ORANGE*/
 .grid_toolbar.orange .grid_toolbar_header {
@@ -551,6 +566,11 @@ a.btn {
 .grid_view.orange .dropdown-menu a:hover, .grid_view.orange .dropdown-menu a:focus {
   background: none !important;
   color: #f27435 !important; }
+.grid_view.orange .btn-default {
+  background: #e5560f;
+  border-color: #e5560f; }
+  .grid_view.orange .btn-default:hover, .grid_view.orange .btn-default:focus {
+    background: #f27435 !important; }
 
 /* almost BLACK*/
 .grid_toolbar.black .grid_toolbar_header {
@@ -572,6 +592,11 @@ a.btn {
 .grid_view.black .dropdown-menu a:hover, .grid_view.black .dropdown-menu a:focus {
   background: none !important;
   color: #424141 !important; }
+.grid_view.black .btn-default {
+  background: #282828;
+  border-color: #282828; }
+  .grid_view.black .btn-default:hover, .grid_view.black .btn-default:focus {
+    background: #424141 !important; }
 
 @media (max-width: 756px) {
   .grid_toolbar_form .row {
