@@ -7,53 +7,21 @@
 
 @using (Html.BeginForm())
 {
-    @*@Html.BsSortableListFor(model: Model,
-                config: m=> new BsSortableListConfiguration
-                {
-                    Id = m.Id.ToString(),
-                    Order = m.Order.ToString(),
-                    Text = m.Name
-                },
-                listProperties: m => new HtmlProperties
-                {
-                    
-                }, 
-                itemProperties: m => new HtmlProperties
-                {
-                    
-                }, 
-                labelProperties: m => new HtmlProperties
-                {
-                    //Text = m.Name
-                }, 
-                badgeProperties: m => new HtmlProperties
-                {
-                    HtmlAttributes = new Dictionary<string, object> {
-                        {
-                            "class",
-                            m.Role == ProjectRole.Tester ? "label-danger" : m.Role == ProjectRole.TeamLeader ? "label-success" : "label-info"
-                        } },
-                    Text = m.Role.ToString()
-                })*@
     
     @Html.BsSortableListFor(Model, m => new BsSortableListConfiguration<ContributorOrderModel>
     {
         Id = m.Id.ToString(),
-        Order = m.Order.ToString(),
+     //   Order = m.Order.ToString(),
         Text = m.Name,
         AppendsTo = parent => (int)parent.Role < (int)m.Role
     }).ListProperties(m => new HtmlProperties
     {
-        HtmlAttributes = new Dictionary<string, object> { { "class", "custom_class"} }
+        HtmlAttributes = new { @class = "custom_class"}
     }).BadgeProperties(m => new HtmlProperties
     {
-        HtmlAttributes = new Dictionary<string, object> {
-                        {
-                            "class",
-                            m.Role == ProjectRole.Tester ? "label-danger" : m.Role == ProjectRole.TeamLeader ? "label-success" : "label-info"
-                        } },
+        HtmlAttributes = new {@class = m.Role == ProjectRole.Tester ? "label-danger" : m.Role == ProjectRole.TeamLeader ? "label-success" : "label-info"},
         Text = m.Role.ToString()
-    }).MigrationPermited(true)
+    })
 
     <div class="col-12 col-sm-12 col-lg-12 bs-validation_summary">
         @Html.BsValidationSummary()

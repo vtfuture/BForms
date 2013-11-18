@@ -16,6 +16,7 @@ define('bforms-toolbar-order', [
         this.widget = $toolbar.data('bformsBsToolbar');
         this._controls = {};
         this.updated = false;
+        this.currentConnection = {};
 
         this._addDefaultControls();
     };
@@ -45,10 +46,12 @@ define('bforms-toolbar-order', [
 
     Order.prototype._defaultOptions = {
         selector: '.bs-show_order',
-        itemsSelector: 'li',
+        itemsSelector: '.sortable_list_item',
         sortableElementSelector: '.bs-sortable',
         axis: 'y',
-        disableSelection: true
+        disableSelection: true,
+        sortableContainerSelector: '.sortable-container',
+        minimumItemHeight: 15
     };
 
     Order.prototype._addDefaultControls = function () {
@@ -85,26 +88,105 @@ define('bforms-toolbar-order', [
     Order.prototype._initSortable = function ($elements) {
 
         this.connectingPermited = this.$orderForm.find(this.options.sortableElementSelector + ':first').data('migration-permited').toLowerCase() == true + '';
+        
+        this.validConnections = this._getValidConnections();
 
+        $(this.options.itemsSelector).each($.proxy(function(i, e) {
+
+            var $el = $(e);
+            var $parent = $el.parents(this.options.itemsSelector + ':first');
+
+            $el.attr('data-appends-to', $el.attr('data-appends-to') + ' ' + $parent.data('id'));
+            
+            $el.data('appends-to', $el.data('appends-to') + ' ' + $parent.data('id'));
+        }, this));
+        
         var sortableOptions = {
             items: '> ' + this.options.itemsSelector,
-            update: $.proxy(this._evOnUpdate, this, $elements)
+            update: $.proxy(this._evOnUpdate, this, $elements),
+            forcePlaceholderSize: true,
+            start: $.proxy(function (e, ui) {
+
+                this.previousConfigurationHtml = $(this.options.sortableContainerSelector).html();
+
+                this.currentConnection = {
+                    item: ui.item,
+                    itemId: ui.item.data('id'),
+                    parent: ui.item.parents(this.sortableElementSelector).first(),
+                    previousItemId: ui.item.siblings(this.options.itemsSelector).data('id')
+                };
+
+                this._fixHeightForEmptyLists();
+
+            }, this),
+
+            stop: $.proxy(function (e, ui) {
+
+                $(this.options.sortableElementSelector).each($.proxy(function (i, el) {
+
+                    $(el).removeAttr('style');
+
+                }, this));
+
+            }, this)
         };
         
+
         if (this.connectingPermited) {
             sortableOptions.connectWith = this.options.sortableElementSelector;
         } else {
-            sortableOptions.axis = 'y';
+             sortableOptions.axis = 'y';
         }
+        
+        $elements.sortable(sortableOptions);
 
-        var eventTypeSortable = $elements.sortable(sortableOptions);
+    };
 
-        if (this.options.disableSelection) {
-            eventTypeSortable.disableSelection();
-        }
+    Order.prototype._fixHeightForEmptyLists = function() {
+
+        $(this.options.itemsSelector).each($.proxy(function (i, e) {
+
+            var $sublist = $(e).find(this.options.sortableElementSelector);
+
+            if ($sublist.find(this.options.itemsSelector).length == 0) {
+
+                $sublist.css('height', '15px');
+            }
+        }, this));
+    };
+
+    Order.prototype._getValidConnections = function() {
+
+        var $items = $(this.options.itemsSelector);
+        var connections = {};
+
+        $items.each($.proxy(function (i, e) {
+
+            if (typeof $(e).data('id') !== 'undefined') {
+                connections[$(e).data('id')] = this._validConnectionsFor($(e).data('id'));
+            }
+        }, this));
+
+        return connections;
+    };
+
+    Order.prototype._validConnectionsFor = function(id) {
+
+        var $item = $(this.options.itemsSelector + '[data-id=' + id + ']');
+        var connectionsStr = $($item).data('appends-to') + '';
+        var connections = connectionsStr.split(' ');
+
+        return connections;
     };
 
     Order.prototype._evOnUpdate = function ($elements, e, ui) {
+
+        var validConnection = this._validateConnection(ui.item);
+
+        if (!validConnection) {
+            
+            $(this.options.sortableElementSelector).sortable('cancel');
+        }
 
         var reorderedList = [];
         var selector = this.options.itemsSelector;
@@ -119,6 +201,21 @@ define('bforms-toolbar-order', [
 
         this.reorderedList = reorderedList;
         this.updated = true;
+    };
+
+    Order.prototype._validateConnection = function($item) {
+
+        var $parent = $item.parents(this.options.itemsSelector + ':first');
+
+        var parentId = $parent.data('id');
+
+        var validParents = typeof $item.data('appends-to') !== 'undefined' ? ($item.data('appends-to') + '').split(' ') : null;
+
+        if (validParents == null) {
+            return true;
+        }
+
+        return validParents.indexOf('' + parentId) !== -1;
     };
 
     Order.prototype._evOnReset = function () {

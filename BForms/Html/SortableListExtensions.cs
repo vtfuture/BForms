@@ -98,7 +98,7 @@ namespace BForms.Html
         {
             RootTag = root ?? new TagBuilder("ol");
             ItemTag = item ?? new TagBuilder("li");
-            LabelTag = label ?? new TagBuilder("p");
+            LabelTag = label ?? new TagBuilder("span");
             BadgeTag = badge ?? new TagBuilder("span");
 
             Children = children;
@@ -108,8 +108,8 @@ namespace BForms.Html
     public class HtmlProperties
     {
         public string Text { get; set; }
-        public IDictionary<string, object> HtmlAttributes { get; set; }
-        public IDictionary<string, object> DataAttributes { get; set; }
+        public object HtmlAttributes { get; set; }
+        public object DataAttributes { get; set; }
 
         public HtmlProperties()
         {
@@ -238,48 +238,50 @@ namespace BForms.Html
             var globalProps = globalProperties != null ? globalProperties.Compile().Invoke(model) : new HtmlProperties(null, null, null);
             var configProps = config != null ? config.Compile().Invoke(model) : null;
 
+            var htmlAttributes = new RouteValueDictionary();
+            var dataAttributes = new RouteValueDictionary();
+
             #region Root
 
-            sortableListItemWrapper.RootTag.MergeAttributes(globalProps.HtmlAttributes ?? new Dictionary<string, object>());
-            sortableListItemWrapper.RootTag.MergeAttributes(globalProps.DataAttributes != null ? globalProps.DataAttributes.ToDictionary(x => "data-" + x.Key, y => y.Value) : new Dictionary<string, object>());
+            sortableListItemWrapper.RootTag.MergeAttributes(DictionaryFromAttributes(globalProps.HtmlAttributes));
+            sortableListItemWrapper.RootTag.MergeAttributes(DictionaryFromAttributes(globalProps.DataAttributes, "data-"));
 
             #endregion
 
             #region Item
 
-            var connectionString = String.Join(" ", _permitedConnections[configProps.Id].OrderBy(x => x)); 
-
             if (configProps != null)
             {
-                itemProps.DataAttributes.Add("id", configProps.Id);
-                itemProps.DataAttributes.Add("order", configProps.Order);
-                itemProps.DataAttributes.Add("appends-to", connectionString);
+                var connectionString = String.Join(" ", _permitedConnections[configProps.Id].OrderBy(x => x)); 
+
+                dataAttributes = DictionaryFromAttributes(itemProps.DataAttributes, "data-");
+
+                dataAttributes.Add("data-id", configProps.Id);
+                dataAttributes.Add("data-order", configProps.Order);
+                dataAttributes.Add("data-appends-to", connectionString);
             }
 
-            sortableListItemWrapper.ItemTag.MergeAttributes(itemProps.HtmlAttributes ?? new Dictionary<string, object>());
-            sortableListItemWrapper.ItemTag.MergeAttributes(itemProps.DataAttributes != null ? itemProps.DataAttributes.ToDictionary(x => "data-" + x.Key, y => y.Value) : new Dictionary<string, object>());
-            sortableListItemWrapper.LabelTag.InnerHtml += configProps != null ? configProps.Text : String.Empty; //itemProps.Text;
+            sortableListItemWrapper.ItemTag.MergeAttributes(DictionaryFromAttributes(itemProps.HtmlAttributes));
+            sortableListItemWrapper.ItemTag.MergeAttributes(dataAttributes);
 
             #endregion
 
             #region Label
 
+            htmlAttributes = DictionaryFromAttributes(labelProps.HtmlAttributes);
+            
 
-            sortableListItemWrapper.LabelTag.MergeAttributes(labelProps.HtmlAttributes ?? new Dictionary<string, object>());
-            sortableListItemWrapper.LabelTag.MergeAttributes(labelProps.DataAttributes != null ? labelProps.DataAttributes.ToDictionary(x => "data-" + x.Key, y => y.Value) : new Dictionary<string, object>());
-            sortableListItemWrapper.LabelTag.InnerHtml += labelProps.Text;
-
+            sortableListItemWrapper.LabelTag.MergeAttributes(htmlAttributes);
+            sortableListItemWrapper.LabelTag.MergeAttributes(DictionaryFromAttributes(labelProps.DataAttributes, "data-"));
+            sortableListItemWrapper.LabelTag.InnerHtml = " " + (configProps != null ? configProps.Text : String.Empty);
 
             #endregion
 
             #region Badge
 
-
-            sortableListItemWrapper.BadgeTag.MergeAttributes(badgeProps.HtmlAttributes ?? new Dictionary<string, object>());
-            sortableListItemWrapper.BadgeTag.MergeAttributes(badgeProps.DataAttributes != null ? badgeProps.DataAttributes.ToDictionary(x => "data-" + x.Key, y => y.Value) : new Dictionary<string, object>());
+            sortableListItemWrapper.BadgeTag.MergeAttributes(DictionaryFromAttributes(badgeProps.HtmlAttributes));
+            sortableListItemWrapper.BadgeTag.MergeAttributes(DictionaryFromAttributes(badgeProps.DataAttributes, "data-"));
             sortableListItemWrapper.BadgeTag.InnerHtml += badgeProps.Text;
-
-
 
             #endregion
 
@@ -333,6 +335,8 @@ namespace BForms.Html
 
             return sortableListItemWrapper;
         }
+
+        #region Tree iteration & connection validations
 
         private Dictionary<string, IEnumerable<string>> GetPermitedConnections(IEnumerable<TModel> model, Expression<Func<TModel, BsSortableListConfiguration<TModel>>> config)
         {
@@ -450,26 +454,11 @@ namespace BForms.Html
             return expression == null || expression.Compile().Invoke(candidateModel);
         }
 
+        #endregion
+
         public string RenderInternal(SortableListItemWrapper list)
         {
             var htmlString = String.Empty;
-
-            var div = new TagBuilder("div");
-            var span = new TagBuilder("span");
-
-            span.Attributes.Add("class", "grippy");
-            div.Attributes.Add("class", "custom-checkbox");
-
-            if (list.LabelTag.Attributes.ContainsKey("class"))
-            {
-                list.LabelTag.Attributes["class"] += " item_label";
-            }
-            else
-            {
-                list.LabelTag.Attributes.Add("class", "item_label");
-            }
-
-            var textFiller = new TagBuilder("text") { InnerHtml = "&nbsp;" };
 
             if (list.BadgeTag.Attributes.ContainsKey("class"))
             {
@@ -480,13 +469,14 @@ namespace BForms.Html
                 list.BadgeTag.Attributes.Add("class", "label");
             }
 
-
-            list.LabelTag.InnerHtml = textFiller.ToString() +
-                                      list.BadgeTag.ToString() +
-                                      textFiller.ToString() +
-                                      list.LabelTag.InnerHtml;
-
-            div.InnerHtml = span.ToString() + list.LabelTag.ToString();
+            if (list.ItemTag.Attributes.ContainsKey("class"))
+            {
+                list.ItemTag.Attributes["class"] += " sortable_list_item";
+            }
+            else
+            {
+                list.ItemTag.Attributes.Add("class", "sortable_list_item");
+            }
 
             #region Nested elements
 
@@ -509,7 +499,8 @@ namespace BForms.Html
 
             #endregion
 
-            list.ItemTag.InnerHtml = div.ToString() + list.RootTag.ToString();
+
+            list.ItemTag.InnerHtml += list.BadgeTag.ToString() + list.LabelTag.ToString() + list.RootTag.ToString();
 
             htmlString = list.ItemTag.ToString();
 
@@ -532,7 +523,10 @@ namespace BForms.Html
 
             ol.Attributes.Add("class", "bs-sortable");
 
-            return ol.ToString();
+            var container = new TagBuilder("div") {InnerHtml = ol.ToString()};
+            container.Attributes.Add("class", "sortable-container");
+
+            return container.ToString();
         }
 
         #endregion
@@ -597,6 +591,31 @@ namespace BForms.Html
             }
 
             return this;
+        }
+
+        #endregion
+
+        #region Helpers
+
+        private RouteValueDictionary DictionaryFromAttributes(object attributes, string keyPrefix = "")
+        {
+            var returnValue = new RouteValueDictionary();
+
+            if (attributes != null)
+            {
+                returnValue = attributes is IDictionary<string, object>
+                    ? attributes as RouteValueDictionary
+                    : HtmlHelper.AnonymousObjectToHtmlAttributes(attributes);
+            }
+
+            returnValue = returnValue ?? new RouteValueDictionary();
+
+            if (!String.IsNullOrEmpty(keyPrefix))
+            {
+                returnValue = new RouteValueDictionary(returnValue.ToDictionary(x => keyPrefix + x.Key, y => y.Value));
+            }
+
+            return returnValue;
         }
 
         #endregion
