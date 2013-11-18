@@ -76,16 +76,6 @@ a.btn {
     color: #333;
     margin-top: -8px; }
 
-.ui-sortable .grippy {
-  background: url(../images/icn-grippy.png) 0 0 no-repeat;
-  margin-top: 6px;
-  float: left;
-  display: inline-block;
-  margin-left: 3px;
-  cursor: move;
-  width: 6px;
-  height: 14px; }
-
 .btn-white {
   background-color: #fff;
   border-color: #ccc;
@@ -94,6 +84,15 @@ a.btn {
     color: #333;
     background-color: #ebebeb;
     border-color: #adadad; }
+
+/* Sortable list */
+.ui-sortable {
+  padding-left: 40px; }
+  .ui-sortable li {
+    margin-bottom: 3px;
+    cursor: move; }
+  .ui-sortable ol {
+    margin-top: 5px; }
 
 .grid_container {
   font-size: 16px;
@@ -146,6 +145,7 @@ a.btn {
             -webkit-box-shadow: none;
             box-shadow: none;
             height: 28px;
+            line-height: normal;
             line-height: 8px\9;
             border-radius: 20px; }
           .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .input-group + .btn_advanced_search {
