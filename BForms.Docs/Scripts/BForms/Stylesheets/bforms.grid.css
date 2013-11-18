@@ -241,10 +241,8 @@ a.btn {
       padding-right: 20px; }
     .grid_container .grid_view .grid_row .row_check {
       position: absolute;
-      right: 0px;
-      top: 5px;
-      width: 30px;
-      height: 30px; }
+      right: 10px;
+      top: 12px; }
     .grid_container .grid_view .grid_row .alert {
       margin: 10px 0 0; }
     .grid_container .grid_view .grid_row.selected header {
