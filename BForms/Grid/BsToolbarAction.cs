@@ -96,7 +96,7 @@ namespace BForms.Grid
                     }
                 case BsToolbarActionType.Order:
                     {
-                        this.descriptorClass = "btn btn_order bs-show_order";
+                        this.descriptorClass = "btn btn_order hidden-xs bs-show_order";
                         this.title = "Order";
                         this.glyphIcon = Glyphicon.Sort;
                         break;

@@ -77,6 +77,9 @@ textarea {
       margin-left: -15px; } }
   .row > .panel-group .panel-body .control-label {
     color: #aaa; }
+  @media (max-width: 756px) {
+    .row > .panel-group .pull-right {
+      float: right !important; } }
 
 /* Avatar view */
 .avatar_view {

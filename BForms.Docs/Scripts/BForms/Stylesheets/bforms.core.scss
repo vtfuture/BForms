@@ -114,6 +114,11 @@ textarea {
 			color: #aaa;
 		}
 	}
+	@media (max-width: 756px) {
+	.pull-right {
+		float: right !important;
+		}
+	}
 }
 
 /* Avatar view */
