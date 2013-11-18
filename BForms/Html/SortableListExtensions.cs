@@ -14,6 +14,7 @@ using System.Web.Routing;
 using System.Xml.Linq;
 using BForms.Models;
 using BForms.Mvc;
+using BForms.Renderers;
 using BForms.Utilities;
 using DocumentFormat.OpenXml.Drawing;
 using DocumentFormat.OpenXml.Drawing.Charts;
@@ -153,14 +154,14 @@ namespace BForms.Html
     }
 
 
-    public class BsSortableListHtmlBuilder<TModel> : BaseComponent
+    public class BsSortableListHtmlBuilder<TModel> : BsBaseComponent
     {
         public SortableListItemWrapper List { get; set; }
         public IEnumerable<TModel> Model { get; set; }
         private IEnumerable<TModel> _reducedTree;
         private Dictionary<string, IEnumerable<string>> _permitedConnections;
-        private Dictionary<string, object> _globalHtmlAttributes;
-        private Dictionary<string, object> _globalDataAttributes;
+        internal Dictionary<string, object> globalHtmlAttributes;
+        internal Dictionary<string, object> globalDataAttributes;
 
         // Each of these expressions represents the last given configuration for a specific property
         // Storing them prevents erasing allready configured properties after each @List rebuilding
@@ -191,8 +192,8 @@ namespace BForms.Html
             _labelProperties = labelProperties;
             _badgeProperties = badgeProperties;
 
-            _globalHtmlAttributes = new Dictionary<string, object>();
-            _globalDataAttributes = new Dictionary<string, object>(){{"migration-permited", true}};
+            globalHtmlAttributes = new Dictionary<string, object>();
+            globalDataAttributes = new Dictionary<string, object>(){{"migration-permited", true}};
         }
 
         #region Build & Render
@@ -507,28 +508,13 @@ namespace BForms.Html
             return htmlString;
         }
 
-        public override string Render()
+        public BsSortableListHtmlBuilder<TModel> Renderer(BsSortableBaseRenderer<TModel> renderer)
         {
-            var innerHtml = String.Empty;
+            renderer.Register(this);
+            this.renderer = renderer;
 
-            foreach (var item in List.Children)
-            {
-                innerHtml += RenderInternal(item);
-            }
-
-            var ol = new TagBuilder("ol") { InnerHtml = innerHtml };
-
-            ol.MergeAttributes(_globalHtmlAttributes);
-            ol.MergeAttributes(_globalDataAttributes.ToDictionary(x => "data-" + x.Key, y => y.Value));
-
-            ol.Attributes.Add("class", "bs-sortable");
-
-            var container = new TagBuilder("div") {InnerHtml = ol.ToString()};
-            container.Attributes.Add("class", "sortable-container");
-
-            return container.ToString();
+            return this;
         }
-
         #endregion
 
 
@@ -581,13 +567,13 @@ namespace BForms.Html
 
         public BsSortableListHtmlBuilder<TModel> MigrationPermited(bool permited)
         {
-            if (_globalDataAttributes.ContainsKey("migration-permited"))
+            if (globalDataAttributes.ContainsKey("migration-permited"))
             {
-                _globalDataAttributes["migration-permited"] = permited;
+                globalDataAttributes["migration-permited"] = permited;
             }
             else
             {
-                _globalDataAttributes.Add("migration-permited", permited);
+                globalDataAttributes.Add("migration-permited", permited);
             }
 
             return this;
@@ -622,7 +608,24 @@ namespace BForms.Html
 
     }
 
+    public class BsSortableBaseRenderer<TModel> : BsBaseRenderer<BsSortableListHtmlBuilder<TModel>>
+    {
+        public override string Render()
+        {
+            var innerHtml = this.Builder.List.Children.Aggregate(String.Empty, (current, item) => current + this.Builder.RenderInternal(item));
 
+            var ol = new TagBuilder("ol") { InnerHtml = innerHtml };
 
+            ol.MergeAttributes(this.Builder.globalHtmlAttributes);
+            ol.MergeAttributes(this.Builder.globalDataAttributes.ToDictionary(x => "data-" + x.Key, y => y.Value));
+
+            ol.Attributes.Add("class", "bs-sortable");
+
+            var container = new TagBuilder("div") {InnerHtml = ol.ToString()};
+            container.Attributes.Add("class", "sortable-container");
+
+            return container.ToString();
+        }
+    }
 
 }
