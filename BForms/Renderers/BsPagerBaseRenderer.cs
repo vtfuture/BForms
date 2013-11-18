@@ -230,7 +230,7 @@ namespace BForms.Renderers
                     if (pageSize == item)
                     {
                         var dropdownCountBuilder = new TagBuilder("span");
-                        dropdownCountBuilder.AddCssClass("btn btn-default bs-perPageDisplay");
+                        dropdownCountBuilder.AddCssClass("btn btn-white bs-perPageDisplay");
                         var caret = new TagBuilder("span");
                         caret.AddCssClass("caret");
                         dropdownCountBuilder.InnerHtml += item.ToString() + caret.ToString();
@@ -254,7 +254,7 @@ namespace BForms.Renderers
                 divBuilder.InnerHtml += dropdownContainerBuilder.ToString();
 
                 var goTopBuilder = new TagBuilder("button");
-                goTopBuilder.AddCssClass("btn btn-default btn-go_up bs-goTop");
+                goTopBuilder.AddCssClass("btn btn-white btn-go_up bs-goTop");
                 goTopBuilder.MergeAttribute("title", "Go top");
                 var goTopSpanBuilder = new TagBuilder("span");
                 goTopSpanBuilder.AddCssClass("glyphicon glyphicon-arrow-up");

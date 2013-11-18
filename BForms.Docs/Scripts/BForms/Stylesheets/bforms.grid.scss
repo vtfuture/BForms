@@ -110,18 +110,23 @@ a.btn {
 	height: 14px;
 }
 
-
+.btn-white {
+	background-color: #fff;
+	border-color: #ccc;
+	color: #333;
+	&:hover, &:focus {
+		color: #333;
+		background-color: #ebebeb;
+		border-color: #adadad;
+	}
+}
 
 .grid_container {	
 	font-size: 16px;
 	.btn-default {
-		background: #fff ;
-		color: #333333;
-		border-color: #ccc;
-		&:hover, &:focus {
-			background: #eee !important;
-			color: #333333 !important;
-			text-decoration: none;
+		.caret {
+			border-bottom-color: #fff;
+			border-top-color: #fff;
 		}
 	}
 	label {
@@ -314,8 +319,10 @@ a.btn {
 			}
 			.row_check {
 				position: absolute;
-				right: 10px;
-				top: 12px;
+				right: 0px;
+				top: 5px;
+				width: 30px;
+				height: 30px;
 			}
 			.alert {
 				margin: 10px 0 0;
@@ -410,12 +417,9 @@ a.btn {
 							.glyphicon-pencil{
 								display: inline-block;								
 							}
-						}
-						&:hover {
-							border-color: #666; 							
-						}
-						&.readonly:hover {
-							border-bottom: 1px solid #eee;
+							&:hover {
+								border-color: #666; 							
+							}
 						}
 						.controls {
 							position: absolute;
@@ -580,7 +584,7 @@ a.btn {
 		}
 		&.is_expandable {
 			header {
-				padding-left: 27px;
+				padding-left: 30px;
 			}
 		}
 		&.is_checkable {
@@ -672,19 +676,6 @@ a.btn {
 			color: $Blue !important;
 		}
 	}
-	.btn-default {
-		background: darken($Blue, 10%);
-		color: #fff !important;
-		border-color: darken($Blue, 10%);
-		&:hover, &:focus {
-			background: $Blue !important;
-			color: #fff !important;			
-		}
-		.caret {
-			border-bottom-color: #fff;
-			border-top-color: #fff;
-		}
-	}
 }
 
 /* GREEN*/
@@ -720,19 +711,6 @@ a.btn {
 		a:hover, a:focus {
 			background: none !important;
 			color: $Green !important;
-		}
-	}
-	.btn-default {
-		background: darken($Green, 10%);
-		color: #fff !important;
-		border-color: darken($Green, 10%);
-		&:hover, &:focus {
-			background: $Green !important;
-			color: #fff !important;			
-		}
-		.caret {
-			border-bottom-color: #fff;
-			border-top-color: #fff;
 		}
 	}
 }
@@ -773,19 +751,6 @@ a.btn {
 			color: $Purple !important;
 		}
 	}
-	.btn-default {
-		background: darken($Purple, 10%);
-		color: #fff !important;
-		border-color: darken($Purple, 10%);
-		&:hover, &:focus {
-			background: $Purple !important;
-			color: #fff !important;			
-		}
-		.caret {
-			border-bottom-color: #fff;
-			border-top-color: #fff;
-		}
-	}
 }
 
 /* ORANGE*/
@@ -821,19 +786,6 @@ a.btn {
 		a:hover, a:focus {
 			background: none !important;
 			color: $Orange !important;
-		}
-	}
-	.btn-default {
-		background: darken($Orange, 10%);
-		color: #fff !important;
-		border-color: darken($Orange, 10%);
-		&:hover, &:focus {
-			background: $Orange !important;
-			color: #fff !important;			
-		}
-		.caret {
-			border-bottom-color: #fff;
-			border-top-color: #fff;
 		}
 	}
 }
@@ -872,19 +824,6 @@ a.btn {
 		a:hover, a:focus {
 			background: none !important;
 			color: $Black !important;
-		}
-	}
-	.btn-default {
-		background: darken($Black, 10%);
-		color: #fff !important;
-		border-color: darken($Black, 10%);
-		&:hover, &:focus {
-			background: $Black !important;
-			color: #fff !important;			
-		}
-		.caret {
-			border-bottom-color: #fff;
-			border-top-color: #fff;
 		}
 	}
 }

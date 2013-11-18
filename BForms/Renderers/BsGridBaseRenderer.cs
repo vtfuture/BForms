@@ -109,7 +109,7 @@ namespace BForms.Renderers
 
                     var bulkActionsSelectToggle = new TagBuilder("button");
                     bulkActionsSelectToggle.MergeAttribute("type", "button");
-                    bulkActionsSelectToggle.MergeAttribute("class", "btn btn-default dropdown-toggle");
+                    bulkActionsSelectToggle.MergeAttribute("class", "btn btn-white dropdown-toggle");
                     bulkActionsSelectToggle.MergeAttribute("data-toggle", "dropdown");
                     bulkActionsSelectToggle.MergeAttribute("title", "Select");
 
