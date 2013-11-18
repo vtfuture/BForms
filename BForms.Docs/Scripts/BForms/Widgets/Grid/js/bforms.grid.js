@@ -346,6 +346,7 @@
         if (this.$rowsContainer.hasClass('no_results')) {
             this.$rowsContainer.removeClass('no_results');
             this.$rowsContainer.children().remove();
+            this.$gridRowsHeader.closest('.row').show();
         }
 
         this.$rowsContainer.prepend($row.find(this.options.rowSelector));
@@ -353,7 +354,8 @@
         this.$pager.bsPager('updateTotal', this._currentResultsCount);
 
         this.toggleBulkActions();
-
+        this._updateExpandToggle();
+        
         this.$rowsContainer.show();
         this.element.find(this.options.noResultsRowSelector).remove();
     };
@@ -960,10 +962,11 @@
             this.$rowsContainer.html($html.html());
             this.$rowsContainer.removeClass('no_results');
             this.element.find('.bs-pager').show();
-            this.$gridRowsHeader.show();
+            this.$gridRowsHeader.closest('.row').show();
         } else {
             this.$rowsContainer.html($wrapper.find(this.options.noResultsRowSelector));
             this.$rowsContainer.addClass('no_results');
+            this.$gridRowsHeader.closest('.row').hide();
         }
 
         this.$pager.bsPager('update', $html.closest('.bs-pages'));
