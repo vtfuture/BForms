@@ -333,7 +333,7 @@ textarea {
 	}
 }
 .btn-default {
-	color: #fff;
+	color: #fff !important;
 	background-color: darken($mainColor, 10%);
 	border-color: darken($mainColor, 10%);
 	&:hover, &:focus {

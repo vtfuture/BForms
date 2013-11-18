@@ -241,7 +241,7 @@ textarea {
     outline: none; }
 
 .btn-default {
-  color: #fff;
+  color: #fff !important;
   background-color: #368985;
   border-color: #368985; }
   .btn-default:hover, .btn-default:focus {
