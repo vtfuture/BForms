@@ -10,7 +10,7 @@ using BForms.Renderers;
 
 namespace BForms.Panels
 {
-    public class BsPanelHtmlBuilder : BsBaseComponent
+    public class BsPanelHtmlBuilder : BsBaseComponent<BsPanelHtmlBuilder>
     {
         internal string name;
         internal bool isEditable;
@@ -111,26 +111,6 @@ namespace BForms.Panels
             this.content = content;
             this.isExpanded = true;
             this.isLoaded = true;
-
-            return this;
-        }
-
-        /// <summary>
-        /// Appends html attributes to panel div element
-        /// </summary>
-        public BsPanelHtmlBuilder HtmlAttributes(Dictionary<string, object> htmlAttributes)
-        {
-            base.HtmlAttributes(htmlAttributes);
-
-            return this;
-        }
-
-        /// <summary>
-        /// Appends html attributes to panel div element
-        /// </summary>
-        public BsPanelHtmlBuilder HtmlAttributes(object htmlAttributes)
-        {
-            base.HtmlAttributes(HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
 
             return this;
         }

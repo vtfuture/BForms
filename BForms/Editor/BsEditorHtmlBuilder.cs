@@ -12,7 +12,7 @@ using System.Web.Mvc;
 
 namespace BForms.Editor
 {
-    public class BsEditorHtmlBuilder<TModel> : BsBaseComponent
+    public class BsEditorHtmlBuilder<TModel> : BsBaseComponent<BsEditorHtmlBuilder<TModel>>
     {
         #region Properties and Constructor
         protected BsEditorTabConfigurator<TModel> tabConfigurator;
@@ -80,13 +80,6 @@ namespace BForms.Editor
         #endregion
 
         #region Public Methods
-        public BsEditorHtmlBuilder<TModel> HtmlAttributes(Dictionary<string, object> htmlAttributes)
-        {
-            base.HtmlAttributes(htmlAttributes);
-
-            return this;
-        }
-
         public BsEditorHtmlBuilder<TModel> ConfigureTabs(Action<BsEditorTabConfigurator<TModel>> config)
         {
             config(this.tabConfigurator);

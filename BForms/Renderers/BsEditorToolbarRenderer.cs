@@ -84,7 +84,7 @@ namespace BForms.Renderers
 
             forms.ToList().ForEach(x => 
             {
-                if (string.IsNullOrEmpty(x.form.TemplatePath)) 
+                if (string.IsNullOrEmpty(x.form.template)) 
                 {
                     x.form.template = x.template;
                 }

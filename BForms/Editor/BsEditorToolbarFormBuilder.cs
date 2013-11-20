@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace BForms.Editor
 {
-    public class BsEditorFormBuilder : BsBaseComponent
+    public class BsEditorFormBuilder : BsBaseComponent<BsEditorFormBuilder>
     {
 
     }
@@ -45,13 +45,6 @@ namespace BForms.Editor
         #endregion
 
         #region Public Methods
-        public BsEditorFormBuilder<TModel> HtmlAttributes(Dictionary<string, object> htmlAttributes)
-        {
-            base.HtmlAttributes(htmlAttributes);
-
-            return this;
-        }
-
         public BsEditorFormBuilder<TModel> Template(string template)
         {
             this.template = template;

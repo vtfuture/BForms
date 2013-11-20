@@ -118,7 +118,7 @@ namespace BForms.Renderers
         {
             var container = new TagBuilder("div");
 
-            container.MergeAttributes(this.Builder.HtmlAttr, true);
+            container.MergeAttributes(this.Builder.htmlAttributes, true);
 
             if (!String.IsNullOrEmpty(this.Builder.editableUrl))
             {

@@ -12,7 +12,6 @@
       {
           //cols.NoHeader();
           cols.For(row => row.Name).Name(Resource.Name)
-              .HtmlAttributes(c => new Dictionary<string, object>() { { "class", "test" } })
               .SetWidth(2)
               .Sortable();
 

@@ -38,7 +38,7 @@ namespace BForms.Grid
         public int Size { get; set; }
     }
 
-    public class BsGridColumn<TRow> : BsBaseComponent where TRow : new()
+    public class BsGridColumn<TRow> : BsBaseComponent<BsGridColumn<TRow>> where TRow : new()
     {
         internal string PrivateName { get; set; }
 
@@ -121,13 +121,6 @@ namespace BForms.Grid
         {
             this.EditableContent = configurator(new TRow());
             this.IsEditable = true;
-            return this;
-        }
-
-        public BsGridColumn<TRow> HtmlAttributes(Func<TRow, Dictionary<string, object>> configurator)
-        {
-            base.HtmlAttributes(configurator(new TRow()));
-
             return this;
         }
 

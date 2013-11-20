@@ -14,7 +14,7 @@ using BForms.Renderers;
 
 namespace BForms.Grid
 {
-    public class BsGridHtmlBuilder<TModel, TRow> : BsBaseComponent where TRow : new()
+    public class BsGridHtmlBuilder<TModel, TRow> : BsBaseComponent<BsGridHtmlBuilder<TModel, TRow>> where TRow : new()
     {
         private BsGridModel<TRow> model;
 
@@ -103,26 +103,6 @@ namespace BForms.Grid
             this.metadata = metadata;
 
             this.SetColumnsFromModel();
-        }
-
-        /// <summary>
-        /// Appends html attributes to grid_view div element
-        /// </summary>
-        public BsGridHtmlBuilder<TModel, TRow> HtmlAttributes(Dictionary<string, object> htmlAttributes)
-        {
-            base.HtmlAttributes(htmlAttributes);
-
-            return this;
-        }
-
-        /// <summary>
-        /// Appends html attributes to grid_view div element
-        /// </summary>
-        public BsGridHtmlBuilder<TModel, TRow> HtmlAttributes(object htmlAttributes)
-        {
-            base.HtmlAttributes(HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
-
-            return this;
         }
 
         /// <summary>

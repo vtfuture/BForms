@@ -10,7 +10,7 @@ using BForms.Renderers;
 
 namespace BForms.Grid
 {
-    public class BsToolbarHtmlBuilder<TToolbar> : BsBaseComponent
+    public class BsToolbarHtmlBuilder<TToolbar> : BsBaseComponent<BsToolbarHtmlBuilder<TToolbar>>
     {
         /// <summary>
         /// Text that will be displayed in header
@@ -89,7 +89,7 @@ namespace BForms.Grid
         /// <summary>
         /// Appends html attributes to grid_toolbar div element
         /// </summary>
-        public BsToolbarHtmlBuilder<TToolbar> HtmlAttributes(IDictionary<string, object> htmlAttributes)
+        public override BsToolbarHtmlBuilder<TToolbar> HtmlAttributes(IDictionary<string, object> htmlAttributes)
         {
             base.HtmlAttributes(htmlAttributes);
 
@@ -101,7 +101,7 @@ namespace BForms.Grid
         /// <summary>
         /// Appends html attributes to grid_toolbar div element
         /// </summary>
-        public BsToolbarHtmlBuilder<TToolbar> HtmlAttributes(object htmlAttributes)
+        public override BsToolbarHtmlBuilder<TToolbar> HtmlAttributes(object htmlAttributes)
         {
             return HtmlAttributes(HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
         }

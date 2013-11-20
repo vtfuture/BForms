@@ -39,7 +39,7 @@ namespace BForms.Renderers
         {
             var result = "";
 
-            if (!string.IsNullOrEmpty(this.Builder.TemplatePath))
+            if (!string.IsNullOrEmpty(this.Builder.template))
             {
                 var list = new TagBuilder("ul");
 

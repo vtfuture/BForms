@@ -12,7 +12,7 @@ using BForms.Renderers;
 
 namespace BForms.Panels
 {
-    public class BsPanelsHtmlBuilder<TModel> : BsBaseComponent
+    public class BsPanelsHtmlBuilder<TModel> : BsBaseComponent<BsPanelsHtmlBuilder<TModel>>
     {
         internal BsPanelsConfigurator<TModel> panelsConfig;
 
@@ -42,20 +42,6 @@ namespace BForms.Panels
         public BsPanelsHtmlBuilder<TModel> ConfigurePanels(Action<BsPanelsConfigurator<TModel>> config)
         {
             config(this.panelsConfig);
-
-            return this;
-        }
-
-        public BsPanelsHtmlBuilder<TModel> HtmlAttributes(Dictionary<string, object> htmlAttributes)
-        {
-            base.HtmlAttributes(htmlAttributes);
-
-            return this;
-        }
-
-        public BsPanelsHtmlBuilder<TModel> HtmlAttributes(object htmlAttributes)
-        {
-            base.HtmlAttributes(HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
 
             return this;
         }

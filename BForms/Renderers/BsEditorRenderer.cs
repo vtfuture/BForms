@@ -73,9 +73,9 @@ namespace BForms.Renderers
 
             container.AddCssClass("group_editor");
 
-            if (this.Builder.HtmlAttr != null)
+            if (this.Builder.htmlAttributes != null)
             {
-                container.MergeAttributes(this.Builder.HtmlAttr);
+                container.MergeAttributes(this.Builder.htmlAttributes);
             }
 
             #region Left

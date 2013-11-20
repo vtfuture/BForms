@@ -54,9 +54,9 @@ namespace BForms.Renderers
                 columnBuilder.InnerHtml += this.Builder.EditableContent;
             }
 
-            if (this.Builder.HtmlAttr != null)
+            if (this.Builder.htmlAttributes != null)
             {
-                columnBuilder.MergeAttributes(this.Builder.HtmlAttr);
+                columnBuilder.MergeAttributes(this.Builder.htmlAttributes);
             }
 
             columnBuilder.AddCssClass(this.Builder.GetWidthClasses());

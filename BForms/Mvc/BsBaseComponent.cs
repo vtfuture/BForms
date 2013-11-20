@@ -7,51 +7,53 @@ using System;
 
 namespace BForms.Mvc
 {
-    public abstract class BsBaseComponent : BsBaseConfigurator, IHtmlString
+    public abstract class BsBaseComponent<TComponent> : BsBaseComponent where TComponent : BsBaseComponent<TComponent>
     {
-        #region Properties and Constructor
-        internal string template;
-        internal BsBaseRenderer renderer;
-
         internal IDictionary<string, object> htmlAttributes;
-        internal Dictionary<string, object> options = new Dictionary<string, object>();
-
-
-        internal IDictionary<string, object> HtmlAttr
-        {
-            get
-            {
-                return this.htmlAttributes;
-            }
-        }
-
-        internal string TemplatePath
-        {
-            get
-            {
-                return this.template;
-            }
-        }
 
         public BsBaseComponent(){}
 
-        public BsBaseComponent(ViewContext viewContext) : base(viewContext)
-        {
+        public BsBaseComponent(ViewContext viewContext) : base(viewContext){}
 
-        }
-        #endregion
-
-        #region Config
-        public BsBaseComponent HtmlAttributes(IDictionary<string, object> htmlAttributes)
+        public virtual TComponent HtmlAttributes(IDictionary<string, object> htmlAttributes)
         {
             this.htmlAttributes = htmlAttributes;
 
-            return this;
+            return (TComponent)this;
+        }
+
+        public virtual TComponent HtmlAttributes(object htmlAttributes)
+        {
+            HtmlAttributes(HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+
+            return (TComponent)this;
+        }
+    }
+
+    public abstract class BsBaseComponent : IHtmlString 
+    {
+        #region Properties and Constructor
+        internal ViewContext viewContext { get; set; }
+        internal string template;
+        internal BsBaseRenderer renderer;
+        internal Dictionary<string, object> options = new Dictionary<string, object>();
+
+        public BsBaseComponent(){}
+
+        public BsBaseComponent(ViewContext viewContext)
+        {
+            this.viewContext = viewContext;
         }
         #endregion
 
         #region Helpers
-        
+        internal bool IsAjaxRequest()
+        {
+            if (this.viewContext == null)
+                throw new Exception("View context is null");
+
+            return this.viewContext.RequestContext.HttpContext.Request.IsAjaxRequest();
+        }
 
         internal string RenderModel<T>(T model)
         {
@@ -65,11 +67,6 @@ namespace BForms.Mvc
                 throw new Exception("View context is null");
 
             return this.viewContext.Controller.BsRenderPartialView(this.template, model);
-        }
-
-        internal T GetInstance<T>() where T : BsBaseComponent
-        {
-            return (T)this;
         }
         #endregion
 

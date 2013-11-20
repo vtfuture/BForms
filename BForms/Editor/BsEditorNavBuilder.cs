@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace BForms.Editor
 {
-    public class BsEditorNavBuilder : BsBaseComponent
+    public class BsEditorNavBuilder : BsBaseComponent<BsEditorNavBuilder>
     {
         #region Properties and Constructor
         internal List<BsEditorTabAttribute> TabsProperties { get; set; }
@@ -25,13 +25,6 @@ namespace BForms.Editor
         public BsEditorNavBuilder AddTab(BsEditorTabAttribute attr)
         {
             this.TabsProperties.Add(attr);
-
-            return this;
-        }
-
-        public BsEditorNavBuilder HtmlAttributes(Dictionary<string, object> htmlAttributes)
-        {
-            base.HtmlAttributes(htmlAttributes);
 
             return this;
         }

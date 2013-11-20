@@ -13,7 +13,7 @@ namespace BForms.Grid
     /// <summary>
     /// BulkActions component
     /// </summary>
-    public class BsBulkAction : BsBaseComponent
+    public class BsBulkAction : BsBaseComponent<BsBulkAction>
     {
         internal string buttonClass;
         internal string title;
@@ -83,13 +83,6 @@ namespace BForms.Grid
         public BsBulkAction Order(int? order)
         {
             this.BulkActionOrder = order;
-            return this;
-        }
-
-        public BsBulkAction HtmlAttributes(Dictionary<string, object> htmlAttributes)
-        {
-            base.HtmlAttributes(htmlAttributes);
-
             return this;
         }
     }

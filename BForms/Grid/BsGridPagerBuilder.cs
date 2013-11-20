@@ -11,7 +11,7 @@ using System.Web.Mvc;
 
 namespace BForms.Grid
 {
-    public class BsGridPagerBuilder : BsBaseComponent
+    public class BsGridPagerBuilder : BsBaseComponent<BsGridPagerBuilder>
     {
         #region Properties and Constructor
         internal BsPagerModel pager { get; set; }
@@ -32,13 +32,6 @@ namespace BForms.Grid
         public BsGridPagerBuilder Theme(BsTheme theme)
         {
             this.theme = theme;
-
-            return this;
-        }
-
-        public BsGridPagerBuilder HtmlAttributes(Dictionary<string, object> htmlAttributes)
-        {
-            base.HtmlAttributes(htmlAttributes);
 
             return this;
         }

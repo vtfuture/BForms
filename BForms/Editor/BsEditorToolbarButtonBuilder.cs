@@ -11,7 +11,7 @@ using System.Web.Mvc;
 namespace BForms.Editor
 {
     #region BsEditorToolbarButton
-    public class BsEditorToolbarButtonBuilder : BsBaseComponent
+    public class BsEditorToolbarButtonBuilder : BsBaseComponent<BsEditorToolbarButtonBuilder>
     {
         #region Constructor and Properties
         internal Glyphicon glyph { get; set; }
@@ -41,13 +41,6 @@ namespace BForms.Editor
         public BsEditorToolbarButtonBuilder DisplayName(string name)
         {
             this.name = name;
-
-            return this;
-        }
-
-        public BsEditorToolbarButtonBuilder HtmlAttributes(Dictionary<string, object> htmlAttributes)
-        {
-            base.HtmlAttributes(htmlAttributes);
 
             return this;
         }

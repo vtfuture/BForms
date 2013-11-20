@@ -13,7 +13,7 @@ using System.Web.Mvc;
 namespace BForms.Editor
 {
     #region BsEditorTabBuilder Base
-    public abstract class BsEditorTabBuilder : BsBaseComponent
+    public abstract class BsEditorTabBuilder : BsBaseComponent<BsEditorTabBuilder>
     {
         #region Properties
         internal BsPagerSettings pagerSettings;
@@ -127,13 +127,6 @@ namespace BForms.Editor
         #endregion
 
         #region Public Methods
-        public BsEditorTabBuilder<TModel> HtmlAttributes(Dictionary<string, object> htmlAttributes)
-        {
-            base.HtmlAttributes(htmlAttributes);
-
-            return this;
-        }
-
         public BsEditorToolbarPart For<TValue>(Expression<Func<TModel, TValue>> expression) where TValue : class
         {
             var key = this.model.GetPropertyName(expression);

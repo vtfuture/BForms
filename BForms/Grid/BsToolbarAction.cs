@@ -13,7 +13,7 @@ namespace BForms.Grid
     /// <summary>
     /// Grid toolbar default control component
     /// </summary>
-    public class BsToolbarAction<TToolbar> : BsBaseComponent
+    public class BsToolbarAction<TToolbar> : BsBaseComponent<BsToolbarAction<TToolbar>>
     {
         #region Properties and constructors
         internal string descriptorClass;

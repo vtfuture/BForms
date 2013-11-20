@@ -44,7 +44,7 @@ namespace BForms.Editor
     #endregion
 
     #region BsEditorToolbarHtmlBuilder
-    public class BsEditorToolbarHtmlBuilder<TModel> : BsBaseComponent where TModel : IBsEditorTabModel
+    public class BsEditorToolbarHtmlBuilder<TModel> : BsBaseComponent<BsEditorToolbarHtmlBuilder<TModel>> where TModel : IBsEditorTabModel
     {
         #region Properties and Constructor
         private TModel model { get; set; }
@@ -65,13 +65,6 @@ namespace BForms.Editor
         #endregion
 
         #region Public Methods
-        public BsEditorToolbarHtmlBuilder<TModel> HtmlAttributes(Dictionary<string, object> htmlAttributes)
-        {
-            base.HtmlAttributes(htmlAttributes);
-
-            return this;
-        }
-
         public BsEditorToolbarPart Add<TValue>(Expression<Func<TModel, TValue>> expression) where TValue : class
         {
             return Add<TValue>(expression, "");
