@@ -8,40 +8,40 @@
 })(function ($) {
     $.fn.bsInitUIDefaults = {
         select2: true,
-        select2Selector: '.bs-dropdown:not(.no-select2), .bs-dropdown-grouped:not(.no-select2)',
+        select2Selector: '.bs-dropdown:not(.no-initUI), .bs-dropdown-grouped:not(.no-initUI)',
 
         multiSelect2: true,
-        multiSelect2Selector: '.bs-listbox:not(.no-select2), .bs-listbox-grouped:not(.no-select2)',
+        multiSelect2Selector: '.bs-listbox:not(.no-initUI), .bs-listbox-grouped:not(.no-initUI)',
 
         autocomplete: true,
-        autocompleteSelector: '.bs-autocomplete',
+        autocompleteSelector: '.bs-autocomplete:not(.no-initUI)',
 
         radioButtons: true,
-        radioButtonsSelector: '.bs-radio-list',
+        radioButtonsSelector: '.bs-radio-list:not(.no-initUI)',
 
         checkBoxList: true,
-        checkBoxListSelector: '.bs-checkbox-list',
+        checkBoxListSelector: '.bs-checkbox-list:not(.no-initUI)',
 
         tagList: true,
-        tagListSelector: '.bs-tag-list',
+        tagListSelector: '.bs-tag-list:not(.no-initUI)',
 
         datepicker: true,
-        datepickerSelector: '.bs-date',
+        datepickerSelector: '.bs-date:not(.no-initUI)',
 
         timepicker: true,
-        timepickerSelector: '.bs-time',
+        timepickerSelector: '.bs-time:not(.no-initUI)',
 
         datetimepicker: true,
-        datetimepickerSelector: '.bs-datetime',
+        datetimepickerSelector: '.bs-datetime:not(.no-initUI)',
 
         datetimerange: true,
-        datetimerangeSelector: '.bs-datetime-range',
+        datetimerangeSelector: '.bs-datetime-range:not(.no-initUI)',
 
         daterange: true,
-        daterangeSelector: '.bs-date-range',
+        daterangeSelector: '.bs-date-range:not(.no-initUI)',
 
         timerange: true,
-        timerangeSelector: '.bs-time-range',
+        timerangeSelector: '.bs-time-range:not(.no-initUI)',
 
         loadingSelector: '.loading',
         loadingClass: 'loading'

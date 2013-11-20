@@ -30,8 +30,8 @@
         bsResetRadioButtons: function () {
             var $elem = $(this);
             return $(this).each(function() {
-                if ($elem.hasClass('radioButtonsList-done')) {
-                    return new RadioButtonsListUpdateSelf($elem, $elem.data('initialvalue'));
+                if ($(this).hasClass('radioButtonsList-done')) {
+                    return new RadioButtonsListUpdateSelf($(this), $(this).data('initialvalue'));
                 }
             });
         }
