@@ -207,7 +207,9 @@
                             content: $('.popover-content').html(),
                             placement: 'bottom'
                         });
-
+                        
+                        $me.attr('title', $me.attr('data-original-title') || '');
+                       
                         $me.on('show.bs.popover', $.proxy(function (e) {
 
                             var tip = $me.data('bs.popover').tip();
