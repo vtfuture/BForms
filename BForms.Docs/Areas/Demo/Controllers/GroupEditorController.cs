@@ -25,7 +25,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
         public int Id { get; set; }
         public string Name { get; set; }
 
-        public override object GetUniqueIdentifier()
+        public override object GetUniqueID()
         {
             return this.Id;
         }

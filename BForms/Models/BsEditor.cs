@@ -10,7 +10,7 @@ namespace BForms.Models
 {
     public abstract class BsItemModel
     {
-        public abstract object GetUniqueIdentifier();
+        public abstract object GetUniqueID();
     }
 
     #region Group Model

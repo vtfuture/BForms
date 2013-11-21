@@ -25,7 +25,7 @@ namespace BForms.Renderers
                 foreach (var form in this.Builder.RowForms)
                 {
                     // create prefix for inline forms (unique prefix => based on groupId/tabId/Id)
-                    var uid = item.GetUniqueIdentifier().ToString() + "_" + item.TabId.ToString() + "_" + this.Builder.Uid;
+                    var uid = item.GetUniqueID().ToString() + "_" + item.TabId.ToString() + "_" + this.Builder.Uid;
 
                     var formBuilder = new BsEditorFormBuilder<TForm>(item.Form, uid, this.Builder.viewContext).Template(form.Value.template);
 
@@ -133,7 +133,7 @@ namespace BForms.Renderers
                 throw new Exception("Group item model must be inherited from BsGroupItemModel and must have the TabId property set");
             }
 
-            container.MergeAttribute("data-objid", item.GetUniqueIdentifier().ToString());
+            container.MergeAttribute("data-objid", item.GetUniqueID().ToString());
 
             container.MergeAttribute("data-tabid", item.TabId.ToString());
 
