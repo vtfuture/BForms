@@ -236,10 +236,15 @@
 
         var identityOpt = this._editableOptions($row, this.options.editComponents.Identity);
 
-        $row.find('.js-editableIdentity').bsEditable(identityOpt);
+        $row.find('.js-editableIdentity').bsPanel(identityOpt);
+
+        //$row.find('.js-editableIdentity').bsEditable(identityOpt);
 
         var projectOpt = this._editableOptions($row, this.options.editComponents.ProjectRelated);
-        $row.find('.js-editableProject').bsEditable(projectOpt);
+        
+        $row.find('.js-editableProject').bsPanel(projectOpt);
+
+        //$row.find('.js-editableProject').bsEditable(projectOpt);
     };
 
     GridIndex.prototype._editableOptions = function ($row, componentId) {
@@ -250,17 +255,20 @@
                 objId: $row.data('objid'),
                 componentId: componentId
             },
-            editSuccessHandler: $.proxy(function (editResponse) {
+            editSuccessHandler: $.proxy(function (e,editResponse) {
                 this.$grid.bsGrid('updateRows', editResponse.RowsHtml);
-            }, this)
+            }, this),
+            formOptions : {
+                uniqueName : 'test'
+            }
         });
     };
 
     GridIndex.prototype._afterDetailsSuccessHandler = function (e, data) {
         var $row = data.$row;
 
-        $row.find('.js-editableIdentity').bsEditable('initValidation');
-        $row.find('.js-editableProject').bsEditable('initValidation');
+        //$row.find('.js-editableIdentity').bsEditable('initValidation');
+        //$row.find('.js-editableProject').bsEditable('initValidation');
     };
     //#endregion
 

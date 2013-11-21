@@ -373,6 +373,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Demo\Views\Shared\" />
     <Folder Include="Properties\PublishProfiles\" />
+    <Folder Include="Scripts\BForms\Widgets\Test\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

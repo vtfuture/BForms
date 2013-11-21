@@ -145,11 +145,33 @@ namespace BForms.Docs.Areas.Demo.Controllers
             }, status, msg);
         }
 
-        public BsJsonResult Update(ContributorDetailsModel model, int objId, EditComponents componentId)
+        public BsJsonResult GetEditable(int objId, EditComponents componentId)
+        {
+            var html = string.Empty;
+            var model = _gridRepository.ReadEditable(objId, componentId);
+
+            switch (componentId)
+            {
+                case EditComponents.Identity:
+                    html = this.BsRenderPartialView("Grid/Details/_IdentityEditable", model.Identity, "x" + objId + "." + model.GetPropertyName(x => x.Identity));
+                    break;
+                case EditComponents.ProjectRelated:
+                    html = this.BsRenderPartialView("Grid/Details/_ProjectRelatedEditable", model.ProjectRelated, "x" + objId + "." + model.GetPropertyName(x => x.ProjectRelated));
+                    break;
+            }
+
+            return new BsJsonResult(new
+            {
+                Html = html
+            });
+        }
+
+        public BsJsonResult Update(ContributorDetailsEditable model, int objId, EditComponents componentId)
         {
             var msg = string.Empty;
             var status = BsResponseStatus.Success;
             var html = string.Empty;
+            var rowsHtml = string.Empty;
 
             try
             {
@@ -168,10 +190,10 @@ namespace BForms.Docs.Areas.Demo.Controllers
                     switch (componentId)
                     {
                         case EditComponents.Identity:
-                            html = this.BsRenderPartialView("Grid/Details/_IdentityReadonly", detailsModel);
+                            html = this.BsRenderPartialView("Grid/Details/_IdentityReadonly", detailsModel.Identity);
                             break;
                         case EditComponents.ProjectRelated:
-                            html = this.BsRenderPartialView("Grid/Details/_ProjectRelatedReadonly", detailsModel);
+                            html = this.BsRenderPartialView("Grid/Details/_ProjectRelatedReadonly", detailsModel.ProjectRelated);
                             break;
                     }
 
@@ -179,7 +201,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
 
                     var viewModel = _gridRepository.ToBsGridViewModel(rowModel, true).Wrap<ContributorsViewModel>(x => x.Grid);
 
-                    html = this.BsRenderPartialView("Grid/_Grid", viewModel);
+                    rowsHtml = this.BsRenderPartialView("Grid/_Grid", viewModel);
                 }
             }
             catch (Exception ex)
@@ -190,7 +212,8 @@ namespace BForms.Docs.Areas.Demo.Controllers
 
             return new BsJsonResult(new
             {
-                RowsHtml = html
+                Html = html,
+                RowsHtml = rowsHtml
             }, status, msg);
         }
 
@@ -214,7 +237,6 @@ namespace BForms.Docs.Areas.Demo.Controllers
 
         public BsJsonResult GetRows(List<BsGridRowData<int>> items)
         {
-            Thread.Sleep(1000);
             var msg = string.Empty;
             var status = BsResponseStatus.Success;
             var rowsHtml = string.Empty;
@@ -376,13 +398,16 @@ namespace BForms.Docs.Areas.Demo.Controllers
         [NonAction]
         public void ClearModelState(ModelStateDictionary ms, EditComponents componentId)
         {
+            var model = new ContributorDetailsEditable();
+
             switch (componentId)
             {
                 case EditComponents.Identity:
-                    ms.ClearModelState(new List<string>() { "FirstName", "LastName", "Url", "CountriesList" });
+                    ms.ClearModelState(model.GetPropertyName(m => m.Identity) + ".");
                     break;
+
                 case EditComponents.ProjectRelated:
-                    ms.ClearModelState(new List<string>() { "RoleList", "StartDate", "LanguagesList", "Contributions" });
+                    ms.ClearModelState(model.GetPropertyName(m => m.ProjectRelated) + ".");
                     break;
             }
         }

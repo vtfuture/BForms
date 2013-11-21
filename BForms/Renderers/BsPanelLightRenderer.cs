@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using BForms.Models;
 using BForms.Panels;
+using BForms.Utilities;
 
 namespace BForms.Renderers
 {
@@ -27,10 +28,31 @@ namespace BForms.Renderers
             if (this.Builder.isEditable)
             {
                 headerTag.AddCssClass("editable");
+
+                var editableTag = new TagBuilder("a");
+                editableTag.MergeAttribute("href", "#");
+                editableTag.AddCssClass("pull-right bs-editPanel");
+
                 var editableGlyph = this.GetGlyphiconTag(Glyphicon.Pencil);
                 editableGlyph.AddCssClass("open-editable");
 
-                headerTag.InnerHtml += editableGlyph;
+                editableTag.InnerHtml += editableGlyph;
+
+                headerTag.InnerHtml += editableTag;
+
+                var controlsTag = new TagBuilder("span");
+                controlsTag.AddCssClass("controls");
+
+                var cancelEditableTag = new TagBuilder("a");
+                cancelEditableTag.AddCssClass("pull-right bs-cancelEdit btn-danger btn");
+                cancelEditableTag.MergeAttribute("style", "display:none");
+
+                var cancelEditGlyph = this.GetGlyphiconTag(Glyphicon.Remove);
+                cancelEditableTag.InnerHtml += cancelEditGlyph;
+
+                controlsTag.InnerHtml += cancelEditableTag;
+
+                headerTag.InnerHtml += controlsTag;
             }
 
             return headerTag.ToString();
@@ -77,7 +99,18 @@ namespace BForms.Renderers
                 container.MergeAttribute("data-saveurl", this.Builder.saveUrl);
             }
 
+            container.MergeAttribute("data-settings",
+               HtmlHelper.AnonymousObjectToHtmlAttributes(new
+               {
+                   loaded = this.Builder.isLoaded
+               }).ToJsonString());
+
             container.MergeAttribute("data-component", this.Builder.id.ToString());
+
+            if (this.Builder.objId != null)
+            {
+                container.MergeAttribute("data-objid", this.Builder.objId.ToString());
+            }
 
             body = container;
 

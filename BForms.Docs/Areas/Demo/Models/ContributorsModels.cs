@@ -21,6 +21,105 @@ namespace BForms.Docs.Areas.Demo.Models
         public BsToolbarModel<ContributorSearchModel, ContributorNewModel, List<ContributorOrderModel>> Toolbar { get; set; }
     }
 
+    #region Readonly
+    public class ContributorDetailsReadonly
+    {
+        [BsPanel(Id = EditComponents.Identity, Expandable = false, Editable = true)]
+        [Display(Name = "Identity")]
+        public ContributorIdentityModel Identity { get; set; }
+
+        [BsPanel(Id = EditComponents.ProjectRelated, Expandable = false, Editable = true)]
+        [Display(Name = "Project Related")]
+        public ContributorProjectRelatedModel ProjectRelated { get; set; }
+
+        public int Id { get; set; }
+        public bool Enabled { get; set; }
+    }
+
+    public class ContributorIdentityModel
+    {
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
+
+        public string Url { get; set; }
+
+        public string Country { get; set; }
+    }
+
+    public class ContributorProjectRelatedModel
+    {
+        public ProjectRole Role { get; set; }
+
+        public DateTime ContributorSince { get; set; }
+
+        public List<string> Languages { get; set; }
+
+        public string Contributions { get; set; }
+    }
+    #endregion
+
+    #region Editable
+    public class ContributorDetailsEditable
+    {
+        public ContributorIdentityEditableModel Identity { get; set; }
+
+        public ContributorProjectEditableRelatedModel ProjectRelated { get; set; }
+
+        public int Id { get; set; }
+    }
+
+    public class ContributorIdentityEditableModel
+    {
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
+        [Display(Name = "FirstName", ResourceType = typeof(Resource))]
+        [BsControl(BsControlType.TextBox)]
+        public string FirstName { get; set; }
+
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
+        [Display(Name = "LastName", ResourceType = typeof(Resource))]
+        [BsControl(BsControlType.TextBox)]
+        public string LastName { get; set; }
+
+        [Display(Name = "Web address", Prompt = "http://mysite.com or http://twitter.com/id")]
+        [BsControl(BsControlType.Url)]
+        public string Url { get; set; }
+
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
+        [Display(Name = "Location", Prompt = "Choose your country")]
+        [BsControl(BsControlType.DropDownList)]
+        public BsSelectList<string> CountriesList { get; set; }
+    }
+
+    public class ContributorProjectEditableRelatedModel
+    {
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
+        [Display(Name = "Contributor since")]
+        [BsControl(BsControlType.DatePicker)]
+        public BsDateTime StartDate { get; set; }
+
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
+        [Display(Name = "Role", Description = "Your main role in project")]
+        [BsControl(BsControlType.RadioButtonList)]
+        public BsSelectList<ProjectRole?> RoleList { get; set; }
+
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
+        [Display(Name = "Programming languages", Prompt = "Type your favorite programming languages")]
+        [BsControl(BsControlType.TagList)]
+        public BsSelectList<List<string>> LanguagesList { get; set; }
+
+        [Display(Name = "Contributions")]
+        [BsControl(BsControlType.TextArea)]
+        public string Contributions { get; set; }
+
+        public ContributorProjectEditableRelatedModel()
+        {
+            RoleList = new BsSelectList<ProjectRole?>();
+            RoleList.ItemsFromEnum(typeof(ProjectRole));
+        }
+    }
+    #endregion
+
     public class ContributorDetailsModel : ContributorNewModel
     {
         public ContributorDetailsModel()
@@ -154,7 +253,7 @@ namespace BForms.Docs.Areas.Demo.Models
         public IEnumerable<ContributorOrderModel> Subordinates { get; set; }
     }
 
-    public class ContributorRowModel : BsGridRowModel<ContributorDetailsModel>
+    public class ContributorRowModel : BsGridRowModel<ContributorDetailsReadonly>
     {
         public int Id { get; set; }
 
@@ -173,13 +272,9 @@ namespace BForms.Docs.Areas.Demo.Models
         [BsGridColumn(Width = 1, Usage = BsGridColumnUsage.Excel)]
         public bool Enabled { get; set; }
 
-        public Dictionary<string, object> RowData()
+        public override object GetUniqueID()
         {
-            return new Dictionary<string, object> 
-            {
-                { "data-objid", Id },
-                { "data-active", Enabled }
-            };
+            return this.Id;
         }
     }
 

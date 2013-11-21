@@ -3,6 +3,7 @@
     'jquery-ui-core',
     'bforms-pager',
     'bforms-editable',
+    'bforms-panel',
     'bforms-ajax',
     'bforms-namespace',
     'bforms-inlineQuestion'
@@ -910,9 +911,10 @@
     Grid.prototype._onRowClick = function (e) {
         if (!this._isTextSelected()) {
             var $row = $(e.currentTarget),
-                detailsClick = $(e.target).closest(this.options.rowDetailsSelector).length > 0;
+                detailsClick = $(e.target).closest(this.options.rowDetailsSelector).length > 0,
+                errorClick = $(e.target).closest('.bs-form-error').length > 0;
 
-            if (!detailsClick) {
+            if (!detailsClick && !errorClick) {
                 $row.find(this.options.detailsSelector).trigger('click');
             }
         }

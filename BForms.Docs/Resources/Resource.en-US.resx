@@ -306,4 +306,10 @@
   <data name="HireDate" xml:space="preserve">
     <value>Hire date</value>
   </data>
+  <data name="Identity" xml:space="preserve">
+    <value>Identity</value>
+  </data>
+  <data name="ProjectRelated" xml:space="preserve">
+    <value>Project Related</value>
+  </data>
 </root>
