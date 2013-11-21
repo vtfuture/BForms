@@ -4,6 +4,13 @@
 BForms.docs/Scripts/BForms/Bundles/
 
 #################
+## EndToEnd duplicates
+#################
+
+BForms.EndToEnd/Scripts/Bforms
+BForms.EndToEnd/Content
+
+#################
 ## Eclipse
 #################
 
