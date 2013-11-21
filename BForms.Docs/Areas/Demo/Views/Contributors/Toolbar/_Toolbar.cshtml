@@ -10,13 +10,23 @@
     .Theme(Html.GetTheme())
     .ConfigureActions(ca =>
     {
-        ca.Add(BsToolbarActionType.Add)
+
+        var group1 = ca.AddButtonGroup().DisplayName("Options");
+
+        group1.Add(BsToolbarActionType.Add)
             .Text(Resource.Add)
             .Tab(x => Html.BsPartialPrefixed(y => y.New, "Toolbar/_New", x));
 
-        ca.Add(BsToolbarActionType.Order)
-            .Text(Resource.Order)
-            .Tab(x => Html.BsPartialPrefixed(y => y.Order, "Toolbar/_Order", x));
+        ca.AddButtonGroup().DisplayName("Options2");    
+            
+            /*.Direction(BsGroupButtonDirection.Down)
+            .DisplayName("Options")
+            .AddItem("Url", Url.Action("Index"), BsGroupButtonType.ActionLink, new { @class = "custom_class", @id = "custom_id" })
+            .AddSeparator()
+            //.AddItem("Url", Url.Action("Index"))
+            .HtmlAttributes(new { @class = "custom_class", @id = "custom_id" });*/
+        
+    
         
         ca.Add<BsToolbarQuickSearch>()
           .Placeholder(Resource.Search);

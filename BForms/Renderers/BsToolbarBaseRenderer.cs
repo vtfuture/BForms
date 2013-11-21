@@ -13,7 +13,7 @@ namespace BForms.Renderers
     {
         public BsToolbarBaseRenderer()
         {
-
+  
         }
 
         public BsToolbarBaseRenderer(BsToolbarHtmlBuilder<TToolbar> builder)
@@ -45,11 +45,53 @@ namespace BForms.Renderers
 
             if (this.Builder.ActionsFactory != null)
             {
+                int tabNr = 0;
                 var controlsBuilder = new TagBuilder("div");
                 controlsBuilder.AddCssClass("grid_toolbar_controls");
 
-                int tabNr = 0;
+                if (this.Builder.ActionsFactory.ButtonGroups != null)
+                {
+                    foreach (var buttonGroup in this.Builder.ActionsFactory.ButtonGroups)
+                    {
+                        if (buttonGroup.Actions.Any())
+                        {
+                            foreach (var action in buttonGroup.Actions)
+                            {
+                                var defaultAction = action as BsToolbarAction<TToolbar>;
 
+                                // renders tab content if any
+                                if (defaultAction != null && defaultAction.TabDelegate != null)
+                                {
+                                    var tabId = this.Builder.id + "_tab_" + tabNr;
+
+                                    var tabBuilder = new TagBuilder("div");
+                                    if (defaultAction.HtmlAttr != null)
+                                    {
+                                        if (defaultAction.HtmlAttr.ContainsKey("class"))
+                                        {
+                                            tabBuilder.AddCssClass(defaultAction.HtmlAttr["class"] as string);
+                                        }
+                                        tabBuilder.MergeAttributes(defaultAction.HtmlAttr);
+                                    }
+                                    tabBuilder.AddCssClass("grid_toolbar_form");
+                                    tabBuilder.MergeAttribute("style", "display:none;");
+                                    tabBuilder.MergeAttribute("id", tabId);
+                                    tabBuilder.InnerHtml += defaultAction.TabDelegate(this.Builder.model);
+
+                                    tabs += tabBuilder.ToString();
+
+                                    //sets tab container id for tab - button correlation
+                                    defaultAction.SetTabId(tabId);
+
+                                    tabNr++;
+                                }
+
+                                toolbarHeaderBuilder.InnerHtml += buttonGroup.ToString();
+                            }
+                        }
+                    }
+                }
+              
                 foreach (var action in this.Builder.ActionsFactory.Actions)
                 {
                     // check if action is default
