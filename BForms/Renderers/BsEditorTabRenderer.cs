@@ -89,7 +89,7 @@ namespace BForms.Renderers
 
                     anchorRight.MergeAttribute("href", "#");
 
-                    anchorRight.AddCssClass("btn btn-default select_profile");
+                    anchorRight.AddCssClass("btn btn-white select_profile");
 
                     anchorRight.InnerHtml += GetGlyphcon(Glyphicon.Plus);
 

@@ -181,7 +181,7 @@ namespace BForms.Renderers
 
             anchor.MergeAttribute("href", "#");
 
-            anchor.AddCssClass("btn btn-default");
+            anchor.AddCssClass("btn btn-white");
 
             anchor.InnerHtml += GetGlyphcon(glyphicon);
 
