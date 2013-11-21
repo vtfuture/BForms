@@ -228,8 +228,10 @@
                                        $me.bsInlineQuestion('toggle');
                                    }
                                }]
-                            });                         
-
+                            });
+                            
+                            $me.attr('title', $me.attr('data-original-title') || '');
+                            
                         } else {
 
                             grid.$actionsContainer.on('click', opts.btnSelector, $.proxy(function (e) {
