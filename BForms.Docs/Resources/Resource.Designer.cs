@@ -297,6 +297,15 @@ namespace BForms.Docs.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string Identity {
+            get {
+                return ResourceManager.GetString("Identity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string Info {
             get {
                 return ResourceManager.GetString("Info", resourceCulture);
@@ -462,6 +471,15 @@ namespace BForms.Docs.Resources {
         public static string ProgrammingLanguagesPrompt {
             get {
                 return ResourceManager.GetString("ProgrammingLanguagesPrompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string ProjectRelated {
+            get {
+                return ResourceManager.GetString("ProjectRelated", resourceCulture);
             }
         }
         

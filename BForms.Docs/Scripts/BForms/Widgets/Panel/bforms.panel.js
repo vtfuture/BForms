@@ -29,13 +29,15 @@
         cacheReadonlyContent: true,
         additionalData: {
         },
-         formOptions : {
-             
-         }
+        formOptions: {
+
+        }
     };
 
     bsPanel.prototype._init = function () {
         this.$element = this.element;
+
+        this._loadOptions();
 
         this._initDefaultProperties();
         this._initSelectors();
@@ -54,11 +56,17 @@
         }
     };
 
+    bsPanel.prototype._loadOptions = function() {
+        var settings = this.$element.data('settings');
+
+        $.extend(true, this.options, settings);
+    };
+
     bsPanel.prototype._initDefaultProperties = function () {
-        this._name = this.options.name || this.element.prop('id');
+        this._name = this.options.name || this.$element.prop('id');
 
         if (typeof this._name === "undefined" || this._name == '') {
-            throw "boxForm required an unique name";
+            throw "boxForm requires an unique name";
         }
 
         this._componentId = this.$element.data('component');
@@ -66,6 +74,8 @@
         if (typeof this._componentId === "undefined") {
             console.warn("No component id specified for " + this._name);
         }
+
+        this._objId = this.$element.data('objid');
 
         this._key = window.location.pathname + '|BoxForm|' + this._name;
 
@@ -120,7 +130,6 @@
         e.stopPropagation();
 
         if (this.options.cacheReadonlyContent && this._cachedReadonlyContent) {
-
             this.$content.html(this._cachedReadonlyContent);
             this._toggleEditBtn(true);
 
@@ -205,7 +214,8 @@
     bsPanel.prototype._getXhrData = function () {
 
         return $.extend(true, {}, {
-            component: this._componentId
+            componentId: this._componentId,
+            objId : this._objId
         }, this.options.additionalData);
 
     };
@@ -233,6 +243,8 @@
         var data = this._getXhrData();
 
         this._trigger('beforeReadonlyLoad', data);
+
+        this.$content.find('form').addClass('loading');
 
         return $.bforms.ajax({
             name: 'BsPanel|LoadReadonly|' + this._name,
@@ -263,6 +275,8 @@
 
     bsPanel.prototype._onReadonlyLoadError = function (data) {
 
+        this.$content.find('form').removeClass('loading');
+
         if (data.Message) {
 
             var $errorContainer = this.$element.find('.bs-panel_validation');
@@ -284,6 +298,8 @@
 
         this._trigger('beforeEditableLoad', data);
 
+        this.$content.find('form').addClass('loading');
+
         return $.bforms.ajax({
             name: 'BsPanel|LoadEditable|' + this._name,
             url: this.options.editableUrl,
@@ -292,23 +308,20 @@
             data: data,
 
             success: this._onEditableLoadSuccess,
-            error: this._onEditableLoadError,
-
-            loadingElement: this.$content.find('form'),
-            loadingClass: 'loading',
-            loadingDelay: 100
+            error: this._onEditableLoadError
         });
     };
 
     bsPanel.prototype._onEditableLoadSuccess = function (response) {
 
         if (this.options.cacheReadonlyContent) {
-            this._cachedReadonlyContent = this.$content.html();
+            this._cachedReadonlyContent = this.$content.clone().find('form').removeClass('loading').end()
+                                                                .html();
         }
 
         this.$content.html(response.Html);
 
-        var $form = this.$content.find('form'),
+        var $form = this.$content.find('form').show(),
             $saveBtn = $form.find(this.options.saveFormSelector);
 
         this._allowExpand = true;
@@ -329,10 +342,11 @@
                 validate: true,
                 actionUrl: this.options.saveUrl,
                 parse: true,
-                getExtraData: $.proxy(function(data) {
-                    data.component = this._componentId;
+                getExtraData: $.proxy(function (data) {
+                    data.componentId = this._componentId;
+                    data.objId = this._objId;
                 }, this),
-                handler: $.proxy(function(sent, data) {
+                handler: $.proxy(function (sent, data) {
 
                     this.$content.html(data.Html);
 
@@ -356,6 +370,8 @@
     };
 
     bsPanel.prototype._onEditableLoadError = function () {
+
+        this.$content.find('form').removeClass('loading');
 
     };
     //#endregion

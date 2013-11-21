@@ -129,7 +129,7 @@ namespace BForms.Editor
         #region Public Methods
         public BsEditorToolbarPart For<TValue>(Expression<Func<TModel, TValue>> expression) where TValue : class
         {
-            var key = this.model.GetPropertyName(expression);
+            var key = this.uid + "." + this.model.GetPropertyName(expression);
 
             if (this.toolbar.parts.Any(x => x.uid == key))
             {
@@ -193,6 +193,8 @@ namespace BForms.Editor
         public BsEditorTabBuilder<TModel> Id(object uid)
         {
             this.uid = uid;
+
+            this.toolbar.Id(this.uid.ToString());
 
             return this;
         }

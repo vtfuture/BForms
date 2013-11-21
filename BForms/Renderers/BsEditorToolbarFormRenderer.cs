@@ -30,7 +30,7 @@ namespace BForms.Renderers
 
             container.MergeAttribute("data-uid", this.Builder.uid);
 
-            container.InnerHtml += this.Builder.RenderModel<TModel>(this.Builder.Model);
+            container.InnerHtml += this.Builder.RenderModel<TModel>(this.Builder.Model, this.Builder.uid);
 
             return container.ToString();
         }

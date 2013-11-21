@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -29,14 +30,7 @@ namespace BForms.Editor
         {
             BsEditorGroupBuilder builder;
 
-            if (this.IsAjaxRequest())
-            {
-                builder = new BsEditorGroupBuilder<TEditor>(this.viewContext);
-            }
-            else
-            {
-                builder = this.GetGroup(expression);
-            }
+            builder = this.GetGroup(expression);
 
             return builder as BsEditorGroupBuilder<TEditor>;
         }
@@ -66,7 +60,21 @@ namespace BForms.Editor
             var group = new BsEditorGroupBuilder<TEditor>(model, this.viewContext)
                        .Id(attr.Id);
 
-            group.renderer = new BsEditorGroupRenderer<TEditor, TRow>(group);
+            var rowType = typeof(TRow);
+            
+            var genericArgs = rowType.BaseType.GetGenericArguments();
+
+            if (genericArgs.Count() == 1) // register renderer via reflection because we don't know the type of TForm
+            {
+                var method = typeof(BsEditorGroupBuilder<TEditor>).GetMethod("RegisterRenderer", 
+                    BindingFlags.Default | BindingFlags.CreateInstance | BindingFlags.Instance | BindingFlags.NonPublic);
+                var generic = method.MakeGenericMethod(typeof(TRow), genericArgs[0]); // genericArgs[0] => TForm
+                generic.Invoke(group, null);
+            }
+            else
+            {
+                group.renderer = new BsEditorGroupRenderer<TEditor, TRow>(group);
+            }
 
             InsertGroup<TEditor, TRow>(attr.Id, group);
         }

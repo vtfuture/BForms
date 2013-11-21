@@ -21,7 +21,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
 
         #region Ajax
 
-        public BsJsonResult GetReadonlyContent(PanelComponentsEnum component)
+        public BsJsonResult GetReadonlyContent(PanelComponentsEnum componentId)
         {
             var html = string.Empty;
             var msg = string.Empty;
@@ -30,7 +30,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
             try
             {
 
-                switch (component)
+                switch (componentId)
                 {
                     case PanelComponentsEnum.UserInfo:
                         html = this.BsRenderPartialView("Readonly/_UserInfo", GetUserProfileModel().UserInfo);
@@ -55,12 +55,12 @@ namespace BForms.Docs.Areas.Demo.Controllers
             }, status, msg);
         }
 
-        public BsJsonResult GetEditableContent(PanelComponentsEnum component)
+        public BsJsonResult GetEditableContent(PanelComponentsEnum componentId)
         {
             var html = string.Empty;
             var model = GetUserProfileModelEditable();
 
-            switch (component)
+            switch (componentId)
             {
                 case PanelComponentsEnum.UserInfo:
                     html = this.BsRenderPartialView("Editable/_UserInfo", model.UserInfo, model.GetPropertyName(x => x.UserInfo));
@@ -76,12 +76,12 @@ namespace BForms.Docs.Areas.Demo.Controllers
             });
         }
 
-        public BsJsonResult SetContent(UserProfileEditableModel model, PanelComponentsEnum component)
+        public BsJsonResult SetContent(UserProfileEditableModel model, PanelComponentsEnum componentId)
         {
 
             var html = string.Empty;
 
-            switch (component)
+            switch (componentId)
             {
                 case PanelComponentsEnum.UserInfo:
                     ModelState.ClearModelState(model.GetPropertyName(m => m.UserInfo) + ".");
@@ -96,7 +96,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
             {
                 var profileModel = GetUserProfileModel();
 
-                switch (component)
+                switch (componentId)
                 {
                     case PanelComponentsEnum.UserInfo:
                         profileModel.UserInfo.Firstname = model.UserInfo.Firstname;

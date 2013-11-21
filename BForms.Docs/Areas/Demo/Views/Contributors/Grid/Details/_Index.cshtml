@@ -2,24 +2,39 @@
 @using BForms.Html
 @using BForms.Models
 @using BForms.Renderers
-@model BForms.Docs.Areas.Demo.Models.ContributorDetailsModel
+@model BForms.Docs.Areas.Demo.Models.ContributorDetailsReadonly
 
 <div class="row grid_row_details" data-rowdetailsid="@Model.Id">
 
     <div class="col-lg-6">
-        <div id="contributor_identity" class="grid_details description js-editableIdentity bs-editable">
+        <div class="grid_details description">
             
-            @*@Html.BsPanel().Renderer(new BsPanelLightRenderer()).Editable(true).Id(1).Name("Identity").Content(Html.Partial("Grid/Details/_IdentityReadonly",Model).ToString())*@
-
-            @Html.BsPartialPrefixed(x => x, "Grid/Details/_Identity", Model, "x" + Model.Id.ToString())
+            @(
+                Html.BsPanelFor(x => x.Identity)
+                    .Renderer(new BsPanelLightRenderer())
+                    .Content(Html.Partial("Grid/Details/_IdentityReadonly", Model.Identity).ToString())
+                    .EditableUrl(Url.Action("GetEditable"))
+                    .SaveUrl(Url.Action("Update"))
+                    .ObjId(Model.Id)
+                    .HtmlAttributes(new {@class = "js-editableIdentity bs-editable", id = "contributor_identity"})                    
+            )
 
         </div>
     </div>
 
     <div class="col-lg-6">
-        <div id="contributor_project" class="grid_details description js-editableProject bs-editable">
+        <div class="grid_details description ">
+            
+            @(
+                Html.BsPanelFor(x => x.ProjectRelated)
+                .Renderer(new BsPanelLightRenderer())
+                .Content(Html.Partial("Grid/Details/_ProjectRelatedReadonly", Model.ProjectRelated).ToString())
+                .EditableUrl(Url.Action("GetEditable"))
+                .SaveUrl(Url.Action("Update"))
+                .ObjId(Model.Id)
+                .HtmlAttributes(new { @class = "js-editableProject bs-editable", id = "contributor_project" })                    
+            )
 
-            @Html.BsPartialPrefixed(x => x, "Grid/Details/_ProjectRelated", Model, "x" + Model.Id.ToString())
 
         </div>
     </div>

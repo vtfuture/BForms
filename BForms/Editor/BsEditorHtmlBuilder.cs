@@ -89,7 +89,10 @@ namespace BForms.Editor
 
         public BsEditorHtmlBuilder<TModel> ConfigureGroups(Action<BsEditorGroupConfigurator<TModel>> config)
         {
-            config(this.groupConfigurator);
+            if (!this.IsAjaxRequest())
+            {
+                config(this.groupConfigurator);
+            }
 
             return this;
         }

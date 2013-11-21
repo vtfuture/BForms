@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using BForms.Models;
 using BForms.Panels;
+using BForms.Utilities;
 
 namespace BForms.Renderers
 {
     public class BsPanelBaseRenderer : BsBaseRenderer<BsPanelHtmlBuilder>
     {
-        public BsPanelBaseRenderer(){}
+        public BsPanelBaseRenderer() { }
 
         public BsPanelBaseRenderer(BsPanelHtmlBuilder builder) : base(builder) { }
 
@@ -135,9 +136,20 @@ namespace BForms.Renderers
                 container.MergeAttribute("data-saveurl", this.Builder.saveUrl);
             }
 
+            container.MergeAttribute("data-settings",
+                HtmlHelper.AnonymousObjectToHtmlAttributes(new
+                {
+                    loaded = this.Builder.isLoaded
+                }).ToJsonString());
+
             container.MergeAttribute("data-component", this.Builder.id.ToString());
 
             container.AddCssClass("panel panel-default");
+
+            if (this.Builder.objId != null)
+            {
+                container.MergeAttribute("data-objid", this.Builder.objId.ToString());
+            }
 
             body = container;
 

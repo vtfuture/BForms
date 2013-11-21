@@ -52,7 +52,7 @@ namespace BForms.Models
         public bool GetDetails { get; set; }
     }
 
-    public class BsGridRowModel<TDetails>
+    public abstract class BsGridRowModel<TDetails> : BsItemModel
     {
         private TDetails details;
 

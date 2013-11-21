@@ -8,8 +8,18 @@ using BForms.Utilities;
 
 namespace BForms.Models
 {
+    public abstract class BsItemModel
+    {
+        public abstract object GetUniqueID();
+    }
+
     #region Group Model
-    public class BsEditorGroupItemModel
+    public abstract class BsEditorGroupItemModel<TForm> : BsEditorGroupItemModel
+    {
+        public TForm Form { get; set; }
+    }
+
+    public abstract class BsEditorGroupItemModel : BsItemModel
     {
         public object TabId { get; set; }
     }
@@ -21,7 +31,7 @@ namespace BForms.Models
 
     }
 
-    public class BsEditorGroupModel<TRow, TRowForm> : BsEditorGroupModel<TRow> where TRow : BsEditorGroupItemModel
+    public class BsEditorGroupModel<TRow, TRowForm> : BsEditorGroupModel<TRow> where TRow : BsEditorGroupItemModel<TRowForm>
     {
         public TRowForm Form { get; set; }
     }

@@ -1,17 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.UI;
+using System.Web.WebPages.Scope;
 using BForms.Mvc;
 using BForms.Renderers;
+using BForms.Utilities;
 
 namespace BForms.Panels
 {
     public class BsPanelHtmlBuilder : BsBaseComponent<BsPanelHtmlBuilder>
     {
+
+        #region Properties and Constructor
         internal string name;
         internal bool isEditable;
         internal bool isExpanded;
@@ -22,6 +28,7 @@ namespace BForms.Panels
         internal string saveUrl;
         internal string content;
         internal object id;
+        internal object objId;
 
         /// <summary>
         /// Sets the ViewContext property for the BaseComponent
@@ -31,6 +38,37 @@ namespace BForms.Panels
         {
             this.renderer = new BsPanelBaseRenderer(this);
         }
+        #endregion
+
+        #region Internal methods
+        public BsPanelHtmlBuilder SetPropertiesFromModel(PropertyInfo propertyInfo)
+        {
+            BsPanelAttribute panelAttr = null;
+
+            if (ReflectionHelpers.TryGetAttribute(propertyInfo, out panelAttr))
+            {
+                DisplayAttribute displayAttr = null;
+
+                ReflectionHelpers.TryGetAttribute(propertyInfo, out displayAttr);
+
+                if (panelAttr != null)
+                {
+                    this.Id(panelAttr.Id);
+                    this.Expandable(panelAttr.Expandable);
+                    this.Editable(panelAttr.Editable);
+                }
+
+                if (displayAttr != null)
+                {
+                    this.Name(displayAttr.Name);
+                }
+            }
+
+            return this;
+        }
+        #endregion
+
+        #region Public methods
 
         /// <summary>
         /// Sets the display name
@@ -44,6 +82,12 @@ namespace BForms.Panels
         public BsPanelHtmlBuilder Id(object id)
         {
             this.id = id;
+            return this;
+        }
+
+        public BsPanelHtmlBuilder ObjId(object objId)
+        {
+            this.objId = objId;
             return this;
         }
 
@@ -122,5 +166,6 @@ namespace BForms.Panels
 
             return this;
         }
+        #endregion
     }
 }

@@ -1,7 +1,7 @@
 ﻿@using BForms.Docs.Resources
 @using BForms.Html
 @using BForms.Models
-@model BForms.Docs.Areas.Demo.Models.ContributorDetailsModel
+@model BForms.Docs.Areas.Demo.Models.ContributorIdentityEditableModel
 
 @using (Html.BsBeginForm())
 {
@@ -35,6 +35,13 @@
             @Html.BsGlyphiconAddon(Glyphicon.Calendar)
             @Html.BsSelectFor(m => m.CountriesList)
             @Html.BsValidationFor(m => m.CountriesList)
+        </div>
+    </div>
+    
+     <div class="form-group">
+        <div class="col-sm-12 col-lg-12">
+            <button type="submit" class="btn btn-default bs-savePanel">Save</button>
+            <button type="submit" class="btn btn-danger pull-right bs-cancelEdit">Cancel</button>
         </div>
     </div>
 }

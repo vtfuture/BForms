@@ -55,7 +55,7 @@ namespace BForms.Mvc
             return this.viewContext.RequestContext.HttpContext.Request.IsAjaxRequest();
         }
 
-        internal string RenderModel<T>(T model)
+        internal string RenderModel<T>(T model, string prefix)
         {
             if (string.IsNullOrEmpty(this.template))
                 throw new Exception("Template path is null or empty");
@@ -66,7 +66,7 @@ namespace BForms.Mvc
             if (this.viewContext == null)
                 throw new Exception("View context is null");
 
-            return this.viewContext.Controller.BsRenderPartialView(this.template, model);
+            return this.viewContext.Controller.BsRenderPartialView(this.template, model, string.IsNullOrEmpty(prefix) ? "" : "prefix" + prefix);
         }
         #endregion
 

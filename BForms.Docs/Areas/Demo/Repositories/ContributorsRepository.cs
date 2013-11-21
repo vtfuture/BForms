@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Web;
 using BForms.Docs.Areas.Demo.Mock;
 using BForms.Docs.Areas.Demo.Models;
@@ -44,26 +45,47 @@ namespace BForms.Docs.Areas.Demo.Repositories
                 StartDate = x.StartDate,
             };
 
-        public Func<Contributor, ContributorDetailsModel> MapContributor_ContributorDetailsModel = x =>
-            new ContributorDetailsModel
+        public Func<Contributor, ContributorDetailsReadonly> MapContributor_ContributorDetailsModel = x =>
+            new ContributorDetailsReadonly
             {
                 Id = x.Id,
                 Enabled = x.Enabled,
+                Identity = new ContributorIdentityModel
+                {
+                    FirstName = x.FirstName,
+                    LastName = x.LastName,
+                    Url = x.Url,
+                    Country = x.Country
+                },
+                ProjectRelated = new ContributorProjectRelatedModel
+                {
+                    Languages = x.Languages,
+                    Role = x.Role,
+                    ContributorSince = x.StartDate,
+                    Contributions = x.Contributions,
+                }
+            };
+
+        public Func<Contributor, ContributorDetailsEditable> MapContributor_ContributorDetailsEditable = x => new ContributorDetailsEditable
+        {
+            Id = x.Id,
+            Identity = new ContributorIdentityEditableModel
+            {
                 FirstName = x.FirstName,
                 LastName = x.LastName,
-                Languages = x.Languages,
                 Url = x.Url,
-                Country = x.Country,
-                Role = x.Role,
-                ContributorSince = x.StartDate,
+                CountriesList = Lists.AllCounties<string>(false)
+            },
+            ProjectRelated = new ContributorProjectEditableRelatedModel
+            {
                 Contributions = x.Contributions,
                 LanguagesList = Lists.AllLanguages<List<string>>(),
-                CountriesList = Lists.AllCounties<string>(false),
                 StartDate = new BsDateTime()
                 {
                     DateValue = x.StartDate
                 }
-            };
+            }
+        };
         #endregion
 
         #region Filter/Order/Map
@@ -77,7 +99,9 @@ namespace BForms.Docs.Areas.Demo.Repositories
         public override IOrderedQueryable<Contributor> OrderQuery(IQueryable<Contributor> query)
         {
             this.orderedQueryBuilder.OrderFor(x => x.Name, y => y.FirstName + " " + y.LastName);
-            var orderedQuery = this.orderedQueryBuilder.Order(query, x => x.StartDate, BsOrderType.Ascending);
+
+            var orderedQuery = this.orderedQueryBuilder.Order(query, x => x.OrderBy(y => y.StartDate));
+
             return orderedQuery;
         }
 
@@ -89,11 +113,6 @@ namespace BForms.Docs.Areas.Demo.Repositories
         public override void FillDetails(ContributorRowModel row)
         {
             row.Details = db.Contributors.Where(x => x.Id == row.Id).Select(MapContributor_ContributorDetailsModel).FirstOrDefault();
-
-            if (row.Details != null)
-            {
-                FillDetailsProperties(row.Details);
-            }
         }
 
         public IQueryable<Contributor> Filter(IQueryable<Contributor> query)
@@ -236,7 +255,7 @@ namespace BForms.Docs.Areas.Demo.Repositories
 
             orderedExcelQueryBuilder.OrderFor(x => x.Name, y => y.FirstName + " " + y.LastName);
 
-            var orderedQuery = orderedExcelQueryBuilder.Order(basicQuery, x => x.StartDate, BsOrderType.Ascending);
+            var orderedQuery = orderedExcelQueryBuilder.Order(basicQuery, x => x.OrderBy(y => y.StartDate));
 
             // map
             finalQuery = orderedQuery.Select(MapContributor_ContributorRowModel).ToList();
@@ -274,19 +293,12 @@ namespace BForms.Docs.Areas.Demo.Repositories
             return db.Contributors.Where(x => x.Id == objId).Select(MapContributor_ContributorRowModel).FirstOrDefault();
         }
 
-        public List<ContributorDetailsModel> ReadDetails(List<int> ids)
-        {
-            var list = db.Contributors.Where(x => ids.Contains(x.Id)).Select(MapContributor_ContributorDetailsModel).ToList();
-            list.ForEach(x=>FillDetailsProperties(x));
-            return list;
-        }
-
         public List<ContributorRowModel> ReadRows(List<int> objIds)
         {
             return db.Contributors.Where(x => objIds.Contains(x.Id)).Select(MapContributor_ContributorRowModel).ToList();
         }
 
-        public ContributorDetailsModel Update(ContributorDetailsModel model, int objId, EditComponents componentId)
+        public ContributorDetailsReadonly Update(ContributorDetailsEditable model, int objId, EditComponents componentId)
         {
             var entity = db.Contributors.FirstOrDefault(x => x.Id == objId);
 
@@ -295,22 +307,67 @@ namespace BForms.Docs.Areas.Demo.Repositories
                 switch (componentId)
                 {
                     case EditComponents.Identity:
-                        entity.FirstName = model.FirstName;
-                        entity.LastName = model.LastName;
-                        entity.Url = model.Url;
-                        entity.Country = model.CountriesList.SelectedValues;
+                        entity.FirstName = model.Identity.FirstName;
+                        entity.LastName = model.Identity.LastName;
+                        entity.Url = model.Identity.Url;
+                        entity.Country = model.Identity.CountriesList.SelectedValues;
                         break;
                     case EditComponents.ProjectRelated:
-                        entity.Role = model.RoleList.SelectedValues.Value;
-                        entity.StartDate = model.StartDate.DateValue.Value;
-                        entity.Languages = model.LanguagesList.SelectedValues;
-                        entity.Contributions = model.Contributions;
+                        entity.Role = model.ProjectRelated.RoleList.SelectedValues.Value;
+                        entity.StartDate = model.ProjectRelated.StartDate.DateValue.Value;
+                        entity.Languages = model.ProjectRelated.LanguagesList.SelectedValues;
+                        entity.Contributions = model.ProjectRelated.Contributions;
                         break;
                 }
                 db.SaveChanges();
             }
 
-            return FillDetailsProperties(MapContributor_ContributorDetailsModel(entity));
+            return MapContributor_ContributorDetailsModel(entity);
+        }
+
+        public ContributorDetailsEditable ReadEditable(int objId, EditComponents componentId)
+        {
+            var model = db.Contributors.FirstOrDefault(x => x.Id == objId);
+            var result = new ContributorDetailsEditable
+            {
+                Id = model.Id
+            };
+
+            if (componentId == EditComponents.Identity)
+            {
+                result.Identity = new ContributorIdentityEditableModel
+                {
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    Url = model.Url,
+                    CountriesList = Lists.AllCounties<string>(false)
+                };
+            }
+            else if (componentId == EditComponents.ProjectRelated)
+            {
+                result.ProjectRelated = new ContributorProjectEditableRelatedModel
+                {
+                    Contributions = model.Contributions,
+                    LanguagesList = Lists.AllLanguages<List<string>>(),
+                    StartDate = new BsDateTime()
+                    {
+                        DateValue = model.StartDate
+                    }
+                };
+            }
+
+            if (result.Identity != null)
+            {
+                result.Identity.CountriesList.SelectedValues = model.Country;
+            }
+
+            if (result.ProjectRelated != null)
+            {
+                result.ProjectRelated.LanguagesList.SelectedValues = model.Languages;
+                result.ProjectRelated.RoleList.SelectedValues = model.Role;
+            }
+
+            return result;
         }
 
         public void Reorder(List<ContributorOrderModel> model)
@@ -422,7 +479,6 @@ namespace BForms.Docs.Areas.Demo.Repositories
 
 
         }
-        
 
         public List<ContributorOrderModel> GetSubordinatesFor(int coordinatorId, int depthLevel = 0)
         {
@@ -458,15 +514,6 @@ namespace BForms.Docs.Areas.Demo.Repositories
             }
 
             return subordinates.Any() ? subordinates : null;
-        }
-
-        public ContributorDetailsModel FillDetailsProperties(ContributorDetailsModel model)
-        {
-            model.LanguagesList.SelectedValues = model.Languages;
-            model.RoleList.SelectedValues = model.Role;
-            model.CountriesList.SelectedValues = model.Country;
-
-            return model;
         }
         #endregion
     }
