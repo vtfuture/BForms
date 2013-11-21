@@ -26,6 +26,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuspec", ".nuspec", "{19D5
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BForms.Build", "BForms.Build\BForms.Build.csproj", "{753D9542-D557-48F0-8039-002EE268D1E5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BForms.EndToEnd", "BForms.EndToEnd\BForms.EndToEnd.csproj", "{69E17996-C9CA-4D7F-BDD0-3B7231C91854}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,6 +46,10 @@ Global
 		{753D9542-D557-48F0-8039-002EE268D1E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{753D9542-D557-48F0-8039-002EE268D1E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{753D9542-D557-48F0-8039-002EE268D1E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69E17996-C9CA-4D7F-BDD0-3B7231C91854}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69E17996-C9CA-4D7F-BDD0-3B7231C91854}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69E17996-C9CA-4D7F-BDD0-3B7231C91854}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69E17996-C9CA-4D7F-BDD0-3B7231C91854}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
