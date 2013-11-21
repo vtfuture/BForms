@@ -300,8 +300,11 @@
     };
 
     Grid.prototype.search = function (data, isQuick) {
-
-        this.refreshModel.Page = 1;
+        if (data.Page) {
+            this.refreshModel.Page = data.Page;
+        } else {
+            this.refreshModel.Page = 1;
+        }
 
         if (isQuick) {
             this.refreshModel.quickSearch = data;
