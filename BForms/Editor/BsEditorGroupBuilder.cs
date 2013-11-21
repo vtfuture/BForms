@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using BForms.Utilities;
+using BForms.Renderers;
 
 namespace BForms.Editor
 {
@@ -44,7 +45,7 @@ namespace BForms.Editor
 
     public class BsEditorGroupBuilder<TModel> : BsEditorGroupBuilder where TModel : IBsEditorGroupModel
     {
-        protected TModel model {get; set;}
+        protected TModel model { get; set; }
         protected Dictionary<string, BsEditorFormBuilder> forms { get; set; }
 
         internal Dictionary<string, BsEditorFormBuilder> RowForms
@@ -98,35 +99,37 @@ namespace BForms.Editor
 
         public BsEditorGroupBuilder<TModel> Template<TValue>(Expression<Func<TModel, TValue>> expression, string template) where TValue : class
         {
-            if (!this.IsAjaxRequest())
+            var key = this.model.GetPropertyName(expression);
+
+            if (key == "Items")
             {
-                var key = this.model.GetPropertyName(expression);
-
-                if (key == "Items")
+                this.template = template;
+            }
+            else
+            {
+                if (this.model == null)
                 {
-                    this.template = template;
+                    throw new Exception("Trying to set property " + key + " from group model " + this.uid + ". Model is null");
                 }
-                else
+
+                var model = (TValue)expression.GetPropertyInfo().GetValue(this.model);
+
+                if (model == null)
                 {
-                    if (this.model == null)
-                    {
-                        throw new Exception("Trying to set property " + key + " from group model " + this.uid + ". Model is null");
-                    }
-
-                    var model = (TValue)expression.GetPropertyInfo().GetValue(this.model);
-
-                    if (model == null)
-                    {
-                        throw new Exception("Property " + key + " is null" + " from group model " + this.uid);
-                    }
-
-                    var formBuilder = new BsEditorFormBuilder<TValue>(model, key, this.viewContext).Template(template);
-
-                    this.forms.Add(key, formBuilder);
+                    throw new Exception("Property " + key + " is null" + " from group model " + this.uid);
                 }
+
+                var formBuilder = new BsEditorFormBuilder<TValue>(model, key, this.viewContext).Template(template);
+
+                this.forms.Add(key, formBuilder);
             }
 
             return this;
+        }
+
+        internal void RegisterRenderer<TRow, TForm>() where TRow : BsEditorGroupItemModel<TForm>
+        {
+            this.renderer = new BsEditorGroupRenderer<TModel, TRow, TForm>(this);
         }
     }
 }

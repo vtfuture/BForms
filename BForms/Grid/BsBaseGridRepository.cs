@@ -107,34 +107,18 @@ namespace BForms.Grid
             /// Creates Ordered query based on stored expressions and delegates.
             /// For row columns that have identical names with db columns, the order is made automatically
             /// </summary>
-            /// <typeparam name="TKey">Row property type</typeparam>
             /// <param name="query">Query that will be ordered</param>
-            /// <param name="defaultOrderProp">Default order row column. The query must be ordered before take/skip</param>
-            /// <param name="defaultOrderType">Default order row column type</param>
+            /// <param name="defaultOrderFunc">Default order row column. The query must be ordered before take/skip</param>
             /// <returns>Ordered query</returns>
-            public IOrderedQueryable<TEntity> Order<TKey>(IQueryable<TEntity> query, Expression<Func<TEntity, TKey>> defaultOrderProp, BsOrderType defaultOrderType)
+            public IOrderedQueryable<TEntity> Order(IQueryable<TEntity> query, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> defaultOrderFunc)
             {
                 //throw exception if defaultOrder is not asc or desc
-                if (defaultOrderType == BsOrderType.Default)
+                if (defaultOrderFunc == null)
                 {
-                    throw new Exception("default order must be ascending or descending");
+                    throw new Exception("you must implement a func for default order");
                 }
 
-                IOrderedQueryable<TEntity> orderedQuery = null;
-
-                //get default property name to apply default order
-                var defaultPropName = ExpressionHelper.GetExpressionText(defaultOrderProp);
-                defaultPropName = defaultPropName.Split('.').Last();
-
-                //apply default order based on order type
-                if (defaultOrderType == BsOrderType.Ascending)
-                {
-                    orderedQuery = query.OrderBy(defaultPropName);
-                }
-                else if (defaultOrderType == BsOrderType.Descending)
-                {
-                    orderedQuery = query.OrderByDescending(defaultPropName);
-                }
+                IOrderedQueryable<TEntity> orderedQuery = defaultOrderFunc(query);
 
                 if (this.columnsOrder != null && this.columnsOrder.Any())
                 {

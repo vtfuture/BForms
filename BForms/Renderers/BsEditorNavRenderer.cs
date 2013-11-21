@@ -80,7 +80,7 @@ namespace BForms.Renderers
 
                     if (!string.IsNullOrEmpty(tab.Id.ToString()))
                     {
-                        anchor.MergeAttribute("data-tabid", ((int)tab.Id).ToString());
+                        anchor.MergeAttribute("data-tabid", tab.Id.ToString());
                     }
                     else
                     {

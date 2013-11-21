@@ -20,9 +20,15 @@ using BForms.Docs.Resources;
 
 namespace BForms.Docs.Areas.Demo.Controllers
 {
-    public class ContributorsGroupRowModel : BsEditorGroupItemModel
+    public class ContributorsGroupRowModel : BsEditorGroupItemModel<ContributorsRowFormModel>
     {
+        public int Id { get; set; }
         public string Name { get; set; }
+
+        public override object GetUniqueIdentifier()
+        {
+            return this.Id;
+        }
     }
 
     public class ContributorsRowFormModel
@@ -110,13 +116,23 @@ namespace BForms.Docs.Areas.Demo.Controllers
                     {
                         new ContributorsGroupRowModel
                         {
+                            Id = 1,
                             Name = "Marius C.",
-                            TabId = YesNoValueTypes.Yes
+                            TabId = YesNoValueTypes.Yes,
+                            Form = new ContributorsRowFormModel()
+                            {
+                                Name = "Marius C."
+                            }
                         },
                         new ContributorsGroupRowModel
                         {
+                            Id = 2,
                             Name = "Ciprian P.",
-                            TabId = YesNoValueTypes.Yes
+                            TabId = YesNoValueTypes.Yes,
+                            Form = new ContributorsRowFormModel()
+                            {
+                                Name = "Ciprian P."
+                            }
                         }
                     },
                     Form = new ContributorsRowFormModel()
@@ -128,6 +144,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
                     {
                         new ContributorsGroupRowModel
                         {
+                            Id = 1,
                             Name = "Marius C.",
                             TabId = YesNoValueTypes.No
                         }

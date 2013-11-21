@@ -77,7 +77,9 @@ namespace BForms.Docs.Areas.Demo.Repositories
         public override IOrderedQueryable<Contributor> OrderQuery(IQueryable<Contributor> query)
         {
             this.orderedQueryBuilder.OrderFor(x => x.Name, y => y.FirstName + " " + y.LastName);
-            var orderedQuery = this.orderedQueryBuilder.Order(query, x => x.StartDate, BsOrderType.Ascending);
+
+            var orderedQuery = this.orderedQueryBuilder.Order(query, x => x.OrderBy(y => y.StartDate));
+
             return orderedQuery;
         }
 
@@ -236,7 +238,7 @@ namespace BForms.Docs.Areas.Demo.Repositories
 
             orderedExcelQueryBuilder.OrderFor(x => x.Name, y => y.FirstName + " " + y.LastName);
 
-            var orderedQuery = orderedExcelQueryBuilder.Order(basicQuery, x => x.StartDate, BsOrderType.Ascending);
+            var orderedQuery = orderedExcelQueryBuilder.Order(basicQuery, x => x.OrderBy(y => y.StartDate));
 
             // map
             finalQuery = orderedQuery.Select(MapContributor_ContributorRowModel).ToList();

@@ -9,6 +9,34 @@ using System.Web.Mvc;
 
 namespace BForms.Renderers
 {
+    public class BsEditorGroupRenderer<TModel, TRow, TForm> : BsEditorGroupRenderer<TModel, TRow> 
+        where TModel : IBsEditorGroupModel
+        where TRow : BsEditorGroupItemModel<TForm>
+    {
+        public BsEditorGroupRenderer() { }
+
+        public BsEditorGroupRenderer(BsEditorGroupBuilder<TModel> builder)
+            : base(builder) { }
+
+        protected override void RenderForm(TagBuilder container, TRow item)
+        {
+            if (this.Builder.RowForms.Any())
+            {
+                foreach (var form in this.Builder.RowForms)
+                {
+                    // create prefix for inline forms (unique prefix => based on groupId/tabId/Id)
+                    var uid = item.GetUniqueIdentifier().ToString() + "_" + item.TabId.ToString() + "_" + this.Builder.Uid;
+
+                    var formBuilder = new BsEditorFormBuilder<TForm>(item.Form, uid, this.Builder.viewContext).Template(form.Value.template);
+
+                    container.InnerHtml += new TagBuilder("hr"); // form delimiter
+
+                    container.InnerHtml += formBuilder.ToString();
+                }
+            }
+        }
+    }
+
     public class BsEditorGroupRenderer<TModel, TRow> : BsBaseRenderer<BsEditorGroupBuilder<TModel>>
         where TModel : IBsEditorGroupModel
         where TRow : BsEditorGroupItemModel
@@ -26,7 +54,7 @@ namespace BForms.Renderers
 
             if (this.Builder.Uid != null)
             {
-                container.MergeAttribute("data-groupid", ((int)this.Builder.Uid).ToString());
+                container.MergeAttribute("data-groupid", this.Builder.Uid.ToString());
             } 
 
             var title = new TagBuilder("div");
@@ -96,7 +124,7 @@ namespace BForms.Renderers
             return container.ToString();
         }
 
-        protected string RenderItem(TRow item)
+        protected virtual string RenderItem(TRow item)
         {
             var container = new TagBuilder("div");
 
@@ -105,7 +133,9 @@ namespace BForms.Renderers
                 throw new Exception("Group item model must be inherited from BsGroupItemModel and must have the TabId property set");
             }
 
-            container.MergeAttribute("data-tabid", ((int)item.TabId).ToString());
+            container.MergeAttribute("data-objid", item.GetUniqueIdentifier().ToString());
+
+            container.MergeAttribute("data-tabid", item.TabId.ToString());
 
             container.AddCssClass("row grid_row");
 
@@ -115,7 +145,7 @@ namespace BForms.Renderers
 
             leftSide.AddCssClass("col-lg-6 col-md-6");
 
-            leftSide.InnerHtml += this.Builder.RenderModel<TRow>(item);
+            leftSide.InnerHtml += this.Builder.RenderModel<TRow>(item, "");
 
             header.InnerHtml += leftSide;
 
@@ -139,19 +169,14 @@ namespace BForms.Renderers
 
             container.InnerHtml += detailsContainer;
 
-            // }
-
-            if (this.Builder.RowForms.Any())
-            {
-                foreach (var form in this.Builder.RowForms)
-                {
-                    container.InnerHtml += new TagBuilder("hr"); // form delimiter
-
-                    container.InnerHtml += form.Value.ToString();
-                }
-            }
+            this.RenderForm(container, item);
 
             return container.ToString();
+        }
+
+        protected virtual void RenderForm(TagBuilder container, TRow item)
+        {
+
         }
 
         protected string RenderControls()

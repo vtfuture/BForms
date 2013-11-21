@@ -48,6 +48,7 @@ namespace BForms.Editor
     {
         #region Properties and Constructor
         private TModel model { get; set; }
+        internal string uid { get; set; }
         internal List<BsEditorToolbarPart> parts { get; set; }
         internal List<BsEditorToolbarButtonBuilder> buttons { get; set; }
         internal List<BsBaseComponent> forms { get; set; }
@@ -65,6 +66,13 @@ namespace BForms.Editor
         #endregion
 
         #region Public Methods
+        public BsEditorToolbarHtmlBuilder<TModel> Id(object id)
+        {
+            this.uid = id.ToString();
+
+            return this;
+        }
+
         public BsEditorToolbarPart Add<TValue>(Expression<Func<TModel, TValue>> expression) where TValue : class
         {
             return Add<TValue>(expression, "");
@@ -85,7 +93,7 @@ namespace BForms.Editor
 
         public BsEditorToolbarPart For<TValue>(Expression<Func<TModel, TValue>> expression)
         {
-            var key = this.model.GetPropertyName(expression);
+            var key = this.uid + "." + this.model.GetPropertyName(expression);
 
             if (this.parts.Any(x => x.uid == key))
             {
@@ -107,9 +115,11 @@ namespace BForms.Editor
 
             var value = model != null ? (TValue)property.GetValue(model) : null;
 
-            part.uid = name;
+            var uid = this.uid + "." + name;
 
-            part.form = new BsEditorFormBuilder<TValue>((TValue)value, name, this.viewContext).Hide();
+            part.uid = uid;
+
+            part.form = new BsEditorFormBuilder<TValue>((TValue)value, uid, this.viewContext).Hide();
 
             return part;
         }

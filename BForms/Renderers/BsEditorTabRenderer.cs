@@ -99,7 +99,7 @@ namespace BForms.Renderers
 
                     templateWrapper.AddCssClass("media-body");
 
-                    templateWrapper.InnerHtml += this.Builder.RenderModel<TRow>(item);
+                    templateWrapper.InnerHtml += this.Builder.RenderModel<TRow>(item, "");
 
                     listItemWrapper.InnerHtml += templateWrapper;
 
@@ -163,7 +163,7 @@ namespace BForms.Renderers
 
             var wrapper = new TagBuilder("div");
 
-            wrapper.MergeAttribute("data-tabid", ((int)this.Builder.Uid).ToString());
+            wrapper.MergeAttribute("data-tabid", this.Builder.Uid.ToString());
 
             if (this.Builder.ConnectsWithIds != null)
             {
