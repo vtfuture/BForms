@@ -78,6 +78,9 @@ namespace BForms.Grid
             return toolbarAction;
         }
 
+        /// <summary>
+        /// Adds ButtonGroup to Toolbar
+        /// </summary>
         public BsToolbarButtonGroup<TToolbar> AddButtonGroup()
         {
             if (this.buttonGroup == null)
