@@ -63,7 +63,6 @@ function ($) {
                         .css({
                             position: 'absolute',
                             display: 'inline',
-                            "float": 'none',
                             overflow: 'hidden',
                             textAlign: 'left',
                             color: config.color,
@@ -80,6 +79,7 @@ function ($) {
                             backgroundColor: 'transparent',
                             zIndex: 99
                         })
+                        .css("float","none")
                         .css(calcPositionCss(this))
                         .attr('for', this.id)
                         .data('target', $this)
