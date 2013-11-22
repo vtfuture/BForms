@@ -208,7 +208,7 @@ namespace BForms.Renderers
 
             anchor.AddCssClass("btn btn-white");
 
-            anchor.InnerHtml += GetGlyphcon(glyphicon);
+            anchor.InnerHtml += GetGlyphicon(glyphicon);
 
             return anchor.ToString();
         }

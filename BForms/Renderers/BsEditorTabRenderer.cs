@@ -91,7 +91,7 @@ namespace BForms.Renderers
 
                     anchorRight.AddCssClass("btn btn-white select_profile");
 
-                    anchorRight.InnerHtml += GetGlyphcon(Glyphicon.Plus);
+                    anchorRight.InnerHtml += GetGlyphicon(Glyphicon.Plus);
 
                     listItemWrapper.InnerHtml += anchorRight;
 

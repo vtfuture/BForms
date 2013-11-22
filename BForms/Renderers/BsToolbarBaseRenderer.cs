@@ -18,7 +18,7 @@ namespace BForms.Renderers
 
         public BsToolbarBaseRenderer(BsToolbarHtmlBuilder<TToolbar> builder)
             : base(builder)
-        { 
+        {
 
         }
 
@@ -45,11 +45,34 @@ namespace BForms.Renderers
 
             if (this.Builder.ActionsFactory != null)
             {
+                int tabNr = 0;
                 var controlsBuilder = new TagBuilder("div");
                 controlsBuilder.AddCssClass("grid_toolbar_controls");
 
-                int tabNr = 0;
+                // Render tab within ButtonGroup
+                if (this.Builder.ActionsFactory.ButtonGroups != null)
+                {
+                    foreach (var buttonGroup in this.Builder.ActionsFactory.ButtonGroups)
+                    {
+                        if (buttonGroup.Actions.Any())
+                        {
+                            foreach (var action in buttonGroup.Actions)
+                            {
+                                var defaultAction = action as BsToolbarAction<TToolbar>;
 
+                                // renders tab content if any
+                                if (defaultAction != null && defaultAction.TabDelegate != null)
+                                {
+                                    tabs += RenderTab(defaultAction, tabNr).ToString();
+                                    tabNr++;
+                                }
+                            }
+                        }
+                        controlsBuilder.InnerHtml += buttonGroup.ToString();
+                    }
+                }
+
+                // Render actions inside the toolbar
                 foreach (var action in this.Builder.ActionsFactory.Actions)
                 {
                     // check if action is default
@@ -58,32 +81,12 @@ namespace BForms.Renderers
                     // renders tab content if any
                     if (defaultAction != null && defaultAction.TabDelegate != null)
                     {
-                        var tabId = this.Builder.id + "_tab_" + tabNr;
-
-                        var tabBuilder = new TagBuilder("div");
-                        if (defaultAction.HtmlAttr != null)
-                        {
-                            if (defaultAction.HtmlAttr.ContainsKey("class"))
-                            {
-                                tabBuilder.AddCssClass(defaultAction.HtmlAttr["class"] as string);
-                            }
-                            tabBuilder.MergeAttributes(defaultAction.HtmlAttr);
-                        }
-                        tabBuilder.AddCssClass("grid_toolbar_form");
-                        tabBuilder.MergeAttribute("style", "display:none;");
-                        tabBuilder.MergeAttribute("id", tabId);
-                        tabBuilder.InnerHtml += defaultAction.TabDelegate(this.Builder.model);
-
-                        tabs += tabBuilder.ToString();
-
-                        //sets tab container id for tab - button correlation
-                        defaultAction.SetTabId(tabId);
-
+                        tabs += RenderTab(defaultAction, tabNr).ToString();
                         tabNr++;
                     }
-
                     controlsBuilder.InnerHtml += action.ToString();
                 }
+
                 toolbarHeaderBuilder.InnerHtml += controlsBuilder.ToString();
             }
 
@@ -91,6 +94,29 @@ namespace BForms.Renderers
             toolbarBuilder.InnerHtml += tabs;
 
             return toolbarBuilder.ToString();
+        }
+
+        public TagBuilder RenderTab(BsToolbarAction<TToolbar> defaultAction, int tabNr)
+        {
+            var tabId = this.Builder.id + "_tab_" + tabNr;
+
+            var tabBuilder = new TagBuilder("div");
+            if (defaultAction.HtmlAttr != null)
+            {
+                if (defaultAction.HtmlAttr.ContainsKey("class"))
+                {
+                    tabBuilder.AddCssClass(defaultAction.HtmlAttr["class"] as string);
+                }
+                tabBuilder.MergeAttributes(defaultAction.HtmlAttr);
+            }
+            tabBuilder.AddCssClass("grid_toolbar_form");
+            tabBuilder.MergeAttribute("style", "display:none;");
+            tabBuilder.MergeAttribute("id", tabId);
+            tabBuilder.InnerHtml += defaultAction.TabDelegate(this.Builder.model);
+
+            //sets tab container id for tab - button correlation
+            defaultAction.SetTabId(tabId);
+            return tabBuilder;
         }
     }
 }
