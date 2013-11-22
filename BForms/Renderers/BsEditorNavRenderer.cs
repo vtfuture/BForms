@@ -1,4 +1,5 @@
 ﻿using BForms.Editor;
+using BForms.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -78,9 +79,9 @@ namespace BForms.Renderers
                     anchor.MergeAttribute("href", "#");
                     anchor.MergeAttribute("data-toggle", "tab");
 
-                    if (!string.IsNullOrEmpty(tab.Id.ToString()))
+                    if (tab.Id != null)
                     {
-                        anchor.MergeAttribute("data-tabid", tab.Id.ToString());
+                        anchor.MergeAttribute("data-tabid", MvcHelpers.Serialize(tab.Id));
                     }
                     else
                     {

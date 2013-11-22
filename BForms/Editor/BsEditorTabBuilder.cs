@@ -59,7 +59,8 @@ namespace BForms.Editor
     #endregion
 
     #region BsEditorTabBuilder Basic
-    public class BsEditorTabBuilder<TModel> : BsEditorTabBuilder where TModel : IBsEditorTabModel
+    public class BsEditorTabBuilder<TModel> : BsEditorTabBuilder 
+        where TModel : IBsEditorTabModel
     {
         #region Properties and Constructor
         internal BsEditorToolbarHtmlBuilder<TModel> toolbar { get; set; }
@@ -117,7 +118,7 @@ namespace BForms.Editor
             this.pagerSettings = new BsPagerSettings();
         }
 
-        internal void InitRenderer<TRow>()
+        internal void InitRenderer<TRow>() where TRow : BsItemModel
         {
             this.rowConfigurator = new BsEditorRowConfigurator<TRow>(this.viewContext);
             this.renderer = new BsEditorTabRenderer<TModel, TRow>(this);

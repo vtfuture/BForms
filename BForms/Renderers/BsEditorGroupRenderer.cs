@@ -1,5 +1,6 @@
 ﻿using BForms.Editor;
 using BForms.Models;
+using BForms.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -54,7 +55,7 @@ namespace BForms.Renderers
 
             if (this.Builder.Uid != null)
             {
-                container.MergeAttribute("data-groupid", this.Builder.Uid.ToString());
+                container.MergeAttribute("data-groupid", MvcHelpers.Serialize(this.Builder.Uid));
             } 
 
             var title = new TagBuilder("div");
@@ -133,11 +134,11 @@ namespace BForms.Renderers
                 throw new Exception("Group item model must be inherited from BsGroupItemModel and must have the TabId property set");
             }
 
-            container.MergeAttribute("data-objid", item.GetUniqueID().ToString());
+            container.MergeAttribute("data-objid", MvcHelpers.Serialize(item.GetUniqueID()));
 
-            container.MergeAttribute("data-tabid", item.TabId.ToString());
+            container.MergeAttribute("data-tabid", MvcHelpers.Serialize(item.TabId));
 
-            container.AddCssClass("row grid_row");
+            container.AddCssClass("row grid_row bs-groupItem");
 
             var header = new TagBuilder("header");
 
@@ -187,7 +188,7 @@ namespace BForms.Renderers
 
             // if edit {
 
-            container.InnerHtml += RenderControl(Glyphicon.Pencil);
+            container.InnerHtml += RenderControl(Glyphicon.Pencil, "bs-editBtn");
 
             // }
 
@@ -195,18 +196,23 @@ namespace BForms.Renderers
 
             container.InnerHtml += RenderControl(Glyphicon.ChevronDown);
 
-            container.InnerHtml += RenderControl(Glyphicon.Remove);
+            container.InnerHtml += RenderControl(Glyphicon.Remove, "bs-removeBtn");
 
             return container.ToString();
         }
 
-        protected string RenderControl(Glyphicon glyphicon)
+        protected string RenderControl(Glyphicon glyphicon, string cssClass = null)
         {
             var anchor = new TagBuilder("a");
 
             anchor.MergeAttribute("href", "#");
 
             anchor.AddCssClass("btn btn-white");
+
+            if (!string.IsNullOrEmpty(cssClass))
+            {
+                anchor.AddCssClass(cssClass);
+            }
 
             anchor.InnerHtml += GetGlyphcon(glyphicon);
 

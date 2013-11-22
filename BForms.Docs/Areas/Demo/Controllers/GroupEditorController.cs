@@ -116,7 +116,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
                     {
                         new ContributorsGroupRowModel
                         {
-                            Id = 1,
+                            Id = 4,
                             Name = "Marius C.",
                             TabId = YesNoValueTypes.Yes,
                             Form = new ContributorsRowFormModel()
@@ -144,9 +144,9 @@ namespace BForms.Docs.Areas.Demo.Controllers
                     {
                         new ContributorsGroupRowModel
                         {
-                            Id = 1,
+                            Id = 4,
                             Name = "Marius C.",
-                            TabId = YesNoValueTypes.No
+                            TabId = YesNoValueTypes.Yes
                         }
                     }
                 }
