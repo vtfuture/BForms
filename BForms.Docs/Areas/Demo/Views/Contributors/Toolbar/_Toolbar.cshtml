@@ -11,24 +11,17 @@
     .ConfigureActions(ca =>
     {
 
-        var group1 = ca.AddButtonGroup().DisplayName("Options");
+        var groupButton = ca.AddButtonGroup().DisplayName("Options").GlyphIcon(Glyphicon.Cog);
 
-        group1.Add(BsToolbarActionType.Add)
+        groupButton.Add(BsToolbarActionType.Add)
             .Text(Resource.Add)
             .Tab(x => Html.BsPartialPrefixed(y => y.New, "Toolbar/_New", x));
-        
-        group1.AddSeperator();
-        
-        group1.AddActionLink()
-            .Text(Resource.Add)
-            .Action(Url.Action("Index", "Home", new { area = "" }));
 
-        ca.AddButtonGroup().DisplayName("Options2");    
-            
-    ca.Add(BsToolbarActionType.Add)
-            .Text(Resource.Add)
-            .Tab(x => Html.BsPartialPrefixed(y => y.New, "Toolbar/_New", x));
-        
+        groupButton.AddActionLink()
+            .Text("User profile")
+            .GlyphIcon(Glyphicon.User)
+            .Action(Url.Action("Index", "UserProfile"));
+
         ca.Add<BsToolbarQuickSearch>()
           .Placeholder(Resource.Search);
         

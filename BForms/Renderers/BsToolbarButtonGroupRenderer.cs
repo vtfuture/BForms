@@ -23,13 +23,14 @@ namespace BForms.Renderers
         {
             var buttonGroupBuilder = new TagBuilder("div");
             buttonGroupBuilder.AddCssClass("btn-group");
-            if (this.Builder.Direction == BsToolbarGroupButtonDirection.Up)
-                buttonGroupBuilder.AddCssClass("dropup");
-
+            if (!string.IsNullOrEmpty(this.Builder.title))
+            {
+                buttonGroupBuilder.MergeAttribute("title", this.Builder.title);
+            }
             var buttonArrowBuilder = new TagBuilder("a");
             buttonArrowBuilder.AddCssClass("btn dropdown-toggle");
             buttonArrowBuilder.MergeAttribute("data-toggle", "dropdown");
-            buttonArrowBuilder.InnerHtml = this.Builder.Name + "<span class=\"caret\"></span>";
+            buttonArrowBuilder.InnerHtml += (this.Builder.glyphIcon.HasValue ? GetGlyphicon(this.Builder.glyphIcon.Value) + " " : "") + this.Builder.name + "<span class=\"caret\"></span>";
 
             buttonGroupBuilder.InnerHtml += buttonArrowBuilder.ToString();
 
@@ -40,18 +41,20 @@ namespace BForms.Renderers
 
             foreach (var item in this.Builder.Actions)
             {
-                var itemGroupAction = item as BsToolbarItemGroupSeparator;
-                if (itemGroupAction != null)
+                var defaultAction = item as BsToolbarAction<TToolbar>;
+                var itemContainerBuilder = new TagBuilder("li");
+                // remove btn from descriptorClass for styling
+                if (defaultAction != null)
                 {
-                    var itemContainerBuilder = new TagBuilder("li");
-                    itemContainerBuilder.AddCssClass(itemGroupAction.descriptorClass);
-                    containerList.InnerHtml += itemContainerBuilder.ToString();
+                    var descriptorClass = defaultAction.GetDescriptorClass().Replace("btn ", "");
+                    defaultAction.DescriptorClass(descriptorClass);
+                    itemContainerBuilder.InnerHtml = item.ToString();
                 }
                 else
                 {
-                    var itemContainerBuilder = new TagBuilder("li") {InnerHtml = item.ToString()};
-                    containerList.InnerHtml += itemContainerBuilder.ToString();
+                    itemContainerBuilder.InnerHtml = item.ToString();
                 }
+                containerList.InnerHtml += itemContainerBuilder.ToString();
             }
 
             buttonGroupBuilder.InnerHtml += containerList.ToString();

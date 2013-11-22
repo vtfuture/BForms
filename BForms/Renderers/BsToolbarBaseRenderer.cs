@@ -88,7 +88,6 @@ namespace BForms.Renderers
                 }
 
                 toolbarHeaderBuilder.InnerHtml += controlsBuilder.ToString();
-                toolbarHeaderBuilder.InnerHtml += "<div class='clearfix'></div>";
             }
 
             toolbarBuilder.InnerHtml += toolbarHeaderBuilder.ToString();

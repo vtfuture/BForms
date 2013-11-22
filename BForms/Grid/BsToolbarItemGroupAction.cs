@@ -10,18 +10,6 @@ using BForms.Renderers;
 
 namespace BForms.Grid
 {
-    public class BsToolbarItemGroupSeparator : BsBaseComponent<BsToolbarItemGroupSeparator>
-    {
-        internal string descriptorClass
-        {
-            get
-            {
-                return "divider";
-            }
-        }
-    }
-
-
     public class BsToolbarItemGroupActionLink<TToolbar> : BsBaseComponent<BsToolbarItemGroupActionLink<TToolbar>>
     {
         #region Properties and constructors

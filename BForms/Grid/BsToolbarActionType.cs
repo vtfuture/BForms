@@ -28,20 +28,5 @@ namespace BForms.Grid
         /// Toggles order form
         /// </summary>
         Order = 4
-    }
-
-    /// <summary>
-    /// Button Group built-in actions
-    /// </summary>
-    public enum BsToolbarItemGroupType
-    {
-        /// <summary>
-        /// Adds a link in button group
-        /// </summary>
-        ActionLink = 1,
-        /// <summary>
-        ///  Adds a separator in button group
-        /// </summary>
-        Separator = 2
-    }
+    } 
 }

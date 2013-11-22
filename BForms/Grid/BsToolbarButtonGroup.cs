@@ -1,34 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using BForms.Models;
-using BForms.Mvc;
 using BForms.Renderers;
 
 namespace BForms.Grid
 {
     public class BsToolbarButtonGroup<TToolbar> : BsToolbarActionsBaseFactory<TToolbar>
     {
-        protected string name { get; set; }
+        internal string name;
 
-        internal string Name
+        internal string title;
+
+        internal Glyphicon? glyphIcon;
+
+        internal string descriptorClass;
+
+        internal string styleClasses;
+
+
+        internal IDictionary<string, object> HtmlAttr
         {
             get
             {
-                return this.name;
-            }
-        }
-
-        protected BsToolbarGroupButtonDirection direction { get; set; }
-
-        internal BsToolbarGroupButtonDirection Direction
-        {
-            get
-            {
-                return this.direction;
+                return this.htmlAttributes;
             }
         }
 
@@ -37,6 +31,29 @@ namespace BForms.Grid
             this.renderer = new BsToolbarButtonGroupRenderer<TToolbar>(this);
         } 
 
+        /// <summary>
+        /// Sets control descriptor class
+        /// </summary>
+        /// <returns>BsToolbarAction</returns>
+        public BsToolbarButtonGroup<TToolbar> DescriptorClass(string descriptorClass)
+        {
+            this.descriptorClass = descriptorClass;
+            return this;
+        }
+
+        /// <summary>
+        /// Sets control style
+        /// </summary>
+        /// <returns>BsToolbarAction</returns>
+        public BsToolbarButtonGroup<TToolbar> StyleClasses(string styleClasses)
+        {
+            this.styleClasses = styleClasses;
+            return this;
+        }
+
+        /// <summary>
+        /// Set display name
+        /// </summary>
         public BsToolbarButtonGroup<TToolbar> DisplayName(string name)
         {
             this.name = name;
@@ -44,13 +61,37 @@ namespace BForms.Grid
             return this;
         }
 
-        public BsToolbarButtonGroup<TToolbar> SetDirection(BsToolbarGroupButtonDirection direction)
+        /// <summary>
+        /// Sets control GlyphIcon
+        /// </summary>
+        /// <returns>BsToolbarAction</returns>
+        public BsToolbarButtonGroup<TToolbar> GlyphIcon(Glyphicon icon)
         {
-            this.direction = direction;
+            this.glyphIcon = icon;
 
             return this;
         }
 
+        /// <summary>
+        /// Set html attributes
+        /// </summary>
+        public BsToolbarButtonGroup<TToolbar> HtmlAttributes(IDictionary<string, object> htmlAttributes)
+        {
+            this.htmlAttributes = htmlAttributes;
+            return this;
+        }
+
+        /// <summary>
+        /// Set html attributes
+        /// </summary>
+        public BsToolbarButtonGroup<TToolbar> HtmlAttributes(object htmlAttributes)
+        {
+            return HtmlAttributes(HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+        }
+
+        /// <summary>
+        /// Add link to button group
+        /// </summary>
         public BsToolbarItemGroupActionLink<TToolbar> AddActionLink()
         {
             var toolbarAction = new BsToolbarItemGroupActionLink<TToolbar>(this.viewContext);
@@ -58,21 +99,5 @@ namespace BForms.Grid
 
             return toolbarAction;
         }
-
-        public BsToolbarItemGroupSeparator AddSeperator()
-        {
-            var toolbarAction = new BsToolbarItemGroupSeparator();
-            actions.Add(toolbarAction);
-
-            return toolbarAction;
-        }
-
-    }
-
-
-    public enum BsToolbarGroupButtonDirection
-    {
-        Down =1,
-        Up =2
     }
 }
