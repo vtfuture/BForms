@@ -175,6 +175,23 @@ namespace BForms.Grid
             return this;
         }
 
+        public BsGridHtmlBuilder<TModel, TRow> GridResetButton(string title)
+        {
+            var resetButton = new TagBuilder("div");
+            resetButton.MergeAttribute("class", "btn btn-info bs-resetGrid reset-grid");
+            resetButton.MergeAttribute("style", "display:none");
+            resetButton.MergeAttribute("title", title);
+
+            var resetButtonSpan = new TagBuilder("span");
+            resetButtonSpan.MergeAttribute("class", "glyphicon glyphicon-repeat");
+
+            resetButton.InnerHtml += resetButtonSpan.ToString();
+
+            this.resetButtonHtml = resetButton.ToString();
+
+            return this;
+        }
+
         public BsGridHtmlBuilder<TModel, TRow> AllowAddIfEmpty()
         {
             this.allowAddIfEmpty = true;
