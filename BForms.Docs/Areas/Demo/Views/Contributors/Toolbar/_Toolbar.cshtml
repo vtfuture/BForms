@@ -17,16 +17,18 @@
             .Text(Resource.Add)
             .Tab(x => Html.BsPartialPrefixed(y => y.New, "Toolbar/_New", x));
 
+        group1.AddActionLink()
+            .Text(Resource.Add)
+            .Action(Url.Action("Index", "Home", new { area = "" }));
+
+        group1.AddSeperator();
+        
+
         ca.AddButtonGroup().DisplayName("Options2");    
             
-            /*.Direction(BsGroupButtonDirection.Down)
-            .DisplayName("Options")
-            .AddItem("Url", Url.Action("Index"), BsGroupButtonType.ActionLink, new { @class = "custom_class", @id = "custom_id" })
-            .AddSeparator()
-            //.AddItem("Url", Url.Action("Index"))
-            .HtmlAttributes(new { @class = "custom_class", @id = "custom_id" });*/
-        
-    
+    ca.Add(BsToolbarActionType.Add)
+            .Text(Resource.Add)
+            .Tab(x => Html.BsPartialPrefixed(y => y.New, "Toolbar/_New", x));
         
         ca.Add<BsToolbarQuickSearch>()
           .Placeholder(Resource.Search);

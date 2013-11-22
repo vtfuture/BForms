@@ -20,7 +20,7 @@ namespace BForms.Renderers
             var headerTag = new TagBuilder("h3");
             headerTag.AddCssClass("panel-heading");
 
-            headerTag.InnerHtml += this.GetGlyphcon(Glyphicon.User);
+            headerTag.InnerHtml += this.GetGlyphicon(Glyphicon.User);
 
             headerTag.InnerHtml += " " + this.Builder.name;
 

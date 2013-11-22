@@ -52,17 +52,20 @@ namespace BForms.Renderers
                 // Render tab within ButtonGroup
                 if (this.Builder.ActionsFactory.ButtonGroups != null)
                 {
-                    foreach (var buttonGroup in this.Builder.ActionsFactory.ButtonGroups.Where(buttonGroup => buttonGroup.Actions.Any()))
+                    foreach (var buttonGroup in this.Builder.ActionsFactory.ButtonGroups)
                     {
-                        foreach (var action in buttonGroup.Actions)
+                        if (buttonGroup.Actions.Any())
                         {
-                            var defaultAction = action as BsToolbarAction<TToolbar>;
-
-                            // renders tab content if any
-                            if (defaultAction != null && defaultAction.TabDelegate != null)
+                            foreach (var action in buttonGroup.Actions)
                             {
-                                tabs += RenderTab(defaultAction, tabNr).ToString();
-                                tabNr++;
+                                var defaultAction = action as BsToolbarAction<TToolbar>;
+
+                                // renders tab content if any
+                                if (defaultAction != null && defaultAction.TabDelegate != null)
+                                {
+                                    tabs += RenderTab(defaultAction, tabNr).ToString();
+                                    tabNr++;
+                                }
                             }
                         }
                         controlsBuilder.InnerHtml += buttonGroup.ToString();

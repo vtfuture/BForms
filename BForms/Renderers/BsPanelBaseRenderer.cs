@@ -67,7 +67,7 @@ namespace BForms.Renderers
                 editableTag.MergeAttribute("href", "#");
                 editableTag.AddCssClass("pull-right bs-editPanel");
 
-                var glyphTag = this.GetGlyphcon(Glyphicon.Pencil);
+                var glyphTag = this.GetGlyphicon(Glyphicon.Pencil);
 
                 editableTag.InnerHtml += glyphTag;
 
@@ -81,7 +81,7 @@ namespace BForms.Renderers
                 cancelEditableTag.AddCssClass("pull-right bs-cancelEdit");
                 cancelEditableTag.MergeAttribute("style", "display:none");
 
-                var cancelGlyphTag = this.GetGlyphcon(Glyphicon.Remove);
+                var cancelGlyphTag = this.GetGlyphicon(Glyphicon.Remove);
 
                 cancelEditableTag.InnerHtml += cancelGlyphTag;
 

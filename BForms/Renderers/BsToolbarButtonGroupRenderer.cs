@@ -12,9 +12,10 @@ namespace BForms.Renderers
     {
         public BsToolbarButtonGroupRenderer()
         {
-            
+
         }
-        public BsToolbarButtonGroupRenderer(BsToolbarButtonGroup<TToolbar> model) : base(model)
+        public BsToolbarButtonGroupRenderer(BsToolbarButtonGroup<TToolbar> model)
+            : base(model)
         {
         }
 
@@ -22,7 +23,7 @@ namespace BForms.Renderers
         {
             var buttonGroupBuilder = new TagBuilder("div");
             buttonGroupBuilder.AddCssClass("btn-group");
-            if(this.Builder.Direction == BsToolbarGroupButtonDirection.Up)
+            if (this.Builder.Direction == BsToolbarGroupButtonDirection.Up)
                 buttonGroupBuilder.AddCssClass("dropup");
 
             var buttonArrowBuilder = new TagBuilder("button");
@@ -40,9 +41,18 @@ namespace BForms.Renderers
 
             foreach (var item in this.Builder.Actions)
             {
-                var itemContainerBuilder = new TagBuilder("li");
-                itemContainerBuilder.InnerHtml = item.ToString();
-                containerList.InnerHtml += item.ToString();
+                var itemGroupAction = item as BsToolbarItemGroupSeparator;
+                if (itemGroupAction != null)
+                {
+                    var itemContainerBuilder = new TagBuilder("li");
+                    itemContainerBuilder.AddCssClass(itemGroupAction.descriptorClass);
+                    containerList.InnerHtml += itemContainerBuilder.ToString();
+                }
+                else
+                {
+                    var itemContainerBuilder = new TagBuilder("li") {InnerHtml = item.ToString()};
+                    containerList.InnerHtml += itemContainerBuilder.ToString();
+                }
             }
 
             buttonGroupBuilder.InnerHtml += containerList.ToString();

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using BForms.Models;
+using BForms.Mvc;
 using BForms.Renderers;
 
 namespace BForms.Grid
@@ -47,7 +49,24 @@ namespace BForms.Grid
             this.direction = direction;
 
             return this;
-        } 
+        }
+
+        public BsToolbarItemGroupActionLink<TToolbar> AddActionLink()
+        {
+            var toolbarAction = new BsToolbarItemGroupActionLink<TToolbar>(this.viewContext);
+            actions.Add(toolbarAction);
+
+            return toolbarAction;
+        }
+
+        public BsToolbarItemGroupSeparator AddSeperator()
+        {
+            var toolbarAction = new BsToolbarItemGroupSeparator();
+            actions.Add(toolbarAction);
+
+            return toolbarAction;
+        }
+
     }
 
 
@@ -55,11 +74,5 @@ namespace BForms.Grid
     {
         Down =1,
         Up =2
-    }
-
-    public enum BsToolbarGroupButtonItemType
-    {
-        ActionLink=1,
-        Separator = 2
     }
 }
