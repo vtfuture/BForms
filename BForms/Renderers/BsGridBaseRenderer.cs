@@ -376,7 +376,7 @@ namespace BForms.Renderers
                 rowBuilder.AddCssClass("bs-noResultsRow");
 
                 var divBuilder = new TagBuilder("div");
-                divBuilder.MergeAttribute("class", "col-12 col-sm-12 col-lg-12");
+                divBuilder.MergeAttribute("class", "col-sm-12 col-lg-12");
 
                 var infoBuilder = new TagBuilder("div");
                 infoBuilder.MergeAttribute("class", "alert alert-info");
