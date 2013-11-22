@@ -16,13 +16,12 @@
         group1.Add(BsToolbarActionType.Add)
             .Text(Resource.Add)
             .Tab(x => Html.BsPartialPrefixed(y => y.New, "Toolbar/_New", x));
-
+        
+        group1.AddSeperator();
+        
         group1.AddActionLink()
             .Text(Resource.Add)
             .Action(Url.Action("Index", "Home", new { area = "" }));
-
-        group1.AddSeperator();
-        
 
         ca.AddButtonGroup().DisplayName("Options2");    
             

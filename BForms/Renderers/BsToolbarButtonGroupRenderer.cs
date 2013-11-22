@@ -26,9 +26,8 @@ namespace BForms.Renderers
             if (this.Builder.Direction == BsToolbarGroupButtonDirection.Up)
                 buttonGroupBuilder.AddCssClass("dropup");
 
-            var buttonArrowBuilder = new TagBuilder("button");
-            buttonArrowBuilder.AddCssClass("btn btn-default dropdown-toggle");
-            buttonArrowBuilder.MergeAttribute("type", "button");
+            var buttonArrowBuilder = new TagBuilder("a");
+            buttonArrowBuilder.AddCssClass("btn dropdown-toggle");
             buttonArrowBuilder.MergeAttribute("data-toggle", "dropdown");
             buttonArrowBuilder.InnerHtml = this.Builder.Name + "<span class=\"caret\"></span>";
 
