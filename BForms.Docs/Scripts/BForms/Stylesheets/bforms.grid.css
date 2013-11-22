@@ -113,8 +113,7 @@ a.btn {
     min-height: 15px; }
     .grid_container .grid_toolbar .grid_toolbar_header {
       background: #45ada8;
-      color: #fff;
-      overflow: hidden; }
+      color: #fff; }
       .grid_container .grid_toolbar .grid_toolbar_header h1 {
         font-size: 15px;
         text-transform: uppercase;
@@ -125,9 +124,9 @@ a.btn {
       .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls {
         line-height: normal;
         float: right; }
-        .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls a {
+        .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls > a,
+        .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .btn-group > a {
           padding: 10px 15px 9px;
-          float: left;
           border-left: 1px solid #3e9b96;
           color: #fff;
           text-transform: capitalize; }
@@ -135,7 +134,7 @@ a.btn {
           background-color: #f6f6f6;
           color: #333; }
         .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .input-group {
-          float: left;
+          display: inline-block;
           width: 165px;
           color: #333;
           padding: 9px 3px 8px 15px;
@@ -150,12 +149,19 @@ a.btn {
             border-radius: 20px; }
           .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .input-group + .btn_advanced_search {
             border-left: none; }
+        .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .btn-group .caret {
+          border-top: 4px solid #fff;
+          margin-left: 5px; }
+        .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .btn-group .dropdown-menu .glyphicon {
+          font-size: 12px; }
         .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .glyphicon {
           font-size: 14px; }
-        .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls:after {
-          content: "";
-          display: block;
-          clear: both; }
+      .grid_container .grid_toolbar .grid_toolbar_header:after {
+        content: ".";
+        display: block;
+        height: 0;
+        clear: both;
+        visibility: hidden; }
     .grid_container .grid_toolbar .grid_toolbar_form {
       background: #f6f6f6;
       padding: 15px 0;
