@@ -1020,6 +1020,7 @@
     };
 
     Grid.prototype._pagerAjaxError = function (data) {
+        this._trigger('beforePaginationError', 0, data);
 
         if (data.Message) {
             var $errorContainer = $(this.element).find('.bs-validation_summary');
@@ -1035,6 +1036,8 @@
         if (arguments[4] && arguments[4].pageChanged) {
             $.bforms.scrollToElement(this.$gridHeader);
         }
+        
+        this._trigger('afterPaginationError', 0, data);
     };
     //#endregion
 

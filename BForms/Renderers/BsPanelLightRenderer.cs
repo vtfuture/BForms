@@ -62,7 +62,7 @@ namespace BForms.Renderers
         {
             var contentDiv = new TagBuilder("div");
 
-            contentDiv.AddCssClass("panel-collapse bs-containerPanel");
+            contentDiv.AddCssClass("bs-containerPanel");
 
             if (!this.Builder.isExpanded)
             {
@@ -70,7 +70,7 @@ namespace BForms.Renderers
             }
 
             var panelBody = new TagBuilder("div");
-            panelBody.AddCssClass("panel-body bs-contentPanel");
+            panelBody.AddCssClass("bs-contentPanel");
             panelBody.InnerHtml += this.Builder.content;
 
             contentDiv.InnerHtml += panelBody.ToString();

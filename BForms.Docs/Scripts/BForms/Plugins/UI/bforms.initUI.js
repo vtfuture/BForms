@@ -1,6 +1,6 @@
 ﻿(function (factory) {
     if (typeof define === "function" && define.amd) {
-        define('bforms-initUI', ['jquery', 'jquery-migrate', 'bootstrap', 'jquery-ui-core', 'bforms-datepicker-i18n'], factory);
+        define('bforms-initUI', ['jquery', 'jquery-migrate', 'bootstrap', 'jquery-ui-core', 'bforms-datepicker-i18n', 'placeholder-shim'], factory);
     } else {
         factory(window.jQuery);
     }
@@ -720,6 +720,12 @@
 
             $next.trigger('focus');
         });
+    });
+
+    // PLACEHOLDER SHIM
+    // ================
+    $(function () {
+        $.placeholder.shim();
     });
 
     return initUI;
