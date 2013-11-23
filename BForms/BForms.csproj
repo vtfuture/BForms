@@ -108,6 +108,8 @@
     <Compile Include="Editor\BsEditorToolbarButtonBuilder.cs" />
     <Compile Include="Editor\BsEditorToolbarFormBuilder.cs" />
     <Compile Include="Editor\BsEditorRepositorySettings.cs" />
+    <Compile Include="Grid\BsToolbarItemGroupAction.cs" />
+    <Compile Include="Grid\BsToolbarButtonGroup.cs" />
     <Compile Include="Models\BsEditor.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -140,8 +142,10 @@
     <Compile Include="Renderers\BsPanelBaseRenderer.cs" />
     <Compile Include="Renderers\BsPanelLightRenderer.cs" />
     <Compile Include="Renderers\BsPanelsBaseRenderer.cs" />
+    <Compile Include="Renderers\BsToolbarItemGroupActionRenderer.cs" />
     <Compile Include="Renderers\BsToolbarActionRenderer.cs" />
     <Compile Include="Renderers\BsToolbarBaseRenderer.cs" />
+    <Compile Include="Renderers\BsToolbarButtonGroupRenderer.cs" />
     <Compile Include="Renderers\BsToolbarQuickSearchRenderer.cs" />
     <Compile Include="Utilities\BsResourceManager.cs" />
     <Compile Include="Grid\BsGridRowConfigurator.cs" />
