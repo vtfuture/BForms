@@ -214,7 +214,7 @@ namespace BForms.Renderers
                 anchor.AddCssClass(cssClass);
             }
 
-            anchor.InnerHtml += GetGlyphcon(glyphicon);
+            anchor.InnerHtml += GetGlyphicon(glyphicon);
 
             return anchor.ToString();
         }
