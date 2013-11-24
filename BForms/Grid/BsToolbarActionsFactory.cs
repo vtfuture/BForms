@@ -7,9 +7,11 @@ using BForms.Mvc;
 
 namespace BForms.Grid
 {
-    public class BsToolbarActionsBaseFactory<TToolbar> : BsBaseComponent<BsToolbarActionsBaseFactory<TToolbar>>
+    public class BsToolbarActionsFactory<TToolbar>
     {
-        protected List<BsBaseComponent> actions = new List<BsBaseComponent>();
+        private List<BsBaseComponent> actions = new List<BsBaseComponent>();
+        private readonly ViewContext viewContext;
+
         internal List<BsBaseComponent> Actions
         {
             get
@@ -18,9 +20,9 @@ namespace BForms.Grid
             }
         }
 
-        public BsToolbarActionsBaseFactory(ViewContext viewContext)
-            : base(viewContext)
+        public BsToolbarActionsFactory(ViewContext viewContext)
         {
+            this.viewContext = viewContext;
         }
 
         /// <summary>
@@ -48,23 +50,6 @@ namespace BForms.Grid
 
             return toolbarAction;
         }
-    }
-
-    public class BsToolbarActionsFactory<TToolbar> : BsToolbarActionsBaseFactory<TToolbar>
-    {
-        protected List<BsToolbarButtonGroup<TToolbar>> buttonGroup;
-
-        internal List<BsToolbarButtonGroup<TToolbar>> ButtonGroups
-        {
-            get
-            {
-                return this.buttonGroup;
-            }
-        }
-
-        public BsToolbarActionsFactory(ViewContext viewContext) : base(viewContext)
-        {
-        }
 
         /// <summary>
         /// Adds custom control - ex: QuickSearch
@@ -74,25 +59,8 @@ namespace BForms.Grid
         public TCustomAction Add<TCustomAction>() where TCustomAction:new()
         {
             var toolbarAction = new TCustomAction();
-            this.actions.Add(toolbarAction as BsBaseComponent);
+            actions.Add(toolbarAction as BsBaseComponent);
             return toolbarAction;
-        }
-
-        /// <summary>
-        /// Adds ButtonGroup to Toolbar
-        /// </summary>
-        public BsToolbarButtonGroup<TToolbar> AddButtonGroup()
-        {
-            if (this.buttonGroup == null)
-            {
-                this.buttonGroup = new List<BsToolbarButtonGroup<TToolbar>>();
-            }
-
-            var group = new BsToolbarButtonGroup<TToolbar>(this.viewContext);
-
-            this.buttonGroup.Add(group);
-
-            return group;
         }
     }
 }

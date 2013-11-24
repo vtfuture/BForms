@@ -28,5 +28,5 @@ namespace BForms.Grid
         /// Toggles order form
         /// </summary>
         Order = 4
-    } 
+    }
 }

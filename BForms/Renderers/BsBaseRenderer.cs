@@ -10,7 +10,7 @@ namespace BForms.Renderers
 {
     public abstract class BsBaseRenderer
     {
-        public abstract string GetGlyphicon(Glyphicon icon, bool forInput = false);
+        public abstract string GetGlyphcon(Glyphicon icon, bool forInput = false);
 
         public abstract string Render();
 
@@ -46,7 +46,7 @@ namespace BForms.Renderers
             return this;
         }
 
-        public override string GetGlyphicon(Glyphicon icon, bool forInput = false)
+        public override string GetGlyphcon(Glyphicon icon, bool forInput = false)
         {
             return this.GetGlyphiconTag(icon, forInput).ToString();
         }

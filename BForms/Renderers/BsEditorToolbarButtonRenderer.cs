@@ -27,7 +27,7 @@ namespace BForms.Renderers
 
             btn.AddCssClass("btn btn-white bs-toolbarBtn");
 
-            btn.InnerHtml += this.GetGlyphicon(this.Builder.glyph);
+            btn.InnerHtml += this.GetGlyphcon(this.Builder.glyph);
 
             btn.InnerHtml += " " + this.Builder.name;
 

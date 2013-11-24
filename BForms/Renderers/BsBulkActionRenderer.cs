@@ -36,7 +36,7 @@ namespace BForms.Renderers
                 bulkButton.MergeAttribute("title", this.Builder.title);
             }
 
-            bulkButton.InnerHtml += (this.Builder.glyphIcon.HasValue ? GetGlyphicon(this.Builder.glyphIcon.Value) + " " : "") + this.Builder.text;
+            bulkButton.InnerHtml += (this.Builder.glyphIcon.HasValue ? GetGlyphcon(this.Builder.glyphIcon.Value) + " " : "") + this.Builder.text;
 
             return bulkButton.ToString();
         }

@@ -47,7 +47,7 @@ namespace BForms.Renderers
                 {
                     container.AddCssClass("inline");
 
-                    var glyph = GetGlyphicon(Glyphicon.Search, true);
+                    var glyph = GetGlyphcon(Glyphicon.Search, true);
 
                     var input = new TagBuilder("input");
 
