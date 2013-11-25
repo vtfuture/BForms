@@ -31,6 +31,7 @@ namespace BForms.Renderers
 
                 var editableTag = new TagBuilder("a");
                 editableTag.MergeAttribute("href", "#");
+
                 editableTag.AddCssClass("pull-right bs-editPanel");
 
                 var editableGlyph = this.GetGlyphiconTag(Glyphicon.Pencil);
