@@ -7,8 +7,8 @@ BForms.Docs/Scripts/BForms/Bundles/
 ## EndToEnd duplicates
 #################
 
-BForms.EndToEnd/Scripts/Bforms
-BForms.EndToEnd/Content
+BForms.EndToEnd/Scripts/BForms/
+BForms.EndToEnd/Content/
 
 #################
 ## Eclipse
