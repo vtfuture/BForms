@@ -225,6 +225,8 @@ namespace BForms.Docs.Areas.Demo.Controllers
             try
             {
                 _gridRepository.Reorder(model);
+
+                var contributors = Db.Contributors.ToList();
             }
             catch (Exception ex)
             {

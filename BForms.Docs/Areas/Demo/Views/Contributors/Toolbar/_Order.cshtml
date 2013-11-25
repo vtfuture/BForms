@@ -7,13 +7,12 @@
 
 @using (Html.BeginForm())
 {
-    
     @Html.BsSortableListFor(Model, m => new BsSortableListConfiguration<ContributorOrderModel>
     {
         Id = m.Id.ToString(),
-     //   Order = m.Order.ToString(),
+        Order = m.Order.ToString(),
         Text = m.Name,
-        AppendsTo = parent => (int)parent.Role < (int)m.Role
+        AppendsTo = parent => m.Role != ProjectRole.TeamLeader
     }).ListProperties(m => new HtmlProperties
     {
         HtmlAttributes = new { @class = "custom_class"}

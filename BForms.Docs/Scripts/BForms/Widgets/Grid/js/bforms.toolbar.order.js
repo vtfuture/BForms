@@ -1,8 +1,8 @@
-
 define('bforms-toolbar-order', [
         'jquery',
         'bforms-toolbar',
-        'bforms-form'
+        'bforms-form',
+        'bforms-sortable'
 ], function () {
 
     var Order = function ($toolbar, opts) {
@@ -38,10 +38,17 @@ define('bforms-toolbar-order', [
             actions: controls
         });
 
+        this.$sortable = $(this.options.sortableContainerSelector);
 
-        this._initSortable($(this.options.sortableElementSelector));
+        this.bsSortableOptions = {
+            serialize: 'array'
+        };
 
-        this.initialConfiguration = $(this.options.sortableElementSelector).clone();
+        this.$sortable.bsSortable(this.bsSortableOptions);
+
+        this.previousConfigurationHtml = this.$sortable.html();
+
+        this._addDelegates();
     };
 
     Order.prototype._defaultOptions = {
@@ -85,144 +92,25 @@ define('bforms-toolbar-order', [
 
     };
 
-    Order.prototype._initSortable = function ($elements) {
 
-        this.connectingPermited = this.$orderForm.find(this.options.sortableElementSelector + ':first').data('migration-permited').toLowerCase() == true + '';
-        
-        this.validConnections = this._getValidConnections();
+    Order.prototype._addDelegates = function() {
 
-        $(this.options.itemsSelector).each($.proxy(function(i, e) {
-
-            var $el = $(e);
-            var $parent = $el.parents(this.options.itemsSelector + ':first');
-
-            $el.attr('data-appends-to', $el.attr('data-appends-to') + ' ' + $parent.data('id'));
-            
-            $el.data('appends-to', $el.data('appends-to') + ' ' + $parent.data('id'));
-        }, this));
-        
-        var sortableOptions = {
-            items: '> ' + this.options.itemsSelector,
-            update: $.proxy(this._evOnUpdate, this, $elements),
-            forcePlaceholderSize: true,
-            start: $.proxy(function (e, ui) {
-
-                this.previousConfigurationHtml = $(this.options.sortableContainerSelector).html();
-
-                this.currentConnection = {
-                    item: ui.item,
-                    itemId: ui.item.data('id'),
-                    parent: ui.item.parents(this.sortableElementSelector).first(),
-                    previousItemId: ui.item.siblings(this.options.itemsSelector).data('id')
-                };
-
-                this._fixHeightForEmptyLists();
-
-            }, this),
-
-            stop: $.proxy(function (e, ui) {
-
-                $(this.options.sortableElementSelector).each($.proxy(function (i, el) {
-
-                    $(el).removeAttr('style');
-
-                }, this));
-
-            }, this)
-        };
-        
-
-        if (this.connectingPermited) {
-            sortableOptions.connectWith = this.options.sortableElementSelector;
-        } else {
-             sortableOptions.axis = 'y';
-        }
-        
-        $elements.sortable(sortableOptions);
-
+        $(this.options.sortableContainerSelector).on('update', $.proxy(this._evOnUpdate, this));
     };
 
-    Order.prototype._fixHeightForEmptyLists = function() {
+    Order.prototype._evOnUpdate = function (e) {
 
-        $(this.options.itemsSelector).each($.proxy(function (i, e) {
-
-            var $sublist = $(e).find(this.options.sortableElementSelector);
-
-            if ($sublist.find(this.options.itemsSelector).length == 0) {
-
-                $sublist.css('height', '15px');
-            }
-        }, this));
-    };
-
-    Order.prototype._getValidConnections = function() {
-
-        var $items = $(this.options.itemsSelector);
-        var connections = {};
-
-        $items.each($.proxy(function (i, e) {
-
-            if (typeof $(e).data('id') !== 'undefined') {
-                connections[$(e).data('id')] = this._validConnectionsFor($(e).data('id'));
-            }
-        }, this));
-
-        return connections;
-    };
-
-    Order.prototype._validConnectionsFor = function(id) {
-
-        var $item = $(this.options.itemsSelector + '[data-id=' + id + ']');
-        var connectionsStr = $($item).data('appends-to') + '';
-        var connections = connectionsStr.split(' ');
-
-        return connections;
-    };
-
-    Order.prototype._evOnUpdate = function ($elements, e, ui) {
-
-        var validConnection = this._validateConnection(ui.item);
-
-        if (!validConnection) {
-            
-            $(this.options.sortableElementSelector).sortable('cancel');
-        }
-
-        var reorderedList = [];
-        var selector = this.options.itemsSelector;
-
-        $elements.find(selector).each(function (index, elem) {
-            reorderedList.push({
-                Id: $(elem).data('id'),
-                Order: index + 1,
-                ParentId: $(elem).parents(selector + ':first').data('id')
-            });
-        });
-
-        this.reorderedList = reorderedList;
+        this.reorderedList = e.updatedList;
         this.updated = true;
-    };
-
-    Order.prototype._validateConnection = function($item) {
-
-        var $parent = $item.parents(this.options.itemsSelector + ':first');
-
-        var parentId = $parent.data('id');
-
-        var validParents = typeof $item.data('appends-to') !== 'undefined' ? ($item.data('appends-to') + '').split(' ') : null;
-
-        if (validParents == null) {
-            return true;
-        }
-
-        return validParents.indexOf('' + parentId) !== -1;
     };
 
     Order.prototype._evOnReset = function () {
 
-        $(this.options.sortableElementSelector).html(this.initialConfiguration.html());
+        this.$sortable.html(this.previousConfigurationHtml);
 
-        this._initSortable($(this.options.sortableElementSelector));
+        $('.placeholder').remove();
+
+        this.$sortable.bsSortable(this.bsSortableOptions);
     };
 
     Order.prototype._evOnSave = function () {
@@ -267,11 +155,11 @@ define('bforms-toolbar-order', [
         this.updated = false;
         
         $('.loading-global').hide();
-        
-        this.initialConfiguration = $(this.options.sortableElementSelector).clone();
 
         this.$orderForm.removeAttr('disabled');
         $(this._controls.save.selector).attr('disabled', false);
+        
+        this.previousConfigurationHtml = this.$sortable.html();
     };
 
     return Order;
