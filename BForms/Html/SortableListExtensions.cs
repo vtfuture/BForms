@@ -159,6 +159,9 @@ namespace BForms.Html
         public SortableListItemWrapper List { get; set; }
         public IEnumerable<TModel> Model { get; set; }
         private IEnumerable<TModel> _reducedTree;
+
+        public string ParentPropertyName = "ParentId";
+
         private Dictionary<string, IEnumerable<string>> _permitedConnections;
         internal Dictionary<string, object> globalHtmlAttributes;
         internal Dictionary<string, object> globalDataAttributes;
@@ -472,11 +475,11 @@ namespace BForms.Html
 
             if (list.ItemTag.Attributes.ContainsKey("class"))
             {
-                list.ItemTag.Attributes["class"] += " sortable_list_item";
+                list.ItemTag.Attributes["class"] += " bs-sortable-item";
             }
             else
             {
-                list.ItemTag.Attributes.Add("class", "sortable_list_item");
+                list.ItemTag.Attributes.Add("class", "bs-sortable-item");
             }
 
             #region Nested elements
@@ -565,6 +568,13 @@ namespace BForms.Html
             return this;
         }
 
+        public BsSortableListHtmlBuilder<TModel> ParentProperty(string propertyName)
+        {
+            this.ParentPropertyName = propertyName;
+
+            return this;
+        }
+
         public BsSortableListHtmlBuilder<TModel> MigrationPermited(bool permited)
         {
             if (globalDataAttributes.ContainsKey("migration-permited"))
@@ -619,10 +629,20 @@ namespace BForms.Html
             ol.MergeAttributes(this.Builder.globalHtmlAttributes);
             ol.MergeAttributes(this.Builder.globalDataAttributes.ToDictionary(x => "data-" + x.Key, y => y.Value));
 
-            ol.Attributes.Add("class", "bs-sortable");
+            if (this.Builder.globalHtmlAttributes.ContainsKey("class"))
+            {
+                ol.Attributes["class"] += " bs-sortable";
+            }
+            else
+            {
+                ol.Attributes.Add("class", "bs-sortable");
+            }
+            
 
             var container = new TagBuilder("div") {InnerHtml = ol.ToString()};
+
             container.Attributes.Add("class", "sortable-container");
+            container.Attributes.Add("data-parent-property", this.Builder.ParentPropertyName);
 
             return container.ToString();
         }

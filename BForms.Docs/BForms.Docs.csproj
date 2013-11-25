@@ -219,6 +219,7 @@
     <Content Include="Scripts\BForms\Images\bg-user.png" />
     <Content Include="Scripts\BForms\Widgets\Grid\js\bforms.toolbar.order.js" />
     <Content Include="Scripts\BForms\Widgets\InlineQuestion\bforms.inlineQuestion.js" />
+    <Content Include="Scripts\BForms\Widgets\Sortable\bforms.sortable.js" />
     <Content Include="Scripts\Controllers\Demo\UserProfile\userprofile-index.js" />
     <Content Include="Views\Start\Setup\Source\_BundleConfigJs.cs.embed" />
     <Content Include="Views\Start\Setup\Source\_Files.embed" />

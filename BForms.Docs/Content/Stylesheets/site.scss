@@ -432,6 +432,12 @@ code {
 	}
 }
 
+.bs-sortable {
+	.bs-sortable-item {
+		cursor: move;
+	}
+}
+
 /* Tabs for example */
 
 .docs_tabs {

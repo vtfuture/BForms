@@ -314,6 +314,10 @@ code {
     border: 0;
     white-space: nowrap; }
 
+  .bs-sortable .bs-sortable-item {
+      cursor: move;
+  }
+
 /* Tabs for example */
 .docs_tabs {
   margin-top: 30px; }
