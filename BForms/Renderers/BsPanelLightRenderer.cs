@@ -39,20 +39,16 @@ namespace BForms.Renderers
                 editableTag.InnerHtml += editableGlyph;
 
                 headerTag.InnerHtml += editableTag;
-
-                var controlsTag = new TagBuilder("span");
-                controlsTag.AddCssClass("controls");
+             
 
                 var cancelEditableTag = new TagBuilder("a");
-                cancelEditableTag.AddCssClass("pull-right bs-cancelEdit btn-danger btn");
+                cancelEditableTag.AddCssClass("pull-right bs-cancelEdit");
                 cancelEditableTag.MergeAttribute("style", "display:none");
 
                 var cancelEditGlyph = this.GetGlyphiconTag(Glyphicon.Remove);
                 cancelEditableTag.InnerHtml += cancelEditGlyph;
 
-                controlsTag.InnerHtml += cancelEditableTag;
-
-                headerTag.InnerHtml += controlsTag;
+                headerTag.InnerHtml += cancelEditableTag;
             }
 
             return headerTag.ToString();

@@ -34,6 +34,7 @@
         }
     };
 
+    //#region init
     bsPanel.prototype._init = function () {
         this.$element = this.element;
 
@@ -56,7 +57,7 @@
         }
     };
 
-    bsPanel.prototype._loadOptions = function() {
+    bsPanel.prototype._loadOptions = function () {
         var settings = this.$element.data('settings');
 
         $.extend(true, this.options, settings);
@@ -79,6 +80,13 @@
 
         this._key = window.location.pathname + '|BoxForm|' + this._name;
 
+        if (typeof this.options.initialReadonly === "undefined" || this.options.initialReadonly == true) {
+
+            this._readonly = true;
+        } else {
+            this._readonly = false;
+        }
+
         this.options.readonlyUrl = this.options.readonlyUrl || this.$element.data('readonlyurl');
         this.options.editableUrl = this.options.editableUrl || this.$element.data('editableurl');
         this.options.saveUrl = this.options.saveUrl || this.$element.data('saveurl');
@@ -99,6 +107,7 @@
 
         this.$element.on('click', this.options.retrySelector, $.proxy(this._onRetryClick, this));
     };
+    //#endregion
 
     //#region events
     bsPanel.prototype._onToggleClick = function (e) {
@@ -131,6 +140,7 @@
 
         if (this.options.cacheReadonlyContent && this._cachedReadonlyContent) {
             this.$content.html(this._cachedReadonlyContent);
+            this.showReadonly();
             this._toggleEditBtn(true);
 
             if (!this._state) {
@@ -215,7 +225,7 @@
 
         return $.extend(true, {}, {
             componentId: this._componentId,
-            objId : this._objId
+            objId: this._objId
         }, this.options.additionalData);
 
     };
@@ -271,6 +281,7 @@
         }
 
         this._trigger('onReadonlyLoadSuccess', 0, response);
+        this.showReadonly();
     };
 
     bsPanel.prototype._onReadonlyLoadError = function (data) {
@@ -345,6 +356,9 @@
                 getExtraData: $.proxy(function (data) {
                     data.componentId = this._componentId;
                     data.objId = this._objId;
+
+                    $.extend(true, data, this.options.formAdditionalData);
+
                 }, this),
                 handler: $.proxy(function (sent, data) {
 
@@ -367,6 +381,8 @@
         this._toggleEditBtn();
 
         this._trigger('onEditableLoadSuccess', 0, response);
+
+        this.showEditable();
     };
 
     bsPanel.prototype._onEditableLoadError = function () {
@@ -414,6 +430,20 @@
         this._saveState();
 
         this._trigger('afterClose');
+    };
+
+    bsPanel.prototype.showReadonly = function () {
+        this._trigger('onReadonlyShow', 0);
+
+        this._readonly = true;
+        this.$element.data('readonly', true);
+    };
+
+    bsPanel.prototype.showEditable = function () {
+        this._trigger('onEditableShow', 0);
+
+        this._readonly = false;
+        this.$element.data('readonly', false);
     };
     //#endregion
 
