@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -16,6 +17,7 @@ namespace BForms.EndToEnd.Models
     public class Tire
     {
         public string Manufacturer { get; set; }
+        [Required]
         [BsControl(BsControlType.RadioButtonList)]
         public BsSelectList<ConstructionType> ConstructionType { get; set; }
     }

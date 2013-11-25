@@ -2,6 +2,5 @@
 @model BForms.EndToEnd.Models.Car
 @for (var i = 0; i < Model.Tires.Count; i++)
 {
-    @Html.BsSelectFor(m => m.Tires[i].ConstructionType)
-    @*@Html.BsLabelFor(m => m.Tires[i].ConstructionType)*@
+    @Html.BsLabelFor(m => m.Tires[i].ConstructionType)
 }

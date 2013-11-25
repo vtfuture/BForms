@@ -134,23 +134,10 @@ namespace BForms.Html
 
             var labelTag = new TagBuilder("label");
 
-            //determine if the prop is decorated with Required
-            var model = typeof(TModel);
-            PropertyInfo property = null;
-            foreach (var prop in fieldName.Split('.'))
+            Mvc.BsMandatoryAttribute attr;
+            if (ReflectionHelpers.TryGetAttribute(fieldName, typeof(TModel), out attr))
             {
-                property = model.GetProperty(prop);
-                model = property.PropertyType;
-            }
-            if (property != null)
-            {
-                var isRequired = Attribute.IsDefined(property,
-                    typeof(Mvc.BsMandatoryAttribute));
-
-                if (isRequired)
-                {
-                    labelTag.AddCssClass("required");
-                }
+                labelTag.AddCssClass("required");
             }
 
             var labelHtml = new StringBuilder(labelTag.ToString(TagRenderMode.StartTag));
@@ -166,7 +153,6 @@ namespace BForms.Html
         internal static void ApplyCheckBoxAttributes(this IDictionary<string, object> htmlAttributes)
         {
             //add bootstrap css
-            //htmlAttributes.MergeAttribute("class", "form-control");
             htmlAttributes.MergeAttribute("class", BsControlType.CheckBox.GetDescription());
         }
         #endregion

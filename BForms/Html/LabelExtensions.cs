@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -43,26 +44,12 @@ namespace BForms.Html
             htmlAttributes.MergeAttribute("class", "control-label");
 
             var propertyName = ExpressionHelper.GetExpressionText(expression);
+            RequiredAttribute attr;
+            if (ReflectionHelpers.TryGetAttribute(propertyName, typeof(TModel), out attr))
+            {
+                htmlAttributes.MergeAttribute("class", "required");
+            }
             
-            //determine if the prop is decorated with Required
-            var model = typeof (TModel);
-            PropertyInfo property = null;
-
-            foreach (var prop in propertyName.Split('.'))
-            {
-                property = model.GetProperty(prop);
-                model = property.PropertyType;
-            }
-            if (property != null)
-            {
-                var isRequired = Attribute.IsDefined(property,
-                    typeof (System.ComponentModel.DataAnnotations.RequiredAttribute));
-
-                if (isRequired)
-                {
-                    htmlAttributes.MergeAttribute("class", "required");
-                }
-            }
 
             var name = htmlHelper.AttributeEncode(htmlHelper.ViewData.TemplateInfo.GetFullHtmlFieldName(propertyName));
             if (typeof(TProperty).FullName.Contains("BsSelectList"))
