@@ -18,45 +18,49 @@ namespace BForms.Renderers
 
         public virtual string RenderHeader()
         {
-            var headerTag = new TagBuilder("h3");
-            headerTag.AddCssClass("panel-heading");
-
-            headerTag.InnerHtml += this.GetGlyphicon(Glyphicon.User);
-
-            headerTag.InnerHtml += " " + this.Builder.name;
-
-            if (this.Builder.isEditable)
+            if (this.Builder.noHeader == false)
             {
-                headerTag.AddCssClass("editable");
 
-                var editableTag = new TagBuilder("a");
-                editableTag.MergeAttribute("href", "#");
+                var headerTag = new TagBuilder("h3");
+                headerTag.AddCssClass("panel-heading bs-panelHeader");
 
-                editableTag.AddCssClass("pull-right bs-editPanel");
+                if (this.Builder.glyphicon.HasValue)
+                {
+                    headerTag.InnerHtml += this.GetGlyphicon(this.Builder.glyphicon.Value);
+                }
 
-                var editableGlyph = this.GetGlyphiconTag(Glyphicon.Pencil);
-                editableGlyph.AddCssClass("open-editable");
+                headerTag.InnerHtml += " " + this.Builder.name;
 
-                editableTag.InnerHtml += editableGlyph;
+                if (this.Builder.isEditable)
+                {
+                    headerTag.AddCssClass("editable");
 
-                headerTag.InnerHtml += editableTag;
+                    var editableTag = new TagBuilder("a");
+                    editableTag.MergeAttribute("href", "#");
 
-                var controlsTag = new TagBuilder("span");
-                controlsTag.AddCssClass("controls");
+                    editableTag.AddCssClass("pull-right bs-editPanel");
 
-                var cancelEditableTag = new TagBuilder("a");
-                cancelEditableTag.AddCssClass("pull-right bs-cancelEdit btn-danger btn");
-                cancelEditableTag.MergeAttribute("style", "display:none");
+                    var editableGlyph = this.GetGlyphiconTag(Glyphicon.Pencil);
+                    editableGlyph.AddCssClass("open-editable");
 
-                var cancelEditGlyph = this.GetGlyphiconTag(Glyphicon.Remove);
-                cancelEditableTag.InnerHtml += cancelEditGlyph;
+                    editableTag.InnerHtml += editableGlyph;
 
-                controlsTag.InnerHtml += cancelEditableTag;
+                    headerTag.InnerHtml += editableTag;
 
-                headerTag.InnerHtml += controlsTag;
+                    var cancelEditableTag = new TagBuilder("a");
+                    cancelEditableTag.AddCssClass("pull-right bs-cancelEdit");
+                    cancelEditableTag.MergeAttribute("style", "display:none");
+
+                    var cancelEditGlyph = this.GetGlyphiconTag(Glyphicon.Remove);
+                    cancelEditableTag.InnerHtml += cancelEditGlyph;
+
+                    headerTag.InnerHtml += cancelEditableTag;
+                }
+
+                return headerTag.ToString();
             }
 
-            return headerTag.ToString();
+            return string.Empty;
         }
 
         public virtual string RenderContent()
@@ -106,11 +110,14 @@ namespace BForms.Renderers
                    loaded = this.Builder.isLoaded
                }).ToJsonString());
 
-            container.MergeAttribute("data-component", this.Builder.id.ToString());
+            if (this.Builder.id != null)
+            {
+                container.MergeAttribute("data-component", MvcHelpers.Serialize(this.Builder.id));
+            }
 
             if (this.Builder.objId != null)
             {
-                container.MergeAttribute("data-objid", this.Builder.objId.ToString());
+                container.MergeAttribute("data-objid", MvcHelpers.Serialize(this.Builder.objId));
             }
 
             body = container;

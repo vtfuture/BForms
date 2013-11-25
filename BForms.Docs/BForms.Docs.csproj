@@ -757,8 +757,6 @@
     <Content Include="Views\Docs\Grid\Source\_JavascriptToolbar.cs.embed" />
     <Content Include="Areas\Demo\Views\Contributors\Grid\Details\_ProjectRelatedEditable.cshtml" />
     <Content Include="Areas\Demo\Views\Contributors\Grid\Details\_ProjectRelatedReadonly.cshtml" />
-    <Content Include="Areas\Demo\Views\Contributors\Grid\Details\_Identity.cshtml" />
-    <Content Include="Areas\Demo\Views\Contributors\Grid\Details\_ProjectRelated.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BForms\BForms.csproj">

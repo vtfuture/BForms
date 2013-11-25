@@ -260,7 +260,17 @@
             }, this),
             formOptions : {
                 uniqueName : 'test'
-            }
+            },
+            headerToggle : true,
+            onEditableShow: $.proxy(function () {
+                this.$grid.bsGrid('disableRowActions', $row);
+            }, this),
+            
+            onReadonlyShow: $.proxy(function () {
+                if ($row.find('.bs-panelEditMode').length == 0) {
+                    this.$grid.bsGrid('enableRowActions', $row);
+                }
+            },this)
         });
     };
 

@@ -16,6 +16,7 @@
                     .EditableUrl(Url.Action("GetEditable"))
                     .SaveUrl(Url.Action("Update"))
                     .ObjId(Model.Id)
+                    .Glyphicon(Glyphicon.User)
                     .HtmlAttributes(new {@class = "js-editableIdentity bs-editable", id = "contributor_identity"})                    
             )
 
@@ -32,6 +33,7 @@
                 .EditableUrl(Url.Action("GetEditable"))
                 .SaveUrl(Url.Action("Update"))
                 .ObjId(Model.Id)
+                .Glyphicon(Glyphicon.Tags)
                 .HtmlAttributes(new { @class = "js-editableProject bs-editable", id = "contributor_project" })                    
             )
 
