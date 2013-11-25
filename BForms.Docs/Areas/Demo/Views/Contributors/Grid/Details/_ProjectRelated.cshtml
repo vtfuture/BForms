@@ -1,0 +1,14 @@
+﻿@using BForms.Docs.Resources
+@using BForms.Html
+@using BForms.Models
+@model BForms.Docs.Areas.Demo.Models.ContributorDetailsModel
+
+<h3 class="editable">
+    @Html.BsGlyphicon(Glyphicon.Tags)
+    Project related
+    @Html.BsGlyphicon(Glyphicon.Pencil, new Dictionary<string, object> {{ "class", "open-editable" }})
+</h3>
+
+@Html.Partial("Grid/Details/_ProjectRelatedReadonly", Model)
+
+@Html.Partial("Grid/Details/_ProjectRelatedEditable", Model)
