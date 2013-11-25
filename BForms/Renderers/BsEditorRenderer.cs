@@ -81,7 +81,7 @@ namespace BForms.Renderers
             #region Left
             var left = new TagBuilder("div");
 
-            left.AddCssClass("left");
+            left.AddCssClass("left bs-tabs");
 
             left.InnerHtml += RenderTabs();
 
@@ -91,7 +91,7 @@ namespace BForms.Renderers
             #region Right
             var right = new TagBuilder("div");
 
-            right.AddCssClass("right");
+            right.AddCssClass("right bs-groups");
 
             right.InnerHtml += RenderGroups();
 

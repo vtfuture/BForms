@@ -54,7 +54,7 @@ namespace BForms.Editor
         #region Helpers
         private void InsertTab<TEditor, TRow>(object id, BsEditorTabBuilder<TEditor> tabBuilder)
             where TEditor : IBsEditorTabModel
-            where TRow : new ()
+            where TRow : BsItemModel
         {
             if (tabBuilder.IsSelected())
             {
@@ -97,7 +97,7 @@ namespace BForms.Editor
 
         private void Add<TEditor, TRow>(BsEditorTabAttribute attr, BsEditorTabModel<TRow> model)
             where TEditor : IBsEditorTabModel
-            where TRow : new()
+            where TRow : BsItemModel
         {
             var tab = new BsEditorTabBuilder<TEditor>(model, this.viewContext)
                        .DisplayName(attr.Name)

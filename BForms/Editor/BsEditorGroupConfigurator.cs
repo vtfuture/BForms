@@ -55,7 +55,7 @@ namespace BForms.Editor
 
         private void Add<TEditor, TRow>(BsEditorGroupAttribute attr, IBsEditorGroupModel model) 
             where TEditor : IBsEditorGroupModel
-            where TRow : BsEditorGroupItemModel
+            where TRow : BsEditorGroupItemModel, new()
         {
             var group = new BsEditorGroupBuilder<TEditor>(model, this.viewContext)
                        .Id(attr.Id);

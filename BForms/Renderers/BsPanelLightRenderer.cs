@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,7 +21,7 @@ namespace BForms.Renderers
             var headerTag = new TagBuilder("h3");
             headerTag.AddCssClass("panel-heading");
 
-            headerTag.InnerHtml += this.GetGlyphcon(Glyphicon.User);
+            headerTag.InnerHtml += this.GetGlyphicon(Glyphicon.User);
 
             headerTag.InnerHtml += " " + this.Builder.name;
 
@@ -39,16 +39,20 @@ namespace BForms.Renderers
                 editableTag.InnerHtml += editableGlyph;
 
                 headerTag.InnerHtml += editableTag;
-             
+
+                var controlsTag = new TagBuilder("span");
+                controlsTag.AddCssClass("controls");
 
                 var cancelEditableTag = new TagBuilder("a");
-                cancelEditableTag.AddCssClass("pull-right bs-cancelEdit");
+                cancelEditableTag.AddCssClass("pull-right bs-cancelEdit btn-danger btn");
                 cancelEditableTag.MergeAttribute("style", "display:none");
 
                 var cancelEditGlyph = this.GetGlyphiconTag(Glyphicon.Remove);
                 cancelEditableTag.InnerHtml += cancelEditGlyph;
 
-                headerTag.InnerHtml += cancelEditableTag;
+                controlsTag.InnerHtml += cancelEditableTag;
+
+                headerTag.InnerHtml += controlsTag;
             }
 
             return headerTag.ToString();

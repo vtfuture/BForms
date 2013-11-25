@@ -12,7 +12,9 @@ using BForms.Utilities;
 
 namespace BForms.Renderers
 {
-    public class BsEditorTabRenderer<TModel, TRow> : BsBaseRenderer<BsEditorTabBuilder<TModel>> where TModel : IBsEditorTabModel
+    public class BsEditorTabRenderer<TModel, TRow> : BsBaseRenderer<BsEditorTabBuilder<TModel>> 
+        where TModel : IBsEditorTabModel
+        where TRow : BsItemModel
     {
         protected BsEditorRowConfigurator<TRow> rowConfigurator;
 
@@ -48,6 +50,10 @@ namespace BForms.Renderers
                 foreach (var item in this.Builder.Model.GetItems<TRow>())
                 {
                     var listItem = new TagBuilder("li");
+
+                    listItem.MergeAttribute("data-objid", MvcHelpers.Serialize(item.GetUniqueID()));
+
+                    listItem.MergeAttribute("data-model", MvcHelpers.Serialize(item));
 
                     IDictionary<string, object> itemAttributes = null;
 
@@ -89,9 +95,9 @@ namespace BForms.Renderers
 
                     anchorRight.MergeAttribute("href", "#");
 
-                    anchorRight.AddCssClass("btn btn-white select_profile");
+                    anchorRight.AddCssClass("btn btn-white select_profile bs-addBtn");
 
-                    anchorRight.InnerHtml += GetGlyphcon(Glyphicon.Plus);
+                    anchorRight.InnerHtml += GetGlyphicon(Glyphicon.Plus);
 
                     listItemWrapper.InnerHtml += anchorRight;
 
@@ -163,7 +169,7 @@ namespace BForms.Renderers
 
             var wrapper = new TagBuilder("div");
 
-            wrapper.MergeAttribute("data-tabid", this.Builder.Uid.ToString());
+            wrapper.MergeAttribute("data-tabid", MvcHelpers.Serialize(this.Builder.Uid));
 
             if (this.Builder.ConnectsWithIds != null)
             {
