@@ -20,6 +20,7 @@
                 .Template(x => x.Grid, "_TabItem");
 
             var tab1 = cfg.For(x => x.Contributors)
+                .Editable()
                 .Template(x => x.Grid, "_TabItem")
                 .Template(x => x.Search, "~/Areas/Demo/Views/Contributors/Toolbar/_Search.cshtml")
                 .Template(x => x.Order, "_Order")

@@ -15,6 +15,8 @@ namespace BForms.Mvc
 
         public bool Selected { get; set; }
 
+        public bool Editable { get; set; }
+
         /// <summary>
         /// Empty ctor
         /// </summary>

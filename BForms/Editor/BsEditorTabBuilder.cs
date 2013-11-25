@@ -22,6 +22,7 @@ namespace BForms.Editor
         internal bool selected { get; set; }
         protected bool hasModel { get; set; }
         protected bool hasItems { get; set; }
+        internal bool editable { get; set; }
 
         internal object Uid
         {
@@ -69,6 +70,23 @@ namespace BForms.Editor
         private TModel model;
         private object[] connectsWith { get; set; }
         internal IBsEditorRowConfigurator rowConfigurator;
+        private List<TabGroupConnection> connections { get; set; }
+
+        internal List<TabGroupConnection> Connections
+        {
+            get
+            {
+                return this.connections;
+            }
+        }
+
+        internal bool IsEditable
+        {
+            get
+            {
+                return this.editable;
+            }
+        }
 
         internal object[] ConnectsWithIds
         {
@@ -109,8 +127,9 @@ namespace BForms.Editor
             }
         }
 
-        public BsEditorTabBuilder(IBsEditorTabModel model, ViewContext viewContext)
+        public BsEditorTabBuilder(IBsEditorTabModel model, ViewContext viewContext, List<TabGroupConnection> connections)
         {
+            this.connections = connections;
             this.viewContext = viewContext;
             this.model = (TModel)model;
             
@@ -167,6 +186,13 @@ namespace BForms.Editor
                 }
             }
           
+            return this;
+        }
+
+        public BsEditorTabBuilder<TModel> Editable()
+        {
+            this.editable = true;
+
             return this;
         }
 

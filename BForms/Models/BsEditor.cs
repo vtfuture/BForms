@@ -24,11 +24,36 @@ namespace BForms.Models
         public object TabId { get; set; }
     }
 
-    public interface IBsEditorGroupModel{}
+    public interface IBsEditorGroupModel
+    {
+        TabGroupConnection GetTabGroupConnection();
+    }
+
+    public class TabGroupConnectionItem
+    {
+        public object TabId { get; set; }
+        public object Id { get; set; }
+    }
+
+    public class TabGroupConnection
+    {
+        public object GroupId { get; set; }
+        public List<TabGroupConnectionItem> Items { get; set; }
+    }
 
     public class BsEditorGroupModel<TRow> : BsItemsModel<TRow>, IBsEditorGroupModel where TRow : BsEditorGroupItemModel
     {
-
+        public TabGroupConnection GetTabGroupConnection()
+        {
+            return new TabGroupConnection
+            {
+                Items = this.Items.Select(x => new TabGroupConnectionItem
+                {
+                    TabId = x.TabId,
+                    Id = x.GetUniqueID()
+                }).ToList()
+            };
+        }
     }
 
     public class BsEditorGroupModel<TRow, TRowForm> : BsEditorGroupModel<TRow> where TRow : BsEditorGroupItemModel<TRowForm>

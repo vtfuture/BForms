@@ -52,11 +52,42 @@ namespace BForms.Editor
 
             var type = typeof(TModel);
 
-            foreach (var prop in type.GetProperties())
+            var props = type.GetProperties();
+
+            var editableTabIds = new List<object>();
+
+            // find out what tabs are editable to send to group configurator TODO refactor somehow (3 foreach ..)
+            foreach (var prop in props)
             {
                 BsEditorTabAttribute tabAttr = null;
 
-                BsEditorGroupAttribute groupAttr = null;
+                if (ReflectionHelpers.TryGetAttribute(prop, out tabAttr))
+                {
+                    if (tabAttr.Editable)
+                    {
+                        editableTabIds.Add(tabAttr.Id);
+                    }
+                }
+            }
+
+            if (!this.IsAjaxRequest()) // we don't care about groups
+            {
+                foreach (var prop in props)
+                {
+                    BsEditorGroupAttribute groupAttr = null;
+
+                    if (ReflectionHelpers.TryGetAttribute(prop, out groupAttr))
+                    {
+                        var value = prop.GetValue(model);
+
+                        InvokeAddGroupConfig(value, prop, groupAttr, editableTabIds); // TODO send editableTabIds
+                    }
+                }
+            }
+
+            foreach (var prop in props)
+            {
+                BsEditorTabAttribute tabAttr = null;
 
                 if (ReflectionHelpers.TryGetAttribute(prop, out tabAttr))
                 {
@@ -64,16 +95,7 @@ namespace BForms.Editor
 
                     var value = prop.GetValue(model);
 
-                    InvokeAddTabConfig(value, prop, tabAttr);
-                }
-
-                if (this.IsAjaxRequest()) continue; // we don't care about groups
-
-                if (ReflectionHelpers.TryGetAttribute(prop, out groupAttr))
-                {
-                    var value = prop.GetValue(model);
-
-                    InvokeAddGroupConfig(value, prop, groupAttr);
+                    InvokeAddTabConfig(value, prop, tabAttr); // this has to happen after group configuration
                 }
             }
         }
@@ -99,7 +121,7 @@ namespace BForms.Editor
         #endregion
 
         #region Helpers
-        private void InvokeAddGroupConfig(object value, PropertyInfo prop, BsEditorGroupAttribute attr)
+        private void InvokeAddGroupConfig(object value, PropertyInfo prop, BsEditorGroupAttribute attr, List<object> editableTabIds)
         {
             var propertyType = prop.PropertyType;
 
@@ -128,7 +150,7 @@ namespace BForms.Editor
                 method = typeof(BsEditorGroupConfigurator<TModel>).GetMethod("Add", this.Bindings());
                 generic = method.MakeGenericMethod(propertyType, rowType);
 
-                generic.Invoke(this.groupConfigurator, new object[] { attr, value });
+                generic.Invoke(this.groupConfigurator, new object[] { attr, value, editableTabIds.ToArray() });
             }
         }
 
@@ -160,7 +182,7 @@ namespace BForms.Editor
                 method = typeof(BsEditorTabConfigurator<TModel>).GetMethod("Add", this.Bindings());
                 generic = method.MakeGenericMethod(propertyType, rowType);
 
-                generic.Invoke(this.tabConfigurator, new object[] { attr, value });
+                generic.Invoke(this.tabConfigurator, new object[] { attr, value, this.groupConfigurator.Connections, this.groupConfigurator.GetGroupIds() });
             }
         }
 

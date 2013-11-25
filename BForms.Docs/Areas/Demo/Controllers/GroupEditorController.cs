@@ -51,7 +51,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
 
     public class GroupEditorModel
     {
-        [BsEditorTab(Name = "Contributors1", Id = YesNoValueTypes.Yes, Selected = true)]
+        [BsEditorTab(Name = "Contributors1", Id = YesNoValueTypes.Yes, Selected = true, Editable = true)]
         public ContributorsInheritExample Contributors { get; set; }
 
         [BsEditorTab(Name = "Contributors2", Id = YesNoValueTypes.No, Selected = false)]

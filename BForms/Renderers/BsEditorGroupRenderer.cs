@@ -184,7 +184,7 @@ namespace BForms.Renderers
 
             rightSide.AddCssClass("col-lg-6 col-md-6");
 
-            rightSide.InnerHtml += RenderControls();
+            rightSide.InnerHtml += RenderControls(this.Builder.EditableTabIds.Any(x => x.Equals(item.TabId)) ? false : true);
 
             header.InnerHtml += rightSide;
 
@@ -210,7 +210,7 @@ namespace BForms.Renderers
 
         }
 
-        protected string RenderControls()
+        protected string RenderControls(bool hidden = true)
         {
             var container = new TagBuilder("div");
 
@@ -218,22 +218,27 @@ namespace BForms.Renderers
 
             // if edit {
 
-            container.InnerHtml += RenderControl(Glyphicon.Pencil, "bs-editBtn");
+            container.InnerHtml += RenderControl(Glyphicon.Pencil, "bs-editBtn", hidden);
 
             // }
 
-            container.InnerHtml += RenderControl(Glyphicon.ChevronUp);
+            container.InnerHtml += RenderControl(Glyphicon.ChevronUp, "bs-upBtn");
 
-            container.InnerHtml += RenderControl(Glyphicon.ChevronDown);
+            container.InnerHtml += RenderControl(Glyphicon.ChevronDown, "bs-downBtn");
 
             container.InnerHtml += RenderControl(Glyphicon.Remove, "bs-removeBtn");
 
             return container.ToString();
         }
 
-        protected string RenderControl(Glyphicon glyphicon, string cssClass = null)
+        protected string RenderControl(Glyphicon glyphicon, string cssClass = null, bool hidden = false)
         {
             var anchor = new TagBuilder("a");
+
+            if (hidden)
+            {
+                anchor.MergeAttribute("style", "display: none;");
+            }
 
             anchor.MergeAttribute("href", "#");
 

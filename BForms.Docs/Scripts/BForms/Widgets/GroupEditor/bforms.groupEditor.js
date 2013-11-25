@@ -32,10 +32,13 @@
         groupItemTemplateSelector: '.bs-itemTemplate',
         groupItemContentSelector: '.bs-itemContent',
         groupItemsWrapper: '.bs-itemsWrapper',
-
+        groupItemsCounter: '.bs-counter',
+        
         removeBtn: '.bs-removeBtn',
         addBtn: '.bs-addBtn',
         editBtn: '.bs-editBtn',
+        upBtn: '.bs-upBtn',
+        downBtn: '.bs-downBtn',
         toggleExpandBtn: '.bs-toggleExpand',
 
         getTabUrl: '',
@@ -53,9 +56,9 @@
             throw 'grid needs a unique name or the element on which it is aplied has to have an id attr';
         }
 
-        this._initComponents();
-
         this._initSelectors();
+
+        this._initComponents();
 
         this._addDelegates();
 
@@ -66,15 +69,15 @@
 
     GroupEditor.prototype._initComponents = function () {
         this.renderer = ichSingleton.getInstance();
+        this._countGroupItems();
+        this._checkEditable();
     };
 
     GroupEditor.prototype._initSelectors = function () {
-
         this.$navbar = this.element.find(this.options.navbarSelector);
-
         this.$tabs = this.element.find(this.options.tabsSelector);
-
         this.$groups = this.element.find(this.options.groupsSelector);
+        this.$counter = this.$groups.find(this.options.groupItemsCounter);
     };
 
     GroupEditor.prototype._addDelegates = function () {
@@ -83,6 +86,8 @@
         this.$tabs.on('click', this.options.addBtn, $.proxy(this._evAdd, this));
         this.$groups.on('click', this.options.removeBtn, $.proxy(this._evRemove, this));
         this.$groups.on('click', this.options.editBtn, $.proxy(this._evEdit, this));
+        this.$groups.on('click', this.options.upBtn, $.proxy(this._evUp, this));
+        this.$groups.on('click', this.options.downBtn, $.proxy(this._evDown, this));
         this.$groups.on('click', this.options.toggleExpandBtn, $.proxy(this._evToggleExpand, this));
     };
 
@@ -134,6 +139,32 @@
     //#endregion
 
     //#region Events
+    GroupEditor.prototype._evUp = function (e) {
+        e.preventDefault();
+        var $item = $(e.currentTarget).parents(this.options.groupItemSelector).first(),
+            $prevItem = $item.prevAll(this.options.groupItemSelector).first();
+
+        if ($prevItem.length > 0) {
+            $prevItem.before($item);
+            this._rebuildNumbers();
+        } else {
+            this._shakeElement($item);
+        }
+    };
+
+    GroupEditor.prototype._evDown = function (e) {
+        e.preventDefault();
+        var $item = $(e.currentTarget).parents(this.options.groupItemSelector).first(),
+            $nextElem = $item.nextAll(this.options.groupItemSelector).first();
+
+        if ($nextElem.length > 0) {
+            $nextElem.after($item);
+            this._rebuildNumbers();
+        } else {
+            this._shakeElement($item);
+        }
+    };
+
     GroupEditor.prototype._evToggleExpand = function (e) {
         e.preventDefault();
         var $el = $(e.currentTarget),
@@ -202,6 +233,7 @@
 
         $item.remove();
         this._toggleItemCheck(this._getTabItem(tabId, objId), true);
+        this._countGroupItems();
     };
 
     GroupEditor.prototype._evAdd = function (e) {
@@ -216,21 +248,25 @@
         $.each($groups, $.proxy(function (idx, group) {
             if (!this._isInGroup(objId, tabId, $(group))) {
 
-                var template = this._getGroupItemTemplate($(group), tabId, objId),
+                var $template = this._getGroupItemTemplate($(group), tabId, objId),
                     tabItem = this._getTabItem(tabId, objId),
                     model = tabItem.data('model');
 
                 var view = this.renderer['js-groupItem'](model);
 
-                template.find(this.options.groupItemContentSelector).html(view);
+                $template.find(this.options.groupItemContentSelector).html(view);
 
-                $(group).find(this.options.groupItemsWrapper).append(template);
+                this._checkEditableItem($template);
+
+                $(group).find(this.options.groupItemsWrapper).append($template);
 
                 this._checkItem(this._getTabItem(tabId, objId), tabId, connectsWith);
 
                 return false;
             }
         }, this));
+
+        this._countGroupItems();
     };
 
     GroupEditor.prototype._evEdit = function (e) {
@@ -285,6 +321,30 @@
     //#endregion
 
     //#region Helpers
+    GroupEditor.prototype._checkEditable = function () {
+        $.each(this._getGroupItems(), $.proxy(function (idx, item) {
+            this._checkEditableItem($(item));
+        }, this));
+    };
+
+    GroupEditor.prototype._checkEditableItem = function ($item) {
+        if (this._isTabEditable($item.data('tabid'))) {
+            $item.find(this.options.editBtn).show();
+        }
+    };
+
+    GroupEditor.prototype._rebuildNumbers = function () {
+
+    };
+
+    GroupEditor.prototype._shakeElement = function ($element) {
+        $element.effect('shake', { times: 2, direction: 'up', distance: 10 }, 50);
+    };
+
+    GroupEditor.prototype._countGroupItems = function () {
+        this.$counter.html(this._getGroupItems().length);
+    };
+
     GroupEditor.prototype._checkItem = function ($item, tabId, connectsWith) {
         if (this._isItemSelected($item.data('objid'), tabId, connectsWith)) {
             this._toggleItemCheck($item, false);
@@ -381,6 +441,10 @@
         return this.$tabs.find('div[data-tabid="' + tabId + '"]');
     };
 
+    GroupEditor.prototype._isTabEditable = function (tabId) {
+        return this._getTab(tabId).data('editable');
+    };
+
     GroupEditor.prototype._getTabItem = function (tabId, objId) {
         var $container = this._getTab(tabId),
             $item = $container.find(this.options.tabItemSelector + '[data-objid="' + objId + '"]');
@@ -390,6 +454,10 @@
     GroupEditor.prototype._getGroup = function (groupId) {
         return this.$groups.find('div[data-groupid="' + groupId + '"]');
     }
+
+    GroupEditor.prototype._getGroupItems = function () {
+        return this.$groups.find(this.options.groupItemSelector + ':not(' + this.options.groupItemTemplateSelector + ' >)');
+    };
 
     GroupEditor.prototype._getGroups = function (groupIds) {
         var $groups;

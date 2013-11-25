@@ -95,14 +95,20 @@ namespace BForms.Editor
             navBuilder.AddTab(attr);
         }
 
-        private void Add<TEditor, TRow>(BsEditorTabAttribute attr, BsEditorTabModel<TRow> model)
+        private void Add<TEditor, TRow>(BsEditorTabAttribute attr, BsEditorTabModel<TRow> model, List<TabGroupConnection> connections, object[] groupIds)
             where TEditor : IBsEditorTabModel
             where TRow : BsItemModel
         {
-            var tab = new BsEditorTabBuilder<TEditor>(model, this.viewContext)
+            var tab = new BsEditorTabBuilder<TEditor>(model, this.viewContext, connections)
+                       .ConnectsWith(groupIds)
                        .DisplayName(attr.Name)
                        .Id(attr.Id)
                        .Selected(attr.Selected);
+
+            if (attr.Editable)
+            {
+                tab.Editable();
+            }
 
             tab.InitRenderer<TRow>();
 
@@ -112,6 +118,11 @@ namespace BForms.Editor
             }
 
             InsertTab<TEditor, TRow>(attr.Id, tab);
+        }
+
+        internal object[] GetEditableTabIds()
+        {
+            return this.Tabs.Where(x => x.Value.editable).Select(x => x.Value).ToArray();
         }
         #endregion
     }

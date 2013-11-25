@@ -95,9 +95,22 @@ namespace BForms.Renderers
 
                     anchorRight.MergeAttribute("href", "#");
 
-                    anchorRight.AddCssClass("btn btn-white select_profile bs-addBtn");
+                    anchorRight.AddCssClass("btn btn-white select_profile");
 
-                    anchorRight.InnerHtml += GetGlyphicon(Glyphicon.Plus);
+                    var isSelected = IsSelected(item);
+
+                    if (isSelected)
+                    {
+                        anchorRight.InnerHtml += GetGlyphicon(Glyphicon.Ok);
+
+                        listItem.AddCssClass("selected");
+                    }
+                    else
+                    {
+                        anchorRight.AddCssClass("bs-addBtn");
+
+                        anchorRight.InnerHtml += GetGlyphicon(Glyphicon.Plus);
+                    }
 
                     listItemWrapper.InnerHtml += anchorRight;
 
@@ -176,7 +189,9 @@ namespace BForms.Renderers
                 wrapper.MergeAttribute("data-connectswith", MvcHelpers.Serialize(this.Builder.ConnectsWithIds));
             }
 
-            wrapper.MergeAttribute("data-loaded", this.Builder.HasModel.ToString());
+            wrapper.MergeAttribute("data-editable", MvcHelpers.Serialize(this.Builder.IsEditable));
+
+            wrapper.MergeAttribute("data-loaded", MvcHelpers.Serialize(this.Builder.HasModel));
 
             if (!this.Builder.selected)
             {
@@ -186,6 +201,33 @@ namespace BForms.Renderers
             wrapper.InnerHtml += this.RenderContent();
 
             return wrapper.ToString();
+        }
+
+        protected bool IsSelected(TRow item)
+        {
+            var connectsWith = this.Builder.ConnectsWithIds;
+            var isSelected = true;
+
+            if (connectsWith.Any())
+            {
+                foreach (var groupId in connectsWith)
+                {
+                    if (!this.Builder.Connections.Any(x =>
+                        x.GroupId.Equals(groupId) &&
+                        x.Items.Any(y =>
+                            y.TabId.Equals(this.Builder.Uid) &&
+                            y.Id.Equals(item.GetUniqueID()))))
+                    {
+                        isSelected = false;
+                    }
+                }
+            }
+            else
+            {
+                isSelected = false;
+            }
+            
+            return isSelected;
         }
     }
 }

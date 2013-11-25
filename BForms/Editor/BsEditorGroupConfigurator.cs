@@ -17,10 +17,12 @@ namespace BForms.Editor
     {
         #region Properties and Constructor
         internal Dictionary<object, BsEditorGroupBuilder> Groups { get; set; }
+        internal List<TabGroupConnection> Connections { get; set; }
 
         public BsEditorGroupConfigurator(ViewContext viewContext) : base(viewContext)
         {
             this.Groups = new Dictionary<object, BsEditorGroupBuilder>();
+            this.Connections = new List<TabGroupConnection>();
         }
         #endregion
 
@@ -53,11 +55,11 @@ namespace BForms.Editor
             throw new Exception("Property " + prop.Name + " has no BsGroupEditorAttribute");
         }
 
-        private void Add<TEditor, TRow>(BsEditorGroupAttribute attr, IBsEditorGroupModel model) 
+        private void Add<TEditor, TRow>(BsEditorGroupAttribute attr, IBsEditorGroupModel model, object[] editableTabIds) 
             where TEditor : IBsEditorGroupModel
             where TRow : BsEditorGroupItemModel, new()
         {
-            var group = new BsEditorGroupBuilder<TEditor>(model, this.viewContext)
+            var group = new BsEditorGroupBuilder<TEditor>(model, this.viewContext, editableTabIds)
                        .Id(attr.Id);
 
             var rowType = typeof(TRow);
@@ -76,6 +78,10 @@ namespace BForms.Editor
                 group.renderer = new BsEditorGroupRenderer<TEditor, TRow>(group);
             }
 
+            var connection = model.GetTabGroupConnection();
+            connection.GroupId = attr.Id;
+            this.Connections.Add(connection);
+
             InsertGroup<TEditor, TRow>(attr.Id, group);
         }
 
@@ -84,6 +90,11 @@ namespace BForms.Editor
             where TRow : BsEditorGroupItemModel
         {
             this.Groups.Add(id, tabBuilder);
+        }
+
+        internal object[] GetGroupIds()
+        {
+            return this.Groups.Select(x => x.Value.Uid).Reverse().ToArray();
         }
         #endregion
     }

@@ -48,6 +48,15 @@ namespace BForms.Editor
     {
         protected TModel model { get; set; }
         protected Dictionary<string, BsEditorFormBuilder> forms { get; set; }
+        protected object[] editableTabIds { get; set; }
+
+        internal object[] EditableTabIds
+        {
+            get
+            {
+                return this.editableTabIds;
+            }
+        }
 
         internal Dictionary<string, BsEditorFormBuilder> RowForms
         {
@@ -70,8 +79,9 @@ namespace BForms.Editor
             this.viewContext = viewContext;
         }
 
-        public BsEditorGroupBuilder(IBsEditorGroupModel model, ViewContext viewContext)
+        public BsEditorGroupBuilder(IBsEditorGroupModel model, ViewContext viewContext, object[] editableTabIds)
         {
+            this.editableTabIds = editableTabIds;
             this.forms = new Dictionary<string, BsEditorFormBuilder>();
             this.viewContext = viewContext;
             this.model = (TModel)model;
