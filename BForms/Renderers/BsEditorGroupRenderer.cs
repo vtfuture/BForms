@@ -12,7 +12,7 @@ namespace BForms.Renderers
 {
     public class BsEditorGroupRenderer<TModel, TRow, TForm> : BsEditorGroupRenderer<TModel, TRow> 
         where TModel : IBsEditorGroupModel
-        where TRow : BsEditorGroupItemModel<TForm>
+        where TRow : BsEditorGroupItemModel<TForm>, new()
     {
         public BsEditorGroupRenderer() { }
 
@@ -23,24 +23,37 @@ namespace BForms.Renderers
         {
             if (this.Builder.RowForms.Any())
             {
-                foreach (var form in this.Builder.RowForms)
+                if (item.Form != null)
                 {
-                    // create prefix for inline forms (unique prefix => based on groupId/tabId/Id)
-                    var uid = item.GetUniqueID().ToString() + "_" + item.TabId.ToString() + "_" + this.Builder.Uid;
+                    foreach (var form in this.Builder.RowForms)
+                    {
+                        // create prefix for inline forms (unique prefix => based on groupId/tabId/Id)
+                        var uid = item.GetUniqueID().ToString() + "_" + item.TabId.ToString() + "_" + this.Builder.Uid;
 
-                    var formBuilder = new BsEditorFormBuilder<TForm>(item.Form, uid, this.Builder.viewContext).Template(form.Value.template);
+                        var formBuilder = new BsEditorFormBuilder<TForm>(item.Form, uid, this.Builder.viewContext).Template(form.Value.template);
 
-                    container.InnerHtml += new TagBuilder("hr"); // form delimiter
+                        container.InnerHtml += new TagBuilder("hr"); // form delimiter
 
-                    container.InnerHtml += formBuilder.ToString();
+                        container.InnerHtml += formBuilder.ToString();
+                    }
+                }
+                else
+                {
+                    var formBuilder = this.Builder.RowForms.FirstOrDefault();
+
+                    formBuilder.Value.uid = "{{objid}}_{{tabid}}_" + this.Builder.Uid;
+
+                    container.InnerHtml += formBuilder.Value.ToString();
                 }
             }
+            
+            
         }
     }
 
     public class BsEditorGroupRenderer<TModel, TRow> : BsBaseRenderer<BsEditorGroupBuilder<TModel>>
         where TModel : IBsEditorGroupModel
-        where TRow : BsEditorGroupItemModel
+        where TRow : BsEditorGroupItemModel, new()
     {
         public BsEditorGroupRenderer(){}
 
@@ -50,6 +63,19 @@ namespace BForms.Renderers
         public override string Render()
         {
             var container = new TagBuilder("div");
+
+            var templateRow = new TagBuilder("div");
+
+            templateRow.AddCssClass("bs-itemTemplate");
+
+            templateRow.MergeAttribute("style", "display: none;");
+
+            templateRow.InnerHtml += RenderItem(new TRow()
+            {
+                TabId = "{{tabid}}"
+            } as TRow);
+
+            container.InnerHtml += templateRow;
 
             container.AddCssClass("grid_rows");
 
@@ -88,7 +114,7 @@ namespace BForms.Renderers
 
             var wrapper = new TagBuilder("div");
 
-            wrapper.AddCssClass("grid_rows_wrapper");
+            wrapper.AddCssClass("grid_rows_wrapper bs-itemsWrapper");
 
             div = new TagBuilder("div");
 
@@ -144,7 +170,7 @@ namespace BForms.Renderers
 
             var leftSide = new TagBuilder("div");
 
-            leftSide.AddCssClass("col-lg-6 col-md-6");
+            leftSide.AddCssClass("col-lg-6 col-md-6 bs-itemContent");
 
             leftSide.InnerHtml += this.Builder.RenderModel<TRow>(item, "");
 
@@ -214,7 +240,7 @@ namespace BForms.Renderers
                 anchor.AddCssClass(cssClass);
             }
 
-            anchor.InnerHtml += GetGlyphcon(glyphicon);
+            anchor.InnerHtml += GetGlyphicon(glyphicon);
 
             return anchor.ToString();
         }

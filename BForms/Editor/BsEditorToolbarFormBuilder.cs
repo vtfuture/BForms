@@ -11,7 +11,7 @@ namespace BForms.Editor
 {
     public class BsEditorFormBuilder : BsBaseComponent<BsEditorFormBuilder>
     {
-
+        internal string uid { get; set; }
     }
 
     #region BsEditorToolbarForm
@@ -19,7 +19,6 @@ namespace BForms.Editor
     {
         #region Properties and Constructor
         protected TModel model { get; set; }
-        internal string uid { get; set; }
         internal bool hide { get; set; }
 
         internal TModel Model

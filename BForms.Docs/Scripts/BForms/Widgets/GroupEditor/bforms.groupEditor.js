@@ -28,6 +28,9 @@
         tabItemSelector: '.bs-tabItem',
 
         groupItemSelector: '.bs-groupItem',
+        groupItemTemplateSelector: '.bs-itemTemplate',
+        groupItemContentSelector: '.bs-itemContent',
+        groupItemsWrapper: '.bs-itemsWrapper',
 
         removeBtn: '.bs-removeBtn',
         addBtn: '.bs-addBtn',
@@ -123,6 +126,7 @@
 
     //#region Events
     GroupEditor.prototype._evChangeToolbarForm = function (e) {
+        e.preventDefault();
         var $el = $(e.currentTarget),
             uid = $el.data('uid'),
             tab = this._getSelectedTab(),
@@ -138,7 +142,7 @@
     };
 
     GroupEditor.prototype._evChangeTab = function (e) {
-
+        e.preventDefault();
         var $el = $(e.currentTarget),
 			tabId = $el.data('tabid'),
 			$container = this._getTab(tabId),
@@ -164,21 +168,25 @@
         });
     };
 
-    GroupEditor.prototype._evGoTop = function () {
+    GroupEditor.prototype._evGoTop = function (e) {
+        e.preventDefault();
+
         console.log(" -- go to top --", arguments);
     };
 
     GroupEditor.prototype._evRemove = function (e) {
-
+        e.preventDefault();
         var $el = $(e.currentTarget),
-            $item = $el.parents(this.options.groupItemSelector);
+            $item = $el.parents(this.options.groupItemSelector),
+            tabId = $item.data('tabid'),
+            objId = $item.data('objid');
 
         $item.remove();
-
-        this._toggleItemCheck(this._getTabItem($item.data('tabid'), $item.data('objid')));
+        this._toggleItemCheck(this._getTabItem(tabId, objId), true);
     };
 
     GroupEditor.prototype._evAdd = function (e) {
+        e.preventDefault();
         var $el = $(e.currentTarget),
             objId = $el.parents(this.options.tabItemSelector).data('objid'),
             tabModel = this._getSelectedTab(),
@@ -189,16 +197,24 @@
         $.each($groups, $.proxy(function (idx, group) {
             if (!this._isInGroup(objId, tabId, $(group))) {
 
-                // create template, add to group
+                var template = this._getGroupItemTemplate($(group), tabId, objId),
+                    tabItem = this._getTabItem(tabId, objId),
+                    model = tabItem.data('model');
+
+                // render options template using model then append to html
+                template.find(this.options.groupItemContentSelector).html(model.Name);
+
+                $(group).find(this.options.groupItemsWrapper).append(template);
+
+                this._checkItem(this._getTabItem(tabId, objId), tabId, connectsWith);
 
                 return false;
             }
         }, this));
-
-        throw "[objId: " + objId + ", tabId: " + tabId + "] . not implemented yet";
     };
 
     GroupEditor.prototype._evEdit = function (e) {
+        e.preventDefault();
         var $el = $(e.currentTarget),
             $item = $el.parents(this.options.groupItemSelector);
             objId = $item.data('objid'),
@@ -249,14 +265,18 @@
     //#endregion
 
     //#region Helpers
+    GroupEditor.prototype._checkItem = function ($item, tabId, connectsWith) {
+        if (this._isItemSelected($item.data('objid'), tabId, connectsWith)) {
+            this._toggleItemCheck($item);
+        }
+    };
+
     GroupEditor.prototype._checkItems = function () {
         var selectedTab = this._getSelectedTab(),
             $items = selectedTab.container.find(this.options.tabItemSelector);
 
         $.each($items, $.proxy(function (idx, item) {
-            if (this._isItemSelected($(item).data('objid'), selectedTab.tabId, selectedTab.connectsWith)) {
-                this._toggleItemCheck($(item));
-            }
+            this._checkItem($(item), selectedTab.tabId, selectedTab.connectsWith);
         }, this));
     };
 
@@ -279,14 +299,19 @@
         $.each($groupItems, function (idx, item) {
             if ($(item).data('objid') == objId && $(item).data('tabid') == tabId) {
                 isInGroup = true;
+                return false;
             }
         });
         return isInGroup;
     };
 
-    GroupEditor.prototype._toggleItemCheck = function ($item) {
+    GroupEditor.prototype._toggleItemCheck = function ($item, forceUncheck) {
         var $glyph = $item.find('span.glyphicon'),
             addBtn = this.options.addBtn.replace(".", "");
+
+        if (forceUncheck && !$item.hasClass('selected')) {
+            return false;
+        }
 
         $item.toggleClass('selected');
         $glyph.parents('a:first').toggleClass(addBtn);
@@ -347,12 +372,25 @@
         if (groupIds) {
             $groups = [];
             $.each(groupIds, $.proxy(function (idx, groupId) {
-                $groups.push(this._getGroup(groupId));
+                $groups.unshift(this._getGroup(groupId));
             }, this));
         } else {
             $groups = this.$groups.find('div[data-groupid]');
         }
         return $groups;
+    };
+
+    GroupEditor.prototype._getGroupItemTemplate = function ($group, tabId, objId) {
+        var template = $group.find(this.options.groupItemTemplateSelector).children(':first').clone();
+        template.data('objid', objId);
+        template.data('tabid', tabId);
+        var html = template.html();
+        html = html.replace(/__tabid__/gi, tabId);
+        html = html.replace(/{{tabid}}/gi, tabId);
+        html = html.replace(/__objid__/gi, tabId);
+        html = html.replace(/{{objid}}/gi, objId);
+        template.html(html);
+        return template;
     };
     //#endregion
 

@@ -24,6 +24,7 @@ namespace BForms.Editor
             {
                 return this.uid;
             }
+            
         }
 
         internal string Name
@@ -127,7 +128,7 @@ namespace BForms.Editor
             return this;
         }
 
-        internal void RegisterRenderer<TRow, TForm>() where TRow : BsEditorGroupItemModel<TForm>
+        internal void RegisterRenderer<TRow, TForm>() where TRow : BsEditorGroupItemModel<TForm>, new()
         {
             this.renderer = new BsEditorGroupRenderer<TModel, TRow, TForm>(this);
         }
