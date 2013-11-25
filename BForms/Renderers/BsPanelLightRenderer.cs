@@ -49,7 +49,16 @@ namespace BForms.Renderers
 
                     var cancelEditableTag = new TagBuilder("a");
                     cancelEditableTag.AddCssClass("pull-right bs-cancelEdit");
-                    cancelEditableTag.MergeAttribute("style", "display:none");
+
+                    if (this.Builder.initialReadonly)
+                    {
+                        cancelEditableTag.MergeAttribute("style", "display:none");
+                    }
+                    else
+                    {
+                        editableTag.MergeAttribute("style", "display:none");
+                    }
+
 
                     var cancelEditGlyph = this.GetGlyphiconTag(Glyphicon.Remove);
                     cancelEditableTag.InnerHtml += cancelEditGlyph;
@@ -107,7 +116,8 @@ namespace BForms.Renderers
             container.MergeAttribute("data-settings",
                HtmlHelper.AnonymousObjectToHtmlAttributes(new
                {
-                   loaded = this.Builder.isLoaded
+                   loaded = this.Builder.isLoaded,
+                   initialReadonly = this.Builder.initialReadonly
                }).ToJsonString());
 
             if (this.Builder.id != null)

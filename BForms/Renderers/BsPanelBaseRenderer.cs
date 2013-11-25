@@ -74,15 +74,26 @@ namespace BForms.Renderers
 
                 editableTag.InnerHtml += glyphTag;
 
-                if (!this.Builder.isLoaded)
-                {
-                    editableTag.MergeAttribute("style", "display:none");
-                }
-
                 var cancelEditableTag = new TagBuilder("a");
                 cancelEditableTag.MergeAttribute("href", "#");
                 cancelEditableTag.AddCssClass("pull-right bs-cancelEdit");
-                cancelEditableTag.MergeAttribute("style", "display:none");
+
+                if (!this.Builder.isLoaded)
+                {
+                    editableTag.MergeAttribute("style", "display:none");
+                    cancelEditableTag.MergeAttribute("style", "display:none");
+                }
+                else
+                {
+                    if (this.Builder.initialReadonly)
+                    {
+                        cancelEditableTag.MergeAttribute("style", "display:none");
+                    }
+                    else
+                    {
+                        editableTag.MergeAttribute("style", "display:none");
+                    }
+                }
 
                 var cancelGlyphTag = this.GetGlyphicon(Glyphicon.Remove);
 
@@ -144,7 +155,8 @@ namespace BForms.Renderers
             container.MergeAttribute("data-settings",
                 HtmlHelper.AnonymousObjectToHtmlAttributes(new
                 {
-                    loaded = this.Builder.isLoaded
+                    loaded = this.Builder.isLoaded,
+                    initialReadonly = this.Builder.initialReadonly
                 }).ToJsonString());
 
             if (this.Builder.id != null)

@@ -32,6 +32,7 @@ namespace BForms.Panels
         internal object objId;
         internal bool noHeader;
         internal Glyphicon? glyphicon;
+        internal bool initialReadonly = true;
 
         /// <summary>
         /// Sets the ViewContext property for the BaseComponent
@@ -112,6 +113,12 @@ namespace BForms.Panels
         public BsPanelHtmlBuilder Editable(bool isEditable)
         {
             this.isEditable = isEditable;
+            return this;
+        }
+
+        public BsPanelHtmlBuilder InitialEditable()
+        {
+            this.initialReadonly = false;
             return this;
         }
 

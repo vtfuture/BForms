@@ -1375,20 +1375,13 @@
                 }
             }
 
-            $currentRow.find('.grid_details').each(function (idx, detailsPart) {
+            $currentRow.find('.bs-hasPanel').each(function (idx, detailsPart) {
                 var $detailsPart = $(detailsPart);
-                if ($detailsPart.hasClass('bs-editable') && $detailsPart.find('.bs-readonly:visible').length == 0) {
+                if ($detailsPart.hasClass('bs-panelEditMode')) {
                     var $newDetails = $row.find('#' + $detailsPart.attr('id'));
-                    $detailsPart.find('.bs-readonly').html($newDetails.find('.bs-readonly').html());
                     $newDetails.replaceWith($detailsPart);
                 }
             });
-
-            //$row.find(this.options.rowCheckSelector).replaceWith($currentRow.find(this.options.rowCheckSelector));
-
-            //$currentRow.html($row.html());
-
-            //$row.attr('class', $currentRow.attr('class'));
 
             $currentRow.replaceWith($row);
 

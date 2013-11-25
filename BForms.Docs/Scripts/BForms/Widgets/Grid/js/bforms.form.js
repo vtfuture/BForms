@@ -114,6 +114,9 @@
         var handlerContext = e.data.handlerContext;
 
         if (buttonOpt.validate) {
+
+            this.$form.removeData('validator').removeData('unobtrusiveValidation');
+
             $.validator.unobtrusive.parse(this.$form);
 
             var validatedForm = this.$form.validate();

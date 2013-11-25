@@ -53,10 +53,14 @@
         if (this.options.loaded === true) {
             this._initControls();
             this._loadState();
+            this._initCurrentContent();
         } else {
-            this._loadReadonlyContent().then($.proxy(function () {
+            var method = this._readonly ? '_loadReadonlyContent' : "_loadEditableContent";
+            
+            this[method]().then($.proxy(function () {
                 this._initControls();
                 this._loadState();
+                this._initCurrentContent();
             }, this));
         }
 
@@ -85,7 +89,7 @@
 
         this._key = window.location.pathname + '|BoxForm|' + this._name;
 
-        if (typeof this.options.initialReadonly === "undefined" || this.options.initialReadonly == true) {
+        if ((typeof this.options.initialReadonly === "undefined" || this.options.initialReadonly == true) && this.$element.data('readonly') !== false) {
             this.showReadonly();
         } else {
             this.showEditable();
@@ -114,6 +118,14 @@
         this.$element.on('click', this.options.cancelEditSelector, $.proxy(this._onCancelEditClick, this));
 
         this.$element.on('click', this.options.retrySelector, $.proxy(this._onRetryClick, this));
+    };
+
+    bsPanel.prototype._initCurrentContent = function() {
+        if (this._readonly) {
+
+        } else {
+            
+        }
     };
     //#endregion
 
@@ -209,9 +221,9 @@
     };
 
     bsPanel.prototype._initControls = function () {
-
+        
         if (this.options.editable) {
-            this._toggleEditBtn(true);
+            this._toggleEditBtn(this._readonly ? true : false);
         }
 
     };
@@ -265,6 +277,59 @@
         } else {
             $errorContainer.append($error);
         }
+    };
+
+    bsPanel.prototype._initEditable = function () {
+        
+        var $form = this.$content.find('form').show(),
+            $saveBtn = $form.find(this.options.saveFormSelector);
+
+        this._allowExpand = true;
+
+        if ($form.length == 0) {
+            console.warn('No editable form found');
+        }
+
+        if ($saveBtn.length == 0) {
+            console.warn("No save button found");
+        }
+
+        var formOptions = $.extend(true, {}, {
+            prefix: this.options.prefix,
+            actions: [{
+                name: 'save',
+                selector: this.options.saveFormSelector,
+                validate: true,
+                actionUrl: this.options.saveUrl,
+                parse: true,
+                getExtraData: $.proxy(function (data) {
+                    data.componentId = this._componentId;
+                    data.objId = this._objId;
+
+                    $.extend(true, data, this.options.formAdditionalData);
+
+                }, this),
+                handler: $.proxy(function (sent, data) {
+
+                    this.$content.html(data.Html);
+
+                    this._toggleLoading();
+                    this._toggleEditBtn(true);
+
+                    if (this.options.cacheReadonlyContent) {
+                        this._cachedReadonlyContent = this.$content.html();
+                    }
+
+                    this.showReadonly();
+
+                    this._trigger('editSuccessHandler', 0, data);
+                }, this)
+            }]
+        }, this.options.formOptions);
+
+        this.$content.find('form').bsForm(formOptions);
+
+        this._trigger('afterFormInit', 0);
     };
     //#endregion
 
@@ -350,56 +415,15 @@
             this._cachedReadonlyContent = this.$content.clone().find('form').removeClass('loading').end()
                                                                 .html();
         }
-
+        
         this.$content.html(response.Html);
 
-        var $form = this.$content.find('form').show(),
-            $saveBtn = $form.find(this.options.saveFormSelector);
-
-        this._allowExpand = true;
-
-        if ($form.length == 0) {
-            console.warn('No editable form found');
-        }
-
-        if ($saveBtn.length == 0) {
-            console.warn("No save button found");
-        }
-
-        var formOptions = $.extend(true, {}, {
-            prefix: this.options.prefix,
-            actions: [{
-                name: 'save',
-                selector: this.options.saveFormSelector,
-                validate: true,
-                actionUrl: this.options.saveUrl,
-                parse: true,
-                getExtraData: $.proxy(function (data) {
-                    data.componentId = this._componentId;
-                    data.objId = this._objId;
-
-                    $.extend(true, data, this.options.formAdditionalData);
-
-                }, this),
-                handler: $.proxy(function (sent, data) {
-
-                    this.$content.html(data.Html);
-
-                    this._toggleLoading();
-                    this._toggleEditBtn(true);
-
-                    if (this.options.cacheReadonlyContent) {
-                        this._cachedReadonlyContent = this.$content.html();
-                    }
-
-                    this._trigger('editSuccessHandler', 0, data);
-                }, this)
-            }]
-        }, this.options.formOptions);
-
-        this.$content.find('form').bsForm(formOptions);
+        this._initEditable();
 
         this._toggleEditBtn();
+
+        this._toggleLoading();
+        this._toggleCaret(true);
 
         this._trigger('onEditableLoadSuccess', 0, response);
 
