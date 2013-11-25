@@ -419,4 +419,5 @@
         var ctrl = new GridIndex(window.requireConfig.pageOptions.index);
     });
     //#endregion
+
 });

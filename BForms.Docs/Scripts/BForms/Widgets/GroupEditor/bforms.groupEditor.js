@@ -1,4 +1,5 @@
 ﻿define('bforms-groupEditor', [
+    'singleton-ich',
     'jquery',
     'jquery-ui-core',
     'bforms-pager',
@@ -6,7 +7,7 @@
     'bforms-namespace',
     'bforms-inlineQuestion',
     'bforms-form'
-], function () {
+], function (ichSingleton) {
 
     //#region Constructor and Properties
     var GroupEditor = function (opt) {
@@ -35,6 +36,7 @@
         removeBtn: '.bs-removeBtn',
         addBtn: '.bs-addBtn',
         editBtn: '.bs-editBtn',
+        toggleExpandBtn: '.bs-toggleExpand',
 
         getTabUrl: '',
     };
@@ -51,6 +53,8 @@
             throw 'grid needs a unique name or the element on which it is aplied has to have an id attr';
         }
 
+        this._initComponents();
+
         this._initSelectors();
 
         this._addDelegates();
@@ -58,6 +62,10 @@
         this._initSelectedTab();
 
         this._initTabForms();
+    };
+
+    GroupEditor.prototype._initComponents = function () {
+        this.renderer = ichSingleton.getInstance();
     };
 
     GroupEditor.prototype._initSelectors = function () {
@@ -75,6 +83,7 @@
         this.$tabs.on('click', this.options.addBtn, $.proxy(this._evAdd, this));
         this.$groups.on('click', this.options.removeBtn, $.proxy(this._evRemove, this));
         this.$groups.on('click', this.options.editBtn, $.proxy(this._evEdit, this));
+        this.$groups.on('click', this.options.toggleExpandBtn, $.proxy(this._evToggleExpand, this));
     };
 
     GroupEditor.prototype._initSelectedTab = function () {
@@ -125,6 +134,16 @@
     //#endregion
 
     //#region Events
+    GroupEditor.prototype._evToggleExpand = function (e) {
+        e.preventDefault();
+        var $el = $(e.currentTarget),
+            $group = $el.parents('[data-groupid]'),
+            $container = $group.find(this.options.groupItemsWrapper);
+        $container.toggle('fast', $.proxy(function () {
+            $group.find(this.options.toggleExpandBtn).toggleClass('open');
+        }, this));
+    };
+
     GroupEditor.prototype._evChangeToolbarForm = function (e) {
         e.preventDefault();
         var $el = $(e.currentTarget),
@@ -201,8 +220,9 @@
                     tabItem = this._getTabItem(tabId, objId),
                     model = tabItem.data('model');
 
-                // render options template using model then append to html
-                template.find(this.options.groupItemContentSelector).html(model.Name);
+                var view = this.renderer['js-groupItem'](model);
+
+                template.find(this.options.groupItemContentSelector).html(view);
 
                 $(group).find(this.options.groupItemsWrapper).append(template);
 
@@ -267,7 +287,7 @@
     //#region Helpers
     GroupEditor.prototype._checkItem = function ($item, tabId, connectsWith) {
         if (this._isItemSelected($item.data('objid'), tabId, connectsWith)) {
-            this._toggleItemCheck($item);
+            this._toggleItemCheck($item, false);
         }
     };
 
@@ -310,6 +330,10 @@
             addBtn = this.options.addBtn.replace(".", "");
 
         if (forceUncheck && !$item.hasClass('selected')) {
+            return false;
+        }
+
+        if (!forceUncheck && $item.hasClass('selected')) {
             return false;
         }
 
