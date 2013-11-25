@@ -163,6 +163,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
+    <Content Include="Areas\Demo\Views\GroupEditor\_Editors.cshtml" />
+    <Content Include="Areas\Demo\Views\GroupEditor\_GroupEditor2.cshtml" />
+    <Content Include="Areas\Demo\Views\GroupEditor\_GroupItem.cshtml" />
     <Content Include="Content\Images\Apple\32_bforms-152x152.png" />
     <Content Include="Content\Images\Apple\64_bforms-152x152.png" />
     <Content Include="Content\Images\Apple\apple-touch-icon-114x114.png" />
@@ -215,6 +218,8 @@
     <Content Include="Content\Images\Docs\eg-simple-grid.png" />
     <Content Include="Content\Images\Docs\eg-view-model.png" />
     <Content Include="Content\Images\logo-bforms%402x.png" />
+    <Content Include="Scripts\BForms\Components\ICanHaz\ICanHaz.js" />
+    <Content Include="Scripts\BForms\Components\ICanHaz\singleton-ich.js" />
     <Content Include="Scripts\BForms\Components\PlaceholderShim\jquery.html5-placeholder-shim.js" />
     <Content Include="Scripts\BForms\Images\bg-user.png" />
     <Content Include="Scripts\BForms\Widgets\Grid\js\bforms.toolbar.order.js" />
@@ -1210,12 +1215,6 @@
     <Content Include="Areas\Demo\Views\Contributors\Grid\_NoRecords.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Demo\Views\GroupEditor\_GroupEditor2.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Demo\Views\GroupEditor\_Editors.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Areas\Demo\Views\GroupEditor\_Order.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -1223,9 +1222,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Demo\Views\GroupEditor\_RowForm.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Demo\Views\GroupEditor\_GroupItem.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

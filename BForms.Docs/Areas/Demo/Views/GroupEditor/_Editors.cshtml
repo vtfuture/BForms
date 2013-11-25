@@ -1,59 +1,4 @@
-<<<<<<< HEAD
-﻿@model BForms.Docs.Areas.Demo.Controllers.GroupEditorViewModel
-@using BForms.Html
-@using BForms.Docs.Resources
-@using BForms.Models
-@using BForms.Grid
-@using BForms.Docs.Areas.Demo.Controllers
-@using BForms.Editor
-@using BForms.Docs.Areas.Demo.Mock
-
-@{
-    var builder = Html.BsGroupEditorFor(x => x.Editor2)
-      .ConfigureTabs(cfg =>
-        {
-            var tab3 = cfg.For(x => x.Contributors3)
-                .Template(x => x.Grid, "_TabItem")
-                .Template(x => x.Search, "~/Areas/Demo/Views/Contributors/Toolbar/_Search.cshtml")
-                .Template(x => x.New, "~/Areas/Demo/Views/Contributors/Toolbar/_New.cshtml");
-
-            cfg.For(x => x.Contributors2)
-                .Template(x => x.Grid, "_TabItem");
-
-            var tab1 = cfg.For(x => x.Contributors)
-                .Template(x => x.Grid, "_TabItem")
-                .Template(x => x.Search, "~/Areas/Demo/Views/Contributors/Toolbar/_Search.cshtml")
-                .Template(x => x.Order, "_Order")
-                .ConnectsWith(NotificationType.Monthly, NotificationType.Daily);
-        })
-      .ConfigureGroups(cfg =>
-        {
-            cfg.For(x => x.Group1)
-               .DisplayText("Adauga la grup 1")
-               .DisplayName("Group1")
-               .Template(x => x.Items, "_GroupItem")
-               .Template(x => x.Form, "_RowForm");
-
-            cfg.For(x => x.Group2)
-               .DisplayText("Adauga la grup 2")
-               .DisplayName("Group2")
-               .Template(x => x.Items, "_GroupItem");
-
-        });
-
-    ViewData["builder"] = builder;
-}
-
-@if (Model.Editor1 != null)
-{
-    Html.Partial("_GroupEditor", Model.Editor1);
-}
-@if (Model.Editor2 != null)
-{
-    Html.Partial("_GroupEditor2", Model.Editor2);
-}
-=======
-﻿@model BForms.Docs.Areas.Demo.Controllers.GroupEditorViewModel
+@model BForms.Docs.Areas.Demo.Controllers.GroupEditorViewModel
 @using BForms.Html
 @using BForms.Docs.Resources
 @using BForms.Models
@@ -112,4 +57,3 @@
     <span>{{Name}}</span>
 
 </script>
->>>>>>> BsGroupEditor improvements

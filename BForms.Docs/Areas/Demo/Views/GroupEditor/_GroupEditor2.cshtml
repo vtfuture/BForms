@@ -1,5 +1,5 @@
-<<<<<<< HEAD
-﻿@using BForms.Html
+
+@using BForms.Html
 @using BForms.Docs.Resources
 @using BForms.Models
 @using BForms.Grid
@@ -34,40 +34,3 @@
 
             tab1.Toolbar.QuickSearch = true;
         }))
-=======
-﻿@using BForms.Html
-@using BForms.Docs.Resources
-@using BForms.Models
-@using BForms.Grid
-@using BForms.Docs.Areas.Demo.Controllers
-@model BForms.Docs.Areas.Demo.Controllers.GroupEditorModel
-@using BForms.Editor
-
-@{
-    var builder = (BsEditorHtmlBuilder<GroupEditorModel>)ViewData["builder"];
-}
-
-@(Html.BsGroupEditorFor(Model, builder)
-        .HtmlAttributes(new Dictionary<string, object>() { { "id", "myGroupEditor" } })
-        .ConfigureTabs(cfg =>
-        {
-            var tab1 = cfg.For(x => x.Contributors);
-
-            tab1.For(x => x.Search).Button("Test", Glyphicon.Plus);
-
-            tab1.For(x => x.Grid)
-                .Avatar(x => x.Name.Contains("Marius") ? 
-                    "https://2.gravatar.com/avatar/50e73c9ac16439780dd040694880fe9d" : 
-                    "http://www.cloverwos.ro/1.0.0.217/Content/images/bg-user.png")
-                .HtmlAttributes(x => new Dictionary<string, object>
-                {
-                    { "data-qwe", x.Name.Contains("Oana") ? "oana" : "ok" }
-                });
-
-            tab1.Toolbar.For(x => x.Order)
-                        .Button("Order", Glyphicon.List)
-                        .Template("_Order");
-
-            tab1.Toolbar.QuickSearch = true;
-        }))
->>>>>>> BsGroupEditor improvements
