@@ -43,6 +43,8 @@ namespace BForms.Renderers
 
                     formBuilder.Value.uid = "{{objid}}_{{tabid}}_" + this.Builder.Uid;
 
+                    container.InnerHtml += new TagBuilder("hr"); // form delimiter
+
                     container.InnerHtml += formBuilder.Value.ToString();
                 }
             }
@@ -94,7 +96,7 @@ namespace BForms.Renderers
 
             var anchor = new TagBuilder("a");
 
-            anchor.AddCssClass("expand bs-toggleExpand");
+            anchor.AddCssClass("expand open bs-toggleExpand");
 
             anchor.MergeAttribute("href", "#");
 
@@ -103,6 +105,8 @@ namespace BForms.Renderers
             anchor = new TagBuilder("a");
 
             anchor.MergeAttribute("href", "#");
+
+            anchor.AddCssClass("bs-toggleExpand");
 
             anchor.InnerHtml += this.Builder.Name;
 
