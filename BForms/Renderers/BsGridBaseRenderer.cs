@@ -249,7 +249,7 @@ namespace BForms.Renderers
                 PropertyInfo hasDetailsProp = null;
                 var rowType = typeof(TRow);
 
-                var isSubClassOfBaseRowModel = rowType.IsSubclassOfRawGeneric(typeof(BsGridRowModel<>));
+                var isSubClassOfBaseRowModel = rowType.InheritsOrImplements(typeof(BsGridRowModel<>));
                 if (isSubClassOfBaseRowModel)
                 {
                     hasDetailsProp = rowType.GetProperty("HasDetails", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);

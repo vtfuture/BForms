@@ -55,11 +55,11 @@ namespace BForms.Mvc
         public static void AddFieldError(this ModelStateDictionary modelState, string prefix, Type filedType, string errorMessage)
         {
             var key = prefix;
-            if (filedType.IsSubclassOfRawGeneric(typeof(BsSelectList<>)))
+            if (filedType.InheritsOrImplements(typeof(BsSelectList<>)))
             {
                 key += ".SelectedValues";
             }
-            if (filedType.IsSubclassOfRawGeneric(typeof(BsRange<>)) || filedType == typeof(BsDateTime))
+            if (filedType.InheritsOrImplements(typeof(BsRange<>)) || filedType == typeof(BsDateTime))
             {
                 key += ".TextValue";
             }

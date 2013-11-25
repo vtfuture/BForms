@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -42,26 +43,13 @@ namespace BForms.Html
             //merge custom css classes with bootstrap
             htmlAttributes.MergeAttribute("class", "control-label");
 
-            //determine if the prop is decorated with Required
-            var model = typeof (TModel);
-            PropertyInfo property = null;
             var propertyName = ExpressionHelper.GetExpressionText(expression);
-
-            foreach (var prop in propertyName.Split('.'))
+            RequiredAttribute attr;
+            if (ReflectionHelpers.TryGetAttribute(propertyName, typeof(TModel), out attr))
             {
-                property = model.GetProperty(prop);
-                model = property.PropertyType;
+                htmlAttributes.MergeAttribute("class", "required");
             }
-            if (property != null)
-            {
-                var isRequired = Attribute.IsDefined(property,
-                    typeof (System.ComponentModel.DataAnnotations.RequiredAttribute));
-
-                if (isRequired)
-                {
-                    htmlAttributes.MergeAttribute("class", "required");
-                }
-            }
+            
 
             var name = htmlHelper.AttributeEncode(htmlHelper.ViewData.TemplateInfo.GetFullHtmlFieldName(propertyName));
             if (typeof(TProperty).FullName.Contains("BsSelectList"))

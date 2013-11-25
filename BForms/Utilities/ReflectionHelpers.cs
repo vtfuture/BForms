@@ -11,6 +11,8 @@ using System.Web.Script.Serialization;
 using BForms.Models;
 using BForms.Mvc;
 
+using DocumentFormat.OpenXml.EMMA;
+
 namespace BForms.Utilities
 {
     /// <summary>
@@ -93,8 +95,24 @@ namespace BForms.Utilities
 
             foreach (var prop in name.Split('.'))
             {
-                property = modelType.GetProperty(prop);
-                modelType = property != null ? property.PropertyType : null;
+                if (modelType == null)
+                {
+                    break;
+                }
+                var splitByIndex = prop.Split('[')[0];
+                property = modelType.GetProperty(splitByIndex);
+                if (property == null)
+                {
+                    modelType = null;
+                }
+                else
+                {
+                    modelType = property.PropertyType;
+                    if (modelType.InheritsOrImplements(typeof(IEnumerable<>)))
+                    {
+                        modelType = modelType.GenericTypeArguments[0];
+                    }
+                }
             }
             if (property != null)
             {
@@ -302,23 +320,54 @@ namespace BForms.Utilities
             return html5Type;
         }
 
+
         /// <summary>
         /// Checks to see if a generic type is a subclass of a raw generic type. eg. List&lt;int&gt; for List&lt;&gt;
         /// </summary>
-        /// <param name="generic">The generic without type specifiers, such as List&lt;&gt; or Dictionary&lt;,&gt;</param>
-        /// <param name="toCheck">The generic subclass, such as List&lt;&gt; or Dictionary&lt;string,object&gt;</param>
-        internal static bool IsSubclassOfRawGeneric(this Type toCheck, Type generic)
+        internal static bool InheritsOrImplements(this Type child, Type parent)
         {
-            while (toCheck != null && toCheck != typeof(object))
+            parent = ResolveGenericTypeDefinition(parent);
+
+            var currentChild = child.IsGenericType
+                                   ? child.GetGenericTypeDefinition()
+                                   : child;
+
+            while (currentChild != typeof(object))
             {
-                var cur = toCheck.IsGenericType ? toCheck.GetGenericTypeDefinition() : toCheck;
-                if (generic == cur)
-                {
+                if (parent == currentChild || HasAnyInterfaces(parent, currentChild))
                     return true;
-                }
-                toCheck = toCheck.BaseType;
+
+                currentChild = currentChild.BaseType != null
+                               && currentChild.BaseType.IsGenericType
+                                   ? currentChild.BaseType.GetGenericTypeDefinition()
+                                   : currentChild.BaseType;
+
+                if (currentChild == null)
+                    return false;
             }
             return false;
+        }
+
+        private static bool HasAnyInterfaces(Type parent, Type child)
+        {
+            return child.GetInterfaces()
+                .Any(childInterface =>
+                {
+                    var currentInterface = childInterface.IsGenericType
+                        ? childInterface.GetGenericTypeDefinition()
+                        : childInterface;
+
+                    return currentInterface == parent;
+                });
+        }
+
+        private static Type ResolveGenericTypeDefinition(Type parent)
+        {
+            if (parent.IsGenericType && parent.GetGenericTypeDefinition() != parent)
+            {
+                parent = parent.GetGenericTypeDefinition();
+            }
+            return parent;
         }
 
         internal static string GetNonEnumerableValue(object obj)
@@ -332,7 +381,7 @@ namespace BForms.Utilities
                     Convert.ChangeType(obj, Enum.GetUnderlyingType(bsKeyType)).ToString();
 
             }
-            else if (bsKeyType.IsSubclassOfRawGeneric(typeof(Nullable<>)) && bsKeyType.GenericTypeArguments[0].IsEnum)
+            else if (bsKeyType.InheritsOrImplements(typeof(Nullable<>)) && bsKeyType.GenericTypeArguments[0].IsEnum)
             {
                 result =
                     Convert.ChangeType(obj, Enum.GetUnderlyingType(bsKeyType.GenericTypeArguments[0])).ToString();
