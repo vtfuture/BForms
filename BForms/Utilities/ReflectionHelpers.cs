@@ -108,9 +108,9 @@ namespace BForms.Utilities
                 else
                 {
                     modelType = property.PropertyType;
-                    if (modelType.InheritsOrImplements(typeof(IEnumerable<>)))
+                    if (modelType.InheritsOrImplements(typeof(IEnumerable<>)) && modelType.GenericTypeArguments.Length > 0)
                     {
-                        modelType = modelType.GenericTypeArguments[0];
+                        modelType = modelType.GenericTypeArguments[0];    
                     }
                 }
             }

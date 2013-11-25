@@ -33,6 +33,7 @@ namespace BForms.Panels
         internal bool noHeader;
         internal Glyphicon? glyphicon;
         internal bool initialReadonly = true;
+        internal BsPanelTheme theme = BsPanelTheme.Default;
 
         /// <summary>
         /// Sets the ViewContext property for the BaseComponent
@@ -107,6 +108,11 @@ namespace BForms.Panels
             return this;
         }
 
+        public BsPanelHtmlBuilder Theme(BsPanelTheme theme)
+        {
+            this.theme = theme;
+            return this;
+        }
         /// <summary>
         /// Specify if the box form has an editable component
         /// </summary>
@@ -189,6 +195,16 @@ namespace BForms.Panels
             return this;
         }
         #endregion
+    }
+
+    public enum BsPanelTheme
+    {
+        Default,
+        Blue,
+        LightGreen,
+        LightBlue,
+        LightYellow,
+        Red
     }
 }
 

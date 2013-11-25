@@ -2,6 +2,7 @@
 @using BForms.Docs.Areas.Demo.Models
 @using BForms.Docs.Controllers
 @using BForms.Html
+@using BForms.Panels
 @using BForms.Renderers
 
 @{
@@ -24,7 +25,7 @@
 
             cfg.For(x => x.Basic).Content(Html.Partial("Readonly/_Basic", Model.Basic).ToString());
 
-            cfg.For(x => x.UserInfo).HtmlAttributes(new {@class = "bs-userInfo"});
+            cfg.For(x => x.UserInfo).HtmlAttributes(new {@class = "bs-userInfo"}).Theme(BsPanelTheme.LightGreen);
 
             cfg.For(x => x.Contact).HtmlAttributes(new {@class = "bs-contact"}).InitialEditable();
         }))  

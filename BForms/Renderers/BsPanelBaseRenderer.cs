@@ -16,6 +16,28 @@ namespace BForms.Renderers
 
         public BsPanelBaseRenderer(BsPanelHtmlBuilder builder) : base(builder) { }
 
+        private string GetThemeClass()
+        {
+            switch (this.Builder.theme)
+            {
+                case BsPanelTheme.Blue:
+                    return "panel-primary";
+                case BsPanelTheme.Default:
+                    return "panel-default";
+                case BsPanelTheme.LightGreen:
+                    return "panel-success";
+                case BsPanelTheme.LightBlue:
+                    return "panel-info";
+                case BsPanelTheme.LightYellow:
+                    return "panel-warning";
+                case BsPanelTheme.Red:
+                    return "panel-danger";
+            }
+
+            return "panel-default";
+        }
+
+
         public virtual string RenderHeader()
         {
             if (this.Builder.noHeader == false)
@@ -164,7 +186,8 @@ namespace BForms.Renderers
                 container.MergeAttribute("data-component", MvcHelpers.Serialize(this.Builder.id));
             }
 
-            container.AddCssClass("panel panel-default");
+            container.AddCssClass("panel");
+            container.AddCssClass(this.GetThemeClass());
 
             if (this.Builder.objId != null)
             {

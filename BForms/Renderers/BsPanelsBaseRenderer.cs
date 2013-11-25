@@ -10,11 +10,11 @@ namespace BForms.Renderers
 {
     public class BsPanelsBaseRenderer<TModel> : BsBaseRenderer<BsPanelsHtmlBuilder<TModel>>
     {
-        public BsPanelsBaseRenderer(){}
+        public BsPanelsBaseRenderer() { }
 
         public BsPanelsBaseRenderer(BsPanelsHtmlBuilder<TModel> builder)
             : base(builder)
-        { 
+        {
         }
 
         public virtual TagBuilder GetContainer()

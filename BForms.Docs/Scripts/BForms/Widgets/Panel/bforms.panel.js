@@ -48,8 +48,6 @@
         this._initSelectors();
         this._delegateEvents();
 
-        this._allowExpand = false;
-
         if (this.options.loaded === true) {
             this._initControls();
             this._loadState();
@@ -98,6 +96,8 @@
         this.options.readonlyUrl = this.options.readonlyUrl || this.$element.data('readonlyurl');
         this.options.editableUrl = this.options.editableUrl || this.$element.data('editableurl');
         this.options.saveUrl = this.options.saveUrl || this.$element.data('saveurl');
+
+        this._allowExpand = this.options.loaded;
     };
 
     bsPanel.prototype._initSelectors = function () {
