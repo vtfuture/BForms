@@ -42,10 +42,11 @@ namespace BForms.Html
             //merge custom css classes with bootstrap
             htmlAttributes.MergeAttribute("class", "control-label");
 
+            var propertyName = ExpressionHelper.GetExpressionText(expression);
+            
             //determine if the prop is decorated with Required
             var model = typeof (TModel);
             PropertyInfo property = null;
-            var propertyName = ExpressionHelper.GetExpressionText(expression);
 
             foreach (var prop in propertyName.Split('.'))
             {

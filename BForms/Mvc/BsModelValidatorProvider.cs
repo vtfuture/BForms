@@ -28,7 +28,7 @@ namespace BForms.Mvc
                 return res;
             }
 
-            if (metadata.ModelType.IsSubclassOfRawGeneric(typeof(BsSelectList<>)))
+            if (metadata.ModelType.InheritsOrImplements(typeof(BsSelectList<>)))
             {
                 var selectedValuesMetadata = metadata.Properties.Where(r => r.PropertyName == "SelectedValues").FirstOrDefault();
                 var propertyInfo = metadata.ContainerType.GetProperties().Where(r => r.Name == metadata.PropertyName).FirstOrDefault();
@@ -51,7 +51,7 @@ namespace BForms.Mvc
                 }
             }
 
-            if (metadata.ModelType.IsSubclassOfRawGeneric(typeof(BsRange<>)) || metadata.ModelType == typeof(BsDateTime))
+            if (metadata.ModelType.InheritsOrImplements(typeof(BsRange<>)) || metadata.ModelType == typeof(BsDateTime))
             {
                 var selectedValuesMetadata = metadata.Properties.Where(r => r.PropertyName == "TextValue").FirstOrDefault();
                 var propertyInfo = metadata.ContainerType.GetProperties().Where(r => r.Name == metadata.PropertyName).FirstOrDefault();
