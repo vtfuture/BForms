@@ -125,11 +125,11 @@
     <Compile Include="Renderers\BsBaseRenderer.cs" />
     <Compile Include="Renderers\BsBulkActionRenderer.cs" />
     <Compile Include="Renderers\BsBulkSelectorRenderer.cs" />
+    <Compile Include="Renderers\BsEditorGroupRenderer.cs" />
     <Compile Include="Renderers\BsEditorNavRenderer.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Renderers\BsEditorRenderer.cs" />
-    <Compile Include="Renderers\BsEditorGroupRenderer.cs" />
     <Compile Include="Renderers\BsEditorTabRenderer.cs" />
     <Compile Include="Renderers\BsEditorToolbarRenderer.cs" />
     <Compile Include="Renderers\BsEditorToolbarButtonRenderer.cs" />

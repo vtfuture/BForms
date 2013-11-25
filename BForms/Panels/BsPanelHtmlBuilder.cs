@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.UI;
 using System.Web.WebPages.Scope;
+using BForms.Models;
 using BForms.Mvc;
 using BForms.Renderers;
 using BForms.Utilities;
@@ -29,6 +30,8 @@ namespace BForms.Panels
         internal string content;
         internal object id;
         internal object objId;
+        internal bool noHeader;
+        internal Glyphicon? glyphicon;
 
         /// <summary>
         /// Sets the ViewContext property for the BaseComponent
@@ -88,6 +91,18 @@ namespace BForms.Panels
         public BsPanelHtmlBuilder ObjId(object objId)
         {
             this.objId = objId;
+            return this;
+        }
+
+        public BsPanelHtmlBuilder NoHeader()
+        {
+            this.noHeader = true;
+            return this;
+        }
+
+        public BsPanelHtmlBuilder Glyphicon(Glyphicon glyphicon)
+        {
+            this.glyphicon = glyphicon;
             return this;
         }
 
@@ -169,3 +184,4 @@ namespace BForms.Panels
         #endregion
     }
 }
+

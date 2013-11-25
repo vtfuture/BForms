@@ -1417,6 +1417,18 @@
     };
     //#endregion
 
+    //#region row controls
+    Grid.prototype.enableRowActions = function (row) {
+        var $row = typeof row === "number" ?  this._getRowElement(id) : row;
+        $row.find(this.options.rowActionsContainerSelector).find('.disabled').removeClass('disabled');
+    };
+
+    Grid.prototype.disableRowActions = function (row) {
+        var $row = typeof row === "number" ? this._getRowElement(id) : row;
+        $row.find(this.options.rowActionsContainerSelector).find('button').addClass('disabled');
+    };
+    //#endregion
+
     $.widget('bforms.bsGrid', Grid.prototype);
 
     return Grid;

@@ -1,4 +1,4 @@
-﻿using BForms.Editor;
+using BForms.Editor;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -67,6 +67,45 @@ namespace BForms.Renderers
             return div.ToString();
         }
 
+        public string RenderGroupsFooter()
+        {
+            var counter = new TagBuilder("div");
+
+            counter.AddCssClass("row counter");
+
+            var total = new TagBuilder("div");
+
+            total.AddCssClass("col-lg-6 col-md-6 col-sm-6");
+
+            var span = new TagBuilder("span");
+
+            span.AddCssClass("bs-counter");
+
+            total.InnerHtml += "Total: " + span;
+
+            counter.InnerHtml += total;
+
+            var reset = new TagBuilder("div");
+
+            reset.AddCssClass("col-lg-6 col-md-6 col-sm-6");
+
+            var anchor = new TagBuilder("a");
+
+            anchor.MergeAttribute("href", "#");
+
+            anchor.AddCssClass("btn btn-white pull-right");
+
+            anchor.InnerHtml += GetGlyphicon(Models.Glyphicon.Refresh);
+
+            anchor.InnerHtml += " " + "Reset";
+
+            reset.InnerHtml += anchor;
+
+            counter.InnerHtml += reset;
+
+            return counter.ToString();
+        }
+
         public string RenderIndex()
         {
             var container = new TagBuilder("div");
@@ -94,6 +133,8 @@ namespace BForms.Renderers
             right.AddCssClass("right bs-groups");
 
             right.InnerHtml += RenderGroups();
+
+            right.InnerHtml += RenderGroupsFooter();
 
             container.InnerHtml += right;
             #endregion

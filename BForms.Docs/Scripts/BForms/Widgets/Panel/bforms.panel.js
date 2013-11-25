@@ -25,6 +25,8 @@
         contentSelector: '.bs-contentPanel',
 
         retrySelector: '.bs-retryBtn',
+        
+        headerToggle : false,
 
         cacheReadonlyContent: true,
         additionalData: {
@@ -37,6 +39,8 @@
     //#region init
     bsPanel.prototype._init = function () {
         this.$element = this.element;
+
+        this.$element.addClass('bs-hasPanel');
 
         this._loadOptions();
 
@@ -55,6 +59,7 @@
                 this._loadState();
             }, this));
         }
+
     };
 
     bsPanel.prototype._loadOptions = function () {
@@ -81,10 +86,9 @@
         this._key = window.location.pathname + '|BoxForm|' + this._name;
 
         if (typeof this.options.initialReadonly === "undefined" || this.options.initialReadonly == true) {
-
-            this._readonly = true;
+            this.showReadonly();
         } else {
-            this._readonly = false;
+            this.showEditable();
         }
 
         this.options.readonlyUrl = this.options.readonlyUrl || this.$element.data('readonlyurl');
@@ -101,8 +105,12 @@
 
         this.$element.on('click', this.options.toggleSelector, $.proxy(this._onToggleClick, this));
 
-        this.$element.on('click', this.options.editSelector, $.proxy(this._onEditClick, this));
-
+        if (this.options.headerToggle) {
+            this.$element.on('click', this.options.headerSelector, $.proxy(this._onHeaderClick, this));
+        } else {
+            this.$element.on('click', this.options.editSelector, $.proxy(this._onEditClick, this));
+        }
+        
         this.$element.on('click', this.options.cancelEditSelector, $.proxy(this._onCancelEditClick, this));
 
         this.$element.on('click', this.options.retrySelector, $.proxy(this._onRetryClick, this));
@@ -120,6 +128,19 @@
             } else {
                 this.open();
             }
+        }
+    };
+
+    bsPanel.prototype._onHeaderClick = function (e) {
+        if (this._readonly == true) {
+            this._loadEditableContent().then($.proxy(function () {
+                if (!this._state && this._allowExpand) {
+                    this.open();
+                }
+            }, this));
+
+            e.preventDefault();
+            e.stopPropagation();
         }
     };
 
@@ -433,17 +454,20 @@
     };
 
     bsPanel.prototype.showReadonly = function () {
-        this._trigger('onReadonlyShow', 0);
-
         this._readonly = true;
         this.$element.data('readonly', true);
+        this.$element.removeClass('bs-panelEditMode');
+
+        this._trigger('onReadonlyShow', 0);
     };
 
     bsPanel.prototype.showEditable = function () {
-        this._trigger('onEditableShow', 0);
-
         this._readonly = false;
         this.$element.data('readonly', false);
+        this.$element.addClass('bs-panelEditMode');
+
+        this._trigger('onEditableShow', 0);
+        
     };
     //#endregion
 

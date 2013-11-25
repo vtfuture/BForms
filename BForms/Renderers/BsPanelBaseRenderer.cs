@@ -18,8 +18,10 @@ namespace BForms.Renderers
 
         public virtual string RenderHeader()
         {
+            if (this.Builder.noHeader == false)
+            {
             var headerTag = new TagBuilder("div");
-            headerTag.AddCssClass("panel-heading");
+            headerTag.AddCssClass("panel-heading bs-panelHeader");
 
             var headerTitleTag = new TagBuilder("h4");
             headerTitleTag.AddCssClass("panel-title");
@@ -92,6 +94,9 @@ namespace BForms.Renderers
 
             headerTag.InnerHtml += headerTitleTag.ToString();
             return headerTag.ToString();
+            }
+
+            return string.Empty;
         }
 
         public virtual string RenderContent()
@@ -142,13 +147,16 @@ namespace BForms.Renderers
                     loaded = this.Builder.isLoaded
                 }).ToJsonString());
 
-            container.MergeAttribute("data-component", this.Builder.id.ToString());
+            if (this.Builder.id != null)
+            {
+                container.MergeAttribute("data-component", MvcHelpers.Serialize(this.Builder.id));
+            }
 
             container.AddCssClass("panel panel-default");
 
             if (this.Builder.objId != null)
             {
-                container.MergeAttribute("data-objid", this.Builder.objId.ToString());
+                container.MergeAttribute("data-objid", MvcHelpers.Serialize(this.Builder.objId));
             }
 
             body = container;
@@ -170,3 +178,4 @@ namespace BForms.Renderers
         }
     }
 }
+

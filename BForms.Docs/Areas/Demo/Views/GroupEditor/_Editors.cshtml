@@ -1,4 +1,4 @@
-﻿@model BForms.Docs.Areas.Demo.Controllers.GroupEditorViewModel
+@model BForms.Docs.Areas.Demo.Controllers.GroupEditorViewModel
 @using BForms.Html
 @using BForms.Docs.Resources
 @using BForms.Models
@@ -51,3 +51,9 @@
 {
     Html.Partial("_GroupEditor2", Model.Editor2);
 }
+
+<script id="js-groupItem" type="text/x-icanhaz">
+
+    <span>{{Name}}</span>
+
+</script>
