@@ -398,7 +398,7 @@
 
         };
 
-        Sortable.prototype._isValidMove = function (e, ui) {
+        Sortable.prototype._isValidMove = function(e, ui) {
 
             var $item = ui.helper;
             var $target = this.$dropTarget;
@@ -408,17 +408,17 @@
             if (this.options.accept == null || typeof this.options.accept != 'function') {
                 return true;
             }
-            
+
             // else, check move consistency using the provided accept function
 
-            if ($target.hasClass(this.options.classes.displacedRight)) {
+            var $parent = $target.data('_uid') !== $item.data('_uid') ? this._getItem($target.data('_uid')) : $target.siblings(this.options.selectors.item + ':first');
 
-                var $parent = $target.data('_uid') !== $item.data('_uid') ? this._getItem($target.data('_uid')) : $target.siblings(this.options.selectors.item + ':first');
+            if ($target.data('_uid') == 'undefined') {
 
-                return this.options.accept($item, $parent);
+                $parent = $target.parents(this.options.selectors.item + ':first');
             }
 
-            return true;
+            return this.options.accept($item, $parent);
         };
 
         Sortable.prototype._resetDraggedElement = function (e, ui) {
@@ -652,7 +652,7 @@
 
                     Id: $(e).data('id'),
                     Name: $(e).children('span:last').text(),
-                    Order: this._getOrderFor($(e)), //i,
+                    Order: this._getOrderFor($(e)),
                     Children: this._serializeList($(e).children(this.options.selectors.list))
                 });
 
