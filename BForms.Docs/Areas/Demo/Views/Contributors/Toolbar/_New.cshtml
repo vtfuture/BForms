@@ -8,6 +8,8 @@
 
 @using (Html.BsBeginForm(@Html.GetTheme()))
 {
+    <h3>Add Form</h3>
+    
     <div class="col-12 col-sm-6 col-lg-6 form-group @Html.BsValidationCssFor(m => m.FirstName)">
         @Html.BsLabelFor(m => m.FirstName)
         <div class="input-group">
