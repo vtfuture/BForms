@@ -52,9 +52,26 @@
 
         $input.data(this.$elem.data());
 
+        var attrs = this.$elem[0].attributes,
+		    i = 0,
+		    l = attrs.length,
+		    toRemove = [];
+
+        for (; i < l; i++) {
+            var attr = attrs[i];
+            if (typeof attr.nodeName !== 'undefined' && attr.nodeName.indexOf('data-') === 0) {
+                $input.attr(attr.nodeName, attr.nodeValue);
+                toRemove.push(attr.nodeName);
+            }
+        }
+
+        for (var index = 0; index < toRemove.length; index++) {
+            this.$elem.removeAttr(toRemove[index]);
+        }
+
         this.$elem.prop('id', 'tag_' + $input.prop('id'));
         this.$elem.prop('name', 'tag_' + $input.prop('name'));
-
+        
         this.$input = $input;
 
         this.$input.on('change', function () {
