@@ -670,7 +670,7 @@ a.btn {
 	}
 	
 	@media (max-width: 756px) {
-		.grid_toolbar_controls a:last-child {
+		.grid_toolbar_controls > a:last-child {
 			border-right: 1px solid darken($Blue, 10%) !important;
 		}
 		h1 {
@@ -714,7 +714,7 @@ a.btn {
 	}
 	
 	@media (max-width: 756px) {
-		.grid_toolbar_controls a:last-child {
+		.grid_toolbar_controls > a:last-child {
 			border-right: 1px solid darken($Green, 10%) !important;
 		}
 		h1 {
@@ -759,7 +759,7 @@ a.btn {
 	}
 	
 	@media (max-width: 756px) {
-		.grid_toolbar_controls a:last-child {
+		.grid_toolbar_controls > a:last-child {
 			border-right: 1px solid darken($Purple, 10%) !important;
 		}
 		h1 {
@@ -803,7 +803,7 @@ a.btn {
 	}
 	
 	@media (max-width: 756px) {
-		.grid_toolbar_controls a:last-child {
+		.grid_toolbar_controls > a:last-child {
 			border-right: 1px solid darken($Orange, 10%) !important;
 		}
 		h1 {
@@ -848,7 +848,7 @@ a.btn {
 	}
 	
 	@media (max-width: 756px) {
-		.grid_toolbar_controls a:last-child {
+		.grid_toolbar_controls > a:last-child {
 			border-right: 1px solid darken($Black, 10%) !important;
 		}
 		h1 {
@@ -893,7 +893,7 @@ a.btn {
 			a:first-child {
 				border-left: none;
 			}
-			a:last-child {
+			> a:last-child {
 				border-right: 1px solid darken($mainColor, 5%) !important;
 				+ input-group {
 					margin-left: -1px;
