@@ -2,12 +2,19 @@
 ICanHaz.js version 0.10.2 -- by @HenrikJoreteg
 More info at: http://icanhazjs.com
 */
-(function () {
+
+(function (factory) {
+    if (typeof define === "function" && define.amd) {
+        define('icanhaz', [], factory);
+    } else {
+        factory();
+    }
+}(function () {
     /*
-      mustache.js — Logic-less templates in JavaScript
-    
-      See http://mustache.github.com/ for more info.
-    */
+  mustache.js — Logic-less templates in JavaScript
+
+  See http://mustache.github.com/ for more info.
+*/
 
     var Mustache = function () {
         var _toString = Object.prototype.toString;
@@ -36,7 +43,7 @@ More info at: http://icanhazjs.com
 
             trim = function (text) {
                 return text == null ? "" :
-                  text.toString().replace(trimLeft, "").replace(trimRight, "");
+                    text.toString().replace(trimLeft, "").replace(trimRight, "");
             }
         }
 
@@ -55,7 +62,8 @@ More info at: http://icanhazjs.com
         }
 
         var regexCache = {};
-        var Renderer = function () { };
+        var Renderer = function () {
+        };
 
         Renderer.prototype = {
             otag: "{{",
@@ -106,8 +114,8 @@ More info at: http://icanhazjs.com
             },
 
             /*
-              Sends parsed lines
-            */
+          Sends parsed lines
+        */
             send: function (line) {
                 if (line !== "") {
                     this.buffer.push(line);
@@ -124,8 +132,8 @@ More info at: http://icanhazjs.com
             },
 
             /*
-              Looks for %PRAGMAS
-            */
+          Looks for %PRAGMAS
+        */
             render_pragmas: function (template) {
                 // no pragmas
                 if (!this.includes("%", template)) {
@@ -141,8 +149,8 @@ More info at: http://icanhazjs.com
                     if (!that.pragmas_implemented[pragma]) {
                         throw ({
                             message:
-                              "This implementation of mustache doesn't understand the '" +
-                              pragma + "' pragma"
+                                "This implementation of mustache doesn't understand the '" +
+                                    pragma + "' pragma"
                         });
                     }
                     that.pragmas[pragma] = {};
@@ -156,8 +164,8 @@ More info at: http://icanhazjs.com
             },
 
             /*
-              Tries to find a partial in the curent scope and render it
-            */
+          Tries to find a partial in the curent scope and render it
+        */
             render_partial: function (name, context, partials) {
                 name = trim(name);
                 if (!partials || partials[name] === undefined) {
@@ -170,15 +178,15 @@ More info at: http://icanhazjs.com
             },
 
             /* 
-             
-            */
+         
+        */
             render_i18n: function (html, context, partials) {
                 if (html.indexOf(this.otag + "_i") == -1) {
                     return html;
                 }
                 var that = this;
                 var regex = new RegExp(this.otag + "\\_i" + this.ctag +
-                  "\\s*([\\s\\S]+?)" + this.otag + "\\/i" + this.ctag, "mg");
+                    "\\s*([\\s\\S]+?)" + this.otag + "\\/i" + this.ctag, "mg");
 
                 // for each {{_i}}{{/i}} section do...
                 return html.replace(regex, function (match, content) {
@@ -198,8 +206,8 @@ More info at: http://icanhazjs.com
             },
 
             /*
-              Renders inverted (^) and normal (#) sections
-            */
+          Renders inverted (^) and normal (#) sections
+        */
             render_section: function (template, context, partials) {
                 if (!this.includes("#", template) && !this.includes("^", template)) {
                     // did not render anything, there were no sections
@@ -211,21 +219,21 @@ More info at: http://icanhazjs.com
                 var regex = this.getCachedRegex("render_section", function (otag, ctag) {
                     // This regex matches _the first_ section ({{#foo}}{{/foo}}), and captures the remainder
                     return new RegExp(
-                      "^([\\s\\S]*?)" +         // all the crap at the beginning that is not {{*}} ($1)
+                        "^([\\s\\S]*?)" + // all the crap at the beginning that is not {{*}} ($1)
 
-                      otag +                    // {{
-                      "(\\^|\\#)\\s*(.+)\\s*" + //  #foo (# == $2, foo == $3)
-                      ctag +                    // }}
+                            otag + // {{
+                            "(\\^|\\#)\\s*(.+)\\s*" + //  #foo (# == $2, foo == $3)
+                            ctag + // }}
 
-                      "\n*([\\s\\S]*?)" +       // between the tag ($2). leading newlines are dropped
+                            "\n*([\\s\\S]*?)" + // between the tag ($2). leading newlines are dropped
 
-                      otag +                    // {{
-                      "\\/\\s*\\3\\s*" +        //  /foo (backreference to the opening tag).
-                      ctag +                    // }}
+                            otag + // {{
+                            "\\/\\s*\\3\\s*" + //  /foo (backreference to the opening tag).
+                            ctag + // }}
 
-                      "\\s*([\\s\\S]*)$",       // everything else in the string ($4). leading whitespace is dropped.
+                            "\\s*([\\s\\S]*)$", // everything else in the string ($4). leading whitespace is dropped.
 
-                    "g");
+                        "g");
                 });
 
 
@@ -233,13 +241,10 @@ More info at: http://icanhazjs.com
                 return template.replace(regex, function (match, before, type, name, content, after) {
                     // before contains only tags, no sections
                     var renderedBefore = before ? that.render_tags(before, context, partials, true) : "",
-
-                    // after may contain both sections and tags, so use full rendering function
+                        // after may contain both sections and tags, so use full rendering function
                         renderedAfter = after ? that.render(after, context, partials, true) : "",
-
-                    // will be computed below
+                        // will be computed below
                         renderedContent,
-
                         value = that.find(name, context);
 
                     if (type === "^") { // inverted section
@@ -256,7 +261,7 @@ More info at: http://icanhazjs.com
                             }).join("");
                         } else if (that.is_object(value)) { // Object, Use it as subcontext!
                             renderedContent = that.render(content, that.create_context(value),
-                              partials, true);
+                                partials, true);
                         } else if (typeof value == "function") {
                             // higher order section
                             renderedContent = value.call(context, content, function (text) {
@@ -274,8 +279,8 @@ More info at: http://icanhazjs.com
             },
 
             /*
-              Replace {{foo}} and friends with values from our view
-            */
+          Replace {{foo}} and friends with values from our view
+        */
             render_tags: function (template, context, partials, in_recursion) {
                 // tit for tat
                 var that = this;
@@ -289,18 +294,24 @@ More info at: http://icanhazjs.com
                 var regex = new_regex();
                 var tag_replace_callback = function (match, operator, name) {
                     switch (operator) {
-                        case "!": // ignore comments
+                        case "!":
+                            // ignore comments
                             return "";
-                        case "=": // set new delimiters, rebuild the replace regexp
+                        case "=":
+                            // set new delimiters, rebuild the replace regexp
                             that.set_delimiters(name);
                             regex = new_regex();
                             return "";
-                        case ">": // render partial
+                        case ">":
+                            // render partial
                             return that.render_partial(name, context, partials);
-                        case "{": // the triple mustache is unescaped
-                        case "&": // & operator is an alternative unescape method
+                        case "{":
+                            // the triple mustache is unescaped
+                        case "&":
+                            // & operator is an alternative unescape method
                             return that.find(name, context);
-                        default: // escape the value
+                        default:
+                            // escape the value
                             return escapeHTML(that.find(name, context));
                     }
                 };
@@ -327,24 +338,25 @@ More info at: http://icanhazjs.com
                 // thank you Simon Willison
                 if (!arguments.callee.sRE) {
                     var specials = [
-                      '/', '.', '*', '+', '?', '|',
-                      '(', ')', '[', ']', '{', '}', '\\'
+                        '/', '.', '*', '+', '?', '|',
+                        '(', ')', '[', ']', '{', '}', '\\'
                     ];
                     arguments.callee.sRE = new RegExp(
-                      '(\\' + specials.join('|\\') + ')', 'g'
+                        '(\\' + specials.join('|\\') + ')', 'g'
                     );
                 }
                 return text.replace(arguments.callee.sRE, '\\$1');
             },
 
             /*
-              find `name` in current `context`. That is find me a value
-              from the view object
-            */
+          find `name` in current `context`. That is find me a value
+          from the view object
+        */
             find: function (name, context) {
                 name = trim(name);
 
                 // Checks whether a value is thruthy or false or 0
+
                 function is_kinda_truthy(bool) {
                     return bool === false || bool === 0 || bool;
                 }
@@ -418,8 +430,8 @@ More info at: http://icanhazjs.com
             },
 
             /*
-              Why, why, why? Because IE. Cry, cry cry.
-            */
+          Why, why, why? Because IE. Cry, cry cry.
+        */
             map: function (array, fn) {
                 if (typeof array.map == "function") {
                     return array.map(fn);
@@ -458,8 +470,8 @@ More info at: http://icanhazjs.com
             version: "0.4.0",
 
             /*
-              Turns a template and view into HTML
-            */
+          Turns a template and view into HTML
+        */
             to_html: function (template, view, partials, send_fun) {
                 var renderer = new Renderer();
                 if (send_fun) {
@@ -476,10 +488,11 @@ More info at: http://icanhazjs.com
         });
     }();
     /*!
-      ICanHaz.js -- by @HenrikJoreteg
-    */
+  ICanHaz.js -- by @HenrikJoreteg
+*/
     /*global  */
     (function () {
+
         function trim(stuff) {
             if (''.trim) return stuff.trim();
             else return stuff.replace(/^\s+/, '').replace(/\s+$/, '');
@@ -590,4 +603,4 @@ More info at: http://icanhazjs.com
         }
 
     })();
-})();
+}));
