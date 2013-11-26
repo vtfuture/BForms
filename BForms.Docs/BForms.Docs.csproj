@@ -287,7 +287,9 @@
     <Content Include="Scripts\BForms\Widgets\Grid\js\bforms.toolbar.quickSearch.js" />
     <Content Include="Scripts\BForms\Widgets\Grid\js\bforms.toolbar.add.js" />
     <Content Include="Scripts\BForms\Widgets\Grid\js\bforms.toolbar.js" />
-    <Content Include="Scripts\BForms\Stylesheets\bforms.grid.css" />
+    <Content Include="Scripts\BForms\Stylesheets\bforms.grid.css">
+      <DependentUpon>bforms.grid.scss</DependentUpon>
+    </Content>
     <Content Include="Scripts\BForms\Widgets\Utils\bforms.namespace.js" />
     <Content Include="Scripts\BForms\Images\icn-down_arrow-small.png" />
     <Content Include="Scripts\BForms\Images\icn-order_down.png" />
@@ -355,7 +357,9 @@
     <Content Include="Scripts\BForms\Plugins\Validation\i18n\bforms.validate-ro.js" />
     <Content Include="Scripts\BForms\Plugins\Validation\bforms.validate.js" />
     <Content Include="Scripts\BForms\Plugins\Validation\bforms.validate.unobtrusive.js" />
-    <Content Include="Scripts\BForms\Stylesheets\bforms.core.css" />
+    <Content Include="Scripts\BForms\Stylesheets\bforms.core.css">
+      <DependentUpon>bforms.core.scss</DependentUpon>
+    </Content>
     <Content Include="Scripts\BForms\Images\preloader.gif" />
     <Content Include="Scripts\Controllers\Demo\Login\login-index.js" />
     <Content Include="Scripts\Controllers\Root\Docs\docs-overview.js" />

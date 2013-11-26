@@ -151,7 +151,6 @@ a.btn {
 		.grid_toolbar_header {
 			background: $mainColor;
 			color: #fff;
-			overflow: hidden;
 			h1 {
 				font-size: 15px;
 				text-transform: uppercase;
@@ -163,9 +162,9 @@ a.btn {
 			.grid_toolbar_controls {
 				line-height: normal;
 				float: right;
-				a {
+				 > a,
+                .btn-group > a {
 					padding: 10px 15px 9px;
-					float: left;
 					border-left: 1px solid darken($mainColor, 5%);
 					color: #fff;
 					text-transform: capitalize;				
@@ -175,7 +174,7 @@ a.btn {
 					color: #333;
 				}
 				.input-group {
-					float: left;
+					display: inline-block;
 					width: 165px;
 					color: #333;
 					padding: 9px 3px 8px 15px;
@@ -193,17 +192,31 @@ a.btn {
 						border-left: none;
 					}					
 				}
+			    .btn-group {
+					.caret {
+						border-top: 4px solid #fff;
+						margin-left: 5px;
+					}
+					.dropdown-menu {
+						.glyphicon {
+							font-size: 12px;
+						}
+					}			
+				}
 				
 				.glyphicon {
 					font-size: 14px;
 				}
-				&:after {
-					content:"";
+			}
+			&:after {
+					content: ".";
 					display: block;
+					height: 0;
 					clear: both;
-				}
-			}																		
-		}
+					visibility: hidden;
+			}
+		}																		
+		
 
 		.grid_toolbar_form {
 			background: #f6f6f6;
