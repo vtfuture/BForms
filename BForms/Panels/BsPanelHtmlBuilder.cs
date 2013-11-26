@@ -65,7 +65,7 @@ namespace BForms.Panels
 
                 if (displayAttr != null)
                 {
-                    this.Name(displayAttr.Name);
+                    this.Name(displayAttr.GetName());
                 }
             }
 

@@ -85,7 +85,7 @@ namespace BForms.Panels
 
             if (displayAttr != null)
             {
-                newPanel.Name(displayAttr.Name);
+                newPanel.Name(displayAttr.GetName());
             }
 
             this.Panels.Add(newPanel);
