@@ -480,7 +480,7 @@ a.btn {
   .grid_toolbar.blue .grid_toolbar_header .grid_toolbar_controls a:hover {
     background: #3086c8 !important; }
   @media (max-width: 756px) {
-    .grid_toolbar.blue .grid_toolbar_header .grid_toolbar_controls a:last-child {
+    .grid_toolbar.blue .grid_toolbar_header .grid_toolbar_controls > a:last-child {
       border-right: 1px solid #3086c8 !important; }
     .grid_toolbar.blue .grid_toolbar_header h1 {
       border-bottom: 1px solid #3086c8 !important; } }
@@ -506,7 +506,7 @@ a.btn {
   .grid_toolbar.green .grid_toolbar_header .grid_toolbar_controls a:hover {
     background: #449575 !important; }
   @media (max-width: 756px) {
-    .grid_toolbar.green .grid_toolbar_header .grid_toolbar_controls a:last-child {
+    .grid_toolbar.green .grid_toolbar_header .grid_toolbar_controls > a:last-child {
       border-right: 1px solid #449575 !important; }
     .grid_toolbar.green .grid_toolbar_header h1 {
       border-bottom: 1px solid #449575 !important; } }
@@ -532,7 +532,7 @@ a.btn {
   .grid_toolbar.purple .grid_toolbar_header .grid_toolbar_controls a:hover {
     background: #4f2b4e !important; }
   @media (max-width: 756px) {
-    .grid_toolbar.purple .grid_toolbar_header .grid_toolbar_controls a:last-child {
+    .grid_toolbar.purple .grid_toolbar_header .grid_toolbar_controls > a:last-child {
       border-right: 1px solid #4f2b4e !important; }
     .grid_toolbar.purple .grid_toolbar_header h1 {
       border-bottom: 1px solid #4f2b4e !important; } }
@@ -558,7 +558,7 @@ a.btn {
   .grid_toolbar.orange .grid_toolbar_header .grid_toolbar_controls a:hover {
     background: #e5560f !important; }
   @media (max-width: 756px) {
-    .grid_toolbar.orange .grid_toolbar_header .grid_toolbar_controls a:last-child {
+    .grid_toolbar.orange .grid_toolbar_header .grid_toolbar_controls > a:last-child {
       border-right: 1px solid #e5560f !important; }
     .grid_toolbar.orange .grid_toolbar_header h1 {
       border-bottom: 1px solid #e5560f !important; } }
@@ -584,7 +584,7 @@ a.btn {
   .grid_toolbar.black .grid_toolbar_header .grid_toolbar_controls a:hover {
     background: #282828 !important; }
   @media (max-width: 756px) {
-    .grid_toolbar.black .grid_toolbar_header .grid_toolbar_controls a:last-child {
+    .grid_toolbar.black .grid_toolbar_header .grid_toolbar_controls > a:last-child {
       border-right: 1px solid #282828 !important; }
     .grid_toolbar.black .grid_toolbar_header h1 {
       border-bottom: 1px solid #282828 !important; } }
@@ -613,9 +613,9 @@ a.btn {
     float: none; }
     .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls a:first-child {
       border-left: none; }
-    .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls a:last-child {
+    .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls > a:last-child {
       border-right: 1px solid #3e9b96 !important; }
-      .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls a:last-child + input-group {
+      .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls > a:last-child + input-group {
         margin-left: -1px; }
 
   .results_per_page_container, .results_number {
@@ -649,4 +649,3 @@ a.btn {
     color: #333; }
   .grid_container .grid_view .grid_rows_wrapper .grid_row:hover {
     background: #fff; } }
-
