@@ -1,7 +1,7 @@
 ﻿define('bforms-sortable',
     ['jquery',
         'jquery-ui-core'
-    ], function() {
+    ], function () {
 
         var Sortable = function (opts) {
 
@@ -60,11 +60,11 @@
             },
 
             snapEnabled: false,
-            
-            accept: function($item, $parent) {
+
+            accept: function ($item, $parent) {
 
                 var candidateParents = $item.data('appends-to');
-                
+
                 if (candidateParents == null || !/\S/.test(candidateParents)) {
                     return false;
                 }
@@ -73,8 +73,9 @@
 
                 return candidateParents.indexOf(parentId) !== -1;
             },
-            
-            serializationMode: 'object'
+
+            serializationMode: 'object',
+            validateInDepth: true
         };
 
         Sortable.prototype.serializationModes = {
@@ -209,7 +210,7 @@
                 ui: ui,
                 parent: $(e.target).parents(this.options.selectors.list + ':first')
             };
-            
+
             $(this.options.selectors.container).trigger({
                 type: 'drag-start',
                 item: $item
@@ -233,7 +234,7 @@
                 updated = true;
 
             } else {
-                
+
                 this._resetDraggedElement(e, ui);
                 this.$targetStack.splice(this.$targetStack.length - 1, 1);
             }
@@ -245,12 +246,12 @@
             $item.css('opacity', 1);
 
             $(this.options.selectors.placeholder).animate({
-                    height: this.options.display.inactivePlaceholderHeight,
-                    'border-width': '0px'
-                },
+                height: this.options.display.inactivePlaceholderHeight,
+                'border-width': '0px'
+            },
                 {
                     duration: 100,
-                    complete: $.proxy(function() {
+                    complete: $.proxy(function () {
 
                         if (updated) {
 
@@ -288,7 +289,7 @@
 
             this._toggleHorizontalChangeListening($(e.target), ui.draggable, true);
 
-            $(this.options.selectors.container).trigger({                
+            $(this.options.selectors.container).trigger({
                 type: 'over',
                 item: $item,
                 placeholder: $(e.target)
@@ -398,7 +399,7 @@
 
         };
 
-        Sortable.prototype._isValidMove = function(e, ui) {
+        Sortable.prototype._isValidMove = function (e, ui) {
 
             var $item = ui.helper;
             var $target = this.$dropTarget;
@@ -418,7 +419,32 @@
                 $parent = $target.parents(this.options.selectors.item + ':first');
             }
 
-            return this.options.accept($item, $parent);
+            // if the move registered no depth change, then it is a valid one
+
+            var sameLevel = this._elementsOnSameLevel($item, $parent, $target);
+            var valid = this.options.accept($item, $parent);
+
+            // if, for one of the target's parents, paired with the dragged item,
+            // the accept constraints do not apply, the move is not valid
+
+            if (this.options.validateInDepth) {
+                
+                var $parents = $target.parents(this.options.selectors.item);
+                var validInDepth = true;
+
+                $parents.each($.proxy(function (i, el) {
+
+                    if (!this.options.accept($item, $(el))) {
+                        validInDepth = false;
+                    }
+                }, this));
+                
+                if (!validInDepth) {
+                    return false;
+                }
+            }
+
+            return sameLevel || valid;
         };
 
         Sortable.prototype._resetDraggedElement = function (e, ui) {
@@ -427,6 +453,18 @@
                 top: 0,
                 left: 0
             });
+        };
+
+        Sortable.prototype._elementsOnSameLevel = function($first, $second, $placeholder) {
+
+            if ($placeholder.hasClass(this.options.classes.displacedLeft) || $placeholder.hasClass(this.options.classes.displacedRight)) {
+                return false;
+            }
+
+            var $firstParent = $first.parents(this.options.selectors.list + ':first');
+            var $secondParent = $second.parents(this.options.selectors.list + ':first');
+
+            return $firstParent.data('_uid') == $secondParent.data('_uid');
         };
 
         Sortable.prototype._getLevelFor = function ($item) {
@@ -468,17 +506,17 @@
 
                 // left displacement means that the append target is the dragged item's parent
 
-                var level = this._getLevelFor($item);
+                var level = this._getLevelFor($target);
 
                 if ($target.hasClass(this.options.classes.displacedLeft)) {
 
                     var offset = parseInt($target.data('offset'));
 
-                    var parentIndex = this._countLevels() - 1 - Math.abs(offset);
+                    var $parents = $target.parents(this.options.selectors.item); 
 
-                    var $parent = level !== 1 ? $target.parents(this.options.selectors.item).eq(parentIndex - 1) : $item.parents(this.options.selectors.item);
-
-                    $parent.after($item);
+                    var $parent = $parents[level - offset - 1];
+                    
+                    $($parent).after($item);
 
                 } else {
 
@@ -626,17 +664,17 @@
         Sortable.prototype._serialize = function (serializationMode) {
 
             serializationMode = serializationMode || this.serializationModes.object;
-            
+
             if (serializationMode === this.serializationModes.object) {
-                
+
                 return this._serializeList($(this.options.selectors.container + ' > ' + this.options.selectors.list));
             }
-            
+
             if (serializationMode === this.serializationModes.array) {
-                
+
                 return this._serializeAsArray();
             }
-            
+
             return this._serializeList($(this.options.selectors.container + ' > ' + this.options.selectors.list));
         };
 
@@ -661,16 +699,16 @@
             return objects.length != 0 ? objects : null;
         };
 
-        Sortable.prototype._serializeAsArray = function() {
+        Sortable.prototype._serializeAsArray = function () {
 
             var $items = $(this.options.selectors.container).find(this.options.selectors.item);
             var items = [];
             var parentProperty = $(this.options.selectors.container).data('parent-property');
 
-            $items.each($.proxy(function(i, e) {
+            $items.each($.proxy(function (i, e) {
 
                 var parentId = $(e).parents(this.options.selectors.item + ':first').data('id');
-                var order = this._getOrderFor($(e)); 
+                var order = this._getOrderFor($(e));
                 var id = $(e).data('id');
 
                 var item = {
@@ -688,13 +726,13 @@
             return items;
         };
 
-        Sortable.prototype._getOrderFor = function($item) {
+        Sortable.prototype._getOrderFor = function ($item) {
 
             var order = 0;
 
             var $parent = $item.parents(this.options.selectors.list + ':first');
 
-            $parent.children(this.options.selectors.item).each(function(i, e) {
+            $parent.children(this.options.selectors.item).each(function (i, e) {
 
                 if ($(e).data('_uid') === $item.data('_uid')) {
                     order = i;
@@ -709,24 +747,25 @@
 
         // #endregion
 
-        // region fn extend
+        // region $.fn extend
 
         $.fn.extend({
-            
-            bsSortable: function(options) {
+
+            bsSortable: function (options) {
 
                 var opts = {
                     selectors: {}
                 };
-                
+
                 if (typeof options !== 'undefined' && options != null) {
 
-                    opts.selectors.item = options.itemsSelector;
+                    opts.selectors.item = options.itemSelector;
                     opts.selectors.list = options.listSelector;
                     opts.selectors.container = options.containerSelector;
                     opts.accept = options.accept;
                     opts.snapEnabled = options.snapEnabled;
                     opts.serializationMode = options.serialize;
+                    opts.validateInDepth = options.validateInDepth;
                 }
 
                 var instance = new Sortable(opts);
@@ -734,10 +773,10 @@
                 this.data('bsSortable', instance);
             }
         });
-        
+
         // #endregion
 
-       // $.widget('bforms.bsSortable', $.Widget, Sortable.prototype);
+        // $.widget('bforms.bsSortable', $.Widget, Sortable.prototype);
 
 
         return Sortable;

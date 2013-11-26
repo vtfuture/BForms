@@ -1,4 +1,3 @@
-
 define('bforms-toolbar-order', [
         'jquery',
         'bforms-toolbar',
@@ -39,10 +38,14 @@ define('bforms-toolbar-order', [
             actions: controls
         });
 
-        this.$sortable = $(this.options.sortableContainerSelector);
+        this.$sortable = $(this.options.containerSelector);
 
-        this.bsSortableOptions = {
-            serialize: 'array'
+        this.bsSortableOptions = {            
+          
+            itemSelector: this.options.itemSelector,
+            listSelector: this.options.listSelector,
+            containerSelector: this.options.containerSelector,
+            serialize: this.options.serialize
         };
 
         this.$sortable.bsSortable(this.bsSortableOptions);
@@ -54,12 +57,10 @@ define('bforms-toolbar-order', [
 
     Order.prototype._defaultOptions = {
         selector: '.bs-show_order',
-        itemsSelector: '.sortable_list_item',
-        sortableElementSelector: '.bs-sortable',
-        axis: 'y',
-        disableSelection: true,
-        sortableContainerSelector: '.sortable-container',
-        minimumItemHeight: 15
+        itemSelector: '.bs-sortable-item',
+        listSelector: '.bs-sortable',
+        containerSelector: '.sortable-container',
+        serialize: 'array'
     };
 
     Order.prototype._addDefaultControls = function () {
@@ -94,19 +95,20 @@ define('bforms-toolbar-order', [
     };
 
 
-    Order.prototype._addDelegates = function() {
+    Order.prototype._addDelegates = function () {
 
-        $(this.options.sortableContainerSelector).on('update', $.proxy(this._evOnUpdate, this));
+        $(this.options.containerSelector).on('update', $.proxy(this._evOnUpdate, this));
     };
 
     Order.prototype._evOnUpdate = function (e) {
 
+        console.log('update');
         this.reorderedList = e.updatedList;
         this.updated = true;
     };
 
     Order.prototype._evOnReset = function () {
-
+        
         this.$sortable.html(this.previousConfigurationHtml);
 
         $('.placeholder').remove();
@@ -154,12 +156,12 @@ define('bforms-toolbar-order', [
     Order.prototype._reorderSuccess = function (response) {
 
         this.updated = false;
-        
+
         $('.loading-global').hide();
 
         this.$orderForm.removeAttr('disabled');
         $(this._controls.save.selector).attr('disabled', false);
-        
+
         this.previousConfigurationHtml = this.$sortable.html();
     };
 
