@@ -264,7 +264,6 @@
     <Content Include="Scripts\BForms\Plugins\Datepicker\js\bforms.datepicker.js" />
     <Content Include="Scripts\BForms\Plugins\Datepicker\js\bforms.datepicker.tmpl.js" />
     <Content Include="Scripts\BForms\Plugins\Datepicker\js\bforms.datepicker.range.js" />
-    <Content Include="Scripts\BForms\Plugins\Datepicker\js\lib\ICanHaz.js" />
     <Content Include="Scripts\BForms\Plugins\Datepicker\js\i18n\lang.bundle.js" />
     <Content Include="Scripts\BForms\Plugins\Datepicker\js\lib\moment.isocalendar.js" />
     <Content Include="Scripts\BForms\Plugins\Datepicker\js\lib\moment.js" />
