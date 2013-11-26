@@ -270,15 +270,15 @@ namespace BForms.Grid
             return grid;
         }
 
-        public BsGridModel<TRow> ToBsGridViewModel<TValue>(List<TRow> rows, Expression<Func<TRow, TValue>> rowExpression, List<BsGridRowData<TValue>> rowsSettings, Func<TRow, bool> entityExpression)
+        public BsGridModel<TRow> ToBsGridViewModel<TValue>(BsGridBaseRepositorySettings baseSettings, List<TRow> rows, Expression<Func<TRow, TValue>> rowExpression, List<BsGridRowData<TValue>> rowsSettings)
         {
-            ////creates basic query
-            //var basicQuery = this.Query();
-            //var list = rowsSettings.Select(y => y.Id).ToList();
-            //var finalQuery = this.MapQuery(basicQuery).Where(entityExpression);
+            this.settings = baseSettings;
 
-            //rows = finalQuery.ToList();
-            
+            return ToBsGridViewModel<TValue>(rows, rowExpression, rowsSettings);
+        }
+
+        public BsGridModel<TRow> ToBsGridViewModel<TValue>(List<TRow> rows, Expression<Func<TRow, TValue>> rowExpression, List<BsGridRowData<TValue>> rowsSettings)
+        {
             foreach (var row in rows)
             {
                 var rowProp = rowExpression.GetPropertyInfo();

@@ -382,7 +382,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
         {
             var ids = items.Select(x => x.Id).ToList();
             var rowsModel = _gridRepository.ReadRows(items.Select(x => x.Id).ToList());
-            var viewModel = _gridRepository.ToBsGridViewModel(rowsModel, row => row.Id, items, x => ids.Contains(x.Id))
+            var viewModel = _gridRepository.ToBsGridViewModel(rowsModel, row => row.Id, items)
                     .Wrap<ContributorsViewModel>(x => x.Grid);
 
             var savedSettings = GetGridSettings();
