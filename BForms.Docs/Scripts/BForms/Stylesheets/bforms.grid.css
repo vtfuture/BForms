@@ -387,7 +387,9 @@ a.btn {
         .grid_container .grid_view .grid_rows_wrapper .grid_row_details .flow .flow_steps-editable .btn_minus {
           margin-top: 22px; }
       .grid_container .grid_view .grid_rows_wrapper .grid_row_details dl {
-        margin-bottom: 10px; }
+        margin-bottom: 10px;
+        clear: both;
+        overflow: hidden; }
         .grid_container .grid_view .grid_rows_wrapper .grid_row_details dl dt {
           float: left;
           width: 30%;
@@ -403,11 +405,14 @@ a.btn {
           margin-left: 30%;
           word-wrap: break-word; }
         .grid_container .grid_view .grid_rows_wrapper .grid_row_details dl.to-left dt {
+          max-width: 70%;
           width: auto;
-          text-align: left; }
+          white-space: normal;
+          text-align: left;
+          overflow: visible;
+          text-overflow: clip; }
         .grid_container .grid_view .grid_rows_wrapper .grid_row_details dl.to-left dd {
-          margin-left: 5px;
-          float: left; }
+          margin-left: 5px; }
       .grid_container .grid_view .grid_rows_wrapper .grid_row_details .profile img {
         max-width: 64px;
         border: 1px solid #e8e8e8; }

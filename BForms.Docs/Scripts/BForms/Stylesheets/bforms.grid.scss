@@ -525,6 +525,8 @@ a.btn {
 				}
 				dl {
 					margin-bottom: 10px;
+					clear: both;
+					overflow: hidden;
 					dt {
 						float: left;
 						width: 30%;
@@ -543,12 +545,15 @@ a.btn {
 					}
 					&.to-left {
 						dt {
+							max-width: 70%;
 							width: auto;
+							white-space: normal;
 							text-align: left;
+							overflow: visible;
+							text-overflow: clip;
 						}
 						dd {
 							margin-left: 5px;
-							float: left;
 						}
 					}
 				}
