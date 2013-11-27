@@ -30,6 +30,11 @@ namespace BForms.Renderers
                 var paginationBuilder = new TagBuilder("ul");
                 paginationBuilder.AddCssClass("pagination pagination-md");
 
+                if (this.Builder.pager.TotalPages == 1)
+                {
+                    paginationBuilder.MergeAttribute("style","display:none");
+                }
+
                 #region first page button
 
                 if (this.Builder.settings.ShowFirstLastButtons)
