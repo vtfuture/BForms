@@ -437,30 +437,74 @@
             this.yearValueClick(e);
         }, this));
 
+        //#region hold events
+        this.$picker.on('mousedown touchstart', '.bs-hourUp', $.proxy(this._hourUpTimeout, this));
+        
+        this.$picker.on('mouseup mouseleave touchend', '.bs-hourUp', $.proxy(function (e) {
+            window.clearTimeout(this._hourUpHandler);
+        }, this));
 
         this.$picker.on('click', '.bs-hourUp', $.proxy(function (e) {
             this.hourUpClick(e);
+        }, this));
+        
+
+        this.$picker.on('mousedown', '.bs-minuteUp', $.proxy(function (e) {
+            this._minuteUpTimeout();
+        }, this));
+
+        this.$picker.on('mouseup mouseleave touchend', '.bs-minuteUp', $.proxy(function (e) {
+            window.clearTimeout(this._minuteUpHandler);
         }, this));
 
         this.$picker.on('click', '.bs-minuteUp', $.proxy(function (e) {
             this.minuteUpClick(e);
         }, this));
+        
+        
+        this.$picker.on('mousedown touchstart', '.bs-secondUp', $.proxy(this._secondUpTimeout, this));
+
+        this.$picker.on('mouseup mouseleave touchend', '.bs-secondUp', $.proxy(function (e) {
+            window.clearTimeout(this._secondUpHandler);
+        }, this));
 
         this.$picker.on('click', '.bs-secondUp', $.proxy(function (e) {
             this.secondUpClick(e);
+        }, this));
+        
+
+        this.$picker.on('mousedown touchstart', '.bs-hourDown', $.proxy(this._hourDownTimeout, this));
+
+        this.$picker.on('mouseup mouseleave touchend', '.bs-hourDown', $.proxy(function (e) {
+            window.clearTimeout(this._hourDownHandler);
         }, this));
 
         this.$picker.on('click', '.bs-hourDown', $.proxy(function (e) {
             this.hourDownClick(e);
         }, this));
+        
+        
+        this.$picker.on('mousedown touchstart', '.bs-minuteDown', $.proxy(this._minuteDownTimeout, this));
+
+        this.$picker.on('mouseup mouseleave touchend', '.bs-minuteDown', $.proxy(function (e) {
+            window.clearTimeout(this._minuteDownHandler);
+        }, this));
 
         this.$picker.on('click', '.bs-minuteDown', $.proxy(function (e) {
             this.minuteDownClick(e);
+        }, this));
+        
+        
+        this.$picker.on('mousedown touchstart', '.bs-secondDown', $.proxy(this._secondDownTimeout, this));
+
+        this.$picker.on('mouseup mouseleave touchend', '.bs-secondDown', $.proxy(function (e) {
+            window.clearTimeout(this._secondDownHandler);
         }, this));
 
         this.$picker.on('click', '.bs-secondDown', $.proxy(function (e) {
             this.secondDownClick(e);
         }, this));
+        //#endregion
 
         this.$picker.on('change', '.bs-hourInput', $.proxy(function (e) {
             this.hourChange(e);
@@ -730,9 +774,20 @@
             this._updateTimeView();
         }
     };
+    
+    //#region hold events
+    bDatepicker.prototype._hourUpTimeout = function() {
+        this.hourUpClick();
+        
+        if (this._allowHold()) {
+            this._hourUpHandler = window.setTimeout($.proxy(this._hourUpTimeout, this), this.options.holdInterval);
+        } else {
+            window.clearTimeout(this._hourUpHandler);
+        }
+    };
 
     bDatepicker.prototype.hourUpClick = function (e) {
-        this._stopEvent(e);
+       // this._stopEvent(e);
 
         var newValue = this.currentValue.clone().add('hour', 1);
 
@@ -747,8 +802,19 @@
         this._updateDateView();
     };
 
+
+    bDatepicker.prototype._minuteUpTimeout = function() {
+        this.minuteUpClick();
+
+        if (this._allowHold()) {
+            this._minuteUpHandler = window.setTimeout($.proxy(this._minuteUpTimeout, this), this.options.holdInterval);
+        } else {
+            window.clearTimeout(this._minuteUpHandler);
+        }
+    };
+
     bDatepicker.prototype.minuteUpClick = function (e) {
-        this._stopEvent(e);
+        //this._stopEvent(e);
 
         var newValue = this.currentValue.clone().add('minute', 1);
 
@@ -763,8 +829,19 @@
         this._updateDateView();
     };
 
+
+    bDatepicker.prototype._secondUpTimeout = function() {
+        this.secondUpClick();
+
+        if (this._allowHold()) {
+            this._secondUpHandler = window.setTimeout($.proxy(this._secondUpTimeout, this), this.options.holdInterval);
+        } else {
+            window.clearTimeout(this._secondUpHandler);
+        }
+    };
+
     bDatepicker.prototype.secondUpClick = function (e) {
-        this._stopEvent(e);
+        //this._stopEvent(e);
 
         var newValue = this.currentValue.clone().add('second', 1);
 
@@ -779,8 +856,19 @@
         this._updateDateView();
     };
 
+
+    bDatepicker.prototype._hourDownTimeout = function() {
+        this.hourDownClick();
+
+        if (this._allowHold()) {
+            this._hourDownHandler = window.setTimeout($.proxy(this._hourDownTimeout, this), this.options.holdInterval);
+        } else {
+            window.clearTimeout(this._hourDownHandler);
+        }
+    };
+
     bDatepicker.prototype.hourDownClick = function (e) {
-        this._stopEvent(e);
+        //this._stopEvent(e);
 
         var newValue = this.currentValue.clone().subtract('hour', 1);
 
@@ -795,8 +883,19 @@
         this._updateDateView();
     };
 
+
+    bDatepicker.prototype._minuteDownTimeout = function () {
+        this.minuteDownClick();
+
+        if (this._allowHold()) {
+            this._minuteDownHandler = window.setTimeout($.proxy(this._minuteDownTimeout, this), this.options.holdInterval);
+        } else {
+            window.clearTimeout(this._minuteDownHandler);
+        }
+    };
+
     bDatepicker.prototype.minuteDownClick = function (e) {
-        this._stopEvent(e);
+        //this._stopEvent(e);
 
         var newValue = this.currentValue.clone().subtract('minute', 1);
 
@@ -811,8 +910,19 @@
         this._updateDateView();
     };
 
+
+    bDatepicker.prototype._secondDownTimeout = function () {
+        this.secondDownClick();
+        
+        if (this._allowHold()) {
+            this._secondDownHandler = window.setTimeout($.proxy(this._secondDownTimeout, this), this.options.holdInterval);
+        } else {
+            window.clearTimeout(this._secondDownHandler);
+        }
+    };
+
     bDatepicker.prototype.secondDownClick = function (e) {
-        this._stopEvent(e);
+        //this._stopEvent(e);
 
         var newValue = this.currentValue.clone().subtract('second', 1);
 
@@ -826,6 +936,12 @@
         this._updateTimeView();
         this._updateDateView();
     };
+    
+    
+    bDatepicker.prototype._allowHold = function() {
+        return this._visible;
+    };
+    //#endregion
 
     bDatepicker.prototype.hourChange = function (e) {
         this._stopEvent(e);
@@ -932,7 +1048,7 @@
     };
 
     bDatepicker.prototype._stopEvent = function (e) {
-        if (typeof e !== "undefined") {
+        if (typeof e !== "undefined" && typeof e.preventDefault === "function" && typeof e.stopPropagation === "function") {
             e.preventDefault();
             e.stopPropagation();
         }
@@ -1799,7 +1915,8 @@
         forceParse: true,
         heightPosition: 20,
         checkForMobileDevice: true,
-        withScrollTimeout: true
+        withScrollTimeout: true,
+        holdInterval : 175
     };
 
     $.fn.bsDatepickerLang = {

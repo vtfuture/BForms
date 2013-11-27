@@ -174,7 +174,7 @@
 
                              '</div>',
 
-        timepickerTemplate: '<div class="bs-time-wrapper" {{#WithDate}}{{#DateVisible}}style="display:none"{{/DateVisible}}{{/WithDate}}>' +
+        timepickerTemplate: '<div class="bs-time-wrapper" style="{{#WithDate}}{{#DateVisible}}display:none;{{/DateVisible}}{{/WithDate}}-ms-touch-action: none;">' +
 
                                 '{{>timeContTemplate}}' +
                                 '{{>timeFooterTemplate}}' +
@@ -250,9 +250,9 @@
                             '<li><span>SS</span></li>' +
                             '{{#Is12Hours}}<li>&nbsp;</li>{{/Is12Hours}}' +
 
-                            '<li><a href="#" class="btn btn-up bs-hourUp"></a></li>' +
-                            '<li><a href="#" class="btn btn-up bs-minuteUp"></a></li>' +
-                            '<li><a href="#" class="btn btn-up bs-secondUp"></a></li>' +
+                            '<li><span href="#" class="btn btn-up bs-hourUp"></span></li>' +
+                            '<li><span href="#" class="btn btn-up bs-minuteUp"></span></li>' +
+                            '<li><span href="#" class="btn btn-up bs-secondUp"></span></li>' +
                             '{{#Is12Hours}}<li>&nbsp;</li>{{/Is12Hours}}' +
 
                             '<li><input type="text" class="bs-hourInput" maxlength="2" value="{{Time.hour}}"></li>' +
@@ -260,9 +260,9 @@
                             '<li><input type="text" class="bs-secondInput" maxlength="2" value="{{Time.second}}"></li>' +
                             '{{#Is12Hours}}<li><a href="#" class="btn btn-default bs-timeMeridiem">{{Time.meridiem}}</a></li>{{/Is12Hours}}' +
 
-                            '<li><a href="#" class="btn btn-down bs-hourDown"></a></li>' +
-                            '<li><a href="#" class="btn btn-down bs-minuteDown"></a></li>' +
-                            '<li><a href="#" class="btn btn-down bs-secondDown"></a></li>' +
+                            '<li><span href="#" class="btn btn-down bs-hourDown"></span></li>' +
+                            '<li><span href="#" class="btn btn-down bs-minuteDown"></span></li>' +
+                            '<li><span href="#" class="btn btn-down bs-secondDown"></span></li>' +
                             '{{#Is12Hours}}<li>&nbsp;</li>{{/Is12Hours}}' +
                      '</ul>',
         secondaryActions: '<div class="bs-secondary-action">' +
