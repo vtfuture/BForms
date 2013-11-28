@@ -94,7 +94,7 @@
 
     Add.prototype._evOnAdd = function (data, response) {
         for (var i = 0; i < this.widget.subscribers.length; i++) {
-            this.widget.subscribers[i].bsGrid('add', response.Row);
+            this.widget.subscribers[i].bsGrid('add', response.Row, data, response);
         }
         this.$addForm.bsForm('reset');
     };

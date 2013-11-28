@@ -32,7 +32,10 @@
             $toolbar: this.$toolbar,
             uniqueName: 'usersGrid',
             pagerUrl: this.options.pagerUrl,
-
+            addValidation: function (data, response) {
+                console.log(arguments);
+                if (data["New.FirstName"] == "Cristi Pufu") return false;
+            },
             //#region filterButtons
             filterButtons: [{
                 btnSelector: '.js-actives',

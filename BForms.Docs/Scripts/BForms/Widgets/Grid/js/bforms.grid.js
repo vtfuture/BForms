@@ -342,7 +342,17 @@
         this._getPage();
     };
 
-    Grid.prototype.add = function (row) {
+    Grid.prototype.add = function (row, data, response) {
+
+        if (typeof this.options.addValidation === "function") {
+
+            var allow = this.options.addValidation.apply(this, [data, response]);
+
+            if (allow === false) {
+                return;
+            }
+        }
+
         var $row = $(row);
 
         this._currentResultsCount++;
