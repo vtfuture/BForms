@@ -26,7 +26,8 @@
 
         retrySelector: '.bs-retryBtn',
         
-        headerToggle : false,
+        headerToggle: false,
+        headerSelector : '.bs-panelHeader',
 
         cacheReadonlyContent: true,
         additionalData: {
@@ -124,7 +125,7 @@
         if (this._readonly) {
 
         } else {
-            
+            this._initEditable();
         }
     };
     //#endregion
