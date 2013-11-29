@@ -1783,7 +1783,10 @@
                 month: it.format('MMM'),
                 value: it.format(),
                 selected: it.isSame(this.currentValue, 'month') && it.isSame(this.currentValue, 'year'),
-                selectable: this.isValidDate(it, true)
+                selectable: this.isValidDate(it, true, {
+                    allowSame: true,
+                    format : 'month'
+                })
             });
 
             it.add(1, 'month');
