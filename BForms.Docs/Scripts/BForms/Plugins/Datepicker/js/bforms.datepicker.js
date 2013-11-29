@@ -442,6 +442,7 @@
         
         this.$picker.on('mouseup mouseleave touchend', '.bs-hourUp', $.proxy(function (e) {
             window.clearTimeout(this._hourUpHandler);
+            this._hourUpTimeoutSpeed = null;
         }, this));
 
         this.$picker.on('click', '.bs-hourUp', $.proxy(function (e) {
@@ -455,6 +456,8 @@
 
         this.$picker.on('mouseup mouseleave touchend', '.bs-minuteUp', $.proxy(function (e) {
             window.clearTimeout(this._minuteUpHandler);
+            this._minuteUpTimeoutSpeed = null;
+
         }, this));
 
         this.$picker.on('click', '.bs-minuteUp', $.proxy(function (e) {
@@ -466,6 +469,7 @@
 
         this.$picker.on('mouseup mouseleave touchend', '.bs-secondUp', $.proxy(function (e) {
             window.clearTimeout(this._secondUpHandler);
+            this._secondUpTimeoutSpeed = null;
         }, this));
 
         this.$picker.on('click', '.bs-secondUp', $.proxy(function (e) {
@@ -477,6 +481,7 @@
 
         this.$picker.on('mouseup mouseleave touchend', '.bs-hourDown', $.proxy(function (e) {
             window.clearTimeout(this._hourDownHandler);
+            this._hourDownTimeoutSpeed = null;
         }, this));
 
         this.$picker.on('click', '.bs-hourDown', $.proxy(function (e) {
@@ -488,6 +493,7 @@
 
         this.$picker.on('mouseup mouseleave touchend', '.bs-minuteDown', $.proxy(function (e) {
             window.clearTimeout(this._minuteDownHandler);
+            this._minuteDownTimeoutSpeed = null;
         }, this));
 
         this.$picker.on('click', '.bs-minuteDown', $.proxy(function (e) {
@@ -499,6 +505,7 @@
 
         this.$picker.on('mouseup mouseleave touchend', '.bs-secondDown', $.proxy(function (e) {
             window.clearTimeout(this._secondDownHandler);
+            this._secondDownTimeoutSpeed = null;
         }, this));
 
         this.$picker.on('click', '.bs-secondDown', $.proxy(function (e) {
@@ -780,9 +787,17 @@
         this.hourUpClick();
         
         if (this._allowHold()) {
-            this._hourUpHandler = window.setTimeout($.proxy(this._hourUpTimeout, this), this.options.holdInterval);
+
+            this._hourUpTimeoutSpeed = this._hourUpTimeoutSpeed || this.options.holdInterval;
+            this._hourUpHandler = window.setTimeout($.proxy(this._hourUpTimeout, this), this._hourUpTimeoutSpeed);
+
+            if (this._hourUpTimeoutSpeed && this._hourUpTimeoutSpeed > this.options.holdMinInterval) {
+                this._hourUpTimeoutSpeed -= this.options.holdDecreaseFactor;
+            }
+
         } else {
             window.clearTimeout(this._hourUpHandler);
+            this._hourUpTimeoutSpeed = null;
         }
     };
 
@@ -807,9 +822,17 @@
         this.minuteUpClick();
 
         if (this._allowHold()) {
-            this._minuteUpHandler = window.setTimeout($.proxy(this._minuteUpTimeout, this), this.options.holdInterval);
+            
+            this._minuteUpTimeoutSpeed = this._minuteUpTimeoutSpeed || this.options.holdInterval;
+
+            this._minuteUpHandler = window.setTimeout($.proxy(this._minuteUpTimeout, this), this._minuteUpTimeoutSpeed);
+            
+            if (this._minuteUpTimeoutSpeed && this._minuteUpTimeoutSpeed > this.options.holdMinInterval) {
+                this._minuteUpTimeoutSpeed -= this.options.holdDecreaseFactor;
+            }
         } else {
             window.clearTimeout(this._minuteUpHandler);
+            this._minuteUpTimeoutSpeed = null;
         }
     };
 
@@ -834,9 +857,18 @@
         this.secondUpClick();
 
         if (this._allowHold()) {
-            this._secondUpHandler = window.setTimeout($.proxy(this._secondUpTimeout, this), this.options.holdInterval);
+            
+            this._secondUpTimeoutSpeed = this._secondUpTimeoutSpeed || this.options.holdInterval;
+
+            this._secondUpHandler = window.setTimeout($.proxy(this._secondUpTimeout, this), this._secondUpTimeoutSpeed);
+            
+            if (this._secondUpTimeoutSpeed && this._secondUpTimeoutSpeed > this.options.holdMinInterval) {
+                this._secondUpTimeoutSpeed -= this.options.holdDecreaseFactor;
+            }
+
         } else {
             window.clearTimeout(this._secondUpHandler);
+            this._secondUpTimeoutSpeed = null;
         }
     };
 
@@ -861,9 +893,18 @@
         this.hourDownClick();
 
         if (this._allowHold()) {
-            this._hourDownHandler = window.setTimeout($.proxy(this._hourDownTimeout, this), this.options.holdInterval);
+            
+            this._hourDownTimeoutSpeed = this._hourDownTimeoutSpeed || this.options.holdInterval;
+
+            this._hourDownHandler = window.setTimeout($.proxy(this._hourDownTimeout, this), this._hourDownTimeoutSpeed);
+            
+            if (this._hourDownTimeoutSpeed && this._hourDownTimeoutSpeed > this.options.holdMinInterval) {
+                this._hourDownTimeoutSpeed -= this.options.holdDecreaseFactor;
+            }
+            
         } else {
             window.clearTimeout(this._hourDownHandler);
+            this._hourDownTimeoutSpeed = null;
         }
     };
 
@@ -888,9 +929,18 @@
         this.minuteDownClick();
 
         if (this._allowHold()) {
-            this._minuteDownHandler = window.setTimeout($.proxy(this._minuteDownTimeout, this), this.options.holdInterval);
+            
+            this._minuteDownTimeoutSpeed = this._minuteDownTimeoutSpeed || this.options.holdInterval;
+
+            this._minuteDownHandler = window.setTimeout($.proxy(this._minuteDownTimeout, this), this._minuteDownTimeoutSpeed);
+            
+            if (this._minuteDownTimeoutSpeed && this._minuteDownTimeoutSpeed > this.options.holdMinInterval) {
+                this._minuteDownTimeoutSpeed -= this.options.holdDecreaseFactor;
+            }
+
         } else {
             window.clearTimeout(this._minuteDownHandler);
+            this._minuteDownTimeoutSpeed = null;
         }
     };
 
@@ -915,9 +965,17 @@
         this.secondDownClick();
         
         if (this._allowHold()) {
-            this._secondDownHandler = window.setTimeout($.proxy(this._secondDownTimeout, this), this.options.holdInterval);
+            
+            this._secondDownTimeoutSpeed = this._minuteDownTimeoutSpeed || this.options.holdInterval;
+
+            this._secondDownHandler = window.setTimeout($.proxy(this._secondDownTimeout, this), this._secondDownTimeoutSpeed);
+            
+            if (this._secondDownTimeoutSpeed && this._secondDownTimeoutSpeed > this.options.holdMinInterval) {
+                this._secondDownTimeoutSpeed -= this.options.holdDecreaseFactor;
+            }
         } else {
             window.clearTimeout(this._secondDownHandler);
+            this._secondDownTimeoutSpeed = null;
         }
     };
 
@@ -1818,7 +1876,7 @@
             minDate = null,
             withMin = false,
             withMax = false,
-            allowSame = false;
+            allowSame = this.options.allowSame;
 
         if (typeof this.options.maxDate !== "undefined" && this.options.maxDate !== null) {
             maxDate = moment(this.options.maxDate).lang(this.options.language);
@@ -1916,7 +1974,12 @@
         heightPosition: 20,
         checkForMobileDevice: true,
         withScrollTimeout: true,
-        holdInterval : 175
+        
+        allowSame : false,
+
+        holdInterval: 175,
+        holdMinInterval : 50,
+        holdDecreaseFactor: 4
     };
 
     $.fn.bsDatepickerLang = {

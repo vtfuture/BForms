@@ -83,6 +83,7 @@
             onChange: $.proxy(this.onStartChange, this),
             onDayMouseOver: $.proxy(this.onStartDaysMouseOver, this),
             onDaysMouseOut: $.proxy(this.onStartDaysMouseOut, this),
+            allowSame : this.options.allowSame,
         }, startOptions, {
             inline: true,
             ShowClose: false,
@@ -94,7 +95,8 @@
             defaultDate: endOptions.type == 'timepicker' ? '+1h' : '+1d',
             onChange: $.proxy(this.onEndChange, this),
             onDayMouseOver: $.proxy(this.onEndDaysMouseOver, this),
-            onDaysMouseOut: $.proxy(this.onEndDaysMouseOut, this)
+            onDaysMouseOut: $.proxy(this.onEndDaysMouseOut, this),
+            allowSame: this.options.allowSame,
         }, endOptions, {
             inline: true,
             ShowClose: false,
@@ -637,7 +639,8 @@
         },
         language: 'en',
         allowInvalidMinMax: true,
-        checkForMobileDevice: true
+        checkForMobileDevice: true,
+        allowSame : true,
     };
 
     $.fn.bsDateRangeLang = {
