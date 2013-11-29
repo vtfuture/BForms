@@ -309,6 +309,8 @@
 
                     $.extend(true, data, this.options.formAdditionalData);
 
+                    this._trigger('beforeSaveAjax', 0, data);
+
                 }, this),
                 handler: $.proxy(function (sent, data) {
 
