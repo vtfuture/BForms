@@ -368,7 +368,7 @@
                 }
             }, this));
 
-            $(document).on('resize', $.proxy(function () {
+            $(window).on('resize', $.proxy(function () {
                 this._positionPicker();
             }, this));
 
@@ -407,7 +407,6 @@
 
             }, this));
         }
-
 
         this.$picker.on('click', '.bs-setDateBtn', $.proxy(function (e) {
             this.showDateClick(e);
@@ -1159,6 +1158,7 @@
     };
 
     bDatepicker.prototype._positionPicker = function () {
+
         if (this.isInline) return;
 
         if (this.options.fixedPicker === true && this.$picker.css('position') == 'fixed') return;

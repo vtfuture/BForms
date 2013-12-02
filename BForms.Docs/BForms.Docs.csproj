@@ -222,6 +222,10 @@
     <Content Include="Scripts\BForms\Components\ICanHaz\singleton-ich.js" />
     <Content Include="Scripts\BForms\Components\PlaceholderShim\jquery.html5-placeholder-shim.js" />
     <Content Include="Scripts\BForms\Images\bg-user.png" />
+    <Content Include="Scripts\BForms\Plugins\Rangepicker\css\bforms.rangepicker.css" />
+    <Content Include="Scripts\BForms\Plugins\Rangepicker\images\icn-arr-down.png" />
+    <Content Include="Scripts\BForms\Plugins\Rangepicker\images\icn-arr-up.png" />
+    <Content Include="Scripts\BForms\Plugins\Rangepicker\images\icn-remove.png" />
     <Content Include="Scripts\BForms\Widgets\Grid\js\bforms.toolbar.order.js" />
     <Content Include="Scripts\BForms\Widgets\InlineQuestion\bforms.inlineQuestion.js" />
     <Content Include="Scripts\BForms\Widgets\Sortable\bforms.sortable.js" />
@@ -1224,6 +1228,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Demo\Views\GroupEditor\_RowForm.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\BForms\Plugins\Rangepicker\css\bforms.rangepicker.scss" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\BForms\Plugins\Rangepicker\js\bforms.rangepicker.js" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -185,6 +185,10 @@ namespace BForms.Docs.Areas.Demo.Models
         [BsControl(BsControlType.DatePickerRange)]
         public BsRange<DateTime?> StartDateRange { get; set; }
 
+        [Display(Name = "ChooseInterval", ResourceType = typeof(Resource))]
+        [BsControl(BsControlType.NumberRange)]
+        public BsRange<int?> AgeRange { get; set; }
+
         [Display(Name = "Name", ResourceType = typeof(Resource))]
         [BsControl(BsControlType.TextBox)]
         public string Name { get; set; }

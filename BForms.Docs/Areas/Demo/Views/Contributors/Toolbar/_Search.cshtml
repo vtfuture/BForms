@@ -22,6 +22,14 @@
             @Html.BsRangeFor(model => model.StartDateRange)
         </div>
     </div>
+    
+     <div class="col-12 col-sm-6 col-lg-6 form-group">
+        @Html.BsLabelFor(m => m.AgeRange)
+        <div class="input-group">
+            @Html.BsGlyphiconAddon(Glyphicon.Time)
+            @Html.BsRangeFor(model => model.AgeRange)
+        </div>
+    </div>
 
     <div class="col-12 col-sm-6 col-lg-6 form-group">
         @Html.BsLabelFor(m => m.CountriesList)

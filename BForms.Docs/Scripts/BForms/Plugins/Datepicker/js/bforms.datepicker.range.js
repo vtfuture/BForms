@@ -146,7 +146,7 @@
                 }
             }, this));
 
-            $(document).on('resize', $.proxy(function () {
+            $(window).on('resize', $.proxy(function () {
                 this._positionRange();
             }, this));
 

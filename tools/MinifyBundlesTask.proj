@@ -59,6 +59,7 @@
     <ItemGroup>
       <CssFiles Include="..\BForms.Docs\Scripts\BForms\Components\Bootstrap\css\*.css" />
       <CssFiles Include="..\BForms.Docs\Scripts\BForms\Plugins\Datepicker\css\*.css" />
+      <CssFiles Include="..\BForms.Docs\Scripts\BForms\Plugins\Rangepicker\css\*.css" />
       <CssFiles Include="..\BForms.Docs\Scripts\BForms\Plugins\Select2\css\*.css" />
       <CssFiles Include="..\BForms.Docs\Scripts\BForms\Stylesheets\*.css" />
     </ItemGroup>

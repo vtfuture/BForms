@@ -494,7 +494,6 @@
         this.$element.addClass('bs-panelEditMode');
 
         this._trigger('onEditableShow', 0);
-        
     };
     //#endregion
 

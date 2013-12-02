@@ -43,6 +43,9 @@
         timerange: true,
         timerangeSelector: '.bs-time-range:not(.no-initUI)',
 
+        numberrange: true,
+        numberrangeSelector: '.bs-number-range:not(.no-initUI)',
+
         loadingSelector: '.loading',
         loadingClass: 'loading'
     };
@@ -76,7 +79,7 @@
             return $.extend(true, {}, $(elem).data('options'));
         };
 
-        InitUI.prototype._removePlaceholder = function($elem) {
+        InitUI.prototype._removePlaceholder = function ($elem) {
             $elem.each(function () {
                 if (typeof $(this).data('val-required') !== "undefined") {
                     $elem.find('option[value=""]').remove();
@@ -84,7 +87,7 @@
             });
         };
 
-        InitUI.prototype._addTheme = function() {
+        InitUI.prototype._addTheme = function () {
             var $themeSelect = $(".bs-selectTheme");
             if ($themeSelect.length) {
                 var currentColor = $themeSelect.bsThemeSelect('getCurrentColorClass');
@@ -99,7 +102,7 @@
 
             //set ui i18n
             var uiLocale = $('html').attr('lang') !== "undefined" ? $('html').attr('lang') : 'en';
-            if (requireConfig &&requireConfig.locale) {
+            if (requireConfig && requireConfig.locale) {
                 var locale = requireConfig.locale;
                 if (typeof moment.langData(locale) !== "undefined") {
                     uiLocale = locale;
@@ -628,7 +631,7 @@
                             var rangeName = $elem.prop('name');
 
                             var $startInput = self.$elem.find('.bs-range-from[data-for="' + rangeName + '"]'),
-                               $endInput = self.$elem.find('.bs-range-to[data-for="' + rangeName + '"]');
+                                $endInput = self.$elem.find('.bs-range-to[data-for="' + rangeName + '"]');
 
                             $elem.bsDateRange($.extend(true, {}, self._getOptions(this), {
                                 startOptions: {
@@ -662,7 +665,7 @@
                             var rangeName = $elem.prop('name');
 
                             var $startInput = self.$elem.find('.bs-range-from[data-for="' + rangeName + '"]'),
-                               $endInput = self.$elem.find('.bs-range-to[data-for="' + rangeName + '"]');
+                                $endInput = self.$elem.find('.bs-range-to[data-for="' + rangeName + '"]');
 
                             $elem.bsDateRange($.extend(true, {}, self._getOptions(this), {
                                 startOptions: {
@@ -683,9 +686,101 @@
                                 language: uiLocale
                             }));
                         });
+                    } else {
+                        throw "bsDateRangepicker script must be loaded before calling initUI";
                     }
-                    else {
-                        throw "bRangepicker script must be loaded before calling initUI";
+                }
+
+            }
+
+            if (this.options.numberrange === true && this.$elem.find(this.options.numberrangeSelector).length) {
+                
+                if (this.loadAMD) {
+
+                    var numberrangeDeferred = $.Deferred();
+                    this.deferredList.push(numberrangeDeferred);
+                    
+                    require(['bforms-rangepicker'], function () {
+                        self.$elem.find(self.options.numberrangeSelector).each(function (idx, elem) {
+
+                            var $elem = $(elem);
+                            var rangeName = $elem.prop('name');
+
+                            var $startInput = self.$elem.find('.bs-range-from[data-for="' + rangeName + '"]'),
+                                $endInput = self.$elem.find('.bs-range-to[data-for="' + rangeName + '"]');
+
+                            var ranges = [];
+
+                            if ($startInput.length) {
+                                ranges.push({
+                                        title: $startInput.data('display'),
+                                        value: $startInput.val() || 0,
+                                        start : true
+                                },
+                                    {
+                                        title: $endInput.data('display'),
+                                        value: $endInput.val() || 100,
+                                        end : true
+                                    }
+                                );
+                            } else {
+                                ranges.push({                                    
+                                    title: $elem.data('display'),
+                                    value: $elem.val(),
+                                    single : true
+                                });
+                            }
+
+                            $elem.bsRangePicker($.extend(true, {}, self._getOptions(this), {
+                                ranges : ranges,
+                                language: uiLocale,
+                                allowSame: true,
+                                listeners : [$startInput, $endInput]
+                            }));
+                        });
+
+                        numberrangeDeferred.resolve();
+                    });
+
+                } else {
+
+                    if (typeof $.fn.bsRangePicker === "function") {
+                        this.$elem.find(this.options.numberrangeSelector).each(function (idx, elem) {
+
+                            var $elem = $(elem);
+                            var rangeName = $elem.prop('name');
+
+                            var $startInput = self.$elem.find('.bs-range-from[data-for="' + rangeName + '"]'),
+                                $endInput = self.$elem.find('.bs-range-to[data-for="' + rangeName + '"]');
+
+                            var ranges = [];
+
+                            if ($startInput.length) {
+                                ranges.push({
+                                    title: $startInput.data('display'),
+                                    value: $startInput.val()
+                                }, {
+                                    title: $endInput.data('display'),
+                                    value: $endInput.val()
+                                });
+                            } else {
+                                ranges.push({
+                                    title: $elem.data('display'),
+                                    value: $elem.val()
+                                });
+                            }
+
+                            $elem.bsRangePicker($.extend(true, {}, self._getOptions(this), {
+                                ranges : ranges,
+                                language: uiLocale,
+                                minValue: 0,
+                                maxValue: 100,
+                                allowSame: true,
+                                listeners: [$startInput, $endInput]
+                            }));
+                        });
+                    } else {
+                        throw "bsRangepicker script must be loaded before calling initUI";
                     }
                 }
             }

@@ -264,7 +264,6 @@
             formOptions : {
                 uniqueName : 'test'
             },
-            headerToggle : true,
             onEditableShow: $.proxy(function () {
                 this.$grid.bsGrid('disableRowActions', $row);
             }, this),
