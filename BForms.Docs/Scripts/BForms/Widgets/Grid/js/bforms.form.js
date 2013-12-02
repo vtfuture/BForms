@@ -138,6 +138,12 @@
             if (typeof buttonOpt.getExtraData === 'function') {
                 buttonOpt.getExtraData.call(this, data);
             }
+
+            this._trigger('beforeFormSubmit', 0, {
+                $button: $me,
+                buttonOpt: buttonOpt,
+                data: data
+            });
         }
 
         var action = $me.data('action') || buttonOpt.actionUrl;
