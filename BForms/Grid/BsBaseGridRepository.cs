@@ -297,6 +297,13 @@ namespace BForms.Grid
             return grid;
         }
 
+        public BsGridModel<TRow> ToBsGridViewModel(BsGridBaseRepositorySettings baseSettings, TRow row, bool getDetails)
+        {
+            this.settings = baseSettings;
+
+            return ToBsGridViewModel(row, getDetails);
+        }
+
         public BsGridModel<TRow> ToBsGridViewModel(TRow row, bool getDetails)
         {
             if (getDetails)
