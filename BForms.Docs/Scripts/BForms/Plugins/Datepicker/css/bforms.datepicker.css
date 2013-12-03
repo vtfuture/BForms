@@ -148,8 +148,8 @@
         margin: 1%;
         height: 30px; }
         .bs-datetime-picker .bs-time-wrapper ul li span {
-          display: inline-block;
-          margin-top: 10px; }
+          display: block;
+          height: 100%; }
         .bs-datetime-picker .bs-time-wrapper ul li input[type="text"] {
           width: 100%;
           border: 1px solid #e8e8e8;

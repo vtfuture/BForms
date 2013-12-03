@@ -1,5 +1,3 @@
-/*turquoise*/
-/* Custom colors for components */
 *, *:before, *:after {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -23,34 +21,9 @@
   user-select: none; }
   .bs-number_range-picker.bs-single_range {
     width: 100px; }
-  .bs-number_range-picker a {
-    color: #212121;
-    text-decoration: none; }
-    .bs-number_range-picker a:hover, .bs-number_range-picker a:focus {
-      color: #212121; }
-  .bs-number_range-picker .btn {
-    padding: 4px 12px;
-    line-height: 1.4;
-    font-size: 14px;
-    display: inline-block;
-    background: #f1f1f1;
-    color: #333;
-    border: none;
-    text-transform: uppercase; }
-    .bs-number_range-picker .btn:hover, .bs-number_range-picker .btn:focus {
-      background-color: #eee !important; }
-    .bs-number_range-picker .btn.btn-default {
-      background: #368985;
-      color: #FFF; }
-      .bs-number_range-picker .btn.btn-default:hover, .bs-number_range-picker .btn.btn-default:focus {
-        background: #45ada8 !important; }
-    .bs-number_range-picker .btn.disabled {
-      opacity: 0.3;
-      filter: Alpha(opacity=30);
-      cursor: not-allowed;
-      pointer-events: none;
-      -webkit-box-shadow: none;
-      box-shadow: none; }
+    .bs-number_range-picker.bs-single_range .bs-ranges-wrapper li {
+      width: 100%;
+      margin: 1% 0; }
   .bs-number_range-picker .btn-close {
     position: absolute;
     right: -10px;
@@ -65,104 +38,31 @@
       background-color: #eee; }
   .bs-number_range-picker .pull-right {
     float: right; }
-  .bs-number_range-picker .bs-date-action {
-    margin-bottom: 5px;
-    display: table;
-    width: 100%;
-    table-layout: fixed; }
-    .bs-number_range-picker .bs-date-action a {
-      display: table-cell;
-      text-align: center;
-      vertical-align: middle; }
-      .bs-number_range-picker .bs-date-action a.btn {
-        width: 30px;
-        height: 30px;
-        padding: 0; }
-      .bs-number_range-picker .bs-date-action a.btn-left {
-        background: url(../images/icn-arr-left.png) 50% 50% no-repeat; }
-      .bs-number_range-picker .bs-date-action a.btn-right {
-        background: url(../images/icn-arr-right.png) 50% 50% no-repeat; }
-      .bs-number_range-picker .bs-date-action a:hover {
-        background-color: #EEE;
-        text-decoration: none; }
-  .bs-number_range-picker ul {
-    list-style: none;
-    padding: 0;
-    overflow: hidden;
-    margin-left: 20px;
-    margin-right: 20px; }
-    .bs-number_range-picker ul li {
-      text-align: center;
-      float: left;
-      width: 14.28%;
-      margin: 0; }
-      .bs-number_range-picker ul li a {
-        display: block;
-        height: 30px;
-        line-height: 30px;
-        padding: 0;
-        margin: 0; }
-        .bs-number_range-picker ul li a:hover, .bs-number_range-picker ul li a:focus {
-          background-color: #eee !important; }
-      .bs-number_range-picker ul li.day {
-        font-weight: bold; }
-      .bs-number_range-picker ul li.inactive a {
-        color: #ccc;
-        cursor: default; }
-        .bs-number_range-picker ul li.inactive a:hover {
-          background: transparent !important;
-          color: #ccc !important; }
-      .bs-number_range-picker ul li.in-range a {
-        color: #45ada8 !important; }
-      .bs-number_range-picker ul li.new a {
-        color: #989898; }
-      .bs-number_range-picker ul li.active a {
-        background: #45ada8;
-        color: #fff !important; }
-        .bs-number_range-picker ul li.active a:hover {
-          background: #368985 !important;
-          color: #fff !important; }
-    .bs-number_range-picker ul.months, .bs-number_range-picker ul.years {
-      margin-top: 30px; }
-      .bs-number_range-picker ul.months li, .bs-number_range-picker ul.years li {
-        width: 25%; }
-        .bs-number_range-picker ul.months li a, .bs-number_range-picker ul.years li a {
-          height: 50px;
-          line-height: 50px; }
-  .bs-number_range-picker .bs-secondary-action {
-    position: absolute;
-    bottom: 5px;
-    left: 5px;
-    right: 5px; }
-    .bs-number_range-picker .bs-secondary-action a {
-      font-size: 14px; }
-      .bs-number_range-picker .bs-secondary-action a.btn-set {
-        padding-left: 25px;
-        padding-right: 7px; }
-        .bs-number_range-picker .bs-secondary-action a.btn-set.time {
-          background: #f1f1f1 url(../images/icn-time.png) 7px 50% no-repeat; }
-        .bs-number_range-picker .bs-secondary-action a.btn-set.date {
-          background: #f1f1f1 url(../images/icn-calendar.png) 7px 50% no-repeat; }
-        .bs-number_range-picker .bs-secondary-action a.btn-set:hover, .bs-number_range-picker .bs-secondary-action a.btn-set:focus {
-          background-color: #eee; }
   .bs-number_range-picker .bs-ranges-wrapper {
     /* time picker */ }
-    .bs-number_range-picker .bs-ranges-wrapper ul li {
-      width: 48%;
-      margin: 1%;
-      height: 30px; }
-      .bs-number_range-picker .bs-ranges-wrapper ul li span {
-        display: inline-block;
-        margin-top: 10px; }
-      .bs-number_range-picker .bs-ranges-wrapper ul li input[type="text"] {
-        width: 100%;
-        border: 1px solid #e8e8e8;
+    .bs-number_range-picker .bs-ranges-wrapper ul {
+      list-style: none;
+      padding: 0;
+      overflow: hidden;
+      margin: 0 20px; }
+      .bs-number_range-picker .bs-ranges-wrapper ul li {
         text-align: center;
+        float: left;
+        width: 48%;
+        margin: 1%;
         height: 30px; }
-        .bs-number_range-picker .bs-ranges-wrapper ul li input[type="text"]:focus {
-          outline: none; }
-    .bs-number_range-picker .bs-ranges-wrapper ul.us-time li {
-      width: 23%; }
+        .bs-number_range-picker .bs-ranges-wrapper ul li span {
+          display: block;
+          height: 100%; }
+          .bs-number_range-picker .bs-ranges-wrapper ul li span:hover, .bs-number_range-picker .bs-ranges-wrapper ul li span:focus {
+            background-color: #eee; }
+        .bs-number_range-picker .bs-ranges-wrapper ul li input[type="text"] {
+          width: 100%;
+          border: 1px solid #e8e8e8;
+          text-align: center;
+          height: 30px; }
+          .bs-number_range-picker .bs-ranges-wrapper ul li input[type="text"]:focus {
+            outline: none; }
     .bs-number_range-picker .bs-ranges-wrapper .btn-up {
       background: url(../images/icn-arr-up.png) 50% 50% no-repeat; }
     .bs-number_range-picker .bs-ranges-wrapper .btn-down {
@@ -171,8 +71,6 @@
     height: 200px; }
     .bs-number_range-picker.bs-onlytime-picker .bs-ranges-wrapper ul {
       margin-top: 10px; }
-  .bs-number_range-picker.bs-single_range .bs-ranges-wrapper li {
-    width: 99%; }
 
 .open-below:before {
   content: '';
@@ -219,72 +117,6 @@
 .form-control.hasRangepicker,
 .form-control.hasDatepicker {
   cursor: text; }
-
-/* Other color schemes */
-/* BLUE*/
-.bs-number_range-picker.blue .btn-default {
-  background: #3086c8; }
-  .bs-number_range-picker.blue .btn-default:hover, .bs-number_range-picker.blue .btn-default:focus {
-    background: #559ed6 !important; }
-.bs-number_range-picker.blue ul li.in-range a {
-  color: #559ed6 !important; }
-.bs-number_range-picker.blue ul li.active a {
-  background: #559ed6;
-  color: #fff !important; }
-  .bs-number_range-picker.blue ul li.active a:hover {
-    background: #3086c8 !important; }
-
-/* GREEN*/
-.bs-number_range-picker.green .btn-default {
-  background: #449575; }
-  .bs-number_range-picker.green .btn-default:hover, .bs-number_range-picker.green .btn-default:focus {
-    background: #59b390 !important; }
-.bs-number_range-picker.green ul li.in-range a {
-  color: #59b390 !important; }
-.bs-number_range-picker.green ul li.active a {
-  background: #59b390;
-  color: #fff !important; }
-  .bs-number_range-picker.green ul li.active a:hover {
-    background: #449575 !important; }
-
-/* PURPLE*/
-.bs-number_range-picker.purple .btn-default {
-  background: #4f2b4e; }
-  .bs-number_range-picker.purple .btn-default:hover, .bs-number_range-picker.purple .btn-default:focus {
-    background: #703d6f !important; }
-.bs-number_range-picker.purple ul li.in-range a {
-  color: #703d6f !important; }
-.bs-number_range-picker.purple ul li.active a {
-  background: #703d6f;
-  color: #fff !important; }
-  .bs-number_range-picker.purple ul li.active a:hover {
-    background: #4f2b4e !important; }
-
-/* ORANGE*/
-.bs-number_range-picker.orange .btn-default {
-  background: #e5560f; }
-  .bs-number_range-picker.orange .btn-default:hover, .bs-number_range-picker.orange .btn-default:focus {
-    background: #f27435 !important; }
-.bs-number_range-picker.orange ul li.in-range a {
-  color: #f27435 !important; }
-.bs-number_range-picker.orange ul li.active a {
-  background: #f27435;
-  color: #fff !important; }
-  .bs-number_range-picker.orange ul li.active a:hover {
-    background: #e5560f !important; }
-
-/* almost BLACK*/
-.bs-number_range-picker.black .btn-default {
-  background: #282828; }
-  .bs-number_range-picker.black .btn-default:hover, .bs-number_range-picker.black .btn-default:focus {
-    background: #424141 !important; }
-.bs-number_range-picker.black ul li.in-range a {
-  color: #424141 !important; }
-.bs-number_range-picker.black ul li.active a {
-  background: #424141;
-  color: #fff !important; }
-  .bs-number_range-picker.black ul li.active a:hover {
-    background: #282828 !important; }
 
 @media (max-width: 580px) {
   .bs-number_range-picker {

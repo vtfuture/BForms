@@ -1,17 +1,4 @@
-﻿$mainColor: #45ADA8; /*turquoise*/
-$Gray: #dadada;
-$darkGray: #585858;
-$textGray: #989898;
-$textColor: #212121;
-$borderColor: #e8e8e8;
-
-/* Custom colors for components */
-$Blue: #559ed6;
-$Green: #59B390;
-$Purple: #703D6F;
-$Orange: #F27435;
-$Black: #424141;
-
+﻿$borderColor: #e8e8e8;
 
 *, *:before, *:after {
 	-webkit-box-sizing: border-box;
@@ -40,44 +27,13 @@ $Black: #424141;
 	user-select: none;
 
 	&.bs-single_range{
-	width:100px;
-	}
-	a {
-		color: #212121;
-		text-decoration: none;
-		&:hover, &:focus {
-			color: #212121
+		width:100px;
+		.bs-ranges-wrapper li {
+			width: 100%;
+			margin: 1% 0;
 		}
 	}
 
-	.btn {
-		padding: 4px 12px;
-		line-height: 1.4;
-		font-size: 14px;
-		display: inline-block;
-		background: #f1f1f1;
-		color: #333;
-		border: none;
-		text-transform: uppercase;
-		&:hover, &:focus {
-			background-color: #eee !important;
-		}
-		&.btn-default {
-			background: darken($mainColor, 10%);
-			color: #FFF;
-			&:hover, &:focus {
-				background: $mainColor !important;
-			}
-		}
-		&.disabled {
-			opacity: 0.3;
-			filter: Alpha(opacity=30);
-			cursor: not-allowed;
-			pointer-events: none;
-			-webkit-box-shadow: none;
-			box-shadow: none;
-		}
-	}
 	.btn-close {
 		position: absolute;
 		right: -10px;
@@ -95,124 +51,25 @@ $Black: #424141;
 	.pull-right {
 		float: right;
 	}
-	.bs-date-action {
-		margin-bottom: 5px;
-		display: table;
-		width: 100%;
-		table-layout: fixed;
-		a {
-			display: table-cell;
-			text-align: center;
-			vertical-align: middle;
-			&.btn {
-				width: 30px;
-				height: 30px;
-				padding: 0;				
-			}
-			&.btn-left {
-				background: url(../images/icn-arr-left.png) 50% 50% no-repeat;
-			}
-			&.btn-right {
-				background: url(../images/icn-arr-right.png) 50% 50% no-repeat;
-			}
-			&:hover {
-				background-color: #EEE;
-				text-decoration: none;
-			}
-		}
-	}
-	ul {
-		list-style: none;
-		padding: 0;
-		overflow: hidden;
-		margin-left : 20px;
-		margin-right : 20px;
-		li {
-			text-align: center;			
-			float: left;
-			width: 14.28%;	
-			margin: 0;
-			a {
-				display: block;
-				height: 30px;
-				line-height: 30px;
-				padding: 0;
-				margin: 0;
-				&:hover, &:focus {
-					background-color: #eee !important;
-				}
-			}
-			
-			&.day {
-				font-weight: bold;
-			}
-			&.inactive a {
-				color: #ccc;
-				cursor: default;
-				&:hover {
-					background: transparent !important;
-					color: #ccc !important;
-				}
-			}
-			&.in-range a {
-				color: $mainColor !important;
-			}
-			&.new a {
-				color: $textGray;				
-			}
-			&.active a {
-				background: $mainColor;
-				color: #fff !important;
-				&:hover {
-					background: darken($mainColor, 10%) !important;
-					color: #fff !important;
-				}
-			}
-		}
-		&.months, 
-		&.years {
-			margin-top: 30px;
-			li {
-				width: 25%;
-				a {
-					height: 50px;
-					line-height: 50px;
-				}
-			}
-		}
-	}
-	.bs-secondary-action {
-		position: absolute;
-		bottom: 5px;
-		left: 5px;
-		right: 5px;
-		a {
-			font-size: 14px;
-			&.btn-set {
-				padding-left: 25px;
-				padding-right: 7px;
-				&.time {
-					background:#f1f1f1 url(../images/icn-time.png) 7px 50% no-repeat;
-				}
-				&.date {
-					background:#f1f1f1 url(../images/icn-calendar.png) 7px 50% no-repeat;
-				}
-				&:hover, &:focus {
-					background-color: #eee;
-				}
-			}
-		}
-	}
 	
 	.bs-ranges-wrapper { /* time picker */
 		ul {
+			list-style: none;
+			padding: 0;
+			overflow: hidden;
+			margin: 0 20px;
 			li {
+				text-align: center;			
+				float: left;
 				width: 48%;
 				margin: 1%;
 				height: 30px;
 				span {
-					display: inline-block;
-					margin-top: 10px;
+					display: block;
+					height: 100%;
+					&:hover, &:focus  {
+						background-color: #eee;
+					}
 				}
 				input[type="text"] {
 					width: 100%;
@@ -222,11 +79,6 @@ $Black: #424141;
 					&:focus {
 						outline: none;
 					}
-				}
-			}
-			&.us-time {
-				li {
-					width: 23%;
 				}
 			}
 		}
@@ -243,11 +95,7 @@ $Black: #424141;
 			margin-top: 10px;
 		}
 	}
-	&.bs-single_range {
-		.bs-ranges-wrapper li {
-			width: 99%;
-		}
-	}
+
 }
 
 
@@ -308,118 +156,6 @@ $Black: #424141;
 	cursor: text;
 }
 
-/* Other color schemes */
-
-/* BLUE*/
-.bs-number_range-picker.blue {
-	.btn-default {
-		background: darken($Blue, 10%);
-		&:hover, &:focus {
-			background: $Blue !important;
-		}
-	}
-	ul li {
-		&.in-range a {
-			color: $Blue !important;
-		}
-		&.active a {
-			background: $Blue;
-			color: #fff !important;
-			&:hover {
-				background: darken($Blue, 10%) !important;
-			}
-		}
-	}
-}
-
-/* GREEN*/
-.bs-number_range-picker.green {
-	.btn-default {
-		background: darken($Green, 10%);
-		&:hover, &:focus {
-			background: $Green !important;
-		}
-	}
-	ul li {
-		&.in-range a {
-			color: $Green !important;
-		}
-		&.active a {
-			background: $Green;
-			color: #fff !important;
-			&:hover {
-				background: darken($Green, 10%) !important;
-			}
-		}
-	}
-}
-
-/* PURPLE*/
-.bs-number_range-picker.purple {
-	.btn-default {
-		background: darken($Purple, 10%);
-		&:hover, &:focus {
-			background: $Purple !important;
-		}
-	}
-	ul li {
-		&.in-range a {
-			color: $Purple !important;
-		}
-		&.active a {
-			background: $Purple;
-			color: #fff !important;
-			&:hover {
-				background: darken($Purple, 10%) !important;
-			}
-		}
-	}
-}
-
-/* ORANGE*/
-.bs-number_range-picker.orange {
-	.btn-default {
-		background: darken($Orange, 10%);
-		&:hover, &:focus {
-			background: $Orange !important;
-		}
-	}
-	ul li {
-		&.in-range a {
-			color: $Orange !important;
-		}
-		&.active a {
-			background: $Orange;
-			color: #fff !important;
-			&:hover {
-				background: darken($Orange, 10%) !important;
-			}
-		}
-	}
-}
-
-/* almost BLACK*/
-
-.bs-number_range-picker.black {
-	.btn-default {
-		background: darken($Black, 10%);
-		&:hover, &:focus {
-			background: $Black !important;
-		}
-	}
-	ul li {
-		&.in-range a {
-			color: $Black !important;
-		}
-		&.active a {
-			background: $Black;
-			color: #fff !important;
-			&:hover {
-				background: darken($Black, 10%) !important;
-			}
-		}
-	}
-}
 
 @media (max-width: 580px) { 	
 	.bs-number_range-picker  {
