@@ -245,7 +245,7 @@
             connectsWith = tabModel.connectsWith,
             $groups = this._getGroups(connectsWith);
 
-        $.each($groups, $.proxy(function (idx, group) {
+         $groups.each($.proxy(function (idx, group) {
             if (!this._isInGroup(objId, tabId, $(group))) {
 
                 var $template = this._getGroupItemTemplate($(group), tabId, objId),
@@ -253,7 +253,7 @@
                     model = tabItem.data('model');
 
                 var view = this.renderer['js-groupItem'](model);
-
+                
                 $template.find(this.options.groupItemContentSelector).html(view);
 
                 this._checkEditableItem($template);
@@ -272,7 +272,7 @@
     GroupEditor.prototype._evEdit = function (e) {
         e.preventDefault();
         var $el = $(e.currentTarget),
-            $item = $el.parents(this.options.groupItemSelector);
+            $item = $el.parents(this.options.groupItemSelector),
             objId = $item.data('objid'),
             tabId = $item.data('tabid'),
             groupId = $item.parents('[data-groupid]').data('groupid');
@@ -402,7 +402,7 @@
 
         if ($glyph.hasClass('glyphicon-ok')) {
             $glyph.removeClass('glyphicon-ok')
-                  .addClass('glyphicon-plus')
+                .addClass('glyphicon-plus');
         } else {
             $glyph.removeClass('glyphicon-plus')
                   .addClass('glyphicon-ok');
@@ -434,7 +434,7 @@
 
         var dataLoaded = $element.data('loaded');
 
-        return dataLoaded == "true" || dataLoaded == "True" || dataLoaded == true
+        return dataLoaded == "true" || dataLoaded == "True" || dataLoaded == true;
     };
 
     GroupEditor.prototype._getTab = function (tabId) {
@@ -445,15 +445,15 @@
         return this._getTab(tabId).data('editable');
     };
 
-    GroupEditor.prototype._getTabItem = function (tabId, objId) {
+    GroupEditor.prototype._getTabItem = function(tabId, objId) {
         var $container = this._getTab(tabId),
             $item = $container.find(this.options.tabItemSelector + '[data-objid="' + objId + '"]');
         return $item;
-    }
+    };
 
-    GroupEditor.prototype._getGroup = function (groupId) {
+    GroupEditor.prototype._getGroup = function(groupId) {
         return this.$groups.find('div[data-groupid="' + groupId + '"]');
-    }
+    };
 
     GroupEditor.prototype._getGroupItems = function () {
         return this.$groups.find(this.options.groupItemSelector + ':not(' + this.options.groupItemTemplateSelector + ' >)');

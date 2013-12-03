@@ -16,6 +16,11 @@
                     '{{#buttons}}' + 
                         '<button type="button" class="btn bs-popoverBtn {{cssClass}}"> {{text}} </button> ' +
                     '{{/buttons}}',
+        contentTemplate: '{{content}}' +
+                          '<hr />' +
+                         '{{#buttons}}' +
+                             '<button type="button" class="btn bs-popoverBtn {{cssClass}}"> {{text}} </button> ' +
+                         '{{/buttons}}',
         placement: 'left',
         content : undefined,
         closeOnOuterClick : true,
@@ -26,6 +31,10 @@
 
         if (typeof ich.renderPopoverQuestion !== "function") {
             ich.addTemplate('renderPopoverQuestion', this.options.template);
+        }
+        
+        if (typeof ich.renderPopoverContent !== "function") {
+            ich.addTemplate('renderPopoverContent', this.options.contentTemplate);
         }
 
         this._addPopover();
@@ -67,7 +76,7 @@
         this.$element.popover({
             html: true,
             placement: this.options.placement,
-            content: this.options.content || this._renderPopover()
+            content: this._renderPopover()
         }).addClass('bs-hasInlineQuestion');
 
         this.$element.on('show.bs.popover', function() {
@@ -79,7 +88,7 @@
     };
 
     bsInlineQuestion.prototype._renderPopover = function () {
-        return ich.renderPopoverQuestion(this.options, true);
+        return typeof this.options.content === "undefined" ? ich.renderPopoverQuestion(this.options, true) : ich.renderPopoverContent(this.options, true);
     };
 
     bsInlineQuestion.prototype.hide = function () {

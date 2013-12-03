@@ -395,6 +395,7 @@
         var xOrient = this.options.xOrient,
             yOrient = this.options.yOrient,
             rangeHeight = this.$container.outerHeight(true),
+            rangeWidth = this.$container.outerWidth(true),
             elemOffset = this.$element.offset();
 
         if (yOrient != 'below' && yOrient != 'above') {
@@ -410,6 +411,25 @@
                 yOrient = 'below';
             } else {
                 yOrient = 'above';
+            }
+        }
+
+        if (xOrient != 'right' && xOrient != 'left') {
+
+            var windowWidth = $(window).innerWidth(),
+                elemWidth = this.$element.outerWidth(true);
+
+            var rightOverflow = elemOffset.left - (elemWidth > rangeWidth  ?  elemWidth -rangeWidth : rangeWidth -elemWidth),
+                leftOverflow =  windowWidth - (elemOffset.left + rangeWidth);
+
+            if (rightOverflow > 0 && leftOverflow > 0) {
+                xOrient = "left";
+            } else {
+                if (Math.max(rightOverflow, leftOverflow) === rightOverflow) {
+                    xOrient = 'right';
+                } else {
+                    xOrient = 'left';
+                }
             }
         }
 
@@ -436,9 +456,15 @@
         }
 
         if (xOrient == 'left') {
+            
             this.$container.css('left', elemOffset.left);
+            this.$container.removeClass('open-right');
+            this.$container.addClass('open-left');
+
         } else if (xOrient == 'right') {
             this.$container.css('left', elemOffset.left + this.$element.outerWidth() - this.$container.outerWidth());
+            this.$container.removeClass('open-left');
+            this.$container.addClass('open-right');
         }
     };
 

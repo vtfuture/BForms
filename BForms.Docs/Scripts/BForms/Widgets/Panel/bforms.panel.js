@@ -314,6 +314,8 @@
                 }, this),
                 handler: $.proxy(function (sent, data) {
 
+                    this._trigger('beforeEditSuccessHandler', 0, data);
+
                     this.$content.html(data.Html);
 
                     this._toggleLoading();

@@ -266,6 +266,7 @@
         var xOrient = this.options.xOrient,
             yOrient = this.options.yOrient,
             pickerHeight = this.$picker.outerHeight(true),
+            pickerWidth = this.$picker.outerWidth(true),
             elemOffset = this.$element.offset(),
             newTop = -1,
             newLeft = -1;
@@ -286,6 +287,25 @@
             }
         }
 
+
+        if (xOrient != 'right' && xOrient != 'left') {
+
+            var windowWidth = $(window).innerWidth(),
+                elemWidth = this.$element.outerWidth(true);
+
+            var rightOverflow = elemOffset.left - (elemWidth > pickerWidth ? elemWidth - pickerWidth : pickerWidth - elemWidth),
+                leftOverflow = windowWidth - (elemOffset.left + pickerWidth);
+
+            if (rightOverflow > 0 && leftOverflow > 0) {
+                xOrient = "left";
+            } else {
+                if (Math.max(rightOverflow, leftOverflow) === rightOverflow) {
+                    xOrient = 'right';
+                } else {
+                    xOrient = 'left';
+                }
+            }
+        }
 
         if (yOrient == 'below') {
 
@@ -309,10 +329,14 @@
         if (xOrient == 'left') {
 
             newLeft = elemOffset.left;
+            this.$picker.removeClass('open-right');
+            this.$picker.addClass('open-left');
 
         } else if (xOrient == 'right') {
 
             newLeft = elemOffset.left + this.$element.outerWidth() - this.$picker.outerWidth();
+            this.$picker.removeClass('open-left');
+            this.$picker.addClass('open-right');
         }
 
         if (this.options.fixedPicker === true) {

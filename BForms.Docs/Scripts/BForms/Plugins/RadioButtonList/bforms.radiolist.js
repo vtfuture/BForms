@@ -31,7 +31,7 @@
             var $elem = $(this);
             return $(this).each(function() {
                 if ($(this).hasClass('radioButtonsList-done')) {
-                    return new RadioButtonsListUpdateSelf($(this), $(this).data('initialvalue'));
+                    return new RadioButtonsListUpdateSelf($(this), $(this).data('initialvalue'), true);
                 }
             });
         }
@@ -122,14 +122,14 @@
     })();
 
     var RadioButtonsListUpdateSelf = (function () {
-        function RadioButtonsListUpdateSelf(self, value) {
+        function RadioButtonsListUpdateSelf(self, value, fromReset) {
             self.find("input[type='radio']").each(function () {
 
                 var $current = $(this),
                     wasChecked = $current.prop("checked"),
                     newVal = $current.val() == value ? true : false;
 
-                if (newVal && wasChecked) {
+                if (newVal && wasChecked && fromReset !== true) {
                     newVal = false;
                 }
 
