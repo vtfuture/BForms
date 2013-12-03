@@ -33,7 +33,6 @@
             uniqueName: 'usersGrid',
             pagerUrl: this.options.pagerUrl,
             addValidation: function (data, response) {
-                console.log(arguments);
                 if (data["New.FirstName"] == "Cristi Pufu") return false;
             },
             //#region filterButtons
@@ -382,6 +381,9 @@
         // on init
         this.$toolbar.bsToolbar({
             uniqueName: 'usersToolbar',
+            controlsOptions: {
+                focusFirst: false
+            },
             subscribers: [this.$grid]/*,
             autoInitControls: false,
             //initialize default controls manually

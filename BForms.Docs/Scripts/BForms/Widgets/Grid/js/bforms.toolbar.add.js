@@ -36,10 +36,12 @@
             }
         }
 
-        this.$addForm = this.$container.bsForm({
+        var opts = $.extend(true, this.options, {
             container: $elem.attr('id'),
             actions: controls
         });
+
+        this.$addForm = this.$container.bsForm(opts);
     };
 
     Add.prototype._addDefaultOptions = function () {
