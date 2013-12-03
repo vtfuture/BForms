@@ -16,6 +16,7 @@
         uniqueName: null,
         hasGroupToggle: true,
         style: {},
+        focusFirst: true,
         groupToggleSelector: '.bs-group_toggle',
         groupToggleContainerSelector: '.bs-group_toggle_container',
         groupToggleUp: 'glyphicon-chevron-up',
@@ -234,7 +235,7 @@
     };
 
     Form.prototype.reset = function (e) {
-        this.element.bsResetForm(true);
+        this.element.bsResetForm(this.options.focusFirst);
     };
     
     $.widget('bforms.bsForm', Form.prototype);

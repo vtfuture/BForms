@@ -29,7 +29,10 @@
         // reset handler
         reset: null,
         // controls to be added to toolbar widget
-        controls: null
+        controls: null,
+
+        // common options for all toolbar controls
+        controlsOptions: null
     };
 
     Toolbar.prototype._create = function () {
@@ -58,7 +61,7 @@
             //init default controls if any
             for (var k in $.bforms.toolbar.defaults) {
                 if (k in $.bforms.toolbar.defaults) {
-                    var control = new $.bforms.toolbar.defaults[k](this.element);
+                    var control = new $.bforms.toolbar.defaults[k](this.element, this.options.controlsOptions);
                     var $btn = this.element.find(control._defaultOptions.selector);
                     if ($btn.length > 0) {
                         control.$element = $btn;
