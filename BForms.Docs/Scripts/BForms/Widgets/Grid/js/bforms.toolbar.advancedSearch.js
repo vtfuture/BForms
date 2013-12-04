@@ -37,10 +37,12 @@
 
         var $elem = this.$container.find(this._defaultOptions.selector);
 
-        this.$searchForm = this.$container.bsForm({
+        var opts = $.extend(true, this.options, {
             container: $elem.attr('id'),
             actions: controls
         });
+
+        this.$searchForm = this.$container.bsForm(opts);
 
     };
 
