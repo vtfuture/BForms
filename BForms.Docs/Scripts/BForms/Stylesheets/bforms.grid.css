@@ -426,7 +426,8 @@ a.btn {
           margin-bottom: 0; }
           .grid_container .grid_view .grid_rows_wrapper .grid_row_details .profile.large .users li {
             border: none;
-            padding: 0; }
+            padding: 0;
+            margin-bottom: 5px; }
       .grid_container .grid_view .grid_rows_wrapper .grid_row_details .users li {
         padding: 4px 5px;
         border: 1px solid #e8e8e8; }
