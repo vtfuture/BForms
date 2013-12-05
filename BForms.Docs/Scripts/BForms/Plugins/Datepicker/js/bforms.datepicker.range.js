@@ -37,7 +37,7 @@
 
             if (this.$element.is('input')) {
                 this.$input = this.$element;
-                
+
                 if (this.options.readonlyInput || ($.browser != null && $.browser.mobile == true)) {
                     this.$input.prop('readonly', true);
                 }
@@ -46,7 +46,7 @@
             this._initLang(this.options.language);
 
             this.isInline = this.options.inline || false;
-            
+
             this._visible = this.options.inline ? true : false;
             if (this.options.visible == false) {
                 this._visible = false;
@@ -64,9 +64,15 @@
 
     bRangePicker.prototype._buildElement = function () {
 
+        if (this.options.allowDeselect) {
+            this.options.allowDeselectStart = this.options.allowDeselectEnd = true;
+        }
+
         this.$container = this.renderer.renderRangeContainer({
-            ApplyText: this.options.applyText,
-            CancelText: this.options.cancelText
+            applyText: this.options.applyText,
+            cancelText: this.options.cancelText,
+            allowDeselectStart: this.options.allowDeselectStart,
+            allowDeselectEnd: this.options.allowDeselectEnd
         });
 
         this.$start = this.$container.find('.bs-start-replace');
@@ -83,7 +89,8 @@
             onChange: $.proxy(this.onStartChange, this),
             onDayMouseOver: $.proxy(this.onStartDaysMouseOver, this),
             onDaysMouseOut: $.proxy(this.onStartDaysMouseOut, this),
-            allowSame : this.options.allowSame,
+            allowSame: this.options.allowSame,
+            allowDeselect: this.options.allowDeselectStart
         }, startOptions, {
             inline: true,
             ShowClose: false,
@@ -97,6 +104,7 @@
             onDayMouseOver: $.proxy(this.onEndDaysMouseOver, this),
             onDaysMouseOut: $.proxy(this.onEndDaysMouseOut, this),
             allowSame: this.options.allowSame,
+            allowDeselect: this.options.allowDeselectEnd
         }, endOptions, {
             inline: true,
             ShowClose: false,
@@ -207,19 +215,21 @@
 
         this.$container.on('click', '.bs-applyRange', $.proxy(this.applyRangeClick, this));
         this.$container.on('click', '.bs-cancelRange', $.proxy(this.cancelRange, this));
+
+        this.$container.on('click', '.bs-resetDateRange', $.proxy(this.cancelDate, this));
     };
 
     bRangePicker.prototype._initInlineMobile = function () {
 
         var modalPickerOptions = $.extend(true, {}, this.options, {
             inline: true,
-            altFields : [{
-                selector : this.$element
+            altFields: [{
+                selector: this.$element
             }],
             visible: false,
-            closeOnBlur : false
+            closeOnBlur: false
         });
-        
+
         var $pickerReplace = $('<div class="bs-picker-replace"></div>');
         this.$element.parent().after($pickerReplace);
         $pickerReplace.bsDateRange(modalPickerOptions);
@@ -273,9 +283,15 @@
         this._setStartLabel(data.formattedDate);
         this.$startLabel.data('value', data.date);
 
+        if (data.date != null) {
+            this._valueSettedForFirst = true;
+        } else {
+            this._valueSettedForFirst = false;
+        }
+
         var endValue = this.$end.bsDatepicker('getUnformattedValue');
 
-        if (!this.$end.bsDatepicker('isValidDate', endValue)) {
+        if (endValue != null && !this.$end.bsDatepicker('isValidDate', endValue)) {
             this.$end.bsDatepicker('setValue', data.date.clone().add('days', 1));
         }
     };
@@ -285,9 +301,15 @@
         this._setEndLabel(data.formattedDate);
         this.$endLabel.data('value', data.date);
 
+        if (data.date != null) {
+            this._valueSettedForSecond = true;
+        } else {
+            this._valueSettedForSecond = false;
+        }
+
         var startValue = this.$start.bsDatepicker('getUnformattedValue');
 
-        if (!this.$start.bsDatepicker('isValidDate', startValue)) {
+        if (startValue != null && !this.$start.bsDatepicker('isValidDate', startValue)) {
             this.$start.bsDatepicker('setValue', data.date.clone().subtract('days', 1));
         }
     };
@@ -330,7 +352,7 @@
     };
 
     bRangePicker.prototype.cancelRange = function (e) {
-        
+
         if (e != null && typeof e.preventDefault === "function") {
             e.preventDefault();
             e.stopPropagation();
@@ -347,35 +369,56 @@
         }
     };
 
+    bRangePicker.prototype.cancelDate = function (e) {
+
+        e.preventDefault();
+        e.stopPropagation();
+        var $target = $(e.currentTarget);
+
+        if ($target.prev('.bs-rangeStartLabel').length) {
+            this.$start.bsDatepicker('clearValue');
+        } else {
+            this.$end.bsDatepicker('clearValue');
+        }
+    };
+
     bRangePicker.prototype.onStartDaysMouseOver = function (momentDate, formattedDate, isValid) {
-        if (isValid) {
+        if (isValid && this.$startLabel.val() != '') {
             this._setStartLabel(formattedDate);
         }
     };
 
     bRangePicker.prototype.onStartDaysMouseOut = function (momentDate, formattedDate) {
-        this._setStartLabel(formattedDate);
+
+        if (this.$startLabel.val() != '') {
+            this._setStartLabel(formattedDate);
+        }
     };
 
     bRangePicker.prototype.onEndDaysMouseOver = function (momentDate, formattedDate, isValid) {
-        if (isValid) {
+        if (isValid && this.$endLabel.val() != '') {
             this._setEndLabel(formattedDate);
         }
     };
 
     bRangePicker.prototype.onEndDaysMouseOut = function (momentDate, formattedDate) {
-        this._setEndLabel(formattedDate);
+        if (this.$endLabel.val() != '') {
+            this._setEndLabel(formattedDate);
+        }
     };
 
-    bRangePicker.prototype.beforeShowDay = function (val) {
+    bRangePicker.prototype.beforeShowDay = function (val, dayModel) {
         var endValue = this.$end.bsDatepicker('getUnformattedValue'),
             startValue = this.$start.bsDatepicker('getUnformattedValue'),
             date = moment(val);
 
-        if (date.isSame(endValue, 'day') || date.isBefore(endValue) && date.isAfter(startValue) || date.isSame(startValue, 'day')) {
-            return {
-                cssClass: 'in-range'
-            };
+        if ((this._valueSettedForSecond == false || endValue == null || date.isSame(endValue, 'day') || date.isBefore(endValue)) &&
+            (startValue == null || date.isAfter(startValue) || date.isSame(startValue, 'day') || this._valueSettedForFirst == false)) {
+            if (dayModel.selectable === true) {
+                return {
+                    cssClass: 'in-range'
+                };
+            }
         }
     };
     //#endregion
@@ -383,10 +426,26 @@
     //#region private
     bRangePicker.prototype._setStartLabel = function (date) {
         this.$startLabel.val(date);
+
+        if (this.options.allowDeselectStart) {
+            if (date == '') {
+                this.$startLabel.next('.bs-resetDateRange').hide();
+            } else {
+                this.$startLabel.next('.bs-resetDateRange').show();
+            }
+        }
     };
 
     bRangePicker.prototype._setEndLabel = function (date) {
         this.$endLabel.val(date);
+
+        if (this.options.allowDeselectEnd) {
+            if (date == '') {
+                this.$endLabel.next('.bs-resetDateRange').hide();
+            } else {
+                this.$endLabel.next('.bs-resetDateRange').show();
+            }
+        }
     };
 
     bRangePicker.prototype._positionRange = function () {
@@ -419,8 +478,8 @@
             var windowWidth = $(window).innerWidth(),
                 elemWidth = this.$element.outerWidth(true);
 
-            var rightOverflow = elemOffset.left - (elemWidth > rangeWidth  ?  elemWidth -rangeWidth : rangeWidth -elemWidth),
-                leftOverflow =  windowWidth - (elemOffset.left + rangeWidth);
+            var rightOverflow = elemOffset.left - (elemWidth > rangeWidth ? elemWidth - rangeWidth : rangeWidth - elemWidth),
+                leftOverflow = windowWidth - (elemOffset.left + rangeWidth);
 
             if (rightOverflow > 0 && leftOverflow > 0) {
                 xOrient = "left";
@@ -456,7 +515,7 @@
         }
 
         if (xOrient == 'left') {
-            
+
             this.$container.css('left', elemOffset.left);
             this.$container.removeClass('open-right');
             this.$container.addClass('open-left');
@@ -511,7 +570,7 @@
                 }
             }
         }
-        
+
         if (typeof this.options.altFields !== "undefined" && $.isArray(this.options.altFields)) {
             for (var idx in this.options.altFields) {
                 var current = this.options.altFields[idx];
@@ -583,11 +642,11 @@
     };
 
     bRangePicker.prototype.getStartValue = function () {
-        return this.$startLabel.val();
+        return this._valueSettedForFirst !== false ? this.$startLabel.val() : this.options.placeholderValue;
     };
 
     bRangePicker.prototype.getEndValue = function () {
-        return this.$endLabel.val();
+        return this._valueSettedForSecond !== false ? this.$endLabel.val() : this.options.placeholderValue;
     };
 
     bRangePicker.prototype.resetRange = function (val) {
@@ -644,8 +703,12 @@
         }
     };
 
-    bRangePicker.prototype.getValue = function() {
-        return this.getStartValue() + ' ' + this.options.delimiter + ' ' + this.getEndValue();
+    bRangePicker.prototype.getValue = function () {
+        if (this._valueSettedForFirst !== false || this._valueSettedForSecond !== false) {
+            return this.getStartValue() + ' ' + this.options.delimiter + ' ' + this.getEndValue();
+        } else {
+            return '';
+        }
     };
     //#endregion
 
@@ -666,7 +729,11 @@
         language: 'en',
         allowInvalidMinMax: true,
         checkForMobileDevice: true,
-        allowSame : true,
+        allowSame: true,
+        //allowDeselect: true,
+        allowDeselectStart: true,
+        allowDeselectEnd: true,
+        placeholderValue: 'not specified'
     };
 
     $.fn.bsDateRangeLang = {

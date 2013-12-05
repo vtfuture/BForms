@@ -93,10 +93,13 @@
 
     bDatepicker.prototype._getInitialValue = function () {
 
+        this._valueSetted = null;
+
         if (typeof this.options.initialValue !== "undefined" && this.options.initialValue != '') {
 
             var initialValue = moment(this.options.initialValue).lang(this.options.language);
             this.currentValue = initialValue.clone();
+            this._valueSetted = true;
             this._updateDisplays();
 
         } else if (this.$element.is('input')) {
@@ -114,6 +117,10 @@
             }
         } else {
             this.currentValue = this._getDefaultDate().lang(this.options.language);
+        }
+
+        if (this.options.allowDeselect !== true) {
+            this._valueSetted = true;
         }
 
         this.value = this.currentValue.clone();
@@ -691,6 +698,11 @@
             value = moment($target.data('value')).lang(this.options.language);
 
         if ($target.parents('.bs-notSelectable').length) return;
+
+        if (this._valueSetted === true && this.options.allowDeselect && $target.parents('.active').length) {
+            this._deselectValue();
+            return;
+        }
 
         value.hour(this.currentValue.hour());
         value.minute(this.currentValue.minute());
@@ -1299,6 +1311,17 @@
         return this;
     };
 
+    bDatepicker.prototype._deselectValue = function () {
+        this._valueSetted = false;
+        this._updateDisplays('');
+        this._updateDateView();
+        
+        this._trigger('onChange', {
+            date: null,
+            formattedDate: ''
+        });
+    };
+
     bDatepicker.prototype._setCurrentValue = function (arg) {
 
         var allowClose = true;
@@ -1317,9 +1340,11 @@
             this.$input.valid();
         }
 
+        this._valueSetted = true;
+        
         this._trigger('onChange', {
-            date: this.currentValue.clone(),
-            formattedDate: this.currentValue.format(this._displayFormat)
+            date:  this.currentValue.clone(),
+            formattedDate:  this.currentValue.format(this._displayFormat)
         });
 
         if (this.options.closeOnChange && allowClose) {
@@ -1593,9 +1618,8 @@
     };
 
     bDatepicker.prototype.resetValue = function () {
-        this._setCurrentValue(this._getDefaultDate().clone().lang(this.options.language));
-        this.value = this.currentValue.clone();
 
+        this._getInitialValue();
         this._updateDateView();
         this._updateTimeView();
 
@@ -1603,11 +1627,15 @@
     };
 
     bDatepicker.prototype.getValue = function () {
-        return this.currentValue.format(this._displayFormat);
+        return this._valueSetted == true ?  this.currentValue.format(this._displayFormat) : '';
     };
 
     bDatepicker.prototype.getUnformattedValue = function () {
-        return this.currentValue.clone();
+        return this._valueSetted == true ?  this.currentValue.clone() : null;
+    };
+
+    bDatepicker.prototype.clearValue = function() {
+        this._deselectValue();
     };
 
     bDatepicker.prototype.setValue = function (value) {
@@ -1764,7 +1792,7 @@
                 day: daysStart.date(),
                 otherMonth: daysStart.month() != currentMonth,
                 value: daysStart.format(),
-                selected: daysStart.isSame(this.currentValue, 'day') && daysStart.isSame(this.currentValue, 'month') && daysStart.isSame(this.currentValue, 'year'),
+                selected: (this._valueSetted || this._valueSetted == null) &&  daysStart.isSame(this.currentValue, 'day') && daysStart.isSame(this.currentValue, 'month') && daysStart.isSame(this.currentValue, 'year'),
                 selectable: true
             };
 
@@ -1774,7 +1802,7 @@
             }
 
             if (typeof this.options.beforeShowDay === "function") {
-                $.extend(true, dayObj, this.options.beforeShowDay(daysStart.toISOString()));
+                $.extend(true, dayObj, this.options.beforeShowDay(daysStart.toISOString(), dayObj));
             }
 
             days.push(dayObj);
@@ -1807,7 +1835,7 @@
             months.push({
                 month: it.format('MMM'),
                 value: it.format(),
-                selected: it.isSame(this.currentValue, 'month') && it.isSame(this.currentValue, 'year'),
+                selected: (this._valueSetted || this._valueSetted == null) && it.isSame(this.currentValue, 'month') && it.isSame(this.currentValue, 'year'),
                 selectable: this.isValidDate(it, true, {
                     allowSame: true,
                     format : 'month'
@@ -1834,7 +1862,8 @@
             selectable: this.isValidDate(it, true, {
                 format: 'year',
                 allowSame: true
-            })
+            }),
+            selected: (this._valueSetted || this._valueSetted == null) && it.isSame(this.currentValue, 'year')
         };
 
         if (prevYear.selectable) {
@@ -1853,7 +1882,7 @@
                 year: it.format('YYYY'),
                 otherDecade: false,
                 value: it.format(),
-                selected: it.isSame(this.currentValue, 'year'),
+                selected: (this._valueSetted || this._valueSetted == null) && it.isSame(this.currentValue, 'year'),
                 selectable: this.isValidDate(it, true, {
                     format: 'year',
                     allowSame: true
@@ -1872,7 +1901,8 @@
             selectable: this.isValidDate(it, true, {
                 format: 'year',
                 allowSame: true
-            })
+            }),
+            selected: (this._valueSetted || this._valueSetted == null) && it.isSame(this.currentValue, 'year')
         };
 
         if (nextYear.selectable) {
@@ -1899,6 +1929,8 @@
     };
 
     bDatepicker.prototype.isValidDate = function (date, allowInvalidDate, options) {
+
+        if (date == null) return;
 
         var maxDate = null,
             minDate = null,
@@ -1979,11 +2011,12 @@
         startView: 'days',
         openOnFocus: true,
         closeOnBlur: true,
-        closeOnChange: false,
+        closeOnChange: true,
         defaultDate: 'now',
         is12Hours: false,
         showClose: false,
         inline: false,
+        allowDeselect : true,
         selectOnly: '', //accepted values : year, month, day, year&month, month&day
         selectOnlyFormats: {
             'year': 'YYYY',

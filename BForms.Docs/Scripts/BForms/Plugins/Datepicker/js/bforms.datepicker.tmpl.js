@@ -140,16 +140,18 @@
                                 '<div class="form-group">' +
                                     '<label>From</label><div class="input-group">' +
                                     '<input type="text" class="bs-rangeStartLabel" value="" disabled="disabled">' +
+                                    '{{#allowDeselectStart}}<a href="#" class="btn bs-resetDateRange"></a>{{/allowDeselectStart}}' +
                                 '</div>' +
                             '</div>' +
                             '<div class="form-group">' +
                                 '<label>To</label>' +
                                 '<div class="input-group">' +
                                 '<input type="text" class="bs-rangeEndLabel" value="" disabled="disabled">' +
+                                '{{#allowDeselectEnd}}<a href="#" class="btn bs-resetDateRange"></a>{{/allowDeselectEnd}}' +
                             '</div>' +
                             '</div>' +
-                            '<button class="btn btn-default bs-applyRange">{{ApplyText}}</button>&nbsp;' +
-                            '<button class="btn bs-cancelRange">{{CancelText}}</button>' +
+                            '<button class="btn btn-default bs-applyRange">{{applyText}}</button>&nbsp;' +
+                            '<button class="btn bs-cancelRange">{{cancelText}}</button>' +
                             '</div>' +
             
                         '<div class="bs-start-replace"></div>' +

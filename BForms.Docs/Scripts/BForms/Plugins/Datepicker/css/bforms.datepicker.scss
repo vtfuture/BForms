@@ -285,11 +285,20 @@ $Black: #424141;
 			label {
 				font-size: 15px;
 			}
-			.input-group input {
-				width: 100%;
-				font-size: 13px;
-				padding: 3px;
-				border: 1px solid #ccc;
+			.input-group {
+				input  {
+					width: 100%;
+					font-size: 13px;
+					padding: 3px;
+					border: 1px solid #ccc;	
+				}				
+				.bs-resetDateRange {
+					position: absolute;
+					right: 3px;
+					top: 8px;
+					cursor: pointer;
+					background:url(../images/icn-remove.png) 50% 50% no-repeat;					
+				}			
 			}
 		}		
 	}
@@ -336,20 +345,20 @@ $Black: #424141;
 	}
 }
 
-.open-right{
-	&:before{
+.open-right {
+	&:before {
 		right:6px;
 	}
-	&:after{
+	&:after {
 		right:7px;
 	}
 }
 
-.open-left{
-	&:before{
+.open-left {
+	&:before {
 		left:6px;
 	}
-	&:after{
+	&:after {
 		left:7px;
 	}
 }

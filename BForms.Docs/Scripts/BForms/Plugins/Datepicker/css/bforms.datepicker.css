@@ -212,6 +212,12 @@
         font-size: 13px;
         padding: 3px;
         border: 1px solid #ccc; }
+      .bs-range-picker .ranges .form-group .input-group .bs-resetDateRange {
+        position: absolute;
+        right: 3px;
+        top: 8px;
+        cursor: pointer;
+        background: url(../images/icn-remove.png) 50% 50% no-repeat; }
 
 .open-below:before {
   content: '';
