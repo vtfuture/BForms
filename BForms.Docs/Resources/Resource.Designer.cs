@@ -72,6 +72,15 @@ namespace BForms.Docs.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string Age {
+            get {
+                return ResourceManager.GetString("Age", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string All {
             get {
                 return ResourceManager.GetString("All", resourceCulture);

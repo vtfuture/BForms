@@ -46,6 +46,9 @@
         numberrange: true,
         numberrangeSelector: '.bs-number-range:not(.no-initUI)',
 
+        singlenumberrange: true,
+        singlenumberrangeSelector: '.bs-number-single_range',
+
         loadingSelector: '.loading',
         loadingClass: 'loading'
     };
@@ -494,13 +497,13 @@
                                     defaultDate: (typeof $endInput.val() !== "undefined" && $endInput.val() != '') ? "-1d" : "now",
                                     defaultDateValue: (typeof $endInput.val() !== "undefined" && $endInput.val() != '') ? $endInput.val() : false,
                                     language: uiLocale,
-                                    minDate : minDate || null
+                                    minDate: minDate || null
                                 },
                                 endOptions: {
                                     type: 'datetimepicker',
                                     initialValue: $endInput.val(),
                                     language: uiLocale,
-                                    maxDate : maxDate || null
+                                    maxDate: maxDate || null
                                 },
 
                                 startAltFields: [{ selector: $startInput }],
@@ -532,13 +535,13 @@
                                     defaultDate: (typeof $endInput.val() !== "undefined" && $endInput.val() != '') ? "-1d" : "none",
                                     defaultDateValue: (typeof $endInput.val() !== "undefined" && $endInput.val() != '') ? $endInput.val() : false,
                                     language: uiLocale,
-                                    minDate : minDate || null
+                                    minDate: minDate || null
                                 },
                                 endOptions: {
                                     type: 'datetimepicker',
                                     initialValue: $endInput.val(),
                                     language: uiLocale,
-                                    maxDate : maxDate || null
+                                    maxDate: maxDate || null
                                 },
 
                                 startAltFields: [{ selector: $startInput }],
@@ -570,7 +573,7 @@
                                 $endInput = self.$elem.find('.bs-range-to[data-for="' + rangeName + '"]'),
                                 minDate = $startInput.data('minvalue'),
                                 maxDate = $endInput.data('maxvalue');
-                            
+
                             $elem.bsDateRange($.extend(true, {}, self._getOptions(this), {
                                 startOptions: {
                                     type: 'datepicker',
@@ -584,7 +587,7 @@
                                     type: 'datepicker',
                                     initialValue: $endInput.val(),
                                     language: uiLocale,
-                                    maxDate : maxDate || null
+                                    maxDate: maxDate || null
                                 },
                                 startAltFields: [{ selector: $startInput }],
                                 endAltFields: [{ selector: $endInput }],
@@ -614,13 +617,13 @@
                                     defaultDate: (typeof $endInput.val() !== "undefined" && $endInput.val() != '') ? "-1d" : "now",
                                     defaultDateValue: (typeof $endInput.val() !== "undefined" && $endInput.val() != '') ? $endInput.val() : false,
                                     language: uiLocale,
-                                    minDate : minDate || null
+                                    minDate: minDate || null
                                 },
                                 endOptions: {
                                     type: 'datepicker',
                                     initialValue: $endInput.val(),
                                     language: uiLocale,
-                                    maxDate : maxDate || null
+                                    maxDate: maxDate || null
                                 },
                                 startAltFields: [{ selector: $startInput }],
                                 endAltFields: [{ selector: $endInput }],
@@ -658,13 +661,13 @@
                                     defaultDate: (typeof $endInput.val() !== "undefined" && $endInput.val() != '') ? "-1h" : "now",
                                     defaultDateValue: (typeof $endInput.val() !== "undefined" && $endInput.val() != '') ? $endInput.val() : false,
                                     language: uiLocale,
-                                    minDate : minDate || null
+                                    minDate: minDate || null
                                 },
                                 endOptions: {
                                     type: 'timepicker',
                                     language: uiLocale,
                                     initialValue: $endInput.val(),
-                                    maxDate : maxDate || null
+                                    maxDate: maxDate || null
                                 },
 
                                 startAltFields: [{ selector: $startInput }],
@@ -696,13 +699,13 @@
                                     defaultDate: (typeof $endInput.val() !== "undefined" && $endInput.val() != '') ? "-1h" : "now",
                                     defaultDateValue: (typeof $endInput.val() !== "undefined" && $endInput.val() != '') ? $endInput.val() : false,
                                     language: uiLocale,
-                                    minDate : minDate || null
+                                    minDate: minDate || null
                                 },
                                 endOptions: {
                                     type: 'timepicker',
                                     language: uiLocale,
                                     initialValue: $endInput.val(),
-                                    maxDate : maxDate || null
+                                    maxDate: maxDate || null
                                 },
 
                                 startAltFields: [{ selector: $startInput }],
@@ -718,12 +721,12 @@
             }
 
             if (this.options.numberrange === true && this.$elem.find(this.options.numberrangeSelector).length) {
-                
+
                 if (this.loadAMD) {
 
                     var numberrangeDeferred = $.Deferred();
                     this.deferredList.push(numberrangeDeferred);
-                    
+
                     require(['bforms-rangepicker'], function () {
                         self.$elem.find(self.options.numberrangeSelector).each(function (idx, elem) {
 
@@ -739,34 +742,34 @@
 
                             if ($startInput.length) {
                                 ranges.push({
-                                        title: $startInput.data('display'),
-                                        value: $startInput.val(),
-                                        start : true
-                                    },
+                                    title: $startInput.data('display'),
+                                    value: $startInput.val(),
+                                    start: true
+                                },
                                     {
                                         title: $endInput.data('display'),
                                         value: $endInput.val(),
-                                        end : true
+                                        end: true
                                     }
                                 );
 
                                 minValue = $startInput.data('minvalue'),
                                 maxValue = $endInput.data('maxvalue');
                             } else {
-                                ranges.push({                                    
+                                ranges.push({
                                     title: $elem.data('display'),
                                     value: $elem.val(),
-                                    single : true
+                                    single: true
                                 });
                             }
 
                             $elem.bsRangePicker($.extend(true, {}, self._getOptions(this), {
-                                ranges : ranges,
+                                ranges: ranges,
                                 language: uiLocale,
                                 allowSame: true,
                                 listeners: [$startInput, $endInput],
                                 minValue: minValue,
-                                maxValue : maxValue
+                                maxValue: maxValue
                             }));
                         });
 
@@ -802,12 +805,83 @@
                             }
 
                             $elem.bsRangePicker($.extend(true, {}, self._getOptions(this), {
-                                ranges : ranges,
+                                ranges: ranges,
                                 language: uiLocale,
                                 minValue: 0,
                                 maxValue: 100,
                                 allowSame: true,
                                 listeners: [$startInput, $endInput]
+                            }));
+                        });
+                    } else {
+                        throw "bsRangepicker script must be loaded before calling initUI";
+                    }
+                }
+            }
+
+            if (this.options.singlenumberrange === true && this.$elem.find(this.options.singlenumberrangeSelector).length) {
+                
+                if (this.loadAMD) {
+
+                    var singleNumberRangeDeferred = $.Deferred();
+                    this.deferredList.push(singleNumberRangeDeferred);
+
+                    require(['bforms-rangepicker'], function () {
+
+                        self.$elem.find(self.options.singlenumberrangeSelector).each(function (idx, elem) {
+
+                            var $elem = $(elem);
+                            var rangeName = $elem.prop('name');
+
+                            var $inputListener = self.$elem.find('.bs-number-value[data-for="' + rangeName + '"]'),
+                                minValue = $inputListener.data('minvalue'),
+                                maxValue = $inputListener.data('maxvalue');
+
+                            var ranges = [];
+
+                            ranges.push({
+                                title: $elem.data('display'),
+                                value: $inputListener.val(),
+                            });
+
+                            $elem.bsRangePicker($.extend(true, {}, self._getOptions(this), {
+                                ranges: ranges,
+                                language: uiLocale,
+                                allowSame: true,
+                                listeners: [$inputListener],
+                                minValue: minValue,
+                                maxValue: maxValue
+                            }));
+                        });
+
+                        singleNumberRangeDeferred.resolve();
+                    });
+
+                } else {
+                    if (typeof $.fn.bsRangePicker === "function") {
+                        self.$elem.find(self.options.singlenumberrangeSelector).each(function (idx, elem) {
+
+                            var $elem = $(elem);
+                            var rangeName = $elem.prop('name');
+
+                            var $inputListener = self.$elem.find('.bs-number-value[data-for="' + rangeName + '"]'),
+                                minValue = $inputListener.data('minvalue'),
+                                maxValue = $inputListener.data('maxvalue');
+
+                            var ranges = [];
+
+                            ranges.push({
+                                title: $elem.data('display'),
+                                value: $inputListener.val(),
+                            });
+
+                            $elem.bsRangePicker($.extend(true, {}, self._getOptions(this), {
+                                ranges: ranges,
+                                language: uiLocale,
+                                allowSame: true,
+                                listeners: [$inputListener],
+                                minValue: minValue,
+                                maxValue: maxValue
                             }));
                         });
                     } else {

@@ -5,11 +5,10 @@
 @using BForms.Html
 @using BForms.Models
 @model BForms.Docs.Areas.Demo.Models.ContributorNewModel
-
 @using (Html.BsBeginForm(@Html.GetTheme()))
 {
     <h3>Add Form</h3>
-    
+
     <div class="col-12 col-sm-6 col-lg-6 form-group @Html.BsValidationCssFor(m => m.FirstName)">
         @Html.BsLabelFor(m => m.FirstName)
         <div class="input-group">
@@ -49,11 +48,20 @@
     <div class="col-12 col-sm-6 col-lg-2 form-group @Html.BsValidationCssFor(m => m.IsEnabled)">
         @Html.BsLabelFor(m => m.IsEnabled)
         <div class="input-group">
-            @Html.BsSelectFor(model => model.IsEnabled, new Dictionary<string, object>() {{"data-initialvalue", (byte) YesNoValueTypes.Yes}}, null)
+            @Html.BsSelectFor(model => model.IsEnabled, new Dictionary<string, object>() { { "data-initialvalue", (byte)YesNoValueTypes.Yes } }, null)
             @Html.BsValidationFor(m => m.IsEnabled)
         </div>
     </div>
 
+     <div class="col-12 col-sm-6 col-lg-6 form-group @Html.BsValidationCssFor(m => m.Age)">
+        @Html.BsLabelFor(m => m.Age)
+        <div class="input-group">
+            @Html.BsGlyphiconAddon(Glyphicon.Time)
+            @Html.BsInputFor(model => model.Age)
+            @Html.BsValidationFor(m => m.Age)
+        </div>
+    </div>
+    
     <div class="col-12 col-sm-6 col-lg-6 form-group @Html.BsValidationCssFor(m => m.CountriesList)">
         @Html.BsLabelFor(m => m.CountriesList)
         <div class="input-group">
@@ -67,7 +75,7 @@
         @Html.BsLabelFor(m => m.RoleList)
         <div class="input-group">
             @Html.BsGlyphiconAddon(Glyphicon.Star)
-            @Html.BsSelectFor(model => model.RoleList, new Dictionary<string, object>() {{"data-initialvalue", (byte) ProjectRole.Developer}})
+            @Html.BsSelectFor(model => model.RoleList, new Dictionary<string, object>() { { "data-initialvalue", (byte)ProjectRole.Developer } })
             @Html.BsValidationFor(m => m.RoleList)
         </div>
     </div>
@@ -93,4 +101,4 @@
         <button type="submit" class="btn btn-white js-btn-save" data-action="@Url.Action("New")">@Resource.Add</button>
         <a href="#" class="js-btn-reset">@Resource.Reset</a>
     </div>
-}  
+}

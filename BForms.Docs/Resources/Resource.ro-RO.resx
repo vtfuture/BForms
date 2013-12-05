@@ -312,4 +312,7 @@
   <data name="ProjectRelated" xml:space="preserve">
     <value>Proiect</value>
   </data>
+  <data name="Age" xml:space="preserve">
+    <value>Vârstă</value>
+  </data>
 </root>

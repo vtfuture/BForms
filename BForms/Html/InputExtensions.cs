@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Runtime;
 using System.Text;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
@@ -34,8 +35,8 @@ namespace BForms.Html
         public static MvcHtmlString BsInputFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper,
             Expression<Func<TModel, TProperty>> expression, object htmlAttributes)
         {
-            return BsInputFor(htmlHelper, expression, null, 
-                HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes), 
+            return BsInputFor(htmlHelper, expression, null,
+                HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes),
                 null);
         }
 
@@ -62,7 +63,7 @@ namespace BForms.Html
         /// <summary>
         /// Returns an input element based on BsControlType with placeholder and info tooltip
         /// </summary>
-        public static MvcHtmlString BsInputFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, 
+        public static MvcHtmlString BsInputFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper,
             Expression<Func<TModel, TProperty>> expression, string format)
         {
             return BsInputFor(htmlHelper, expression, format, null, null);
@@ -71,11 +72,11 @@ namespace BForms.Html
         /// <summary>
         /// Returns an input element based on BsControlType with placeholder and info tooltip
         /// </summary>
-        public static MvcHtmlString BsInputFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, 
+        public static MvcHtmlString BsInputFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper,
             Expression<Func<TModel, TProperty>> expression, string format, object htmlAttributes)
         {
-            return BsInputFor(htmlHelper, expression, null, 
-                HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes), 
+            return BsInputFor(htmlHelper, expression, null,
+                HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes),
                 null);
         }
 
@@ -85,8 +86,8 @@ namespace BForms.Html
         public static MvcHtmlString BsInputFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper,
             Expression<Func<TModel, TProperty>> expression, string format, object htmlAttributes, object dataOptions)
         {
-            return BsInputFor(htmlHelper, expression, null, 
-                HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes), 
+            return BsInputFor(htmlHelper, expression, null,
+                HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes),
                 HtmlHelper.AnonymousObjectToHtmlAttributes(dataOptions));
         }
 
@@ -94,8 +95,8 @@ namespace BForms.Html
         /// Returns an input element based on BsControlType with placeholder and info tooltip
         /// </summary>
         public static MvcHtmlString BsInputFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper,
-            Expression<Func<TModel, TProperty>> expression, string format, 
-            IDictionary<string, object> htmlAttributes, 
+            Expression<Func<TModel, TProperty>> expression, string format,
+            IDictionary<string, object> htmlAttributes,
             IDictionary<string, object> dataOptions)
         {
             var inputHtml = new MvcHtmlString("");
@@ -121,7 +122,7 @@ namespace BForms.Html
                 htmlAttributes.MergeAttribute("type", bsControl.ControlType.GetHtml5Type(), true);
                 htmlAttributes.MergeAttribute("class", bsControl.ControlType.GetDescription());
 
-                if(bsControl.IsReadonly)
+                if (bsControl.IsReadonly)
                 {
                     htmlAttributes.MergeAttribute("readonly", "readonly");
                 }
@@ -140,12 +141,34 @@ namespace BForms.Html
                     case BsControlType.Url:
                     case BsControlType.Email:
                     case BsControlType.Number:
-                        inputHtml = htmlHelper.TextBoxForInternal(expression, format, htmlAttributes);
+                        var genericArguments = typeof(TProperty).GetGenericArguments();
+
+                        if (genericArguments.Any() && (genericArguments[0] == typeof(int) || genericArguments[0] == typeof(int?)))
+                        {
+                            htmlAttributes.MergeAttribute("class", "bs-number-single_range");
+
+                            if (genericArguments[0] == typeof(int))
+                            {
+                                var numberRange = (Expression<Func<TModel, BsRangeItem<int>>>)(object)expression;
+                                inputHtml = htmlHelper.NumberRangeForInternal(numberRange, htmlAttributes, dataOptions);
+                            }
+                            else
+                            {
+                                var numberRange = (Expression<Func<TModel, BsRangeItem<int?>>>)(object)expression;
+                                inputHtml = htmlHelper.NumberRangeForInternal(numberRange, htmlAttributes, dataOptions);
+                            }
+
+                        }
+                        else
+                        {
+                            inputHtml = htmlHelper.TextBoxForInternal(expression, format, htmlAttributes);
+                        }
+
                         break;
                     case BsControlType.DatePicker:
                     case BsControlType.DateTimePicker:
                     case BsControlType.TimePicker:
-                        if(typeof(TProperty) != typeof(BsDateTime))
+                        if (typeof(TProperty) != typeof(BsDateTime))
                         {
                             throw new ArgumentException("The " + name + " property must be of type BsDateTime");
                         }

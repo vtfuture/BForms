@@ -239,6 +239,11 @@ namespace BForms.Docs.Areas.Demo.Models
         public string LastName { get; set; }
 
         [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
+        [Display(Name = "Age", ResourceType = typeof(Resource))]
+        [BsControl(BsControlType.Number)]
+        public BsRangeItem<int?> Age { get; set; }
+
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
         [Display(Name = "Location", Prompt = "Choose your country")]
         [BsControl(BsControlType.DropDownList)]
         public BsSelectList<string> CountriesList { get; set; }

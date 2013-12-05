@@ -491,6 +491,10 @@
             newVal = limits.max;
         }
 
+        if (newVal == Infinity || newVal == -Infinity) {
+            newVal = 0;
+        }
+
         if (newVal >= limits.min && newVal <= limits.max) {
             $input.val(newVal).trigger('change');
         }
@@ -533,6 +537,10 @@
             newVal = oldVal - 1;
         } else {
             newVal = limits.min;
+        }
+        
+        if (newVal == Infinity || newVal == -Infinity) {
+            newVal = 0;
         }
 
         if (newVal >= limits.min && newVal <= limits.max) {

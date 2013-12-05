@@ -456,7 +456,13 @@ namespace BForms.Docs.Areas.Demo.Repositories
             return new ContributorNewModel()
             {
                 CountriesList = Lists.AllCounties<string>(false),
-                LanguagesList = Lists.AllLanguages<List<string>>()
+                LanguagesList = Lists.AllLanguages<List<string>>(),
+                Age = new BsRangeItem<int?>
+                {
+                    ItemValue = 21,
+                    MaxValue = 100,
+                    MinValue = 14
+                }
             };
         }
 
