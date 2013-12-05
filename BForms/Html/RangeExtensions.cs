@@ -166,6 +166,17 @@ namespace BForms.Html
             hiddenTag.MergeAttribute("value", valFormated);
             hiddenTag.MergeAttribute("type", "hidden");
             hiddenTag.MergeAttributes(htmlAttributes);
+
+            if (range != null)
+            {
+                if (!string.IsNullOrEmpty(range.TextFrom))
+                {
+                    hiddenTag.MergeAttribute("data-display", range.TextFrom);
+                }
+
+                hiddenTag.MergeAttribute("data-minvalue",FormatValue(range.MinFrom));
+            }
+
             inputHtml.Append(hiddenTag.ToString(TagRenderMode.Normal));
 
             //To
@@ -178,6 +189,17 @@ namespace BForms.Html
             hiddenTag.MergeAttribute("value", valFormated);
             hiddenTag.MergeAttribute("type", "hidden");
             hiddenTag.MergeAttributes(htmlAttributes);
+
+            if (range != null)
+            {
+                if (!string.IsNullOrEmpty(range.TextTo))
+                {
+                    hiddenTag.MergeAttribute("data-display", range.TextTo);
+                }
+
+                hiddenTag.MergeAttribute("data-maxvalue", FormatValue(range.MaxTo));
+            }
+
             inputHtml.Append(hiddenTag.ToString(TagRenderMode.Normal));
 
 

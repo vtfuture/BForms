@@ -426,6 +426,15 @@ namespace BForms.Docs.Areas.Demo.Repositories
                 {
                     From = new DateTime(2013, 8, 1),
                     To = DateTime.Now
+                },
+                AgeRange = new BsRange<int?>
+                {
+                    From = 18,
+                    TextFrom = "Start",
+                    MinFrom = 14,
+                    TextTo = "End",
+                    To = 22,
+                    MaxTo = 100
                 }
             };
         }

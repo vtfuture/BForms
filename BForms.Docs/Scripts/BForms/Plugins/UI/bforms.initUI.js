@@ -707,22 +707,27 @@
                             var rangeName = $elem.prop('name');
 
                             var $startInput = self.$elem.find('.bs-range-from[data-for="' + rangeName + '"]'),
-                                $endInput = self.$elem.find('.bs-range-to[data-for="' + rangeName + '"]');
+                                $endInput = self.$elem.find('.bs-range-to[data-for="' + rangeName + '"]'),
+                                minValue = -Infinity,
+                                maxValue = +Infinity;
 
                             var ranges = [];
 
                             if ($startInput.length) {
                                 ranges.push({
                                         title: $startInput.data('display'),
-                                        value: $startInput.val() || 0,
+                                        value: $startInput.val(),
                                         start : true
-                                },
+                                    },
                                     {
                                         title: $endInput.data('display'),
-                                        value: $endInput.val() || 100,
+                                        value: $endInput.val(),
                                         end : true
                                     }
                                 );
+
+                                minValue = $startInput.data('minvalue'),
+                                maxValue = $endInput.data('maxvalue');
                             } else {
                                 ranges.push({                                    
                                     title: $elem.data('display'),
@@ -735,7 +740,9 @@
                                 ranges : ranges,
                                 language: uiLocale,
                                 allowSame: true,
-                                listeners : [$startInput, $endInput]
+                                listeners: [$startInput, $endInput],
+                                minValue: minValue,
+                                maxValue : maxValue
                             }));
                         });
 

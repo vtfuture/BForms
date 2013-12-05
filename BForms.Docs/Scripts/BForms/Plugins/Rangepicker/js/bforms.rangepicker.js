@@ -11,10 +11,10 @@
         this.$element = elem;
         this.options = $.extend(true, {}, options);
 
-        if (this.$element.hasClass('bs-hasRangepicker')) return;
+        if (this.$element.hasClass('hasNumberRangepicker')) return;
 
         else {
-            this.$element.addClass('bs-hasRangepicker');
+            this.$element.addClass('hasNumberRangepicker');
             this._init();
         }
 
@@ -198,11 +198,11 @@
             this._single = false;
         }
         
-        if (typeof this.options.minValue === "undefined") {
+        if (typeof this.options.minValue === "undefined" || this.options.minValue == '') {
             this.options.minValue = -Infinity;
         }
         
-        if (typeof this.options.maxValue === "undefined") {
+        if (typeof this.options.maxValue === "undefined" || this.options.maxValue == '') {
             this.options.maxValue = Infinity;
         }
 
@@ -410,13 +410,13 @@
 
             var limits = this._getLimits(idx);
 
-            if (limits.min >= currentValue) {
+            if (currentValue != '' && limits.min >= currentValue) {
                 this._getDownArrow(idx).addClass('disabled');
             } else {
                 this._getDownArrow(idx).removeClass('disabled');
             }
 
-            if (limits.max <= currentValue) {
+            if (currentValue != '' && limits.max <= currentValue) {
                 this._getUpArrow(idx).addClass('disabled');
             } else {
                 this._getUpArrow(idx).removeClass('disabled');
@@ -428,6 +428,8 @@
     rangePicker.prototype._updateLabels = function () {
         var formattedString = "";
 
+        this._trigger('beforeFormatLabel');
+
         var startVal = this._getInput(0).val();
 
         if (this._single) {
@@ -436,6 +438,8 @@
             var endVal = this._getInput(1).val();
             formattedString = typeof this.options.format !== "undefined" ? this.options.format.replace('{0}', startVal).replace('{1}', endVal) : startVal + this.options.delimiter + endVal;
         }
+
+        this._trigger('afterFormatLabel',[formattedString]);
 
         this.$input.val(formattedString);
 
@@ -447,7 +451,7 @@
 
             if (this.options.listeners && this.options.listeners[idx]) {
                 var $currentListener = this.options.listeners[idx];
-
+                
                 if ($currentListener.is(':input')) {
                     $currentListener.val(val);
                 } else {
@@ -484,7 +488,7 @@
         if (!window.isNaN(oldVal)) {
             newVal = oldVal + 1;
         } else {
-            newVal = limits.min + 1;
+            newVal = limits.max;
         }
 
         if (newVal >= limits.min && newVal <= limits.max) {
@@ -516,7 +520,7 @@
 
         var index = arg;
 
-        if (typeof arg === "object") {
+        if (typeof arg === "object" && arg != null) {
             index = $(arg.currentTarget).data('index');
         }
 
@@ -528,7 +532,7 @@
         if (!window.isNaN(oldVal)) {
             newVal = oldVal - 1;
         } else {
-            newVal = limits.max - 1;
+            newVal = limits.min;
         }
 
         if (newVal >= limits.min && newVal <= limits.max) {
