@@ -20,31 +20,11 @@ namespace BForms.Models
         /// <summary>
         /// Begin value
         /// </summary>
-        public T From { get; set; }
-
-        /// <summary>
-        /// Display text for begin value
-        /// </summary>
-        public string TextFrom { get; set; }
-
-        /// <summary>
-        /// Lower limit
-        /// </summary>
-        public T MinFrom { get; set; }
+        public BsRangeItem<T> From { get; set; }
 
         /// <summary>
         /// End value
         /// </summary>
-        public T To { get; set; }
-
-        /// <summary>
-        /// Display text for end value
-        /// </summary>
-        public string TextTo { get; set; }
-
-        /// <summary>
-        /// Top limit
-        /// </summary>
-        public T MaxTo { get; set; }
+        public BsRangeItem<T> To { get; set; }
     }
 }

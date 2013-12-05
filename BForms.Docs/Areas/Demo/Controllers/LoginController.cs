@@ -60,9 +60,9 @@ namespace BForms.Docs.Areas.Demo.Controllers
             //add validation error to BsRange field
             if (model.RegisterModel != null && 
                 model.RegisterModel.Interval != null &&
-                model.RegisterModel.Interval.To.HasValue && 
-                model.RegisterModel.Interval.From.HasValue &&
-                model.RegisterModel.Interval.From.Value > model.RegisterModel.Interval.To.Value)
+                model.RegisterModel.Interval.To.ItemValue.HasValue && 
+                model.RegisterModel.Interval.From.ItemValue.HasValue &&
+                model.RegisterModel.Interval.From.ItemValue.Value > model.RegisterModel.Interval.To.ItemValue.Value)
             {
                 ModelState.AddFieldError("RegisterModel.Interval",
                     model.RegisterModel.Interval.GetType(), 
@@ -125,8 +125,14 @@ namespace BForms.Docs.Areas.Demo.Controllers
                 Birthday = new BsDateTime(),
                 Interval = new BsRange<DateTime?>
                 {
-                    From = DateTime.Now,
-                    To = DateTime.Now.AddDays(12)
+                    From = new BsRangeItem<DateTime?>
+                    {
+                        ItemValue = DateTime.Now
+                    },
+                    To = new BsRangeItem<DateTime?>
+                    {
+                        ItemValue = DateTime.Now.AddDays(12)
+                    }
                 }
             };
         }

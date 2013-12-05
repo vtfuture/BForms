@@ -177,14 +177,14 @@ namespace BForms.Docs.Areas.Demo.Repositories
                         var fromDate = Settings.Search.StartDateRange.From;
                         var toDate = Settings.Search.StartDateRange.To;
 
-                        if (fromDate.HasValue)
+                        if (fromDate.ItemValue.HasValue)
                         {
-                            query = query.Where(x => x.StartDate >= fromDate.Value);
+                            query = query.Where(x => x.StartDate >= fromDate.ItemValue.Value);
                         }
 
-                        if (toDate.HasValue)
+                        if (toDate.ItemValue.HasValue)
                         {
-                            query = query.Where(x => x.StartDate <= toDate.Value);
+                            query = query.Where(x => x.StartDate <= toDate.ItemValue.Value);
                         }
                     }
                     #endregion
@@ -424,17 +424,29 @@ namespace BForms.Docs.Areas.Demo.Repositories
                 LanguagesList = Lists.AllLanguages<List<string>>(),
                 StartDateRange = new BsRange<DateTime?>()
                 {
-                    From = new DateTime(2013, 8, 1),
-                    To = DateTime.Now
+                    From = new BsRangeItem<DateTime?>
+                    {
+                        ItemValue = new DateTime(2013, 8, 1),
+                    },
+                    To = new BsRangeItem<DateTime?>
+                    {
+                        ItemValue = DateTime.Now
+                    }
                 },
                 AgeRange = new BsRange<int?>
                 {
-                    From = 18,
-                    TextFrom = "Start",
-                    MinFrom = 14,
-                    TextTo = "End",
-                    To = 22,
-                    MaxTo = 100
+                    From = new BsRangeItem<int?>
+                    {
+                        ItemValue = 18,
+                        MinValue = 10,
+                        Display = "Start"
+                    },
+                    To = new BsRangeItem<int?>
+                    {
+                        ItemValue = 21,
+                        MaxValue = 100,
+                        Display = "End"
+                    }
                 }
             };
         }

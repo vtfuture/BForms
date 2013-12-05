@@ -113,6 +113,7 @@
     <Compile Include="Models\BsEditor.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Models\BsRangeItem.cs" />
     <Compile Include="Mvc\BsBaseConfigurator.cs" />
     <Compile Include="Mvc\BsPanelAttribute.cs" />
     <Compile Include="Panels\BsPanelExtensions.cs" />

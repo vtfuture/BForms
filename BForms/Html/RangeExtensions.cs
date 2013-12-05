@@ -158,7 +158,7 @@ namespace BForms.Html
             var fromName = fullName + ".From";
             htmlAttributes.MergeAttribute("class", "bs-range-from", true);
 
-            var valFormated = range != null ? FormatValue(range.From) : string.Empty;
+            var valFormated = range != null ? FormatValue(range.From.ItemValue) : string.Empty;
 
             var hiddenTag = new TagBuilder("input");
             hiddenTag.GenerateId(fromName);
@@ -167,20 +167,20 @@ namespace BForms.Html
             hiddenTag.MergeAttribute("type", "hidden");
             hiddenTag.MergeAttributes(htmlAttributes);
 
-            if (range != null)
+            if (range != null && range.From != null)
             {
-                if (!string.IsNullOrEmpty(range.TextFrom))
+                if (!string.IsNullOrEmpty(range.From.Display))
                 {
-                    hiddenTag.MergeAttribute("data-display", range.TextFrom);
+                    hiddenTag.MergeAttribute("data-display", range.From.Display);
                 }
 
-                hiddenTag.MergeAttribute("data-minvalue",FormatValue(range.MinFrom));
+                hiddenTag.MergeAttribute("data-minvalue",FormatValue(range.From.MinValue));
             }
 
             inputHtml.Append(hiddenTag.ToString(TagRenderMode.Normal));
 
             //To
-            valFormated = range != null ? FormatValue(range.To) : string.Empty;
+            valFormated = range != null ? FormatValue(range.To.ItemValue) : string.Empty;
             var toName = fullName + ".To";
             htmlAttributes.MergeAttribute("class", "bs-range-to", true);
             hiddenTag = new TagBuilder("input");
@@ -190,14 +190,14 @@ namespace BForms.Html
             hiddenTag.MergeAttribute("type", "hidden");
             hiddenTag.MergeAttributes(htmlAttributes);
 
-            if (range != null)
+            if (range != null && range.To != null)
             {
-                if (!string.IsNullOrEmpty(range.TextTo))
+                if (!string.IsNullOrEmpty(range.To.Display))
                 {
-                    hiddenTag.MergeAttribute("data-display", range.TextTo);
+                    hiddenTag.MergeAttribute("data-display", range.To.Display);
                 }
 
-                hiddenTag.MergeAttribute("data-maxvalue", FormatValue(range.MaxTo));
+                hiddenTag.MergeAttribute("data-maxvalue", FormatValue(range.To.MaxValue));
             }
 
             inputHtml.Append(hiddenTag.ToString(TagRenderMode.Normal));
