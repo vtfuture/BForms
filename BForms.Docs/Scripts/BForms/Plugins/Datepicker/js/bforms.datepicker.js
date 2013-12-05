@@ -124,6 +124,8 @@
         }
 
         this.value = this.currentValue.clone();
+
+        return this.value;
     };
 
     bDatepicker.prototype._initRenderModel = function () {
@@ -1657,6 +1659,10 @@
 
     bDatepicker.prototype.getFormat = function () {
         return this._displayFormat;
+    };
+
+    bDatepicker.prototype.getInitialValue = function() {
+        return this._getInitialValue();
     };
 
     bDatepicker.prototype.format = function (date) {

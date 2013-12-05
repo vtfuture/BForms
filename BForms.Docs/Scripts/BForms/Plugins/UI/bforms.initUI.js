@@ -483,7 +483,9 @@
                                 $elem.prop('type', 'text');
                             }
                             var $startInput = self.$elem.find('.bs-range-from[data-for="' + rangeName + '"]'),
-                                $endInput = self.$elem.find('.bs-range-to[data-for="' + rangeName + '"]');
+                                $endInput = self.$elem.find('.bs-range-to[data-for="' + rangeName + '"]'),
+                                minDate = $startInput.data('minvalue'),
+                                maxDate = $endInput.data('maxvalue');
 
                             $elem.bsDateRange($.extend(true, {}, self._getOptions(this), {
                                 startOptions: {
@@ -491,12 +493,14 @@
                                     initialValue: $startInput.val(),
                                     defaultDate: (typeof $endInput.val() !== "undefined" && $endInput.val() != '') ? "-1d" : "now",
                                     defaultDateValue: (typeof $endInput.val() !== "undefined" && $endInput.val() != '') ? $endInput.val() : false,
-                                    language: uiLocale
+                                    language: uiLocale,
+                                    minDate : minDate || null
                                 },
                                 endOptions: {
                                     type: 'datetimepicker',
                                     initialValue: $endInput.val(),
                                     language: uiLocale,
+                                    maxDate : maxDate || null
                                 },
 
                                 startAltFields: [{ selector: $startInput }],
@@ -517,7 +521,9 @@
                             $elem.attr('type', 'text');
 
                             var $startInput = self.$elem.find('.bs-range-from[data-for="' + rangeName + '"]'),
-                                $endInput = self.$elem.find('.bs-range-to[data-for="' + rangeName + '"]');
+                                $endInput = self.$elem.find('.bs-range-to[data-for="' + rangeName + '"]'),
+                                minDate = $startInput.data('minvalue'),
+                                maxDate = $endInput.data('maxvalue');
 
                             $elem.bsDateRange($.extend(true, {}, self._getOptions(this), {
                                 startOptions: {
@@ -525,12 +531,14 @@
                                     initialValue: $startInput.val(),
                                     defaultDate: (typeof $endInput.val() !== "undefined" && $endInput.val() != '') ? "-1d" : "none",
                                     defaultDateValue: (typeof $endInput.val() !== "undefined" && $endInput.val() != '') ? $endInput.val() : false,
-                                    language: uiLocale
+                                    language: uiLocale,
+                                    minDate : minDate || null
                                 },
                                 endOptions: {
                                     type: 'datetimepicker',
                                     initialValue: $endInput.val(),
-                                    language: uiLocale
+                                    language: uiLocale,
+                                    maxDate : maxDate || null
                                 },
 
                                 startAltFields: [{ selector: $startInput }],
@@ -559,20 +567,24 @@
                             var rangeName = $elem.prop('name');
 
                             var $startInput = self.$elem.find('.bs-range-from[data-for="' + rangeName + '"]'),
-                               $endInput = self.$elem.find('.bs-range-to[data-for="' + rangeName + '"]');
-
+                                $endInput = self.$elem.find('.bs-range-to[data-for="' + rangeName + '"]'),
+                                minDate = $startInput.data('minvalue'),
+                                maxDate = $endInput.data('maxvalue');
+                            
                             $elem.bsDateRange($.extend(true, {}, self._getOptions(this), {
                                 startOptions: {
                                     type: 'datepicker',
                                     initialValue: $startInput.val(),
                                     defaultDate: (typeof $endInput.val() !== "undefined" && $endInput.val() != '') ? "-1d" : "now",
                                     defaultDateValue: (typeof $endInput.val() !== "undefined" && $endInput.val() != '') ? $endInput.val() : false,
-                                    language: uiLocale
+                                    language: uiLocale,
+                                    minDate: minDate || null
                                 },
                                 endOptions: {
                                     type: 'datepicker',
                                     initialValue: $endInput.val(),
-                                    language: uiLocale
+                                    language: uiLocale,
+                                    maxDate : maxDate || null
                                 },
                                 startAltFields: [{ selector: $startInput }],
                                 endAltFields: [{ selector: $endInput }],
@@ -591,7 +603,9 @@
                             var rangeName = $elem.prop('name');
 
                             var $startInput = self.$elem.find('.bs-range-from[data-for="' + rangeName + '"]'),
-                               $endInput = self.$elem.find('.bs-range-to[data-for="' + rangeName + '"]');
+                               $endInput = self.$elem.find('.bs-range-to[data-for="' + rangeName + '"]'),
+                               minDate = $startInput.data('minvalue'),
+                               maxDate = $endInput.data('maxvalue');
 
                             $elem.bsDateRange($.extend(true, {}, self._getOptions(this), {
                                 startOptions: {
@@ -599,12 +613,14 @@
                                     initialValue: $startInput.val(),
                                     defaultDate: (typeof $endInput.val() !== "undefined" && $endInput.val() != '') ? "-1d" : "now",
                                     defaultDateValue: (typeof $endInput.val() !== "undefined" && $endInput.val() != '') ? $endInput.val() : false,
-                                    language: uiLocale
+                                    language: uiLocale,
+                                    minDate : minDate || null
                                 },
                                 endOptions: {
                                     type: 'datepicker',
                                     initialValue: $endInput.val(),
-                                    language: uiLocale
+                                    language: uiLocale,
+                                    maxDate : maxDate || null
                                 },
                                 startAltFields: [{ selector: $startInput }],
                                 endAltFields: [{ selector: $endInput }],
@@ -631,7 +647,9 @@
                             var rangeName = $elem.prop('name');
 
                             var $startInput = self.$elem.find('.bs-range-from[data-for="' + rangeName + '"]'),
-                                $endInput = self.$elem.find('.bs-range-to[data-for="' + rangeName + '"]');
+                                $endInput = self.$elem.find('.bs-range-to[data-for="' + rangeName + '"]'),
+                                minDate = $startInput.data('minvalue'),
+                                maxDate = $endInput.data('maxvalue');
 
                             $elem.bsDateRange($.extend(true, {}, self._getOptions(this), {
                                 startOptions: {
@@ -639,12 +657,14 @@
                                     initialValue: $startInput.val(),
                                     defaultDate: (typeof $endInput.val() !== "undefined" && $endInput.val() != '') ? "-1h" : "now",
                                     defaultDateValue: (typeof $endInput.val() !== "undefined" && $endInput.val() != '') ? $endInput.val() : false,
-                                    language: uiLocale
+                                    language: uiLocale,
+                                    minDate : minDate || null
                                 },
                                 endOptions: {
                                     type: 'timepicker',
                                     language: uiLocale,
-                                    initialValue: $endInput.val()
+                                    initialValue: $endInput.val(),
+                                    maxDate : maxDate || null
                                 },
 
                                 startAltFields: [{ selector: $startInput }],
@@ -665,7 +685,9 @@
                             var rangeName = $elem.prop('name');
 
                             var $startInput = self.$elem.find('.bs-range-from[data-for="' + rangeName + '"]'),
-                                $endInput = self.$elem.find('.bs-range-to[data-for="' + rangeName + '"]');
+                                $endInput = self.$elem.find('.bs-range-to[data-for="' + rangeName + '"]'),
+                                minDate = $startInput.data('minvalue'),
+                                maxDate = $endInput.data('maxvalue');
 
                             $elem.bsDateRange($.extend(true, {}, self._getOptions(this), {
                                 startOptions: {
@@ -673,12 +695,14 @@
                                     initialValue: $startInput.val(),
                                     defaultDate: (typeof $endInput.val() !== "undefined" && $endInput.val() != '') ? "-1h" : "now",
                                     defaultDateValue: (typeof $endInput.val() !== "undefined" && $endInput.val() != '') ? $endInput.val() : false,
-                                    language: uiLocale
+                                    language: uiLocale,
+                                    minDate : minDate || null
                                 },
                                 endOptions: {
                                     type: 'timepicker',
                                     language: uiLocale,
-                                    initialValue: $endInput.val()
+                                    initialValue: $endInput.val(),
+                                    maxDate : maxDate || null
                                 },
 
                                 startAltFields: [{ selector: $startInput }],

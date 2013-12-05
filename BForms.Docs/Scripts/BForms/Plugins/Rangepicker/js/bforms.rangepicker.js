@@ -642,15 +642,13 @@
                                 '{{>rangePickerRanges}}' +
                          '</div>' +
                      '</div>',
-        rangesTemplate: '<div>' +
-                            '{{#renderTitle}}' +
+        rangesTemplate:'{{#renderTitle}}' +
                             '<ul>' +
-                              '{{#ranges}}' +
-                                  '<li><span> {{title}} </span></li>' +
-                               '{{/ranges}}' +
+                                '{{#ranges}}' +
+                                    '<li><div> {{title}} </span></li>' +
+                                '{{/ranges}}' +
                             '</ul>' +
-                            '{{/renderTitle}}' +
-                        '</div>' +
+                        '{{/renderTitle}} ' +
                         '<ul>' +
                              '{{#ranges}}' +
                                 '<li><span class="btn btn-up bs-rangeUp" data-index="{{index}}" {{#start}}data-start="true"{{/start}} {{#end}}data-end="true"{{/end}} {{#single}}data-single="true"{{/single}}></span></li>' +

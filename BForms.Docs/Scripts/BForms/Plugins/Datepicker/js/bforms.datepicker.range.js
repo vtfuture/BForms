@@ -256,11 +256,11 @@
             var startDate = moment(startVal, this.$start.bsDatepicker('getFormat'), this.$start.bsDatepicker('option', 'language')),
                 endDate = moment(endVal, this.$end.bsDatepicker('getFormat'), this.$end.bsDatepicker('option', 'language'));
 
-            if (startDate.isValid() && this.$start.bsDatepicker('isValidDate', startDate)) {
+            if (startDate != null && startDate.isValid() && this.$start.bsDatepicker('isValidDate', startDate)) {
                 this.$start.bsDatepicker('setValue', startDate);
             }
 
-            if (endDate.isValid() && this.$end.bsDatepicker('isValidDate', endDate)) {
+            if (endDate != null && endDate.isValid() && this.$end.bsDatepicker('isValidDate', endDate)) {
                 this.$end.bsDatepicker('setValue', endDate);
             }
 
@@ -279,7 +279,12 @@
 
     bRangePicker.prototype.onStartChange = function (data) {
 
-        this.$end.bsDatepicker('option', 'minDate', data.date);
+        if (data.date == null && typeof this.options.startOptions.minDate !== "undefined" && this.options.startOptions.minDate != '') {
+            this.$end.bsDatepicker('option', 'minDate', this.options.startOptions.minDate);
+        } else {
+            this.$end.bsDatepicker('option', 'minDate', data.date);
+        }
+
         this._setStartLabel(data.formattedDate);
         this.$startLabel.data('value', data.date);
 
@@ -289,15 +294,21 @@
             this._valueSettedForFirst = false;
         }
 
-        var endValue = this.$end.bsDatepicker('getUnformattedValue');
+        var endValue = this.$end.data('bDatepicker').currentValue;
 
-        if (endValue != null && !this.$end.bsDatepicker('isValidDate', endValue)) {
+        if ((data.date != null) && endValue == null || !this.$end.bsDatepicker('isValidDate', endValue)) {
             this.$end.bsDatepicker('setValue', data.date.clone().add('days', 1));
         }
     };
 
     bRangePicker.prototype.onEndChange = function (data) {
-        this.$start.bsDatepicker('option', 'maxDate', data.date);
+
+        if (data.date == null && typeof this.options.endOptions.maxDate !== "undefined" && this.options.endOptions.maxDate != '') {
+            this.$start.bsDatepicker('option', 'maxDate', this.options.endOptions.maxDate);
+        } else {
+            this.$start.bsDatepicker('option', 'maxDate', data.date);
+        }
+
         this._setEndLabel(data.formattedDate);
         this.$endLabel.data('value', data.date);
 
@@ -307,9 +318,9 @@
             this._valueSettedForSecond = false;
         }
 
-        var startValue = this.$start.bsDatepicker('getUnformattedValue');
+        var startValue = this.$start.data('bDatepicker').currentValue;
 
-        if (startValue != null && !this.$start.bsDatepicker('isValidDate', startValue)) {
+        if ((data.date != null) && startValue != null && !this.$start.bsDatepicker('isValidDate', startValue)) {
             this.$start.bsDatepicker('setValue', data.date.clone().subtract('days', 1));
         }
     };
@@ -662,6 +673,9 @@
 
     bRangePicker.prototype.resetValue = function () {
 
+        this._startValue = this.$start.bsDatepicker('getInitialValue');
+        this._endValue = this.$end.bsDatepicker('getInitialValue');
+
         this.$startLabel.data('value', this._startValue);
         this.$startLabel.val(this.$start.bsDatepicker('format', this._startValue));
         this.$start.bsDatepicker('setValue', this._startValue);
@@ -684,7 +698,11 @@
             this.$end.bsDatepicker('resetValue');
         }
 
-        this._updateAltFields('', '');
+        if (this.options.startOptions.initialValue && this.options.endOptions.initialValue) {
+            this.applyRange();
+        } else {
+            this._updateAltFields('', '');
+        }
     };
 
     bRangePicker.prototype.destroy = function () {
@@ -730,9 +748,9 @@
         allowInvalidMinMax: true,
         checkForMobileDevice: true,
         allowSame: true,
-        //allowDeselect: true,
-        allowDeselectStart: true,
-        allowDeselectEnd: true,
+        allowDeselect: true,
+        //allowDeselectStart: true,
+        //allowDeselectEnd: true,
         placeholderValue: 'not specified'
     };
 
