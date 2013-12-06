@@ -86,11 +86,13 @@
         // init controls passed as options
         if (this.options.controls instanceof Array) {
             for (var i = 0; i < this.options.controls.length; i++) {
-                var control = new this.options.controls[i](this.element);
-                var $btn = this.element.find(control._defaultOptions.selector);
-                if ($btn.length > 0) {
-                    control.$element = $btn;
-                    this._controls.push(control);
+                if (typeof (this.options.controls[i]) != 'undefined') {
+                    var control = new this.options.controls[i](this.element);
+                    var $btn = this.element.find(control._defaultOptions.selector);
+                    if ($btn.length > 0) {
+                        control.$element = $btn;
+                        this._controls.push(control);
+                    }
                 }
             }
         }
