@@ -12,6 +12,12 @@
     jQuery.nsx('bforms.toolbar.defaults');
     jQuery.nsx('bforms.toolbar.controls');
 
+    // attach default controls to namespace
+    $.bforms.toolbar.defaults.AdvancedSearch = AdvancedSearch;
+    $.bforms.toolbar.defaults.Add = Add;
+    $.bforms.toolbar.defaults.QuickSearch = QuickSearch;
+    $.bforms.toolbar.defaults.Order = Order;
+
     //#region Toolbar
     var Toolbar = function (opt) {
         this.options = opt;
@@ -33,16 +39,6 @@
 
         // common options for all toolbar controls
         controlsOptions: null
-    };
-
-    Toolbar.prototype._create = function () {
-
-        // attach default controls to namespace
-        $.bforms.toolbar.defaults.AdvancedSearch = AdvancedSearch;
-        $.bforms.toolbar.defaults.Add = Add;
-        $.bforms.toolbar.defaults.QuickSearch = QuickSearch;
-        $.bforms.toolbar.defaults.Order = Order;
-
     };
 
     Toolbar.prototype._init = function () {
