@@ -16,7 +16,7 @@
                     '{{#buttons}}' + 
                         '<button type="button" class="btn bs-popoverBtn {{cssClass}}"> {{text}} </button> ' +
                     '{{/buttons}}',
-        contentTemplate: '{{content}}' +
+        contentTemplate: '{{{content}}}' +
                           '<hr />' +
                          '{{#buttons}}' +
                              '<button type="button" class="btn bs-popoverBtn {{cssClass}}"> {{text}} </button> ' +
