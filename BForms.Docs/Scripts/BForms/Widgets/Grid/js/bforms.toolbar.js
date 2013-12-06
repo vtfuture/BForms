@@ -120,7 +120,7 @@
 
         var preventPagination = true,
             quickSearch = this.getControl('quickSearch');
-        
+
         if (typeof options !== "undefined") {
             preventPagination = options.preventPagination;
         }
@@ -133,7 +133,7 @@
         // reset advanced search if any
         var advancedSearch = this.getControl('advancedSearch'),
             data;
-        
+
         if (advancedSearch != null) {
             advancedSearch.$container.bsForm('reset');
             data = advancedSearch.$container.bsForm('parse');
@@ -178,41 +178,40 @@
 
             var control = controls[i];
 
-            switch (control.type) {
-                case "action": {
-                    this._addAction(control);
-                    break;
-                }
-                case "tab": {
+            if (control.$element) {
 
-                    this._addTab(control);
+                switch (control.type) {
+                    case "action": {
+                        this._addAction(control);
+                        break;
+                    }
+                    case "tab": {
 
-                    control.init();
+                        this._addTab(control);
 
-                    break;
-                }
-                default: {
+                        control.init();
 
-                    this._addCustomControl(control);
+                        break;
+                    }
+                    default: {
 
-                    control.init();
+                        this._addCustomControl(control);
 
-                    break;
+                        control.init();
+
+                        break;
+                    }
                 }
             }
-
         }
 
     };
 
     Toolbar.prototype._addTab = function (tab) {
 
-        if (tab.$element) {
+        tab.$container = $('#' + tab.$element.data('tabid'));
 
-            tab.$container = $('#' + tab.$element.data('tabid'));
-
-            tab.$element.on('click', { tab: tab }, $.proxy(this._evBtnTabClick, this));
-        }
+        tab.$element.on('click', { tab: tab }, $.proxy(this._evBtnTabClick, this));
         //control.options.init.call(this, tab.$container, control.options);
     };
 
