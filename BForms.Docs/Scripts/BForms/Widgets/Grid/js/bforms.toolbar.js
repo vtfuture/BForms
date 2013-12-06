@@ -207,12 +207,13 @@
 
     Toolbar.prototype._addTab = function (tab) {
 
-        tab.$container = $('#' + tab.$element.data('tabid'));
+        if (tab.$element) {
 
-        tab.$element.on('click', { tab: tab }, $.proxy(this._evBtnTabClick, this));
+            tab.$container = $('#' + tab.$element.data('tabid'));
 
+            tab.$element.on('click', { tab: tab }, $.proxy(this._evBtnTabClick, this));
+        }
         //control.options.init.call(this, tab.$container, control.options);
-
     };
 
     Toolbar.prototype._expandSavedTab = function () {
