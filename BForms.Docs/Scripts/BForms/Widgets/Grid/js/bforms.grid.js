@@ -445,6 +445,8 @@
 
         this._addAdditionalData(sendData);
 
+        this._trigger('beforeGetRowsAjax', 0, sendData);
+
         var ajaxOptions = {
             name: this.options.uniqueName + '|details|' + $row.data('objId'),
             url: this.options.detailsUrl,
@@ -1273,11 +1275,11 @@
         return data;
     };
 
-    Grid.prototype._addAdditionalData = function (data) {
+    Grid.prototype._addAdditionalData = function(data) {
         if (typeof this.options.additionalData !== "undefined") {
             $.extend(true, data, this.options.additionalData);
         }
-    }
+    };
     //#endregion
 
     //#region row update
