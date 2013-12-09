@@ -135,7 +135,7 @@
 
     bDatepickerRenderer.prototype.mainTemplates = {
         
-        rangeTemplate: '<div class="bs-range-picker {{theme}}">' +
+        rangeTemplate: '<div class="bs-range-picker {{theme}} {{#hideRanges}}bs-hide_range{{/hideRanges}}">' +
                             '<div class="ranges">' +
                                 '<div class="form-group">' +
                                     '<label>{{fromText}}</label><div class="input-group">' +

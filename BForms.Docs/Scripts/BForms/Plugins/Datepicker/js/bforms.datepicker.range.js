@@ -75,7 +75,8 @@
             toText : this.options.toText,
             allowDeselectStart: this.options.allowDeselectStart,
             allowDeselectEnd: this.options.allowDeselectEnd,
-            theme : this.options.theme
+            theme: this.options.theme,
+            hideRanges : this.options.hideRanges
         });
 
         this.$start = this.$container.find('.bs-start-replace');
@@ -830,8 +831,7 @@
         allowDeselect: true,
         //allowDeselectStart: true,
         //allowDeselectEnd: true,
-        placeholderValue: 'not specified',
-        theme : 'blue'
+        placeholderValue: 'not specified'
     };
 
     $.fn.bsDateRangeLang = {

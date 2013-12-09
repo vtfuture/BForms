@@ -302,6 +302,12 @@ $Black: #424141;
 			}
 		}		
 	}
+	&.bs-hide_range{
+		width:auto;
+		.ranges{
+			display:none;
+		}
+	}
 }
 
 .open-below {
@@ -558,6 +564,9 @@ $Black: #424141;
 			left: 10px;
 			right: 10px;
 			width: auto;
+		}
+		&.bs-hide_range{
+			padding-bottom : 0;
 		}
 	}
 	.bs-datetime-picker  {

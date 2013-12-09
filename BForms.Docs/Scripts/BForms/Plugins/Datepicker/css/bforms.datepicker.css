@@ -218,6 +218,10 @@
         top: 8px;
         cursor: pointer;
         background: url(../images/icn-remove.png) 50% 50% no-repeat; }
+  .bs-range-picker.bs-hide_range {
+    width: auto; }
+    .bs-range-picker.bs-hide_range .ranges {
+      display: none; }
 
 .open-below:before {
   content: '';
@@ -387,6 +391,8 @@
       left: 10px;
       right: 10px;
       width: auto; }
+    .bs-range-picker.bs-hide_range {
+      padding-bottom: 0; }
 
   .bs-datetime-picker {
     margin: 5px 0 !important;
