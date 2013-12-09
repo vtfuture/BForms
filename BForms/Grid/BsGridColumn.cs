@@ -84,6 +84,7 @@ namespace BForms.Grid
         }
 
         internal Func<TRow, object> CellText { get; set; }
+        internal Func<TRow, object> CellTitle { get; set; }
 
         public BsGridColumn()
         {
@@ -167,6 +168,12 @@ namespace BForms.Grid
         public BsGridColumn<TRow> Text(Func<TRow, object> cellText)
         {
             this.CellText = cellText;
+            return this;
+        }
+
+        public BsGridColumn<TRow> Title(Func<TRow, object> cellTitle)
+        {
+            this.CellTitle = cellTitle;
             return this;
         }
 

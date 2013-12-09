@@ -209,10 +209,16 @@
                         if (opts.popover) {
 
                             var $me = grid.$actionsContainer.find(opts.btnSelector);
+                            
+                            var question = "Are you sure?";
 
+                            if (typeof opts.question !== "undefined") {
+                                question = opts.question;
+                            }
+                            
                             $me.bsInlineQuestion({
                                 placement: 'bottom',
-                                question: 'Are you sure?',
+                                question: question,
                                 buttons: [{
                                     text: 'Yes',
                                     cssClass: 'btn-primary bs-confirm',
