@@ -41,7 +41,8 @@ namespace BForms.Docs.Areas.Demo.Mock
                             StartDate = new DateTime(2013, 9, 1),
                             Languages = new List<string>() { "C#", "Javascript", "SQL" },
                             Contributions = "grid component, razor helpers, bug fixing",
-                            Order = 2
+                            Order = 2,
+                            Age = 26
                         },
                         
                         new Contributor()
@@ -64,6 +65,7 @@ namespace BForms.Docs.Areas.Demo.Mock
                             FirstName = "Marius",
                             LastName = "C.",
                             Country = "Romania",
+                            Age = 21,
                             Role = ProjectRole.Developer,
                             StartDate = new DateTime(2013, 8, 10),
                             Languages = new List<string>() { "Javascript", "C#" },
@@ -264,6 +266,7 @@ namespace BForms.Docs.Areas.Demo.Mock
         public string Contributions { get; set; }
         public int Order { get; set; }
         public int? Id_Coordinator { get; set; }
+        public int? Age { get; set; }
     }
     #endregion
 }

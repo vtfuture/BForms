@@ -45,6 +45,8 @@ namespace BForms.Docs.Areas.Demo.Models
         public string Url { get; set; }
 
         public string Country { get; set; }
+
+        public int? Age { get; set; }
     }
 
     public class ContributorProjectRelatedModel
@@ -89,6 +91,10 @@ namespace BForms.Docs.Areas.Demo.Models
         [Display(Name = "Location", Prompt = "Choose your country")]
         [BsControl(BsControlType.DropDownList)]
         public BsSelectList<string> CountriesList { get; set; }
+
+        [Display(Name="Age")]
+        [BsControl(BsControlType.Number)]
+        public BsRangeItem<int?> Age { get; set; } 
     }
 
     public class ContributorProjectEditableRelatedModel

@@ -146,6 +146,7 @@ namespace BForms.Html
                         if (genericArguments.Any() && (genericArguments[0] == typeof(int) || genericArguments[0] == typeof(int?)))
                         {
                             htmlAttributes.MergeAttribute("class", "bs-number-single_range");
+                            htmlAttributes.MergeAttribute("type","text");
 
                             if (genericArguments[0] == typeof(int))
                             {

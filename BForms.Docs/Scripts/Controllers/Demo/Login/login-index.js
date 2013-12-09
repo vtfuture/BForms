@@ -6,7 +6,8 @@
          'bforms-initUI',
          'bforms-resetInput',
          'bforms-extensions',
-         'main-script'
+         'main-script',
+         'moment'
 ], function () {
 
     var LoginIndex = function (options) {
@@ -19,7 +20,7 @@
 
         this.$loginForm.bsInitUI(this.options.styleInputs);
         this.$registerForm.bsInitUI(this.options.styleInputs);
-        
+
         this.addHandlers();
     };
 
@@ -31,16 +32,16 @@
         e.stopPropagation();
         e.preventDefault();
         var $target = $(e.currentTarget);
-        
+
         $.validator.unobtrusive.parse(this.$registerForm);
         var validatedForm = this.$registerForm.validate();
 
         if (this.$registerForm.valid()) {
 
             var registerData = this.$registerForm.parseForm();
-            
+
             $target.prop('disabled', "disabled");
-            
+
             $.ajax({
                 url: this.options.registerUrl,
                 data: JSON.stringify(registerData),
@@ -49,14 +50,14 @@
                 contentType: 'application/json; charset=utf-8'
             }).then($.proxy(function (response, status, jqXHR) {
                 if (response.Status == 2) {//validation error
-                    validatedForm.showErrors(response.Data.Errors,true);
+                    validatedForm.showErrors(response.Data.Errors, true);
                 } else {
 
                 }
-                
+
                 $target.removeProp('disabled');
 
-            }, this),function () {
+            }, this), function () {
                 $target.removeProp('disabled');
             });
         }

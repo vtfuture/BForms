@@ -135,16 +135,16 @@
 
     bDatepickerRenderer.prototype.mainTemplates = {
         
-        rangeTemplate: '<div class="bs-range-picker">' +
+        rangeTemplate: '<div class="bs-range-picker {{theme}}">' +
                             '<div class="ranges">' +
                                 '<div class="form-group">' +
-                                    '<label>From</label><div class="input-group">' +
+                                    '<label>{{fromText}}</label><div class="input-group">' +
                                     '<input type="text" class="bs-rangeStartLabel" value="" disabled="disabled">' +
                                     '{{#allowDeselectStart}}<a href="#" class="btn bs-resetDateRange"></a>{{/allowDeselectStart}}' +
                                 '</div>' +
                             '</div>' +
                             '<div class="form-group">' +
-                                '<label>To</label>' +
+                                '<label>{{toText}}</label>' +
                                 '<div class="input-group">' +
                                 '<input type="text" class="bs-rangeEndLabel" value="" disabled="disabled">' +
                                 '{{#allowDeselectEnd}}<a href="#" class="btn bs-resetDateRange"></a>{{/allowDeselectEnd}}' +
@@ -159,7 +159,7 @@
             
                         '</div>',
 
-        mainTemplate: '<div class="bs-datetime-picker {{WrapperClass}}">' +
+        mainTemplate: '<div class="bs-datetime-picker {{WrapperClass}} {{Theme}}">' +
 
                            '{{#ShowClose}}<a href="#" class="btn btn-close bs-closeBtn"></a>{{/ShowClose}}' +
                            '{{#WithDate}} {{>datepickerTemplate}} {{/WithDate}}' +

@@ -93,7 +93,7 @@
     //#region $.fn.bsResetForm
     $.fn.bsResetForm = function (focus, ignore, triggerChange) {
 
-        $(this).find('input:not(.hasDatepicker, .hasRangepicker, ' + ignore + '), textarea:not(' + ignore + ')').each(function () {
+        $(this).find('input:not(.hasDatepicker, .hasRangepicker,.hasNumberRangepicker, ' + ignore + '), textarea:not(' + ignore + ')').each(function () {
             switch (this.type) {
                 case 'password':
                 case 'select-multiple':
@@ -175,6 +175,12 @@
         //#region rangePicker
         $(this).find('.hasRangepicker').each(function () {
             $(this).bsDateRange('resetValue');
+        });
+        //#endregion
+        
+        //#region number rangePicker
+        $(this).find('.hasNumberRangepicker').each(function() {
+            $(this).bsRangePicker('resetValue');
         });
         //#endregion
         

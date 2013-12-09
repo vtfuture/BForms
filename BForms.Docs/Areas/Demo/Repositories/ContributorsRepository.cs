@@ -55,7 +55,8 @@ namespace BForms.Docs.Areas.Demo.Repositories
                     FirstName = x.FirstName,
                     LastName = x.LastName,
                     Url = x.Url,
-                    Country = x.Country
+                    Country = x.Country,
+                    Age = x.Age
                 },
                 ProjectRelated = new ContributorProjectRelatedModel
                 {
@@ -224,6 +225,17 @@ namespace BForms.Docs.Areas.Demo.Repositories
                         }
                     }
                     #endregion
+
+                    #region age
+
+                    if (!String.IsNullOrEmpty(Settings.Search.AgeRange.TextValue))
+                        query =
+                            query.Where(
+                                x =>
+                                    x.Age.HasValue && x.Age >= Settings.Search.AgeRange.From.ItemValue &&
+                                    x.Age <= Settings.Search.AgeRange.To.ItemValue);
+
+                    #endregion
                 }
             }
 
@@ -280,7 +292,8 @@ namespace BForms.Docs.Areas.Demo.Repositories
                 Role = model.RoleList.SelectedValues.Value,
                 Languages = model.LanguagesList.SelectedValues,
                 StartDate = model.StartDate.DateValue.Value,
-                Url = model.Url
+                Url = model.Url,
+                Age = model.Age.ItemValue
             };
             db.Contributors.Add(entity);
             db.SaveChanges();
@@ -311,6 +324,7 @@ namespace BForms.Docs.Areas.Demo.Repositories
                         entity.LastName = model.Identity.LastName;
                         entity.Url = model.Identity.Url;
                         entity.Country = model.Identity.CountriesList.SelectedValues;
+                        entity.Age = model.Identity.Age.ItemValue;
                         break;
                     case EditComponents.ProjectRelated:
                         entity.Role = model.ProjectRelated.RoleList.SelectedValues.Value;
@@ -340,7 +354,14 @@ namespace BForms.Docs.Areas.Demo.Repositories
                     FirstName = model.FirstName,
                     LastName = model.LastName,
                     Url = model.Url,
-                    CountriesList = Lists.AllCounties<string>(false)
+                    CountriesList = Lists.AllCounties<string>(false),
+                    Age = new BsRangeItem<int?>
+                    {
+                        ItemValue = model.Age,
+                        MinValue = 14,
+                        MaxValue = 100,
+                        TextValue = model.Age.HasValue ? model.Age.Value.ToString() : string.Empty
+                    }
                 };
             }
             else if (componentId == EditComponents.ProjectRelated)
@@ -427,10 +448,12 @@ namespace BForms.Docs.Areas.Demo.Repositories
                     From = new BsRangeItem<DateTime?>
                     {
                         ItemValue = new DateTime(2013, 8, 1),
+                        MinValue = new DateTime(2013,7,30)
                     },
                     To = new BsRangeItem<DateTime?>
                     {
-                        ItemValue = DateTime.Now
+                        ItemValue = DateTime.Now,
+                        MaxValue = DateTime.Now.AddDays(1)
                     }
                 },
                 AgeRange = new BsRange<int?>

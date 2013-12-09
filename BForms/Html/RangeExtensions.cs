@@ -270,7 +270,7 @@ namespace BForms.Html
             htmlAttributes.MergeAttribute("data-for", fullName + ".TextValue");
 
             //From
-            var fromName = fullName + ".DateValue";
+            var fromName = fullName + ".ItemValue";
             htmlAttributes.MergeAttribute("class", "bs-number-value", true);
 
             var valFormated = (bsNumber != null && bsNumber.ItemValue != null) ? RangeExtensions.FormatValue(bsNumber.ItemValue) : string.Empty;

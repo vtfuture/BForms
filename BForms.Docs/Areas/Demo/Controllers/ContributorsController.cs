@@ -182,7 +182,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
                     var detailsModel = _gridRepository.Update(model, objId, componentId);
 
                     //simulate exception
-                    if (objId == 4)
+                    if (objId == 6)
                     {
                         throw new Exception("This is how an exception message is displayed inside row details");
                     }

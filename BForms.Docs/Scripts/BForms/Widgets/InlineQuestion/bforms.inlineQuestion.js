@@ -22,8 +22,9 @@
                              '<button type="button" class="btn bs-popoverBtn {{cssClass}}"> {{text}} </button> ' +
                          '{{/buttons}}',
         placement: 'left',
-        content : undefined,
-        closeOnOuterClick : true,
+        content: undefined,
+        strech : false,
+        closeOnOuterClick: true
     };
 
     bsInlineQuestion.prototype._init = function () {
@@ -38,6 +39,10 @@
         }
 
         this._addPopover();
+        
+        if (this.options.strech == true) {
+            this.$tip.css('max-width', 'none');
+        }
     };
 
     bsInlineQuestion.prototype._delegateEvents = function () {
@@ -79,8 +84,21 @@
             content: this._renderPopover()
         }).addClass('bs-hasInlineQuestion');
 
-        this.$element.on('show.bs.popover', function() {
-        });
+        this.$element.on('show.bs.popover', $.proxy(function () {
+            this._trigger('show', 0, arguments);
+        },this));
+
+        this.$element.on('shown.bs.popover', $.proxy(function() {
+            this._trigger('shown', 0, arguments);
+        }, this));
+        
+        this.$element.on('hide.bs.popover', $.proxy(function () {
+            this._trigger('hide', 0, arguments);
+        }, this));
+        
+        this.$element.on('hidden.bs.popover', $.proxy(function () {
+            this._trigger('hidden', 0, arguments);
+        }, this));
 
 
         this.$tip = this.$element.data('bs.popover').tip();

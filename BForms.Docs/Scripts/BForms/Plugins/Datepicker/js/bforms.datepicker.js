@@ -1296,8 +1296,9 @@
 
             var model = this.getRenderModel();
             var $date = this.renderer.renderDate(model);
-
+            
             this.$picker.find('.bs-date-wrapper').html($date.html());
+
         }
         return this;
     };
@@ -1398,7 +1399,8 @@
             HideYears: !this.isActiveView(this.enums.Display.Years),
             Time: this.getTime(model.Value),
             WrapperClass: this.options.wrapperClass,
-            DaysNames: this.getDaysNames()
+            DaysNames: this.getDaysNames(),
+            Theme : this.options.theme
         });
 
         var prevValue = this.value.clone(),
@@ -1745,6 +1747,11 @@
             this.$element.off('focus');
         }
     };
+
+    bDatepicker.prototype.render = function() {
+        this._updateDateView();
+        this._updateTimeView();
+    };
     //#endregion
 
     //#region helpers
@@ -1811,6 +1818,14 @@
                 $.extend(true, dayObj, this.options.beforeShowDay(daysStart.toISOString(), dayObj));
             }
 
+            if (dayObj.selectable == false && (typeof dayObj.cssClass === "undefined" || dayObj.cssClass.indexOf('inactive') === -1)) {
+                if (typeof dayObj.cssClass === "undefined") {
+                    dayObj.cssClass = "inactive";
+                } else {
+                    dayObj.cssClass += ' inactive';
+                }
+            }
+            
             days.push(dayObj);
 
             daysStart.add('days', 1);
@@ -2017,12 +2032,12 @@
         startView: 'days',
         openOnFocus: true,
         closeOnBlur: true,
-        closeOnChange: true,
+        closeOnChange: false,
         defaultDate: 'now',
         is12Hours: false,
         showClose: false,
         inline: false,
-        allowDeselect : true,
+        allowDeselect : false,
         selectOnly: '', //accepted values : year, month, day, year&month, month&day
         selectOnlyFormats: {
             'year': 'YYYY',

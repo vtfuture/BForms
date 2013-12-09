@@ -71,8 +71,11 @@
         this.$container = this.renderer.renderRangeContainer({
             applyText: this.options.applyText,
             cancelText: this.options.cancelText,
+            fromText: this.options.fromText,
+            toText : this.options.toText,
             allowDeselectStart: this.options.allowDeselectStart,
-            allowDeselectEnd: this.options.allowDeselectEnd
+            allowDeselectEnd: this.options.allowDeselectEnd,
+            theme : this.options.theme
         });
 
         this.$start = this.$container.find('.bs-start-replace');
@@ -80,6 +83,20 @@
 
         this.$startLabel = this.$container.find('.bs-rangeStartLabel');
         this.$endLabel = this.$container.find('.bs-rangeEndLabel');
+
+        if (typeof this.options.language !== "undefined") {
+            if (typeof this.options.startOptions !== "undefined" && typeof this.options.startOptions.language === "undefined") {
+                this.options.startOptions.language = this.options.language;
+            }
+            
+            if (typeof this.options.endOptions !== "undefined" && typeof this.options.endOptions.language === "undefined") {
+                this.options.endOptions.language = this.options.language;
+            }
+        }
+        
+        if (typeof this.options.theme !== "undefined") {
+            this.options.startOptions.theme = this.options.endOptions.theme = 'blue';
+        }
 
         var startOptions = this.options.startOptions;
 
@@ -299,6 +316,8 @@
         if ((data.date != null) && endValue == null || !this.$end.bsDatepicker('isValidDate', endValue)) {
             this.$end.bsDatepicker('setValue', data.date.clone().add('days', 1));
         }
+
+        this._trigger('onStartChange', data);
     };
 
     bRangePicker.prototype.onEndChange = function (data) {
@@ -323,6 +342,8 @@
         if ((data.date != null) && startValue != null && !this.$start.bsDatepicker('isValidDate', startValue)) {
             this.$start.bsDatepicker('setValue', data.date.clone().subtract('days', 1));
         }
+        
+        this._trigger('onEndChange', data);
     };
 
     bRangePicker.prototype.applyRange = function (value) {
@@ -421,16 +442,26 @@
     bRangePicker.prototype.beforeShowDay = function (val, dayModel) {
         var endValue = this.$end.bsDatepicker('getUnformattedValue'),
             startValue = this.$start.bsDatepicker('getUnformattedValue'),
-            date = moment(val);
+            date = moment(val),
+            returnModel = {};
 
         if ((this._valueSettedForSecond == false || endValue == null || date.isSame(endValue, 'day') || date.isBefore(endValue)) &&
             (startValue == null || date.isAfter(startValue) || date.isSame(startValue, 'day') || this._valueSettedForFirst == false)) {
+
             if (dayModel.selectable === true) {
-                return {
-                    cssClass: 'in-range'
-                };
+                returnModel.cssClass = 'in-range';
             }
         }
+
+        if (typeof this.options.beforeShowDay === "function") {
+            $.extend(true, returnModel, this.options.beforeShowDay(val, dayModel));
+        }
+        
+        if (returnModel.selectable === false && typeof returnModel.cssClass !== "undefined" && returnModel.cssClass.indexOf('in-range') !== -1) {
+            returnModel.cssClass = returnModel.cssClass.replace('in-range', '');
+        }
+
+        return returnModel;
     };
     //#endregion
 
@@ -728,6 +759,54 @@
             return '';
         }
     };
+
+    bRangePicker.prototype.option = function (name, value) {
+        if (typeof value === "undefined") {
+            return this.options[name];
+        } else {
+
+            this.options[name] = value;
+
+            if (typeof this["option_" + name] === "function") {
+                this["option_" + name].apply(this, [value]);
+            }
+        }
+    };
+
+    bRangePicker.prototype.setStartValue = function (value) {
+
+        var momentValue;
+
+        if (!moment.isMoment(value)) {
+            momentValue = moment(value, this.$start.bsDatepicker('getFormat'), this.$start.bsDatepicker('option', 'language'));
+        } else {
+            momentValue = value.clone();
+        }
+
+        if (momentValue != null && momentValue.isValid() && this.$start.bsDatepicker('isValidDate', momentValue)) {
+            this.$start.bsDatepicker('setValue', momentValue);
+        }
+    };
+
+    bRangePicker.prototype.setEndValue = function (value) {
+        var momentValue;
+
+        if (!moment.isMoment(value)) {
+            momentValue = moment(value, this.$end.bsDatepicker('getFormat'), this.$end.bsDatepicker('option', 'language'));
+        } else {
+            momentValue = value.clone();
+        }
+        if (momentValue != null && momentValue.isValid() && this.$end.bsDatepicker('isValidDate', momentValue)) {
+            this.$end.bsDatepicker('setValue', momentValue);
+        }
+    };
+    //#endregion
+
+    //#region options update
+    bRangePicker.prototype.option_beforeShowDay = function () {
+        this.$start.bsDatepicker('render');
+        this.$end.bsDatepicker('render');
+    };
     //#endregion
 
     $.fn.bsDateRangeDefaults = {
@@ -751,17 +830,22 @@
         allowDeselect: true,
         //allowDeselectStart: true,
         //allowDeselectEnd: true,
-        placeholderValue: 'not specified'
+        placeholderValue: 'not specified',
+        theme : 'blue'
     };
 
     $.fn.bsDateRangeLang = {
         'en': {
             applyText: 'Apply',
-            cancelText: 'Cancel'
+            cancelText: 'Cancel',
+            fromText: 'From',
+            toText : 'To'
         },
         'ro': {
             applyText: 'Setează',
-            cancelText: 'Anulare'
+            cancelText: 'Anulare',
+            fromText: 'De la',
+            toText: 'Până la'
         }
     };
 

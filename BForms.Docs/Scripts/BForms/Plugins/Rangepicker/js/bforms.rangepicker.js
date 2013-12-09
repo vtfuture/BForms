@@ -36,8 +36,13 @@
         this._initRenderModel();
         this._initRenderer();
         this._buildElement();
-        this._initInitialValues();
+
+        this._hasInitialValue = this.$element.val() != '';
+        this._initInitialValues(!this._hasInitialValue);
+
         this._addHandlers();
+
+        this.$element.data('bsNumberRangepicker', this);
     };
 
     rangePicker.prototype._addHandlers = function () {
@@ -143,6 +148,10 @@
             }, this));
         }
 
+        if (this.$element.is(':input')) {
+            this.$element.on('change', $.proxy(this._onTextValueChange, this));
+        }
+
         this.$picker.on('mousedown touchstart', '.bs-rangeUp', $.proxy(function (e) {
             var idx = $(e.currentTarget).data('index');
             this._rangeUpTimeout(idx);
@@ -178,16 +187,28 @@
     //#endregion
 
     //#region private methods
-    rangePicker.prototype._initInitialValues = function() {
+    rangePicker.prototype._initInitialValues = function (preventUpdate) {
         this._initialValues = {};
+        this._currentValues = {};
 
-        this.$picker.find('.bs-rangeInput').each($.proxy(function(index, range) {
+        var hasValues = false;
+
+        this.$picker.find('.bs-rangeInput').each($.proxy(function (index, range) {
             var $range = $(range),
                 val = $range.val();
-            
+
             this._initialValues[index] = val;
+            this._currentValues[index] = val;
+
+            if (val != '' && val != null) {
+                hasValues = true;
+            }
 
         }, this));
+
+        if (hasValues) {
+            this._updateLabels(preventUpdate);
+        }
     };
 
     rangePicker.prototype._initOptions = function () {
@@ -197,11 +218,11 @@
         } else {
             this._single = false;
         }
-        
+
         if (typeof this.options.minValue === "undefined" || this.options.minValue == '') {
             this.options.minValue = -Infinity;
         }
-        
+
         if (typeof this.options.maxValue === "undefined" || this.options.maxValue == '') {
             this.options.maxValue = Infinity;
         }
@@ -219,7 +240,7 @@
             ranges: this.options.ranges,
             renderTitle: true,
             wrapperClass: typeof this.options.wrapperClass === "string" ? (this.options.wrapperClass + " " + (this._single ? "bs-single_range " : "")) : (this._single ? "bs-single_range " : "")
-    };
+        };
 
         var rangesWithTitle = $.grep(this._renderModel.ranges, function (range) {
             return typeof range.title !== "undefined" && range.title != null && range.title != '';
@@ -425,7 +446,7 @@
         }, this));
     };
 
-    rangePicker.prototype._updateLabels = function () {
+    rangePicker.prototype._updateLabels = function (preventUpdate) {
         var formattedString = "";
 
         this._trigger('beforeFormatLabel');
@@ -439,9 +460,17 @@
             formattedString = typeof this.options.format !== "undefined" ? this.options.format.replace('{0}', startVal).replace('{1}', endVal) : startVal + this.options.delimiter + endVal;
         }
 
-        this._trigger('afterFormatLabel',[formattedString]);
+        if (preventUpdate === true) {
+            formattedString = '';
+        }
+
+        this._trigger('afterFormatLabel', [formattedString]);
 
         this.$input.val(formattedString);
+
+        if (typeof this.$element.valid === "function" && this.options.preventValidation != true && this.$element.hasClass('input-validation-error')) {
+            this.$input.valid();
+        }
 
         this.$picker.find('.bs-rangeInput').each($.proxy(function (index, range) {
 
@@ -449,25 +478,29 @@
                 val = $range.val(),
                 idx = $range.data('index');
 
-            if (this.options.listeners && this.options.listeners[idx]) {
-                var $currentListener = this.options.listeners[idx];
-                
-                if ($currentListener.is(':input')) {
-                    $currentListener.val(val);
-                } else {
-                    $currentListener.text(val);
-                }
-            }
+            this._updateListener(idx, val);
 
         }, this));
     };
 
-    rangePicker.prototype._isValidValue = function(value, idx) {
+    rangePicker.prototype._isValidValue = function (value, idx) {
         var limits = this._getLimits(idx),
             parsedValue = window.parseInt(value, 10);
 
         if (!window.isNaN(parsedValue) && parsedValue >= limits.min && parsedValue <= limits.max) return true;
         return false;
+    };
+
+    rangePicker.prototype._updateListener = function (idx, value) {
+        if (this.options.listeners && this.options.listeners[idx]) {
+            var $currentListener = this.options.listeners[idx];
+
+            if ($currentListener.is(':input')) {
+                $currentListener.val(value);
+            } else {
+                $currentListener.text(value);
+            }
+        }
     };
     //#endregion
 
@@ -538,7 +571,7 @@
         } else {
             newVal = limits.min;
         }
-        
+
         if (newVal == Infinity || newVal == -Infinity) {
             newVal = 0;
         }
@@ -574,15 +607,46 @@
         var $range = $(e.currentTarget),
             currentVal = $range.val(),
             idx = $range.data('index');
-        
+
         if (this._isValidValue(currentVal, idx)) {
-            this._initialValues[idx] = currentVal;
+            this._currentValues[idx] = currentVal;
             this._blockRanges();
             this._updateLabels();
         } else {
-            $range.val(this._initialValues[idx]);
+            $range.val(this._currentValues[idx]);
         }
-        
+
+    };
+
+    rangePicker.prototype._onTextValueChange = function (e) {
+
+        var textValue = this.$element.val(),
+            values = textValue.split(this.options.delimiter);
+
+        if (textValue == '' && this._hasInitialValue == false) {
+
+            $.each(this.options.ranges, $.proxy(function (index) {
+                this._updateListener(index, textValue);
+            }, this));
+
+        } else {
+            if (values.length == this.options.ranges.length) {
+                $.each(values, $.proxy(function (index, value) {
+
+                    var parsedValue = window.parseInt(value, 10);
+
+                    if (this._isValidValue(parsedValue, index)) {
+                        this._getInput(index).val(parsedValue);
+                    } else {
+                        this._updateLabels();
+                        return false;
+                    }
+
+                }, this));
+            }
+
+            this._updateLabels();
+        }
     };
     //#endregion
 
@@ -640,6 +704,19 @@
 
         return this;
     };
+
+    rangePicker.prototype.resetValue = function () {
+        this._currentValues = $.extend(true, {}, this._initialValues);
+
+        $.each(this.options.ranges, $.proxy(function (index, range) {
+
+            var initialValue = this._initialValues[index];
+            this._getInput(index).val(initialValue);
+
+        }, this));
+
+        this._updateLabels(this._hasInitialValue !== true);
+    };
     //#endregion
 
     //#region plugin
@@ -650,7 +727,7 @@
                                 '{{>rangePickerRanges}}' +
                          '</div>' +
                      '</div>',
-        rangesTemplate:'{{#renderTitle}}' +
+        rangesTemplate: '{{#renderTitle}}' +
                             '<ul>' +
                                 '{{#ranges}}' +
                                     '<li><div> {{title}} </span></li>' +
@@ -680,7 +757,7 @@
     $.fn.bsRangePickerDefaults = {
         closeOnBlur: true,
         openOnFocus: true,
-        readonlyInput: true,
+        readonlyInput: false,
         heightPosition: 20,
         holdInterval: 150,
         holdDecreaseFactor: 4,

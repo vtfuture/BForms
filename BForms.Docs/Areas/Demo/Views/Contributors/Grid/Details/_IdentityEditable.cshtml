@@ -37,6 +37,14 @@
             @Html.BsValidationFor(m => m.CountriesList)
         </div>
     </div>
+    <div class="col-12 col-sm-12 col-lg-12 form-group @Html.BsValidationCssFor(m => m.Age)">
+        @Html.BsLabelFor(m => m.Age)
+        <div class="input-group">
+            @Html.BsGlyphiconAddon(Glyphicon.Time)
+            @Html.BsInputFor(m => m.Age)
+            @Html.BsValidationFor(m => m.Age)
+        </div>
+    </div>
     
      <div class="form-group">
         <div class="col-sm-12 col-lg-12">

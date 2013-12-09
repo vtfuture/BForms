@@ -24,6 +24,15 @@
             <dd><a href="@Model.Url" target="_blank" title="@Model.Url">@Model.Url</a></dd>
         </dl>
     }
+
+    @if (Model.Age != null)
+    {
+        <dl>
+            <dt>age</dt>
+            <dd>@Model.Age</dd>
+        </dl>
+    }
+
     @if (!string.IsNullOrEmpty(Model.Country))
     {
         <dl>
