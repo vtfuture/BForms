@@ -229,9 +229,9 @@
                                    }
                                }]
                             });
-                            
+
                             $me.attr('title', $me.attr('data-original-title') || '');
-                            
+
                         } else {
 
                             grid.$actionsContainer.on('click', opts.btnSelector, $.proxy(function (e) {
@@ -371,7 +371,7 @@
 
         this.toggleBulkActions();
         this._updateExpandToggle();
-        
+
         this.$rowsContainer.show();
         this.element.find(this.options.noResultsRowSelector).remove();
     };
@@ -606,7 +606,7 @@
 
         if (data.pageSize) {
             this.refreshModel.PageSize = data.pageSize;
-            pageChanged = false;        
+            pageChanged = false;
         }
 
         this._getPage(pageChanged);
@@ -714,7 +714,7 @@
         var buttons = this.$actionsContainer.children('button');
 
         if (checked) {
-            buttons.show();
+            this._showBulkActions(buttons, $rows);
             this._showResetGridButton();
         } else {
             buttons.hide();
@@ -748,17 +748,18 @@
             }
         }
 
-        var checked = this.element.find(this.options.rowCheckSelector).filter(function () {
+        var $checkedRows = this.element.find(this.options.rowCheckSelector).filter(function () {
             return $(this).prop('checked');
-        }).length;
+        }).parents(this.options.rowSelector),
+            checked = $checkedRows.length;
 
         var buttons = this.$actionsContainer.children('button');
 
         if (checked > 0) {
 
-            buttons.show();
+            this._showBulkActions(buttons, $checkedRows);
+            
             this._showResetGridButton();
-
 
             if (checked == this.element.find(this.options.rowCheckSelector).length) {
                 this.$headerCheck.prop('indeterminate', false);
@@ -773,6 +774,27 @@
             this._resetHeaderCheck();
             this._hideResetGridButton();
         }
+
+    };
+
+    Grid.prototype._showBulkActions = function ($buttons, $checkedRows) {
+
+        $buttons.each($.proxy(function (index, button) {
+
+            var $button = $(button),
+                showButton = true;
+
+            if (typeof this.options.beforeShowBulkActionButton === "function") {
+                showButton = this.options.beforeShowBulkActionButton($button, $checkedRows);
+            }
+
+            if (showButton !== false) {
+                $button.show();
+            } else {
+                $button.hide();
+            }
+
+        }, this));
 
     };
 
@@ -860,7 +882,7 @@
 
         if (this.options.$toolbar != null && this.$filterIcon.is(':visible')) {
             this.options.$toolbar.bsToolbar('reset', {
-                preventPagination : false
+                preventPagination: false
             });
         }
         else {
@@ -870,10 +892,10 @@
 
             this._getPage();
         }
-        
-       
 
-        
+
+
+
     };
 
     Grid.prototype._evOnErrorRemove = function (e) {
@@ -897,9 +919,9 @@
             });
         } else {
             var $rows = this.element.find(this.options.detailsSelector).parents(this.options.rowSelector).not('.open');
-            
+
             var $toExpandRows = $();
-            
+
             var items = $rows.map($.proxy(function (idx, row) {
                 var $row = $(row);
 
@@ -908,7 +930,7 @@
                 } else if ($row.find(this.options.errorCloseSelector).length == 0) {
 
                     $toExpandRows = $toExpandRows.add($row);
-                    
+
                     return {
                         Id: $row.data('objid'),
                         getDetails: true
@@ -1046,7 +1068,7 @@
         if (arguments[4] && arguments[4].pageChanged) {
             $.bforms.scrollToElement(this.$gridHeader);
         }
-        
+
         this._trigger('afterPaginationError', 0, data);
     };
     //#endregion
@@ -1116,7 +1138,7 @@
 
         if (this.$filterIcon.is(':visible')) {
             return false;
-        }       
+        }
 
         if (this.element.find(this.options.errorCloseSelector).length) {
             return false;
@@ -1124,10 +1146,10 @@
 
         var $wantedOpen = this.element.find(this.options.detailsSelector).parents(this.options.rowSelector + '[data-expandedonload="True"]');
         var $wantedClosed = this.element.find(this.options.detailsSelector).parents(this.options.rowSelector).not($wantedOpen);
-        
+
         var openRowsLength = $wantedOpen.filter(function () { return $(this).hasClass('open'); }).length,
             closedRowsLength = $wantedClosed.not('.open').length;
-        
+
         if ($wantedOpen.length != openRowsLength || $wantedClosed.length != closedRowsLength) {
             return false;
         }
@@ -1422,7 +1444,7 @@
 
     //#region row controls
     Grid.prototype.enableRowActions = function (row) {
-        var $row = typeof row === "number" ?  this._getRowElement(id) : row;
+        var $row = typeof row === "number" ? this._getRowElement(id) : row;
         $row.find(this.options.rowActionsContainerSelector).find('.disabled').removeClass('disabled');
     };
 

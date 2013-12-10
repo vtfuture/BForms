@@ -26,6 +26,18 @@ namespace BForms.Grid
             this.settings = settings;
             this.baseSettings = baseSettings;
         }
+
+        public BsGridPagerBuilder Settings(BsPagerSettings settings)
+        {
+            this.settings = settings;
+            return this;
+        }
+
+        public BsGridPagerBuilder BaseSettings(BsGridBaseRepositorySettings baseSettings)
+        {
+            this.baseSettings = baseSettings;
+            return this;
+        }
         #endregion
 
         #region Config

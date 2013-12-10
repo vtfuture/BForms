@@ -447,13 +447,11 @@ namespace BForms.Docs.Areas.Demo.Repositories
                 {
                     From = new BsRangeItem<DateTime?>
                     {
-                        ItemValue = new DateTime(2013, 8, 1),
-                        MinValue = new DateTime(2013,7,30)
+                        ItemValue = new DateTime(2013, 8, 1)
                     },
                     To = new BsRangeItem<DateTime?>
                     {
-                        ItemValue = DateTime.Now,
-                        MaxValue = DateTime.Now.AddDays(1)
+                        ItemValue = DateTime.Now
                     }
                 },
                 AgeRange = new BsRange<int?>

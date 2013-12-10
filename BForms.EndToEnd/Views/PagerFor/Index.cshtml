@@ -1,0 +1,6 @@
+﻿@using BForms.Grid
+@using BForms.Html
+
+@model BForms.EndToEnd.Controllers.PagerViewModel
+           
+@Html.BsPagerFor(x=>x.PagerModel).Settings(new BsPagerSettings{})
