@@ -93,13 +93,13 @@
 
     bDatepicker.prototype._getInitialValue = function () {
 
-        this._valueSetted = null;
+        this._valueSet = null;
 
         if (typeof this.options.initialValue !== "undefined" && this.options.initialValue != '') {
 
             var initialValue = moment(this.options.initialValue).lang(this.options.language);
             this.currentValue = initialValue.clone();
-            this._valueSetted = true;
+            this._valueSet = true;
             this._updateDisplays();
 
         } else if (this.$element.is('input')) {
@@ -120,7 +120,7 @@
         }
 
         if (this.options.allowDeselect !== true) {
-            this._valueSetted = true;
+            this._valueSet = true;
         }
 
         this.value = this.currentValue.clone();
@@ -701,7 +701,7 @@
 
         if ($target.parents('.bs-notSelectable').length) return;
 
-        if (this._valueSetted === true && this.options.allowDeselect && $target.parents('.active').length) {
+        if (this._valueSet === true && this.options.allowDeselect && $target.parents('.active').length) {
             this._deselectValue();
             return;
         }
@@ -1315,7 +1315,7 @@
     };
 
     bDatepicker.prototype._deselectValue = function () {
-        this._valueSetted = false;
+        this._valueSet = false;
         this._updateDisplays('');
         this._updateDateView();
         
@@ -1343,7 +1343,7 @@
             this.$input.valid();
         }
 
-        this._valueSetted = true;
+        this._valueSet = true;
         
         this._trigger('onChange', {
             date:  this.currentValue.clone(),
@@ -1627,15 +1627,16 @@
         this._updateDateView();
         this._updateTimeView();
 
-        this._updateDisplays('');
+
+        this._updateDisplays((typeof this.options.initialValue !== "undefined" && this.options.initialValue != '' ) ? this.currentValue : '');
     };
 
     bDatepicker.prototype.getValue = function () {
-        return this._valueSetted == true ?  this.currentValue.format(this._displayFormat) : '';
+        return this._valueSet == true ? this.currentValue.format(this._displayFormat) : '';
     };
 
     bDatepicker.prototype.getUnformattedValue = function () {
-        return this._valueSetted == true ?  this.currentValue.clone() : null;
+        return this._valueSet == true ? this.currentValue.clone() : null;
     };
 
     bDatepicker.prototype.clearValue = function() {
@@ -1805,7 +1806,7 @@
                 day: daysStart.date(),
                 otherMonth: daysStart.month() != currentMonth,
                 value: daysStart.format(),
-                selected: (this._valueSetted || this._valueSetted == null) &&  daysStart.isSame(this.currentValue, 'day') && daysStart.isSame(this.currentValue, 'month') && daysStart.isSame(this.currentValue, 'year'),
+                selected: (this._valueSet || this._valueSet == null) && daysStart.isSame(this.currentValue, 'day') && daysStart.isSame(this.currentValue, 'month') && daysStart.isSame(this.currentValue, 'year'),
                 selectable: true
             };
 
@@ -1856,7 +1857,7 @@
             months.push({
                 month: it.format('MMM'),
                 value: it.format(),
-                selected: (this._valueSetted || this._valueSetted == null) && it.isSame(this.currentValue, 'month') && it.isSame(this.currentValue, 'year'),
+                selected: (this._valueSet || this._valueSet == null) && it.isSame(this.currentValue, 'month') && it.isSame(this.currentValue, 'year'),
                 selectable: this.isValidDate(it, true, {
                     allowSame: true,
                     format : 'month'
@@ -1884,7 +1885,7 @@
                 format: 'year',
                 allowSame: true
             }),
-            selected: (this._valueSetted || this._valueSetted == null) && it.isSame(this.currentValue, 'year')
+            selected: (this._valueSet || this._valueSet == null) && it.isSame(this.currentValue, 'year')
         };
 
         if (prevYear.selectable) {
@@ -1903,7 +1904,7 @@
                 year: it.format('YYYY'),
                 otherDecade: false,
                 value: it.format(),
-                selected: (this._valueSetted || this._valueSetted == null) && it.isSame(this.currentValue, 'year'),
+                selected: (this._valueSet || this._valueSet == null) && it.isSame(this.currentValue, 'year'),
                 selectable: this.isValidDate(it, true, {
                     format: 'year',
                     allowSame: true
@@ -1923,7 +1924,7 @@
                 format: 'year',
                 allowSame: true
             }),
-            selected: (this._valueSetted || this._valueSetted == null) && it.isSame(this.currentValue, 'year')
+            selected: (this._valueSet || this._valueSet == null) && it.isSame(this.currentValue, 'year')
         };
 
         if (nextYear.selectable) {

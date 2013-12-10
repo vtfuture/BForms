@@ -23,7 +23,7 @@
                          '{{/buttons}}',
         placement: 'left',
         content: undefined,
-        strech : false,
+        stretch : false,
         closeOnOuterClick: true
     };
 
@@ -40,7 +40,7 @@
 
         this._addPopover();
         
-        if (this.options.strech == true) {
+        if (this.options.stretch == true) {
             this.$tip.css('max-width', 'none');
         }
     };

@@ -10,7 +10,7 @@ namespace BForms.Html
     {
         public static BsGridPagerBuilder BsPager(this HtmlHelper html, BsPagerModel model)
         {
-            var builder = new BsGridPagerBuilder(model, null, null) { viewContext = html.ViewContext };
+            var builder = new BsGridPagerBuilder(model, new BsPagerSettings(), null) { viewContext = html.ViewContext };
 
             return builder;
         }

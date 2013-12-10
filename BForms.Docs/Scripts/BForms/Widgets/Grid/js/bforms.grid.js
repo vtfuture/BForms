@@ -58,6 +58,7 @@
         pager: null,
         pagerUrl: null,
         onRefresh: null,
+        pagerSelector : '.bs-pager',
 
         detailsSelector: '.bs-expand',
         detailsUrl: null,
@@ -122,7 +123,7 @@
         this.refreshModel.OrderColumns = this._getColumnsOrder();
         this._currentResultsCount = this.$gridCountContainer.text();
 
-        this.$pager = this.element.find('.bs-pager').bsPager({
+        this.$pager = this.element.find(this.options.pagerSelector).bsPager({
             pagerUpdate: $.proxy(this._evOnPageChange, this),
             pagerGoTop: $.proxy(this._evOnPagerGoTop, this)
         });
@@ -1023,7 +1024,7 @@
         if (this._currentResultsCount) {
             this.$rowsContainer.html($html.html());
             this.$rowsContainer.removeClass('no_results');
-            this.element.find('.bs-pager').show();
+            this.element.find(this.options.pagerSelector).show();
             this.$gridRowsHeader.closest('.row').show();
         } else {
             this.$rowsContainer.html($wrapper.find(this.options.noResultsRowSelector));
