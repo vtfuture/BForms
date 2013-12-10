@@ -1627,8 +1627,12 @@
         this._updateDateView();
         this._updateTimeView();
 
+        if (typeof this.options.initialValue !== "undefined" && this.options.initialValue != '') {
+            this._updateDisplays();
+        } else {
+            this._updateDisplays('');
+        }
 
-        this._updateDisplays((typeof this.options.initialValue !== "undefined" && this.options.initialValue != '' ) ? this.currentValue : '');
     };
 
     bDatepicker.prototype.getValue = function () {
