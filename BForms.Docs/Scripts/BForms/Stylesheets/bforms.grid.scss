@@ -145,6 +145,7 @@ a.btn {
 			color: $mainColor !important;
 		}
 	}
+	
 	.grid_toolbar {	
 		position: relative;
 		min-height: 15px;
@@ -202,6 +203,11 @@ a.btn {
 							font-size: 12px;
 						}
 					}			
+				}
+				.dropdown-menu {
+					a:hover, a:focus {
+						background: none !important;
+					}
 				}
 				
 				.glyphicon {
@@ -672,6 +678,11 @@ a.btn {
 		}
 		a:hover {
 			background: darken($Blue, 10%) !important;
+		}	
+		.dropdown-menu {
+			a:hover, a:focus {				
+				color: $Blue !important;
+			}
 		}		
 	}
 	
@@ -716,6 +727,11 @@ a.btn {
 		}
 		a:hover {
 			background: darken($Green, 10%) !important;
+		}
+		.dropdown-menu {
+			a:hover, a:focus {				
+				color: $Green !important;
+			}
 		}		
 	}
 	
@@ -762,6 +778,11 @@ a.btn {
 		a:hover {
 			background: darken($Purple, 10%) !important;
 		}
+		.dropdown-menu {
+			a:hover, a:focus {				
+				color: $Purple !important;
+			}
+		}
 	}
 	
 	@media (max-width: 756px) {
@@ -805,6 +826,11 @@ a.btn {
 		}	
 		a:hover {
 			background: darken($Orange, 10%) !important;
+		}
+		.dropdown-menu {
+			a:hover, a:focus {				
+				color: $Orange !important;
+			}
 		}
 	}
 	
@@ -850,6 +876,11 @@ a.btn {
 		}	
 		a:hover {
 			background: darken($Black, 10%) !important;
+		}
+		.dropdown-menu {
+			a:hover, a:focus {				
+				color: $Black !important;
+			}
 		}
 	}
 	

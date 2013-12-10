@@ -154,6 +154,8 @@ a.btn {
           margin-left: 5px; }
         .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .btn-group .dropdown-menu .glyphicon {
           font-size: 12px; }
+        .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .dropdown-menu a:hover, .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .dropdown-menu a:focus {
+          background: none !important; }
         .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .glyphicon {
           font-size: 14px; }
       .grid_container .grid_toolbar .grid_toolbar_header:after {
@@ -485,6 +487,8 @@ a.btn {
     border-left-color: #3086c8 !important; }
   .grid_toolbar.blue .grid_toolbar_header .grid_toolbar_controls a:hover {
     background: #3086c8 !important; }
+  .grid_toolbar.blue .grid_toolbar_header .grid_toolbar_controls .dropdown-menu a:hover, .grid_toolbar.blue .grid_toolbar_header .grid_toolbar_controls .dropdown-menu a:focus {
+    color: #559ed6 !important; }
   @media (max-width: 756px) {
     .grid_toolbar.blue .grid_toolbar_header .grid_toolbar_controls > a:last-child {
       border-right: 1px solid #3086c8 !important; }
@@ -511,6 +515,8 @@ a.btn {
     border-left-color: #449575 !important; }
   .grid_toolbar.green .grid_toolbar_header .grid_toolbar_controls a:hover {
     background: #449575 !important; }
+  .grid_toolbar.green .grid_toolbar_header .grid_toolbar_controls .dropdown-menu a:hover, .grid_toolbar.green .grid_toolbar_header .grid_toolbar_controls .dropdown-menu a:focus {
+    color: #59b390 !important; }
   @media (max-width: 756px) {
     .grid_toolbar.green .grid_toolbar_header .grid_toolbar_controls > a:last-child {
       border-right: 1px solid #449575 !important; }
@@ -537,6 +543,8 @@ a.btn {
     border-left-color: #4f2b4e !important; }
   .grid_toolbar.purple .grid_toolbar_header .grid_toolbar_controls a:hover {
     background: #4f2b4e !important; }
+  .grid_toolbar.purple .grid_toolbar_header .grid_toolbar_controls .dropdown-menu a:hover, .grid_toolbar.purple .grid_toolbar_header .grid_toolbar_controls .dropdown-menu a:focus {
+    color: #703d6f !important; }
   @media (max-width: 756px) {
     .grid_toolbar.purple .grid_toolbar_header .grid_toolbar_controls > a:last-child {
       border-right: 1px solid #4f2b4e !important; }
@@ -563,6 +571,8 @@ a.btn {
     border-left-color: #e5560f !important; }
   .grid_toolbar.orange .grid_toolbar_header .grid_toolbar_controls a:hover {
     background: #e5560f !important; }
+  .grid_toolbar.orange .grid_toolbar_header .grid_toolbar_controls .dropdown-menu a:hover, .grid_toolbar.orange .grid_toolbar_header .grid_toolbar_controls .dropdown-menu a:focus {
+    color: #f27435 !important; }
   @media (max-width: 756px) {
     .grid_toolbar.orange .grid_toolbar_header .grid_toolbar_controls > a:last-child {
       border-right: 1px solid #e5560f !important; }
@@ -589,6 +599,8 @@ a.btn {
     border-left-color: #282828 !important; }
   .grid_toolbar.black .grid_toolbar_header .grid_toolbar_controls a:hover {
     background: #282828 !important; }
+  .grid_toolbar.black .grid_toolbar_header .grid_toolbar_controls .dropdown-menu a:hover, .grid_toolbar.black .grid_toolbar_header .grid_toolbar_controls .dropdown-menu a:focus {
+    color: #424141 !important; }
   @media (max-width: 756px) {
     .grid_toolbar.black .grid_toolbar_header .grid_toolbar_controls > a:last-child {
       border-right: 1px solid #282828 !important; }
