@@ -175,6 +175,14 @@ namespace BForms.Html
                 }
 
                 hiddenTag.MergeAttribute("data-minvalue", FormatValue(range.From.MinValue));
+
+                var type = ReflectionHelpers.GetDeclaringType(range, x => x.From);
+                var finalType = type.GenericTypeArguments[0];
+
+                if (finalType.InheritsOrImplements(typeof(Nullable<>)))
+                {
+                    hiddenTag.MergeAttribute("data-allowdeselect","true");
+                }
             }
 
             inputHtml.Append(hiddenTag.ToString(TagRenderMode.Normal));
@@ -198,6 +206,14 @@ namespace BForms.Html
                 }
 
                 hiddenTag.MergeAttribute("data-maxvalue", FormatValue(range.To.MaxValue));
+
+                var type = ReflectionHelpers.GetDeclaringType(range, x => x.To);
+                var finalType = type.GenericTypeArguments[0];
+
+                if (finalType.InheritsOrImplements(typeof(Nullable<>)))
+                {
+                    hiddenTag.MergeAttribute("data-allowdeselect", "true");
+                }
             }
 
             inputHtml.Append(hiddenTag.ToString(TagRenderMode.Normal));
@@ -293,8 +309,15 @@ namespace BForms.Html
             return new MvcHtmlString(inputHtml.ToString());
         }
 
+        
+
         internal static string FormatValue(object valRange)
         {
+
+            var range = new BsRange<DateTime>();
+            var type = ReflectionHelpers.GetDeclaringType(range, x => x.From);
+            var finalType = type.GenericTypeArguments[0];
+            var isNullable = finalType.InheritsOrImplements(typeof(Nullable<>));
 
             var valFormated = string.Empty;
             if (valRange != null)

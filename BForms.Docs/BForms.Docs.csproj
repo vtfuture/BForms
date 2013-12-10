@@ -156,6 +156,7 @@
     </Compile>
     <Compile Include="Helpers\FileUtilities.cs" />
     <Compile Include="Helpers\HtmlExtensions.cs" />
+    <Compile Include="Helpers\ReflectionHelpers.cs" />
     <Compile Include="Models\CommonModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Resource.Designer.cs">

@@ -406,5 +406,30 @@ namespace BForms.Utilities
             config.Append("}");
             return config.ToString();
         }
+
+        internal static Type GetDeclaringType<T>(T instance, Expression<Func<T, object>> selector)
+        {
+            var instanceType = typeof(T);
+            var key = instance.GetPropertyName(selector);
+            var result = instanceType.GetProperty(key).PropertyType;
+            return result;
+        }
+
+        internal static string GetPropertyName<T, TProp>(this T instance, Expression<Func<T, TProp>> selector)
+        {
+            return GetPropertyName(selector);
+        }
+
+        internal static string GetPropertyName<T, TProp>(Expression<Func<T, TProp>> selector)
+        {
+            var member = selector.Body as MemberExpression;
+            var unary = selector.Body as UnaryExpression;
+            var memberInfo = member ?? (unary != null ? unary.Operand as MemberExpression : null);
+            if (memberInfo == null)
+            {
+                throw new Exception("Could not get selector from specified expression.");
+            }
+            return memberInfo.Member.Name;
+        }
     }
 }

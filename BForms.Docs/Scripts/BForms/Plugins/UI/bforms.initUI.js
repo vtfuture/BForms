@@ -508,7 +508,9 @@
 
                                 startAltFields: [{ selector: $startInput }],
                                 endAltFields: [{ selector: $endInput }],
-                                language: uiLocale
+                                language: uiLocale,
+                                allowDeselectStart: $startInput.data('allowdeselect'),
+                                allowDeselectEnd: $endInput.data('allowdeselect')
                             }));
                         });
 
@@ -527,6 +529,7 @@
                                 $endInput = self.$elem.find('.bs-range-to[data-for="' + rangeName + '"]'),
                                 minDate = $startInput.data('minvalue'),
                                 maxDate = $endInput.data('maxvalue');
+                             
 
                             $elem.bsDateRange($.extend(true, {}, self._getOptions(this), {
                                 startOptions: {
@@ -546,7 +549,9 @@
 
                                 startAltFields: [{ selector: $startInput }],
                                 endAltFields: [{ selector: $endInput }],
-                                language: uiLocale
+                                language: uiLocale,
+                                allowDeselectStart: $startInput.data('allowdeselect'),
+                                allowDeselectEnd: $endInput.data('allowdeselect')
                             }));
                         });
                     }
@@ -573,6 +578,7 @@
                                 $endInput = self.$elem.find('.bs-range-to[data-for="' + rangeName + '"]'),
                                 minDate = $startInput.data('minvalue'),
                                 maxDate = $endInput.data('maxvalue');
+                              
 
                             $elem.bsDateRange($.extend(true, {}, self._getOptions(this), {
                                 startOptions: {
@@ -591,7 +597,9 @@
                                 },
                                 startAltFields: [{ selector: $startInput }],
                                 endAltFields: [{ selector: $endInput }],
-                                language: uiLocale
+                                language: uiLocale,
+                                allowDeselectStart : $startInput.data('allowdeselect'),
+                                allowDeselectEnd : $endInput.data('allowdeselect')
                             }));
                         });
 
@@ -627,7 +635,9 @@
                                 },
                                 startAltFields: [{ selector: $startInput }],
                                 endAltFields: [{ selector: $endInput }],
-                                language: uiLocale
+                                language: uiLocale,
+                                allowDeselectStart: $startInput.data('allowdeselect'),
+                                allowDeselectEnd: $endInput.data('allowdeselect')
                             }));
                         });
                     }
@@ -672,7 +682,9 @@
 
                                 startAltFields: [{ selector: $startInput }],
                                 endAltFields: [{ selector: $endInput }],
-                                language: uiLocale
+                                language: uiLocale,
+                                allowDeselectStart: $startInput.data('allowdeselect'),
+                                allowDeselectEnd: $endInput.data('allowdeselect')
                             }));
                         });
 
@@ -710,7 +722,9 @@
 
                                 startAltFields: [{ selector: $startInput }],
                                 endAltFields: [{ selector: $endInput }],
-                                language: uiLocale
+                                language: uiLocale,
+                                allowDeselectStart: $startInput.data('allowdeselect'),
+                                allowDeselectEnd: $endInput.data('allowdeselect')
                             }));
                         });
                     } else {

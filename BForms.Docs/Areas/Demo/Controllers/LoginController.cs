@@ -5,9 +5,9 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using System.ComponentModel.DataAnnotations;
+using BForms.Docs.Helpers;
 using BForms.Models;
 using BForms.Mvc;
-using BForms.Utilities;
 using BForms.Docs.Areas.Demo.Mock;
 using BForms.Docs.Areas.Demo.Models;
 using BForms.Docs.Areas.Demo.Helpers;
@@ -58,16 +58,27 @@ namespace BForms.Docs.Areas.Demo.Controllers
             ModelState.ClearModelState(model.GetPropertyName(m => m.RegisterModel) + ".");
 
             //add validation error to BsRange field
-            if (model.RegisterModel != null && 
+            if (model.RegisterModel != null &&
                 model.RegisterModel.Interval != null &&
-                model.RegisterModel.Interval.To.ItemValue.HasValue && 
-                model.RegisterModel.Interval.From.ItemValue.HasValue &&
-                model.RegisterModel.Interval.From.ItemValue.Value > model.RegisterModel.Interval.To.ItemValue.Value)
+                //model.RegisterModel.Interval.To.ItemValue.HasValue &&
+                //model.RegisterModel.Interval.From.ItemValue.HasValue &&
+                model.RegisterModel.Interval.From.ItemValue > model.RegisterModel.Interval.To.ItemValue)
             {
                 ModelState.AddFieldError("RegisterModel.Interval",
-                    model.RegisterModel.Interval.GetType(), 
+                    model.RegisterModel.Interval.GetType(),
                     "Invalid interval");
             }
+
+            //if (model.RegisterModel != null &&
+            //   model.RegisterModel.Interval != null &&
+            //   model.RegisterModel.Interval.To.ItemValue.HasValue &&
+            //   model.RegisterModel.Interval.From.ItemValue.HasValue &&
+            //   model.RegisterModel.Interval.From.ItemValue.Value > model.RegisterModel.Interval.To.ItemValue.Value)
+            //{
+            //    ModelState.AddFieldError("RegisterModel.Interval",
+            //        model.RegisterModel.Interval.GetType(),
+            //        "Invalid interval");
+            //}
 
             //add validation error to BsSelectList field
             ModelState.AddFieldError("RegisterModel.CountriesList",
@@ -123,13 +134,13 @@ namespace BForms.Docs.Areas.Demo.Controllers
                 IdeList = ideListWithSelected,
                 GenderList = Lists.AllGenders<int>().ToSelectList().ToList(),
                 Birthday = new BsDateTime(),
-                Interval = new BsRange<DateTime?>
+                Interval = new BsRange<DateTime>
                 {
-                    From = new BsRangeItem<DateTime?>
+                    From = new BsRangeItem<DateTime>
                     {
                         ItemValue = DateTime.Now
                     },
-                    To = new BsRangeItem<DateTime?>
+                    To = new BsRangeItem<DateTime>
                     {
                         ItemValue = DateTime.Now.AddDays(12)
                     }

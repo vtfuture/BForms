@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Web.Mvc;
 using BForms.Docs.Areas.Demo.Models;
 using BForms.Docs.Controllers;
+using BForms.Docs.Helpers;
 using BForms.Models;
 using BForms.Mvc;
 

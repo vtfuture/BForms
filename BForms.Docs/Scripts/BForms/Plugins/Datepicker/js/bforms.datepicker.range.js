@@ -51,6 +51,10 @@
             if (this.options.visible == false) {
                 this._visible = false;
             }
+            
+            if (typeof this.options.placeholderValue === "undefined") {
+                this.options.placeholderValue = this.options.placeholder;
+            }
 
             this._buildElement();
             this._addHandlers();
@@ -827,11 +831,7 @@
         language: 'en',
         allowInvalidMinMax: true,
         checkForMobileDevice: true,
-        allowSame: true,
-        allowDeselect: true,
-        //allowDeselectStart: true,
-        //allowDeselectEnd: true,
-        placeholderValue: 'not specified'
+        allowSame: true
     };
 
     $.fn.bsDateRangeLang = {
@@ -839,13 +839,15 @@
             applyText: 'Apply',
             cancelText: 'Cancel',
             fromText: 'From',
-            toText : 'To'
+            toText: 'To',
+            placeholder : 'not specified'
         },
         'ro': {
             applyText: 'Setează',
             cancelText: 'Anulare',
             fromText: 'De la',
-            toText: 'Până la'
+            toText: 'Până la',
+            placeholder : 'nespecificat'
         }
     };
 

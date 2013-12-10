@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using BForms.Docs.Areas.Demo.Models;
 using BForms.Docs.Areas.Demo.Repositories;
 using BForms.Docs.Controllers;
+using BForms.Docs.Helpers;
 using BForms.Docs.Resources;
 using BForms.Grid;
 using BForms.Models;

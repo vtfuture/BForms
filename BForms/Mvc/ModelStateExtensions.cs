@@ -81,15 +81,6 @@ namespace BForms.Mvc
             }
         }
 
-        public static string GetPropertyName<T, TProp>(this T instance, Expression<Func<T, TProp>> selector)
-        {
-            return GetPropertyName<T, TProp>(selector);
-        }
-
-        public static string GetPropertyName<T, TProp>(Expression<Func<T, TProp>> selector)
-        {
-            var bodyString = selector.Body.ToString();
-            return bodyString.Substring(bodyString.IndexOf('.') + 1);
-        }
+        
     }
 }

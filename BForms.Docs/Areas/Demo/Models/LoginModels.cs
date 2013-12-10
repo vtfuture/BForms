@@ -116,7 +116,7 @@ namespace BForms.Docs.Areas.Demo.Models
         [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
         [Display(Name = "Interval", Prompt = "IntervalPrompt", ResourceType = typeof(Resource))]
         [BsControl(BsControlType.DateTimePickerRange, IsReadonly = true)]
-        public BsRange<DateTime?> Interval { get; set; }
+        public BsRange<DateTime> Interval { get; set; }
     }
 
 }
