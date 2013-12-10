@@ -115,7 +115,7 @@
                         context._pagerAjaxError(response);
                     });
                 }, this),
-                popover: true
+                popover: true,
             }],
             //#endregion
 
