@@ -325,7 +325,12 @@ namespace BForms.Renderers
                         {
                             text = column.CellText(row).ToString();
                         }
-
+                        var title = string.Empty;
+                        if (column.CellTitle != null)
+                        {
+                            title = column.CellTitle(row).ToString();
+                            cellBuilder.MergeAttribute("title",title);
+                        }
                         if (column.IsEditable)
                         {
                             var editBuilder = new TagBuilder("span");

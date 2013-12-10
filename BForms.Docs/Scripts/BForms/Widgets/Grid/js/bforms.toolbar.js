@@ -12,6 +12,12 @@
     jQuery.nsx('bforms.toolbar.defaults');
     jQuery.nsx('bforms.toolbar.controls');
 
+    // attach default controls to namespace
+    $.bforms.toolbar.defaults.AdvancedSearch = AdvancedSearch;
+    $.bforms.toolbar.defaults.Add = Add;
+    $.bforms.toolbar.defaults.QuickSearch = QuickSearch;
+    $.bforms.toolbar.defaults.Order = Order;
+
     //#region Toolbar
     var Toolbar = function (opt) {
         this.options = opt;
@@ -33,16 +39,6 @@
 
         // common options for all toolbar controls
         controlsOptions: null
-    };
-
-    Toolbar.prototype._create = function () {
-
-        // attach default controls to namespace
-        $.bforms.toolbar.defaults.AdvancedSearch = AdvancedSearch;
-        $.bforms.toolbar.defaults.Add = Add;
-        $.bforms.toolbar.defaults.QuickSearch = QuickSearch;
-        $.bforms.toolbar.defaults.Order = Order;
-
     };
 
     Toolbar.prototype._init = function () {
@@ -86,11 +82,13 @@
         // init controls passed as options
         if (this.options.controls instanceof Array) {
             for (var i = 0; i < this.options.controls.length; i++) {
-                var control = new this.options.controls[i](this.element);
-                var $btn = this.element.find(control._defaultOptions.selector);
-                if ($btn.length > 0) {
-                    control.$element = $btn;
-                    this._controls.push(control);
+                if (typeof (this.options.controls[i]) != 'undefined') {
+                    var control = new this.options.controls[i](this.element);
+                    var $btn = this.element.find(control._defaultOptions.selector);
+                    if ($btn.length > 0) {
+                        control.$element = $btn;
+                        this._controls.push(control);
+                    }
                 }
             }
         }
@@ -118,7 +116,7 @@
 
         var preventPagination = true,
             quickSearch = this.getControl('quickSearch');
-        
+
         if (typeof options !== "undefined") {
             preventPagination = options.preventPagination;
         }
@@ -131,7 +129,7 @@
         // reset advanced search if any
         var advancedSearch = this.getControl('advancedSearch'),
             data;
-        
+
         if (advancedSearch != null) {
             advancedSearch.$container.bsForm('reset');
             data = advancedSearch.$container.bsForm('parse');
@@ -176,29 +174,31 @@
 
             var control = controls[i];
 
-            switch (control.type) {
-                case "action": {
-                    this._addAction(control);
-                    break;
-                }
-                case "tab": {
+            if (control.$element) {
 
-                    this._addTab(control);
+                switch (control.type) {
+                    case "action": {
+                        this._addAction(control);
+                        break;
+                    }
+                    case "tab": {
 
-                    control.init();
+                        this._addTab(control);
 
-                    break;
-                }
-                default: {
+                        control.init();
 
-                    this._addCustomControl(control);
+                        break;
+                    }
+                    default: {
 
-                    control.init();
+                        this._addCustomControl(control);
 
-                    break;
+                        control.init();
+
+                        break;
+                    }
                 }
             }
-
         }
 
     };
@@ -208,9 +208,7 @@
         tab.$container = $('#' + tab.$element.data('tabid'));
 
         tab.$element.on('click', { tab: tab }, $.proxy(this._evBtnTabClick, this));
-
         //control.options.init.call(this, tab.$container, control.options);
-
     };
 
     Toolbar.prototype._expandSavedTab = function () {

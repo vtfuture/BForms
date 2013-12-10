@@ -6,7 +6,7 @@
 @using BForms.Docs.Areas.Demo.Helpers
 @using BForms.Docs.Areas.Demo.Models
 @model ContributorsViewModel
-     
+
 @{
     var builder = new BsGridHtmlBuilder<ContributorsViewModel, ContributorRowModel>().ConfigureColumns(cols =>
       {
@@ -35,9 +35,9 @@
           cols.Add("Actions")
               .Text(RowButtonTemplate);
       });
-}      
+}
 @(Html.BsGridFor(m => m.Grid, builder)
-      //.NoTitle()
+        //.NoTitle()
       .NoResultsTemplate("Grid/_NoResults")
       .NoRecordsTemplate("Grid/_NoRecords")
       .Theme(Html.GetTheme())
@@ -58,7 +58,7 @@
           bulk.ForSelector(BsBulkSelectorType.None).Text(@Resource.None);
       })
       .HtmlAttributes(new { @class = "custom_class" })
-      //.AllowAddIfEmpty()
+        //.AllowAddIfEmpty()
 
       .ConfigureRows(cfg => cfg.HasDetails(row => row.Enabled)
                                .DetailsTemplate(row => Html.Partial("Grid/Details/_Index", row.Details).ToString())
@@ -68,7 +68,7 @@
       .PagerSettings(new BsPagerSettings { Size = 5, HasPageSizeSelector = true, HasPagesText = true }))
 
 
-@helper RowButtonTemplate(ContributorRowModel row) 
+@helper RowButtonTemplate(ContributorRowModel row)
 {
     if (!row.Enabled && row.Name.StartsWith("M"))
     {

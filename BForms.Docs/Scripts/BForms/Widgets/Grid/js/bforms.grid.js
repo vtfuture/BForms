@@ -209,12 +209,26 @@
                         if (opts.popover) {
 
                             var $me = grid.$actionsContainer.find(opts.btnSelector);
-
+                            
+                            var question = "Are you sure?";
+                            var confirmButtonText = "Yes";
+                            var cancelButtonText = "No";
+                                
+                            if (typeof opts.question !== "undefined") {
+                                question = opts.question;
+                            }
+                            if (typeof opts.confirmButtonText !== "undefined") {
+                                confirmButtonText = opts.confirmButtonText;
+                            }
+                            if (typeof opts.cancelButtonText !== "undefined") {
+                                cancelButtonText = opts.cancelButtonText;
+                            }
+                            
                             $me.bsInlineQuestion({
                                 placement: 'bottom',
-                                question: 'Are you sure?',
+                                question: question,
                                 buttons: [{
-                                    text: 'Yes',
+                                    text: confirmButtonText,
                                     cssClass: 'btn-primary bs-confirm',
                                     callback: $.proxy(function () {
                                         $me.bsInlineQuestion('toggle');
@@ -222,7 +236,7 @@
                                     }, grid)
                                 },
                                {
-                                   text: 'No',
+                                   text: cancelButtonText,
                                    cssClass: 'btn-default bs-cancel',
                                    callback: function (e) {
                                        $me.bsInlineQuestion('toggle');
@@ -444,6 +458,8 @@
         };
 
         this._addAdditionalData(sendData);
+
+        this._trigger('beforeGetRowsAjax', 0, sendData);
 
         var ajaxOptions = {
             name: this.options.uniqueName + '|details|' + $row.data('objId'),
@@ -1295,11 +1311,11 @@
         return data;
     };
 
-    Grid.prototype._addAdditionalData = function (data) {
+    Grid.prototype._addAdditionalData = function(data) {
         if (typeof this.options.additionalData !== "undefined") {
             $.extend(true, data, this.options.additionalData);
         }
-    }
+    };
     //#endregion
 
     //#region row update
