@@ -50,7 +50,8 @@
         singlenumberrangeSelector: '.bs-number-single_range',
 
         loadingSelector: '.loading',
-        loadingClass: 'loading'
+        loadingClass: 'loading',
+        transformNumbers : true
     };
 
     $.fn.bsInitUI = function (opts) {
@@ -76,7 +77,6 @@
                 this._addTheme();
             }, this));
         };
-
 
         InitUI.prototype._getOptions = function (elem) {
             return $.extend(true, {}, $(elem).data('options'));
@@ -123,6 +123,15 @@
                     localeDeferred.resolve();
                 });
             }
+          
+            //transform number inputs into text input (chrome only)
+            if (this.options.transformNumbers === true) {
+                var numberValidation = $('<input type="number"></input>').val('chrome').val() == 'chrome';
+                if (!numberValidation) {
+                    this.$elem.find('input[type="number"]').prop('type', 'text');
+                }
+            }
+            
 
             if (this.options.select2 === true) {
                 if ($.browser.mobile) {
