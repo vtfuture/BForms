@@ -118,7 +118,8 @@ namespace BForms.Renderers
                {
                    loaded = this.Builder.isLoaded,
                    initialReadonly = this.Builder.initialReadonly,
-                   headerToggle = "true"
+                   headerToggle = "true",
+                   editable = this.Builder.isEditable
                }).ToJsonString());
 
             if (this.Builder.id != null)

@@ -25,9 +25,9 @@
         contentSelector: '.bs-contentPanel',
 
         retrySelector: '.bs-retryBtn',
-        
+
         headerToggle: false,
-        headerSelector : '.bs-panelHeader',
+        headerSelector: '.bs-panelHeader',
 
         cacheReadonlyContent: true,
         additionalData: {
@@ -55,7 +55,7 @@
             this._initCurrentContent();
         } else {
             var method = this._readonly ? '_loadReadonlyContent' : "_loadEditableContent";
-            
+
             this[method]().then($.proxy(function () {
                 this._initControls();
                 this._loadState();
@@ -110,18 +110,21 @@
 
         this.$element.on('click', this.options.toggleSelector, $.proxy(this._onToggleClick, this));
 
-        if (this.options.headerToggle) {
-            this.$element.on('click', this.options.headerSelector, $.proxy(this._onHeaderClick, this));
-        } else {
-            this.$element.on('click', this.options.editSelector, $.proxy(this._onEditClick, this));
+        if (this.options.editable !== false) {
+            if (this.options.headerToggle) {
+                this.$element.on('click', this.options.headerSelector, $.proxy(this._onHeaderClick, this));
+            } else {
+                this.$element.on('click', this.options.editSelector, $.proxy(this._onEditClick, this));
+            }
         }
-        
+
+
         this.$element.on('click', this.options.cancelEditSelector, $.proxy(this._onCancelEditClick, this));
 
         this.$element.on('click', this.options.retrySelector, $.proxy(this._onRetryClick, this));
     };
 
-    bsPanel.prototype._initCurrentContent = function() {
+    bsPanel.prototype._initCurrentContent = function () {
         if (this._readonly) {
 
         } else {
@@ -222,7 +225,7 @@
     };
 
     bsPanel.prototype._initControls = function () {
-        
+
         if (this.options.editable) {
             this._toggleEditBtn(this._readonly ? true : false);
         }
@@ -281,7 +284,7 @@
     };
 
     bsPanel.prototype._initEditable = function () {
-        
+
         var $form = this.$content.find('form').show(),
             $saveBtn = $form.find(this.options.saveFormSelector);
 
@@ -420,7 +423,7 @@
             this._cachedReadonlyContent = this.$content.clone().find('form').removeClass('loading').end()
                                                                 .html();
         }
-        
+
         this.$content.html(response.Html);
 
         this._initEditable();

@@ -178,7 +178,8 @@ namespace BForms.Renderers
                 HtmlHelper.AnonymousObjectToHtmlAttributes(new
                 {
                     loaded = this.Builder.isLoaded,
-                    initialReadonly = this.Builder.initialReadonly
+                    initialReadonly = this.Builder.initialReadonly,
+                    editable = this.Builder.isEditable
                 }).ToJsonString());
 
             if (this.Builder.id != null)
