@@ -1291,10 +1291,19 @@
 
     };
 
-    bDatepicker.prototype._updateDateView = function () {
+    bDatepicker.prototype._updateDateView = function (forceRender) {
+
+        if (forceRender !== true && !this.$picker.is(':visible') && this.options.deferredRender) {
+            this._needsRendering = true;
+            return this;
+        } else {
+            this._needsRendering = false;
+        }
+
         if (this.renderModel.WithDate) {
 
             var model = this.getRenderModel();
+
             var $date = this.renderer.renderDate(model);
             
             this.$picker.find('.bs-date-wrapper').html($date.html());
@@ -1572,8 +1581,12 @@
             };
 
             this._trigger('beforeShow', showData);
-
+            
             if (showData.preventShow == false) {
+
+                if (this._needsRendering) {
+                    this._updateDateView(true);
+                }
 
                 this._positionPicker();
 
@@ -1623,10 +1636,12 @@
 
     bDatepicker.prototype.resetValue = function () {
 
+        this._updateDisplays('');
+
         this._getInitialValue();
         this._updateDateView();
         this._updateTimeView();
-
+        
         if (typeof this.options.initialValue !== "undefined" && this.options.initialValue != '') {
             this._updateDisplays();
         } else {
@@ -2066,7 +2081,8 @@
 
         holdInterval: 175,
         holdMinInterval : 50,
-        holdDecreaseFactor: 4
+        holdDecreaseFactor: 4,
+        deferredRender : false
     };
 
     $.fn.bsDatepickerLang = {

@@ -112,7 +112,8 @@
             onDayMouseOver: $.proxy(this.onStartDaysMouseOver, this),
             onDaysMouseOut: $.proxy(this.onStartDaysMouseOut, this),
             allowSame: this.options.allowSame,
-            allowDeselect: this.options.allowDeselectStart
+            allowDeselect: this.options.allowDeselectStart,
+            deferredRender: this.options.deferredRender
         }, startOptions, {
             inline: true,
             ShowClose: false,
@@ -126,7 +127,8 @@
             onDayMouseOver: $.proxy(this.onEndDaysMouseOver, this),
             onDaysMouseOut: $.proxy(this.onEndDaysMouseOut, this),
             allowSame: this.options.allowSame,
-            allowDeselect: this.options.allowDeselectEnd
+            allowDeselect: this.options.allowDeselectEnd,
+            deferredRender : this.options.deferredRender
         }, endOptions, {
             inline: true,
             ShowClose: false,
@@ -649,6 +651,11 @@
 
             if (showData.preventShow == false) {
 
+                if (this.options.deferredRender) {
+                    this.$start.bsDatepicker('render');
+                    this.$end.bsDatepicker('render');
+                }
+
                 this.$container.show();
                 this._visible = true;
 
@@ -831,7 +838,8 @@
         language: 'en',
         allowInvalidMinMax: true,
         checkForMobileDevice: true,
-        allowSame: true
+        allowSame: true,
+        deferredRender : true
     };
 
     $.fn.bsDateRangeLang = {
