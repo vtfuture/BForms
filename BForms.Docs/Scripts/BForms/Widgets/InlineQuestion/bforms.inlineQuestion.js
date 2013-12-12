@@ -111,14 +111,32 @@
 
     bsInlineQuestion.prototype.hide = function () {
         this.$element.popover('hide');
+        
+        return this;
     };
 
     bsInlineQuestion.prototype.show = function () {
         this.$element.popover('show');
+        
+        return this;
     };
 
     bsInlineQuestion.prototype.toggle = function () {
         this.$element.popover('toggle');
+        
+        return this;
+    };
+
+    bsInlineQuestion.prototype.content = function (data) {
+        
+        this.options.content = data.content;
+        this.options.question = data.question;
+        this.options.buttons = data.buttons;
+
+        var html = this._renderPopover();
+        this.$tip.find('.popover-content').html(html);
+
+        return this;
     };
 
     $.widget('bforms.bsInlineQuestion', bsInlineQuestion.prototype);
