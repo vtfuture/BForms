@@ -226,7 +226,7 @@
                             }
                             
                             $me.bsInlineQuestion({
-                                //placement: 'bottom',
+                                placement: 'auto',
                                 question: question,
                                 buttons: [{
                                     text: confirmButtonText,

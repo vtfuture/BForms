@@ -330,6 +330,7 @@
         
         $btn.bsInlineQuestion({
             question: "Are you sure?",
+            placement : 'auto',
             buttons: [{
                 text: 'Yes',
                 cssClass: 'btn-primary bs-confirm',
