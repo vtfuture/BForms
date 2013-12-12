@@ -22,13 +22,21 @@
                              '<button type="button" class="btn bs-popoverBtn {{cssClass}}"> {{text}} </button> ' +
                          '{{/buttons}}',
         placement: 'left',
+        placementArray : 'left,right,bottom,top',
         content: undefined,
         stretch : false,
         closeOnOuterClick: true
     };
 
+    //#region init and render
     bsInlineQuestion.prototype._init = function () {
         this.$element = this.element;
+
+        if (this.options.placement === 'auto') {
+            this._placementArray = this.options.placementArray.split(',');
+
+            this.options.placement = $.proxy(this._placementMethod, this);
+        }
 
         if (typeof ich.renderPopoverQuestion !== "function") {
             ich.addTemplate('renderPopoverQuestion', this.options.template);
@@ -58,7 +66,6 @@
             }
 
         }, this));
-        
 
         if (this.options.closeOnOuterClick && $(document).data('bsPopoverClickHandler') !== true) {
             $(document).on('click', function (e) {
@@ -66,9 +73,15 @@
                 
                 var $openPopovers = $('.bs-hasInlineQuestion').filter(function(idx, elem) {
                     var $elem = $(elem),
-                        $tip = $elem.data('bs.popover').$tip;
+                        popover = $elem.data('bs.popover');
 
-                    return $tip.is(':visible') && $elem[0] != $target[0] && $elem.find($target).length == 0 && $target[0] != $tip[0] && $tip.find($target).length == 0;
+                    if (typeof popover !== "undefined" && popover != null) {
+                        var $tip = popover.$tip;
+                        return $tip.is(':visible') && $elem[0] != $target[0] && $elem.find($target).length == 0 && $target[0] != $tip[0] && $tip.find($target).length == 0;
+                    }
+
+                    return false;
+
                 });
 
                 $openPopovers.bsInlineQuestion('toggle');
@@ -78,6 +91,7 @@
     };
 
     bsInlineQuestion.prototype._addPopover = function () {
+
         this.$element.popover({
             html: true,
             placement: this.options.placement,
@@ -108,7 +122,9 @@
     bsInlineQuestion.prototype._renderPopover = function () {
         return typeof this.options.content === "undefined" ? ich.renderPopoverQuestion(this.options, true) : ich.renderPopoverContent(this.options, true);
     };
+    //#endregion
 
+    //#region public
     bsInlineQuestion.prototype.hide = function () {
         this.$element.popover('hide');
         
@@ -138,6 +154,48 @@
 
         return this;
     };
+
+    bsInlineQuestion.prototype.destroy = function() {
+        this.$element.popover('destroy');
+    };
+
+    bsInlineQuestion.prototype._placementMethod = function (tip, button) {
+        var $tip = $(tip),
+            $button = $(button),
+            offset = $button.offset(),
+            top = offset.top,
+            left = offset.left,
+            windowHeight = $(window).outerHeight(),
+            windowWidth = $(window).outerWidth();
+
+        var $tipClone = $tip.clone().appendTo($('body')),
+            tipWidth = $tipClone.outerWidth(),
+            tipHeight = $tipClone.outerHeight();
+
+        $tipClone.remove();
+
+        var positionsSpace = {
+            'left': left,
+            'right': windowWidth - $button.outerWidth() - left,
+            'top': top - $(window).scrollTop(),
+            'bottom': windowHeight - $button.outerHeight() - (top - $(window).scrollTop())
+        };
+
+        for (var placementKey in this._placementArray) {
+            var placement = this._placementArray[placementKey];
+            
+            if (placement == 'right' || placement == 'left') {
+                if (positionsSpace[placement] > tipWidth) return placement;
+            }
+            
+            if (placement == 'top' || placement == 'bottom') {
+                if (positionsSpace[placement] > tipHeight) return placement;
+            }
+        }
+
+        return 'left';
+    };
+    //#endregion
 
     $.widget('bforms.bsInlineQuestion', bsInlineQuestion.prototype);
 });
