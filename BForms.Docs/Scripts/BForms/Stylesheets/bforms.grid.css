@@ -85,14 +85,8 @@ a.btn {
     background-color: #ebebeb;
     border-color: #adadad; }
 
-/* Sortable list */
-.ui-sortable {
-  padding-left: 40px; }
-  .ui-sortable li {
-    margin-bottom: 3px;
-    cursor: move; }
-  .ui-sortable ol {
-    margin-top: 5px; }
+.bs-sortable .bs-sortable-item {
+  cursor: move; }
 
 .grid_container {
   font-size: 16px;

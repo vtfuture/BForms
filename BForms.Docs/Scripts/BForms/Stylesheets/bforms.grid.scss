@@ -111,16 +111,9 @@ a.btn {
 	}
 }
 
-/* Sortable list */
-
-.ui-sortable {
-	padding-left: 40px;
-	li {
-		margin-bottom: 3px;
+.bs-sortable {
+	.bs-sortable-item {
 		cursor: move;
-	}
-	ol {
-		margin-top: 5px;
 	}
 }
 
