@@ -131,6 +131,23 @@ textarea {
 		.btn {
 			padding: 2px 8px;
 		}
+		.file-upload {
+			width: 30px;
+			height: 30px;
+			position: relative;
+		}
+		input[type="file"] {
+			filter: alpha(opacity=0);
+			opacity: 0;
+			position: absolute;
+			right: 0;
+			top: 0;
+			font-size: 50px;
+			border: 0;
+			height: 100%;
+			width: 100%;
+			overflow: hidden;
+		}
 	}
 }
 
