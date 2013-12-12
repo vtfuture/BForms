@@ -86,7 +86,7 @@ namespace BForms.Renderers
 
             headerTitleTag.InnerHtml += nameTag.ToString();
 
-            if (this.Builder.isEditable)
+                if (this.Builder.isEditable && (!this.Builder.mode.HasValue || this.Builder.mode.Value == BsPanelMode.Both))
             {
                 var editableTag = new TagBuilder("a");
                 editableTag.MergeAttribute("href", "#");

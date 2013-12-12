@@ -21,6 +21,7 @@ namespace BForms.Panels
         #region Properties and Constructor
         internal string name;
         internal bool isEditable;
+        internal bool hasReadonly;
         internal bool isExpanded;
         internal bool isExpandable = true;
         internal bool isLoaded;
@@ -34,6 +35,7 @@ namespace BForms.Panels
         internal Glyphicon? glyphicon;
         internal bool initialReadonly = true;
         internal BsPanelTheme theme = BsPanelTheme.Default;
+        internal BsPanelMode? mode;
 
         /// <summary>
         /// Sets the ViewContext property for the BaseComponent
@@ -74,7 +76,6 @@ namespace BForms.Panels
         #endregion
 
         #region Public methods
-
         /// <summary>
         /// Sets the display name
         /// </summary>
@@ -113,6 +114,7 @@ namespace BForms.Panels
             this.theme = theme;
             return this;
         }
+
         /// <summary>
         /// Specify if the box form has an editable component
         /// </summary>
@@ -152,6 +154,7 @@ namespace BForms.Panels
         public BsPanelHtmlBuilder ReadonlyUrl(string url)
         {
             this.readonlyUrl = url;
+            this.hasReadonly = true;
             return this;
         }
 
@@ -171,6 +174,17 @@ namespace BForms.Panels
         {
             this.saveUrl = url;
 
+            return this;
+        }
+
+        /// <summary>
+        /// sets panel type, readonly/editable/both, overrides any past and future settings
+        /// </summary>
+        /// <param name="mode"></param>
+        /// <returns></returns>
+        public BsPanelHtmlBuilder Mode(BsPanelMode mode)
+        {
+            this.mode = mode;
             return this;
         }
 
@@ -205,6 +219,13 @@ namespace BForms.Panels
         LightBlue,
         LightYellow,
         Red
+    }
+
+    public enum BsPanelMode
+    {
+        Readonly,
+        Editable,
+        Both
     }
 }
 

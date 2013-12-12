@@ -71,7 +71,7 @@
                     return $tip.is(':visible') && $elem[0] != $target[0] && $elem.find($target).length == 0 && $target[0] != $tip[0] && $tip.find($target).length == 0;
                 });
 
-                $openPopovers.bsInlineQuestion('hide');
+                $openPopovers.bsInlineQuestion('toggle');
 
             }).data('bsPopoverClickHandler', true);
         }
