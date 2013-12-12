@@ -1317,6 +1317,46 @@
             $.extend(true, data, this.options.additionalData);
         }
     };
+    
+    Grid.prototype.toggleRowColor = function (rowIdentifier, color, uniqueProperty) {
+
+        var colors = {};
+
+        colors[true] = 'rgb(89, 180, 68)';
+        colors[false] = 'rgb(240, 173, 78)';
+
+        uniqueProperty = uniqueProperty || 'objid';
+
+        var $row = (typeof rowIdentifier == 'string' || typeof rowIdentifier == 'number') ?
+                this.element.find(this.options.rowSelector + '[data-' + uniqueProperty + '="' + rowIdentifier + '"]') : rowIdentifier;
+        
+        var $rowColor = $row.find('.grid_row_color');
+
+        if (typeof color == 'boolean') {
+
+            color = colors[color];
+        }
+
+        if (typeof color == 'undefined') {
+
+            var enabled = $row.data('active') == 'True';
+
+            color = colors[!enabled];
+        }
+
+        $rowColor.css('background-color', color);
+    };
+
+    Grid.prototype.removeRow = function (rowIdentifier, uniqueProperty) {
+
+        uniqueProperty = uniqueProperty || 'objid';
+
+        var $row = (typeof rowIdentifier == 'string' || typeof rowIdentifier == 'number') ?
+                this.element.find(this.options.rowSelector + '[data-' + uniqueProperty + '="' + rowIdentifier + '"]') : rowIdentifier;
+
+        $row.remove();
+    };
+
     //#endregion
 
     //#region row update
