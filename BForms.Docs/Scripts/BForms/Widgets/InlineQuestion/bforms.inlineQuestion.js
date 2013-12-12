@@ -155,8 +155,13 @@
         return this;
     };
 
-    bsInlineQuestion.prototype.destroy = function() {
+    bsInlineQuestion.prototype.destroy = function () {
+        
+        this.hide();
         this.$element.popover('destroy');
+
+        this.$element.removeData('bformsBsInlineQuestion');
+        this.$element.removeClass('bs-hasInlineQuestion');
     };
 
     bsInlineQuestion.prototype._placementMethod = function (tip, button) {
