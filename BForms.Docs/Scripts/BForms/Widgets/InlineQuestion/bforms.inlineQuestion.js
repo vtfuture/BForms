@@ -92,11 +92,11 @@
 
     bsInlineQuestion.prototype._addPopover = function () {
 
-        this.$element.popover({
+        this.$element.popover($.extend(true,{
             html: true,
             placement: this.options.placement,
             content: this._renderPopover()
-        }).addClass('bs-hasInlineQuestion');
+        },this.options.popoverOptions)).addClass('bs-hasInlineQuestion');
 
         this.$element.on('show.bs.popover', $.proxy(function () {
             this._trigger('show', 0, arguments);
