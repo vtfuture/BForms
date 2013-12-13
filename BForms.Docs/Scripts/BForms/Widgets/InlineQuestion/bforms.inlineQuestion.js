@@ -198,7 +198,7 @@
             }
         }
 
-        return 'left';
+        return this._placementArray[0] || 'left';
     };
     //#endregion
 
