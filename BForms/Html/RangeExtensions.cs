@@ -174,7 +174,10 @@ namespace BForms.Html
                     hiddenTag.MergeAttribute("data-display", range.From.Display);
                 }
 
-                hiddenTag.MergeAttribute("data-minvalue", FormatValue(range.From.MinValue));
+                if (!range.To.MinValue.Equals(default(TKey)))
+                {
+                    hiddenTag.MergeAttribute("data-minvalue", FormatValue(range.From.MinValue));
+                }
 
                 var type = ReflectionHelpers.GetDeclaringType(range, x => x.From);
                 var finalType = type.GenericTypeArguments[0];
@@ -205,7 +208,10 @@ namespace BForms.Html
                     hiddenTag.MergeAttribute("data-display", range.To.Display);
                 }
 
-                hiddenTag.MergeAttribute("data-maxvalue", FormatValue(range.To.MaxValue));
+                if (!range.To.MaxValue.Equals(default(TKey)))
+                {
+                    hiddenTag.MergeAttribute("data-maxvalue", FormatValue(range.To.MaxValue));
+                }
 
                 var type = ReflectionHelpers.GetDeclaringType(range, x => x.To);
                 var finalType = type.GenericTypeArguments[0];
