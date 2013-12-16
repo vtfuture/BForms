@@ -31,7 +31,7 @@ namespace BForms.Renderers
 
                 headerTag.InnerHtml += " " + this.Builder.name;
 
-                if (this.Builder.isEditable)
+                if (this.Builder.isEditable && (!this.Builder.mode.HasValue || this.Builder.mode.Value == BsPanelMode.Both))
                 {
                     headerTag.AddCssClass("editable");
 
@@ -118,8 +118,8 @@ namespace BForms.Renderers
                {
                    loaded = this.Builder.isLoaded,
                    initialReadonly = this.Builder.initialReadonly,
-                   headerToggle = "true",
-                   editable = this.Builder.isEditable
+                   headerToggle = !this.Builder.mode.HasValue || this.Builder.mode.Value == BsPanelMode.Both,
+                   editable = this.Builder.isEditable && ((!this.Builder.mode.HasValue || (this.Builder.mode.Value == BsPanelMode.Editable || this.Builder.mode.Value == BsPanelMode.Both)))
                }).ToJsonString());
 
             if (this.Builder.id != null)

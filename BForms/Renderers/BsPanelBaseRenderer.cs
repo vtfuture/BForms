@@ -42,91 +42,91 @@ namespace BForms.Renderers
         {
             if (this.Builder.noHeader == false)
             {
-            var headerTag = new TagBuilder("div");
-            headerTag.AddCssClass("panel-heading bs-panelHeader");
+                var headerTag = new TagBuilder("div");
+                headerTag.AddCssClass("panel-heading bs-panelHeader");
 
-            var headerTitleTag = new TagBuilder("h4");
-            headerTitleTag.AddCssClass("panel-title");
+                var headerTitleTag = new TagBuilder("h4");
+                headerTitleTag.AddCssClass("panel-title");
 
-            var nameTag = new TagBuilder("a");
-            nameTag.AddCssClass("bs-togglePanel");
-            nameTag.MergeAttribute("href", "#");
+                var nameTag = new TagBuilder("a");
+                nameTag.AddCssClass("bs-togglePanel");
+                nameTag.MergeAttribute("href", "#");
 
-            var loaderImg = new TagBuilder("span");
-            loaderImg.AddCssClass("bs-panelLoader loading-spinner");
+                var loaderImg = new TagBuilder("span");
+                loaderImg.AddCssClass("bs-panelLoader loading-spinner");
 
-            if (this.Builder.isLoaded)
-            {
-                loaderImg.MergeAttribute("style", "display:none");
-            }
-
-            nameTag.InnerHtml += loaderImg.ToString();
-
-            if (this.Builder.isExpandable)
-            {
-                var caretTag = new TagBuilder("span");
-                caretTag.AddCssClass("caret bs-panelCaret");
-
-                if (!this.Builder.isLoaded)
+                if (this.Builder.isLoaded)
                 {
-                    caretTag.MergeAttribute("style", "display:none");
+                    loaderImg.MergeAttribute("style", "display:none");
                 }
 
-                nameTag.InnerHtml += caretTag.ToString();
+                nameTag.InnerHtml += loaderImg.ToString();
 
-                if (this.Builder.isExpanded)
+                if (this.Builder.isExpandable)
                 {
-                    nameTag.AddCssClass("dropup");
+                    var caretTag = new TagBuilder("span");
+                    caretTag.AddCssClass("caret bs-panelCaret");
+
+                    if (!this.Builder.isLoaded)
+                    {
+                        caretTag.MergeAttribute("style", "display:none");
+                    }
+
+                    nameTag.InnerHtml += caretTag.ToString();
+
+                    if (this.Builder.isExpanded)
+                    {
+                        nameTag.AddCssClass("dropup");
+                    }
+
+                    nameTag.MergeAttribute("data-expandable", "true");
                 }
 
-                nameTag.MergeAttribute("data-expandable", "true");
-            }
+                nameTag.InnerHtml += this.Builder.name;
 
-            nameTag.InnerHtml += this.Builder.name;
-
-            headerTitleTag.InnerHtml += nameTag.ToString();
+                headerTitleTag.InnerHtml += nameTag.ToString();
 
                 if (this.Builder.isEditable && (!this.Builder.mode.HasValue || this.Builder.mode.Value == BsPanelMode.Both))
-            {
-                var editableTag = new TagBuilder("a");
-                editableTag.MergeAttribute("href", "#");
-                editableTag.AddCssClass("pull-right bs-editPanel");
-
-                var glyphTag = this.GetGlyphicon(Glyphicon.Pencil);
-
-                editableTag.InnerHtml += glyphTag;
-
-                var cancelEditableTag = new TagBuilder("a");
-                cancelEditableTag.MergeAttribute("href", "#");
-                cancelEditableTag.AddCssClass("pull-right bs-cancelEdit");
-
-                if (!this.Builder.isLoaded)
                 {
-                    editableTag.MergeAttribute("style", "display:none");
-                    cancelEditableTag.MergeAttribute("style", "display:none");
-                }
-                else
-                {
-                    if (this.Builder.initialReadonly)
+                    var editableTag = new TagBuilder("a");
+                    editableTag.MergeAttribute("href", "#");
+                    editableTag.AddCssClass("pull-right bs-editPanel");
+
+                    var glyphTag = this.GetGlyphicon(Glyphicon.Pencil);
+
+                    editableTag.InnerHtml += glyphTag;
+
+                    var cancelEditableTag = new TagBuilder("a");
+                    cancelEditableTag.MergeAttribute("href", "#");
+                    cancelEditableTag.AddCssClass("pull-right bs-cancelEdit");
+
+                    if (!this.Builder.isLoaded)
                     {
+                        editableTag.MergeAttribute("style", "display:none");
                         cancelEditableTag.MergeAttribute("style", "display:none");
                     }
                     else
                     {
-                        editableTag.MergeAttribute("style", "display:none");
+                        if (this.Builder.initialReadonly)
+                        {
+                            cancelEditableTag.MergeAttribute("style", "display:none");
+                        }
+                        else
+                        {
+                            editableTag.MergeAttribute("style", "display:none");
+                        }
                     }
+
+                    var cancelGlyphTag = this.GetGlyphicon(Glyphicon.Remove);
+
+                    cancelEditableTag.InnerHtml += cancelGlyphTag;
+
+                    headerTitleTag.InnerHtml += editableTag.ToString();
+                    headerTitleTag.InnerHtml += cancelEditableTag.ToString();
                 }
 
-                var cancelGlyphTag = this.GetGlyphicon(Glyphicon.Remove);
-
-                cancelEditableTag.InnerHtml += cancelGlyphTag;
-
-                headerTitleTag.InnerHtml += editableTag.ToString();
-                headerTitleTag.InnerHtml += cancelEditableTag.ToString();
-            }
-
-            headerTag.InnerHtml += headerTitleTag.ToString();
-            return headerTag.ToString();
+                headerTag.InnerHtml += headerTitleTag.ToString();
+                return headerTag.ToString();
             }
 
             return string.Empty;
