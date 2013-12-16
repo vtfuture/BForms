@@ -153,7 +153,8 @@ namespace BForms.Grid
 
             this.bulkActions = bulkActionsFactory.BulkActions;
             this.bulkSelectors = bulkActionsFactory.BulkSelectors;
-            this.hasBulkActions = true;
+
+            this.hasBulkActions = this.bulkActions.Any() || this.bulkSelectors.Any();
 
             return this;
         }
