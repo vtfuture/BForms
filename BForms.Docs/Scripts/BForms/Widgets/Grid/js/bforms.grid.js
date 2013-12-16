@@ -394,6 +394,11 @@
         this.element.find(this.options.noResultsRowSelector).remove();
     };
 
+    Grid.prototype.collapseAll = function() {
+        var $rows = this.element.find(this.options.detailsSelector).parents(this.options.rowSelector + '.open');
+
+        $rows.find(this.options.detailsSelector).trigger('click');
+    };
     //#endregion
 
     //#region grid details
@@ -1360,7 +1365,6 @@
 
         $row.remove();
     };
-
     //#endregion
 
     //#region row update
