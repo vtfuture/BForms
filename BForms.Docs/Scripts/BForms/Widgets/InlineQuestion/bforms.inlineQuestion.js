@@ -162,6 +162,7 @@
 
         this.$element.removeData('bformsBsInlineQuestion');
         this.$element.removeClass('bs-hasInlineQuestion');
+        this.$tip.remove();
     };
 
     bsInlineQuestion.prototype._placementMethod = function (tip, button) {
