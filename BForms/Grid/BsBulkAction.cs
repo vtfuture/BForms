@@ -19,6 +19,7 @@ namespace BForms.Grid
         internal string title;
         internal Glyphicon? glyphIcon;
         public BsBulkActionType? Type;
+        internal bool ignore;
         internal string text;
         public int? BulkActionOrder;
 
@@ -83,6 +84,12 @@ namespace BForms.Grid
         public BsBulkAction Order(int? order)
         {
             this.BulkActionOrder = order;
+            return this;
+        }
+
+        public BsBulkAction Ignore(bool ignore = true)
+        {
+            this.ignore = ignore;
             return this;
         }
     }

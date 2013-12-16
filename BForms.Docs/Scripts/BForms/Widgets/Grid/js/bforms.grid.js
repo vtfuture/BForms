@@ -99,6 +99,7 @@
         PageSize: 5
     };
 
+    //#region init
     Grid.prototype._init = function () {
 
         if (!this.options.uniqueName) {
@@ -315,7 +316,9 @@
         }
 
     };
-
+    //#endregion
+ 
+    //#region public methods
     Grid.prototype.search = function (data, isQuick) {
         if (data.Page) {
             this.refreshModel.Page = data.Page;
@@ -391,7 +394,9 @@
         this.element.find(this.options.noResultsRowSelector).remove();
     };
 
-    //#region Grid details
+    //#endregion
+
+    //#region grid details
     Grid.prototype._createDetails = function () {
 
         //create buttons
@@ -728,7 +733,7 @@
             $rows.removeClass('selected');
         }
 
-        var buttons = this.$actionsContainer.children('button');
+        var buttons = this.$actionsContainer.children('button:not([data-ignore="true"])');
 
         if (checked) {
             this._showBulkActions(buttons, $rows);
@@ -770,7 +775,7 @@
         }).parents(this.options.rowSelector),
             checked = $checkedRows.length;
 
-        var buttons = this.$actionsContainer.children('button');
+        var buttons = this.$actionsContainer.children('button:not([data-ignore="true"])');
 
         if (checked > 0) {
 
@@ -786,7 +791,6 @@
             this.$headerCheck.prop('checked', true);
 
         } else {
-
             buttons.hide();
             this._resetHeaderCheck();
             this._hideResetGridButton();
@@ -819,7 +823,7 @@
         if (this.$headerCheck) {
             this.$headerCheck.prop('indeterminate', false);
             this.$headerCheck.prop('checked', false);
-            this.$actionsContainer.children('button').hide();
+            this.$actionsContainer.children('button:not([data-ignore="true"])').hide();
         }
     };
 

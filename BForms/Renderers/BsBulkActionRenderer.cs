@@ -10,11 +10,11 @@ namespace BForms.Renderers
 {
     public class BsBulkActionRenderer : BsBaseRenderer<BsBulkAction>
     {
-        public BsBulkActionRenderer(){}
+        public BsBulkActionRenderer() { }
 
         public BsBulkActionRenderer(BsBulkAction builder)
             : base(builder)
-        { 
+        {
 
         }
 
@@ -29,12 +29,22 @@ namespace BForms.Renderers
 
             bulkButton.AddCssClass("btn");
 
-            bulkButton.MergeAttribute("style", "display:none");
+            if (this.Builder.ignore)
+            {
+                bulkButton.MergeAttribute("data-ignore", "true");
+            }
+
+            else
+            {
+                bulkButton.MergeAttribute("style", "display:none");
+            }
 
             if (!String.IsNullOrEmpty(this.Builder.title))
             {
                 bulkButton.MergeAttribute("title", this.Builder.title);
             }
+
+            bulkButton.MergeAttributes(this.Builder.htmlAttributes);
 
             bulkButton.InnerHtml += (this.Builder.glyphIcon.HasValue ? GetGlyphicon(this.Builder.glyphIcon.Value) + " " : "") + this.Builder.text;
 
