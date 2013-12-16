@@ -136,14 +136,14 @@
 
         this.$grid.on('click', 'header .js-inline_delete', $.proxy(function (e) {
             e.preventDefault();
-            
+
             this._deleteHandler({
                 btnSelector: '.js-inline_delete',
                 url: this.options.deleteUrl,
                 init: this._deleteHandler,
                 context: this
             }, $(e.currentTarget).closest('.grid_row'), this);
-            
+
         }, this));
 
         //this.$grid.bsGrid({
@@ -238,15 +238,34 @@
 
         var identityOpt = this._editableOptions($row, this.options.editComponents.Identity);
 
-        $row.find('.js-editableIdentity').bsPanel(identityOpt);
+        $row.find('.js-editableIdentity').bsPanel(identityOpt).bsPanel('option', 'onEditableShow', function () {
+            var $saveBtn = $row.find('.js-editableIdentity').find('.bs-savePanelQuestion');
 
-        //$row.find('.js-editableIdentity').bsEditable(identityOpt);
+            $saveBtn.bsInlineQuestion({
+                question: "Are you sure?",
+                placement: 'auto',
+                buttons: [{
+                    text: 'Yes',
+                    cssClass: 'btn-primary bs-confirm',
+                    callback: $.proxy(function () {
+                        $row.find('.js-editableIdentity').bsPanel('save');
+                    }, this)
+                },
+                    {
+                        text: 'No',
+                        cssClass: 'btn-default bs-cancel',
+                        callback: function (e) {
+                            $saveBtn.bsInlineQuestion('toggle');
+                        }
+                    }]
+            });
+        });
+
+        
 
         var projectOpt = this._editableOptions($row, this.options.editComponents.ProjectRelated);
-        
-        $row.find('.js-editableProject').bsPanel(projectOpt);
 
-        //$row.find('.js-editableProject').bsEditable(projectOpt);
+        $row.find('.js-editableProject').bsPanel(projectOpt);
     };
 
     GridIndex.prototype._editableOptions = function ($row, componentId) {
@@ -257,11 +276,11 @@
                 objId: $row.data('objid'),
                 componentId: componentId
             },
-            editSuccessHandler: $.proxy(function (e,editResponse) {
+            editSuccessHandler: $.proxy(function (e, editResponse) {
                 this.$grid.bsGrid('updateRows', editResponse.RowsHtml);
             }, this),
-            formOptions : {
-                uniqueName : 'test'
+            formOptions: {
+                uniqueName: 'test'
             },
             onEditableShow: $.proxy(function () {
                 this.$grid.bsGrid('disableRowActions', $row);
@@ -270,7 +289,7 @@
                 if ($row.find('.bs-panelEditMode').length == 0) {
                     this.$grid.bsGrid('enableRowActions', $row);
                 }
-            },this)
+            }, this)
         });
     };
 
@@ -327,10 +346,10 @@
     GridIndex.prototype._deleteHandler = function (options, $row, context) {
 
         var $btn = $row.find(options.btnSelector);
-        
+
         $btn.bsInlineQuestion({
             question: "Are you sure?",
-            placement : 'auto',
+            placement: 'auto',
             buttons: [{
                 text: 'Yes',
                 cssClass: 'btn-primary bs-confirm',
@@ -348,7 +367,7 @@
 
                     $btn.bsInlineQuestion('toggle');
                 }, this)
-                },
+            },
                 {
                     text: 'No',
                     cssClass: 'btn-default bs-cancel',
@@ -356,7 +375,7 @@
                         $btn.bsInlineQuestion('toggle');
                     }
                 }]
-        });      
+        });
     };
 
     GridIndex.prototype._ajaxDelete = function ($html, data, url, success, error) {
@@ -393,7 +412,7 @@
                 $.bforms.toolbar.controls.yourCustomControl
             ]*/
         });
-        
+
 
 
         //// after init

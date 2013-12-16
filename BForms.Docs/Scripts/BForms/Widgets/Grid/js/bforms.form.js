@@ -33,6 +33,8 @@
                             //}]
     };
     
+
+    //#region init
     Form.prototype._init = function () {
 
         if (!this.options.uniqueName){ 
@@ -106,6 +108,9 @@
 
     };
 
+    //#region init
+
+    //#region events
     Form.prototype._evBtnClick = function (e) {
        
         e.preventDefault();
@@ -114,23 +119,8 @@
         var buttonOpt = e.data.buttonOpt;
         var handlerContext = e.data.handlerContext;
 
-        if (buttonOpt.validate) {
-
-            this.$form.removeData('validator').removeData('unobtrusiveValidation');
-
-            $.validator.unobtrusive.parse(this.$form);
-
-            var validatedForm = this.$form.validate();
-
-            this._trigger('beforeFormValidation', 0, {
-                validator: validatedForm,
-                form: this.$form,
-                name: this.options.uniqueName
-            });
-
-            if (!this.$form.valid()) {
-                return;
-            }
+        if (buttonOpt.validate && !this._validate()) {
+            return;
         }
 
         var data;
@@ -185,11 +175,46 @@
         }
 
     };
+    //#endregion
 
+    //#region private methods
     Form.prototype._parse = function () {
         return this.element.parseForm(this.options.prefix ? this.options.prefix : '');
     };
+    
+    Form.prototype._evToggleGroup = function (e) {
+        var $elem = $(e.currentTarget);
+        $elem.find(this.options.glyphClass).toggleClass(this.options.groupToggleUp).toggleClass(this.options.groupToggleDown);
+        $elem.toggleClass('open').closest(this.options.groupToggleContainerSelector).next().stop().slideToggle();
+    };
 
+    Form.prototype._validate = function () {
+
+        this.$form.removeData('validator').removeData('unobtrusiveValidation');
+
+        $.validator.unobtrusive.parse(this.$form);
+
+        var validatedForm = this.$form.validate();
+
+        this._trigger('beforeFormValidation', 0, {
+            validator: validatedForm,
+            form: this.$form,
+            name: this.options.uniqueName
+        });
+
+        return this.$form.valid();
+    };
+
+    Form.prototype._getAction = function (action) {
+        
+        return $.grep(this._buttons, function(elem, idx) {
+            return elem.name == action;
+        })[0];
+
+    };
+    //#endregion
+
+    //#region ajax
     Form.prototype._btnClickAjaxSuccess = function (data, callbackData) {
         if (typeof callbackData.handler === 'function') {
             callbackData.handler.call(this, callbackData.sent, data, this);
@@ -202,13 +227,9 @@
             validatedForm.showSummaryError(data.Message);
         }
     };
+    //#endregion
 
-    Form.prototype._evToggleGroup = function (e) {
-        var $elem = $(e.currentTarget);
-        $elem.find(this.options.glyphClass).toggleClass(this.options.groupToggleUp).toggleClass(this.options.groupToggleDown);
-        $elem.toggleClass('open').closest(this.options.groupToggleContainerSelector).next().stop().slideToggle();
-    };
-
+    //#region public methods
     Form.prototype.getFormData = function (data) {
      
         var form = this.element.find('form');
@@ -234,12 +255,22 @@
         return this._parse();
     };
 
+    Form.prototype.triggerAction = function(actionName) {
+
+        var action = this._getAction(actionName);
+
+        if (action != null) {
+            action.elem.trigger('click');
+        }
+
+    };
+
     Form.prototype.reset = function (e) {
         this.element.bsResetForm(this.options.focusFirst);
     };
+    //#endregion
     
     $.widget('bforms.bsForm', Form.prototype);
        
     return Form;
-
 });

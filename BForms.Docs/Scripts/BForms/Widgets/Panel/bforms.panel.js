@@ -500,6 +500,14 @@
 
         this._trigger('onEditableShow', 0);
     };
+
+    bsPanel.prototype.save = function() {
+        var $form = this.$content.find('form');
+
+        if (typeof $form.bsForm === "function") {
+            $form.bsForm('triggerAction', 'save');
+        }
+    };
     //#endregion
 
     $.widget('bforms.bsPanel', bsPanel.prototype);
