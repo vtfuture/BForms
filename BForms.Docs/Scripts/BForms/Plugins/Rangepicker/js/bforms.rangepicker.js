@@ -219,11 +219,11 @@
             this._single = false;
         }
 
-        if (typeof this.options.minValue === "undefined" || this.options.minValue == '') {
+        if (typeof this.options.minValue === "undefined" || this.options.minValue === '') {
             this.options.minValue = -Infinity;
         }
 
-        if (typeof this.options.maxValue === "undefined" || this.options.maxValue == '') {
+        if (typeof this.options.maxValue === "undefined" || this.options.maxValue === '') {
             this.options.maxValue = Infinity;
         }
 
@@ -623,7 +623,7 @@
         var textValue = this.$element.val(),
             values = textValue.split(this.options.delimiter);
 
-        if (textValue == '' && this._hasInitialValue == false) {
+        if (textValue === '' && this._hasInitialValue == false) {
 
             $.each(this.options.ranges, $.proxy(function (index) {
                 this._updateListener(index, textValue);
