@@ -305,6 +305,13 @@ a.btn {
 			title.open .expand {
 				background: url(../images/icn-right_arrow-small.png) center center no-repeat;
 			}
+			.sort {
+				position: absolute;
+				left: 12px;
+				top: 15px;
+				text-decoration: none;
+				cursor: move;
+			}
 		}
 		.grid_row { /* bootstrap override */	
 			margin: 0;
@@ -602,7 +609,7 @@ a.btn {
 				}
 			}
 		}
-		&.is_expandable {
+		&.is_expandable, &.is_sortable {
 			header {
 				padding-left: 30px;
 			}
