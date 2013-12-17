@@ -400,7 +400,7 @@
         $rows.find(this.options.detailsSelector).trigger('click');
     };
     
-    Grid.prototype.hideBulkActions = function (e) {
+    Grid.prototype.hideBulkActions = function () {
         this.element.find(this.options.headerCheckSelector).trigger('click');
         this.element.find(this.options.headerCheckSelector).parent().hide();
 
@@ -409,7 +409,7 @@
         }
     };
     
-    Grid.prototype.showBulkActions = function (e) {    
+    Grid.prototype.showBulkActions = function () {    
         this.element.find(this.options.headerCheckSelector).parent().show();
 
         if (this.options.hasRowCheck) {
