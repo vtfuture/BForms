@@ -403,7 +403,14 @@
     Grid.prototype.hideBulkActions = function () {
        
         if (this.options.hasRowCheck) {
-            this.element.find(this.options.headerCheckSelector).trigger('click');
+            
+            this.$resetGridButton.hide();
+            this.element.find(this.options.rowCheckSelector).prop('checked', false);
+            this.element.find(this.options.headerCheckSelector).prop('checked', false);
+            
+            this.element.find(this.options.rowCheckSelector).parents(this.options.rowSelector).removeClass('selected');
+            this.$actionsContainer.children('button:not([data-ignore="true"])').hide();
+                    
             this.element.find(this.options.headerCheckSelector).parent().hide();
             this.element.find(this.options.rowCheckSelector).hide();
         }
