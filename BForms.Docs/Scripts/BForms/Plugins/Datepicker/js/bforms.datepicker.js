@@ -1494,7 +1494,7 @@
                 return d;
             } else {
 
-                var now = moment(this.options.defaultDateValue).clone() || moment();
+                var now = this.options.defaultDateValue != null ?  moment(this.options.defaultDateValue).clone() : moment();
 
                 var pairs = value.split(' '),
                     i = 0,
