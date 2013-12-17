@@ -222,6 +222,12 @@ a.btn {
         cursor: pointer; }
     .grid_container .grid_view .grid_rows title.open .expand {
       background: url(../images/icn-right_arrow-small.png) center center no-repeat; }
+    .grid_container .grid_view .grid_rows .sort {
+      position: absolute;
+      left: 12px;
+      top: 15px;
+      text-decoration: none;
+      cursor: move; }
   .grid_container .grid_view .grid_row {
     /* bootstrap override */
     margin: 0;
@@ -437,7 +443,7 @@ a.btn {
       .grid_container .grid_view .grid_rows_wrapper .grid_row_details .check-list label span {
         font-size: 11px;
         display: block; }
-  .grid_container .grid_view.is_expandable header {
+  .grid_container .grid_view.is_expandable header, .grid_container .grid_view.is_sortable header {
     padding-left: 30px; }
   .grid_container .grid_view.is_checkable header {
     padding-right: 25px; }
