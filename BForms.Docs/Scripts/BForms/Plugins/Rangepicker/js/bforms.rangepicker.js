@@ -464,9 +464,13 @@
             formattedString = '';
         }
 
-        this._trigger('afterFormatLabel', [formattedString]);
+        var triggerData = {
+            label: formattedString
+        };
 
-        this.$input.val(formattedString);
+        this._trigger('afterFormatLabel', [triggerData]);
+
+        this.$input.val(triggerData.label);
 
         if (typeof this.$element.valid === "function" && this.options.preventValidation != true && this.$element.hasClass('input-validation-error')) {
             this.$input.valid();
@@ -716,6 +720,20 @@
         }, this));
 
         this._updateLabels(this._hasInitialValue !== true);
+    };
+
+    rangePicker.prototype.option = function (name, value) {
+
+        if (typeof value === "undefined") {
+            return this.options[name];
+        } else {
+
+            this.options[name] = value;
+
+            if (typeof this["option_" + name] === "function") {
+                this["option_" + name].apply(this, [value]);
+            }
+        }
     };
     //#endregion
 
