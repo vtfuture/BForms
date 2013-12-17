@@ -406,12 +406,12 @@
             
             //hides and uncheck bulk actions
             this.$resetGridButton.hide();
-            this.element.find(this.options.rowCheckSelector).hide();
             this.$actionsContainer.children('button:not([data-ignore="true"])').hide();
             this.element.find(this.options.headerCheckSelector).parent().hide();
             this.element.find(this.options.headerCheckSelector).prop('checked', false);
             
-            //hides row checkbox
+            //hides and uncheck row checkbox
+            this.element.find(this.options.rowCheckSelector).hide();
             this.element.find(this.options.rowCheckSelector).prop('checked', false);
             
             //remove selected css class from selected rows
