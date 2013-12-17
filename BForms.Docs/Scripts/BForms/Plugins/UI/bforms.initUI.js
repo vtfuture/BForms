@@ -324,7 +324,8 @@
                             $elem.bsDatepicker($.extend(true, {}, self._getOptions(this), {
                                 type: 'datepicker',
                                 altFields: [{
-                                    selector: $valueField
+                                    selector: $valueField,
+                                    format: 'YYYY-MM-DD HH:mm:ss'
                                 }],
                                 initialValue: $valueField.val(),
                                 language: uiLocale
@@ -348,7 +349,8 @@
                             $elem.bsDatepicker($.extend(true, {}, self._getOptions(this), {
                                 type: 'datepicker',
                                 altFields: [{
-                                    selector: $valueField
+                                    selector: $valueField,
+                                    format: 'YYYY-MM-DD HH:mm:ss'
                                 }],
                                 initialValue: $valueField.val(),
                                 language: uiLocale
@@ -382,7 +384,8 @@
                                 type: 'timepicker',
                                 is12Hours: true,
                                 altFields: [{
-                                    selector: $valueField
+                                    selector: $valueField,
+                                    format: 'YYYY-MM-DD HH:mm:ss'
                                 }],
                                 initialValue: $valueField.val(),
                                 language: uiLocale
@@ -408,7 +411,8 @@
                                 type: 'timepicker',
                                 is12Hours: true,
                                 altFields: [{
-                                    selector: $valueField
+                                    selector: $valueField,
+                                    format: 'YYYY-MM-DD HH:mm:ss'
                                 }],
                                 initialValue: $valueField.val(),
                                 language: uiLocale
@@ -440,7 +444,8 @@
                                 type: 'datetimepicker',
                                 is12Hours: true,
                                 altFields: [{
-                                    selector: $valueField
+                                    selector: $valueField,
+                                    format: 'YYYY-MM-DD HH:mm:ss'
                                 }],
                                 initialValue: $valueField.val(),
                                 language: uiLocale
@@ -466,7 +471,8 @@
                                 type: 'datetimepicker',
                                 is12Hours: true,
                                 altFields: [{
-                                    selector: $valueField
+                                    selector: $valueField,
+                                    format: 'YYYY-MM-DD HH:mm:ss'
                                 }],
                                 initialValue: $valueField.val(),
                                 language: uiLocale
@@ -514,9 +520,8 @@
                                     language: uiLocale,
                                     maxDate: maxDate || null
                                 },
-
-                                startAltFields: [{ selector: $startInput }],
-                                endAltFields: [{ selector: $endInput }],
+                                startAltFields: [{ selector: $startInput, format : 'YYYY-MM-DD HH:mm:ss' }],
+                                endAltFields: [{ selector: $endInput, format: 'YYYY-MM-DD HH:mm:ss' }],
                                 language: uiLocale,
                                 allowDeselectStart: $startInput.data('allowdeselect'),
                                 allowDeselectEnd: $endInput.data('allowdeselect')
@@ -556,8 +561,8 @@
                                     maxDate: maxDate || null
                                 },
 
-                                startAltFields: [{ selector: $startInput }],
-                                endAltFields: [{ selector: $endInput }],
+                                startAltFields: [{ selector: $startInput, format: 'YYYY-MM-DD HH:mm:ss' }],
+                                endAltFields: [{ selector: $endInput, format: 'YYYY-MM-DD HH:mm:ss' }],
                                 language: uiLocale,
                                 allowDeselectStart: $startInput.data('allowdeselect'),
                                 allowDeselectEnd: $endInput.data('allowdeselect')
@@ -604,8 +609,8 @@
                                     language: uiLocale,
                                     maxDate: maxDate || null
                                 },
-                                startAltFields: [{ selector: $startInput }],
-                                endAltFields: [{ selector: $endInput }],
+                                startAltFields: [{ selector: $startInput, format: 'YYYY-MM-DD HH:mm:ss' }],
+                                endAltFields: [{ selector: $endInput, format: 'YYYY-MM-DD HH:mm:ss' }],
                                 language: uiLocale,
                                 allowDeselectStart : $startInput.data('allowdeselect'),
                                 allowDeselectEnd : $endInput.data('allowdeselect')
@@ -642,8 +647,8 @@
                                     language: uiLocale,
                                     maxDate: maxDate || null
                                 },
-                                startAltFields: [{ selector: $startInput }],
-                                endAltFields: [{ selector: $endInput }],
+                                startAltFields: [{ selector: $startInput, format: 'YYYY-MM-DD HH:mm:ss' }],
+                                endAltFields: [{ selector: $endInput, format: 'YYYY-MM-DD HH:mm:ss' }],
                                 language: uiLocale,
                                 allowDeselectStart: $startInput.data('allowdeselect'),
                                 allowDeselectEnd: $endInput.data('allowdeselect')
@@ -689,8 +694,8 @@
                                     maxDate: maxDate || null
                                 },
 
-                                startAltFields: [{ selector: $startInput }],
-                                endAltFields: [{ selector: $endInput }],
+                                startAltFields: [{ selector: $startInput, format: 'YYYY-MM-DD HH:mm:ss' }],
+                                endAltFields: [{ selector: $endInput, format: 'YYYY-MM-DD HH:mm:ss' }],
                                 language: uiLocale,
                                 allowDeselectStart: $startInput.data('allowdeselect'),
                                 allowDeselectEnd: $endInput.data('allowdeselect')
@@ -729,8 +734,8 @@
                                     maxDate: maxDate || null
                                 },
 
-                                startAltFields: [{ selector: $startInput }],
-                                endAltFields: [{ selector: $endInput }],
+                                startAltFields: [{ selector: $startInput, format: 'YYYY-MM-DD HH:mm:ss' }],
+                                endAltFields: [{ selector: $endInput, format: 'YYYY-MM-DD HH:mm:ss' }],
                                 language: uiLocale,
                                 allowDeselectStart: $startInput.data('allowdeselect'),
                                 allowDeselectEnd: $endInput.data('allowdeselect')
