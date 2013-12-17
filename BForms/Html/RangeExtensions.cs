@@ -167,6 +167,8 @@ namespace BForms.Html
             hiddenTag.MergeAttribute("type", "hidden");
             hiddenTag.MergeAttributes(htmlAttributes);
 
+            var type = typeof (TKey);
+
             if (range != null && range.From != null)
             {
                 if (!string.IsNullOrEmpty(range.From.Display))
@@ -178,14 +180,11 @@ namespace BForms.Html
                 {
                     hiddenTag.MergeAttribute("data-minvalue", FormatValue(range.From.MinValue));
                 }
+            }
 
-                var type = ReflectionHelpers.GetDeclaringType(range, x => x.From);
-                var finalType = type.GenericTypeArguments[0];
-
-                if (finalType.InheritsOrImplements(typeof(Nullable<>)))
-                {
-                    hiddenTag.MergeAttribute("data-allowdeselect","true");
-                }
+            if (type.InheritsOrImplements(typeof(Nullable<>)))
+            {
+                hiddenTag.MergeAttribute("data-allowdeselect", "true");
             }
 
             inputHtml.Append(hiddenTag.ToString(TagRenderMode.Normal));
@@ -212,14 +211,11 @@ namespace BForms.Html
                 {
                     hiddenTag.MergeAttribute("data-maxvalue", FormatValue(range.To.MaxValue));
                 }
+            }
 
-                var type = ReflectionHelpers.GetDeclaringType(range, x => x.To);
-                var finalType = type.GenericTypeArguments[0];
-
-                if (finalType.InheritsOrImplements(typeof(Nullable<>)))
-                {
-                    hiddenTag.MergeAttribute("data-allowdeselect", "true");
-                }
+            if (type.InheritsOrImplements(typeof(Nullable<>)))
+            {
+                hiddenTag.MergeAttribute("data-allowdeselect", "true");
             }
 
             inputHtml.Append(hiddenTag.ToString(TagRenderMode.Normal));
