@@ -158,7 +158,7 @@ namespace BForms.Html
             var fromName = fullName + ".From.ItemValue";
             htmlAttributes.MergeAttribute("class", "bs-range-from", true);
 
-            var valFormated = range != null ? FormatValue(range.From.ItemValue) : string.Empty;
+            var valFormated = (range != null && range.From != null) ? FormatValue(range.From.ItemValue) : string.Empty;
 
             var hiddenTag = new TagBuilder("input");
             hiddenTag.GenerateId(fromName);
@@ -176,7 +176,7 @@ namespace BForms.Html
                     hiddenTag.MergeAttribute("data-display", range.From.Display);
                 }
 
-                if (!range.To.MinValue.Equals(default(TKey)))
+                if (!range.From.MinValue.Equals(default(TKey)))
                 {
                     hiddenTag.MergeAttribute("data-minvalue", FormatValue(range.From.MinValue));
                 }
@@ -190,7 +190,7 @@ namespace BForms.Html
             inputHtml.Append(hiddenTag.ToString(TagRenderMode.Normal));
 
             //To
-            valFormated = range != null ? FormatValue(range.To.ItemValue) : string.Empty;
+            valFormated = (range != null && range.To != null) ? FormatValue(range.To.ItemValue) : string.Empty;
             var toName = fullName + ".To.ItemValue";
             htmlAttributes.MergeAttribute("class", "bs-range-to", true);
             hiddenTag = new TagBuilder("input");

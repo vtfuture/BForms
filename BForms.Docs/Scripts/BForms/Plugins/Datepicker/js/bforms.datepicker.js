@@ -447,7 +447,7 @@
 
         //#region hold events
         this.$picker.on('mousedown touchstart', '.bs-hourUp', $.proxy(this._hourUpTimeout, this));
-        
+
         this.$picker.on('mouseup mouseleave touchend', '.bs-hourUp', $.proxy(function (e) {
             window.clearTimeout(this._hourUpHandler);
             this._hourUpTimeoutSpeed = null;
@@ -456,7 +456,7 @@
         this.$picker.on('click', '.bs-hourUp', $.proxy(function (e) {
             this.hourUpClick(e);
         }, this));
-        
+
 
         this.$picker.on('mousedown', '.bs-minuteUp', $.proxy(function (e) {
             this._minuteUpTimeout();
@@ -471,8 +471,8 @@
         this.$picker.on('click', '.bs-minuteUp', $.proxy(function (e) {
             this.minuteUpClick(e);
         }, this));
-        
-        
+
+
         this.$picker.on('mousedown touchstart', '.bs-secondUp', $.proxy(this._secondUpTimeout, this));
 
         this.$picker.on('mouseup mouseleave touchend', '.bs-secondUp', $.proxy(function (e) {
@@ -483,7 +483,7 @@
         this.$picker.on('click', '.bs-secondUp', $.proxy(function (e) {
             this.secondUpClick(e);
         }, this));
-        
+
 
         this.$picker.on('mousedown touchstart', '.bs-hourDown', $.proxy(this._hourDownTimeout, this));
 
@@ -495,8 +495,8 @@
         this.$picker.on('click', '.bs-hourDown', $.proxy(function (e) {
             this.hourDownClick(e);
         }, this));
-        
-        
+
+
         this.$picker.on('mousedown touchstart', '.bs-minuteDown', $.proxy(this._minuteDownTimeout, this));
 
         this.$picker.on('mouseup mouseleave touchend', '.bs-minuteDown', $.proxy(function (e) {
@@ -507,8 +507,8 @@
         this.$picker.on('click', '.bs-minuteDown', $.proxy(function (e) {
             this.minuteDownClick(e);
         }, this));
-        
-        
+
+
         this.$picker.on('mousedown touchstart', '.bs-secondDown', $.proxy(this._secondDownTimeout, this));
 
         this.$picker.on('mouseup mouseleave touchend', '.bs-secondDown', $.proxy(function (e) {
@@ -794,11 +794,11 @@
             this._updateTimeView();
         }
     };
-    
+
     //#region hold events
-    bDatepicker.prototype._hourUpTimeout = function() {
+    bDatepicker.prototype._hourUpTimeout = function () {
         this.hourUpClick();
-        
+
         if (this._allowHold()) {
 
             this._hourUpTimeoutSpeed = this._hourUpTimeoutSpeed || this.options.holdInterval;
@@ -815,7 +815,7 @@
     };
 
     bDatepicker.prototype.hourUpClick = function (e) {
-       // this._stopEvent(e);
+        // this._stopEvent(e);
 
         var newValue = this.currentValue.clone().add('hour', 1);
 
@@ -831,15 +831,15 @@
     };
 
 
-    bDatepicker.prototype._minuteUpTimeout = function() {
+    bDatepicker.prototype._minuteUpTimeout = function () {
         this.minuteUpClick();
 
         if (this._allowHold()) {
-            
+
             this._minuteUpTimeoutSpeed = this._minuteUpTimeoutSpeed || this.options.holdInterval;
 
             this._minuteUpHandler = window.setTimeout($.proxy(this._minuteUpTimeout, this), this._minuteUpTimeoutSpeed);
-            
+
             if (this._minuteUpTimeoutSpeed && this._minuteUpTimeoutSpeed > this.options.holdMinInterval) {
                 this._minuteUpTimeoutSpeed -= this.options.holdDecreaseFactor;
             }
@@ -866,15 +866,15 @@
     };
 
 
-    bDatepicker.prototype._secondUpTimeout = function() {
+    bDatepicker.prototype._secondUpTimeout = function () {
         this.secondUpClick();
 
         if (this._allowHold()) {
-            
+
             this._secondUpTimeoutSpeed = this._secondUpTimeoutSpeed || this.options.holdInterval;
 
             this._secondUpHandler = window.setTimeout($.proxy(this._secondUpTimeout, this), this._secondUpTimeoutSpeed);
-            
+
             if (this._secondUpTimeoutSpeed && this._secondUpTimeoutSpeed > this.options.holdMinInterval) {
                 this._secondUpTimeoutSpeed -= this.options.holdDecreaseFactor;
             }
@@ -902,19 +902,19 @@
     };
 
 
-    bDatepicker.prototype._hourDownTimeout = function() {
+    bDatepicker.prototype._hourDownTimeout = function () {
         this.hourDownClick();
 
         if (this._allowHold()) {
-            
+
             this._hourDownTimeoutSpeed = this._hourDownTimeoutSpeed || this.options.holdInterval;
 
             this._hourDownHandler = window.setTimeout($.proxy(this._hourDownTimeout, this), this._hourDownTimeoutSpeed);
-            
+
             if (this._hourDownTimeoutSpeed && this._hourDownTimeoutSpeed > this.options.holdMinInterval) {
                 this._hourDownTimeoutSpeed -= this.options.holdDecreaseFactor;
             }
-            
+
         } else {
             window.clearTimeout(this._hourDownHandler);
             this._hourDownTimeoutSpeed = null;
@@ -942,11 +942,11 @@
         this.minuteDownClick();
 
         if (this._allowHold()) {
-            
+
             this._minuteDownTimeoutSpeed = this._minuteDownTimeoutSpeed || this.options.holdInterval;
 
             this._minuteDownHandler = window.setTimeout($.proxy(this._minuteDownTimeout, this), this._minuteDownTimeoutSpeed);
-            
+
             if (this._minuteDownTimeoutSpeed && this._minuteDownTimeoutSpeed > this.options.holdMinInterval) {
                 this._minuteDownTimeoutSpeed -= this.options.holdDecreaseFactor;
             }
@@ -976,13 +976,13 @@
 
     bDatepicker.prototype._secondDownTimeout = function () {
         this.secondDownClick();
-        
+
         if (this._allowHold()) {
-            
+
             this._secondDownTimeoutSpeed = this._minuteDownTimeoutSpeed || this.options.holdInterval;
 
             this._secondDownHandler = window.setTimeout($.proxy(this._secondDownTimeout, this), this._secondDownTimeoutSpeed);
-            
+
             if (this._secondDownTimeoutSpeed && this._secondDownTimeoutSpeed > this.options.holdMinInterval) {
                 this._secondDownTimeoutSpeed -= this.options.holdDecreaseFactor;
             }
@@ -1007,9 +1007,9 @@
         this._updateTimeView();
         this._updateDateView();
     };
-    
-    
-    bDatepicker.prototype._allowHold = function() {
+
+
+    bDatepicker.prototype._allowHold = function () {
         return this._visible;
     };
     //#endregion
@@ -1251,7 +1251,7 @@
             newLeft = elemOffset.left + this.$element.outerWidth() - this.$picker.outerWidth();
             this.$picker.removeClass('open-left');
             this.$picker.addClass('open-right');
-            
+
         }
 
         if (this.options.fixedPicker === true) {
@@ -1305,7 +1305,7 @@
             var model = this.getRenderModel();
 
             var $date = this.renderer.renderDate(model);
-            
+
             this.$picker.find('.bs-date-wrapper').html($date.html());
 
         }
@@ -1327,7 +1327,7 @@
         this._valueSet = false;
         this._updateDisplays('');
         this._updateDateView();
-        
+
         this._trigger('onChange', {
             date: null,
             formattedDate: ''
@@ -1353,10 +1353,10 @@
         }
 
         this._valueSet = true;
-        
+
         this._trigger('onChange', {
-            date:  this.currentValue.clone(),
-            formattedDate:  this.currentValue.format(this._displayFormat)
+            date: this.currentValue.clone(),
+            formattedDate: this.currentValue.format(this._displayFormat)
         });
 
         if (this.options.closeOnChange && allowClose) {
@@ -1409,14 +1409,14 @@
             Time: this.getTime(model.Value),
             WrapperClass: this.options.wrapperClass,
             DaysNames: this.getDaysNames(),
-            Theme : this.options.theme
+            Theme: this.options.theme
         });
 
         var prevValue = this.value.clone(),
             nextValue = this.value.clone();
 
         if (model.HideDays == false) {
-            
+
             prevValue = prevValue.startOf('month').subtract('day', 1);
             nextValue = nextValue.endOf('month').add('day', 1);
 
@@ -1494,7 +1494,7 @@
                 return d;
             } else {
 
-                var now = this.options.defaultDateValue != null ?  moment(this.options.defaultDateValue).clone() : moment();
+                var now = this.options.defaultDateValue != null ? moment(this.options.defaultDateValue).clone() : moment();
 
                 var pairs = value.split(' '),
                     i = 0,
@@ -1581,7 +1581,7 @@
             };
 
             this._trigger('beforeShow', showData);
-            
+
             if (showData.preventShow == false) {
 
                 if (this._needsRendering) {
@@ -1641,7 +1641,7 @@
         this._getInitialValue();
         this._updateDateView();
         this._updateTimeView();
-        
+
         if (typeof this.options.initialValue !== "undefined" && this.options.initialValue != '') {
             this._updateDisplays();
         } else {
@@ -1658,41 +1658,50 @@
         return this._valueSet == true ? this.currentValue.clone() : null;
     };
 
-    bDatepicker.prototype.clearValue = function() {
+    bDatepicker.prototype.clearValue = function () {
         this._deselectValue();
     };
 
     bDatepicker.prototype.setValue = function (value) {
-        var val = moment(value).lang(this.options.language);
 
-        if (this.isValidDate(val)) {
-            this._setCurrentValue(val);
-            this.value = this.currentValue.clone();
+        if (value != null) {
 
-            this._updateDateView();
-            this._updateTimeView();
-            this._updateDisplays();
+            var val = moment(value).lang(this.options.language);
 
-            return true;
+            if (this.isValidDate(val)) {
+                this._setCurrentValue(val);
+                this.value = this.currentValue.clone();
+
+                this._updateDateView();
+                this._updateTimeView();
+                this._updateDisplays();
+
+                return true;
+            } else {
+                return false;
+            }
         } else {
             return false;
         }
+
     };
 
     bDatepicker.prototype.getFormat = function () {
         return this._displayFormat;
     };
 
-    bDatepicker.prototype.getInitialValue = function() {
+    bDatepicker.prototype.getInitialValue = function () {
         return this._getInitialValue();
     };
 
     bDatepicker.prototype.format = function (date) {
+        if (date != null) {
 
-        var fDate = moment(date).lang(this.options.language);
+            var fDate = moment(date).lang(this.options.language);
 
-        if (fDate.isValid())
-            return fDate.format(this._displayFormat);
+            if (fDate.isValid())
+                return fDate.format(this._displayFormat);
+        }
     };
 
     bDatepicker.prototype.option = function (name, value) {
@@ -1768,7 +1777,7 @@
         }
     };
 
-    bDatepicker.prototype.render = function() {
+    bDatepicker.prototype.render = function () {
         this._updateDateView();
         this._updateTimeView();
     };
@@ -1845,7 +1854,7 @@
                     dayObj.cssClass += ' inactive';
                 }
             }
-            
+
             days.push(dayObj);
 
             daysStart.add('days', 1);
@@ -1879,7 +1888,7 @@
                 selected: (this._valueSet || this._valueSet == null) && it.isSame(this.currentValue, 'month') && it.isSame(this.currentValue, 'year'),
                 selectable: this.isValidDate(it, true, {
                     allowSame: true,
-                    format : 'month'
+                    format: 'month'
                 })
             });
 
@@ -2057,7 +2066,7 @@
         is12Hours: false,
         showClose: false,
         inline: false,
-        allowDeselect : false,
+        allowDeselect: false,
         selectOnly: '', //accepted values : year, month, day, year&month, month&day
         selectOnlyFormats: {
             'year': 'YYYY',
@@ -2076,13 +2085,13 @@
         heightPosition: 20,
         checkForMobileDevice: true,
         withScrollTimeout: true,
-        
-        allowSame : false,
+
+        allowSame: false,
 
         holdInterval: 175,
-        holdMinInterval : 50,
+        holdMinInterval: 50,
         holdDecreaseFactor: 4,
-        deferredRender : false
+        deferredRender: false
     };
 
     $.fn.bsDatepickerLang = {

@@ -51,7 +51,7 @@
             if (this.options.visible == false) {
                 this._visible = false;
             }
-            
+
             if (typeof this.options.placeholderValue === "undefined") {
                 this.options.placeholderValue = this.options.placeholder;
             }
@@ -76,11 +76,11 @@
             applyText: this.options.applyText,
             cancelText: this.options.cancelText,
             fromText: this.options.fromText,
-            toText : this.options.toText,
+            toText: this.options.toText,
             allowDeselectStart: this.options.allowDeselectStart,
             allowDeselectEnd: this.options.allowDeselectEnd,
             theme: this.options.theme,
-            hideRanges : this.options.hideRanges
+            hideRanges: this.options.hideRanges
         });
 
         this.$start = this.$container.find('.bs-start-replace');
@@ -93,12 +93,12 @@
             if (typeof this.options.startOptions !== "undefined" && typeof this.options.startOptions.language === "undefined") {
                 this.options.startOptions.language = this.options.language;
             }
-            
+
             if (typeof this.options.endOptions !== "undefined" && typeof this.options.endOptions.language === "undefined") {
                 this.options.endOptions.language = this.options.language;
             }
         }
-        
+
         if (typeof this.options.theme !== "undefined") {
             this.options.startOptions.theme = this.options.endOptions.theme = 'blue';
         }
@@ -128,7 +128,7 @@
             onDaysMouseOut: $.proxy(this.onEndDaysMouseOut, this),
             allowSame: this.options.allowSame,
             allowDeselect: this.options.allowDeselectEnd,
-            deferredRender : this.options.deferredRender
+            deferredRender: this.options.deferredRender
         }, endOptions, {
             inline: true,
             ShowClose: false,
@@ -163,7 +163,11 @@
             this.$container.hide();
         }
 
-        if (this.options.startOptions.initialValue && this.options.endOptions.initialValue) {
+        var allowApplyRange = this.options.startOptions.initialValue && this.options.endOptions.initialValue ||
+                         this.options.startOptions.initialValue && this.options.allowDeselectEnd ||
+                         this.options.endOptions.initialValue && this.options.allowDeselectStart;
+
+        if (allowApplyRange) {
             this.applyRange();
         }
     };
@@ -349,7 +353,7 @@
         if ((data.date != null) && startValue != null && !this.$start.bsDatepicker('isValidDate', startValue)) {
             this.$start.bsDatepicker('setValue', data.date.clone().subtract('days', 1));
         }
-        
+
         this._trigger('onEndChange', data);
     };
 
@@ -367,7 +371,7 @@
             this.$endLabel.data(this._endValue);
         }
         var val = typeof value === "string" ? value : this.getValue();
-
+        
         if (typeof this.$input !== "undefined") {
             this.$input.val(val);
             if (typeof this.$input.valid === "function" && this.$input.parents('form').length) {
@@ -463,7 +467,7 @@
         if (typeof this.options.beforeShowDay === "function") {
             $.extend(true, returnModel, this.options.beforeShowDay(val, dayModel));
         }
-        
+
         if (returnModel.selectable === false && typeof returnModel.cssClass !== "undefined" && returnModel.cssClass.indexOf('in-range') !== -1) {
             returnModel.cssClass = returnModel.cssClass.replace('in-range', '');
         }
@@ -766,7 +770,23 @@
 
     bRangePicker.prototype.getValue = function () {
         if (this._valueSettedForFirst !== false || this._valueSettedForSecond !== false) {
-            return this.getStartValue() + ' ' + this.options.delimiter + ' ' + this.getEndValue();
+            var startValue = this.getStartValue(),
+                endValue = this.getEndValue();
+
+            if (startValue === '' && endValue == '') {
+                return '';
+            } else {
+                if (startValue === '') {
+                    startValue = this.options.placeholderValue;
+                }
+
+                if (endValue === '') {
+                    endValue = this.options.placeholderValue;
+                }
+
+                return startValue + ' ' + this.options.delimiter + ' ' + endValue;
+            }
+
         } else {
             return '';
         }
@@ -839,7 +859,7 @@
         allowInvalidMinMax: true,
         checkForMobileDevice: true,
         allowSame: true,
-        deferredRender : true
+        deferredRender: true
     };
 
     $.fn.bsDateRangeLang = {
@@ -848,14 +868,14 @@
             cancelText: 'Cancel',
             fromText: 'From',
             toText: 'To',
-            placeholder : 'not specified'
+            placeholder: 'not specified'
         },
         'ro': {
             applyText: 'Setează',
             cancelText: 'Anulare',
             fromText: 'De la',
             toText: 'Până la',
-            placeholder : 'nespecificat'
+            placeholder: 'nespecificat'
         }
     };
 
