@@ -22,16 +22,53 @@ namespace BForms.Models
         /// <summary>
         /// Bottom limit for ItemValue
         /// </summary>
-        public T MinValue { get; set; }
+        public T MinValue
+        {
+            get
+            {
+                return _minValue;
+            }
+            set
+            {
+                _minValue = value;
+                MinValueSet = true;
+            }
+        }
 
         /// <summary>
         /// Top limit for ItemValue
         /// </summary>
-        public T MaxValue { get; set; }
+        public T MaxValue
+        {
+            get
+            {
+                return _maxValue;
+            }
+            set
+            {
+                _maxValue = value;
+                MaxValueSet = true;
+            }
+        }
 
         /// <summary>
         /// Display text
         /// </summary>
         public string Display { get; set; }
+
+        private T _minValue;
+        private T _maxValue;
+
+        internal bool MinValueSet
+        {
+            get;
+            private set;
+        }
+
+        internal bool MaxValueSet
+        {
+            get;
+            private set;
+        }
     }
 }

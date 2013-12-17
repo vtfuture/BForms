@@ -176,7 +176,7 @@ namespace BForms.Html
                     hiddenTag.MergeAttribute("data-display", range.From.Display);
                 }
 
-                if (!range.From.MinValue.Equals(default(TKey)))
+                if (range.From.MinValueSet)
                 {
                     hiddenTag.MergeAttribute("data-minvalue", FormatValue(range.From.MinValue));
                 }
@@ -207,7 +207,7 @@ namespace BForms.Html
                     hiddenTag.MergeAttribute("data-display", range.To.Display);
                 }
 
-                if (!range.To.MaxValue.Equals(default(TKey)))
+                if (range.To.MaxValueSet)
                 {
                     hiddenTag.MergeAttribute("data-maxvalue", FormatValue(range.To.MaxValue));
                 }
