@@ -579,8 +579,7 @@ a.btn {
 							margin-bottom: 0;
 							li {
 								border: none;
-								padding: 0;
-								margin-bottom: 5px;
+								padding: 0;								
 							}
 						}
 					}
@@ -589,6 +588,7 @@ a.btn {
 					li {
 						padding: 4px 5px;
 						border: 1px solid $borderColor;
+						margin-bottom: 5px;
 						.username {
 							display: block;
 							font-weight: bold; 
