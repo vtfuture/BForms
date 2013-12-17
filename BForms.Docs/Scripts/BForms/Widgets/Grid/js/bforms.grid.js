@@ -399,6 +399,23 @@
 
         $rows.find(this.options.detailsSelector).trigger('click');
     };
+    
+    Grid.prototype.hideBulkActions = function () {
+       
+        if (this.options.hasRowCheck) {
+            this.element.find(this.options.headerCheckSelector).trigger('click');
+            this.element.find(this.options.headerCheckSelector).parent().hide();
+            this.element.find(this.options.rowCheckSelector).hide();
+        }
+    };
+    
+    Grid.prototype.showBulkActions = function () {    
+        
+        if (this.options.hasRowCheck) {
+            this.element.find(this.options.headerCheckSelector).parent().show();
+            this.element.find(this.options.rowCheckSelector).show();
+        }   
+    };
     //#endregion
 
     //#region grid details
