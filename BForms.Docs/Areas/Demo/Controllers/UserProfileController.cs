@@ -221,17 +221,17 @@ namespace BForms.Docs.Areas.Demo.Controllers
                 {
                     Basic = new UserProfileBasicModel
                     {
-                        Username = "ms sam",
+                        Username = "Stefan Prodan",
                         Department = "Web",
-                        Organization = "Google"
+                        Organization = "BForms"
                     },
                     UserInfo = new UserProfileInfoModel
                     {
-                        Firstname = "John",
-                        Lastname = "Doe",
+                        Firstname = "Stefan",
+                        Lastname = "Prodan",
                         Password = "password1",
                         Role = "Team leader",
-                        HireDate = DateTime.Now
+                        HireDate = new DateTime(2013,8,1)
                     },
                     Contact = new UserProfileContactModel
                     {
