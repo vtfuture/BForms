@@ -596,9 +596,16 @@ More info at: http://icanhazjs.com
                     ich.grabTemplates();
                 });
             } else {
-                document.addEventListener('DOMContentLoaded', function () {
-                    ich.grabTemplates();
-                }, true);
+                
+                if (typeof document.addEventListener === "function") {
+                    document.addEventListener('DOMContentLoaded', function() {
+                        ich.grabTemplates();
+                    }, true);
+                } else {
+                    document.attachEvent("DOMContentLoaded", function () {
+                        ich.grabTemplates();
+                    });
+                }
             }
         }
 

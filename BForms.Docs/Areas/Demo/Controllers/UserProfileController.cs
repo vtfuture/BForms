@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Web;
 using System.Web.Mvc;
 using BForms.Docs.Areas.Demo.Models;
 using BForms.Docs.Controllers;
@@ -16,6 +18,10 @@ namespace BForms.Docs.Areas.Demo.Controllers
         public ActionResult Index()
         {
             var model = GetUserProfileModel();
+
+            RequireJsOptions.Add("uploadUrl", Url.Action("UploadAvatar"));
+            RequireJsOptions.Add("avatarUrl", Url.Action("GetAvatar"));
+            RequireJsOptions.Add("deleteAvatarUrl", Url.Action("DeleteAvatar"));
 
             return View(model);
         }
@@ -133,6 +139,74 @@ namespace BForms.Docs.Areas.Demo.Controllers
             {
                 Html = html
             });
+        }
+
+        public BsJsonResult UploadAvatar()
+        {
+            var status = BsResponseStatus.Success;
+            var msg = string.Empty;
+
+            try
+            {
+                if (Request.Files != null && Request.Files.Count > 0)
+                {
+                    var postedFile = Request.Files[0];
+                    MemoryStream target = new MemoryStream();
+                    postedFile.InputStream.CopyTo(target);
+                    byte[] data = target.ToArray();
+
+                    Session["Avatar"] = data;
+                }
+            }
+            catch (Exception ex)
+            {
+                status = BsResponseStatus.ServerError;
+                msg = ex.Message;
+            }
+
+
+            return new BsJsonResult(new
+            {
+                AvatarUrl = Url.Action("GetAvatar")
+            }, status,msg);
+        }
+
+        public BsJsonResult DeleteAvatar()
+        {
+            var status = BsResponseStatus.Success;
+            var msg = string.Empty;
+
+            try
+            {
+                Session["Avatar"] = null;
+            }
+
+            catch (Exception ex)
+            {
+                status = BsResponseStatus.ServerError;
+                msg = ex.Message;
+            }
+
+            return new BsJsonResult(new
+            {
+                AvatarUrl = Url.Action("GetAvatar")
+            }, status, msg);
+        }
+
+
+        public ActionResult GetAvatar()
+        {
+            if (Session["Avatar"] != null)
+            {
+                return new ImageResult
+                {
+                    ImageData = Session["Avatar"] as byte[],
+                    MimeType = "image/png",
+                    Cacheability = HttpCacheability.NoCache
+                };
+            }
+            else
+                return File(Url.Content("~/Scripts/BForms/Images/bg-user.png"), "image/png");
         }
         #endregion
 

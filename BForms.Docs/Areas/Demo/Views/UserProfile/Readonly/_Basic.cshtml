@@ -2,15 +2,15 @@
           
 <div class="row">
     <div class="col-sm-2 col-md-2 col-lg-2">
-        <div class="avatar_view">
-            <img src="~/Scripts/BForms/Images/bg-user.png" class="img-thumbnail" />
+        <div class="avatar_view js-avatarContainer">
+            <img src="@Url.Action("GetAvatar","UserProfile")" class="img-thumbnail bs-uploadImage" style="width:115px;height:115px;" />
             <div class="avatar_controls">
                 <div class="btn btn-default file-upload">
                     <span class="glyphicon glyphicon-plus"></span>
                     <input type="file" />
                     
                 </div>
-                <button class="btn btn-danger pull-right" role="button"><span class="glyphicon glyphicon-minus"></span></button>
+                <button class="btn btn-danger pull-right bs-deleteImage" role="button"><span class="glyphicon glyphicon-minus"></span></button>
             </div>
         </div>
     </div>

@@ -156,6 +156,7 @@
     </Compile>
     <Compile Include="Helpers\FileUtilities.cs" />
     <Compile Include="Helpers\HtmlExtensions.cs" />
+    <Compile Include="Helpers\ImageResult.cs" />
     <Compile Include="Helpers\ReflectionHelpers.cs" />
     <Compile Include="Models\CommonModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -219,6 +220,10 @@
     <Content Include="Content\Images\Docs\eg-simple-grid.png" />
     <Content Include="Content\Images\Docs\eg-view-model.png" />
     <Content Include="Content\Images\logo-bforms%402x.png" />
+    <Content Include="Scripts\BForms\Components\FileUpload\jquery.fileupload-process.js" />
+    <Content Include="Scripts\BForms\Components\FileUpload\jquery.fileupload-validate.js" />
+    <Content Include="Scripts\BForms\Components\FileUpload\jquery.fileupload.js" />
+    <Content Include="Scripts\BForms\Components\FileUpload\jquery.iframe-transport.js" />
     <Content Include="Scripts\BForms\Components\ICanHaz\ICanHaz.js" />
     <Content Include="Scripts\BForms\Components\ICanHaz\singleton-ich.js" />
     <Content Include="Scripts\BForms\Components\PlaceholderShim\jquery.html5-placeholder-shim.js" />
@@ -227,6 +232,7 @@
     <Content Include="Scripts\BForms\Plugins\Rangepicker\images\icn-arr-down.png" />
     <Content Include="Scripts\BForms\Plugins\Rangepicker\images\icn-arr-up.png" />
     <Content Include="Scripts\BForms\Plugins\Rangepicker\images\icn-remove.png" />
+    <Content Include="Scripts\BForms\Widgets\FileUpload\bforms.fileUpload.js" />
     <Content Include="Scripts\BForms\Widgets\Grid\js\bforms.toolbar.order.js" />
     <Content Include="Scripts\BForms\Widgets\InlineQuestion\bforms.inlineQuestion.js" />
     <Content Include="Scripts\BForms\Widgets\Sortable\bforms.sortable.js" />
@@ -388,7 +394,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Demo\Views\Shared\" />
     <Folder Include="Properties\PublishProfiles\" />
-    <Folder Include="Scripts\BForms\Widgets\Test\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
