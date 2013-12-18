@@ -508,6 +508,18 @@
             $form.bsForm('triggerAction', 'save');
         }
     };
+
+    bsPanel.prototype.refresh = function () {
+        
+        var method = this._readonly ? '_loadReadonlyContent' : "_loadEditableContent";
+
+        this[method]().then($.proxy(function () {
+            this._initControls();
+            this._loadState();
+            this._initCurrentContent();
+        }, this));
+        
+    };
     //#endregion
 
     $.widget('bforms.bsPanel', bsPanel.prototype);
