@@ -656,8 +656,8 @@
             if (showData.preventShow == false) {
 
                 if (this.options.deferredRender) {
-                    this.$start.bsDatepicker('render');
-                    this.$end.bsDatepicker('render');
+                    this.$start.bsDatepicker('render', true);
+                    this.$end.bsDatepicker('render', true);
                 }
 
                 this.$container.show();

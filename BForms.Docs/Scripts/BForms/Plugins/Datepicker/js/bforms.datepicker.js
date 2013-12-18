@@ -1777,8 +1777,8 @@
         }
     };
 
-    bDatepicker.prototype.render = function () {
-        this._updateDateView();
+    bDatepicker.prototype.render = function (forceRender) {
+        this._updateDateView(forceRender);
         this._updateTimeView();
     };
     //#endregion
