@@ -399,6 +399,34 @@
 
         $rows.find(this.options.detailsSelector).trigger('click');
     };
+    
+    Grid.prototype.hideBulkActions = function () {
+       
+        if (this.options.hasRowCheck) {
+            
+            //hides and uncheck bulk actions
+            this.$resetGridButton.hide();
+            this.$actionsContainer.children('button:not([data-ignore="true"])').hide();
+            this.element.find(this.options.headerCheckSelector).parent().hide();
+            this.element.find(this.options.headerCheckSelector).prop('checked', false);
+            
+            //hides and uncheck row checkbox
+            this.element.find(this.options.rowCheckSelector).hide();
+            this.element.find(this.options.rowCheckSelector).prop('checked', false);
+            
+            //remove selected css class from selected rows
+            this.element.find(this.options.rowCheckSelector).parents(this.options.rowSelector).removeClass('selected');
+        }
+    };
+    
+    Grid.prototype.showBulkActions = function () {    
+        
+        if (this.options.hasRowCheck) {
+            //show headerCheckSelector and row`s checkbox 
+            this.element.find(this.options.headerCheckSelector).parent().show();
+            this.element.find(this.options.rowCheckSelector).show();
+        }   
+    };
     //#endregion
 
     //#region grid details
