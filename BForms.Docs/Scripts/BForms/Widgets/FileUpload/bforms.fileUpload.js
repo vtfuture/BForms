@@ -113,8 +113,6 @@
 
             var data = this._getExtraData();
 
-            this._toggleLoading(true);
-
             $.bforms.ajax({
                 url: this.options.deleteUrl,
                 data: data,
@@ -137,12 +135,10 @@
             this._updateImage(this.options.defaultImageUrl);
         }
 
-        this._toggleLoading(false);
         this._toggleBlockDelete(true);
     };
 
     fileUpload.prototype._onDeleteError = function () {
-        this._toggleLoading(false);
     };
     //#endregion
 

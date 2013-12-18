@@ -157,7 +157,7 @@ namespace BForms.Docs.Areas.Demo.Models
 
         [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
         [Display(Name = "Contributor since")]
-        [BsControl(BsControlType.DatePicker)]
+        [BsControl(BsControlType.DateTimePicker)]
         public BsDateTime StartDate { get; set; }
 
         [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]

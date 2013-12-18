@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using BForms.Docs.Areas.Demo.Models;
 using BForms.Docs.Controllers;
 using BForms.Docs.Helpers;
+using BForms.Docs.Resources;
 using BForms.Models;
 using BForms.Mvc;
 
@@ -40,6 +42,12 @@ namespace BForms.Docs.Areas.Demo.Controllers
                 switch (componentId)
                 {
                     case PanelComponentsEnum.UserInfo:
+
+                        var userInfo = GetUserProfileModel().UserInfo;
+
+                        var passwordRegex = new Regex(".");
+                        userInfo.Password = passwordRegex.Replace(userInfo.Password, "*");
+
                         html = this.BsRenderPartialView("Readonly/_UserInfo", GetUserProfileModel().UserInfo);
                         break;
 
@@ -87,6 +95,8 @@ namespace BForms.Docs.Areas.Demo.Controllers
         {
 
             var html = string.Empty;
+            var status = BsResponseStatus.Success;
+            var msg = string.Empty;
 
             switch (componentId)
             {
@@ -99,46 +109,79 @@ namespace BForms.Docs.Areas.Demo.Controllers
                     break;
             }
 
-            if (ModelState.IsValid)
+            try
             {
-                var profileModel = GetUserProfileModel();
 
-                switch (componentId)
+                if (ModelState.IsValid)
                 {
-                    case PanelComponentsEnum.UserInfo:
-                        profileModel.UserInfo.Firstname = model.UserInfo.Firstname;
-                        profileModel.UserInfo.Lastname = model.UserInfo.Lastname;
-                        profileModel.UserInfo.Password = model.UserInfo.Password;
-                        profileModel.UserInfo.HireDate = model.UserInfo.HireDate.DateValue.Value;
+                    var profileModel = GetUserProfileModel();
 
-                        html = this.BsRenderPartialView("Readonly/_UserInfo", profileModel.UserInfo);
+                    switch (componentId)
+                    {
+                        case PanelComponentsEnum.UserInfo:
 
-                        break;
+                            var dateValue = model.UserInfo.HireDate.DateValue.Value;
 
-                    case PanelComponentsEnum.Contact:
-                        profileModel.Contact.Mail = model.Contact.Mail;
-                        profileModel.Contact.Website = model.Contact.Website;
+                            if (dateValue.Year == 2014 && dateValue.Day == 1 && dateValue.Month == 1)
+                            {
+                                throw new Exception("This is how an exception message is displayed inside a panel");
+                            }
 
-                        html = this.BsRenderPartialView("Readonly/_Contact", profileModel.Contact);
+                            profileModel.UserInfo.Firstname = model.UserInfo.Firstname;
+                            profileModel.UserInfo.Lastname = model.UserInfo.Lastname;
+                            profileModel.UserInfo.Password = model.UserInfo.Password;
+                            profileModel.UserInfo.HireDate = model.UserInfo.HireDate.DateValue.Value;
+                            profileModel.Basic.Username = model.UserInfo.Firstname + " " + model.UserInfo.Lastname;
 
-                        break;
+                            SaveUserProfileModel(profileModel);
+
+                            var passwordRegex = new Regex(".");
+                            profileModel.UserInfo.Password = passwordRegex.Replace(profileModel.UserInfo.Password, "*");
+
+                            html = this.BsRenderPartialView("Readonly/_UserInfo", profileModel.UserInfo);
+
+                            return new BsJsonResult(new
+                            {
+                                Html = html,
+                                Username = profileModel.Basic.Username
+                            });
+
+                            break;
+
+                        case PanelComponentsEnum.Contact:
+                            profileModel.Contact.Mail = model.Contact.Mail;
+                            profileModel.Contact.Website = model.Contact.Website;
+
+                            SaveUserProfileModel(profileModel);
+
+
+                            html = this.BsRenderPartialView("Readonly/_Contact", profileModel.Contact);
+
+                            break;
+                    }
+
+
+                }
+                else
+                {
+                    //JSON serialize ModelState errors
+                    return new BsJsonResult(
+                        new Dictionary<string, object> {{"Errors", ModelState.GetErrors()}},
+                        BsResponseStatus.ValidationError);
                 }
 
-                SaveUserProfileModel(profileModel);
-
             }
-            else
+
+            catch (Exception ex)
             {
-                //JSON serialize ModelState errors
-                return new BsJsonResult(
-                    new Dictionary<string, object> { { "Errors", ModelState.GetErrors() } },
-                    BsResponseStatus.ValidationError);
+                msg = "<strong>" + Resource.ServerError + "!</strong> " + ex.Message;
+                status = BsResponseStatus.ServerError;
             }
 
             return new BsJsonResult(new
             {
                 Html = html
-            });
+            },status,msg);
         }
 
         public BsJsonResult UploadAvatar()
@@ -221,7 +264,6 @@ namespace BForms.Docs.Areas.Demo.Controllers
                 {
                     Basic = new UserProfileBasicModel
                     {
-                        Username = "Stefan Prodan",
                         Department = "Web",
                         Organization = "BForms"
                     },
@@ -239,6 +281,8 @@ namespace BForms.Docs.Areas.Demo.Controllers
                         Website = "http://bforms.stefanprodan.eu"
                     }
                 };
+
+                userModel.Basic.Username = userModel.UserInfo.Firstname + " " + userModel.UserInfo.Lastname;
 
                 Session["UserProfileModel"] = userModel;
             }

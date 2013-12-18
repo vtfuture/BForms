@@ -75,6 +75,7 @@
             this._getInitialValue();
             this._initRenderModel();
             this._initLang(this.options.language);
+
             this._initOptions();
 
             if (this.$input != null && this.$input.val() != '') {
@@ -1989,7 +1990,7 @@
             allowSame = this.options.allowSame;
 
         if (typeof this.options.maxDate !== "undefined" && this.options.maxDate !== null) {
-            maxDate = moment(this.options.maxDate).lang(this.options.language);
+            maxDate = this.options.maxDate === "now" ? moment().lang(this.options.language) : moment(this.options.maxDate).lang(this.options.language);
             withMax = true;
         }
 

@@ -11,7 +11,11 @@
     });
 
     $('.bs-userInfo').bsPanel({
-        name: 'userInfo'
+        name: 'userInfo',
+        editSuccessHandler : function(e, data) {
+            $('.js-userName').text(data.Username);
+        }
+        
     });
 
     $('.bs-contact').bsPanel({

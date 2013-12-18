@@ -34,7 +34,10 @@
         },
         formOptions: {
 
-        }
+        },
+        
+        retryMessage : 'Reload'
+        
     };
 
     //#region init
@@ -273,10 +276,12 @@
                            '<button class="close" data-dismiss="alert" type="button">×</button>' +
                                message +
                             '<div>' +
-                                '<a href="#" class="bs-retryBtn" data-method="' + method + '">Retry <span class="glyphicon glyphicon-refresh"></span> </a>' +
+                                '<a href="#" class="bs-retryBtn" data-method="' + method + '">' + this.options.retryMessage +' <span class="glyphicon glyphicon-refresh"></span> </a>' +
                             '</div>' +
                        '</div>');
         if (replace) {
+            console.log($errorContainer)
+
             $errorContainer.html($error);
         } else {
             $errorContainer.append($error);
@@ -384,10 +389,10 @@
 
         if (data.Message) {
 
-            var $errorContainer = this.$element.find('.bs-panel_validation');
+            var $errorContainer = this.$element.find('.bs-panel-error');
 
             if ($errorContainer.length == 0) {
-                $errorContainer = $('<div class="col-12 col-sm-12 col-lg-12 bs-validation_row_control"></div>');
+                $errorContainer = $('<div class="col-sm-12 col-lg-12 bs-validation_row_control bs-panel-error"></div>');
                 this.$container.before($errorContainer);
             }
 
@@ -438,10 +443,23 @@
         this.showEditable();
     };
 
-    bsPanel.prototype._onEditableLoadError = function () {
+    bsPanel.prototype._onEditableLoadError = function (data) {
 
         this.$content.find('form').removeClass('loading');
 
+        if (data.Message) {
+
+            var $errorContainer = this.$element.find('.bs-panel-error');
+
+            if ($errorContainer.length == 0) {
+                $errorContainer = $('<div class="col-sm-12 col-lg-12 bs-validation_row_control bs-panel-error"></div>');
+                this.$container.before($errorContainer);
+            }
+
+            this._toggleLoading();
+
+            this._showErrorMessage(data.Message, $errorContainer, true, '_loadEditableContent');
+        }
     };
     //#endregion
 

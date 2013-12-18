@@ -1782,7 +1782,7 @@ the specific language governing permissions and limitations under the Apache Lic
                 data = highlighted.closest('.select2-result').data("select2-data"),
                 $saveOption = this.results.find('.js-saveOption');
 
-            if ($saveOption.length == 1) {
+            if ($saveOption.length == 1 && highlighted.length == 0) {
                 $saveOption.trigger('click');
                 return;
             }
