@@ -151,7 +151,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
                 if (Request.Files != null && Request.Files.Count > 0)
                 {
                     var postedFile = Request.Files[0];
-                    MemoryStream target = new MemoryStream();
+                    var target = new MemoryStream();
                     postedFile.InputStream.CopyTo(target);
                     byte[] data = target.ToArray();
 
@@ -168,7 +168,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
             return new BsJsonResult(new
             {
                 AvatarUrl = Url.Action("GetAvatar")
-            }, status,msg);
+            }, status, msg);
         }
 
         public BsJsonResult DeleteAvatar()
@@ -231,7 +231,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
                         Lastname = "Prodan",
                         Password = "password1",
                         Role = "Team leader",
-                        HireDate = new DateTime(2013,8,1)
+                        HireDate = new DateTime(2013, 8, 1)
                     },
                     Contact = new UserProfileContactModel
                     {
@@ -275,4 +275,10 @@ namespace BForms.Docs.Areas.Demo.Controllers
         }
         #endregion
     }
+
+    public class AvatarModel
+    {
+        public HttpPostedFile Avatar;
+    }
+
 }

@@ -68,7 +68,9 @@
             done: $.proxy(this._onDone, this),
             stop: $.proxy(this._onStop, this),
             maxFileSize: this.options.maxFileSize,
-            acceptFileTypes: this.options.acceptFileTypes
+            acceptFileTypes: this.options.acceptFileTypes,
+            dropZone: this.$element,
+            formData: $.proxy(this._getFormData, this)
         }, this.options.fileUpload));
     };
     //#endregion
@@ -186,6 +188,17 @@
         $.extend(true, data, this.options.extraData);
 
         this._trigger('getExtraData', 0, data);
+
+        return data;
+    };
+
+    fileUpload.prototype._getFormData = function () {
+        var data = [];
+        
+        if (typeof this.options.getFormData === "function") {
+            data = this.options.getFormData();
+            console.log(data);
+        }
 
         return data;
     };
