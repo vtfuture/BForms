@@ -245,7 +245,7 @@
             connectsWith = tabModel.connectsWith,
             $groups = this._getGroups(connectsWith);
 
-         $groups.each($.proxy(function (idx, group) {
+         $.each($groups, $.proxy(function (idx, group) {
             if (!this._isInGroup(objId, tabId, $(group))) {
 
                 var $template = this._getGroupItemTemplate($(group), tabId, objId),

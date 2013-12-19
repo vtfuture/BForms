@@ -4,7 +4,7 @@
 
 @using (Html.BsBeginForm())
 {
-    <div class="col-12 col-sm-12 col-lg-12 form-group @Html.BsValidationCssFor(m => m.Title)">
+    <div class="col-sm-12 col-lg-12 form-group @Html.BsValidationCssFor(m => m.Title)">
         @Html.BsLabelFor(m => m.Title)
         <div class="input-group">
             @Html.BsGlyphiconAddon(Glyphicon.FacetimeVideo)
@@ -13,7 +13,7 @@
         </div>
     </div>
     
-    <div class="col-12 col-sm-12 col-lg-12 form-group @Html.BsValidationCssFor(m => m.Rating)">
+    <div class="col-sm-12 col-lg-12 form-group @Html.BsValidationCssFor(m => m.Rating)">
         @Html.BsLabelFor(m => m.Rating)
         <div class="input-group">
             @Html.BsGlyphiconAddon(Glyphicon.Star)
@@ -22,7 +22,7 @@
         </div>
     </div>
     
-    <div class="col-12 col-sm-12 col-lg-12 form-group @Html.BsValidationCssFor(m => m.GenresList)">
+    <div class="col-sm-12 col-lg-12 form-group @Html.BsValidationCssFor(m => m.GenresList)">
         @Html.BsLabelFor(m => m.GenresList)
         <div class="input-group">
             @Html.BsSelectFor(m => m.GenresList)
@@ -30,7 +30,7 @@
         </div>
     </div>
     
-    <div class="col-12 col-sm-12 col-lg-12 form-group @Html.BsValidationCssFor(m => m.Poster)">
+    <div class="col-sm-12 col-lg-12 form-group @Html.BsValidationCssFor(m => m.Poster)">
         @Html.BsLabelFor(m => m.Poster)
         <div class="input-group">
             @Html.BsGlyphiconAddon(Glyphicon.Picture)

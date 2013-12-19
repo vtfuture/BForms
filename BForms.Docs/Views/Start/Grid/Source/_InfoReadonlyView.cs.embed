@@ -2,10 +2,10 @@
 @model MyGrid.Models.MovieDetailsModel
 
 <div class="bs-readonly">
-    <div class="col-12 col-sm-2 col-lg-2">
+    <div class="col-sm-2 col-lg-2">
         <img src="@Model.Poster" alt="@Model.Title" height="150">
     </div>
-    <div class="col-12 col-sm-10 col-lg-10">
+    <div class="col-sm-10 col-lg-10">
         @if (!string.IsNullOrEmpty(Model.Title))
         {
             <dl>

@@ -563,7 +563,7 @@
                 var $errorContainer = $row.find('.bs-validation_row');
 
                 if ($errorContainer.length == 0) {
-                    $errorContainer = $('<div class="col-12 col-sm-12 col-lg-12 bs-validation_row"></div>');
+                    $errorContainer = $('<div class="col-sm-12 col-lg-12 bs-validation_row"></div>');
                     $row.find(this.options.rowHeaderSelector).after($errorContainer);
                 }
 
@@ -575,7 +575,7 @@
                 var $gridErrorContainer = $(this.element).find('.bs-validation_summary');
 
                 if ($gridErrorContainer.length == 0) {
-                    $gridErrorContainer = $('<div class="col-12 col-sm-12 col-lg-12 bs-validation_summary"></div>');
+                    $gridErrorContainer = $('<div class="col-sm-12 col-lg-12 bs-validation_summary"></div>');
                     this.element.find('h2').after($gridErrorContainer);
                 }
 
@@ -1112,7 +1112,7 @@
             var $errorContainer = $(this.element).find('.bs-validation_summary');
 
             if ($errorContainer.length == 0) {
-                $errorContainer = $('<div class="col-12 col-sm-12 col-lg-12 bs-validation_summary"></div>');
+                $errorContainer = $('<div class="col-sm-12 col-lg-12 bs-validation_summary"></div>');
                 this.element.find('h2').after($errorContainer);
             }
 
@@ -1437,7 +1437,7 @@
             var $errorContainer = $row.find(this.options.errorRowContainer);
 
             if ($errorContainer.length == 0) {
-                $errorContainer = $('<div class="col-12 col-sm-12 col-lg-12 bs-validation_row"></div>');
+                $errorContainer = $('<div class="col-sm-12 col-lg-12 bs-validation_row"></div>');
                 $row.find(this.options.rowHeaderSelector).after($errorContainer);
             }
 
@@ -1451,7 +1451,7 @@
             var $errorContainer = $row.find('.bs-validation_row_control');
 
             if ($errorContainer.length == 0) {
-                $errorContainer = $('<div class="col-12 col-sm-12 col-lg-12 bs-validation_row_control"></div>');
+                $errorContainer = $('<div class="col-sm-12 col-lg-12 bs-validation_row_control"></div>');
                 $row.find(this.options.rowActionsContainerSelector).before($errorContainer);
             }
 

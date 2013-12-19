@@ -38,7 +38,6 @@ namespace BForms.Docs.Areas.Demo.Controllers
 
             try
             {
-
                 switch (componentId)
                 {
                     case PanelComponentsEnum.UserInfo:
@@ -319,10 +318,4 @@ namespace BForms.Docs.Areas.Demo.Controllers
         }
         #endregion
     }
-
-    public class AvatarModel
-    {
-        public HttpPostedFile Avatar;
-    }
-
 }

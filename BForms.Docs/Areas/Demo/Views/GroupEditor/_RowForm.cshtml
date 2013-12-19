@@ -3,7 +3,7 @@
 
 @using (Html.BsBeginForm())
 {
-    <div class="col-12 col-sm-6 col-lg-6 form-group @Html.BsValidationCssFor(m => m.Name)">
+    <div class="col-sm-6 col-lg-6 form-group @Html.BsValidationCssFor(m => m.Name)">
         @Html.BsLabelFor(m => m.Name)
         <div class="input-group">
             @Html.BsGlyphiconAddon(BForms.Models.Glyphicon.User)

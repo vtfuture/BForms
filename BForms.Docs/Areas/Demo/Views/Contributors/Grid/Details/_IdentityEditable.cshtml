@@ -5,7 +5,7 @@
 
 @using (Html.BsBeginForm())
 {
-    <div class="col-12 col-sm-12 col-lg-12 form-group @Html.BsValidationCssFor(m => m.FirstName)">
+    <div class="col-sm-12 col-lg-12 form-group @Html.BsValidationCssFor(m => m.FirstName)">
         @Html.BsLabelFor(m => m.FirstName)
         <div class="input-group">
             @Html.BsGlyphiconAddon(Glyphicon.User)
@@ -13,7 +13,7 @@
             @Html.BsValidationFor(m => m.FirstName)
         </div>
     </div>
-    <div class="col-12 col-sm-12 col-lg-12 form-group @Html.BsValidationCssFor(m => m.LastName)">
+    <div class="col-sm-12 col-lg-12 form-group @Html.BsValidationCssFor(m => m.LastName)">
         @Html.BsLabelFor(m => m.LastName)
         <div class="input-group">
             @Html.BsGlyphiconAddon(Glyphicon.User)
@@ -21,7 +21,7 @@
             @Html.BsValidationFor(m => m.LastName)
         </div>
     </div>
-    <div class="col-12 col-sm-12 col-lg-12 form-group @Html.BsValidationCssFor(m => m.Url)">
+    <div class="col-sm-12 col-lg-12 form-group @Html.BsValidationCssFor(m => m.Url)">
         @Html.BsLabelFor(m => m.Url)
         <div class="input-group">
             @Html.BsGlyphiconAddon(Glyphicon.Link)
@@ -29,7 +29,7 @@
             @Html.BsValidationFor(m => m.Url)
         </div>
     </div>
-    <div class="col-12 col-sm-12 col-lg-12 form-group @Html.BsValidationCssFor(m => m.CountriesList)">
+    <div class="col-sm-12 col-lg-12 form-group @Html.BsValidationCssFor(m => m.CountriesList)">
         @Html.BsLabelFor(m => m.CountriesList)
         <div class="input-group">
             @Html.BsGlyphiconAddon(Glyphicon.Calendar)
@@ -37,7 +37,7 @@
             @Html.BsValidationFor(m => m.CountriesList)
         </div>
     </div>
-    <div class="col-12 col-sm-12 col-lg-12 form-group @Html.BsValidationCssFor(m => m.Age)">
+    <div class="col-sm-12 col-lg-12 form-group @Html.BsValidationCssFor(m => m.Age)">
         @Html.BsLabelFor(m => m.Age)
         <div class="input-group">
             @Html.BsGlyphiconAddon(Glyphicon.Time)

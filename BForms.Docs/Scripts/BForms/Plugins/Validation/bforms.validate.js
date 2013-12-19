@@ -490,7 +490,7 @@
                     var $errorContainer = $(this.currentForm).find('.bs-validation_summary');
 
                     if ($errorContainer.length == 0) {
-                        $errorContainer = $('<div class="col-12 col-sm-12 col-lg-12 bs-validation_summary"></div>');
+                        $errorContainer = $('<div class="col-sm-12 col-lg-12 bs-validation_summary"></div>');
                         $(this.currentForm).prepend($errorContainer);
                     }
 
