@@ -142,6 +142,7 @@
     <Compile Include="Areas\Demo\Mock\Enums.cs" />
     <Compile Include="Areas\Demo\Mock\Lists.cs" />
     <Compile Include="Areas\Demo\Models\ContributorsModels.cs" />
+    <Compile Include="Areas\Demo\Models\GroupEditorModels.cs" />
     <Compile Include="Areas\Demo\Models\LoginModels.cs" />
     <Compile Include="Areas\Demo\Models\UserProfileModel.cs" />
     <Compile Include="Areas\Demo\Repositories\ContributorsRepository.cs" />

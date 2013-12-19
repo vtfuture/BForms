@@ -124,6 +124,7 @@ namespace BForms.Editor
         private void InvokeAddGroupConfig(object value, PropertyInfo prop, BsEditorGroupAttribute attr, List<object> editableTabIds)
         {
             var propertyType = prop.PropertyType;
+            var propertyName = prop.Name;
 
             if (!propertyType.GetInterfaces().Contains(typeof(IBsEditorGroupModel)))
                 throw new Exception("The model with BsEditorGroupAttribute must inherit BsEditorGroupModel");
@@ -150,7 +151,7 @@ namespace BForms.Editor
                 method = typeof(BsEditorGroupConfigurator<TModel>).GetMethod("Add", this.Bindings());
                 generic = method.MakeGenericMethod(propertyType, rowType);
 
-                generic.Invoke(this.groupConfigurator, new object[] { attr, value, editableTabIds.ToArray() });
+                generic.Invoke(this.groupConfigurator, new object[] { attr, value, editableTabIds.ToArray(), propertyName });
             }
         }
 

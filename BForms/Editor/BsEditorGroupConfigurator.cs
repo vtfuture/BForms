@@ -55,12 +55,14 @@ namespace BForms.Editor
             throw new Exception("Property " + prop.Name + " has no BsGroupEditorAttribute");
         }
 
-        private void Add<TEditor, TRow>(BsEditorGroupAttribute attr, IBsEditorGroupModel model, object[] editableTabIds) 
+        private void Add<TEditor, TRow>(BsEditorGroupAttribute attr, IBsEditorGroupModel model, object[] editableTabIds, string propertyName) 
             where TEditor : IBsEditorGroupModel
             where TRow : BsEditorGroupItemModel, new()
         {
             var group = new BsEditorGroupBuilder<TEditor>(model, this.viewContext, editableTabIds)
                        .Id(attr.Id);
+
+            group.SetPropertyName(propertyName);
 
             var rowType = typeof(TRow);
             

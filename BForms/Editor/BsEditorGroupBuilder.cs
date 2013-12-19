@@ -17,7 +17,16 @@ namespace BForms.Editor
         protected object uid { get; set; }
         protected string name { get; set; }
         protected string text { get; set; }
+        protected string propertyName { get; set; }
 
+        internal string PropertyName
+        {
+            get
+            {
+                return this.propertyName;
+            }
+
+        }
         internal object Uid
         {
             get
@@ -104,6 +113,13 @@ namespace BForms.Editor
         public BsEditorGroupBuilder<TModel> DisplayName(string name)
         {
             this.name = name;
+
+            return this;
+        }
+
+        internal BsEditorGroupBuilder<TModel> SetPropertyName(string propertyName)
+        {
+            this.propertyName = propertyName;
 
             return this;
         }

@@ -79,12 +79,17 @@ namespace BForms.Renderers
 
             container.InnerHtml += templateRow;
 
-            container.AddCssClass("grid_rows");
+            container.AddCssClass("grid_rows bs-group");
 
             if (this.Builder.Uid != null)
             {
                 container.MergeAttribute("data-groupid", MvcHelpers.Serialize(this.Builder.Uid));
-            } 
+            }
+
+            if (!string.IsNullOrEmpty(this.Builder.PropertyName))
+            {
+                container.MergeAttribute("data-propertyname", this.Builder.PropertyName);
+            }
 
             var title = new TagBuilder("div");
 

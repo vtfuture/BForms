@@ -20,6 +20,7 @@
 
         tabsSelector: '.bs-tabs',
         groupsSelector: '.bs-groups',
+        groupSelector : '.bs-group',
 
         navbarSelector: '.bs-navbar',
         toolbarBtnSelector: '.bs-toolbarBtn',
@@ -135,6 +136,10 @@
                 this._checkItems();
             }
         }
+    };
+
+    GroupEditor.prototype._initSortable = function() {
+
     };
     //#endregion
 
@@ -483,6 +488,57 @@
         html = html.replace(/{{objid}}/gi, objId);
         template.html(html);
         return template;
+    };
+    //#endregion
+
+    //#region public methods
+    GroupEditor.prototype.parse = function () {
+
+        var parseData = {},
+            $groupList = this.$groups.find(this.options.groupSelector);
+
+        $groupList.each($.proxy(function(index, group) {
+            var $group = $(group),
+                groupName = $group.data('propertyname'),
+                groupData = {
+                    Items: []
+                };
+
+            var $groupItems = $group.find(this.options.groupItemSelector).filter($.proxy(function (filterIndex, item) {
+                return $(item).parents(this.options.groupItemTemplateSelector).length == 0;
+            },this));
+
+            $groupItems.each($.proxy(function(itemIndex, item) {
+                var $item = $(item),
+                    itemModel = {};
+
+                //get id and tabId
+                itemModel.Id = $item.data('objid');
+                itemModel.TabId = $item.data('tabid');
+
+                //get form data ( if any)
+                var $form = $item.find(this.options.editorFormSelector);
+                if ($form.length) {
+
+                    var prefix = 'prefix' + $form.data('uid') + '.';
+
+                    $.extend(true, itemModel, $form.parseForm(prefix));
+                }
+
+                this._trigger('getExtraItemData', 0, [itemModel,$item,$group]);
+
+                groupData.Items.push(itemModel);
+
+            },this));
+
+            this._trigger('getExtraGroupData', 0, [groupData, $group]);
+
+            parseData[groupName] = groupData;
+
+        }, this));
+
+
+        return parseData;
     };
     //#endregion
 
