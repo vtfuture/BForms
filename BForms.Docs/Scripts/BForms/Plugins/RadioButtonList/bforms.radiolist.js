@@ -29,7 +29,7 @@
     $.fn.extend({
         bsResetRadioButtons: function () {
             var $elem = $(this);
-            return $(this).each(function() {
+            return $(this).each(function () {
                 if ($(this).hasClass('radioButtonsList-done')) {
                     return new RadioButtonsListUpdateSelf($(this), $(this).data('initialvalue'), true);
                 }
@@ -88,6 +88,8 @@
             wrapper.show();
             self.addClass("radioButtonsList-done");
 
+            var options = self.data('options') || {};
+
             if (self.data("initialvalue") == undefined) {
                 self.data("initialvalue", self.find('input[type="radio"]:checked').val());
                 self.data('value', self.find('input[type="radio"]:checked').val());
@@ -101,7 +103,13 @@
 
             wrapper.on("click", "a.option", { self: self }, function (e) {
                 e.preventDefault();
-                e.data.self.bsRadioButtonsListUpdateSelf($(this).data("value"));
+
+                var $target = $(e.currentTarget);
+
+                if (!$target.hasClass('selected') || options.preventDeselect !== true) {
+                    e.data.self.bsRadioButtonsListUpdateSelf($(this).data("value"));
+                }
+
                 $(this).focus();
             });
 
