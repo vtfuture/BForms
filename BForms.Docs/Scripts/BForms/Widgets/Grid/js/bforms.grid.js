@@ -213,6 +213,10 @@
                             var $me = grid.$actionsContainer.find(opts.btnSelector);
                             
                             var question = "Are you sure?";
+                            
+                            var confirmCssClass = "btn-primary bs-confirm";
+                            var cancelCssClass = "btn-default bs-cancel";
+                            
                             var confirmButtonText = "Yes";
                             var cancelButtonText = "No";
                                 
@@ -225,13 +229,18 @@
                             if (typeof opts.cancelButtonText !== "undefined") {
                                 cancelButtonText = opts.cancelButtonText;
                             }
-                            
+                            if (typeof opts.confirmCssClass !== "undefined") {
+                                confirmCssClass = opts.confirmCssClass + " bs-confirm";
+                            }
+                            if (typeof opts.cancelCssClass !== "undefined") {
+                                cancelCssClass = opts.cancelCssClass + " bs-cancel";
+                            }
                             $me.bsInlineQuestion({
                                 placement: 'auto',
                                 question: question,
                                 buttons: [{
                                     text: confirmButtonText,
-                                    cssClass: 'btn-primary bs-confirm',
+                                    cssClass: confirmCssClass,
                                     callback: $.proxy(function () {
                                         $me.bsInlineQuestion('toggle');
                                         opts.handler.call(this, this.element.find(this.options.rowSelector + '.selected'), this);
@@ -239,7 +248,7 @@
                                 },
                                {
                                    text: cancelButtonText,
-                                   cssClass: 'btn-default bs-cancel',
+                                   cssClass: cancelCssClass,
                                    callback: function (e) {
                                        $me.bsInlineQuestion('toggle');
                                    }
