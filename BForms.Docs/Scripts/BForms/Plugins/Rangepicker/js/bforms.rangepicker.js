@@ -469,7 +469,7 @@
         };
 
         this._trigger('afterFormatLabel', [triggerData]);
-
+        
         this.$input.val(triggerData.label);
 
         if (typeof this.$element.valid === "function" && this.options.preventValidation != true && this.$element.hasClass('input-validation-error')) {
@@ -630,8 +630,20 @@
         if (textValue === '' && this._hasInitialValue == false) {
 
             $.each(this.options.ranges, $.proxy(function (index) {
-                this._updateListener(index, textValue);
+                
+                if (this.options.minValueOnClear) {
+                    var limits = this._getLimits(index);
+                    this._getInput(index).val(limits.min);
+                    this._updateListener(index, limits.min);
+                } else {
+                    this._updateListener(index, textValue);
+                }
+                
             }, this));
+            
+            if (this.options.minValueOnClear) {
+                this._updateLabels();
+            }
 
         } else {
             if (values.length == this.options.ranges.length) {
@@ -780,7 +792,8 @@
         holdInterval: 150,
         holdDecreaseFactor: 4,
         holdMinInterval: 50,
-        delimiter: ' - '
+        delimiter: ' - ',
+        minValueOnClear: false,
     };
 
     $.fn.bsRangePicker = function () {
