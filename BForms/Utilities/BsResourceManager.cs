@@ -17,7 +17,9 @@ namespace BForms.Utilities
             { "NoResults", "There are no results" },
             { "Of", "of" },
             { "Items", "items" },
-            { "ResultsPerPage", "results per page" }
+            { "ResultsPerPage", "results per page" },
+            { "Reset", "Reset" },
+            { "Select", "Select" }
         };
 
         private static ResourceManager _resourceManager;
