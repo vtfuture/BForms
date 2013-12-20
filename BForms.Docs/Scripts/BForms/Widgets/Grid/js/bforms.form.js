@@ -107,8 +107,7 @@
         });
 
     };
-
-    //#region init
+    //#endregion
 
     //#region events
     Form.prototype._evBtnClick = function (e) {
@@ -162,11 +161,8 @@
                         if (typeof validatedForm === "undefined") {
                             
                             $.validator.unobtrusive.parse(this.$form);
-                           
+                            validatedForm = this.$form.validate();
                         }
-                        validatedForm = this.$form.validate();
-                        
-                        validatedForm.showErrors(response.Errors);
                     }
                 }
             });
