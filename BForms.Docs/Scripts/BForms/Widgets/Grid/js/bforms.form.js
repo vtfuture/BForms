@@ -107,8 +107,7 @@
         });
 
     };
-
-    //#region init
+    //#endregion
 
     //#region events
     Form.prototype._evBtnClick = function (e) {
@@ -122,6 +121,8 @@
         if (buttonOpt.validate && !this._validate()) {
             return;
         }
+
+        var validatedForm = this.$form.validate();
 
         var data;
         if (buttonOpt.parse) {
@@ -158,12 +159,10 @@
                     if (response != null && response.Errors != null) {
                         
                         if (typeof validatedForm === "undefined") {
-                            
                             $.validator.unobtrusive.parse(this.$form);
-                           
+                            validatedForm = this.$form.validate();
                         }
-                        validatedForm = this.$form.validate();
-                        
+
                         validatedForm.showErrors(response.Errors);
                     }
                 }
