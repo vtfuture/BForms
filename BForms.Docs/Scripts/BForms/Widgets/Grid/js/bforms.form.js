@@ -123,6 +123,8 @@
             return;
         }
 
+        var validatedForm = this.$form.validate();
+
         var data;
         if (buttonOpt.parse) {
             data = this._parse();
