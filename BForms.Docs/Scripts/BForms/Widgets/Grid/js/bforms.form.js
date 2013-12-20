@@ -159,10 +159,11 @@
                     if (response != null && response.Errors != null) {
                         
                         if (typeof validatedForm === "undefined") {
-                            
                             $.validator.unobtrusive.parse(this.$form);
                             validatedForm = this.$form.validate();
                         }
+
+                        validatedForm.showErrors(response.Errors);
                     }
                 }
             });
