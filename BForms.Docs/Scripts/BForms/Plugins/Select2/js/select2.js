@@ -31,7 +31,7 @@ the specific language governing permissions and limitations under the Apache Lic
         factory(window.jQuery);
     }
 })((function ($) {
-    
+
     (function ($) {
         if (typeof $.fn.each2 == "undefined") {
             $.fn.extend({
@@ -2660,10 +2660,10 @@ the specific language governing permissions and limitations under the Apache Lic
             this.container.on("click", selector, this.bind(function (e) {
                 if (!this.isInterfaceEnabled()) return;
                 if ($(e.target).closest(".select2-search-choice").length > 0) {
-                    
+
                     if (this.opts.editOnClick) {
                         // clicked inside a select2 search choice, replace selected with text so it can be edited
-                        
+
                         var selectedText = $(e.target).text();
 
                         //remove selected value
@@ -2675,7 +2675,7 @@ the specific language governing permissions and limitations under the Apache Lic
                             this.open();
                             this.focusSearch();
                         } else {
-                            $(e.target).closest(".select2-search-choice").fadeOut('fast', this.bind(function() {
+                            $(e.target).closest(".select2-search-choice").fadeOut('fast', this.bind(function () {
                                 this.unselect($(e.target));
                                 this.open();
                                 this.focusSearch();
@@ -2685,7 +2685,7 @@ the specific language governing permissions and limitations under the Apache Lic
                         selection.find(".select2-search-field input").val(selectedText);
                         this.resizeSearch();
                     }
-                    
+
                     return;
                 }
                 this.selectChoice(null);
@@ -2713,9 +2713,9 @@ the specific language governing permissions and limitations under the Apache Lic
 
             // set the placeholder if necessary
             this.clearSearch();
-            
+
             $(window).on('resize', $.proxy(function () {
-                
+
                 this.search.css({
                     width: 'auto'
                 });
@@ -2982,9 +2982,20 @@ the specific language governing permissions and limitations under the Apache Lic
                 this.setVal(val);
                 if (this.select) this.postprocessResults();
             }
-            selected.remove();
+
+            //selected.remove();
 
             this.opts.element.trigger({ type: "removed", val: this.id(data), choice: data });
+
+            var evt = $.Event("select2-removing");
+            evt.val = this.id(data);
+            evt.choice = data;
+            this.opts.element.trigger(evt);
+            if (evt.isDefaultPrevented()) {
+                return;
+            }
+            this.opts.element.trigger({ type: "select2-removed", val: this.id(data), choice: data });
+
             this.triggerChange({ removed: data });
         },
 
@@ -3277,7 +3288,7 @@ the specific language governing permissions and limitations under the Apache Lic
         loadMorePadding: 0,
         closeOnSelect: true,
         openOnEnter: true,
-        editOnClick : false,
+        editOnClick: false,
         containerCss: {},
         dropdownCss: {},
         containerCssClass: "custom_select",
