@@ -135,6 +135,15 @@ define('bforms-namespace', [
     };
     //#endregion
 
+    //#region inherit
+    Utils.prototype.inherit = function (derived, base) {
+        for (var property in base) if (base.hasOwnProperty(property)) derived[property] = base[property];
+        function __() { this.constructor = derived; }
+        __.prototype = base.prototype;
+        derived.prototype = new __();
+    };
+    //#endregion
+
     $.extend(true, $.bforms, new Utils());
 
     // return module
