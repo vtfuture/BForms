@@ -11,6 +11,10 @@ namespace BForms.Html
 {
     public static class ToolbarExtensions
     {
+
+        /// <summary>
+        /// Toolbar with forms ( normal or inside a dropdown )
+        /// </summary>
         public static BsToolbarHtmlBuilder<TToolbar> BsToolbarFor<TModel, TToolbar>(this HtmlHelper<TModel> htmlHelper,
             Expression<Func<TModel, TToolbar>> expression) where TToolbar : new()
         {
@@ -33,8 +37,17 @@ namespace BForms.Html
             var fullName = ExpressionHelper.GetExpressionText(expression);
 
             var attributes = expression.GetPropertyInfo().GetCustomAttributes(true);
-           
+
             return new BsToolbarHtmlBuilder<TToolbar>(fullName, toolbar, metadata, attributes, htmlHelper.ViewContext);
         }
+
+        /// <summary>
+        /// Toolbar without forms
+        /// </summary>
+        public static BsToolbarHtmlBuilder BsToolbar(this HtmlHelper htmlHelper)
+        {
+            return new BsToolbarHtmlBuilder(htmlHelper.ViewContext);
+        }
+
     }
 }
