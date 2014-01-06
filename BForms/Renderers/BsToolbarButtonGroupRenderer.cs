@@ -8,6 +8,9 @@ using BForms.Grid;
 
 namespace BForms.Renderers
 {
+    /// <summary>
+    /// For toolbar with forms
+    /// </summary>
     public class BsToolbarButtonGroupRenderer<TToolbar> : BsBaseRenderer<BsToolbarButtonGroup<TToolbar>>
     {
         public BsToolbarButtonGroupRenderer()
@@ -62,4 +65,53 @@ namespace BForms.Renderers
             return buttonGroupBuilder.ToString();
         }
     }
+
+    /// <summary>
+    /// For toolbar without forms
+    /// </summary>
+    public class BsToolbarButtonGroupRenderer : BsBaseRenderer<BsToolbarButtonGroup>
+    {
+        public BsToolbarButtonGroupRenderer()
+        {
+
+        }
+        public BsToolbarButtonGroupRenderer(BsToolbarButtonGroup model)
+            : base(model)
+        {
+        }
+
+        public override string Render()
+        {
+            var buttonGroupBuilder = new TagBuilder("div");
+            buttonGroupBuilder.AddCssClass("btn-group");
+            if (!string.IsNullOrEmpty(this.Builder.title))
+            {
+                buttonGroupBuilder.MergeAttribute("title", this.Builder.title);
+            }
+            var buttonArrowBuilder = new TagBuilder("a");
+            buttonArrowBuilder.AddCssClass("btn dropdown-toggle");
+            buttonArrowBuilder.MergeAttribute("data-toggle", "dropdown");
+            buttonArrowBuilder.InnerHtml += (this.Builder.glyphIcon.HasValue ? GetGlyphicon(this.Builder.glyphIcon.Value) + " " : "") + this.Builder.name + "<span class=\"caret\"></span>";
+
+            buttonGroupBuilder.InnerHtml += buttonArrowBuilder.ToString();
+
+
+            var containerList = new TagBuilder("ul");
+            containerList.AddCssClass("dropdown-menu");
+            containerList.MergeAttribute("role", "menu");
+
+            foreach (var item in this.Builder.Actions)
+            {
+                var itemContainerBuilder = new TagBuilder("li");
+                // remove btn from descriptorClass for styling
+                itemContainerBuilder.InnerHtml = item.ToString();
+                containerList.InnerHtml += itemContainerBuilder.ToString();
+            }
+
+            buttonGroupBuilder.InnerHtml += containerList.ToString();
+
+            return buttonGroupBuilder.ToString();
+        }
+    }
+
 }

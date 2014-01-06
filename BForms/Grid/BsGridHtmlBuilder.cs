@@ -164,7 +164,7 @@ namespace BForms.Grid
             var resetButton = new TagBuilder("div");
             resetButton.MergeAttribute("class", "btn btn-info bs-resetGrid reset-grid");
             resetButton.MergeAttribute("style", "display:none");
-            resetButton.MergeAttribute("title", "Reset");
+            resetButton.MergeAttribute("title", BsResourceManager.Resource("Reset"));
 
             var resetButtonSpan = new TagBuilder("span");
             resetButtonSpan.MergeAttribute("class", "glyphicon glyphicon-repeat");

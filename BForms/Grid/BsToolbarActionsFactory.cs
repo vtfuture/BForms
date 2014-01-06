@@ -96,4 +96,60 @@ namespace BForms.Grid
             return group;
         }
     }
+
+    /// <summary>
+    /// For toolbar without forms
+    /// </summary>
+    public class BsToolbarActionsBaseFactory : BsBaseComponent<BsToolbarActionsBaseFactory>
+    {
+        protected List<BsBaseComponent> actions = new List<BsBaseComponent>();
+        internal List<BsBaseComponent> Actions
+        {
+            get
+            {
+                return this.actions;
+            }
+        }
+
+        public BsToolbarActionsBaseFactory(ViewContext viewContext)
+            : base(viewContext)
+        {
+        }
+
+    }
+
+    public class BsToolbarActionsFactory : BsToolbarActionsBaseFactory
+    {
+        protected List<BsToolbarButtonGroup> buttonGroup;
+
+        internal List<BsToolbarButtonGroup> ButtonGroups
+        {
+            get
+            {
+                return this.buttonGroup;
+            }
+        }
+
+        public BsToolbarActionsFactory(ViewContext viewContext)
+            : base(viewContext)
+        {
+        }
+        /// <summary>
+        /// Adds ButtonGroup to Toolbar
+        /// </summary>
+        public BsToolbarButtonGroup AddButtonGroup()
+        {
+            if (this.buttonGroup == null)
+            {
+                this.buttonGroup = new List<BsToolbarButtonGroup>();
+            }
+
+            var group = new BsToolbarButtonGroup(this.viewContext);
+
+            this.buttonGroup.Add(group);
+
+            return group;
+        }
+    }
+
 }
