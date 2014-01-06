@@ -20,8 +20,7 @@
 
             tab1.For(x => x.Grid)
                 .Avatar(x => x.Name.Contains("Marius") ? 
-                    "https://2.gravatar.com/avatar/50e73c9ac16439780dd040694880fe9d" : 
-                    "http://www.cloverwos.ro/1.0.0.217/Content/images/bg-user.png")
+                    "https://2.gravatar.com/avatar/50e73c9ac16439780dd040694880fe9d" : Url.Content("~/Content/Images/bg-user.png"))
                 .HtmlAttributes(x => new Dictionary<string, object>
                 {
                     { "data-qwe", x.Name.Contains("Oana") ? "oana" : "ok" }

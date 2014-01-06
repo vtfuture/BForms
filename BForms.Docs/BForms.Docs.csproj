@@ -198,6 +198,7 @@
     <Content Include="Content\Images\Banners\GooglePlus_Cover_Photo_BForms_2120x1192.jpg" />
     <Content Include="Content\Images\bforms-200x200.png" />
     <Content Include="Content\Images\bforms-32x32.png" />
+    <Content Include="Content\Images\bg-user.png" />
     <Content Include="Content\Images\Docs\main-script-file.PNG" />
     <Content Include="Content\Images\Docs\project-setup-dropdown-open.PNG" />
     <Content Include="Content\Images\Docs\project-setup-dropdown.PNG" />

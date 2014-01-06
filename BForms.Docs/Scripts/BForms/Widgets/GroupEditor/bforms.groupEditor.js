@@ -20,7 +20,7 @@
 
         tabsSelector: '.bs-tabs',
         groupsSelector: '.bs-groups',
-        groupSelector : '.bs-group',
+        groupSelector: '.bs-group',
 
         navbarSelector: '.bs-navbar',
         toolbarBtnSelector: '.bs-toolbarBtn',
@@ -34,7 +34,7 @@
         groupItemContentSelector: '.bs-itemContent',
         groupItemsWrapper: '.bs-itemsWrapper',
         groupItemsCounter: '.bs-counter',
-        
+
         removeBtn: '.bs-removeBtn',
         addBtn: '.bs-addBtn',
         editBtn: '.bs-editBtn',
@@ -49,8 +49,10 @@
     //#region Init
     GroupEditor.prototype._init = function () {
 
+        this.$element = this.element;
+
         if (!this.options.uniqueName) {
-            this.options.uniqueName = this.element.attr('id');
+            this.options.uniqueName = this.$element.attr('id');
         }
 
         if (!this.options.uniqueName) {
@@ -66,6 +68,8 @@
         this._initSelectedTab();
 
         this._initTabForms();
+
+        this._initSortable();
     };
 
     GroupEditor.prototype._initComponents = function () {
@@ -75,9 +79,9 @@
     };
 
     GroupEditor.prototype._initSelectors = function () {
-        this.$navbar = this.element.find(this.options.navbarSelector);
-        this.$tabs = this.element.find(this.options.tabsSelector);
-        this.$groups = this.element.find(this.options.groupsSelector);
+        this.$navbar = this.$element.find(this.options.navbarSelector);
+        this.$tabs = this.$element.find(this.options.tabsSelector);
+        this.$groups = this.$element.find(this.options.groupsSelector);
         this.$counter = this.$groups.find(this.options.groupItemsCounter);
     };
 
@@ -97,7 +101,7 @@
     };
 
     GroupEditor.prototype._initTabForms = function () {
-        var forms = this.element.find(this.options.editorFormSelector);
+        var forms = this.$element.find(this.options.editorFormSelector);
 
         $.each(forms, function (idx) {
             $(this).bsForm({
@@ -132,13 +136,19 @@
                 });
             }
             tabModel.container.show();
-            if (checkItems) { 
+            if (checkItems) {
                 this._checkItems();
             }
         }
     };
 
-    GroupEditor.prototype._initSortable = function() {
+    GroupEditor.prototype._initSortable = function () {
+        this.$element.find(this.options.groupsSelector).sortable({
+            items: this.options.groupItemSelector
+        });
+    };
+
+    GroupEditor.prototype._initDraggable = function () {
 
     };
     //#endregion
@@ -250,7 +260,7 @@
             connectsWith = tabModel.connectsWith,
             $groups = this._getGroups(connectsWith);
 
-         $.each($groups, $.proxy(function (idx, group) {
+        $.each($groups, $.proxy(function (idx, group) {
             if (!this._isInGroup(objId, tabId, $(group))) {
 
                 var $template = this._getGroupItemTemplate($(group), tabId, objId),
@@ -258,7 +268,7 @@
                     model = tabItem.data('model');
 
                 var view = this.renderer['js-groupItem'](model);
-                
+
                 $template.find(this.options.groupItemContentSelector).html(view);
 
                 this._checkEditableItem($template);
@@ -450,13 +460,13 @@
         return this._getTab(tabId).data('editable');
     };
 
-    GroupEditor.prototype._getTabItem = function(tabId, objId) {
+    GroupEditor.prototype._getTabItem = function (tabId, objId) {
         var $container = this._getTab(tabId),
             $item = $container.find(this.options.tabItemSelector + '[data-objid="' + objId + '"]');
         return $item;
     };
 
-    GroupEditor.prototype._getGroup = function(groupId) {
+    GroupEditor.prototype._getGroup = function (groupId) {
         return this.$groups.find('div[data-groupid="' + groupId + '"]');
     };
 
@@ -497,7 +507,7 @@
         var parseData = {},
             $groupList = this.$groups.find(this.options.groupSelector);
 
-        $groupList.each($.proxy(function(index, group) {
+        $groupList.each($.proxy(function (index, group) {
             var $group = $(group),
                 groupName = $group.data('propertyname'),
                 groupData = {
@@ -506,9 +516,9 @@
 
             var $groupItems = $group.find(this.options.groupItemSelector).filter($.proxy(function (filterIndex, item) {
                 return $(item).parents(this.options.groupItemTemplateSelector).length == 0;
-            },this));
+            }, this));
 
-            $groupItems.each($.proxy(function(itemIndex, item) {
+            $groupItems.each($.proxy(function (itemIndex, item) {
                 var $item = $(item),
                     itemModel = {};
 
@@ -525,11 +535,11 @@
                     $.extend(true, itemModel, $form.parseForm(prefix));
                 }
 
-                this._trigger('getExtraItemData', 0, [itemModel,$item,$group]);
+                this._trigger('getExtraItemData', 0, [itemModel, $item, $group]);
 
                 groupData.Items.push(itemModel);
 
-            },this));
+            }, this));
 
             this._trigger('getExtraGroupData', 0, [groupData, $group]);
 
