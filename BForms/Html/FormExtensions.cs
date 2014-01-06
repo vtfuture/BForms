@@ -20,6 +20,7 @@ namespace BForms.Html
     /// </summary>
     public static class FormExtensions
     {
+
         /// <summary>
         /// Renders a form suitable for BFroms fields
         /// </summary>
@@ -36,6 +37,15 @@ namespace BForms.Html
         {
             var routeValues = htmlHelper.ExtractRouteValues();
             return BsBeginForm(htmlHelper, routeValues["action"].ToString(), routeValues["controller"].ToString(), routeValues, FormMethod.Post, new RouteValueDictionary(), theme);
+        }
+
+        /// <summary>
+        /// Renders a form suitable for BForms fields
+        /// </summary>
+        public static BsMvcForm BsBeginForm(this HtmlHelper htmlHelper, BsTheme theme, IDictionary<string, object> htmlAttributes)
+        {
+            var routeValues = htmlHelper.ExtractRouteValues();
+            return BsBeginForm(htmlHelper, routeValues["action"].ToString(), routeValues["controller"].ToString(), routeValues, FormMethod.Post, htmlAttributes, theme);
         }
 
         /// <summary>
