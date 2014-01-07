@@ -173,6 +173,8 @@ namespace BForms.Renderers
 
             container.MergeAttribute("data-tabid", MvcHelpers.Serialize(item.TabId));
 
+            container.MergeAttribute("data-model", MvcHelpers.Serialize(item));
+
             container.AddCssClass("row grid_row bs-groupItem");
 
             var header = new TagBuilder("header");
