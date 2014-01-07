@@ -37,7 +37,6 @@
         },
         
         retryMessage : 'Reload'
-        
     };
 
     //#region init

@@ -46,6 +46,7 @@ namespace BForms.Renderers
                 var list = new TagBuilder("ul");
 
                 list.AddCssClass("group_profiles");
+                list.AddCssClass("bs-tabItemsList");
 
                 foreach (var item in this.Builder.Model.GetItems<TRow>())
                 {
