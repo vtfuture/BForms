@@ -2983,7 +2983,7 @@ the specific language governing permissions and limitations under the Apache Lic
                 if (this.select) this.postprocessResults();
             }
 
-            //selected.remove();
+            selected.remove();
 
             this.opts.element.trigger({ type: "removed", val: this.id(data), choice: data });
 
