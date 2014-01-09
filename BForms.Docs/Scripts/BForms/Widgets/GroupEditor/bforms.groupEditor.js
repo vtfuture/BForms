@@ -161,14 +161,14 @@
     };
 
     GroupEditor.prototype._initDraggable = function (tabModel) {
-        tabModel.container.find(this.options.tabItemSelector).each($.proxy(function(index, tabItem) {
+        tabModel.container.find(this.options.tabItemSelector).each($.proxy(function (index, tabItem) {
 
             var $tabItem = $(tabItem);
 
             this._checkItem($tabItem, tabModel.tabId, tabModel.connectsWith);
 
             $tabItem.draggable(this._getDraggableOptions(tabModel));
-        },this));
+        }, this));
 
     };
     //#endregion
@@ -281,23 +281,36 @@
             $groups = this._getGroups(connectsWith);
 
         $.each($groups, $.proxy(function (idx, group) {
+
+            var $group = $(group);
+
             if (!this._isInGroup(objId, tabId, $(group))) {
 
-                var tabItem = this._getTabItem(tabId, objId),
-                    model = tabItem.data('model'),
-                    $template = this._getGroupItemTemplate($(group), tabId, objId, model);
+                var allowMove = true,
+                    tabItem = this._getTabItem(tabId, objId),
+                    model = tabItem.data('model');
 
-                var view = this._renderGroupItem(model, group, tabId, objId);
+                if (typeof this.options.validateMove === "function") {
+                    var validateResult = this.options.validateMove(model, tabId, $group);
+                    allowMove = typeof validateResult === "boolean" ? validateResult : true;
+                }
 
-                $template.find(this.options.groupItemContentSelector).html(view);
+                if (allowMove) {
 
-                this._checkEditableItem($template);
+                    var $template = this._getGroupItemTemplate($(group), tabId, objId, model);
 
-                $(group).find(this.options.groupItemsWrapper).append($template);
+                    var view = this._renderGroupItem(model, group, tabId, objId);
 
-                this._checkItem(this._getTabItem(tabId, objId), tabId, connectsWith);
+                    $template.find(this.options.groupItemContentSelector).html(view);
 
-                return false;
+                    this._checkEditableItem($template);
+
+                    $(group).find(this.options.groupItemsWrapper).append($template);
+
+                    this._checkItem(this._getTabItem(tabId, objId), tabId, connectsWith);
+
+                    return false;
+                }
             }
         }, this));
 
@@ -403,7 +416,7 @@
             var $group = $(group),
                 isInGroup = this._isInGroup(objid, tabId, $group),
                 allowMove = true;
-          
+
             if (typeof this.options.validateMove === "function") {
                 var validateResult = this.options.validateMove(itemModel, tabId, $group);
                 allowMove = typeof validateResult === "boolean" ? validateResult : true;
@@ -622,20 +635,18 @@
         var $item = ui.item,
             $group = $item.parents(this.options.groupSelector).first(),
             tabModel = this._getSelectedTab(),
-            connectsWith = tabModel.connectsWith,
+            connectsWith = tabModel.connectsWith || [],
             model = $item.data('model'),
             tabId = tabModel.tabId,
-            objId = $item.data('objid'),
-            allowMove = false;
+            groupId = $group.data('groupid'),
+            objId = $item.data('objid');
 
-        if (this._dragging === true) {
+        //validation
+        var isInGroup = this._isInGroup(objId, tabId, $group),
+            isConnectable = connectsWith.indexOf(groupId) !== -1,
+            allowMove = isConnectable && !isInGroup;
 
-            //dragged from tabs to groups
-            if (!this._isInGroup(objId, tabId, $group)) {
-                allowMove = true;
-            }
-
-        } else {
+        if (this._dragging !== true) {
 
             //inner group sorting or moving from one group to another
             var sourceGroupId = $item.data('groupid'),
@@ -643,9 +654,6 @@
 
             if (sourceGroupId == targetGroupId) return;
 
-            else if (!this._isInGroup(objId, tabId, $group)) {
-                allowMove = true;
-            } 
         }
 
         if (typeof this.options.validateMove === "function") {
