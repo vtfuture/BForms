@@ -370,8 +370,9 @@
             this._endValue = this.$end.bsDatepicker('getUnformattedValue');
             this.$endLabel.data(this._endValue);
         }
+
         var val = typeof value === "string" ? value : this.getValue();
-        
+
         if (typeof this.$input !== "undefined") {
             this.$input.val(val);
             if (typeof this.$input.valid === "function" && this.$input.parents('form').length) {
@@ -769,11 +770,12 @@
     };
 
     bRangePicker.prototype.getValue = function () {
-        if (this._valueSettedForFirst !== false || this._valueSettedForSecond !== false) {
+
+        if ( (typeof this._valueSettedForFirst !== "undefined" && this._valueSettedForFirst !== false) || (typeof this._valueSettedForSecond !== "undefined" && this._valueSettedForSecond !== false)) {
             var startValue = this.getStartValue(),
                 endValue = this.getEndValue();
 
-            if (startValue === '' && endValue == '') {
+            if (startValue === '' && endValue === '') {
                 return '';
             } else {
                 if (startValue === '') {
