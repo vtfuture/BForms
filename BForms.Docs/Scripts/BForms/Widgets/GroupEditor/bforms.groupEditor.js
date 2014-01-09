@@ -68,6 +68,8 @@
 
         this._initSelectedTab();
 
+        this._initTemplates();
+
         this._initTabForms();
 
         this._initSortable();
@@ -98,6 +100,17 @@
 
     GroupEditor.prototype._initSelectedTab = function () {
         this._initTab(this._getSelectedTab());
+    };
+
+    GroupEditor.prototype._initTemplates = function () {
+        this.element.find(this.options.groupSelector).each($.proxy(function(idx, group) {
+            var $group = $(group),
+                $template = $group.find(this.options.groupItemTemplateSelector);
+
+            $group.data('template', $template.children(':first').clone());
+            $template.remove();
+
+        }, this));
     };
 
     GroupEditor.prototype._initTabForms = function () {
@@ -435,7 +448,10 @@
             $groupItems = $group.find(this.options.groupItemSelector);
 
         $.each($groupItems, function (idx, item) {
-            if ($(item).data('objid') == objId && $(item).data('tabid') == tabId) {
+
+            var $item = $(item);
+
+            if ($item.data('objid') == objId && $item.data('tabid') == tabId && !$item.hasClass('temp-sortable')) {
                 isInGroup = true;
                 return false;
             }
@@ -531,7 +547,7 @@
     };
 
     GroupEditor.prototype._getGroupItemTemplate = function ($group, tabId, objId, model) {
-        var template = $group.find(this.options.groupItemTemplateSelector).children(':first').clone();
+        var template = $group.data('template').clone();
 
         template.data('objid', objId);
         template.data('tabid', tabId);
@@ -623,14 +639,14 @@
         var $item = ui.item,
             groupId = $item.parents(this.options.groupSelector).data('groupid');
 
-        $item.data('groupid', groupId);
+        $item.data('groupid', groupId)
+             .addClass('temp-sortable');
     };
 
-    GroupEditor.prototype._beforeSortStop = function () {
-
+    GroupEditor.prototype._beforeSortStop = function (e, ui) {
     };
 
-    GroupEditor.prototype._sortStop = function (e, ui) {
+    GroupEditor.prototype._sortStop = function(e, ui) {
 
         var $item = ui.item,
             $group = $item.parents(this.options.groupSelector).first(),
@@ -640,6 +656,7 @@
             tabId = tabModel.tabId,
             groupId = $group.data('groupid'),
             objId = $item.data('objid');
+       
 
         //validation
         var isInGroup = this._isInGroup(objId, tabId, $group),
@@ -655,6 +672,10 @@
             if (sourceGroupId == targetGroupId) return;
 
         }
+
+        //cleanup
+        $item.removeData('groupid')
+             .removeClass('temp-sortable');
 
         if (typeof this.options.validateMove === "function") {
             var validateResult = this.options.validateMove(model, tabId, $group);
@@ -675,11 +696,32 @@
             this._checkItem(this._getTabItem(tabId, objId), tabId, connectsWith);
 
         } else {
+
+            this._showMoveError($group);
+
             if (!this._dragging) {
                 return false;
             } else {
                 ui.item.remove();
             }
+        }
+
+    };
+
+    GroupEditor.prototype._showMoveError = function($elem) {
+
+        if (typeof this.options.showMoveError === "function") {
+            this.options.showMoveError($elem);
+        } else {
+            this.$element.css({
+                'cursor': 'not-allowed'
+            });
+
+            window.setTimeout($.proxy(function() {
+                this.$element.css({
+                    'cursor': ''
+                });
+            }, this), 300)
         }
 
     };
