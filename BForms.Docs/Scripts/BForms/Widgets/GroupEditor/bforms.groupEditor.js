@@ -43,7 +43,7 @@
         downBtn: '.bs-downBtn',
         toggleExpandBtn: '.bs-toggleExpand',
 
-        getTabUrl: '',
+        getTabUrl: ''
     };
     //#endregion
 
@@ -161,7 +161,15 @@
     };
 
     GroupEditor.prototype._initDraggable = function (tabModel) {
-        tabModel.container.find(this.options.tabItemSelector).draggable(this._getDraggableOptions(tabModel));
+        tabModel.container.find(this.options.tabItemSelector).each($.proxy(function(index, tabItem) {
+
+            var $tabItem = $(tabItem);
+
+            this._checkItem($tabItem, tabModel.tabId, tabModel.connectsWith);
+
+            $tabItem.draggable(this._getDraggableOptions(tabModel));
+        },this));
+
     };
     //#endregion
 
@@ -373,7 +381,7 @@
     };
 
     GroupEditor.prototype._checkItem = function ($item, tabId, connectsWith) {
-        if (this._isItemSelected($item.data('objid'), tabId, connectsWith)) {
+        if (this._isItemSelected($item.data('objid'), tabId, connectsWith, $item.data('model'))) {
             this._toggleItemCheck($item, false);
         }
     };
@@ -387,11 +395,21 @@
         }, this));
     };
 
-    GroupEditor.prototype._isItemSelected = function (objid, tabId, groupIds) {
+    GroupEditor.prototype._isItemSelected = function (objid, tabId, groupIds, itemModel) {
         var $groups = this._getGroups(groupIds), selected = true;
 
         $.each($groups, $.proxy(function (idx, group) {
-            if (!this._isInGroup(objid, tabId, $(group))) {
+
+            var $group = $(group),
+                isInGroup = this._isInGroup(objid, tabId, $group),
+                allowMove = true;
+          
+            if (typeof this.options.validateMove === "function") {
+                var validateResult = this.options.validateMove(itemModel, tabId, $group);
+                allowMove = typeof validateResult === "boolean" ? validateResult : true;
+            }
+
+            if (allowMove && !isInGroup) {
                 selected = false;
             }
         }, this));
@@ -545,7 +563,7 @@
             },
             start: $.proxy(this._dragStart, this),
             stop: $.proxy(this._dragStop, this),
-            cancel : '.selected'
+            cancel: '.selected'
         };
     };
 
@@ -615,8 +633,6 @@
             //dragged from tabs to groups
             if (!this._isInGroup(objId, tabId, $group)) {
                 allowMove = true;
-            } else {
-                ui.item.remove();
             }
 
         } else {
@@ -626,9 +642,15 @@
                 targetGroupId = $group.data('groupid');
 
             if (sourceGroupId == targetGroupId) return;
-            else {
+
+            else if (!this._isInGroup(objId, tabId, $group)) {
                 allowMove = true;
-            }
+            } 
+        }
+
+        if (typeof this.options.validateMove === "function") {
+            var validateResult = this.options.validateMove(model, tabId, $group);
+            allowMove = typeof validateResult === "boolean" ? validateResult : allowMove;
         }
 
         if (allowMove) {
@@ -643,6 +665,13 @@
             ui.item.replaceWith($template);
 
             this._checkItem(this._getTabItem(tabId, objId), tabId, connectsWith);
+
+        } else {
+            if (!this._dragging) {
+                return false;
+            } else {
+                ui.item.remove();
+            }
         }
 
     };

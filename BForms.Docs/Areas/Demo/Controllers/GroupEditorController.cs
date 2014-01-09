@@ -73,6 +73,16 @@ namespace BForms.Docs.Areas.Demo.Controllers
                                 Name = "Marius C."
                             }
                         },
+                         new ContributorsGroupRowModel
+                        {
+                            Id = 1,
+                            Name = "Stefan P.",
+                            TabId = YesNoValueTypes.Yes,
+                            Form = new ContributorsRowFormModel()
+                            {
+                                Name = "Stefan P."
+                            }
+                        },
                         new ContributorsGroupRowModel
                         {
                             Id = 2,

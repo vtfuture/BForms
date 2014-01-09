@@ -23,7 +23,10 @@
             buildGroupItem: $.proxy(function (model, group, tabId, objId) {
                 var view = this.renderer['js-groupItem'](model);
                 return view;
-            },this)
+            }, this),
+            validateMove: function (model, tabId, $group) {
+                if (model.Role == 1 && $group.data('groupid') == 4) return false;
+            }
         });
     };
     //#endregion
