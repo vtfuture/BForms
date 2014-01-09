@@ -242,6 +242,10 @@ a.btn {
       .grid_container .grid_view .grid_row a.sort_desc {
         background: url(../images/icn-order_down.png) 100% 50% no-repeat;
         padding-right: 15px; }
+      .grid_container .grid_view .grid_row a.btn {
+        color: #fff; }
+      .grid_container .grid_view .grid_row a.btn-white {
+        color: #333; }
     .grid_container .grid_view .grid_row .edit_col:hover {
       cursor: pointer;
       border-bottom: 1px dashed #45ada8;
