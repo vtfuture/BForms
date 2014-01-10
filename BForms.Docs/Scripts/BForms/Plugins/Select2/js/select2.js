@@ -1049,8 +1049,11 @@ the specific language governing permissions and limitations under the Apache Lic
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8'
             }).then(function (response) {
-                if (response.Id) {
-                    var $opt = $('<option value="' + response.Id + '">' + value + '</option>'),
+                var id;
+                id = response.Id || response.Data.Id;
+
+                if (id) {
+                    var $opt = $('<option value="' + id + '">' + value + '</option>'),
                         $lastOption = self.select.find('option:last');
 
                     if ($lastOption.length) {
@@ -1062,14 +1065,17 @@ the specific language governing permissions and limitations under the Apache Lic
                     var newValue = self.select.select2('val');
 
                     if (typeof newValue !== 'undefined' && $.isArray(newValue)) {
-                        newValue.push(response.Id);
+                        newValue.push(id);
                     } else {
-                        newValue = response.Id;
+                        newValue = id;
                     }
 
                     self.select.select2('val', newValue);
                 }
                 self.enable();
+                if (typeof self.select.valid !== "undefined") {
+                    self.select.valid();
+                }
             });
         },
 
