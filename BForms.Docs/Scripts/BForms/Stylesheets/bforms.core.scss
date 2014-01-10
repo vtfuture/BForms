@@ -112,45 +112,48 @@ textarea {
 		}
 		.control-label {
 			color: #aaa;
-		}
-		dl {
-			margin-bottom: 10px;
-			clear: both;
-			overflow: hidden;
-			dt {
-				float: left;
-				width: 30%;
-				overflow: hidden;
-				clear: left;
-				text-align: right;
-				text-overflow: ellipsis;
-				white-space: nowrap;
-				font-weight: normal;
-				color: #aaa;
-				padding-right: 10px;
-			}
-			dd {
-				margin-left: 30%;
-				word-wrap: break-word;
-			}
-			&.to-left {
-				dt {
-					max-width: 70%;
-					width: auto;
-					white-space: normal;
-					text-align: left;
-					overflow: visible;
-					text-overflow: clip;
-				}
-				dd {
-					margin-left: 5px;
-				}
-			}
-		}
+		}		
 	}
 	@media (max-width: 756px) {
 	.pull-right {
 			float: right !important;
+		}
+	}
+}
+
+.panel-body {
+	dl {
+		margin-bottom: 10px;
+		clear: both;
+		overflow: hidden;
+		dt {
+			float: left;
+			width: 30%;
+			overflow: hidden;
+			clear: left;
+			text-align: right;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			font-weight: normal;
+			color: #aaa;
+			padding-right: 10px;
+		}
+		dd {
+			margin-left: 30%;
+			word-wrap: break-word;
+		}
+		&.to-left {
+			dt {
+				max-width: 70%;
+				width: auto;
+				white-space: normal;
+				text-align: left;
+				overflow: visible;
+				text-overflow: clip;
+			}
+			dd {
+				margin-left: 5px;
+			}
 		}
 	}
 }
