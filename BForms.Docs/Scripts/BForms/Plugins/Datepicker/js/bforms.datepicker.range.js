@@ -167,6 +167,17 @@
                          this.options.startOptions.initialValue && this.options.allowDeselectEnd ||
                          this.options.endOptions.initialValue && this.options.allowDeselectStart;
 
+        var startValue = this.$start.bsDatepicker('getValue'),
+            endValue = this.$end.bsDatepicker('getValue');
+
+        if (startValue != null && startValue != '') {
+            this._valueSettedForFirst = true;
+        }
+
+        if (endValue != null && endValue != '') {
+            this._valueSettedForSecond = true;
+        }
+
         if (allowApplyRange) {
             this.applyRange();
         }
