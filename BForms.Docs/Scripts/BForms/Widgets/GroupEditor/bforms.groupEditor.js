@@ -174,6 +174,7 @@
     };
 
     GroupEditor.prototype._initDraggable = function (tabModel) {
+
         tabModel.container.find(this.options.tabItemSelector).each($.proxy(function (index, tabItem) {
 
             var $tabItem = $(tabItem);
@@ -244,14 +245,16 @@
         var $el = $(e.currentTarget),
             tabId = $el.data('tabid'),
             $container = this._getTab(tabId),
-            loaded = this._isLoaded($container);
+            loaded = this._isLoaded($container),
+            connectsWith = $container.data('connectswith');
 
         this._hideTabs();
 
         this._initTab({
             container: $container,
             loaded: loaded,
-            tabId: tabId
+            tabId: tabId,
+            connectsWith: connectsWith
         });
     };
 
@@ -362,15 +365,16 @@
     GroupEditor.prototype._ajaxGetTabSuccess = function (response, callback) {
         if (response) {
 
-            var container = callback.tabModel.container;
-            container.data('loaded', 'true');
+            var $container = callback.tabModel.container;
+            $container.data('loaded', 'true');
 
             if (response.Html) {
                 this._initTab({
-                    container: container,
+                    container: $container,
                     loaded: true,
                     html: response.Html,
-                    tabId: callback.tabModel.tabId
+                    tabId: callback.tabModel.tabId,
+                    connectsWith : $container.data('connectswith')
                 });
             }
         }
@@ -622,15 +626,22 @@
         return selector;
     };
 
-    GroupEditor.prototype._dragStart = function () {
+    GroupEditor.prototype._dragStart = function (e, ui) {
 
+        var $originalElement = $(e.target),
+            $tab = $originalElement.parents('[data-connectswith]'),
+            connectsWith = $tab.data('connectswith');
+        
         this._dragging = true;
+
+        this._addOpacity(connectsWith);
 
     };
 
     GroupEditor.prototype._dragStop = function () {
 
         this._dragging = false;
+        this._removeOpacity();
 
     };
 
@@ -657,6 +668,7 @@
             groupId = $group.data('groupid'),
             objId = $item.data('objid');
        
+        this._removeOpacity();
 
         //validation
         var isInGroup = this._isInGroup(objId, tabId, $group),
@@ -724,6 +736,28 @@
             }, this), 300)
         }
 
+    };
+
+    GroupEditor.prototype._addOpacity = function (exclude) {
+
+        var $groups = this.$element.find(this.options.groupSelector);
+
+        exclude = exclude || [];
+
+        $groups.each(function (idx, elem) {
+            var $elem = $(elem),
+                sortId = $elem.data('groupid');
+
+            if (exclude.indexOf(sortId) === -1) {
+                $elem.css('opacity', '0.3');
+            }
+
+        });
+    };
+
+    GroupEditor.prototype._removeOpacity = function () {
+        var $groups = this.$element.find(this.options.groupSelector);
+        $groups.css('opacity', '1');
     };
     //#endregion
 
