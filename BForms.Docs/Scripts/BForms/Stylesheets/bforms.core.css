@@ -77,6 +77,33 @@ textarea {
       margin-left: -10px; } }
   .row > .panel-group .panel-body .control-label {
     color: #aaa; }
+  .row > .panel-group .panel-body dl {
+    margin-bottom: 10px;
+    clear: both;
+    overflow: hidden; }
+    .row > .panel-group .panel-body dl dt {
+      float: left;
+      width: 30%;
+      overflow: hidden;
+      clear: left;
+      text-align: right;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-weight: normal;
+      color: #aaa;
+      padding-right: 10px; }
+    .row > .panel-group .panel-body dl dd {
+      margin-left: 30%;
+      word-wrap: break-word; }
+    .row > .panel-group .panel-body dl.to-left dt {
+      max-width: 70%;
+      width: auto;
+      white-space: normal;
+      text-align: left;
+      overflow: visible;
+      text-overflow: clip; }
+    .row > .panel-group .panel-body dl.to-left dd {
+      margin-left: 5px; }
   @media (max-width: 756px) {
     .row > .panel-group .pull-right {
       float: right !important; } }
