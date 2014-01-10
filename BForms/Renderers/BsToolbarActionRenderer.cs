@@ -44,6 +44,11 @@ namespace BForms.Renderers
                 actionBuilder.MergeAttribute("title", this.Builder.title);
             }
 
+            if (this.Builder.htmlAttributes != null)
+            {
+                actionBuilder.MergeAttributes(this.Builder.htmlAttributes,true);
+            }
+
             actionBuilder.InnerHtml += (this.Builder.glyphIcon.HasValue ? GetGlyphicon(this.Builder.glyphIcon.Value) + " " : "") + this.Builder.text;
 
             return actionBuilder.ToString();
