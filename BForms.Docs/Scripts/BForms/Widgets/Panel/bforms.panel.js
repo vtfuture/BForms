@@ -45,12 +45,13 @@
 
         this.$element.addClass('bs-hasPanel');
 
+        this.$toggleEleemnt = this.$element.find(this.options.toggleSelector);
         this._loadOptions();
 
         this._initDefaultProperties();
         this._initSelectors();
         this._delegateEvents();
-
+      
         if (this.options.loaded === true) {
             this._initControls();
             this._loadState();
@@ -64,7 +65,10 @@
                 this._initCurrentContent();
             }, this));
         }
-
+            
+        if (!this.$toggleEleemnt.data("expandable")) {
+            this._loadState(true);
+        }
     };
 
     bsPanel.prototype._loadOptions = function () {
@@ -139,7 +143,11 @@
     bsPanel.prototype._onToggleClick = function (e) {
         e.preventDefault();
         e.stopPropagation();
+        var currentTarget = $(e.currentTarget);
 
+        if (!currentTarget.data("expandable")) {
+            return;
+        }
         if (this._allowExpand) {
             if (this._state) {
                 this.close();
@@ -211,10 +219,13 @@
         amplify.store(this._key, this._state);
     };
 
-    bsPanel.prototype._loadState = function () {
+    bsPanel.prototype._loadState = function (forceOpen) {
+        if (forceOpen) {
+            this.open();
+            return;
+        }
 
         var lastState = amplify.store(this._key);
-
         if (lastState != null) {
 
             if (lastState == true) {

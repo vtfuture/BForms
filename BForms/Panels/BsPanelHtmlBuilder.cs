@@ -145,6 +145,7 @@ namespace BForms.Panels
         public BsPanelHtmlBuilder Expandable(bool isExpandable)
         {
             this.isExpandable = isExpandable;
+          
             return this;
         }
 
