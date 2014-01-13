@@ -42,6 +42,7 @@
         upBtn: '.bs-upBtn',
         downBtn: '.bs-downBtn',
         toggleExpandBtn: '.bs-toggleExpand',
+        resetBtn: '.bs-resetGroupEditor',
 
         getTabUrl: ''
     };
@@ -96,6 +97,7 @@
         this.$groups.on('click', this.options.upBtn, $.proxy(this._evUp, this));
         this.$groups.on('click', this.options.downBtn, $.proxy(this._evDown, this));
         this.$groups.on('click', this.options.toggleExpandBtn, $.proxy(this._evToggleExpand, this));
+        this.$element.on('click', this.options.resetBtn, $.proxy(this._evResetClick, this));
     };
 
     GroupEditor.prototype._initSelectedTab = function () {
@@ -103,7 +105,7 @@
     };
 
     GroupEditor.prototype._initTemplates = function () {
-        this.element.find(this.options.groupSelector).each($.proxy(function(idx, group) {
+        this.element.find(this.options.groupSelector).each($.proxy(function (idx, group) {
             var $group = $(group),
                 $template = $group.find(this.options.groupItemTemplateSelector);
 
@@ -343,6 +345,14 @@
 
         throw "[objId: " + objId + ", groupId: " + groupId + ", tabId: " + tabId + "] . not implemented yet";
     };
+
+    GroupEditor.prototype._evResetClick = function (e) {
+
+        this.reset();
+
+        e.preventDefault();
+        e.stopPropagation();
+    };
     //#endregion
 
     //#region Ajax
@@ -374,7 +384,7 @@
                     loaded: true,
                     html: response.Html,
                     tabId: callback.tabModel.tabId,
-                    connectsWith : $container.data('connectswith')
+                    connectsWith: $container.data('connectswith')
                 });
             }
         }
@@ -439,7 +449,7 @@
                 allowMove = typeof validateResult === "boolean" ? validateResult : true;
             }
 
-            if (allowMove && !isInGroup) {
+            if (allowMove && !isInGroup || (allowMove === false && isInGroup  === false)) {
                 selected = false;
             }
         }, this));
@@ -485,6 +495,16 @@
             $glyph.removeClass('glyphicon-plus')
                 .addClass('glyphicon-ok');
         }
+    };
+
+    GroupEditor.prototype._uncheckAllItems = function () {
+
+        var $checked = this.$element.find(this.options.tabItemSelector + '.selected');
+
+        $checked.each($.proxy(function (idx, item) {
+            this._toggleItemCheck($(item), true);
+        }, this));
+
     };
 
     GroupEditor.prototype._getSelectedTab = function () {
@@ -631,7 +651,7 @@
         var $originalElement = $(e.target),
             $tab = $originalElement.parents('[data-connectswith]'),
             connectsWith = $tab.data('connectswith');
-        
+
         this._dragging = true;
 
         this._addOpacity(connectsWith);
@@ -657,7 +677,7 @@
     GroupEditor.prototype._beforeSortStop = function (e, ui) {
     };
 
-    GroupEditor.prototype._sortStop = function(e, ui) {
+    GroupEditor.prototype._sortStop = function (e, ui) {
 
         var $item = ui.item,
             $group = $item.parents(this.options.groupSelector).first(),
@@ -667,7 +687,7 @@
             tabId = tabModel.tabId,
             groupId = $group.data('groupid'),
             objId = $item.data('objid');
-       
+
         this._removeOpacity();
 
         //validation
@@ -720,7 +740,7 @@
 
     };
 
-    GroupEditor.prototype._showMoveError = function($elem) {
+    GroupEditor.prototype._showMoveError = function ($elem) {
 
         if (typeof this.options.showMoveError === "function") {
             this.options.showMoveError($elem);
@@ -729,7 +749,7 @@
                 'cursor': 'not-allowed'
             });
 
-            window.setTimeout($.proxy(function() {
+            window.setTimeout($.proxy(function () {
                 this.$element.css({
                     'cursor': ''
                 });
@@ -761,7 +781,7 @@
     };
     //#endregion
 
-    //#region public methods
+    //#region Public methods
     GroupEditor.prototype.parse = function () {
 
         var parseData = {},
@@ -809,6 +829,21 @@
 
 
         return parseData;
+    };
+
+    GroupEditor.prototype.reset = function () {
+
+        this._trigger('beforeReset');
+
+        this.$element.find(this.options.groupItemSelector).remove();
+
+
+
+        this._uncheckAllItems();
+
+        this._rebuildNumbers();
+
+        this._trigger('afterReset');
     };
     //#endregion
 

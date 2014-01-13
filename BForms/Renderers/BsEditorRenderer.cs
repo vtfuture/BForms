@@ -93,7 +93,7 @@ namespace BForms.Renderers
 
             anchor.MergeAttribute("href", "#");
 
-            anchor.AddCssClass("btn btn-white pull-right");
+            anchor.AddCssClass("btn btn-white pull-right bs-resetGroupEditor");
 
             anchor.InnerHtml += GetGlyphicon(Models.Glyphicon.Refresh);
 
