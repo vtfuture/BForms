@@ -39,9 +39,18 @@ $borderColor: #e8e8e8;
 			padding: 6px 12px;
 		}
 		&.inline {
-			.input-group {
+			> .input-group {
 				padding: 0 15px;
 			}
+		}
+		h3 {
+			font-size: 17px;
+			padding: 9px 0;
+			margin: 0 15px 8px;
+			border-bottom: 1px solid $borderColor;
+		}
+		.form_container {
+			margin-top: 10px;
 		}
 	}
 	.grids_header_submit {
