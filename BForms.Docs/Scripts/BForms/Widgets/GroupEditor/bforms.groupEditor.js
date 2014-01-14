@@ -382,12 +382,12 @@
     //#endregion
 
     //#region Ajax
-    GroupEditor.prototype._ajaxSaveGroup = function(data) {
+    GroupEditor.prototype._ajaxSaveGroup = function (data) {
 
         $.bforms.ajax({
             name: this.options.uniqueName + '|saveGroupEditor',
             url: this.options.saveUrl,
-            data : data,
+            data: data,
             callbackData: data,
             context: this,
             success: $.proxy(this._ajaxSaveGroupSuccess),
@@ -398,21 +398,23 @@
 
     };
 
-    GroupEditor.prototype._ajaxSaveGroupSuccess = function(response, callback) {
+    GroupEditor.prototype._ajaxSaveGroupSuccess = function (response, callback) {
 
-        //if (typeof this.options.onSaveSuccess === "function") {
-        //    this.options.onSaveSuccess.apply(this, arguments);
-        //}
-
-        this._trigger('onSaveSuccess', 0, response, callback);
+        this._trigger('onSaveSuccess', 0, arguments);
 
     };
 
-    GroupEditor.prototype._ajaxSaveGroupError = function() {
-
+    GroupEditor.prototype._ajaxSaveGroupError = function () {
+        this._trigger('onSaveError', 0, arguments);
     };
 
     GroupEditor.prototype._ajaxGetTab = function (param) {
+
+        if (typeof this.options.additionalData !== "undefined") {
+            $.extend(true, param.data, this.options.additionalData);
+        }
+
+        this._trigger('beforeGetTab', 0, param);
 
         var ajaxOptions = {
             name: this.options.uniqueName + "|getTab|" + param.tabModel.tabId,
@@ -432,6 +434,8 @@
     GroupEditor.prototype._ajaxGetTabSuccess = function (response, callback) {
         if (response) {
 
+            this._trigger('onGetTabSuccess', 0, arguments);
+
             var $container = callback.tabModel.container;
             $container.data('loaded', 'true');
 
@@ -449,6 +453,8 @@
 
     GroupEditor.prototype._ajaxGetTabError = function () {
         console.trace();
+
+        this._trigger('onGetTabError', 0, arguments);
     };
     //#endregion
 
@@ -552,6 +558,8 @@
             $glyph.removeClass('glyphicon-plus')
                 .addClass('glyphicon-ok');
         }
+
+        this._trigger('afterToggleItem', 0, arguments);
     };
 
     GroupEditor.prototype._uncheckAllItems = function () {
@@ -643,7 +651,13 @@
 
         template.html(html);
 
-        return template;
+        var data = {
+            template: template
+        };
+
+        this._trigger('afterGetGroupItemTemplate', 0, data);
+
+        return data.template;
     };
 
     GroupEditor.prototype._renderGroupItem = function (model, group, tabId, objId) {
@@ -713,6 +727,8 @@
 
         this._addOpacity(connectsWith);
 
+        this._trigger('onDragStart', 0, arguments);
+
     };
 
     GroupEditor.prototype._dragStop = function () {
@@ -720,6 +736,7 @@
         this._dragging = false;
         this._removeOpacity();
 
+        this._trigger('onDragStop', 0, arguments);
     };
 
     GroupEditor.prototype._sortStart = function (e, ui) {
@@ -729,12 +746,16 @@
 
         $item.data('groupid', groupId)
              .addClass('temp-sortable');
+
+        this._trigger('onSortStart', 0, arguments);
     };
 
     GroupEditor.prototype._beforeSortStop = function (e, ui) {
     };
 
     GroupEditor.prototype._sortStop = function (e, ui) {
+
+        this._trigger('onSortStop', 0, arguments);
 
         var $item = ui.item,
             $group = $item.parents(this.options.groupSelector).first(),
