@@ -6,22 +6,13 @@ using System.Resources;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using BForms.Resources;
 
 namespace BForms.Utilities
 {
     public static class BsResourceManager
     {
         #region Properties
-        private static Dictionary<string, string> _localResources = new Dictionary<string, string>
-        {
-            { "NoResults", "There are no results" },
-            { "Of", "of" },
-            { "Items", "items" },
-            { "ResultsPerPage", "results per page" },
-            { "Reset", "Reset" },
-            { "Select", "Select" }
-        };
-
         private static ResourceManager _resourceManager;
         #endregion
 
@@ -47,7 +38,10 @@ namespace BForms.Utilities
                     return resource;
                 }
             }
-            return _localResources[key];
+
+            var localResource = BFormsResources.ResourceManager.GetString(key);
+
+            return string.IsNullOrEmpty(localResource) ? string.Empty : localResource;
         }
         #endregion
     }
