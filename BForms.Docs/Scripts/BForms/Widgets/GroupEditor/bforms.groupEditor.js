@@ -276,7 +276,7 @@
     GroupEditor.prototype._evGoTop = function (e) {
         e.preventDefault();
 
-        console.log(" -- go to top --", arguments);
+        $.bforms.scrollToElement(this.$element.find(this.options.navbarSelector));
     };
 
     GroupEditor.prototype._evRemove = function (e) {
