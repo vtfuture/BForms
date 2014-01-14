@@ -2,7 +2,8 @@
   margin-bottom: 20px;
   display: table;
   border-collapse: collapse;
-  width: 100%; }
+  width: 100%;
+  position: relative; }
   .group_editor > div {
     display: table-cell;
     width: 50%;
