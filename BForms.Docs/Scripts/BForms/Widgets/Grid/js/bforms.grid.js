@@ -40,6 +40,7 @@
         resetGridSelector: '.bs-resetGrid',
         addSelector: '.bs-triggerAdd',
         expandToggleSelector: '.bs-toggleExpand',
+        inlineActionClass: 'bs-inline_action',
 
         rowsContainerSelector: '.grid_rows_wrapper',
         rowSelector: '.grid_row',
@@ -1009,7 +1010,7 @@
     };
 
     Grid.prototype._onRowClick = function (e) {
-        if (!this._isTextSelected()) {
+        if (!this._isInlineAction(e) && !this._isTextSelected()) {
             var $row = $(e.currentTarget),
                 detailsClick = $(e.target).closest(this.options.rowDetailsSelector).length > 0,
                 errorClick = $(e.target).closest('.bs-form-error').length > 0;
@@ -1326,6 +1327,12 @@
             text = document.selection.createRange().text;
         }
         return text !== "";
+    };
+
+    Grid.prototype._isInlineAction = function (e) {
+        if ($(e.target).hasClass(this.options.inlineActionClass) || $(e.target).parents("." + this.options.inlineActionClass).length>0)
+            return true;
+        return false;
     };
 
     Grid.prototype.toggleBulkActions = function () {

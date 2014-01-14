@@ -89,7 +89,7 @@ namespace BForms.Renderers
                 if (this.Builder.isEditable && (!this.Builder.mode.HasValue || this.Builder.mode.Value == BsPanelMode.Both))
                 {
                     var editableTag = new TagBuilder("a");
-                    editableTag.MergeAttribute("href", "#");
+                    editableTag.MergeAttribute("href", this.Builder.editableUrl);
                     editableTag.AddCssClass("pull-right bs-editPanel");
 
                     var glyphTag = this.GetGlyphicon(Glyphicon.Pencil);

@@ -283,6 +283,9 @@ textarea {
   .btn:focus {
     outline: none; }
 
+.btn-sm, .btn-xs {
+  font-size: 12px; }
+
 .btn-default {
   color: #fff !important;
   background-color: #368985;
