@@ -26,7 +26,10 @@
             }, this),
             validateMove: function (model, tabId, $group) {
                 if (model.Role == 1 && $group.data('groupid') == 4) return false;
-            }
+            },
+            onSaveSuccess: $.proxy(function () {
+                console.log(arguments);
+            }, this)
         });
     };
     //#endregion

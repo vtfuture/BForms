@@ -32,7 +32,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
         public ActionResult Index()
         {
             var savedSettings = GetGridSettings();
-            
+
             var bsGridSettings = new BsGridRepositorySettings<ContributorSearchModel>
             {
                 Page = 1,

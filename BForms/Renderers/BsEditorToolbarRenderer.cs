@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using BForms.Utilities;
 
 namespace BForms.Renderers
 {
@@ -53,7 +54,7 @@ namespace BForms.Renderers
 
                     input.MergeAttribute("type", "text");
 
-                    input.MergeAttribute("placeholder", "Cauta");
+                    input.MergeAttribute("placeholder", BsResourceManager.Resource("Search"));
 
                     input.AddCssClass("form-control");
 

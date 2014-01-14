@@ -34,6 +34,8 @@ namespace BForms.Editor
             }
         }
 
+        internal string saveUrl { get; set; }
+
         public BsEditorHtmlBuilder(TModel model)
         {
             this.renderer = new BsEditorRenderer<TModel>(this);
@@ -115,6 +117,13 @@ namespace BForms.Editor
             {
                 config(this.groupConfigurator);
             }
+
+            return this;
+        }
+
+        public BsEditorHtmlBuilder<TModel> SaveUrl(string saveUrl)
+        {
+            this.saveUrl = saveUrl;
 
             return this;
         }

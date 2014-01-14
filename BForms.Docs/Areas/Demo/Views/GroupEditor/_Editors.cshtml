@@ -40,7 +40,8 @@
                .DisplayName("Group2")
                .Template(x => x.Items, "_GroupItem");
 
-        });
+        })
+        .SaveUrl(Url.Action("Save"));
 
     ViewData["builder"] = builder;
 }

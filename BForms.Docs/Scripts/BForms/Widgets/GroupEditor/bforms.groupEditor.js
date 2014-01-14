@@ -42,7 +42,9 @@
         upBtn: '.bs-upBtn',
         downBtn: '.bs-downBtn',
         toggleExpandBtn: '.bs-toggleExpand',
+
         resetBtn: '.bs-resetGroupEditor',
+        saveBtn: '.bs-saveGroupEditor',
 
         getTabUrl: ''
     };
@@ -60,6 +62,8 @@
         if (!this.options.uniqueName) {
             throw 'grid needs a unique name or the element on which it is aplied has to have an id attr';
         }
+
+        this._initOptions();
 
         this._initSelectors();
 
@@ -81,6 +85,10 @@
         this._checkEditable();
     };
 
+    GroupEditor.prototype._initOptions = function () {
+        this.options.saveUrl = this.options.saveUrl || this.$element.find(this.options.saveBtn).attr('href');
+    };
+
     GroupEditor.prototype._initSelectors = function () {
         this.$navbar = this.$element.find(this.options.navbarSelector);
         this.$tabs = this.$element.find(this.options.tabsSelector);
@@ -98,6 +106,7 @@
         this.$groups.on('click', this.options.downBtn, $.proxy(this._evDown, this));
         this.$groups.on('click', this.options.toggleExpandBtn, $.proxy(this._evToggleExpand, this));
         this.$element.on('click', this.options.resetBtn, $.proxy(this._evResetClick, this));
+        this.$element.on('click', this.options.saveBtn, $.proxy(this._evSaveClick, this));
     };
 
     GroupEditor.prototype._initSelectedTab = function () {
@@ -355,9 +364,54 @@
         e.preventDefault();
         e.stopPropagation();
     };
+
+    GroupEditor.prototype._evSaveClick = function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        var data = this.parse();
+
+        if (typeof this.options.additionalData !== "undefined") {
+            $.extend(true, data, this.options.additionalData);
+        }
+
+        this._trigger('beforeSaveAjax', 0, data);
+
+        this._ajaxSaveGroup(data);
+    };
     //#endregion
 
     //#region Ajax
+    GroupEditor.prototype._ajaxSaveGroup = function(data) {
+
+        $.bforms.ajax({
+            name: this.options.uniqueName + '|saveGroupEditor',
+            url: this.options.saveUrl,
+            data : data,
+            callbackData: data,
+            context: this,
+            success: $.proxy(this._ajaxSaveGroupSuccess),
+            error: $.proxy(this._ajaxSaveGroupError),
+            loadingElement: this.$element,
+            loadingClass: 'loading'
+        });
+
+    };
+
+    GroupEditor.prototype._ajaxSaveGroupSuccess = function(response, callback) {
+
+        //if (typeof this.options.onSaveSuccess === "function") {
+        //    this.options.onSaveSuccess.apply(this, arguments);
+        //}
+
+        this._trigger('onSaveSuccess', 0, response, callback);
+
+    };
+
+    GroupEditor.prototype._ajaxSaveGroupError = function() {
+
+    };
+
     GroupEditor.prototype._ajaxGetTab = function (param) {
 
         var ajaxOptions = {
@@ -861,7 +915,7 @@
                     Page: 1,
                     PageSize: 5,
                     TabId: tabModel.tabId,
-                    preventShow : true
+                    preventShow: true
                 }
             });
         }, this));

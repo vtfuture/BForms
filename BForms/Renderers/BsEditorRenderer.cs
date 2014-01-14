@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using BForms.Utilities;
+using DocumentFormat.OpenXml.EMMA;
 
 namespace BForms.Renderers
 {
@@ -69,35 +71,39 @@ namespace BForms.Renderers
 
         public string RenderGroupsFooter()
         {
+
+            var cssClass = "col-lg-6 col-md-6 col-sm-6";
+
             var counter = new TagBuilder("div");
-
             counter.AddCssClass("row counter");
-
             var total = new TagBuilder("div");
-
-            total.AddCssClass("col-lg-6 col-md-6 col-sm-6");
-
+            total.AddCssClass(cssClass);
             var span = new TagBuilder("span");
-
             span.AddCssClass("bs-counter");
-
             total.InnerHtml += "Total: " + span;
-
             counter.InnerHtml += total;
 
             var reset = new TagBuilder("div");
-
-            reset.AddCssClass("col-lg-6 col-md-6 col-sm-6");
+            reset.AddCssClass(cssClass);
 
             var anchor = new TagBuilder("a");
-
             anchor.MergeAttribute("href", "#");
-
             anchor.AddCssClass("btn btn-white pull-right bs-resetGroupEditor");
-
             anchor.InnerHtml += GetGlyphicon(Models.Glyphicon.Refresh);
+            anchor.InnerHtml += " " + BsResourceManager.Resource("Reset");
 
-            anchor.InnerHtml += " " + "Reset";
+            if (!String.IsNullOrEmpty(this.Builder.saveUrl))
+            {
+                var saveAnchor = new TagBuilder("a");
+                saveAnchor.MergeAttribute("href", this.Builder.saveUrl);
+                saveAnchor.MergeAttribute("style", "margin-left:10px");
+                saveAnchor.AddCssClass("btn btn-white pull-right bs-saveGroupEditor");
+                saveAnchor.InnerHtml += GetGlyphicon(Models.Glyphicon.Save);
+                saveAnchor.InnerHtml += " " + BsResourceManager.Resource("Save");
+
+                reset.InnerHtml += saveAnchor;
+            }
+           
 
             reset.InnerHtml += anchor;
 
