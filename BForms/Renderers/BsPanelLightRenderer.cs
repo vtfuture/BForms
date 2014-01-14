@@ -36,7 +36,7 @@ namespace BForms.Renderers
                     headerTag.AddCssClass("editable");
 
                     var editableTag = new TagBuilder("a");
-                    editableTag.MergeAttribute("href", "#");
+                    editableTag.MergeAttribute("href", this.Builder.editableUrl);
 
                     editableTag.AddCssClass("pull-right bs-editPanel");
 
