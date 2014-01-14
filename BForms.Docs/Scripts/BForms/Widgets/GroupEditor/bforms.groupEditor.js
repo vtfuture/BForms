@@ -499,7 +499,10 @@
     };
 
     GroupEditor.prototype._isItemSelected = function (objid, tabId, groupIds, itemModel) {
-        var $groups = this._getGroups(groupIds), selected = true;
+        var $groups = this._getGroups(groupIds),
+            selected = true,
+            allowedGroupsMove = 0,
+            inGroups = 0;
 
         $.each($groups, $.proxy(function (idx, group) {
 
@@ -512,12 +515,19 @@
                 allowMove = typeof validateResult === "boolean" ? validateResult : true;
             }
 
-            if (allowMove && !isInGroup || (allowMove === false && isInGroup === false)) {
-                selected = false;
+            if (allowMove) {
+                allowedGroupsMove++;
             }
+
+            if (isInGroup) {
+                inGroups++;
+            }
+           
         }, this));
 
-        return selected;
+        return allowedGroupsMove > 0 ? allowedGroupsMove === inGroups : false; 
+
+        //return selected;
     };
 
     GroupEditor.prototype._isInGroup = function (objId, tabId, $group) {
