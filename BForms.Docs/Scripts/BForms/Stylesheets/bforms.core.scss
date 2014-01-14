@@ -386,6 +386,10 @@ textarea {
 		outline: none;
 	}
 }
+.btn-sm, .btn-xs {
+	font-size: 12px;
+}
+
 .btn-default {
 	color: #fff !important;
 	background-color: darken($mainColor, 10%);
