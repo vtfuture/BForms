@@ -125,7 +125,7 @@
         });
     };
 
-    GroupEditor.prototype._initTab = function (tabModel) {
+    GroupEditor.prototype._initTab = function (tabModel, preventShow) {
         var self = this;
 
         if (tabModel) {
@@ -154,7 +154,9 @@
                 });
             }
 
-            tabModel.container.show();
+            if (preventShow !== true) {
+                tabModel.container.show();
+            }
 
             if (checkItems) {
                 this._checkItems();
@@ -357,8 +359,9 @@
 
     //#region Ajax
     GroupEditor.prototype._ajaxGetTab = function (param) {
+
         var ajaxOptions = {
-            name: this.options.uniqueName + "|getTab",
+            name: this.options.uniqueName + "|getTab|" + param.tabModel.tabId,
             url: this.options.getTabUrl,
             data: param.data,
             callbackData: param,
@@ -385,7 +388,7 @@
                     html: response.Html,
                     tabId: callback.tabModel.tabId,
                     connectsWith: $container.data('connectswith')
-                });
+                }, callback.data.preventShow);
             }
         }
     };
@@ -449,7 +452,7 @@
                 allowMove = typeof validateResult === "boolean" ? validateResult : true;
             }
 
-            if (allowMove && !isInGroup || (allowMove === false && isInGroup  === false)) {
+            if (allowMove && !isInGroup || (allowMove === false && isInGroup === false)) {
                 selected = false;
             }
         }, this));
@@ -837,6 +840,31 @@
 
         this.$element.find(this.options.groupItemSelector).remove();
 
+        var $loadedTabs = this.$tabs.find('*[data-loaded]').filter(function () {
+            var loaded = $(this).data('loaded');
+            return loaded == true || loaded == 'true';
+        });
+
+        $loadedTabs.each($.proxy(function (idx, tab) {
+
+            var $tab = $(tab),
+                tabModel = {
+                    container: $tab,
+                    loaded: true,
+                    tabId: $tab.data('tabid'),
+                    connectsWith: $tab.data('connectswith')
+                };
+
+            this._ajaxGetTab({
+                tabModel: tabModel,
+                data: {
+                    Page: 1,
+                    PageSize: 5,
+                    TabId: tabModel.tabId,
+                    preventShow : true
+                }
+            });
+        }, this));
 
 
         this._uncheckAllItems();
