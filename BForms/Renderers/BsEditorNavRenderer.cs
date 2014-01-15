@@ -57,7 +57,7 @@ namespace BForms.Renderers
             nav.InnerHtml += navHeader.ToString();
 
             var navbar = new TagBuilder("div");
-            navbar.AddCssClass("collapse navbar-collapse navbar-ex1-collapse");
+            navbar.AddCssClass("collapse navbar-collapse navbar-ex1-collapse group_editor-navbar");
 
             var list = new TagBuilder("ul");
 

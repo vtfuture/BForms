@@ -18,6 +18,8 @@
     margin: 0; }
     .group_editor .navbar-default .navbar-collapse {
       background: #fff; }
+    .group_editor .navbar-default .group_editor-navbar {
+      padding-left: 0px; }
     .group_editor .navbar-default .active a {
       background: #f8f8f8 !important; }
   .group_editor .search {
