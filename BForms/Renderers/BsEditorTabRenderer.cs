@@ -140,6 +140,8 @@ namespace BForms.Renderers
 
         protected virtual string RenderPager()
         {
+            this.Builder.PagerBuilder.Theme = this.Builder.Theme;
+
             return this.Builder.PagerBuilder.ToString();
         }
 
@@ -182,7 +184,7 @@ namespace BForms.Renderers
             this.InitPager();
 
             var wrapper = new TagBuilder("div");
-
+            
             wrapper.MergeAttribute("data-tabid", MvcHelpers.Serialize(this.Builder.Uid));
 
             if (this.Builder.ConnectsWithIds != null)

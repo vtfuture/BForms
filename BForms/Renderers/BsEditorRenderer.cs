@@ -5,7 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using BForms.Models;
 using BForms.Utilities;
+using DocumentFormat.OpenXml.Drawing;
 using DocumentFormat.OpenXml.EMMA;
 
 namespace BForms.Renderers
@@ -36,6 +38,7 @@ namespace BForms.Renderers
             {
                 if (tab.Value.HasModel)
                 {
+                    tab.Value.Theme = this.Builder.Theme;
                     result += tab.Value.renderer.RenderAjax();
                 }
             }
@@ -56,6 +59,7 @@ namespace BForms.Renderers
 
             foreach (var tab in this.Builder.TabConfigurator.Tabs)
             {
+                tab.Value.Theme = this.Builder.Theme; 
                 result += tab.Value.ToString();
             }
 
@@ -132,6 +136,9 @@ namespace BForms.Renderers
         {
             var divToolbar = new TagBuilder("div");
             divToolbar.AddCssClass("grid_toolbar");
+
+            var theme = this.Builder.Theme.GetDescription();
+            divToolbar.AddCssClass(theme);
 
             var divToolbarHeader = new TagBuilder("div");
             divToolbarHeader.AddCssClass("grid_toolbar_header");

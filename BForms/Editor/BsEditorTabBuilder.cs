@@ -138,8 +138,9 @@ namespace BForms.Editor
             this.pagerSettings = new BsPagerSettings();
         }
 
-        internal void InitRenderer<TRow>() where TRow : BsItemModel
+        internal void InitRenderer<TRow>(BsTheme theme) where TRow : BsItemModel
         {
+            this.Theme = theme;
             this.rowConfigurator = new BsEditorRowConfigurator<TRow>(this.viewContext);
             this.renderer = new BsEditorTabRenderer<TModel, TRow>(this);
             this.hasModel = this.model != null && this.model.GetGrid<TRow>() != null;

@@ -23,11 +23,6 @@ namespace BForms.Grid
         internal BsToolbarActionsFactory<TToolbar> ActionsFactory { get; set; }
 
         /// <summary>
-        /// Theme
-        /// </summary>
-        internal BsTheme theme = BsTheme.Default;
-
-        /// <summary>
         /// Toolbar name based on class hierarchy
         /// </summary>
         private readonly string fullName;
@@ -71,7 +66,7 @@ namespace BForms.Grid
                 var attr = item as BsToolbarAttribute;
                 if (attr != null && attr.Theme > 0)
                 {
-                    this.theme = attr.Theme;
+                    this.Theme = attr.Theme;
                 }
             }
         }
@@ -115,18 +110,6 @@ namespace BForms.Grid
         }
 
         /// <summary>
-        /// Sets toolbar Theme
-        /// </summary>
-        /// <param name="theme"></param>
-        /// <returns>BsToolbarHtmlBuilder</returns>
-        public BsToolbarHtmlBuilder<TToolbar> Theme(BsTheme theme)
-        {
-            this.theme = theme;
-
-            return this;
-        }
-
-        /// <summary>
         /// Sets actions factory
         /// </summary>
         /// <returns>BsToolbarHtmlBuilder</returns>
@@ -155,11 +138,6 @@ namespace BForms.Grid
         /// Utility class used for action 
         /// </summary>
         internal BsToolbarActionsFactory ActionsFactory { get; set; }
-
-        /// <summary>
-        /// Theme
-        /// </summary>
-        internal BsTheme theme = BsTheme.Default;
 
         /// <summary>
         /// Toolbar name based on class hierarchy
@@ -216,18 +194,6 @@ namespace BForms.Grid
             {
                 this.id = htmlAttr["id"].ToString();
             }
-        }
-
-        /// <summary>
-        /// Sets toolbar Theme
-        /// </summary>
-        /// <param name="theme"></param>
-        /// <returns>BsToolbarHtmlBuilder</returns>
-        public BsToolbarHtmlBuilder Theme(BsTheme theme)
-        {
-            this.theme = theme;
-
-            return this;
         }
 
         /// <summary>

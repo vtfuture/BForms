@@ -64,7 +64,6 @@ namespace BForms.Grid
         internal List<BsBulkSelector> bulkSelectors;
         internal bool renderPager = true;
         internal BsPagerSettings pagerSettings = new BsPagerSettings();
-        internal BsTheme theme = BsTheme.Default;
         //private BsBulkActionsFactory BulkActionsFactory { get; set; }
         internal string noRecordsTemplate;
         internal string noResultsTemplate;
@@ -80,7 +79,7 @@ namespace BForms.Grid
                     this.hasDetails = attr.HasDetails;
                     if (attr.Theme > 0)
                     {
-                        this.theme = attr.Theme;
+                        this.Theme = attr.Theme;
                     }
                 }
             }
@@ -216,13 +215,6 @@ namespace BForms.Grid
         public BsGridHtmlBuilder<TModel, TRow> PagerSettings(BsPagerSettings pagerSettings)
         {
             this.pagerSettings = pagerSettings;
-
-            return this;
-        }
-
-        public BsGridHtmlBuilder<TModel, TRow> Theme(BsTheme theme)
-        {
-            this.theme = theme;
 
             return this;
         }

@@ -143,7 +143,6 @@ namespace BForms.Docs.Areas.Demo.Controllers
                     case YesNoValueTypes.No:
 
                         var grid2 = repo.ToBsGridViewModel(settings.ToBaseGridRepositorySettings(), out count);
-
                         model.Contributors2 = new BsEditorTabModel<ContributorRowModel>
                         {
                             Grid = grid2

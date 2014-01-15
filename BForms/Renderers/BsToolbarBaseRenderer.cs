@@ -35,7 +35,7 @@ namespace BForms.Renderers
             toolbarBuilder.MergeClassAttribute("grid_toolbar", this.Builder.htmlAttributes);
             toolbarBuilder.MergeAttributes(this.Builder.htmlAttributes, true);
 
-            toolbarBuilder.AddCssClass(this.Builder.theme.GetDescription());
+            toolbarBuilder.AddCssClass(this.Builder.Theme.GetDescription());
 
             var toolbarHeaderBuilder = new TagBuilder("div");
             toolbarHeaderBuilder.AddCssClass("grid_toolbar_header");
@@ -149,7 +149,7 @@ namespace BForms.Renderers
             toolbarBuilder.MergeClassAttribute("grid_toolbar", this.Builder.htmlAttributes);
             toolbarBuilder.MergeAttributes(this.Builder.htmlAttributes, true);
 
-            toolbarBuilder.AddCssClass(this.Builder.theme.GetDescription());
+            toolbarBuilder.AddCssClass(this.Builder.Theme.GetDescription());
 
             var toolbarHeaderBuilder = new TagBuilder("div");
             toolbarHeaderBuilder.AddCssClass("grid_toolbar_header");

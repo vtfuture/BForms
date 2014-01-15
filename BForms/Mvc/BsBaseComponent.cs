@@ -15,6 +15,15 @@ namespace BForms.Mvc
 
         public BsBaseComponent(ViewContext viewContext) : base(viewContext){}
 
+        private BsTheme? _theme;
+
+        public BsTheme Theme
+        {
+            get { return _theme ?? BForms.Utilities.BsUIManager.GetGlobalTheme(); }
+
+            set { _theme = value; }
+        }
+
         public virtual TComponent HtmlAttributes(IDictionary<string, object> htmlAttributes)
         {
             this.htmlAttributes = htmlAttributes;
@@ -25,6 +34,13 @@ namespace BForms.Mvc
         public virtual TComponent HtmlAttributes(object htmlAttributes)
         {
             HtmlAttributes(HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
+
+            return (TComponent)this;
+        }
+
+        public virtual TComponent SetTheme(BsTheme theme)
+        {
+            this.Theme = theme;
 
             return (TComponent)this;
         }

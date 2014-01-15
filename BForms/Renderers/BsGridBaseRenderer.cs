@@ -27,7 +27,10 @@ namespace BForms.Renderers
 
         public override string Render()
         {
-            this.Builder.pagerBuilder = new BsGridPagerBuilder(this.Builder.Model.Pager, this.Builder.pagerSettings, this.Builder.Model.BaseSettings).Theme(this.Builder.theme);
+            this.Builder.pagerBuilder = new BsGridPagerBuilder(this.Builder.Model.Pager, this.Builder.pagerSettings, this.Builder.Model.BaseSettings)
+            {
+                Theme = this.Builder.Theme
+            };
 
             var result = this.Builder.IsAjaxRequest() ?
                 this.RenderAjax() :
@@ -66,7 +69,7 @@ namespace BForms.Renderers
 
             gridBuilder.MergeAttributes(this.Builder.htmlAttributes, true);
 
-            gridBuilder.AddCssClass(this.Builder.theme.GetDescription());
+            gridBuilder.AddCssClass(this.Builder.Theme.GetDescription());
 
             #region header builder
             if (this.Builder.renderTitle)

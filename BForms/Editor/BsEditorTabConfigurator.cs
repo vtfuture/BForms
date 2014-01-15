@@ -100,7 +100,7 @@ namespace BForms.Editor
             navBuilder.AddTab(attr);
         }
 
-        private void Add<TEditor, TRow>(BsEditorTabAttribute attr, BsEditorTabModel<TRow> model, List<TabGroupConnection> connections, object[] groupIds)
+        private void Add<TEditor, TRow>(BsEditorTabAttribute attr, BsEditorTabModel<TRow> model, List<TabGroupConnection> connections, object[] groupIds, BsTheme theme)
             where TEditor : IBsEditorTabModel
             where TRow : BsItemModel
         {
@@ -115,7 +115,7 @@ namespace BForms.Editor
                 tab.Editable();
             }
 
-            tab.InitRenderer<TRow>();
+            tab.InitRenderer<TRow>(theme);
 
             if (attr.Selected)
             {

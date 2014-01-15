@@ -191,7 +191,7 @@ namespace BForms.Renderers
             }
 
             pagerWrapper.AddCssClass("row bs-pager");
-            pagerWrapper.AddCssClass(this.Builder.theme.GetDescription());
+            pagerWrapper.AddCssClass(this.Builder.Theme.GetDescription());
 
             pagerWrapper.InnerHtml += this.RenderPages();
 

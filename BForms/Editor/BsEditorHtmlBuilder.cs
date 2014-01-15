@@ -127,6 +127,7 @@ namespace BForms.Editor
 
             return this;
         }
+   
         #endregion
 
         #region Helpers
@@ -192,7 +193,7 @@ namespace BForms.Editor
                 method = typeof(BsEditorTabConfigurator<TModel>).GetMethod("Add", this.Bindings());
                 generic = method.MakeGenericMethod(propertyType, rowType);
 
-                generic.Invoke(this.tabConfigurator, new object[] { attr, value, this.groupConfigurator.Connections, this.groupConfigurator.GetGroupIds() });
+                generic.Invoke(this.tabConfigurator, new object[] { attr, value, this.groupConfigurator.Connections, this.groupConfigurator.GetGroupIds(), this.Theme });
             }
         }
 

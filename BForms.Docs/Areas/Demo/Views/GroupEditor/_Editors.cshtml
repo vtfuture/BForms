@@ -1,4 +1,5 @@
 @model BForms.Docs.Areas.Demo.Models.GroupEditorViewModel
+@using BForms.Docs.Helpers
 @using BForms.Html
 @using BForms.Docs.Resources
 @using BForms.Models
@@ -8,45 +9,49 @@
 @using BForms.Docs.Areas.Demo.Mock
 
 @{
-    var builder = Html.BsGroupEditorFor(x => x.Editor2)
-      .ConfigureTabs(cfg =>
-      {
-          var tab3 = cfg.For(x => x.Contributors3)
-                        .Template(x => x.Grid, "_TabItem")
-                        .Template(x => x.Search, "~/Areas/Demo/Views/Contributors/Toolbar/_Search.cshtml")
-                        .Template(x => x.New, "~/Areas/Demo/Views/Contributors/Toolbar/_New.cshtml")
-                        .ConnectsWith(NotificationType.Monthly);
+    var builder = Html.BsGroupEditorFor(x => x.Editor2);
 
-            cfg.For(x => x.Contributors2)
-                .Template(x => x.Grid, "_TabItem");
+    builder.Theme = Html.GetTheme();
 
-            var tab1 = cfg.For(x => x.Contributors)
-                          .Editable()
-                          .Template(x => x.Grid, "_TabItem")
-                          .Template(x => x.Search, "~/Areas/Demo/Views/Contributors/Toolbar/_Search.cshtml")
-                          .Template(x => x.Order, "_Order")
-                          .ConnectsWith(NotificationType.Monthly, NotificationType.Daily);
+    builder.ConfigureTabs(cfg =>
+    {
+        var tab3 = cfg.For(x => x.Contributors3)
+            .Template(x => x.Grid, "_TabItem")
+            .Template(x => x.Search, "~/Areas/Demo/Views/Contributors/Toolbar/_Search.cshtml")
+            .Template(x => x.New, "~/Areas/Demo/Views/Contributors/Toolbar/_New.cshtml")
+            .ConnectsWith(NotificationType.Monthly);
 
-          cfg.Title = "Dev team";
+        cfg.For(x => x.Contributors2)
+            .Template(x => x.Grid, "_TabItem");
 
-      })
-      .ConfigureGroups(cfg =>
+        var tab1 = cfg.For(x => x.Contributors)
+            .Editable()
+            .Template(x => x.Grid, "_TabItem")
+            .Template(x => x.Search, "~/Areas/Demo/Views/Contributors/Toolbar/_Search.cshtml")
+            .Template(x => x.Order, "_Order")
+            .ConnectsWith(NotificationType.Monthly, NotificationType.Daily);
+
+        cfg.Title = "Dev team";
+
+    })
+        .ConfigureGroups(cfg =>
         {
             cfg.For(x => x.Group1)
-               .DisplayText("Adauga la grup 1")
-               .DisplayName("Group1")
-               .Template(x => x.Items, "_GroupItem")
-               .Template(x => x.Form, "_RowForm");
+                .DisplayText("Adauga la grup 1")
+                .DisplayName("Group1")
+                .Template(x => x.Items, "_GroupItem")
+                .Template(x => x.Form, "_RowForm");
 
             cfg.For(x => x.Group2)
-               .DisplayText("Adauga la grup 2")
-               .DisplayName("Group2")
-               .Template(x => x.Items, "_GroupItem");
+                .DisplayText("Adauga la grup 2")
+                .DisplayName("Group2")
+                .Template(x => x.Items, "_GroupItem");
 
             cfg.Title = "Groups";
 
         })
         .SaveUrl(Url.Action("Save"));
+        //.SetTheme(Html.GetTheme());
 
     ViewData["builder"] = builder;
 }

@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using BForms.Models;
 using BForms.Mvc;
 
 
@@ -24,6 +25,8 @@ namespace BForms.Docs
             ModelValidatorProviders.Providers.Add(new BsModelValidatorProvider());
 
             BForms.Utilities.BsResourceManager.Register(Resources.Resource.ResourceManager);
+            //BForms.Utilities.BsUIManager.Theme(BsTheme.Black);
+
         }
     }
 }

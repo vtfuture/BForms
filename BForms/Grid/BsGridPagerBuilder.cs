@@ -17,7 +17,6 @@ namespace BForms.Grid
         internal BsPagerModel pager { get; set; }
         internal BsPagerSettings settings { get; set; }
         internal BsGridBaseRepositorySettings baseSettings { get; set; }
-        internal BsTheme theme = BsTheme.Default;
 
         public BsGridPagerBuilder(BsPagerModel pager, BsPagerSettings settings, BsGridBaseRepositorySettings baseSettings)
         {
@@ -36,15 +35,6 @@ namespace BForms.Grid
         public BsGridPagerBuilder BaseSettings(BsGridBaseRepositorySettings baseSettings)
         {
             this.baseSettings = baseSettings;
-            return this;
-        }
-        #endregion
-
-        #region Config
-        public BsGridPagerBuilder Theme(BsTheme theme)
-        {
-            this.theme = theme;
-
             return this;
         }
         #endregion

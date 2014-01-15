@@ -33,7 +33,7 @@ namespace BForms.Docs.Controllers
                     var newThemeSettings = new ThemeSettings()
                     {
                         Open = false,
-                        Theme = BsTheme.Default
+                        Theme = BForms.Utilities.BsUIManager.GetGlobalTheme()
                     };
 
                     Session["ThemeSettings"] = newThemeSettings;
