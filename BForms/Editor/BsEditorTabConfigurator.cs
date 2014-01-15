@@ -39,6 +39,11 @@ namespace BForms.Editor
             this.navBuilder = new BsEditorNavBuilder(viewContext);
             this.viewContext = viewContext;
         }
+
+        /// <summary>
+        /// Tabs header
+        /// </summary>
+        public string Title { get; set; }
         #endregion
 
         #region Public Methods

@@ -45,7 +45,14 @@ namespace BForms.Renderers
 
         public string RenderTabs()
         {
-            var result = this.Builder.TabConfigurator.NavigationBuilder.ToString();
+            var result = string.Empty;
+
+            if (!string.IsNullOrEmpty(this.Builder.TabConfigurator.Title))
+            {
+                result += RenderTitle(this.Builder.TabConfigurator.Title);
+            }
+
+            result += this.Builder.TabConfigurator.NavigationBuilder.ToString();
 
             foreach (var tab in this.Builder.TabConfigurator.Tabs)
             {
@@ -57,6 +64,13 @@ namespace BForms.Renderers
 
         public string RenderGroups()
         {
+            var result = string.Empty;
+
+            if (!string.IsNullOrEmpty(this.Builder.GroupConfigurator.Title))
+            {
+                result += RenderTitle(this.Builder.GroupConfigurator.Title);
+            }
+
             var div = new TagBuilder("div");
 
             div.AddCssClass("grid_view");
@@ -66,7 +80,9 @@ namespace BForms.Renderers
                 div.InnerHtml += group.Value.ToString();
             }
 
-            return div.ToString();
+            result += div.ToString();
+
+            return result;
         }
 
         public string RenderGroupsFooter()
@@ -110,6 +126,22 @@ namespace BForms.Renderers
             counter.InnerHtml += reset;
 
             return counter.ToString();
+        }
+
+        public string RenderTitle(string title)
+        {
+            var divToolbar = new TagBuilder("div");
+            divToolbar.AddCssClass("grid_toolbar");
+
+            var divToolbarHeader = new TagBuilder("div");
+            divToolbarHeader.AddCssClass("grid_toolbar_header");
+            var toolbarH = new TagBuilder("h1");
+            toolbarH.InnerHtml += title;
+
+            divToolbarHeader.InnerHtml += toolbarH;
+            divToolbar.InnerHtml += divToolbarHeader;
+
+            return divToolbar.ToString();
         }
 
         public string RenderIndex()

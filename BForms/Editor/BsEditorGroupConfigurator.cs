@@ -24,6 +24,8 @@ namespace BForms.Editor
             this.Groups = new Dictionary<object, BsEditorGroupBuilder>();
             this.Connections = new List<TabGroupConnection>();
         }
+
+        public string Title { get; set; }
         #endregion
 
         #region Public Methods

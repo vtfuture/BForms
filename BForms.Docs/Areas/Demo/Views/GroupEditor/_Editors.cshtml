@@ -26,7 +26,10 @@
                           .Template(x => x.Search, "~/Areas/Demo/Views/Contributors/Toolbar/_Search.cshtml")
                           .Template(x => x.Order, "_Order")
                           .ConnectsWith(NotificationType.Monthly, NotificationType.Daily);
-        })
+
+          cfg.Title = "Dev team";
+
+      })
       .ConfigureGroups(cfg =>
         {
             cfg.For(x => x.Group1)
@@ -39,6 +42,8 @@
                .DisplayText("Adauga la grup 2")
                .DisplayName("Group2")
                .Template(x => x.Items, "_GroupItem");
+
+            cfg.Title = "Groups";
 
         })
         .SaveUrl(Url.Action("Save"));

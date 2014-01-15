@@ -15,11 +15,10 @@
         editSuccessHandler : function(e, data) {
             $('.js-userName').text(data.Username);
         }
-        
     });
 
-    $('.bs-contact').bsPanel({
-        name: 'contact'
-    });
+$('.bs-contact').bsPanel({
+    name: 'contact'
+});
 
 });
