@@ -40,8 +40,10 @@ namespace BForms.Renderers
 
             var containerList = new TagBuilder("ul");
             containerList.AddCssClass("dropdown-menu");
+            if (this.Builder.alignRight)
+                containerList.AddCssClass("pull-right");
             containerList.MergeAttribute("role", "menu");
-
+          
             foreach (var item in this.Builder.Actions)
             {
                 var defaultAction = item as BsToolbarAction<TToolbar>;
@@ -98,6 +100,8 @@ namespace BForms.Renderers
 
             var containerList = new TagBuilder("ul");
             containerList.AddCssClass("dropdown-menu");
+            if (this.Builder.alignRight)
+                containerList.AddCssClass("pull-right");
             containerList.MergeAttribute("role", "menu");
 
             foreach (var item in this.Builder.Actions)
