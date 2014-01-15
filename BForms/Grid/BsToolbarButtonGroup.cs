@@ -17,6 +17,7 @@ namespace BForms.Grid
 
         internal string styleClasses;
 
+        internal bool alignRight = false;
 
         internal IDictionary<string, object> HtmlAttr
         {
@@ -57,7 +58,6 @@ namespace BForms.Grid
         public BsToolbarButtonGroup<TToolbar> DisplayName(string name)
         {
             this.name = name;
-
             return this;
         }
 
@@ -68,7 +68,16 @@ namespace BForms.Grid
         public BsToolbarButtonGroup<TToolbar> GlyphIcon(Glyphicon icon)
         {
             this.glyphIcon = icon;
+            return this;
+        }
 
+        /// <summary>
+        /// Sets dropdown align right
+        /// </summary>
+        /// <returns>BsToolbarAction</returns>
+        public BsToolbarButtonGroup<TToolbar> AlignRight()
+        {
+            this.alignRight = true;
             return this;
         }
 
@@ -116,6 +125,7 @@ namespace BForms.Grid
 
         internal string styleClasses;
 
+        internal bool alignRight = false;
 
         internal IDictionary<string, object> HtmlAttr
         {
@@ -157,7 +167,6 @@ namespace BForms.Grid
         public BsToolbarButtonGroup DisplayName(string name)
         {
             this.name = name;
-
             return this;
         }
 
@@ -168,7 +177,16 @@ namespace BForms.Grid
         public BsToolbarButtonGroup GlyphIcon(Glyphicon icon)
         {
             this.glyphIcon = icon;
+            return this;
+        }
 
+        /// <summary>
+        /// Sets dropdown align right
+        /// </summary>
+        /// <returns>BsToolbarAction</returns>
+        public BsToolbarButtonGroup AlignRight()
+        {
+            this.alignRight = true;
             return this;
         }
 
