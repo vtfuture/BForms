@@ -207,8 +207,23 @@
             $prevItem = $item.prevAll(this.options.groupItemSelector).first();
 
         if ($prevItem.length > 0) {
-            $prevItem.before($item);
+
+            $item.animate({
+                top: - ($item.outerHeight() + window.parseInt($item.css('margin-bottom')))
+            });
+
+            $prevItem.animate({
+                top: $prevItem.outerHeight() + window.parseInt($prevItem.css('margin-top'))
+            }, function () {
+
+                $prevItem.css('top', 'auto');
+                $item.css('top', 'auto');
+
+                $prevItem.before($item);
+            });
+
             this._rebuildNumbers();
+
         } else {
             this._shakeElement($item);
         }
@@ -219,8 +234,38 @@
         var $item = $(e.currentTarget).parents(this.options.groupItemSelector).first(),
             $nextElem = $item.nextAll(this.options.groupItemSelector).first();
 
+
+        var itemZIndex = $item.css('z-index'),
+            nextZIndex = $nextElem.css('z-index');
+
+        var nextParsedZIndex = window.parseInt(nextZIndex, 10);
+        if (!window.isNaN(nextParsedZIndex)) {
+            $item.css('z-index', nextParsedZIndex + 1);
+        } else {
+            $item.css('z-index', 16777271);
+            $nextElem.css('z-index', 16777270);
+        }
+
+
         if ($nextElem.length > 0) {
-            $nextElem.after($item);
+
+            $item.animate({
+                top: ($item.outerHeight() + window.parseInt($item.css('margin-bottom')))
+            });
+
+            $nextElem.animate({
+                top: -($nextElem.outerHeight() + window.parseInt($nextElem.css('margin-top')))
+            }, function () {
+
+                $item.css('z-index', itemZIndex);
+                $nextElem.css('z-index', nextZIndex);
+
+                $nextElem.css('top', 'auto');
+                $item.css('top', 'auto');
+
+                $nextElem.after($item);
+            });
+
             this._rebuildNumbers();
         } else {
             this._shakeElement($item);
