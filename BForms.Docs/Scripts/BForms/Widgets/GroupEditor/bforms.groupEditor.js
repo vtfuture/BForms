@@ -204,16 +204,21 @@
     GroupEditor.prototype._evUp = function (e) {
         e.preventDefault();
         var $item = $(e.currentTarget).parents(this.options.groupItemSelector).first(),
-            $prevItem = $item.prevAll(this.options.groupItemSelector).first();
+            $prevItem = $item.prevAll(this.options.groupItemSelector).first(),
+            itemHeight = ($item.outerHeight() + window.parseInt($item.css('margin-bottom'))),
+            prevHeight = $prevItem.outerHeight() + window.parseInt($prevItem.css('margin-top')),
+            moveDistance = Math.min(itemHeight, prevHeight);
+
+
 
         if ($prevItem.length > 0) {
 
             $item.animate({
-                top: - ($item.outerHeight() + window.parseInt($item.css('margin-bottom')))
+                top: -moveDistance
             });
 
             $prevItem.animate({
-                top: $prevItem.outerHeight() + window.parseInt($prevItem.css('margin-top'))
+                top: moveDistance
             }, function () {
 
                 $prevItem.css('top', 'auto');
@@ -232,7 +237,10 @@
     GroupEditor.prototype._evDown = function (e) {
         e.preventDefault();
         var $item = $(e.currentTarget).parents(this.options.groupItemSelector).first(),
-            $nextElem = $item.nextAll(this.options.groupItemSelector).first();
+            $nextElem = $item.nextAll(this.options.groupItemSelector).first(),
+            itemHeight = ($item.outerHeight() + window.parseInt($item.css('margin-bottom'))),
+            nextHeight = ($nextElem.outerHeight() + window.parseInt($nextElem.css('margin-top'))),
+            moveDistance = Math.min(itemHeight, nextHeight);
 
 
         var itemZIndex = $item.css('z-index'),
@@ -250,11 +258,11 @@
         if ($nextElem.length > 0) {
 
             $item.animate({
-                top: ($item.outerHeight() + window.parseInt($item.css('margin-bottom')))
+                top: moveDistance
             });
 
             $nextElem.animate({
-                top: -($nextElem.outerHeight() + window.parseInt($nextElem.css('margin-top')))
+                top: -moveDistance
             }, function () {
 
                 $item.css('z-index', itemZIndex);
