@@ -29,6 +29,8 @@
                 if (model.Role == 1 && $group.data('groupid') == 4) return false;
             },
             onSaveSuccess: $.proxy(function () {
+            }, this),
+            initEditorForm : $.proxy(function() {
             }, this)
         });
     };

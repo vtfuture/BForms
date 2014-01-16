@@ -46,8 +46,6 @@ namespace BForms.Renderers
                 #region Inline Search
                 if (this.Builder.quickSearch)
                 {
-                    container.AddCssClass("inline");
-
                     var glyph = GetGlyphicon(Glyphicon.Search, true);
 
                     var input = new TagBuilder("input");
@@ -57,6 +55,8 @@ namespace BForms.Renderers
                     input.MergeAttribute("placeholder", BsResourceManager.Resource("Search"));
 
                     input.AddCssClass("form-control");
+
+                    input.AddCssClass("bs-tabInlineSearch");
 
                     group.InnerHtml += glyph;
 

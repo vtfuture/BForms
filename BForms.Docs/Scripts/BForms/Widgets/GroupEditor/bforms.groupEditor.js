@@ -36,6 +36,8 @@
         groupItemsWrapper: '.bs-itemsWrapper',
         groupItemsCounter: '.bs-counter',
 
+        tabInlineSearch: '.bs-tabInlineSearch',
+
         removeBtn: '.bs-removeBtn',
         addBtn: '.bs-addBtn',
         editBtn: '.bs-editBtn',
@@ -144,7 +146,9 @@
                 this._ajaxGetTab({
                     tabModel: tabModel,
                     data: {
-                        TabId: tabModel.tabId
+                        settings: {
+                            TabId: tabModel.tabId
+                        }
                     }
                 });
             }
@@ -170,6 +174,30 @@
             if (checkItems) {
                 this._checkItems();
             }
+
+            if (tabModel.container.data('init') !== true) {
+
+                this._trigger('onTabInit', 0, tabModel);
+
+                var $editorForm = tabModel.container.find(this.options.editorFormSelector);
+
+                $editorForm.each($.proxy(function (idx, form) {
+                    var $form = $(form),
+                        uid = $form.data('uid');
+
+                    if (typeof this.options.initEditorForm === "function") {
+                        this.options.initEditorForm($form, uid, tabModel);
+                    }
+
+                }, this));
+
+                tabModel.container.on('change', this.options.tabInlineSearch, $.proxy(this._evInlineSearch, this, tabModel));
+
+            }
+
+            tabModel.container.data('init', true);
+
+
 
             this._initDraggable(tabModel);
         }
@@ -328,9 +356,11 @@
         this._ajaxGetTab({
             tabModel: tabModel,
             data: {
-                Page: data.page,
-                PageSize: data.pageSize || 5,
-                TabId: tabModel.tabId
+                settings: {
+                    Page: data.page,
+                    PageSize: data.pageSize || 5,
+                    TabId: tabModel.tabId
+                }
             }
         });
     };
@@ -431,6 +461,16 @@
         this._trigger('beforeSaveAjax', 0, data);
 
         this._ajaxSaveGroup(data);
+    };
+
+    GroupEditor.prototype._evInlineSearch = function (tabModel, e) {
+
+        var $target = $(e.currentTarget),
+            searchVal = $target.val();
+
+        tabModel.QuickSearch = searchVal;
+
+        this.search(tabModel);
     };
     //#endregion
 
@@ -575,10 +615,10 @@
             if (isInGroup) {
                 inGroups++;
             }
-           
+
         }, this));
 
-        return allowedGroupsMove > 0 ? allowedGroupsMove === inGroups : false; 
+        return allowedGroupsMove > 0 ? allowedGroupsMove === inGroups : false;
 
         //return selected;
     };
@@ -996,9 +1036,11 @@
             this._ajaxGetTab({
                 tabModel: tabModel,
                 data: {
-                    Page: 1,
-                    PageSize: 5,
-                    TabId: tabModel.tabId,
+                    settings: {
+                        Page: 1,
+                        PageSize: 5,
+                        TabId: tabModel.tabId,
+                    },
                     preventShow: true
                 }
             });
@@ -1010,6 +1052,48 @@
         this._rebuildNumbers();
 
         this._trigger('afterReset');
+    };
+
+    GroupEditor.prototype.search = function (tab, searchModel) {
+
+        var tabModel;
+
+        if (typeof tab === "number") {
+
+            var $tabContainer = this.$element.find('[data-tabid=' + tab + ']');
+            tabModel = {
+                container: $tabContainer,
+                loaded: container.data('loaded'),
+                tabId: tab,
+                connectsWith: $tabContainer.data('connectswith')
+            };
+
+        } else {
+            tabModel = tab;
+        }
+
+        var searchData = {
+            tabModel: tabModel,
+            data: {
+                settings: {
+                    Page: 1,
+                    PageSize: 5,
+                    TabId: tabModel.tabId,
+                    QuickSearch : tabModel.QuickSearch
+                },
+                preventShow: true,
+                search: searchModel
+            }
+        };
+
+
+        this._trigger('beforeTabSearch', 0, searchData);
+
+        this._ajaxGetTab({
+            tabModel: searchData.tabModel,
+            data: searchData.data
+        });
+
     };
     //#endregion
 
