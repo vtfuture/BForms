@@ -4,7 +4,8 @@
         'bforms-namespace',
         'bforms-initUI',
         'bforms-ajax',
-        'main-script'
+        'main-script',
+        'history-js'
 ], function (ichSingleton) {
 
     //#region Constructor and Properties
