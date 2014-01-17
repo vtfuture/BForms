@@ -32,6 +32,7 @@
             $toolbar: this.$toolbar,
             uniqueName: 'usersGrid',
             pagerUrl: this.options.pagerUrl,
+            pagerGoTopTitle: 'Go top',
             addValidation: function (data, response) {
                 if (data["New.FirstName"] == "Cristi Pufu") return false;
             },
@@ -261,7 +262,7 @@
             });
         });
 
-        
+
 
         var projectOpt = this._editableOptions($row, this.options.editComponents.ProjectRelated);
 

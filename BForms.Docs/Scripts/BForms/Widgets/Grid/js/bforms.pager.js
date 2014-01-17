@@ -17,13 +17,21 @@
         totalsContainerSelector: '.results_number span',
         pageSizeContainerSelector: '.results_per_page',
         perPageDisplaySelector: '.bs-perPageDisplay',
-        goTopButtonSelector : '.bs-goTop'
+        goTopButtonSelector: '.bs-goTop',
+        goTopTitle: 'Go top'
     };
-    
+
     Pager.prototype._create = function () {
-        
+
+        this._initElements();
         this._addDelegates();
-        
+
+    };
+
+    Pager.prototype._initElements = function () {
+        if (typeof $(this.options.goTopButtonSelector) !== "undefined") {
+            $(this.options.goTopButtonSelector).attr('title',this.options.goTopTitle);
+        }
     };
 
     Pager.prototype._addDelegates = function () {
@@ -47,7 +55,7 @@
             $parent.hasClass(this.options.disabledPageSelector)) {
             return;
         }
-        
+
         this._trigger('pagerUpdate', e, {
             page: $me.data('page'),
             pageSize: this.element.find(this.options.pageSizeSelector + '.selected').data('value')
@@ -85,7 +93,7 @@
     Pager.prototype._btnClickAjaxError = function () {
         throw 'not implemented error handler';
     };
-    
+
     Pager.prototype.update = function ($pagesHtml) {
 
         var $pageSizeContainer = this.element.find(this.options.pageSizeContainerSelector)
@@ -128,7 +136,7 @@
     };
 
     $.widget('bforms.bsPager', Pager.prototype);
-       
+
     return Pager;
 
 });
