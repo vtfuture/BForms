@@ -230,6 +230,8 @@
     <Content Include="Scripts\BForms\Components\ICanHaz\ICanHaz.js" />
     <Content Include="Scripts\BForms\Components\ICanHaz\singleton-ich.js" />
     <Content Include="Scripts\BForms\Components\PlaceholderShim\jquery.html5-placeholder-shim.js" />
+    <Content Include="Scripts\BForms\Components\SelectorSet\jquery.selector-set.js" />
+    <Content Include="Scripts\BForms\Components\SelectorSet\selector-set.js" />
     <Content Include="Scripts\BForms\Images\bg-user.png" />
     <Content Include="Scripts\BForms\Plugins\Rangepicker\css\bforms.rangepicker.css" />
     <Content Include="Scripts\BForms\Plugins\Rangepicker\images\icn-arr-down.png" />
