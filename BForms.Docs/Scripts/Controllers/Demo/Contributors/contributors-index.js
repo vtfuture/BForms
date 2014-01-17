@@ -32,7 +32,6 @@
             $toolbar: this.$toolbar,
             uniqueName: 'usersGrid',
             pagerUrl: this.options.pagerUrl,
-            pagerGoTopTitle: 'Go top',
             addValidation: function (data, response) {
                 if (data["New.FirstName"] == "Cristi Pufu") return false;
             },

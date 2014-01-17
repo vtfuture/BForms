@@ -11,6 +11,7 @@
     Pager.prototype.options = {
         pagesContainerSelector: '.bs-pages',
         pageSelector: 'a[data-page]',
+        dataPageContainer: 'page',
         pageSizeSelector: '.bs-perPage',
         currentPageSelector: 'active',
         disabledPageSelector: 'disabled',
@@ -30,7 +31,7 @@
 
     Pager.prototype._initElements = function () {
         if (typeof $(this.options.goTopButtonSelector) !== "undefined") {
-            $(this.options.goTopButtonSelector).attr('title',this.options.goTopTitle);
+            $(this.options.goTopButtonSelector).attr('title', this.options.goTopTitle);
         }
     };
 
@@ -57,7 +58,7 @@
         }
 
         this._trigger('pagerUpdate', e, {
-            page: $me.data('page'),
+            page: $me.data(this.options.dataPageContainer),
             pageSize: this.element.find(this.options.pageSizeSelector + '.selected').data('value')
         });
 

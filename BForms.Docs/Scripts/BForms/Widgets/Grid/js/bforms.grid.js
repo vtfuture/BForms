@@ -61,6 +61,7 @@
         onRefresh: null,
         pagerSelector: '.bs-pager',
         pagerGoTopTitle: 'Go top',
+        pagerDataPageContainer: 'page',
 
         detailsSelector: '.bs-expand',
         detailsUrl: null,
@@ -129,7 +130,8 @@
         this.$pager = this.element.find(this.options.pagerSelector).bsPager({
             pagerUpdate: $.proxy(this._evOnPageChange, this),
             pagerGoTop: $.proxy(this._evOnPagerGoTop, this),
-            goTopTitle: this.options.pagerGoTopTitle
+            goTopTitle: this.options.pagerGoTopTitle,
+            dataPageContainer: this.options.pagerDataPageContainer
         });
 
         //set default page size
