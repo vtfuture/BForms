@@ -59,7 +59,9 @@
         pager: null,
         pagerUrl: null,
         onRefresh: null,
-        pagerSelector : '.bs-pager',
+        pagerSelector: '.bs-pager',
+        pagerGoTopTitle: 'Go top',
+        pagerDataPageContainer: 'page',
 
         detailsSelector: '.bs-expand',
         detailsUrl: null,
@@ -127,7 +129,9 @@
 
         this.$pager = this.element.find(this.options.pagerSelector).bsPager({
             pagerUpdate: $.proxy(this._evOnPageChange, this),
-            pagerGoTop: $.proxy(this._evOnPagerGoTop, this)
+            pagerGoTop: $.proxy(this._evOnPagerGoTop, this),
+            goTopTitle: this.options.pagerGoTopTitle,
+            dataPageContainer: this.options.pagerDataPageContainer
         });
 
         //set default page size
@@ -212,15 +216,15 @@
                         if (opts.popover) {
 
                             var $me = grid.$actionsContainer.find(opts.btnSelector);
-                            
+
                             var question = "Are you sure?";
-                            
+
                             var confirmCssClass = "btn-primary bs-confirm";
                             var cancelCssClass = "btn-default bs-cancel";
-                            
+
                             var confirmButtonText = "Yes";
                             var cancelButtonText = "No";
-                                
+
                             if (typeof opts.question !== "undefined") {
                                 question = opts.question;
                             }
@@ -327,7 +331,7 @@
 
     };
     //#endregion
- 
+
     //#region public methods
     Grid.prototype.search = function (data, isQuick) {
         if (data.Page) {
@@ -404,38 +408,38 @@
         this.element.find(this.options.noResultsRowSelector).remove();
     };
 
-    Grid.prototype.collapseAll = function() {
+    Grid.prototype.collapseAll = function () {
         var $rows = this.element.find(this.options.detailsSelector).parents(this.options.rowSelector + '.open');
 
         $rows.find(this.options.detailsSelector).trigger('click');
     };
-    
+
     Grid.prototype.hideBulkActions = function () {
-       
+
         if (this.options.hasRowCheck) {
-            
+
             //hides and uncheck bulk actions
             this.$resetGridButton.hide();
             this.$actionsContainer.children('button:not([data-ignore="true"])').hide();
             this.element.find(this.options.headerCheckSelector).parent().hide();
             this.element.find(this.options.headerCheckSelector).prop('checked', false);
-            
+
             //hides and uncheck row checkbox
             this.element.find(this.options.rowCheckSelector).hide();
             this.element.find(this.options.rowCheckSelector).prop('checked', false);
-            
+
             //remove selected css class from selected rows
             this.element.find(this.options.rowCheckSelector).parents(this.options.rowSelector).removeClass('selected');
         }
     };
-    
-    Grid.prototype.showBulkActions = function () {    
-        
+
+    Grid.prototype.showBulkActions = function () {
+
         if (this.options.hasRowCheck) {
             //show headerCheckSelector and row`s checkbox 
             this.element.find(this.options.headerCheckSelector).parent().show();
             this.element.find(this.options.rowCheckSelector).show();
-        }   
+        }
     };
     //#endregion
 
@@ -823,7 +827,7 @@
         if (checked > 0) {
 
             this._showBulkActions(buttons, $checkedRows);
-            
+
             this._showResetGridButton();
 
             if (checked == this.element.find(this.options.rowCheckSelector).length) {
@@ -1330,7 +1334,7 @@
     };
 
     Grid.prototype._isInlineAction = function (e) {
-        if ($(e.target).hasClass(this.options.inlineActionClass) || $(e.target).parents("." + this.options.inlineActionClass).length>0)
+        if ($(e.target).hasClass(this.options.inlineActionClass) || $(e.target).parents("." + this.options.inlineActionClass).length > 0)
             return true;
         return false;
     };
@@ -1365,12 +1369,12 @@
         return data;
     };
 
-    Grid.prototype._addAdditionalData = function(data) {
+    Grid.prototype._addAdditionalData = function (data) {
         if (typeof this.options.additionalData !== "undefined") {
             $.extend(true, data, this.options.additionalData);
         }
     };
-    
+
     Grid.prototype.toggleRowColor = function (rowIdentifier, color, uniqueProperty) {
 
         var colors = {};
@@ -1382,7 +1386,7 @@
 
         var $row = (typeof rowIdentifier == 'string' || typeof rowIdentifier == 'number') ?
                 this.element.find(this.options.rowSelector + '[data-' + uniqueProperty + '="' + rowIdentifier + '"]') : rowIdentifier;
-        
+
         var $rowColor = $row.find('.grid_row_color');
 
         if (typeof color == 'boolean') {
