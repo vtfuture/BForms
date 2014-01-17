@@ -15,17 +15,17 @@
     margin: 0; }
   .group_editor .navbar-default {
     border: none;
-    margin: 0; }
+    margin: 5px 5px 0; }
     .group_editor .navbar-default .navbar-collapse {
       background: #fff; }
     .group_editor .navbar-default .group_editor-navbar {
       padding-left: 0px; }
     .group_editor .navbar-default .active a {
-      background: #f8f8f8 !important; }
+      background: #eee !important; }
   .group_editor .search {
     padding: 10px 0;
     margin-bottom: 10px;
-    background: #f8f8f8; }
+    background: #eeeeee; }
     .group_editor .search .btn {
       padding: 6px 12px; }
     .group_editor .search.inline > .input-group {
@@ -89,6 +89,9 @@
     width: 100%; }
   .group_editor .counter {
     padding: 17px 0; }
+  .group_editor .title {
+    background: #eee;
+    margin-bottom: 5px !important; }
   .group_editor .grid_view {
     padding: 10px; }
     .group_editor .grid_view .grid_rows .expand {

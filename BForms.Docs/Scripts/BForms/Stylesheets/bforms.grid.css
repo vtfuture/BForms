@@ -244,7 +244,7 @@ a.btn {
         padding-right: 15px; }
       .grid_container .grid_view .grid_row a.btn {
         color: #fff; }
-      .grid_container .grid_view .grid_row a.btn-white {
+      .grid_container .grid_view .grid_row a.btn-white, .grid_container .grid_view .grid_row a.input-group-addon {
         color: #333; }
     .grid_container .grid_view .grid_row .edit_col:hover {
       cursor: pointer;
