@@ -261,7 +261,7 @@
             });
         });
 
-        
+
 
         var projectOpt = this._editableOptions($row, this.options.editComponents.ProjectRelated);
 
