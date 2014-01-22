@@ -5500,7 +5500,8 @@ button.close {
   position: fixed;
 }
 @-ms-viewport {
-  width: device-width;
+  width: auto;
+  
 }
 .visible-xs,
 tr.visible-xs,
