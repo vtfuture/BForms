@@ -18,6 +18,7 @@ namespace BForms.Grid
         internal string buttonClass;
         internal string title;
         internal Glyphicon? glyphIcon;
+        internal IDictionary<string, object> htmlAttributes;
         public BsBulkActionType? Type;
         internal bool ignore;
         internal string text;
@@ -55,6 +56,12 @@ namespace BForms.Grid
                     this.glyphIcon = Glyphicon.Trash;
                     break;
             }
+        }
+
+        public BsBulkAction HtmlAttributes(IDictionary<string, object> htmlAttributes)
+        {
+            this.htmlAttributes = htmlAttributes;
+            return this;
         }
 
         public BsBulkAction StyleClass(string buttonClass)
