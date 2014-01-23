@@ -22,6 +22,8 @@ namespace BForms.Renderers
         {
             var bulkButton = new TagBuilder("button");
 
+            bulkButton.MergeAttributes(this.Builder.htmlAttributes);
+
             if (!String.IsNullOrEmpty(this.Builder.buttonClass))
             {
                 bulkButton.AddCssClass(this.Builder.buttonClass);
@@ -43,9 +45,7 @@ namespace BForms.Renderers
             {
                 bulkButton.MergeAttribute("title", this.Builder.title);
             }
-
-            bulkButton.MergeAttributes(this.Builder.htmlAttributes);
-
+           
             bulkButton.InnerHtml += (this.Builder.glyphIcon.HasValue ? GetGlyphicon(this.Builder.glyphIcon.Value) + " " : "") + this.Builder.text;
 
             return bulkButton.ToString();
