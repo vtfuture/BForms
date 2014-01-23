@@ -843,7 +843,10 @@
             this._hideResetGridButton();
         }
 
+        this._hidePopoverOnRowCheckChange(e);
     };
+
+
 
     Grid.prototype._showBulkActions = function ($buttons, $checkedRows) {
 
@@ -1182,6 +1185,24 @@
     //#endregion
 
     //#region helpers and dom
+    Grid.prototype._hidePopoverOnRowCheckChange = function (e) {
+        var $currentTarget = $(e.target);
+        var $openPopovers = $('.bs-hasInlineQuestion').filter(function (idx, elem) {
+            var $elem = $(elem),
+                popover = $elem.data('bs.popover');
+
+            if (typeof popover !== "undefined" && popover != null) {
+                var $tip = popover.$tip;
+                return $tip.is(':visible') && $elem[0] != $currentTarget[0] && $elem.find($currentTarget).length == 0 && $currentTarget[0] != $tip[0] && $tip.find($currentTarget).length == 0;
+            }
+
+            return false;
+
+        });
+
+        $openPopovers.bsInlineQuestion('toggle');
+    };
+
     Grid.prototype._showFilterIcon = function () {
         this.$filterIcon.show();
         this._showResetGridButton();
