@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using BForms.Utilities;
 
 namespace BForms.Renderers
 {
@@ -28,9 +29,9 @@ namespace BForms.Renderers
 
             container.AddCssClass("bs-editorForm");
 
-            container.MergeAttribute("data-uid", this.Builder.uid);
+            container.MergeAttribute("data-uid", this.Builder.uid.ToString());
 
-            container.InnerHtml += this.Builder.RenderModel<TModel>(this.Builder.Model, this.Builder.uid);
+            container.InnerHtml += this.Builder.RenderModel<TModel>(this.Builder.Model, this.Builder.uid.ToString());
 
             return container.ToString();
         }

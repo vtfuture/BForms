@@ -11,7 +11,7 @@ namespace BForms.Editor
 {
     public class BsEditorFormBuilder : BsBaseComponent<BsEditorFormBuilder>
     {
-        internal string uid { get; set; }
+        internal object uid { get; set; }
     }
 
     #region BsEditorToolbarForm
@@ -34,7 +34,7 @@ namespace BForms.Editor
             this.renderer = new BsEditorFormRenderer<TModel>(this);
         }
 
-        public BsEditorFormBuilder(TModel model, string uid, ViewContext viewContext)
+        public BsEditorFormBuilder(TModel model, object uid, ViewContext viewContext)
         {
             this.model = model;
             this.uid = uid;

@@ -49,7 +49,7 @@ namespace BForms.Editor
     {
         #region Properties and Constructor
         private TModel model { get; set; }
-        internal string uid { get; set; }
+        internal object uid { get; set; }
         internal List<BsEditorToolbarPart> parts { get; set; }
         internal List<BsEditorToolbarButtonBuilder> buttons { get; set; }
         internal List<BsBaseComponent> forms { get; set; }
@@ -69,7 +69,7 @@ namespace BForms.Editor
         #region Public Methods
         public BsEditorToolbarHtmlBuilder<TModel> Id(object id)
         {
-            this.uid = id.ToString();
+            this.uid = id;
 
             return this;
         }

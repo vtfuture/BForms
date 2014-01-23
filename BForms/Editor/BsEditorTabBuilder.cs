@@ -221,9 +221,9 @@ namespace BForms.Editor
 
         public BsEditorTabBuilder<TModel> Id(object uid)
         {
-            this.uid = uid;
+            this.uid = MvcHelpers.Serialize(uid);
 
-            this.toolbar.Id(this.uid.ToString());
+            this.toolbar.Id(this.uid);
 
             return this;
         }

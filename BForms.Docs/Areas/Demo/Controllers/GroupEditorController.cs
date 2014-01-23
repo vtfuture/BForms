@@ -20,7 +20,7 @@ using BForms.Docs.Resources;
 
 namespace BForms.Docs.Areas.Demo.Controllers
 {
-    
+
 
     public class GroupEditorController : BaseController
     {
@@ -116,10 +116,11 @@ namespace BForms.Docs.Areas.Demo.Controllers
                 Editor2 = model
             };
 
-            var options = new 
+            var options = new
             {
                 getTabUrl = Url.Action("GetTab"),
-                save = Url.Action("Save")
+                save = Url.Action("Save"),
+                advancedSearchUrl = Url.Action("Search")
             };
 
             RequireJsOptions.Add("index", options);
@@ -136,46 +137,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
 
             try
             {
-                GroupEditorModel model = new GroupEditorModel();
-                
-                switch (settings.TabId)
-                {
-                    case YesNoValueTypes.No:
-
-                        var grid2 = repo.ToBsGridViewModel(settings.ToBaseGridRepositorySettings(), out count);
-                        model.Contributors2 = new BsEditorTabModel<ContributorRowModel>
-                        {
-                            Grid = grid2
-                        };
-                        break;
-
-                    case YesNoValueTypes.Yes:
-
-                        var grid1 = repo.ToBsGridViewModel(settings.ToGridRepositorySettings<ContributorSearchModel>(), out count);
-
-                        model.Contributors = new ContributorsInheritExample
-                        {
-                            Grid = grid1
-                        };
-                        break;
-
-                    case YesNoValueTypes.Both:
-
-                        var grid3 = repo.ToBsGridViewModel(settings.ToGridRepositorySettings<ContributorSearchModel>(), out count);
-
-                        model.Contributors3 = new BsEditorTabModel<ContributorRowModel, ContributorSearchModel, ContributorNewModel>
-                        {
-                            Grid = grid3
-                        };
-                        break;
-                }
-
-                var viewModel = new GroupEditorViewModel()
-                {
-                    Editor2 = model
-                };
-
-                html = this.BsRenderPartialView("_Editors", viewModel);
+                html = RenderTab(settings, out count);
             }
             catch (Exception ex)
             {
@@ -193,6 +155,74 @@ namespace BForms.Docs.Areas.Demo.Controllers
         public BsJsonResult Save(GroupEditorModel model)
         {
             return new BsJsonResult();
+        }
+
+        public BsJsonResult Search(ContributorSearchModel model)
+        {
+            var settings = new BsEditorRepositorySettings<YesNoValueTypes>
+            {
+                Search = model,
+                TabId = YesNoValueTypes.Yes
+            };
+            var count = 0;
+
+            var html = this.RenderTab(settings, out count);
+
+            return new BsJsonResult(new
+            {
+                Count = count,
+                Html = html
+            });
+        }
+
+        [NonAction]
+        public string RenderTab(BsEditorRepositorySettings<YesNoValueTypes> settings, out int count)
+        {
+            var html = string.Empty;
+            count = 0;
+
+            GroupEditorModel model = new GroupEditorModel();
+
+            switch (settings.TabId)
+            {
+                case YesNoValueTypes.No:
+
+                    var grid2 = repo.ToBsGridViewModel(settings.ToBaseGridRepositorySettings(), out count);
+                    model.Contributors2 = new BsEditorTabModel<ContributorRowModel>
+                    {
+                        Grid = grid2
+                    };
+                    break;
+
+                case YesNoValueTypes.Yes:
+
+                    var grid1 = repo.ToBsGridViewModel(settings.ToGridRepositorySettings<ContributorSearchModel>(), out count);
+
+                    model.Contributors = new ContributorsInheritExample
+                    {
+                        Grid = grid1
+                    };
+                    break;
+
+                case YesNoValueTypes.Both:
+
+                    var grid3 = repo.ToBsGridViewModel(settings.ToGridRepositorySettings<ContributorSearchModel>(), out count);
+
+                    model.Contributors3 = new BsEditorTabModel<ContributorRowModel, ContributorSearchModel, ContributorNewModel>
+                    {
+                        Grid = grid3
+                    };
+                    break;
+            }
+
+            var viewModel = new GroupEditorViewModel()
+            {
+                Editor2 = model
+            };
+
+            html = this.BsRenderPartialView("_Editors", viewModel);
+
+            return html;
         }
     }
 }

@@ -30,7 +30,26 @@
             },
             onSaveSuccess: $.proxy(function () {
             }, this),
-            initEditorForm : $.proxy(function() {
+            initEditorForm: $.proxy(function ($form, uid, tabModel) {
+
+                if (uid == "2.Search") {
+                    $form.bsForm({
+                        uniqueName: 'searchForm',
+                        prefix : 'prefix' + uid + '.',
+                        actions : [{
+                            name: 'search',
+                            selector: '.js-btn-search',
+                            actionUrl: this.options.advancedSearchUrl,
+                            parse: true,
+                            handler : $.proxy(function(formData,response) {
+                                $('#myGroupEditor').bsGroupEditor('setTabContent', response.Html);
+                            },this)
+                        }]
+                    });
+
+                }
+
+
             }, this)
         });
     };

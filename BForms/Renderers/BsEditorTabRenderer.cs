@@ -185,7 +185,7 @@ namespace BForms.Renderers
 
             var wrapper = new TagBuilder("div");
             
-            wrapper.MergeAttribute("data-tabid", MvcHelpers.Serialize(this.Builder.Uid));
+            wrapper.MergeAttribute("data-tabid", this.Builder.Uid.ToString());
 
             if (this.Builder.ConnectsWithIds != null)
             {

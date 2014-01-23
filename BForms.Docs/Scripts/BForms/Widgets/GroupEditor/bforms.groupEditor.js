@@ -77,8 +77,6 @@
 
         this._initTemplates();
 
-        this._initTabForms();
-
         this._initSortable();
     };
 
@@ -124,16 +122,6 @@
             $template.remove();
 
         }, this));
-    };
-
-    GroupEditor.prototype._initTabForms = function () {
-        var forms = this.$element.find(this.options.editorFormSelector);
-
-        $.each(forms, function (idx) {
-            $(this).bsForm({
-                uniqueName: $(this).data('uid') + idx
-            });
-        });
     };
 
     GroupEditor.prototype._initTab = function (tabModel, preventShow) {
@@ -196,8 +184,6 @@
             }
 
             tabModel.container.data('init', true);
-
-
 
             this._initDraggable(tabModel);
         }
@@ -378,7 +364,10 @@
             tabId = $item.data('tabid'),
             objId = $item.data('objid');
 
-        $item.remove();
+        $item.effect('drop', function () {
+            $item.remove();
+        });
+
         this._toggleItemCheck(this._getTabItem(tabId, objId), true);
         this._countGroupItems();
     };
@@ -386,7 +375,8 @@
     GroupEditor.prototype._evAdd = function (e) {
         e.preventDefault();
         var $el = $(e.currentTarget),
-            objId = $el.parents(this.options.tabItemSelector).data('objid'),
+            $tabItem = $el.parents(this.options.tabItemSelector),
+            objId = $tabItem.data('objid'),
             tabModel = this._getSelectedTab(),
             tabId = tabModel.tabId,
             connectsWith = tabModel.connectsWith,
@@ -396,7 +386,7 @@
 
             var $group = $(group);
 
-            if (!this._isInGroup(objId, tabId, $(group))) {
+            if (!this._isInGroup(objId, tabId, $group)) {
 
                 var allowMove = true,
                     tabItem = this._getTabItem(tabId, objId),
@@ -417,7 +407,11 @@
 
                     this._checkEditableItem($template);
 
-                    $(group).find(this.options.groupItemsWrapper).append($template);
+                    $group.find(this.options.groupItemsWrapper).append($template);
+
+                    $tabItem.effect('transfer', {
+                        to: $group.find($template)
+                    });
 
                     this._checkItem(this._getTabItem(tabId, objId), tabId, connectsWith);
 
@@ -1054,7 +1048,17 @@
         this._trigger('afterReset');
     };
 
-    GroupEditor.prototype.search = function (tab, searchModel) {
+    GroupEditor.prototype.setTabContent = function (html) {
+
+        var tabModel = this._getSelectedTab();
+
+        tabModel.html = html;
+
+        this._initTab(tabModel);
+    };
+
+    //only supports quick search
+    GroupEditor.prototype.search = function (tab) {
 
         var tabModel;
 
@@ -1079,7 +1083,7 @@
                     Page: 1,
                     PageSize: 5,
                     TabId: tabModel.tabId,
-                    QuickSearch : tabModel.QuickSearch
+                    QuickSearch: tabModel.QuickSearch
                 },
                 preventShow: true,
                 search: searchModel
