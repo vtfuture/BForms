@@ -120,7 +120,8 @@ namespace BForms.Docs.Areas.Demo.Controllers
             {
                 getTabUrl = Url.Action("GetTab"),
                 save = Url.Action("Save"),
-                advancedSearchUrl = Url.Action("Search")
+                advancedSearchUrl = Url.Action("Search"),
+                addUrl = Url.Action("New")
             };
 
             RequireJsOptions.Add("index", options);
@@ -173,6 +174,59 @@ namespace BForms.Docs.Areas.Demo.Controllers
                 Count = count,
                 Html = html
             });
+        }
+
+        public BsJsonResult New(ContributorNewModel model)
+        {
+            var status = BsResponseStatus.Success;
+            var row = string.Empty;
+            var msg = string.Empty;
+
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var rowModel = repo.Create(model);
+
+                    var groupEditorModel = new GroupEditorModel
+                    {
+                        Contributors3 = new BsEditorTabModel<ContributorRowModel, ContributorSearchModel, ContributorNewModel>
+                        {
+                            Grid = new BsGridModel<ContributorRowModel>
+                            {
+                                Items = new List<ContributorRowModel>
+                                {
+                                    rowModel
+                                }
+                            }
+                        }
+                    };
+
+                    var viewModel = new GroupEditorViewModel()
+                    {
+                        Editor2 = groupEditorModel
+                    };
+
+                    row = this.BsRenderPartialView("_Editors", viewModel);
+
+                }
+                else
+                {
+                    return new BsJsonResult(
+                        new Dictionary<string, object> { { "Errors", ModelState.GetErrors() } },
+                        BsResponseStatus.ValidationError);
+                }
+            }
+            catch (Exception ex)
+            {
+                msg = Resource.ServerError;
+                status = BsResponseStatus.ServerError;
+            }
+
+            return new BsJsonResult(new
+            {
+                Row = row
+            }, status, msg);
         }
 
         [NonAction]

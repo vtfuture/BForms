@@ -24,6 +24,7 @@ namespace BForms.Docs.Areas.Demo.Models
     public class ContributorsRowFormModel
     {
         [Display(Name = "Name", ResourceType = typeof(Resource))]
+        [Required]
         [BsControl(BsControlType.TextBox)]
         public string Name { get; set; }
 

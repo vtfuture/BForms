@@ -446,15 +446,20 @@
         e.preventDefault();
         e.stopPropagation();
 
-        var data = this.parse();
+        var parseData = this.parse();
 
-        if (typeof this.options.additionalData !== "undefined") {
-            $.extend(true, data, this.options.additionalData);
+        if (parseData.valid) {
+
+            var data = parseData.data;
+
+            if (typeof this.options.additionalData !== "undefined") {
+                $.extend(true, data, this.options.additionalData);
+            }
+
+            this._trigger('beforeSaveAjax', 0, data);
+
+            this._ajaxSaveGroup(data);
         }
-
-        this._trigger('beforeSaveAjax', 0, data);
-
-        this._ajaxSaveGroup(data);
     };
 
     GroupEditor.prototype._evInlineSearch = function (tabModel, e) {
@@ -960,7 +965,8 @@
     GroupEditor.prototype.parse = function () {
 
         var parseData = {},
-            $groupList = this.$groups.find(this.options.groupSelector);
+            $groupList = this.$groups.find(this.options.groupSelector),
+            isValid = true;
 
         $groupList.each($.proxy(function (index, group) {
             var $group = $(group),
@@ -987,7 +993,25 @@
 
                     var prefix = 'prefix' + $form.data('uid') + '.';
 
+                    $form.find('form').removeData('validator').removeData('unobstrusiveValidation');
+                    $.validator.unobtrusive.parse($form.find('form'));
+
+                    var validator = $form.find('form').validate(),
+                        isFormValid = $form.find('form').valid(),
+                        validationData = {
+                            validator: validator,
+                            valid: isFormValid,
+                            $form: $form,
+                            $item: $item,
+                            $group: $group
+                        };
+
+                    this._trigger('onGroupFormValidation', validationData);
+
+                    isValid = isValid && validationData.valid;
+
                     $.extend(true, itemModel, $form.parseForm(prefix));
+
                 }
 
                 this._trigger('getExtraItemData', 0, [itemModel, $item, $group]);
@@ -1003,7 +1027,10 @@
         }, this));
 
 
-        return parseData;
+        return {
+            data: parseData,
+            valid: isValid
+        };
     };
 
     GroupEditor.prototype.reset = function () {
@@ -1055,6 +1082,15 @@
         tabModel.html = html;
 
         this._initTab(tabModel);
+    };
+
+    GroupEditor.prototype.addTabItem = function ($row) {
+
+        var tabModel = this._getSelectedTab();
+
+        tabModel.container.find(this.options.tabItemsListSelector).prepend($row);
+
+        $row.draggable(this._getDraggableOptions(tabModel));
     };
 
     //only supports quick search

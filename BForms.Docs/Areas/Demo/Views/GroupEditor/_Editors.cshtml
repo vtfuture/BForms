@@ -17,7 +17,6 @@
     {
         var tab3 = cfg.For(x => x.Contributors3)
             .Template(x => x.Grid, "_TabItem")
-            .Template(x => x.Search, "~/Areas/Demo/Views/Contributors/Toolbar/_Search.cshtml")
             .Template(x => x.New, "~/Areas/Demo/Views/Contributors/Toolbar/_New.cshtml")
             .ConnectsWith(NotificationType.Monthly);
 
