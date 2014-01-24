@@ -78,6 +78,8 @@
         this._initTemplates();
 
         this._initSortable();
+
+        this._initGroupForms();
     };
 
     GroupEditor.prototype._initComponents = function () {
@@ -210,6 +212,27 @@
 
             $tabItem.draggable(this._getDraggableOptions(tabModel));
         }, this));
+
+    };
+
+    GroupEditor.prototype._initGroupForms = function () {
+
+        var $groupForms = this.$element.find(this.options.groupsSelector)
+                                       .find(this.options.editorFormSelector);
+
+        $groupForms.each($.proxy(function(idx, form) {
+
+            this._initGroupForm($(form));
+
+        }, this));
+
+    };
+
+    GroupEditor.prototype._initGroupForm = function($form) {
+
+        $form.bsForm({
+            uniqueName : $form.data('uid')
+        });
 
     };
     //#endregion
@@ -406,6 +429,8 @@
                     $template.find(this.options.groupItemContentSelector).html(view);
 
                     this._checkEditableItem($template);
+
+                    this._initGroupForm($template.find(this.options.editorFormSelector));
 
                     $group.find(this.options.groupItemsWrapper).append($template);
 
@@ -900,6 +925,8 @@
             var view = this._renderGroupItem(model, $group, tabId, objId);
 
             $template.find(this.options.groupItemContentSelector).html(view);
+
+            this._initGroupForm($template.find(this.options.editorFormSelector));
 
             this._checkEditableItem($template);
 
