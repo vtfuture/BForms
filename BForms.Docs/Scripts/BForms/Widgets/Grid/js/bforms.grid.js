@@ -842,8 +842,9 @@
             this._resetHeaderCheck();
             this._hideResetGridButton();
         }
-
-        this._hidePopoverOnRowCheckChange(e);
+        if (e != null) {
+            this._hidePopoverOnRowCheckChange(e);
+        }
     };
 
 
