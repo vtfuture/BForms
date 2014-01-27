@@ -1247,6 +1247,9 @@
   <ItemGroup>
     <Content Include="Scripts\BForms\Plugins\Rangepicker\js\bforms.rangepicker.js" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Demo\Views\GroupEditor\Docs\_GroupEditor.cshtml" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
