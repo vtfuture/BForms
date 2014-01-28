@@ -108,7 +108,8 @@ namespace BForms.Docs.Areas.Demo.Controllers
                             TabId = YesNoValueTypes.Yes
                         }
                     }
-                }
+                },
+                Form = new GroupFormModel()
             };
 
             var viewModel = new GroupEditorViewModel

@@ -30,6 +30,7 @@
         tabItemSelector: '.bs-tabItem',
         tabItemsListSelector: '.bs-tabItemsList',
 
+        groupEditorFormSelector: '.bs-groupForm',
         groupItemSelector: '.bs-groupItem',
         groupItemTemplateSelector: '.bs-itemTemplate',
         groupItemContentSelector: '.bs-itemContent',
@@ -79,7 +80,7 @@
 
         this._initSortable();
 
-        this._initGroupForms();
+        this._initGroupItemForms();
     };
 
     GroupEditor.prototype._initComponents = function () {
@@ -96,6 +97,7 @@
         this.$tabs = this.$element.find(this.options.tabsSelector);
         this.$groups = this.$element.find(this.options.groupsSelector);
         this.$counter = this.$groups.find(this.options.groupItemsCounter);
+        this.$groupForm = this.$element.find(this.options.groupEditorFormSelector);
     };
 
     GroupEditor.prototype._addDelegates = function () {
@@ -215,23 +217,29 @@
 
     };
 
-    GroupEditor.prototype._initGroupForms = function () {
+    GroupEditor.prototype._initGroupItemForms = function () {
 
-        var $groupForms = this.$element.find(this.options.groupsSelector)
+        if (this.$groupForm.length) {
+            this.$groupForm.bsForm({
+                uniqueName : 'groupEditorForm'
+            });
+        }
+
+        var $groupItemForms = this.$element.find(this.options.groupsSelector)
                                        .find(this.options.editorFormSelector);
 
-        $groupForms.each($.proxy(function(idx, form) {
+        $groupItemForms.each($.proxy(function (idx, form) {
 
-            this._initGroupForm($(form));
+            this._initGroupItemForm($(form));
 
         }, this));
 
     };
 
-    GroupEditor.prototype._initGroupForm = function($form) {
+    GroupEditor.prototype._initGroupItemForm = function ($form) {
 
         $form.bsForm({
-            uniqueName : $form.data('uid')
+            uniqueName: $form.data('uid')
         });
 
     };
@@ -430,7 +438,7 @@
 
                     this._checkEditableItem($template);
 
-                    this._initGroupForm($template.find(this.options.editorFormSelector));
+                    this._initGroupItemForm($template.find(this.options.editorFormSelector));
 
                     $group.find(this.options.groupItemsWrapper).append($template);
 
@@ -926,7 +934,7 @@
 
             $template.find(this.options.groupItemContentSelector).html(view);
 
-            this._initGroupForm($template.find(this.options.editorFormSelector));
+            this._initGroupItemForm($template.find(this.options.editorFormSelector));
 
             this._checkEditableItem($template);
 
@@ -1033,7 +1041,7 @@
                             $group: $group
                         };
 
-                    this._trigger('onGroupFormValidation', validationData);
+                    this._trigger('onGroupItemFormValidation', validationData);
 
                     isValid = isValid && validationData.valid;
 
@@ -1053,6 +1061,31 @@
 
         }, this));
 
+        if (this.$groupForm.length) {
+
+            var groupFormData = this.$groupForm.parseForm();
+
+            parseData.form = groupFormData;
+
+            var $form = this.$groupForm.find('form');
+
+            if ($form.length) {
+                $.validator.unobtrusive.parse($form);
+
+                var groupFormValidator = $form.validate(),
+                    isGroupFormValid = $form.valid();
+
+                var groupFormValidationData = {
+                    $form: $form,
+                    valid: isGroupFormValid,
+                    validator: validator
+                };
+
+                this._trigger('onGroupFormValidation', groupFormValidationData);
+
+                isValid = isValid && groupFormValidationData.valid;
+            }
+        }
 
         return {
             data: parseData,

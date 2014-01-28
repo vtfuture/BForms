@@ -56,11 +56,21 @@ namespace BForms.Docs.Areas.Demo.Models
 
         [BsEditorGroup(Id = NotificationType.Monthly)]
         public BsEditorGroupModel<ContributorsGroupRowModel> Group2 { get; set; }
+
+        public GroupFormModel Form { get; set; }
     }
 
     public class GroupEditorViewModel
     {
         public GroupEditorModel Editor1 { get; set; }
         public GroupEditorModel Editor2 { get; set; }
+    }
+
+    public class GroupFormModel
+    {
+        [BsControl(BsControlType.TextBox)]
+        [Display(Name = "Name", Prompt = "Name", ResourceType = typeof(Resource))]
+        [Required]
+        public string Name { get; set; }
     }
 }

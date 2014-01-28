@@ -79,6 +79,18 @@ namespace BForms.Renderers
 
             div.AddCssClass("grid_view");
 
+            if (!String.IsNullOrEmpty(this.Builder.GroupConfigurator.FormHtml))
+            {
+                var formWrapper = new TagBuilder("div");
+                formWrapper.AddCssClass("inline");
+                formWrapper.AddCssClass("search");
+                formWrapper.AddCssClass("bs-groupForm");
+
+                formWrapper.InnerHtml += this.Builder.GroupConfigurator.FormHtml;
+
+                div.InnerHtml += formWrapper.ToString();
+            }
+
             foreach (var group in this.Builder.GroupConfigurator.Groups)
             {
                 div.InnerHtml += group.Value.ToString();

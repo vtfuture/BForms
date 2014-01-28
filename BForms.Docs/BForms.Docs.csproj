@@ -1250,6 +1250,21 @@
   <ItemGroup>
     <Content Include="Areas\Demo\Views\GroupEditor\Docs\_GroupEditor.cshtml" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Demo\Views\GroupEditor\Docs\Source\_Controller.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Demo\Views\GroupEditor\Docs\Source\_Controller.js.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Demo\Views\GroupEditor\Docs\Source\_Model.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Demo\Views\GroupEditor\Docs\Source\_View.cshtml.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Demo\Views\GroupEditor\_GroupEditorForm.cshtml" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

@@ -18,6 +18,7 @@ namespace BForms.Editor
         #region Properties and Constructor
         internal Dictionary<object, BsEditorGroupBuilder> Groups { get; set; }
         internal List<TabGroupConnection> Connections { get; set; }
+        internal string FormHtml { get; set; }
 
         public BsEditorGroupConfigurator(ViewContext viewContext) : base(viewContext)
         {
@@ -37,6 +38,13 @@ namespace BForms.Editor
             builder = this.GetGroup(expression);
 
             return builder as BsEditorGroupBuilder<TEditor>;
+        }
+
+        public BsEditorGroupConfigurator<TModel> FormTemplate(MvcHtmlString template)
+        {
+            this.FormHtml = template.ToString();
+
+            return this;
         }
         #endregion
 

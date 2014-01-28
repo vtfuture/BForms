@@ -43,7 +43,6 @@ namespace BForms.Docs.Areas.Demo.Models
         [BsControl(BsControlType.Email)]
         public string Email { get; set; }
 
-
         [Display(Name = "PersonalWebsite", Prompt = "SitePrompt", ResourceType = typeof(Resource))]
         [BsControl(BsControlType.Url)]
         public string Website { get; set; }

@@ -48,6 +48,7 @@
 
             cfg.Title = "Groups";
 
+            cfg.FormTemplate(Html.Partial("_GroupEditorForm", Model.Editor2.Form));
         })
         .SaveUrl(Url.Action("Save"));
         //.SetTheme(Html.GetTheme());
