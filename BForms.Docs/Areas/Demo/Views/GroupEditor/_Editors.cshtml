@@ -28,7 +28,7 @@
             .Template(x => x.Grid, "_TabItem")
             .Template(x => x.Search, "~/Areas/Demo/Views/Contributors/Toolbar/_Search.cshtml")
             .Template(x => x.Order, "_Order")
-            .ConnectsWith(NotificationType.Monthly, NotificationType.Daily);
+            .ConnectsWith(NotificationType.Daily,NotificationType.Monthly);
 
         cfg.Title = "Dev team";
 

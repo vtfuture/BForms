@@ -762,7 +762,7 @@
         if (groupIds) {
             $groups = [];
             $.each(groupIds, $.proxy(function (idx, groupId) {
-                $groups.unshift(this._getGroup(groupId));
+                $groups.push(this._getGroup(groupId));
             }, this));
         } else {
             $groups = this.$groups.find('div[data-groupid]');
