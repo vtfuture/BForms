@@ -1154,7 +1154,7 @@
     };
 
     //only supports quick search
-    GroupEditor.prototype.search = function (tab) {
+    GroupEditor.prototype.search = function (tab, searchModel) {
 
         var tabModel;
 
