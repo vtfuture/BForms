@@ -111,6 +111,12 @@ $borderColor: #e8e8e8;
 	.group_profiles {
 		padding: 0 10px;
 		list-style: none;
+		li {
+			clear: both;
+			> .btn {
+				margin-bottom: 5px;
+			}
+		}
 		.select_profile {
 			float: right;
 		}

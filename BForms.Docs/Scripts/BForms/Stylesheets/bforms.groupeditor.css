@@ -75,6 +75,10 @@
   .group_editor .group_profiles {
     padding: 0 10px;
     list-style: none; }
+    .group_editor .group_profiles li {
+      clear: both; }
+      .group_editor .group_profiles li > .btn {
+        margin-bottom: 5px; }
     .group_editor .group_profiles .select_profile {
       float: right; }
     .group_editor .group_profiles .selected .profile.large {
