@@ -55,7 +55,7 @@ namespace BForms.Renderers
                     var glyph = GetGlyphiconTag(Glyphicon.ShareAlt);
                     button.InnerHtml = "Move to groups ";
 
-                    button.AddCssClass("btn-white btn pull-right");
+                    button.AddCssClass("btn-white btn pull-right bs-bulkGroupMove");
 
                     button.InnerHtml += glyph;
                     bulkLi.InnerHtml += button;

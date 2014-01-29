@@ -30,6 +30,7 @@
         tabItemSelector: '.bs-tabItem',
         tabItemsListSelector: '.bs-tabItemsList',
 
+        groupBulkMoveSelector: '.bs-bulkGroupMove',
         groupEditorFormSelector: '.bs-groupForm',
         groupItemSelector: '.bs-groupItem',
         groupItemTemplateSelector: '.bs-itemTemplate',
@@ -111,6 +112,7 @@
         this.$groups.on('click', this.options.toggleExpandBtn, $.proxy(this._evToggleExpand, this));
         this.$element.on('click', this.options.resetBtn, $.proxy(this._evResetClick, this));
         this.$element.on('click', this.options.saveBtn, $.proxy(this._evSaveClick, this));
+        this.$tabs.on('click', this.options.groupBulkMoveSelector, $.proxy(this._evBulkMoveClick, this));
     };
 
     GroupEditor.prototype._initSelectedTab = function () {
@@ -323,6 +325,17 @@
         } else {
             this._shakeElement($item);
         }
+    };
+
+    GroupEditor.prototype._evBulkMoveClick = function (e) {
+
+        var currentTab = this._getSelectedTab(),
+            $movableItems = currentTab.container.find(this.options.tabItemSelector);
+
+        $movableItems.find(this.options.addBtn).trigger('click');
+
+
+        e.preventDefault();
     };
 
     GroupEditor.prototype._evToggleExpand = function (e) {
