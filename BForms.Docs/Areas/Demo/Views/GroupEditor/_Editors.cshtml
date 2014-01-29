@@ -30,6 +30,8 @@
             .Template(x => x.Order, "_Order")
             .ConnectsWith(NotificationType.Daily,NotificationType.Monthly);
 
+        tab1.BulkMove = true;
+        
         cfg.Title = "Dev team";
 
     })

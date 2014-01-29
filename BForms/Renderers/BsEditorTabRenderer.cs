@@ -48,6 +48,20 @@ namespace BForms.Renderers
                 list.AddCssClass("group_profiles");
                 list.AddCssClass("bs-tabItemsList");
 
+                if (this.Builder.bulkMove)
+                {
+                    var bulkLi = new TagBuilder("li");
+                    var button = new TagBuilder("button");
+                    var glyph = GetGlyphiconTag(Glyphicon.ShareAlt);
+                    glyph.InnerHtml = " Move to groups";
+
+                    button.AddCssClass("btn-white btn");
+
+                    button.InnerHtml += glyph;
+                    bulkLi.InnerHtml += button;
+                    list.InnerHtml += bulkLi;
+                }
+
                 foreach (var item in this.Builder.Model.GetItems<TRow>())
                 {
                     var listItem = new TagBuilder("li");

@@ -61,12 +61,13 @@ namespace BForms.Editor
     #endregion
 
     #region BsEditorTabBuilder Basic
-    public class BsEditorTabBuilder<TModel> : BsEditorTabBuilder 
+    public class BsEditorTabBuilder<TModel> : BsEditorTabBuilder
         where TModel : IBsEditorTabModel
     {
         #region Properties and Constructor
         internal BsEditorToolbarHtmlBuilder<TModel> toolbar { get; set; }
         internal bool quickSearch { get; set; }
+        internal bool bulkMove { get; set; }
         private BsGridPagerBuilder pagerBuilder;
         private TModel model;
         private object[] connectsWith { get; set; }
@@ -128,12 +129,17 @@ namespace BForms.Editor
             }
         }
 
+        public bool BulkMove
+        {
+            set { this.bulkMove = value; }
+        }
+
         public BsEditorTabBuilder(IBsEditorTabModel model, ViewContext viewContext, List<TabGroupConnection> connections)
         {
             this.connections = connections;
             this.viewContext = viewContext;
             this.model = (TModel)model;
-            
+
             this.toolbar = new BsEditorToolbarHtmlBuilder<TModel>(this, viewContext);
             this.pagerSettings = new BsPagerSettings();
         }
@@ -187,7 +193,7 @@ namespace BForms.Editor
                     part.Button("New", Glyphicon.Plus);
                 }
             }
-          
+
             return this;
         }
 
