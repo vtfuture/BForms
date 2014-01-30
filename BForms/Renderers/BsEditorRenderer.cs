@@ -55,7 +55,7 @@ namespace BForms.Renderers
                 result += RenderTitle(this.Builder.TabConfigurator.Title);
             }
 
-            if (this.Builder.GroupConfigurator.Groups.Count() > 1)
+            if (this.Builder.TabConfigurator.Tabs.Count() > 1)
             {
                 result += this.Builder.TabConfigurator.NavigationBuilder.ToString();
             }
