@@ -55,7 +55,10 @@ namespace BForms.Renderers
                 result += RenderTitle(this.Builder.TabConfigurator.Title);
             }
 
-            result += this.Builder.TabConfigurator.NavigationBuilder.ToString();
+            if (this.Builder.GroupConfigurator.Groups.Count() > 1)
+            {
+                result += this.Builder.TabConfigurator.NavigationBuilder.ToString();
+            }
 
             foreach (var tab in this.Builder.TabConfigurator.Tabs)
             {

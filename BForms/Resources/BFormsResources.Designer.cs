@@ -61,6 +61,15 @@ namespace BForms.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Move to groups .
+        /// </summary>
+        internal static string GroupEditorMoveToGroups {
+            get {
+                return ResourceManager.GetString("GroupEditorMoveToGroups", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to items.
         /// </summary>
         internal static string Items {

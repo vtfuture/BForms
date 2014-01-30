@@ -223,7 +223,7 @@
 
         if (this.$groupForm.length) {
             this.$groupForm.bsForm({
-                uniqueName : 'groupEditorForm'
+                uniqueName: 'groupEditorForm'
             });
         }
 
@@ -1166,6 +1166,14 @@
         $row.draggable(this._getDraggableOptions(tabModel));
     };
 
+    GroupEditor.prototype.getItemCount = function (itemId, tabId) {
+        
+        var count = this.$groups.find(this.options.groupItemSelector).filter(function () {
+            return $(this).data('objid') == itemId && (typeof tabId !== "undefined" ? $(this).data('tabid') == tabId : true);
+        }).length;
+
+        return count;
+    };
     //only supports quick search
     GroupEditor.prototype.search = function (tab, searchModel) {
 

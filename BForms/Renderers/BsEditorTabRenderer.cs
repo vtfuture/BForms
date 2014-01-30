@@ -53,7 +53,7 @@ namespace BForms.Renderers
                     var bulkLi = new TagBuilder("li");
                     var button = new TagBuilder("button");
                     var glyph = GetGlyphiconTag(Glyphicon.ShareAlt);
-                    button.InnerHtml = "Move to groups ";
+                    button.InnerHtml += BsResourceManager.Resource("GroupEditorMoveToGroups");
 
                     button.AddCssClass("btn-white btn pull-right bs-bulkGroupMove");
 
