@@ -74,7 +74,8 @@
         padding: 0; }
   .group_editor .group_profiles {
     padding: 0 10px;
-    list-style: none; }
+    list-style: none;
+    position: relative; }
     .group_editor .group_profiles li {
       clear: both; }
       .group_editor .group_profiles li > .btn {
