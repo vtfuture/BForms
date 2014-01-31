@@ -638,7 +638,6 @@
 
     GroupEditor.prototype._isItemSelected = function (objid, tabId, groupIds, itemModel) {
         var $groups = this._getGroups(groupIds),
-            selected = true,
             allowedGroupsMove = 0,
             inGroups = 0;
 
@@ -663,7 +662,7 @@
 
         }, this));
 
-        return allowedGroupsMove > 0 ? allowedGroupsMove === inGroups : false;
+        return (allowedGroupsMove > 0 || this.getItemCount($item.data('objid')) > 0) ? allowedGroupsMove === inGroups : false;
 
         //return selected;
     };
