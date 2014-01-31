@@ -41,6 +41,7 @@
         addSelector: '.bs-triggerAdd',
         expandToggleSelector: '.bs-toggleExpand',
         inlineActionClass: 'bs-inline_action',
+        bulkContainerSelector: '.bs-selectorsContainer',
 
         rowsContainerSelector: '.grid_rows_wrapper',
         rowSelector: '.grid_row',
@@ -116,6 +117,10 @@
         this._initDefaultOptions();
 
         this._initSelectors();
+        
+        if (this.options.selectorsContainerTitle) {
+            this.$selectorsContainer.attr("title", this.options.selectorsContainerTitle);
+        }
 
         this.options.hasRowCheck = this.$actionsContainer.length > 0;
         this.hasDetails = this.options.detailsSelector && this.options.detailsUrl;
@@ -305,6 +310,7 @@
         this.$gridHeader = this.element.find(this.options.gridHeaderSelector);
         this.$expandToggle = this.element.find(this.options.expandToggleSelector);
         this.$gridRowsHeader = this.element.find(this.options.gridRowsHeaderSelector);
+        this.$selectorsContainer = this.element.find(this.options.bulkContainerSelector);
     };
 
     Grid.prototype._createActions = function (rowActions, $row) {
