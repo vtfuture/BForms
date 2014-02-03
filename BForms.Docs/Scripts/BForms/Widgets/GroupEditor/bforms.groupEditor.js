@@ -662,7 +662,7 @@
 
         }, this));
 
-        return (allowedGroupsMove > 0 || this.getItemCount($item.data('objid')) > 0) ? allowedGroupsMove === inGroups : false;
+        return (allowedGroupsMove > 0 || this.getItemCount(objId) > 0) ? allowedGroupsMove === inGroups : false;
     };
 
     GroupEditor.prototype._isInGroup = function (objId, tabId, $group) {
