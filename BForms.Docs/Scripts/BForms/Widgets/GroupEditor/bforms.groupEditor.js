@@ -662,7 +662,9 @@
 
         }, this));
 
-        return (allowedGroupsMove > 0 || this.getItemCount(objid) > 0) ? allowedGroupsMove === inGroups : false;
+        var itemCount = this.getItemCount(objid);
+
+        return (allowedGroupsMove > 0 || itemCount > 0) ? (allowedGroupsMove == 0 ? (allowedGroupsMove + itemCount === inGroups) : allowedGroupsMove === inGroups) : false;
     };
 
     GroupEditor.prototype._isInGroup = function (objId, tabId, $group) {
