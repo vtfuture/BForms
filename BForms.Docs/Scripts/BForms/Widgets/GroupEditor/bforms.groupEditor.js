@@ -662,7 +662,7 @@
 
         }, this));
 
-        return (allowedGroupsMove > 0 || this.getItemCount(objId) > 0) ? allowedGroupsMove === inGroups : false;
+        return (allowedGroupsMove > 0 || this.getItemCount(objid) > 0) ? allowedGroupsMove === inGroups : false;
     };
 
     GroupEditor.prototype._isInGroup = function (objId, tabId, $group) {
@@ -1164,12 +1164,63 @@
     };
 
     GroupEditor.prototype.getItemCount = function (itemId, tabId) {
-        
+
         var count = this.$groups.find(this.options.groupItemSelector).filter(function () {
             return $(this).data('objid') == itemId && (typeof tabId !== "undefined" ? $(this).data('tabid') == tabId : true);
         }).length;
 
         return count;
+    };
+
+    /**
+     * @param data json containing objId, itemModel, tabId
+     * @param groupId destination group
+     */
+    GroupEditor.prototype.addToGroup = function (data, groupId) {
+
+        var $group = this._getGroup(groupId),
+            objId = data.objId,
+            tabId = data.tabId,
+            model = data.itemModel,
+            $tab = this._getTab(tabId),
+            connectsWith = $tab.data('connectswith'),
+            $tabItem = this._getTabItem(tabId, objId);
+
+        if ($tabItem.length && typeof model === "undefined") {
+            model = $tabItem.data('model');
+        }
+
+        var allowMove = !this._isInGroup(objId, tabId, $group);
+
+        if (typeof this.options.validateMove === "function") {
+            var validateResult = this.options.validateMove(model, tabId, $group);
+            allowMove = typeof validateResult === "boolean" ? validateResult : allowMove;
+        }
+
+        if (allowMove) {
+
+            var $template = this._getGroupItemTemplate($group, tabId, objId, model);
+
+            var view = this._renderGroupItem(model, $group, tabId, objId);
+
+            $template.find(this.options.groupItemContentSelector).html(view);
+
+            this._checkEditableItem($template);
+
+            this._initGroupItemForm($template.find(this.options.editorFormSelector));
+
+            $group.find(this.options.groupItemsWrapper).append($template);
+
+            if ($tabItem.length) {
+                $tabItem.effect('transfer', {
+                    to: $group.find($template)
+                });
+
+                this._checkItem($tabItem, tabId, connectsWith);
+            }
+        }
+
+        this._countGroupItems();
     };
     //only supports quick search
     GroupEditor.prototype.search = function (tab, searchModel) {
