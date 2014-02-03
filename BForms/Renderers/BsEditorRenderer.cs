@@ -14,11 +14,11 @@ namespace BForms.Renderers
 {
     public class BsEditorRenderer<TModel> : BsBaseRenderer<BsEditorHtmlBuilder<TModel>>
     {
-        public BsEditorRenderer(){}
+        public BsEditorRenderer() { }
 
         public BsEditorRenderer(BsEditorHtmlBuilder<TModel> builder)
             : base(builder)
-        { 
+        {
 
         }
 
@@ -39,6 +39,7 @@ namespace BForms.Renderers
                 if (tab.Value.HasModel)
                 {
                     tab.Value.Theme = this.Builder.Theme;
+
                     result += tab.Value.renderer.RenderAjax();
                 }
             }
@@ -62,7 +63,12 @@ namespace BForms.Renderers
 
             foreach (var tab in this.Builder.TabConfigurator.Tabs)
             {
-                tab.Value.Theme = this.Builder.Theme; 
+                tab.Value.Theme = this.Builder.Theme;
+
+                var bulkMoveHtml = this.RenderMoveToGroups();
+
+                tab.Value.bulkMoveHtml = bulkMoveHtml;
+
                 result += tab.Value.ToString();
             }
 
@@ -138,7 +144,7 @@ namespace BForms.Renderers
 
                 reset.InnerHtml += saveAnchor;
             }
-           
+
 
             reset.InnerHtml += anchor;
 
@@ -164,6 +170,67 @@ namespace BForms.Renderers
             divToolbar.InnerHtml += divToolbarHeader;
 
             return divToolbar.ToString();
+        }
+
+        public string RenderMoveToGroups()
+        {
+
+            if (this.Builder.GroupConfigurator.Groups.Any())
+            {
+                var button = new TagBuilder("button");
+
+                var glyph = GetGlyphiconTag(Glyphicon.ShareAlt);
+
+                if (this.Builder.GroupConfigurator.Groups.Count > 1)
+                {
+                    var divContainer = new TagBuilder("div");
+                    divContainer.AddCssClass("btn-white btn pull-right bs-bulkGroupMove");
+                    divContainer.MergeAttribute("style", "margin: 0 10px 10px 0");
+
+                    var dropdownA = new TagBuilder("a");
+                    
+                    dropdownA.MergeAttribute("data-toggle", "dropdown");
+                    dropdownA.MergeAttribute("href", "#");
+                    dropdownA.InnerHtml += BsResourceManager.Resource("GroupEditorMoveToGroups");
+                    dropdownA.InnerHtml += glyph;
+
+                    var dropdownUl = new TagBuilder("ul");
+                    dropdownUl.AddCssClass("dropdown-menu");
+                    dropdownUl.MergeAttribute("style", "top:auto");
+
+                    foreach (var group in this.Builder.GroupConfigurator.Groups)
+                    {
+                        var li = new TagBuilder("li");
+
+                        var a = new TagBuilder("a");
+                        a.MergeAttribute("href", "#");
+                        a.MergeAttribute("class", "bs-moveToGroupBtn");
+                        a.MergeAttribute("data-groupid", MvcHelpers.Serialize(group.Value.Uid));
+                        a.InnerHtml += group.Value.Name;
+
+                        li.InnerHtml += a;
+                        dropdownUl.InnerHtml += li;
+                    }
+
+                    divContainer.InnerHtml += dropdownA;
+                    divContainer.InnerHtml += dropdownUl;
+
+                    return divContainer.ToString();
+                }
+                else
+                {
+                    button.MergeAttribute("style", "margin: 0 10px 10px 0");
+                    button.AddCssClass("btn-white btn pull-right bs-bulkGroupMove");
+                    button.InnerHtml += BsResourceManager.Resource("GroupEditorMoveToGroups");
+                    button.InnerHtml += glyph;
+                    button.AddCssClass("bs-moveToGroupBtn");
+                    button.MergeAttribute("data-groupid", MvcHelpers.Serialize(this.Builder.GroupConfigurator.Groups.First().Value.Uid));
+
+                    return button.ToString();
+                }
+
+            }
+            return string.Empty;
         }
 
         public string RenderIndex()

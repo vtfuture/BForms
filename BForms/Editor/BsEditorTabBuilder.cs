@@ -24,6 +24,9 @@ namespace BForms.Editor
         protected bool hasModel { get; set; }
         protected bool hasItems { get; set; }
         internal bool editable { get; set; }
+        internal bool bulkMove { get; set; }
+        internal object[] connectsWith { get; set; }
+        internal string bulkMoveHtml { get; set; }
 
         internal object Uid
         {
@@ -48,6 +51,20 @@ namespace BForms.Editor
                 return this.hasItems;
             }
         }
+
+        public bool BulkMove
+        {
+            set { this.bulkMove = value; }
+        }
+
+        internal object[] ConnectsWithIds
+        {
+            get
+            {
+                return this.connectsWith;
+            }
+        }
+
         #endregion
 
         #region Methods
@@ -67,10 +84,8 @@ namespace BForms.Editor
         #region Properties and Constructor
         internal BsEditorToolbarHtmlBuilder<TModel> toolbar { get; set; }
         internal bool quickSearch { get; set; }
-        internal bool bulkMove { get; set; }
         private BsGridPagerBuilder pagerBuilder;
         private TModel model;
-        private object[] connectsWith { get; set; }
         internal IBsEditorRowConfigurator rowConfigurator;
         private List<TabGroupConnection> connections { get; set; }
 
@@ -89,15 +104,7 @@ namespace BForms.Editor
                 return this.editable;
             }
         }
-
-        internal object[] ConnectsWithIds
-        {
-            get
-            {
-                return this.connectsWith;
-            }
-        }
-
+  
         internal TModel Model
         {
             get
@@ -127,11 +134,6 @@ namespace BForms.Editor
                 this.toolbar.QuickSearch = value;
                 this.quickSearch = value;
             }
-        }
-
-        public bool BulkMove
-        {
-            set { this.bulkMove = value; }
         }
 
         public BsEditorTabBuilder(IBsEditorTabModel model, ViewContext viewContext, List<TabGroupConnection> connections)

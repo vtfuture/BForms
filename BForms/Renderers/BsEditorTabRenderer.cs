@@ -48,20 +48,6 @@ namespace BForms.Renderers
                 list.AddCssClass("group_profiles");
                 list.AddCssClass("bs-tabItemsList");
 
-                if (this.Builder.bulkMove)
-                {
-                    var bulkLi = new TagBuilder("li");
-                    var button = new TagBuilder("button");
-                    var glyph = GetGlyphiconTag(Glyphicon.ShareAlt);
-                    button.InnerHtml += BsResourceManager.Resource("GroupEditorMoveToGroups");
-
-                    button.AddCssClass("btn-white btn pull-right bs-bulkGroupMove");
-
-                    button.InnerHtml += glyph;
-                    bulkLi.InnerHtml += button;
-                    list.InnerHtml += bulkLi;
-                }
-
                 foreach (var item in this.Builder.Model.GetItems<TRow>())
                 {
                     var listItem = new TagBuilder("li");
@@ -163,9 +149,12 @@ namespace BForms.Renderers
         {
             var result = this.Builder.Toolbar.ToString();
 
+            result += this.Builder.bulkMoveHtml;
+
             var wrapper = new TagBuilder("div");
 
             wrapper.AddCssClass("bs-tabContent");
+            wrapper.MergeAttribute("style","clear:both");
 
             if (this.Builder.HasModel)
             {

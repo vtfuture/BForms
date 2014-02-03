@@ -30,7 +30,7 @@
         tabItemSelector: '.bs-tabItem',
         tabItemsListSelector: '.bs-tabItemsList',
 
-        groupBulkMoveSelector: '.bs-bulkGroupMove',
+        groupBulkMoveSelector: '.bs-moveToGroupBtn',
         groupEditorFormSelector: '.bs-groupForm',
         groupItemSelector: '.bs-groupItem',
         groupItemTemplateSelector: '.bs-itemTemplate',
@@ -329,11 +329,27 @@
 
     GroupEditor.prototype._evBulkMoveClick = function (e) {
 
+        var targetGroupId = $(e.currentTarget).data('groupid');
+
         var currentTab = this._getSelectedTab(),
-            $movableItems = currentTab.container.find(this.options.tabItemSelector);
+            $movableItems = currentTab.container.find(this.options.tabItemSelector),
+            hasMoved = false;
 
-        $movableItems.find(this.options.addBtn).trigger('click');
+        $movableItems.each($.proxy(function(idx, tabItem) {
 
+            var $tabItem = $(tabItem);
+
+            hasMoved = this.addToGroup({
+                objId: $tabItem.data('objid'),
+                itemModel: $tabItem.data('model'),
+                tabId: currentTab.tabId
+            }, targetGroupId, true) || hasMoved;
+
+        }, this));
+
+        if (!hasMoved) {
+            this._showMoveError(this.$element);
+        }
 
         e.preventDefault();
     };
@@ -1178,7 +1194,7 @@
      * @param data json containing objId, itemModel, tabId
      * @param groupId destination group
      */
-    GroupEditor.prototype.addToGroup = function (data, groupId) {
+    GroupEditor.prototype.addToGroup = function (data, groupId, preventAnimation) {
 
         var $group = this._getGroup(groupId),
             objId = data.objId,
@@ -1214,15 +1230,20 @@
             $group.find(this.options.groupItemsWrapper).append($template);
 
             if ($tabItem.length) {
-                $tabItem.effect('transfer', {
-                    to: $group.find($template)
-                });
+
+                if (preventAnimation !== true) {
+                    $tabItem.effect('transfer', {
+                        to: $group.find($template)
+                    });
+                }
 
                 this._checkItem($tabItem, tabId, connectsWith);
             }
         }
 
         this._countGroupItems();
+
+        return allowMove;
     };
     //only supports quick search
     GroupEditor.prototype.search = function (tab, searchModel) {
