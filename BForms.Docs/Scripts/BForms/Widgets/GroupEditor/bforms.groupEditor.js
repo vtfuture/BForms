@@ -663,8 +663,6 @@
         }, this));
 
         return (allowedGroupsMove > 0 || this.getItemCount($item.data('objid')) > 0) ? allowedGroupsMove === inGroups : false;
-
-        //return selected;
     };
 
     GroupEditor.prototype._isInGroup = function (objId, tabId, $group) {
