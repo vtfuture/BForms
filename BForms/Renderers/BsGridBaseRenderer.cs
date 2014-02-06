@@ -321,17 +321,20 @@ namespace BForms.Renderers
                         {
                             if (column.Property != null)
                             {
-                                text = column.Property.GetValue(row).ToString();
+                                var value = column.Property.GetValue(row);
+                                text = value != null ? value.ToString() : string.Empty;
                             }
                         }
                         else
                         {
-                            text = column.CellText(row).ToString();
+                            var cellText = column.CellText(row);
+
+                            text = cellText != null ? cellText.ToString() : string.Empty;
                         }
                         var title = string.Empty;
                         if (column.CellTitle != null)
                         {
-                            title = column.CellTitle(row).ToString();
+                            title = (column.CellTitle(row) ?? string.Empty).ToString();
                             cellBuilder.MergeAttribute("title",title);
                         }
                         if (column.IsEditable)
