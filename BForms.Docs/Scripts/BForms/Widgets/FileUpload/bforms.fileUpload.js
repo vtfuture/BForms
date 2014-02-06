@@ -193,7 +193,6 @@
         
         if (typeof this.options.getFormData === "function") {
             data = this.options.getFormData();
-            console.log(data);
         }
 
         return data;
