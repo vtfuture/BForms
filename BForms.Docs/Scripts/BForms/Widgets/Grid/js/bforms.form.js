@@ -21,6 +21,7 @@
         focusFirst: true,
         // save opened group containers in localstorage and retreive it later
         saveGroupContainerState: true,
+        appendUrlToUniqueName :true,
         groupToggleSelector: '.bs-group_toggle',
         groupToggleContainerSelector: '.bs-group_toggle_container',
         groupToggleUp: 'glyphicon-chevron-up',
@@ -86,16 +87,24 @@
 
     Form.prototype._initAmplifyStore = function () {
 
-        if (this.options.saveGroupContainerState && amplify.store('groupContainer|' + this.options.uniqueName)) {
+        if (this.options.saveGroupContainerState) {
+            var amplifyKey = this._getKeyForGroupContainer();
 
-            var savedGroupContainerValues = amplify.store('groupContainer|' + this.options.uniqueName);
-            this.$form.find(this.options.groupToggleContainerSelector).each(function (index) {
-                if (savedGroupContainerValues[index]) {
-                    $(this).next().show();
-                } else {
-                    $(this).next().hide();
+            if (amplify.store(amplifyKey)) {
+                try {
+                    var savedGroupContainerValues = amplify.store(amplifyKey);
+                    this.$form.find(this.options.groupToggleContainerSelector).each(function (index) {
+                        if (savedGroupContainerValues[index]) {
+                            $(this).next().show();
+                        } else {
+                            $(this).next().hide();
+                        }
+                    });
                 }
-            });
+                catch (err) {
+                    console.log('Error on saving amplify key'+err);
+                }
+            }
         }
     };
 
@@ -212,13 +221,19 @@
 
     Form.prototype._saveGroupContainer = function () {
         if (this.options.saveGroupContainerState) {
-            var arrayGroupContainers = [];
-            
-            this.$form.find(this.options.groupToggleContainerSelector).each(function() {
-                arrayGroupContainers.push($(this).next().is(":visible"));
-            });
+            try {
+                var arrayGroupContainers = [];
+                var amplifyKey = this._getKeyForGroupContainer();
 
-            amplify.store('groupContainer|' + this.options.uniqueName, arrayGroupContainers);
+                this.$form.find(this.options.groupToggleContainerSelector).each(function () {
+                    arrayGroupContainers.push($(this).next().is(":visible"));
+                });
+
+                amplify.store(amplifyKey, arrayGroupContainers);
+            }
+            catch (err) {
+                console.log('Error on saving amplify key' + err);
+            } 
         }
     };
 
@@ -245,6 +260,10 @@
             return elem.name == action;
         })[0];
 
+    };
+
+    Form.prototype._getKeyForGroupContainer = function () {
+        return this.options.appendUrlToUniqueName ? 'groupContainer|' + this.options.uniqueName + "|" + location.host + location.pathname : 'groupContainer|' + this.options.uniqueName;
     };
     //#endregion
 
