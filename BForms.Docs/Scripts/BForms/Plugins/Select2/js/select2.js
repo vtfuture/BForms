@@ -3347,7 +3347,8 @@ the specific language governing permissions and limitations under the Apache Lic
                     i = 0,
                     l = classes.length,
                     j = 0,
-                    currentPrefixes = $.fn.select2.defaults.javascriptClassesPrefix.split(',');
+                    currentPrefixes = $.fn.select2.defaults.javascriptClassesPrefix.split(','),
+                    isValid = true;
                 
                 for (; i < l; i++) {
                     var currentClass = classes[i];
@@ -3355,10 +3356,14 @@ the specific language governing permissions and limitations under the Apache Lic
                     for (; j < currentPrefixes.length; j++) {
                         
                         if (currentClass.indexOf(currentPrefixes[j]) !== 0) {
-                            rez += currentClass + ' ';
+                            isValid = false;       
                             break;
                         }
 
+                    }
+
+                    if (isValid) {
+                        rez += currentClass + ' ';
                     }
                    
                 }
