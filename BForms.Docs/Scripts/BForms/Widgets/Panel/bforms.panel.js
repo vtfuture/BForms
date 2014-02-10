@@ -290,7 +290,6 @@
                             '</div>' +
                        '</div>');
         if (replace) {
-            console.log($errorContainer)
 
             $errorContainer.html($error);
         } else {
@@ -434,7 +433,7 @@
 
     bsPanel.prototype._onEditableLoadSuccess = function (response) {
 
-        if (this.options.cacheReadonlyContent) {
+        if (this.options.cacheReadonlyContent && this._readonly == true ) {
             this._cachedReadonlyContent = this.$content.clone().find('form').removeClass('loading').end()
                                                                 .html();
         }
