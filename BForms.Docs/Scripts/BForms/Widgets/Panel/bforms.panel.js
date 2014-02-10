@@ -544,7 +544,7 @@
         this[method]().then($.proxy(function () {
             this._initControls();
             this._loadState();
-            this._initCurrentContent();
+
         }, this));
         
     };
