@@ -3339,19 +3339,28 @@ the specific language governing permissions and limitations under the Apache Lic
         escapeMarkup: defaultEscapeMarkup,
         blurOnChange: false,
         selectOnBlur: false,
-        javascriptClassesPrefix: 'js-',
+        javascriptClassesPrefix: 'js-,bs-',
         adaptContainerCssClass: function (c) {
             var rez = '';
             if (c != '') {
                 var classes = c.split(/\s+/g),
                     i = 0,
-                    l = classes.length;
-
+                    l = classes.length,
+                    j = 0,
+                    currentPrefixes = $.fn.select2.defaults.javascriptClassesPrefix.split(',');
+                
                 for (; i < l; i++) {
                     var currentClass = classes[i];
-                    if (currentClass.indexOf($.fn.select2.defaults.javascriptClassesPrefix) !== 0) {
-                        rez += currentClass + " ";
+                    
+                    for (; j < currentPrefixes.length; j++) {
+                        
+                        if (currentClass.indexOf(currentPrefixes[j]) !== 0) {
+                            rez += currentClass + ' ';
+                            break;
+                        }
+
                     }
+                   
                 }
             }
             return rez;
