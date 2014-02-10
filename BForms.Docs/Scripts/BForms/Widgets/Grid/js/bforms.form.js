@@ -4,7 +4,8 @@
     'jquery-ui-core',
     'bforms-validate-unobtrusive',
     'bforms-initUI',
-    'bforms-ajax'
+    'bforms-ajax',
+    'amplify'
 ], function () {
 
     var Form = function (opt) {
@@ -12,11 +13,14 @@
         this._create();
     };
 
+
     Form.prototype.options = {
         uniqueName: null,
         hasGroupToggle: true,
         style: {},
         focusFirst: true,
+        // save opened group containers in localstorage and retreive it later
+        saveGroupContainerState: true,
         groupToggleSelector: '.bs-group_toggle',
         groupToggleContainerSelector: '.bs-group_toggle_container',
         groupToggleUp: 'glyphicon-chevron-up',
@@ -51,8 +55,10 @@
 
         this._addDelegates();
 
-        this._addActions(this.options.actions);
+        this._initAmplifyStore();
 
+        this._addActions(this.options.actions);
+        
         var initUIPromise = this.$form.bsInitUI(this.options.style);
         initUIPromise.done($.proxy(function() {
             this._trigger('afterInitUI', 0, {
@@ -76,6 +82,21 @@
             this.element.find(this.options.groupToggleSelector).on('click', $.proxy(this._evToggleGroup, this));
         }
 
+    };
+
+    Form.prototype._initAmplifyStore = function () {
+
+        if (this.options.saveGroupContainerState && amplify.store('groupContainer|' + this.options.uniqueName)) {
+
+            var savedGroupContainerValues = amplify.store('groupContainer|' + this.options.uniqueName);
+            this.$form.find(this.options.groupToggleContainerSelector).each(function (index) {
+                if (savedGroupContainerValues[index]) {
+                    $(this).next().show();
+                } else {
+                    $(this).next().hide();
+                }
+            });
+        }
     };
 
     Form.prototype._addActions = function (actions) {
@@ -182,10 +203,23 @@
         return this.element.parseForm(this.options.prefix ? this.options.prefix : '');
     };
     
-    Form.prototype._evToggleGroup = function (e) {
+    Form.prototype._evToggleGroup = function(e) {
         var $elem = $(e.currentTarget);
         $elem.find(this.options.glyphClass).toggleClass(this.options.groupToggleUp).toggleClass(this.options.groupToggleDown);
-        $elem.toggleClass('open').closest(this.options.groupToggleContainerSelector).next().stop().slideToggle();
+        $elem.toggleClass('open').closest(this.options.groupToggleContainerSelector).next().stop().slideToggle($.proxy(this._saveGroupContainer, this));
+        
+    };
+
+    Form.prototype._saveGroupContainer = function () {
+        if (this.options.saveGroupContainerState) {
+            var arrayGroupContainers = [];
+            
+            this.$form.find(this.options.groupToggleContainerSelector).each(function() {
+                arrayGroupContainers.push($(this).next().is(":visible"));
+            });
+
+            amplify.store('groupContainer|' + this.options.uniqueName, arrayGroupContainers);
+        }
     };
 
     Form.prototype._validate = function () {
