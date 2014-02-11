@@ -196,8 +196,7 @@
     Editable.prototype._saveAjaxValidationError = function (data, callbackData) {
         if (data) {
             var validatedForm = this.$editor.data('validator');
-            validatedForm.showErrors(data.Errors);
-            validatedForm.focusInvalid();
+            validatedForm.showErrors(data.Errors,true);
         }
     };
 

@@ -193,8 +193,7 @@
                             validatedForm = this.$form.validate();
                         }
 
-                        validatedForm.showErrors(response.Errors);
-                        validatedForm.focusInvalid();
+                        validatedForm.showErrors(response.Errors,true);
                     }
                 }
             });
