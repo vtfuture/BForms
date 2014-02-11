@@ -3,10 +3,10 @@
 
     var Taglist = function (options) {
 
-        this.options = $.extend(true, this.defaultOptions, options);
+        this.options = $.extend(true, this.options, options);
     };
 
-    Taglist.prototype.defaultOptions = {
+    Taglist.prototype.options = {
 
         alternate: true,
         sortable: false,
@@ -24,16 +24,13 @@
         this.currentTagsIndex = '' + 0;
         this._select2PopulateResults = $.proxy(this.select2Options.populateResults, this.$element.data('select2'));
 
-        this.initialTags = $.extend(true, this.options.tags);
+        this.initialTags = $.extend(true, {}, this.options.tags);
 
         this.options.tags = this._evaluateInitialTags(this.options.tags);
 
         this.values = [];
 
-        //   if (typeof this.options.initialTags == 'undefined') {
-
         this._setTags(this.options.tags[0]);
-        //   }
 
         this.stateBeforeRemoval = [];
 
@@ -92,7 +89,7 @@
 
         $list.sortable({
 
-            containment: 'parent', // this.$element.parents('.form-group'),
+            containment: 'parent',
             start: $.proxy(this._evSelect2SortStart, this),
             update: $.proxy(this._evSelect2SortEnd, this)
         });
@@ -204,7 +201,7 @@
 
             if (this._isNewTag(e.added, currentTags)) {
 
-                this.options.tags[/*previousTagsIndex*/this.currentTagsIndex].push(e.added);
+                this.options.tags[this.currentTagsIndex].push(e.added);
             }
 
             var $searchChoice = this.$element.parents('.input-group').find('.select2-choices > .select2-search-choice:last');
@@ -610,15 +607,6 @@
     };
 
     Taglist.prototype._createSearchChoice = function (term) {
-
-        //var finalized = typeof this.options.finalize == 'function' ?
-        //    this.options.finalize(this.val(), this.currentTagsIndex, this.options.tags[this.currentTagsIndex], this.options.tags)
-        //    : false;
-
-        //if (finalized) {
-
-        //    return null;
-        //}
 
         if (typeof this.options.createSearchChoice != 'undefined') {
 
