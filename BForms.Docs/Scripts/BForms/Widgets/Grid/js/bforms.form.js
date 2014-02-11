@@ -102,7 +102,7 @@
                     });
                 }
                 catch (err) {
-                    console.log('Error on saving amplify key'+err);
+                    console.warn('Error on saving on local storage:'+err);
                 }
             }
         }
@@ -232,7 +232,7 @@
                 amplify.store(amplifyKey, arrayGroupContainers);
             }
             catch (err) {
-                console.log('Error on saving amplify key' + err);
+                console.warn('Error on saving on local storage:' + err);
             } 
         }
     };
