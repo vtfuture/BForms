@@ -197,6 +197,7 @@
         if (data) {
             var validatedForm = this.$editor.data('validator');
             validatedForm.showErrors(data.Errors);
+            validatedForm.focusInvalid();
         }
     };
 

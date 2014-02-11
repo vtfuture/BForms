@@ -194,6 +194,7 @@
                         }
 
                         validatedForm.showErrors(response.Errors);
+                        validatedForm.focusInvalid();
                     }
                 }
             });
