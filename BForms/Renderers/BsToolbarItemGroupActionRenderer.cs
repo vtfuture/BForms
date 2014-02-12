@@ -30,6 +30,12 @@ namespace BForms.Renderers
         public override string Render()
         {
             var actionBuilder = new TagBuilder("a");
+
+            if (this.Builder.htmlAttributes != null)
+            {
+                actionBuilder.MergeAttributes(this.Builder.htmlAttributes);
+            }
+
             actionBuilder.AddCssClass(this.Builder.descriptorClass);
             actionBuilder.AddCssClass(this.Builder.styleClasses);
             actionBuilder.MergeAttribute("href", this.Builder.href ?? "#");
