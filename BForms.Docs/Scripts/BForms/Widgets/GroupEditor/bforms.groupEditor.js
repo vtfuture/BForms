@@ -471,6 +471,13 @@
 
                     $group.find(this.options.groupItemsWrapper).append($template);
 
+                    this._trigger('onTabItemAdd', 0, {
+                        model: model,
+                        tabId: tabId,
+                        $row: $template,
+                        $group: $group
+                    });
+
                     $tabItem.effect('transfer', {
                         to: $group.find($template)
                     });
@@ -967,6 +974,13 @@
             this._checkEditableItem($template);
 
             ui.item.replaceWith($template);
+
+            this._trigger('onTabItemAdd', 0, {
+                model: model,
+                tabId: tabId,
+                $row: $template,
+                $group: $group
+            });
 
             this._checkItem(this._getTabItem(tabId, objId), tabId, connectsWith);
 
