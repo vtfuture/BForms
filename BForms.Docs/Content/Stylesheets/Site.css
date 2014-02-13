@@ -630,7 +630,7 @@ body.black .footer a {
       padding-bottom: 0; }
     .bs-docs-section .bs-docs-tech .btn {
       position: relative; } }
-@media (max-width: 756px) {
+@media (max-width: 768px) {
   .brand img {
     max-width: 230px; }
 
