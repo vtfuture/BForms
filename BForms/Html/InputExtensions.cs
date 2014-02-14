@@ -141,22 +141,26 @@ namespace BForms.Html
                     case BsControlType.Url:
                     case BsControlType.Email:
                     case BsControlType.Number:
+                    case BsControlType.NumberInline:
                         var genericArguments = typeof(TProperty).GetGenericArguments();
 
                         if (genericArguments.Any() && (genericArguments[0] == typeof(int) || genericArguments[0] == typeof(int?)))
                         {
-                            htmlAttributes.MergeAttribute("class", "bs-number-single_range");
+                            htmlAttributes.MergeAttribute("class",
+                                bsControl.ControlType == BsControlType.NumberInline
+                                    ? "bs-number-single_range_inline"
+                                    : "bs-number-single_range");
                             htmlAttributes.MergeAttribute("type","text");
 
                             if (genericArguments[0] == typeof(int))
                             {
                                 var numberRange = (Expression<Func<TModel, BsRangeItem<int>>>)(object)expression;
-                                inputHtml = htmlHelper.NumberRangeForInternal(numberRange, htmlAttributes, dataOptions);
+                                inputHtml = htmlHelper.NumberRangeForInternal(numberRange, htmlAttributes, dataOptions, bsControl.ControlType == BsControlType.NumberInline);
                             }
                             else
                             {
                                 var numberRange = (Expression<Func<TModel, BsRangeItem<int?>>>)(object)expression;
-                                inputHtml = htmlHelper.NumberRangeForInternal(numberRange, htmlAttributes, dataOptions);
+                                inputHtml = htmlHelper.NumberRangeForInternal(numberRange, htmlAttributes, dataOptions, bsControl.ControlType == BsControlType.NumberInline);
                             }
 
                         }

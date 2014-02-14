@@ -167,7 +167,7 @@ namespace BForms.Html
             hiddenTag.MergeAttribute("type", "hidden");
             hiddenTag.MergeAttributes(htmlAttributes);
 
-            var type = typeof (TKey);
+            var type = typeof(TKey);
 
             if (range != null && range.From != null)
             {
@@ -226,23 +226,23 @@ namespace BForms.Html
 
         internal static MvcHtmlString NumberRangeForInternal<TModel>(this HtmlHelper<TModel> htmlHelper,
             Expression<Func<TModel, BsRangeItem<int?>>> expression,
-            IDictionary<string, object> htmlAttributes, IDictionary<string, object> dataOptions)
+            IDictionary<string, object> htmlAttributes, IDictionary<string, object> dataOptions, bool isInline)
         {
             var name = ExpressionHelper.GetExpressionText(expression);
             var bsNumber = expression.Compile().Invoke(htmlHelper.ViewData.Model);
-            return new MvcHtmlString(htmlHelper.NumberRangeForInternal(name, bsNumber, htmlAttributes, dataOptions).ToString());
+            return new MvcHtmlString(htmlHelper.NumberRangeForInternal(name, bsNumber, htmlAttributes, dataOptions, isInline).ToString());
         }
 
         internal static MvcHtmlString NumberRangeForInternal<TModel>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, BsRangeItem<int>>> expression,
-             IDictionary<string, object> htmlAttributes, IDictionary<string, object> dataOptions)
+             IDictionary<string, object> htmlAttributes, IDictionary<string, object> dataOptions, bool isInline)
         {
 
             var name = ExpressionHelper.GetExpressionText(expression);
             var bsNumber = expression.Compile().Invoke(htmlHelper.ViewData.Model);
-            return new MvcHtmlString(htmlHelper.NumberRangeForInternal(name, bsNumber, htmlAttributes, dataOptions).ToString());
+            return new MvcHtmlString(htmlHelper.NumberRangeForInternal(name, bsNumber, htmlAttributes, dataOptions, isInline).ToString());
         }
 
-        internal static MvcHtmlString NumberRangeForInternal<TModel, T>(this HtmlHelper<TModel> htmlHelper, string name, BsRangeItem<T> bsNumber, IDictionary<string, object> htmlAttributes, IDictionary<string, object> dataOptions)
+        internal static MvcHtmlString NumberRangeForInternal<TModel, T>(this HtmlHelper<TModel> htmlHelper, string name, BsRangeItem<T> bsNumber, IDictionary<string, object> htmlAttributes, IDictionary<string, object> dataOptions, bool isInline)
         {
             var inputHtml = new StringBuilder();
             var fullName = htmlHelper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name);
@@ -306,12 +306,25 @@ namespace BForms.Html
                 hiddenTag.MergeAttribute("data-maxvalue", FormatValue(bsNumber.MaxValue));
             }
 
+            if (isInline)
+            {
+                //Increment Button
+                var buttonPlusBuilder = new TagBuilder("a");
+                buttonPlusBuilder.AddCssClass("btn btn-primary input-group-addon bs-rangePlus");
+                buttonPlusBuilder.InnerHtml += GetGlyphiconTag(Glyphicon.Plus);
+                inputHtml.Append(buttonPlusBuilder);
+
+                //Decrement Button
+                var buttonMinusBuilder = new TagBuilder("a");
+                buttonMinusBuilder.AddCssClass("btn btn-warning input-group-addon bs-rangeMinus");
+                buttonMinusBuilder.InnerHtml += GetGlyphiconTag(Glyphicon.Minus);
+                inputHtml.Append(buttonMinusBuilder);
+            }
+
             inputHtml.Append(hiddenTag.ToString(TagRenderMode.Normal));
 
             return new MvcHtmlString(inputHtml.ToString());
         }
-
-        
 
         internal static string FormatValue(object valRange)
         {
@@ -342,6 +355,19 @@ namespace BForms.Html
                 }
             }
             return valFormated;
+        }
+
+        internal static TagBuilder GetGlyphiconTag(Glyphicon icon, bool forInput = false)
+        {
+            var spanTag = new TagBuilder("span");
+            spanTag.AddCssClass(icon.GetDescription());
+            spanTag.AddCssClass("glyphicon");
+            if (forInput)
+            {
+                spanTag.AddCssClass("input-group-addon");
+            }
+
+            return spanTag;
         }
     }
 }

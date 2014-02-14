@@ -246,7 +246,7 @@ namespace BForms.Docs.Areas.Demo.Models
 
         [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
         [Display(Name = "Age", ResourceType = typeof(Resource))]
-        [BsControl(BsControlType.Number)]
+        [BsControl(BsControlType.NumberInline)]
         public BsRangeItem<int?> Age { get; set; }
 
         [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
