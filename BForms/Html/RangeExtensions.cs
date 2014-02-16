@@ -226,23 +226,23 @@ namespace BForms.Html
 
         internal static MvcHtmlString NumberRangeForInternal<TModel>(this HtmlHelper<TModel> htmlHelper,
             Expression<Func<TModel, BsRangeItem<int?>>> expression,
-            IDictionary<string, object> htmlAttributes, IDictionary<string, object> dataOptions, bool isInline)
+            IDictionary<string, object> htmlAttributes, IDictionary<string, object> dataOptions)
         {
             var name = ExpressionHelper.GetExpressionText(expression);
             var bsNumber = expression.Compile().Invoke(htmlHelper.ViewData.Model);
-            return new MvcHtmlString(htmlHelper.NumberRangeForInternal(name, bsNumber, htmlAttributes, dataOptions, isInline).ToString());
+            return new MvcHtmlString(htmlHelper.NumberRangeForInternal(name, bsNumber, htmlAttributes, dataOptions).ToString());
         }
 
         internal static MvcHtmlString NumberRangeForInternal<TModel>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, BsRangeItem<int>>> expression,
-             IDictionary<string, object> htmlAttributes, IDictionary<string, object> dataOptions, bool isInline)
+             IDictionary<string, object> htmlAttributes, IDictionary<string, object> dataOptions)
         {
 
             var name = ExpressionHelper.GetExpressionText(expression);
             var bsNumber = expression.Compile().Invoke(htmlHelper.ViewData.Model);
-            return new MvcHtmlString(htmlHelper.NumberRangeForInternal(name, bsNumber, htmlAttributes, dataOptions, isInline).ToString());
+            return new MvcHtmlString(htmlHelper.NumberRangeForInternal(name, bsNumber, htmlAttributes, dataOptions).ToString());
         }
 
-        internal static MvcHtmlString NumberRangeForInternal<TModel, T>(this HtmlHelper<TModel> htmlHelper, string name, BsRangeItem<T> bsNumber, IDictionary<string, object> htmlAttributes, IDictionary<string, object> dataOptions, bool isInline)
+        internal static MvcHtmlString NumberRangeForInternal<TModel, T>(this HtmlHelper<TModel> htmlHelper, string name, BsRangeItem<T> bsNumber, IDictionary<string, object> htmlAttributes, IDictionary<string, object> dataOptions)
         {
             var inputHtml = new StringBuilder();
             var fullName = htmlHelper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name);
@@ -340,19 +340,6 @@ namespace BForms.Html
                 }
             }
             return valFormated;
-        }
-
-        internal static TagBuilder GetGlyphiconTag(Glyphicon icon, bool forInput = false)
-        {
-            var spanTag = new TagBuilder("span");
-            spanTag.AddCssClass(icon.GetDescription());
-            spanTag.AddCssClass("glyphicon");
-            if (forInput)
-            {
-                spanTag.AddCssClass("input-group-addon");
-            }
-
-            return spanTag;
         }
     }
 }

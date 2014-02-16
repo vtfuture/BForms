@@ -155,12 +155,12 @@ namespace BForms.Html
                             if (genericArguments[0] == typeof(int))
                             {
                                 var numberRange = (Expression<Func<TModel, BsRangeItem<int>>>)(object)expression;
-                                inputHtml = htmlHelper.NumberRangeForInternal(numberRange, htmlAttributes, dataOptions, bsControl.ControlType == BsControlType.NumberInline);
+                                inputHtml = htmlHelper.NumberRangeForInternal(numberRange, htmlAttributes, dataOptions);
                             }
                             else
                             {
                                 var numberRange = (Expression<Func<TModel, BsRangeItem<int?>>>)(object)expression;
-                                inputHtml = htmlHelper.NumberRangeForInternal(numberRange, htmlAttributes, dataOptions, bsControl.ControlType == BsControlType.NumberInline);
+                                inputHtml = htmlHelper.NumberRangeForInternal(numberRange, htmlAttributes, dataOptions);
                             }
 
                         }
