@@ -792,10 +792,14 @@
                          '</ul>',
         rangesInlineTemplate:
                          '{{#ranges}}' +
-                            '<a class="btn btn-primary input-group-addon bs-rangeUp" data-index="{{index}}" {{#start}}data-start="true"{{/start}} {{#end}}data-end="true"{{/end}} {{#single}}data-single="true"{{/single}}><span class="glyphicon glyphicon-plus"></span></a>' +
-                            '<input type="hidden" class="bs-rangeInput" value="{{value}}" {{#maxlength}}maxlength={{maxlength}}{{/maxlength}} data-index="{{index}}" {{#start}}data-start="true"{{/start}} {{#end}}data-end="true"{{/end}} {{#single}}data-single="true"{{/single}}>' +
-                            '<a class="btn btn-warning input-group-addon bs-rangeDown" data-index="{{index}}" {{#start}}data-start="true"{{/start}} {{#end}}data-end="true"{{/end}} {{#single}}data-single="true"{{/single}}><span class="glyphicon glyphicon-minus"></span></a>' +
-                         '{{/ranges}}' 
+                             '<a class="btn btn-primary input-group-addon bs-rangeUp" data-index="{{index}}" {{#start}}data-start="true"{{/start}} {{#end}}data-end="true"{{/end}} {{#single}}data-single="true"{{/single}}>' +
+                                '<span class="glyphicon glyphicon-plus"></span>' +
+                             '</a>' +
+                             '<input type="hidden" class="bs-rangeInput" value="{{value}}" {{#maxlength}}maxlength={{maxlength}}{{/maxlength}} data-index="{{index}}" {{#start}}data-start="true"{{/start}} {{#end}}data-end="true"{{/end}} {{#single}}data-single="true"{{/single}}>' +
+                             '<a class="btn btn-warning input-group-addon bs-rangeDown" data-index="{{index}}" {{#start}}data-start="true"{{/start}} {{#end}}data-end="true"{{/end}} {{#single}}data-single="true"{{/single}}>' +
+                                '<span class="glyphicon glyphicon-minus"></span>' +
+                             '</a>' +
+                         '{{/ranges}}'
     };
 
     $.fn.bsRangePickerDefaults = {
