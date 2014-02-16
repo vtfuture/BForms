@@ -306,21 +306,6 @@ namespace BForms.Html
                 hiddenTag.MergeAttribute("data-maxvalue", FormatValue(bsNumber.MaxValue));
             }
 
-            if (isInline)
-            {
-                //Increment Button
-                var buttonPlusBuilder = new TagBuilder("a");
-                buttonPlusBuilder.AddCssClass("btn btn-primary input-group-addon bs-rangePlus");
-                buttonPlusBuilder.InnerHtml += GetGlyphiconTag(Glyphicon.Plus);
-                inputHtml.Append(buttonPlusBuilder);
-
-                //Decrement Button
-                var buttonMinusBuilder = new TagBuilder("a");
-                buttonMinusBuilder.AddCssClass("btn btn-warning input-group-addon bs-rangeMinus");
-                buttonMinusBuilder.InnerHtml += GetGlyphiconTag(Glyphicon.Minus);
-                inputHtml.Append(buttonMinusBuilder);
-            }
-
             inputHtml.Append(hiddenTag.ToString(TagRenderMode.Normal));
 
             return new MvcHtmlString(inputHtml.ToString());

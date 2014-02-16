@@ -922,13 +922,13 @@
             }
 
             if (this.options.singlenumberrangeinline === true && this.$elem.find(this.options.singlenumberrangeinlineSelector).length) {
-
+                 
                 if (this.loadAMD) {
 
                     var singleNumberRangeInlineDeferred = $.Deferred();
                     this.deferredList.push(singleNumberRangeInlineDeferred);
 
-                    require(['bforms-rangenumber-inline'], function () {
+                    require(['bforms-rangepicker'], function () {
 
                         self.$elem.find(self.options.singlenumberrangeinlineSelector).each(function (idx, elem) {
 
@@ -946,13 +946,14 @@
                                 value: $inputListener.val(),
                             });
 
-                            $elem.bsRangeInline($.extend(true, {}, self._getOptions(this), {
+                            $elem.bsRangePicker($.extend(true, {}, self._getOptions(this), {
                                 ranges: ranges,
                                 language: uiLocale,
                                 allowSame: true,
                                 listeners: [$inputListener],
                                 minValue: minValue,
-                                maxValue: maxValue
+                                maxValue: maxValue,
+                                isSingleNumberInline: true
                             }));
                         });
 
@@ -977,17 +978,18 @@
                                 value: $inputListener.val(),
                             });
 
-                            $elem.bsRangeInline($.extend(true, {}, self._getOptions(this), {
+                            $elem.bsRangePicker($.extend(true, {}, self._getOptions(this), {
                                 ranges: ranges,
                                 language: uiLocale,
                                 allowSame: true,
                                 listeners: [$inputListener],
                                 minValue: minValue,
-                                maxValue: maxValue
+                                maxValue: maxValue,
+                                isSingleNumberInline: true
                             }));
                         });
                     } else {
-                        throw "bsRangeNumberInline script must be loaded before calling initUI";
+                        throw "bsRangepicker script must be loaded before calling initUI";
                     }
                 }
             }

@@ -237,7 +237,6 @@
     <Content Include="Scripts\BForms\Plugins\Rangepicker\images\icn-arr-down.png" />
     <Content Include="Scripts\BForms\Plugins\Rangepicker\images\icn-arr-up.png" />
     <Content Include="Scripts\BForms\Plugins\Rangepicker\images\icn-remove.png" />
-    <Content Include="Scripts\BForms\Plugins\Rangepicker\js\bforms.rangenumber.inline.js" />
     <Content Include="Scripts\BForms\Widgets\FileUpload\bforms.fileUpload.js" />
     <Content Include="Scripts\BForms\Widgets\Grid\js\bforms.toolbar.order.js" />
     <Content Include="Scripts\BForms\Widgets\InlineQuestion\bforms.inlineQuestion.js" />
