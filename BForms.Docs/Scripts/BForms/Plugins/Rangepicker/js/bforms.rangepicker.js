@@ -276,8 +276,12 @@
             this.$picker.hide();
         }
 
-        this._blockRanges();
-
+        if (this.options.isSingleNumberInline && this.$element.prop('readonly')) {
+            this.block();
+        }
+        else {
+            this._blockRanges();
+        }
     };
 
     rangePicker.prototype._renderPicker = function () {
@@ -741,6 +745,32 @@
         }, this));
 
         this._updateLabels(this._hasInitialValue !== true);
+    };
+
+    rangePicker.prototype.block = function () {
+        this.$element.prop('readonly', true);
+        var $ranges = this.$picker.find('.bs-rangeInput');
+
+        $ranges.each($.proxy(function (it, range) {
+            var $range = $(range),
+                idx = $range.data('index');
+
+            this._getDownArrow(idx).addClass('disabled');
+            this._getUpArrow(idx).addClass('disabled');
+        }, this));
+    };
+
+    rangePicker.prototype.unblock = function () {
+        this.$element.prop('readonly', false);
+        var $ranges = this.$picker.find('.bs-rangeInput');
+
+        $ranges.each($.proxy(function (it, range) {
+            var $range = $(range),
+                idx = $range.data('index');
+
+            this._getDownArrow(idx).removeClass('disabled');
+            this._getUpArrow(idx).removeClass('disabled');
+        }, this));
     };
 
     rangePicker.prototype.option = function (name, value) {
