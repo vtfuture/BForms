@@ -276,11 +276,12 @@
             this.$picker.hide();
         }
 
-        this._blockRanges();
-
         if (this.options.isSingleNumberInline && this.$element.prop('readonly')) {
             this.block();
-        };
+        }
+        else {
+            this._blockRanges();
+        }
     };
 
     rangePicker.prototype._renderPicker = function () {
