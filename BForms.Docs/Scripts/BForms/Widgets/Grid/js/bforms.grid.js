@@ -447,6 +447,10 @@
             this.element.find(this.options.rowCheckSelector).show();
         }
     };
+
+    Grid.prototype.showErrors = function (data) {
+        this._pagerAjaxError(data);
+    };
     //#endregion
 
     //#region grid details
