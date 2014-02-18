@@ -56,7 +56,12 @@ $borderColor: #e8e8e8;
 		.form_container {
 			margin-top: 10px;
 		}
+		
+		+ .btn {
+			margin: 0 10px 10px 0;
+		}
 	}
+
 	.grids_header_submit {
 		padding: 5px 10px 0;
 	}

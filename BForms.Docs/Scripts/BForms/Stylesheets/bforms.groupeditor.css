@@ -37,6 +37,8 @@
       border-bottom: 1px solid #e8e8e8; }
     .group_editor .search .form_container {
       margin-top: 10px; }
+    .group_editor .search + .btn {
+      margin: 0 10px 10px 0; }
   .group_editor .grids_header_submit {
     padding: 5px 10px 0; }
   .group_editor dl dt {

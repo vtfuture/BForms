@@ -185,7 +185,6 @@ namespace BForms.Renderers
                 {
                     var divContainer = new TagBuilder("div");
                     divContainer.AddCssClass("btn-white btn pull-right bs-bulkGroupMove");
-                    divContainer.MergeAttribute("style", "margin: 0 10px 10px 0");
 
                     var dropdownA = new TagBuilder("a");
                     
@@ -219,7 +218,6 @@ namespace BForms.Renderers
                 }
                 else
                 {
-                    button.MergeAttribute("style", "margin: 0 10px 10px 0");
                     button.AddCssClass("btn-white btn pull-right bs-bulkGroupMove");
                     button.InnerHtml += BsResourceManager.Resource("GroupEditorMoveToGroups");
                     button.InnerHtml += glyph;

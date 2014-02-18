@@ -23,7 +23,7 @@ namespace BForms.Renderers
             if (this.Builder.pager != null)
             {
                 var pagesBuilder = new TagBuilder("div");
-                pagesBuilder.AddCssClass("col-md-6 col-lg-6 bs-pages");
+                pagesBuilder.AddCssClass("col-md-12 col-lg-6 bs-pages");
 
                 #region pagination
 
@@ -202,7 +202,7 @@ namespace BForms.Renderers
                     throw new ArgumentOutOfRangeException("The page size you selected is not in the list");
 
                 var selectWrapperBuilder = new TagBuilder("div");
-                selectWrapperBuilder.AddCssClass("col-md-6 col-lg-6 results_per_page");
+                selectWrapperBuilder.AddCssClass("col-md-12 col-lg-6 results_per_page hidden-md hidden-sm hidden-xs");
 
                 TagBuilder divBuilder = new TagBuilder("div");
                 divBuilder.AddCssClass("pull-right");
