@@ -17,6 +17,7 @@ namespace BForms.Grid
         internal BsPagerModel pager { get; set; }
         internal BsPagerSettings settings { get; set; }
         internal BsGridBaseRepositorySettings baseSettings { get; set; }
+        internal bool hidePageSize { get; set; }
 
         public BsGridPagerBuilder(BsPagerModel pager, BsPagerSettings settings, BsGridBaseRepositorySettings baseSettings)
         {

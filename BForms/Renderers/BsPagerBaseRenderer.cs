@@ -11,11 +11,11 @@ namespace BForms.Renderers
 {
     public class BsPagerBaseRenderer : BsBaseRenderer<BsGridPagerBuilder>
     {
-        public BsPagerBaseRenderer(){}
+        public BsPagerBaseRenderer() { }
 
         public BsPagerBaseRenderer(BsGridPagerBuilder builder)
             : base(builder)
-        { 
+        {
         }
 
         public string RenderPages()
@@ -23,7 +23,7 @@ namespace BForms.Renderers
             if (this.Builder.pager != null)
             {
                 var pagesBuilder = new TagBuilder("div");
-                pagesBuilder.AddCssClass("col-md-12 col-lg-6 bs-pages");
+                pagesBuilder.AddCssClass("col-md-8 col-lg-6 bs-pages");
 
                 #region pagination
 
@@ -32,7 +32,7 @@ namespace BForms.Renderers
 
                 if (this.Builder.pager.TotalPages == 1)
                 {
-                    paginationBuilder.MergeAttribute("style","display:none");
+                    paginationBuilder.MergeAttribute("style", "display:none");
                 }
 
                 #region first page button
@@ -202,7 +202,13 @@ namespace BForms.Renderers
                     throw new ArgumentOutOfRangeException("The page size you selected is not in the list");
 
                 var selectWrapperBuilder = new TagBuilder("div");
-                selectWrapperBuilder.AddCssClass("col-md-12 col-lg-6 results_per_page hidden-md hidden-sm hidden-xs");
+
+                selectWrapperBuilder.AddCssClass("col-md-4 col-lg-6 results_per_page");
+
+                if (this.Builder.hidePageSize)
+                {
+                    selectWrapperBuilder.AddCssClass("hidden-md hidden-sm hidden-xs");
+                }
 
                 TagBuilder divBuilder = new TagBuilder("div");
                 divBuilder.AddCssClass("pull-right");

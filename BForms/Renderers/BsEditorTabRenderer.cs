@@ -34,6 +34,8 @@ namespace BForms.Renderers
                 this.Builder.Model.GetGrid<TRow>().Pager,
                 this.Builder.pagerSettings,
                 this.Builder.Model.GetGrid<TRow>().BaseSettings);
+
+                this.Builder.PagerBuilder.hidePageSize = true;
             }
         }
 
