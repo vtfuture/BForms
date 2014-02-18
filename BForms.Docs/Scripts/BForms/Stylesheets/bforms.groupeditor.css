@@ -82,6 +82,9 @@
       clear: both; }
       .group_editor .group_profiles li > .btn {
         margin-bottom: 5px; }
+      .group_editor .group_profiles li.disabled {
+        opacity: 0.5;
+        filter: alpha(opacity=50); }
     .group_editor .group_profiles .select_profile {
       float: right; }
     .group_editor .group_profiles .selected .profile.large {

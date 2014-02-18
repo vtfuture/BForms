@@ -122,6 +122,10 @@ $borderColor: #e8e8e8;
 			> .btn {
 				margin-bottom: 5px;
 			}
+			&.disabled {
+				opacity: 0.5;
+				filter: alpha(opacity=50);
+			}
 		}
 		.select_profile {
 			float: right;
@@ -134,6 +138,7 @@ $borderColor: #e8e8e8;
 				color: #77BD43;
 			}
 		}
+		
 	}
 	.bs-pager, .counter {
 		padding: 0 10px;
