@@ -167,7 +167,7 @@ namespace BForms.Html
             hiddenTag.MergeAttribute("type", "hidden");
             hiddenTag.MergeAttributes(htmlAttributes);
 
-            var type = typeof (TKey);
+            var type = typeof(TKey);
 
             if (range != null && range.From != null)
             {
@@ -310,8 +310,6 @@ namespace BForms.Html
 
             return new MvcHtmlString(inputHtml.ToString());
         }
-
-        
 
         internal static string FormatValue(object valRange)
         {

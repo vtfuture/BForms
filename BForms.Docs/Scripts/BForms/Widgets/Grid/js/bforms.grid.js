@@ -447,6 +447,19 @@
             this.element.find(this.options.rowCheckSelector).show();
         }
     };
+
+    Grid.prototype.showErrors = function (data) {
+        if (data.Message) {
+            var $errorContainer = $(this.element).find('.bs-validation_summary');
+
+            if ($errorContainer.length == 0) {
+                $errorContainer = $('<div class="col-sm-12 col-lg-12 bs-validation_summary"></div>');
+                this.element.find('h2').after($errorContainer);
+            }
+
+            this._addError(data.Message, $errorContainer);
+        }
+    };
     //#endregion
 
     //#region grid details

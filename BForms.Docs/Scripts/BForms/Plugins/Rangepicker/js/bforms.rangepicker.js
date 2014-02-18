@@ -47,7 +47,7 @@
 
     rangePicker.prototype._addHandlers = function () {
 
-        if (!this.isInline || this.options.inlineMobile) {
+        if (!this.options.isSingleNumberInline && (!this.isInline || this.options.inlineMobile)) {
 
             if (this.options.closeOnBlur) {
 
@@ -180,6 +180,10 @@
             this.r.addTemplate('rangePickerRanges', $.fn.bsRangePickerTemplates.rangesTemplate);
         }
 
+        if (typeof this.r["renderNumberRangeInline"] !== "function") {
+            this.r.addTemplate('renderNumberRangeInline', $.fn.bsRangePickerTemplates.rangesInlineTemplate);
+        }
+
         if (typeof this.r["renderNumberRangePicker"] !== "function") {
             this.r.addTemplate("renderNumberRangePicker", $.fn.bsRangePickerTemplates.mainTemplate);
         }
@@ -212,7 +216,6 @@
     };
 
     rangePicker.prototype._initOptions = function () {
-
         if (this.options.ranges.length == 1) {
             this._single = true;
         } else {
@@ -255,32 +258,44 @@
 
         this.$picker = this._renderPicker(this._renderModel);
 
-        if (this.isInline) {
+        if (this.isInline && !this.options.isSingleNumberInline) {
             this.$element.after(this.$picker.show());
             this.$element.hide();
 
-        } else {
+        }
+        else if (this.options.isSingleNumberInline) {
+            this.$element.after(this.$picker);
+            this.$picker = this.$picker.parent(); //hack for different template
+        }
+        else {
             $('body').append(this.$picker);
             this._positionPicker();
         }
 
-        if (!this._visible) {
+        if (!this._visible && !this.options.isSingleNumberInline) {
             this.$picker.hide();
         }
 
-        this._blockRanges();
-
+        if (this.options.isSingleNumberInline && this.$element.prop('readonly')) {
+            this.block();
+        }
+        else {
+            this._blockRanges();
+        }
     };
 
     rangePicker.prototype._renderPicker = function () {
-
-        var html = this.r.renderNumberRangePicker(this._renderModel, true);
-
+        var html;
+        if (this.options.isSingleNumberInline) {
+            html = this.r.renderNumberRangeInline(this._renderModel, true);
+        } else {
+            html = this.r.renderNumberRangePicker(this._renderModel, true);
+        }
         return $(html);
     };
 
     rangePicker.prototype._positionPicker = function () {
-        if (this.isInline) return;
+        if (this.isInline || this.options.isSingleNumberInline) return;
 
         if (this.options.fixedPicker === true && this.$picker.css('position') == 'fixed') return;
 
@@ -400,8 +415,6 @@
         if ($nextRange.length) {
             limits.max = window.parseInt($nextRange.val() || limits.max, 10);
         }
-
-
         return limits;
     };
 
@@ -418,7 +431,7 @@
     };
 
     rangePicker.prototype._allowHold = function () {
-        return this._visible;
+        return !this.options.isSingleNumberInline ? this._visible : true;
     };
 
     rangePicker.prototype._blockRanges = function () {
@@ -469,7 +482,7 @@
         };
 
         this._trigger('afterFormatLabel', [triggerData]);
-        
+
         this.$input.val(triggerData.label);
 
         if (typeof this.$element.valid === "function" && this.options.preventValidation != true && this.$element.hasClass('input-validation-error')) {
@@ -630,7 +643,7 @@
         if (textValue === '' && this._hasInitialValue == false) {
 
             $.each(this.options.ranges, $.proxy(function (index) {
-                
+
                 if (this.options.minValueOnClear) {
                     var limits = this._getLimits(index);
                     this._getInput(index).val(limits.min);
@@ -638,9 +651,9 @@
                 } else {
                     this._updateListener(index, textValue);
                 }
-                
+
             }, this));
-            
+
             if (this.options.minValueOnClear) {
                 this._updateLabels();
             }
@@ -734,6 +747,32 @@
         this._updateLabels(this._hasInitialValue !== true);
     };
 
+    rangePicker.prototype.block = function () {
+        this.$element.prop('readonly', true);
+        var $ranges = this.$picker.find('.bs-rangeInput');
+
+        $ranges.each($.proxy(function (it, range) {
+            var $range = $(range),
+                idx = $range.data('index');
+
+            this._getDownArrow(idx).addClass('disabled');
+            this._getUpArrow(idx).addClass('disabled');
+        }, this));
+    };
+
+    rangePicker.prototype.unblock = function () {
+        this.$element.prop('readonly', false);
+        var $ranges = this.$picker.find('.bs-rangeInput');
+
+        $ranges.each($.proxy(function (it, range) {
+            var $range = $(range),
+                idx = $range.data('index');
+
+            this._getDownArrow(idx).removeClass('disabled');
+            this._getUpArrow(idx).removeClass('disabled');
+        }, this));
+    };
+
     rangePicker.prototype.option = function (name, value) {
 
         if (typeof value === "undefined") {
@@ -780,8 +819,17 @@
                              '{{#ranges}}' +
                                 '<li><span class="btn btn-down bs-rangeDown" {{#start}}data-start="true"{{/start}} {{#end}}data-end="true"{{/end}} data-index="{{index}}" {{#single}}data-single="true"{{/single}}></span></li>' +
                              '{{/ranges}}' +
-                         '</ul>'
-
+                         '</ul>',
+        rangesInlineTemplate:
+                         '{{#ranges}}' +
+                             '<a class="btn btn-primary input-group-addon bs-rangeUp" data-index="{{index}}" {{#start}}data-start="true"{{/start}} {{#end}}data-end="true"{{/end}} {{#single}}data-single="true"{{/single}}>' +
+                                '<span class="glyphicon glyphicon-plus"></span>' +
+                             '</a>' +
+                             '<input type="hidden" class="bs-rangeInput" value="{{value}}" {{#maxlength}}maxlength={{maxlength}}{{/maxlength}} data-index="{{index}}" {{#start}}data-start="true"{{/start}} {{#end}}data-end="true"{{/end}} {{#single}}data-single="true"{{/single}}>' +
+                             '<a class="btn btn-warning input-group-addon bs-rangeDown" data-index="{{index}}" {{#start}}data-start="true"{{/start}} {{#end}}data-end="true"{{/end}} {{#single}}data-single="true"{{/single}}>' +
+                                '<span class="glyphicon glyphicon-minus"></span>' +
+                             '</a>' +
+                         '{{/ranges}}'
     };
 
     $.fn.bsRangePickerDefaults = {

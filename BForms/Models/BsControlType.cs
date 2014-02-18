@@ -48,6 +48,11 @@ namespace BForms.Models
         [Description("bs-number")]
         Number,
         /// <summary>
+        /// Number input element with inline range
+        /// </summary>
+        [Description("bs-number-inline")]
+        NumberInline,
+        /// <summary>
         /// Number range input element
         /// </summary>
         [Description("bs-number-range")]

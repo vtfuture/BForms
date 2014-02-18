@@ -49,6 +49,9 @@
         singlenumberrange: true,
         singlenumberrangeSelector: '.bs-number-single_range',
 
+        singlenumberrangeinline: true,
+        singlenumberrangeinlineSelector: '.bs-number-single_range_inline',
+
         loadingSelector: '.loading',
         loadingClass: 'loading',
         transformNumbers : true
@@ -910,6 +913,79 @@
                                 listeners: [$inputListener],
                                 minValue: minValue,
                                 maxValue: maxValue
+                            }));
+                        });
+                    } else {
+                        throw "bsRangepicker script must be loaded before calling initUI";
+                    }
+                }
+            }
+
+            if (this.options.singlenumberrangeinline === true && this.$elem.find(this.options.singlenumberrangeinlineSelector).length) {
+                 
+                if (this.loadAMD) {
+
+                    var singleNumberRangeInlineDeferred = $.Deferred();
+                    this.deferredList.push(singleNumberRangeInlineDeferred);
+
+                    require(['bforms-rangepicker'], function () {
+
+                        self.$elem.find(self.options.singlenumberrangeinlineSelector).each(function (idx, elem) {
+
+                            var $elem = $(elem);
+                            var rangeName = $elem.prop('name');
+
+                            var $inputListener = self.$elem.find('.bs-number-value[data-for="' + rangeName + '"]'),
+                                minValue = $inputListener.data('minvalue'),
+                                maxValue = $inputListener.data('maxvalue');
+
+                            var ranges = [];
+
+                            ranges.push({
+                                title: $elem.data('display'),
+                                value: $inputListener.val(),
+                            });
+
+                            $elem.bsRangePicker($.extend(true, {}, self._getOptions(this), {
+                                ranges: ranges,
+                                language: uiLocale,
+                                allowSame: true,
+                                listeners: [$inputListener],
+                                minValue: minValue,
+                                maxValue: maxValue,
+                                isSingleNumberInline: true
+                            }));
+                        });
+
+                        singleNumberRangeInlineDeferred.resolve();
+                    });
+
+                } else {
+                    if (typeof $.fn.bsRangePicker === "function") {
+                        self.$elem.find(self.options.singlenumberrangeinlineSelector).each(function (idx, elem) {
+
+                            var $elem = $(elem);
+                            var rangeName = $elem.prop('name');
+
+                            var $inputListener = self.$elem.find('.bs-number-value[data-for="' + rangeName + '"]'),
+                                minValue = $inputListener.data('minvalue'),
+                                maxValue = $inputListener.data('maxvalue');
+
+                            var ranges = [];
+
+                            ranges.push({
+                                title: $elem.data('display'),
+                                value: $inputListener.val(),
+                            });
+
+                            $elem.bsRangePicker($.extend(true, {}, self._getOptions(this), {
+                                ranges: ranges,
+                                language: uiLocale,
+                                allowSame: true,
+                                listeners: [$inputListener],
+                                minValue: minValue,
+                                maxValue: maxValue,
+                                isSingleNumberInline: true
                             }));
                         });
                     } else {

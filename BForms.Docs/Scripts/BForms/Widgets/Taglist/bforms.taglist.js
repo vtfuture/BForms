@@ -22,9 +22,10 @@
 
         this.select2Options = this.$element.data('select2').opts;
         this.currentTagsIndex = '' + 0;
+
         this._select2PopulateResults = $.proxy(this.select2Options.populateResults, this.$element.data('select2'));
 
-        this.initialTags = $.extend(true, {}, this.options.tags);
+        this.initialTags = $.extend(true, this.options.tags);
 
         this.options.tags = this._evaluateInitialTags(this.options.tags);
 
@@ -40,22 +41,13 @@
 
         if (this.options.selectedValues) {
 
-            try {
+            this._testSelectedValues(this.options.selectedValues);
 
-                this._testSelectedValues(this.options.selectedValues);
+            this._initInitialValues(this.options.selectedValues);
 
-            } catch (e) {
+            // this._setSelectedValues(this.options.selectedValues);
 
-                console.warn(e.message);
-
-                this.$element.select2('destroy');
-
-                return;
-            }
-
-            this._setSelectedValues(this.options.selectedValues);
-
-            this.currentTagsIndex = this.options.getNextTags ? this._getIndexFromTags(this.options.getNextTags(this.val(), 0, this.options.tags[0], this.options.tags)) : 0;
+            // this.currentTagsIndex = this.options.getNextTags ? this._getIndexFromTags(this.options.getNextTags(this.val(), 0, this.options.tags[0], this.options.tags)) : 0;
         }
 
         if (this.options.initialTags) {
@@ -86,6 +78,8 @@
         }
 
         $list.find('.select2-search-choice').css('cursor', 'pointer');
+
+        $list.css('overflow', 'auto');
 
         $list.sortable({
 
@@ -146,6 +140,17 @@
         this._fixSelect2Choices();
     };
 
+    Taglist.prototype._initInitialValues = function (selectedValues) {
+
+        this._setSelectedValues(this.options.selectedValues);
+
+        var nextTags = typeof this.options.getNextTags == 'function' ? this.options.getNextTags(this.val(), 0, this.options.tags[0], this.options.tags) : this.options.tags[this.currentTagsIndex];
+
+        this.currentTagsIndex = this._getIndexFromTags(nextTags);
+
+        this.currentTags = this.options.tags[this.currentTagsIndex];
+    };
+
     // #endregion
 
     // #region private methods
@@ -176,6 +181,18 @@
             };
         }
 
+        if (e.removed) {
+
+            var removed = e.removed;
+
+            this.removed = {
+                id: removed.id || removed,
+                text: removed.text || text,
+                tags: currentTags,
+                _uid: this._uid
+            };
+        }
+
         if (this.options.alternate) {
 
             var tags = this._getNextTags();
@@ -201,7 +218,7 @@
 
             if (this._isNewTag(e.added, currentTags)) {
 
-                this.options.tags[this.currentTagsIndex].push(e.added);
+                this.options.tags[/*previousTagsIndex*/this.currentTagsIndex].push(e.added);
             }
 
             var $searchChoice = this.$element.parents('.input-group').find('.select2-choices > .select2-search-choice:last');
@@ -213,9 +230,34 @@
 
             e.preventDefault();
 
-            for (var i in this.values) {
+            var removed = $.extend(true, {}, e.removed);
 
-                if ('' + e.removed.id === '' + this.values[i].id) {
+            //removed.id = this._fixId(removed.id || removed);
+            //removed.text = removed.text || removed;
+
+            // debugger;
+
+            //for (var i in this.values) {
+
+            //    //if ('' + e.removed.id === '' + this.values[i].id) {
+
+            //    //    this.values.splice(i, 1);
+            //    //    break;
+            //    //}
+
+            //    if ('' + removed.id === '' + this.values[i].id) {
+
+            //        this.values.splice(i, 1);
+            //        break;
+            //    }
+            //}
+
+            var propperValues = this.$element.select2('val').map($.proxy(function (value) { return this._fixId(value.id || value); }, this)),
+                ids = this.values.map(function (value) { return value.id || value; });
+
+            for (var i in ids) {
+
+                if (propperValues[i] !== '' + ids[i]) {
 
                     this.values.splice(i, 1);
                     break;
@@ -229,7 +271,7 @@
 
         this._fixSelect2Choices();
 
-        if (this.options.sortable && e.added) {
+        if (this.options.sortable && (e.added || e.removed)) {
 
             this._initSortable();
         }
@@ -607,6 +649,15 @@
     };
 
     Taglist.prototype._createSearchChoice = function (term) {
+
+        //var finalized = typeof this.options.finalize == 'function' ?
+        //    this.options.finalize(this.val(), this.currentTagsIndex, this.options.tags[this.currentTagsIndex], this.options.tags)
+        //    : false;
+
+        //if (finalized) {
+
+        //    return null;
+        //}
 
         if (typeof this.options.createSearchChoice != 'undefined') {
 
@@ -986,6 +1037,38 @@
 
             return value.text || value;
         });
+    };
+
+    Taglist.prototype.tags = function (tags, computeNextTags) {
+
+        if (tags && tags instanceof Array) {
+
+            this.options.tags = tags.slice();
+
+            this.currentTagsIndex = '0';
+
+            if (computeNextTags) {
+
+                this.currentTags = this._getNextTags();
+            } else {
+
+                this.currentTags = this.options.tags[this.currentTagsIndex];
+            }
+
+            this.$element.select2({
+
+                tags: this.currentTags
+            });
+
+            this.val([]);
+
+            if (this.options.sortable) {
+
+                this._initSortable(true);
+            }
+        }
+
+        return this.options.tags;
     };
 
     // #endregion
