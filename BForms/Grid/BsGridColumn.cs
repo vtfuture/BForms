@@ -26,7 +26,12 @@ namespace BForms.Grid
         /// <summary>
         /// Small devices Tablets and Phones
         /// </summary>
-        Small = 3
+        Small = 3,
+
+        /// <summary>
+        /// Small Phones
+        /// </summary>
+        ExtraSmall = 4
     }
 
     /// <summary>
@@ -71,6 +76,11 @@ namespace BForms.Grid
             new BsColumnWidth
             {
                 ScreenType = BsScreenType.Small,
+                Size = 1
+            },
+            new BsColumnWidth
+            {
+                ScreenType = BsScreenType.ExtraSmall,
                 Size = 1
             }
         };
@@ -136,12 +146,22 @@ namespace BForms.Grid
             return this.SetWidth(width, width);
         }
 
-        public BsGridColumn<TRow> SetWidth(int largeWidth, int normalWidth)
+        public BsGridColumn<TRow> SetWidth(int largeWidth, int mediumWidth)
         {
-            return this.SetWidth(largeWidth, normalWidth, normalWidth);
+            return this.SetWidth(largeWidth, mediumWidth, mediumWidth);
         }
 
-        public BsGridColumn<TRow> SetWidth(int largeWidth, int mediumWidth, int smallWidth)
+        public BsGridColumn<TRow> SetWidth(int largeWidth, int mediumWidth, int normalWidth)
+        {
+            return this.SetWidth(largeWidth, mediumWidth, normalWidth, normalWidth);
+        }
+
+        public BsGridColumn<TRow> SetWidth(int largeWidth, int mediumWidth, int normalWidth, int smallWidth)
+        {
+            return this.SetWidth(largeWidth, mediumWidth, normalWidth, smallWidth, smallWidth);
+        }
+
+        public BsGridColumn<TRow> SetWidth(int largeWidth, int mediumWidth, int normalWidth, int smallWidth, int extraSmallWidth)
         {
             this.widthSizes = new List<BsColumnWidth>();
             this.widthSizes.Add(new BsColumnWidth
@@ -160,6 +180,12 @@ namespace BForms.Grid
             {
                 ScreenType = BsScreenType.Small,
                 Size = smallWidth
+            });
+
+            this.widthSizes.Add(new BsColumnWidth
+            {
+                ScreenType = BsScreenType.ExtraSmall,
+                Size = extraSmallWidth
             });
 
             return this;
@@ -206,6 +232,11 @@ namespace BForms.Grid
                     case BsScreenType.Small:
                         {
                             classPrefix = "col-sm-";
+                            break;
+                        }
+                    case BsScreenType.ExtraSmall:
+                        {
+                            classPrefix = "col-xs-";
                             break;
                         }
                 }

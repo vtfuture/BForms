@@ -1,5 +1,4 @@
 ﻿define('bforms-groupEditor', [
-    'singleton-ich',
     'jquery',
     'jquery-ui-core',
     'bforms-pager',
@@ -7,7 +6,7 @@
     'bforms-namespace',
     'bforms-inlineQuestion',
     'bforms-form'
-], function (ichSingleton) {
+], function () {
 
     //#region Constructor and Properties
     var GroupEditor = function (opt) {
@@ -196,7 +195,7 @@
     };
 
     GroupEditor.prototype._initSortable = function () {
-        this.$element.find(this.options.groupSelector).sortable({
+        this.$element.find(this.options.groupSelector).find(this.options.groupItemsWrapper).sortable({
             items: this.options.groupItemSelector,
             distance: 5,
             connectWith: this.options.groupSelector,
@@ -876,12 +875,12 @@
 
     GroupEditor.prototype._buildConnectsWithSelector = function (allowed) {
         var selector = '';
-        selector += this.options.groupSelector;
         for (var key in allowed) {
-            if (key != 0) {
-                selector += ',';
+            selector += this.options.groupSelector + '[data-groupid="' + allowed[key] + '"]' + ' ' + this.options.groupItemsWrapper;
+
+            if (key < allowed.length - 1) {
+                selector += ', ';
             }
-            selector += '[data-groupid="' + allowed[key] + '"]';
         }
 
         return selector;
