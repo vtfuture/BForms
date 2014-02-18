@@ -71,12 +71,14 @@ textarea {
     margin: 0 7px 0 -5px;
     display: inline-block;
     vertical-align: bottom; }
-  @media (max-width: 756px) {
-    .row > .panel-group .panel-body .row {
-      margin-right: -10px;
-      margin-left: -10px; } }
-  .row > .panel-group .panel-body .control-label {
-    color: #aaa; }
+  .row > .panel-group .panel-body {
+    position: relative; }
+    @media (max-width: 756px) {
+      .row > .panel-group .panel-body .row {
+        margin-right: -10px;
+        margin-left: -10px; } }
+    .row > .panel-group .panel-body .control-label {
+      color: #aaa; }
   @media (max-width: 756px) {
     .row > .panel-group .pull-right {
       float: right !important; } }
