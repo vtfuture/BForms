@@ -15,14 +15,14 @@ namespace BForms.Html
     public static class GridExtensions
     {
         public static BsGridHtmlBuilder<TModel, TRow> BsGridFor<TModel, TRow>(this HtmlHelper<TModel> htmlHelper,
-            Expression<Func<TModel, BsGridModel<TRow>>> expression) where TRow : new()
+            Expression<Func<TModel, BsGridModel<TRow>>> expression) where TRow : BsItemModel,new()
         {
             return htmlHelper.BsGridFor(expression, null);
         }
 
         public static BsGridHtmlBuilder<TModel, TRow> BsGridFor<TModel, TRow>(this HtmlHelper<TModel> htmlHelper,
             Expression<Func<TModel, BsGridModel<TRow>>> expression,
-            BsGridHtmlBuilder<TModel, TRow> baseBuilder) where TRow : new()
+            BsGridHtmlBuilder<TModel, TRow> baseBuilder) where TRow : BsItemModel, new()
         {
             var grid = expression.Compile().Invoke(htmlHelper.ViewData.Model);
 

@@ -12,7 +12,7 @@ using BForms.Mvc;
 
 namespace BForms.Renderers
 {
-    public class BsGridBaseRenderer<TModel, TRow> : BsBaseRenderer<BsGridHtmlBuilder<TModel, TRow>> where TRow : new ()
+    public class BsGridBaseRenderer<TModel, TRow> : BsBaseRenderer<BsGridHtmlBuilder<TModel, TRow>> where TRow : BsItemModel, new()
     {
         public BsGridBaseRenderer()
         {
@@ -264,6 +264,8 @@ namespace BForms.Renderers
 
                     var rowBuilder = new TagBuilder("div");
                     rowBuilder.MergeAttribute("class", "row grid_row");
+
+                    rowBuilder.MergeAttribute("data-objid", MvcHelpers.Serialize(row.GetUniqueID()));
 
                     if (this.Builder.Model.BaseSettings.DetailsAll || this.Builder.Model.BaseSettings.HasDetails(rowIndex))
                     {

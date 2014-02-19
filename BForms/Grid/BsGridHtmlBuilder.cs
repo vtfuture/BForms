@@ -14,7 +14,7 @@ using BForms.Renderers;
 
 namespace BForms.Grid
 {
-    public class BsGridHtmlBuilder<TModel, TRow> : BsBaseComponent<BsGridHtmlBuilder<TModel, TRow>> where TRow : new()
+    public class BsGridHtmlBuilder<TModel, TRow> : BsBaseComponent<BsGridHtmlBuilder<TModel, TRow>> where TRow : BsItemModel,new()
     {
         private BsGridModel<TRow> model;
 

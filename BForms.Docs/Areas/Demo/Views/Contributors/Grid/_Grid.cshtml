@@ -64,7 +64,7 @@
       .ConfigureRows(cfg => cfg.HasDetails(row => row.Enabled)
                                .DetailsTemplate(row => Html.Partial("Grid/Details/_Index", row.Details).ToString())
                                .HasCheckbox(row => (row.Enabled || !row.Name.StartsWith("M")))
-                               .HtmlAttributes(row => new Dictionary<string, object> { { "data-objid", row.Id }, { "data-active", row.Enabled } })
+                               .HtmlAttributes(row => new Dictionary<string, object> {{ "data-active", row.Enabled } })
                                .Highlighter(row => row.Enabled ? "#59b444" : "#f0ad4e"))
       .PagerSettings(new BsPagerSettings { Size = 5, HasPageSizeSelector = true, HasPagesText = true }))
 

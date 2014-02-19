@@ -1119,7 +1119,7 @@
                 var groupFormValidationData = {
                     $form: $form,
                     valid: isGroupFormValid,
-                    validator: validator
+                    validator: groupFormValidator
                 };
 
                 this._trigger('onGroupFormValidation', groupFormValidationData);
