@@ -36,6 +36,8 @@ namespace BForms.Editor
 
         internal string saveUrl { get; set; }
 
+        internal bool? ignoreAjaxRequest { get; set; }
+
         public BsEditorHtmlBuilder(TModel model)
         {
             this.renderer = new BsEditorRenderer<TModel>(this);
@@ -127,7 +129,13 @@ namespace BForms.Editor
 
             return this;
         }
-   
+
+        public BsEditorHtmlBuilder<TModel> IgnoreAjaxRequest(bool ignoreAjaxRequest)
+        {
+            this.ignoreAjaxRequest = ignoreAjaxRequest;
+
+            return this;
+        }
         #endregion
 
         #region Helpers

@@ -24,7 +24,9 @@ namespace BForms.Renderers
 
         public override string Render()
         {
-            var result = this.Builder.IsAjaxRequest() ?
+            var ignoreAjaxRequest = this.Builder.ignoreAjaxRequest.HasValue && this.Builder.ignoreAjaxRequest.Value;
+
+            var result = this.Builder.IsAjaxRequest() && !ignoreAjaxRequest ?
                 this.RenderAjax() :
                 this.RenderIndex();
             return result;

@@ -52,8 +52,8 @@
 
             cfg.FormTemplate(Html.Partial("_GroupEditorForm", Model.Editor2.Form));
         })
-        .SaveUrl(Url.Action("Save"));
-        //.SetTheme(Html.GetTheme());
+        .SaveUrl(Url.Action("Save"))
+        .IgnoreAjaxRequest(false);
 
     ViewData["builder"] = builder;
 }
