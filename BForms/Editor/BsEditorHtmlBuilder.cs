@@ -74,8 +74,8 @@ namespace BForms.Editor
                 }
             }
 
-            if (!this.IsAjaxRequest()) // we don't care about groups
-            {
+            //if (!this.IsAjaxRequest()) // we don't care about groups
+           // {
                 foreach (var prop in props)
                 {
                     BsEditorGroupAttribute groupAttr = null;
@@ -87,7 +87,7 @@ namespace BForms.Editor
                         InvokeAddGroupConfig(value, prop, groupAttr, editableTabIds); // TODO send editableTabIds
                     }
                 }
-            }
+           // }
 
             foreach (var prop in props)
             {
@@ -115,7 +115,7 @@ namespace BForms.Editor
 
         public BsEditorHtmlBuilder<TModel> ConfigureGroups(Action<BsEditorGroupConfigurator<TModel>> config)
         {
-            if (!this.IsAjaxRequest())
+            if (!this.IsAjaxRequest() || (this.ignoreAjaxRequest.HasValue && this.ignoreAjaxRequest.Value))
             {
                 config(this.groupConfigurator);
             }
