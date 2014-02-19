@@ -69,6 +69,7 @@ namespace BForms.Editor
             where TEditor : IBsEditorGroupModel
             where TRow : BsEditorGroupItemModel, new()
         {
+
             var group = new BsEditorGroupBuilder<TEditor>(model, this.viewContext, editableTabIds)
                        .Id(attr.Id);
 
@@ -90,9 +91,12 @@ namespace BForms.Editor
                 group.renderer = new BsEditorGroupRenderer<TEditor, TRow>(group);
             }
 
-            var connection = model.GetTabGroupConnection();
-            connection.GroupId = attr.Id;
-            this.Connections.Add(connection);
+            if (model != null)
+            {
+                var connection = model.GetTabGroupConnection();
+                connection.GroupId = attr.Id;
+                this.Connections.Add(connection);
+            }
 
             InsertGroup<TEditor, TRow>(attr.Id, group);
         }
