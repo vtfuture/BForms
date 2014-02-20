@@ -1,8 +1,15 @@
 ﻿@using BForms.Html
 @model BForms.Docs.Areas.Demo.Models.GroupFormModel
 
-<div class=" input-group">
-    @Html.BsInputFor(x => x.Name)
-</div>
+
+@using (Html.BsBeginForm())
+{
+    <div class="col-sm-12 col-lg-12 form-group">
+        <div class="input-group">
+            @Html.BsInputFor(x => x.Name)
+            @Html.BsValidationFor(m => m.Name)
+        </div> 
+    </div>
+}    
 
 

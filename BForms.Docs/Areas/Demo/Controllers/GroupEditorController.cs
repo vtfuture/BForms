@@ -156,7 +156,12 @@ namespace BForms.Docs.Areas.Demo.Controllers
 
         public BsJsonResult Save(GroupEditorModel model)
         {
-            return new BsJsonResult();
+            var errorMessage = "This is how a server error is displayed in group editor";
+
+            return new BsJsonResult(new
+            {
+                Message = errorMessage
+            },BsResponseStatus.ValidationError, "lalalalal");
         }
 
         public BsJsonResult Search(ContributorSearchModel model)

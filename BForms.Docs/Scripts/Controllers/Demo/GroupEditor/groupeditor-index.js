@@ -39,7 +39,13 @@
                 }
 
 
-            }, this)
+            }, this),
+            validation: {
+                required: {
+                    unobtrusive: true,
+                    message: "Please add at least an item."
+                }
+            },
         });
     };
 

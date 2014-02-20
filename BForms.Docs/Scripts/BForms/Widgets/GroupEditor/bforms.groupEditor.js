@@ -49,7 +49,12 @@
         resetBtn: '.bs-resetGroupEditor',
         saveBtn: '.bs-saveGroupEditor',
 
-        getTabUrl: ''
+        getTabUrl: '',
+
+        validation: {},
+        errorMessageContainer: '.bs-errorMessage',
+        errorMessageHolder : '.bs-errorMessageHolder'
+        
     };
     //#endregion
 
@@ -334,7 +339,7 @@
             $movableItems = currentTab.container.find(this.options.tabItemSelector),
             hasMoved = false;
 
-        $movableItems.each($.proxy(function(idx, tabItem) {
+        $movableItems.each($.proxy(function (idx, tabItem) {
 
             var $tabItem = $(tabItem);
 
@@ -477,6 +482,8 @@
                         $group: $group
                     });
 
+                    this.validateUnobtrusive();
+
                     $tabItem.effect('transfer', {
                         to: $group.find($template)
                     });
@@ -564,7 +571,12 @@
 
     };
 
-    GroupEditor.prototype._ajaxSaveGroupError = function () {
+    GroupEditor.prototype._ajaxSaveGroupError = function (data, callbackData) {
+
+        if (typeof data !== "undefined" && typeof data.Message === "string") {
+            this._showValidationError(data.Message);
+        }
+
         this._trigger('onSaveError', 0, arguments);
     };
 
@@ -981,6 +993,8 @@
                 $group: $group
             });
 
+            this.validateUnobtrusive();
+
             this._checkItem(this._getTabItem(tabId, objId), tabId, connectsWith);
 
         } else {
@@ -1038,11 +1052,12 @@
     //#endregion
 
     //#region Public methods
-    GroupEditor.prototype.parse = function () {
+    GroupEditor.prototype.parse = function (preventValidation) {
 
         var parseData = {},
             $groupList = this.$groups.find(this.options.groupSelector),
-            isValid = true;
+            isValid = true,
+            itemsCount = 0;
 
         $groupList.each($.proxy(function (index, group) {
             var $group = $(group),
@@ -1094,6 +1109,8 @@
 
                 groupData.Items.push(itemModel);
 
+                itemsCount++;
+
             }, this));
 
             this._trigger('getExtraGroupData', 0, [groupData, $group]);
@@ -1111,8 +1128,8 @@
             var $form = this.$groupForm.find('form');
 
             if ($form.length) {
-                $.validator.unobtrusive.parse($form);
 
+                $.validator.unobtrusive.parse($form);
                 var groupFormValidator = $form.validate(),
                     isGroupFormValid = $form.valid();
 
@@ -1126,6 +1143,12 @@
 
                 isValid = isValid && groupFormValidationData.valid;
             }
+        }
+
+        isValid = this.valid() && isValid;
+
+        if (isValid) {
+            this._removeValidationError();
         }
 
         return {
@@ -1298,6 +1321,108 @@
             tabModel: searchData.tabModel,
             data: searchData.data
         });
+
+    };
+    //#endregion
+
+    //#region Validation
+    GroupEditor.prototype.valid = function() {
+
+        var isValid = true;
+
+        for (var key in this.options.validation) {
+            if (typeof this["_validate_" + key] === "function") {
+                isValid = this["_validate_" + key].apply(this, [true, key]) && isValid;
+            }
+        }
+
+        return isValid;
+    };
+
+    GroupEditor.prototype.validateUnobtrusive = function() {
+        var isValid = true;
+
+        for (var key in this.options.validation) {
+            if (this.options.validation[key].unobtrusive === true && typeof this["_validate_" + key] === "function") {
+
+                isValid = this["_validate_" + key].apply(this, [true, key]) && isValid;
+            }
+        }
+
+        if (isValid) {
+            this._removeValidationError();
+        }
+
+        return isValid;
+    };
+
+    GroupEditor.prototype._showValidationError = function (message) {
+        var $saveBtn = this.$element.find(this.options.saveBtn);
+
+        if (!$saveBtn.hasClass('btn-danger')) {
+            this.$element.find(this.options.saveBtn).removeClass('btn-white').addClass('btn-danger');
+        }
+
+        if (typeof message !== "undefined") {
+            var $error = this._createErrorContainer(message);
+            this.$element.find(this.options.groupSelector).first().before($error);
+
+            $.bforms.scrollToElement($error);
+        }
+    };
+
+    GroupEditor.prototype._removeValidationError = function () {
+        var $saveBtn = this.$element.find(this.options.saveBtn);
+
+        if (!$saveBtn.hasClass('btn-white')) {
+            this.$element.find(this.options.saveBtn).removeClass('btn-danger').addClass('btn-white');
+        }
+
+        this.$element.find(this.options.errorMessageContainer).remove();
+    };
+
+    GroupEditor.prototype._createErrorContainer = function(message) {
+        var $error = $("<div></div>").addClass("alert alert-danger").addClass(this.options.errorMessageContainer.replace('.',''));
+
+        var $closeBtn = $("<button></button>").addClass("close").attr('data-dismiss', 'alert').prop('type', 'button').text('×');
+
+        var $messageHolder = $("<div></div>").addClass(this.options.errorMessageHolder.replace('.', ''));
+
+        if (typeof message !== "undefined") {
+            $messageHolder.html(message);
+        }
+
+        $error.append($closeBtn).append($messageHolder);
+
+        return $error;
+    };
+
+    GroupEditor.prototype._validate_required = function (showError, rule) {
+
+        var itemsCount = this.$element.find(this.options.groupItemSelector).length;
+
+        var isValid = itemsCount > 0;
+
+        if(!isValid && showError === true) {
+            if (typeof this["_showError_" + rule] === "function") {
+                this["_showError_" + rule].apply(this, [this.options.validation[rule].message]);
+            } else {
+                this._showValidationError(this.options.validation[rule].message);
+            }
+        }
+
+        return isValid;
+    };
+
+    GroupEditor.prototype.addValidationRule = function(rule, validationFunc, errorFunc) {
+
+        if (typeof validationFunc === "function") {
+            this["_validate_" + rule] = validationFunc;
+        }
+
+        if (typeof errorFunc === "function") {
+            this["_showError_" + rule] = errorFunc;
+        }
 
     };
     //#endregion

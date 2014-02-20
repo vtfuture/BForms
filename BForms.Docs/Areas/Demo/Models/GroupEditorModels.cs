@@ -70,7 +70,7 @@ namespace BForms.Docs.Areas.Demo.Models
     {
         [BsControl(BsControlType.TextBox)]
         [Display(Name = "Name", Prompt = "Name", ResourceType = typeof(Resource))]
-        [Required]
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
         public string Name { get; set; }
     }
 }

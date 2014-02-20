@@ -460,14 +460,17 @@ namespace BForms.Docs.Areas.Demo.Repositories
                     {
                         ItemValue = 18,
                         MinValue = 10,
+                        TextValue = "18",
                         Display = "Start"
                     },
                     To = new BsRangeItem<int?>
                     {
                         ItemValue = 21,
                         MaxValue = 100,
+                        TextValue = "21",
                         Display = "End"
-                    }
+                    },
+                    TextValue = "18 - 21"
                 }
             };
         }
