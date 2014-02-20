@@ -1369,7 +1369,14 @@
 
         if (typeof message !== "undefined") {
             var $error = this._createErrorContainer(message);
-            this.$element.find(this.options.groupSelector).first().before($error);
+
+            var $oldError = this.$element.find(this.options.errorMessageContainer);
+
+            if ($oldError.length) {
+                $oldError.replaceWith($error);
+            } else {
+                this.$element.find(this.options.groupSelector).first().before($error);
+            }
 
             $.bforms.scrollToElement($error);
         }
