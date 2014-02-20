@@ -1191,10 +1191,14 @@
             });
         }, this));
 
-
         this._uncheckAllItems();
 
         this._rebuildNumbers();
+
+        this._removeValidationError();
+
+        //reset forms
+        this.$element.find('form').bsResetForm();
 
         this._trigger('afterReset');
     };
