@@ -296,7 +296,7 @@
                     var $target = $(e.target);
 
                     if ($target[0] != this.$element[0] && $target.closest('.bs-datetime-picker').length === 0) {
-                        if ((!$target.hasClass('glyphicon') || $target.parent()[0] != this.$input.parent()[0]) && !$target.hasClass(this.options.ignoreBlurClass)) {
+                        if ((!$target.hasClass('glyphicon') || (typeof this.$input !== "undefined" && $target.parent()[0] != this.$input.parent()[0])) && !$target.hasClass(this.options.ignoreBlurClass)) {
 
                             var allowHide = true;
 

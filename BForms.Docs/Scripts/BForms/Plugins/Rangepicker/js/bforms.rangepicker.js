@@ -27,7 +27,7 @@
 
         if (this.$element.is('input')) {
             this.$input = this.$element;
-            if (this.options.readonlyInput || ($.browser != null && $.browser.mobile == true)) {
+            if (!this.options.isSingleNumberInline && (this.options.readonlyInput || ($.browser != null && $.browser.mobile == true))) {
                 this.$input.prop('readonly', true);
             }
         }
