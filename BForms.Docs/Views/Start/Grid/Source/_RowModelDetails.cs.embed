@@ -16,4 +16,9 @@
 
         [BsGridColumn(Width = 2, IsEditable = false, IsSortable = true)]
         public bool Recommended { get; set; }
+
+        public override object GetUniqueID()
+        {
+            return Id;
+        }
     }

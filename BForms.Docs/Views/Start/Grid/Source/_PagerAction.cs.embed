@@ -1,4 +1,4 @@
-﻿public BsJsonResult Pager(BsGridBaseRepositorySettings model)
+﻿public BsJsonResult Pager(BsGridBaseRepositorySettings settings)
 {
     var msg = string.Empty;
     var status = BsResponseStatus.Success;
@@ -7,7 +7,7 @@
 
     try
     {
-        var viewModel = _gridRepository.ToBsGridViewModel(model, out count).Wrap<MoviesViewModel>(x => x.Grid);
+        var viewModel = _gridRepository.ToBsGridViewModel(settings, out count).Wrap<MoviesViewModel>(x => x.Grid);
 
         html = this.BsRenderPartialView("Grid/_Grid", viewModel);
     }
