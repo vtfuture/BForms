@@ -38,7 +38,7 @@ namespace BForms.Grid
             {
                 storedExpression = expression;
             }
-            
+
             public IOrderedQueryable<TEntity> OrderBy(IQueryable<TEntity> query)
             {
                 return query.OrderBy(storedExpression);
@@ -120,7 +120,7 @@ namespace BForms.Grid
 
                 IOrderedQueryable<TEntity> orderedQuery = defaultOrderFunc(query);
 
-                if (this.columnsOrder != null && this.columnsOrder.Any())
+                if (this.columnsOrder != null && this.columnsOrder.Any(column => column != null))
                 {
                     this.columnsOrder.Reverse();
 
@@ -232,7 +232,7 @@ namespace BForms.Grid
 
             return this.ToBsGridViewModel(gridRepositorySettings);
         }
-        
+
         /// <summary>
         /// Creates GridModel for added row
         /// </summary>
