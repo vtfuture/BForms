@@ -131,7 +131,7 @@
             </pre>
             <br />
             <p>
-                Here we use <code>orderQueryBuilder</code> property to order the query. In this example we order the query by WeekendRevenue descending. You can use any property of your model to set the initial order for your grid. Also if you have columns that don’t have an exact correspondent in your entity model, you have to use the <code>OrderFor()</code> method to specify the mapping. In this example we specify that the Recommended property of our row model will correspond to the IsRecommended property of our Movie Entity. Another usage of the OrderFor method would be to map one column to multiple properties of the entity.
+                Here we use <code>orderedQueryBuilder</code> property to order the query. In this example we order the query by WeekendRevenue descending. You can use any property of your model to set the initial order for your grid. Also if you have columns that don’t have an exact correspondent in your entity model, you have to use the <code>OrderFor()</code> method to specify the mapping. In this example we specify that the Recommended property of our row model will correspond to the IsRecommended property of our Movie Entity. Another usage of the OrderFor method would be to map one column to multiple properties of the entity.
             </p>
             <p>
                 The final method we must implement is <code>MapQuery()</code>. This method is used make the select and convert your entities in row models. To do this, you will most likely implement a mapper(TEntity, TRow) to use in the select.
@@ -282,7 +282,7 @@
             </p>
             <h4>Row Model</h4>
             <p>
-                We also need to change the <code>MoviesRowModel</code> to inherit from the <code>BsGridRowModel&lt;MovieDetailsModel&gt;</code>. We'll need this in our Grid Partial View to create a <code>BsGridHtmlBuilder</code> object.
+                We also need to change the <code>MoviesRowModel</code> to inherit from the <code>BsGridRowModel&lt;MovieDetailsModel&gt;</code>. We'll need this in our Grid Partial View to create a <code>BsGridHtmlBuilder</code> object. The inherited class has an abstract method named <code>GetUniqueID()</code>, so we have to override this method to return the unique id for the Row Model.
             </p>
             <pre class="prettyprint bs-example">
 @Html.InsertFileContentCached("~/Views/Start/Grid/Source/_RowModelDetails.cs.embed")
@@ -526,14 +526,14 @@
             </pre>
             <br />
             <p>
-                The final step is to add the <code>deleteUrl</code> and <code>recommendUrl</code> to the RequireJs options.
+                The final step is to add the <code>deleteUrl</code> and <code>recommendUnrecommendUrl</code> to the RequireJs options.
             </p>
             <pre class="prettyprint bs-example">
 @Html.InsertFileContentCached("~/Views/Start/Grid/Source/_IndexActionFinal.cs.embed")
             </pre>
             <br />
             <p>
-                Now we have a functional grid. We can edit, delete and toggle rows. This is how the grid looks like with an expanded row.
+                Now we have a functional grid. We can edit, delete and toggle the recommendation for each row. This is how the grid looks like with an expanded row.
             </p>
             <div class="bs-example bs-img-example">
                 <img src="@Url.Content("~/Content/images/docs/eg-grid-final.png")" />
