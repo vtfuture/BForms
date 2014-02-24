@@ -1101,8 +1101,8 @@
 
                     isValid = isValid && validationData.valid;
 
-                    $.extend(true, itemModel, $form.parseForm(prefix));
-
+                    //set form data to itemModel
+                    itemModel.Form = $form.parseForm(prefix);
                 }
 
                 this._trigger('getExtraItemData', 0, [itemModel, $item, $group]);
