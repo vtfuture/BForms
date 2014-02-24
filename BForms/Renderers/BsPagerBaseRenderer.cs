@@ -159,12 +159,16 @@ namespace BForms.Renderers
                                       ? this.Builder.pager.TotalRecords
                                       : this.Builder.pager.CurrentPage * this.Builder.pager.PageSize;
 
+                    var lastBuilder = new TagBuilder("span");
+                    lastBuilder.AddCssClass("bs-topResultsMargin");
+                    lastBuilder.InnerHtml += lastIdx;
+
                     var totalCountBuilder = new TagBuilder("span");
                     totalCountBuilder.InnerHtml += this.Builder.pager.TotalRecords;
 
                     //TODO:
                     var template = "{0}-{1} " + BsResourceManager.Resource("Of") + " {2} " + BsResourceManager.Resource("Items");
-                    var result = string.Format(template, firstIdx, lastIdx, totalCountBuilder.ToString()); //"Rezultate " + firstIdx + "–" + lastIdx + " din";
+                    var result = string.Format(template, firstIdx, lastBuilder, totalCountBuilder.ToString()); //"Rezultate " + firstIdx + "–" + lastIdx + " din";
 
                     textBuilder.InnerHtml += result;
 

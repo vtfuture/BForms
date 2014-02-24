@@ -395,7 +395,7 @@
 
         this._currentResultsCount++;
 
-        this._changeCount();
+        this.$pager.bsPager('add');
 
         if (this.$rowsContainer.hasClass('no_results')) {
             this.$rowsContainer.removeClass('no_results');
@@ -1139,7 +1139,6 @@
     Grid.prototype._changeCount = function () {
 
         this.$gridCountContainer.html(this._currentResultsCount);
-
     };
 
     Grid.prototype._pagerAjaxError = function (data) {

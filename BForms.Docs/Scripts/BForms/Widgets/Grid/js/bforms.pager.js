@@ -15,6 +15,7 @@
         pageSizeSelector: '.bs-perPage',
         currentPageSelector: 'active',
         disabledPageSelector: 'disabled',
+        topResultsMargin : '.bs-topResultsMargin',
         totalsContainerSelector: '.results_number span',
         pageSizeContainerSelector: '.results_per_page',
         perPageDisplaySelector: '.bs-perPageDisplay',
@@ -102,22 +103,39 @@
         var $pagesContainer = this.element.find(this.options.pagesContainerSelector);
 
         if ($pagesContainer.length > 0) {
-
             $pagesContainer.html($pagesHtml.children());
-
         } else {
-
             this.element.html($pagesHtml);
-
         }
 
         $pagesHtml.length == 0 ? $pageSizeContainer.hide() : $pageSizeContainer.show();
     };
 
+    Pager.prototype.add = function () {
+
+        var currentPage = window.parseInt(this.element.find('.' + this.options.currentPageSelector).find('a').data('page'),10);
+
+        var oldTotal = window.parseInt(this.element.find(this.options.totalsContainerSelector).not(this.options.topResultsMargin).text(), 10);
+        if (!window.isNaN(oldTotal)) {
+            var newTotal = oldTotal + 1;
+
+            this.element.find(this.options.totalsContainerSelector).not(this.options.topResultsMargin).html(newTotal);
+        }
+
+        var oldTopMargin = window.parseInt(this.element.find(this.options.topResultsMargin).text(), 10);
+
+        if (!window.isNaN(oldTopMargin)) {
+            var pageSize = this.getPageSize();
+            debugger;
+            if (oldTopMargin > pageSize * (currentPage - 1) &&  oldTopMargin < pageSize * currentPage) {
+                var newTopMargin = oldTopMargin + 1;
+                this.element.find(this.options.topResultsMargin).text(newTopMargin);
+            }
+        }
+    };
+
     Pager.prototype.updateTotal = function (total) {
-
         this.element.find(this.options.totalsContainerSelector).html(total);
-
     };
 
     Pager.prototype.selectValue = function (value) {

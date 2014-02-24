@@ -1219,6 +1219,8 @@
         tabModel.container.find(this.options.tabItemsListSelector).prepend($row);
 
         $row.draggable(this._getDraggableOptions(tabModel));
+
+        tabModel.container.find('.bs-pager').bsPager('add');
     };
 
     GroupEditor.prototype.getItemCount = function (itemId, tabId) {

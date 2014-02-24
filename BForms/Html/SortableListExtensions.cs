@@ -622,29 +622,38 @@ namespace BForms.Html
     {
         public override string Render()
         {
-            var innerHtml = this.Builder.List.Children.Aggregate(String.Empty, (current, item) => current + this.Builder.RenderInternal(item));
-
-            var ol = new TagBuilder("ol") { InnerHtml = innerHtml };
-
-            ol.MergeAttributes(this.Builder.globalHtmlAttributes);
-            ol.MergeAttributes(this.Builder.globalDataAttributes.ToDictionary(x => "data-" + x.Key, y => y.Value));
-
-            if (this.Builder.globalHtmlAttributes.ContainsKey("class"))
+            if (this.Builder.List.Children != null)
             {
-                ol.Attributes["class"] += " bs-sortable";
+                var innerHtml = this.Builder.List.Children.Aggregate(String.Empty,
+                    (current, item) => current + this.Builder.RenderInternal(item));
+
+                var ol = new TagBuilder("ol") {InnerHtml = innerHtml};
+
+                ol.MergeAttributes(this.Builder.globalHtmlAttributes);
+                ol.MergeAttributes(this.Builder.globalDataAttributes.ToDictionary(x => "data-" + x.Key, y => y.Value));
+
+                if (this.Builder.globalHtmlAttributes.ContainsKey("class"))
+                {
+                    ol.Attributes["class"] += " bs-sortable";
+                }
+                else
+                {
+                    ol.Attributes.Add("class", "bs-sortable");
+                }
+
+
+                var container = new TagBuilder("div") {InnerHtml = ol.ToString()};
+
+                container.Attributes.Add("class", "sortable-container");
+                container.Attributes.Add("data-parent-property", this.Builder.ParentPropertyName);
+
+                return container.ToString();
             }
             else
             {
-                ol.Attributes.Add("class", "bs-sortable");
+                return string.Empty;
             }
-            
-
-            var container = new TagBuilder("div") {InnerHtml = ol.ToString()};
-
-            container.Attributes.Add("class", "sortable-container");
-            container.Attributes.Add("data-parent-property", this.Builder.ParentPropertyName);
-
-            return container.ToString();
+           
         }
     }
 
