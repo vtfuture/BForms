@@ -35,8 +35,10 @@
         formOptions: {
 
         },
-        
-        retryMessage : 'Reload'
+
+        formSelector: 'form',
+
+        retryMessage: 'Reload'
     };
 
     //#region init
@@ -51,7 +53,7 @@
         this._initDefaultProperties();
         this._initSelectors();
         this._delegateEvents();
-      
+
         if (this.options.loaded === true) {
             this._initControls();
             this._loadState();
@@ -65,7 +67,7 @@
                 this._initCurrentContent();
             }, this));
         }
-            
+
         if (!this.$toggleEleemnt.data("expandable")) {
             this._loadState(true);
         }
@@ -286,7 +288,7 @@
                            '<button class="close" data-dismiss="alert" type="button">×</button>' +
                                message +
                             '<div>' +
-                                '<a href="#" class="bs-retryBtn" data-method="' + method + '">' + this.options.retryMessage +' <span class="glyphicon glyphicon-refresh"></span> </a>' +
+                                '<a href="#" class="bs-retryBtn" data-method="' + method + '">' + this.options.retryMessage + ' <span class="glyphicon glyphicon-refresh"></span> </a>' +
                             '</div>' +
                        '</div>');
         if (replace) {
@@ -299,7 +301,7 @@
 
     bsPanel.prototype._initEditable = function () {
 
-        var $form = this.$content.find('form').show(),
+        var $form = this.$content.find(this.options.formSelector).show(),
             $saveBtn = $form.find(this.options.saveFormSelector);
 
         this._allowExpand = true;
@@ -349,7 +351,7 @@
             }]
         }, this.options.formOptions);
 
-        this.$content.find('form').bsForm(formOptions);
+        this.$content.find(this.options.formSelector).bsForm(formOptions);
 
         this._trigger('afterFormInit', 0);
     };
@@ -362,7 +364,7 @@
 
         this._trigger('beforeReadonlyLoad', data);
 
-        this.$content.find('form').addClass('loading');
+        this.$content.find(this.options.formSelector).addClass('loading');
 
         return $.bforms.ajax({
             name: 'BsPanel|LoadReadonly|' + this._name,
@@ -394,7 +396,7 @@
 
     bsPanel.prototype._onReadonlyLoadError = function (data) {
 
-        this.$content.find('form').removeClass('loading');
+        this.$content.find(this.options.formSelector).removeClass('loading');
 
         if (data.Message) {
 
@@ -417,7 +419,7 @@
 
         this._trigger('beforeEditableLoad', data);
 
-        this.$content.find('form').addClass('loading');
+        this.$content.find(this.options.formSelector).addClass('loading');
 
         return $.bforms.ajax({
             name: 'BsPanel|LoadEditable|' + this._name,
@@ -433,8 +435,8 @@
 
     bsPanel.prototype._onEditableLoadSuccess = function (response) {
 
-        if (this.options.cacheReadonlyContent && this._readonly == true ) {
-            this._cachedReadonlyContent = this.$content.clone().find('form').removeClass('loading').end()
+        if (this.options.cacheReadonlyContent && this._readonly == true) {
+            this._cachedReadonlyContent = this.$content.clone().find(this.options.formSelector).removeClass('loading').end()
                                                                 .html();
         }
 
@@ -454,7 +456,7 @@
 
     bsPanel.prototype._onEditableLoadError = function (data) {
 
-        this.$content.find('form').removeClass('loading');
+        this.$content.find(this.options.formSelector).removeClass('loading');
 
         if (data.Message) {
 
@@ -528,8 +530,8 @@
         this._trigger('onEditableShow', 0);
     };
 
-    bsPanel.prototype.save = function() {
-        var $form = this.$content.find('form');
+    bsPanel.prototype.save = function () {
+        var $form = this.$content.find(this.options.formSelector);
 
         if (typeof $form.bsForm === "function") {
             $form.bsForm('triggerAction', 'save');
@@ -537,7 +539,7 @@
     };
 
     bsPanel.prototype.refresh = function () {
-        
+
         var method = this._readonly ? '_loadReadonlyContent' : "_loadEditableContent";
 
         this[method]().then($.proxy(function () {
@@ -545,7 +547,7 @@
             this._loadState();
 
         }, this));
-        
+
     };
     //#endregion
 
