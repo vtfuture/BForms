@@ -402,41 +402,48 @@ namespace BForms.Grid
                         value = property.GetValue(item);
                     }
 
-                    var strValue = value as string;
-
-                    if (strValue != null)
+                    if (value != null)
                     {
-                        row.AppendChild(ExcelHelpers.CreateTextCell(strValue, (UInt32)formatId));
+                        var strValue = value as string;
+
+                        if (strValue != null)
+                        {
+                            row.AppendChild(ExcelHelpers.CreateTextCell(strValue, (UInt32)formatId));
+                        }
+                        else
+                        {
+                            DateTime dateValue;
+                            int intValue;
+                            long longValue;
+                            double doubleValue;
+
+                            if (DateTime.TryParse(value.ToString(), out dateValue))
+                            {
+                                // ToOADate => excel representation of DateTime - TODO: format date
+                                row.AppendChild(ExcelHelpers.CreateTextCell(dateValue.ToShortDateString(), (UInt32)formatId));
+                            }
+                            else if (int.TryParse(value.ToString(), out intValue))
+                            {
+                                row.AppendChild(ExcelHelpers.CreateValueCell(intValue, (UInt32)formatId, CellValues.Number));
+
+                            }
+                            else if (long.TryParse(value.ToString(), out longValue))
+                            {
+                                row.AppendChild(ExcelHelpers.CreateValueCell(longValue, (UInt32)formatId, CellValues.Number));
+                            }
+                            else if (Double.TryParse(value.ToString(), out doubleValue))
+                            {
+                                row.AppendChild(ExcelHelpers.CreateValueCell(doubleValue, (UInt32)formatId, CellValues.Number));
+                            }
+                            else // not supported type
+                            {
+                                throw new Exception(column + " is not of type string");
+                            }
+                        }
                     }
                     else
                     {
-                        DateTime dateValue;
-                        int intValue;
-                        long longValue;
-                        double doubleValue;
-
-                        if (DateTime.TryParse(value.ToString(), out dateValue))
-                        {
-                            // ToOADate => excel representation of DateTime - TODO: format date
-                            row.AppendChild(ExcelHelpers.CreateTextCell(dateValue.ToShortDateString(), (UInt32)formatId));
-                        }
-                        else if (int.TryParse(value.ToString(), out intValue))
-                        {
-                            row.AppendChild(ExcelHelpers.CreateValueCell(intValue, (UInt32)formatId, CellValues.Number));
-
-                        }
-                        else if (long.TryParse(value.ToString(), out longValue))
-                        {
-                            row.AppendChild(ExcelHelpers.CreateValueCell(longValue, (UInt32)formatId, CellValues.Number));
-                        }
-                        else if (Double.TryParse(value.ToString(), out doubleValue))
-                        {
-                            row.AppendChild(ExcelHelpers.CreateValueCell(doubleValue, (UInt32)formatId, CellValues.Number));
-                        }
-                        else // not supported type
-                        {
-                            throw new Exception(column + " is not of type string");
-                        }
+                        row.AppendChild(ExcelHelpers.CreateTextCell(string.Empty, (UInt32)formatId));
                     }
                     #endregion
                 }
