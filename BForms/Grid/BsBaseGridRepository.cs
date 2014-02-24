@@ -120,7 +120,7 @@ namespace BForms.Grid
 
                 IOrderedQueryable<TEntity> orderedQuery = defaultOrderFunc(query);
 
-                if (this.columnsOrder != null && this.columnsOrder.Any(column => column != null))
+                if (this.columnsOrder != null && this.columnsOrder.Any())
                 {
                     this.columnsOrder.Reverse();
 

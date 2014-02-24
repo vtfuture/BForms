@@ -45,6 +45,7 @@ namespace BForms.Grid
         {
             this.Page = 1;
             this.PageSize = 5;
+            this.OrderableColumns= new List<BsColumnOrder>();
         }
 
         public void SetDetailsInterval(int count)
