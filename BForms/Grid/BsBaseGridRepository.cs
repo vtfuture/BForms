@@ -38,7 +38,7 @@ namespace BForms.Grid
             {
                 storedExpression = expression;
             }
-            
+
             public IOrderedQueryable<TEntity> OrderBy(IQueryable<TEntity> query)
             {
                 return query.OrderBy(storedExpression);
@@ -232,7 +232,7 @@ namespace BForms.Grid
 
             return this.ToBsGridViewModel(gridRepositorySettings);
         }
-        
+
         /// <summary>
         /// Creates GridModel for added row
         /// </summary>
