@@ -68,6 +68,7 @@ namespace BForms.Grid
         internal string noRecordsTemplate;
         internal string noResultsTemplate;
         internal bool isAjaxRequest = false;
+        internal bool? ignoreAjaxRequest { get; set; }
 
         internal void SetPropsFromAttributes(object[] attributes)
         {
@@ -188,6 +189,13 @@ namespace BForms.Grid
             resetButton.InnerHtml += resetButtonSpan.ToString();
 
             this.resetButtonHtml = resetButton.ToString();
+
+            return this;
+        }
+
+        public BsGridHtmlBuilder<TModel, TRow> IgnoreAjaxRequest(bool ignoreAjaxRequest)
+        {
+            this.ignoreAjaxRequest = ignoreAjaxRequest;
 
             return this;
         }
