@@ -391,23 +391,38 @@ namespace BForms.Docs.Areas.Demo.Repositories
             return result;
         }
 
-        public void Reorder(List<ContributorOrderModel> model)
+        public void Reorder(List<ContributorOrderModel> model, int? parentId = null, bool saveChanges = true)
         {
             if (model != null)
             {
+                var ids = model.Select(x => x.Id);
+                var contributors = db.Contributors.Where(x => ids.Contains(x.Id));
+                var order = 1;
+
                 foreach (var item in model)
                 {
-                    var entity = db.Contributors.FirstOrDefault(x => x.Id == item.Id);
+                    var contributor = db.Contributors.FirstOrDefault(x => x.Id == item.Id);
 
-                    if (entity != null)
+                    if (contributor != null)
                     {
-                        entity.Order = item.Order;
-                        entity.Id_Coordinator = item.ParentId;
+                        contributor.Order = order;
+                        contributor.Id_Coordinator = parentId;
+
+                        order++;
+
+                        var subordinates = item.Subordinates;
+
+                        if (subordinates != null && subordinates.Any())
+                        {
+                            Reorder(subordinates.ToList(), contributor.Id, false);
+                        }
                     }
                 }
 
-                db.SaveChanges();
-
+                if (saveChanges)
+                {
+                    db.SaveChanges();
+                }
             }
 
         }

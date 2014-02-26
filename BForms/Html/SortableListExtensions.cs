@@ -10,16 +10,13 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Razor.Editor;
+using System.Web.Razor.Parser.SyntaxTree;
 using System.Web.Routing;
 using System.Xml.Linq;
 using BForms.Models;
 using BForms.Mvc;
 using BForms.Renderers;
 using BForms.Utilities;
-using DocumentFormat.OpenXml.Drawing;
-using DocumentFormat.OpenXml.Drawing.Charts;
-using DocumentFormat.OpenXml.Office.CustomUI;
-using DocumentFormat.OpenXml.Wordprocessing;
 
 namespace BForms.Html
 {
@@ -173,6 +170,7 @@ namespace BForms.Html
         private Expression<Func<TModel, HtmlProperties>> _itemProperties;
         private Expression<Func<TModel, HtmlProperties>> _labelProperties;
         private Expression<Func<TModel, HtmlProperties>> _badgeProperties;
+        private Expression<Func<TModel, HtmlProperties>> _emptyHtmlPropertiesExpression;
 
         public BsSortableListHtmlBuilder(IEnumerable<TModel> model,
             ViewContext viewContext,
@@ -185,18 +183,20 @@ namespace BForms.Html
         {
             Model = model;
 
+            _emptyHtmlPropertiesExpression = x => new HtmlProperties();
+
             _reducedTree = GetReducedTree(model);
 
             List = Build(model, config, globalProperties, itemProperties, labelProperties, badgeProperties);
 
             _config = config;
-            _globalProperties = globalProperties;
-            _itemProperties = itemProperties;
-            _labelProperties = labelProperties;
-            _badgeProperties = badgeProperties;
+            _globalProperties = globalProperties ?? _emptyHtmlPropertiesExpression;
+            _itemProperties = itemProperties ?? _emptyHtmlPropertiesExpression;
+            _labelProperties = labelProperties ?? _emptyHtmlPropertiesExpression;
+            _badgeProperties = badgeProperties ?? _emptyHtmlPropertiesExpression;
 
             globalHtmlAttributes = new Dictionary<string, object>();
-            globalDataAttributes = new Dictionary<string, object>(){{"migration-permited", true}};
+            globalDataAttributes = new Dictionary<string, object>() { { "migration-permited", true } };
         }
 
         #region Build & Render
@@ -256,7 +256,7 @@ namespace BForms.Html
 
             if (configProps != null)
             {
-                var connectionString = String.Join(" ", _permitedConnections[configProps.Id].OrderBy(x => x)); 
+                var connectionString = String.Join(" ", _permitedConnections[configProps.Id].OrderBy(x => x));
 
                 dataAttributes = DictionaryFromAttributes(itemProps.DataAttributes, "data-");
 
@@ -273,7 +273,7 @@ namespace BForms.Html
             #region Label
 
             htmlAttributes = DictionaryFromAttributes(labelProps.HtmlAttributes);
-            
+
 
             sortableListItemWrapper.LabelTag.MergeAttributes(htmlAttributes);
             sortableListItemWrapper.LabelTag.MergeAttributes(DictionaryFromAttributes(labelProps.DataAttributes, "data-"));
@@ -511,7 +511,9 @@ namespace BForms.Html
             return htmlString;
         }
 
-        public BsSortableListHtmlBuilder<TModel> Renderer(BsSortableBaseRenderer<TModel> renderer)
+
+
+        public BsSortableListHtmlBuilder<TModel> Renderer(BsBaseRenderer<BsSortableListHtmlBuilder<TModel>> renderer)
         {
             renderer.Register(this);
             this.renderer = renderer;
@@ -589,6 +591,127 @@ namespace BForms.Html
             return this;
         }
 
+        #region Individual component configuration
+
+        public BsSortableListHtmlBuilder<TModel> HtmlAttributes(object attributes)
+        {
+            var globalPropertiesFunc = _globalProperties.Compile();
+
+            _globalProperties = x => new HtmlProperties
+            {
+                HtmlAttributes = attributes,
+                DataAttributes = globalPropertiesFunc.Invoke(x).DataAttributes,
+                Text = globalPropertiesFunc.Invoke(x).Text
+            };
+
+            this.List = Build(this.Model, _config, _globalProperties, _itemProperties, _labelProperties, _badgeProperties);
+
+            return this;
+        }
+
+        public BsSortableListHtmlBuilder<TModel> DataAttributes(object attributes)
+        {
+            var globalPropertiesFunc = _globalProperties.Compile();
+
+            _globalProperties = x => new HtmlProperties
+            {
+                HtmlAttributes = globalPropertiesFunc.Invoke(x).HtmlAttributes,
+                DataAttributes = attributes,
+                Text = globalPropertiesFunc.Invoke(x).Text
+            };
+
+            this.List = Build(this.Model, _config, _globalProperties, _itemProperties, _labelProperties, _badgeProperties);
+
+            return this;
+        }
+
+        public BsSortableListHtmlBuilder<TModel> ItemHtmlAttributes(Expression<Func<TModel, object>> attributes)
+        {
+            var itemPropertiesFunc = _itemProperties.Compile();
+            var attributesFunc = attributes.Compile();
+
+            _itemProperties = x => new HtmlProperties
+            {
+                HtmlAttributes = attributesFunc.Invoke(x),
+                DataAttributes = itemPropertiesFunc.Invoke(x).DataAttributes,
+                Text = itemPropertiesFunc.Invoke(x).Text
+            };
+
+            this.List = Build(this.Model, _config, _globalProperties, _itemProperties, _labelProperties, _badgeProperties);
+
+            return this;
+        }
+
+        public BsSortableListHtmlBuilder<TModel> BadgeHtmlAttributes(Expression<Func<TModel, object>> attributes)
+        {
+            var badgePropertiesFunc = _badgeProperties.Compile();
+            var attributesFunc = attributes.Compile();
+
+            _badgeProperties = x => new HtmlProperties
+            {
+                HtmlAttributes = attributesFunc.Invoke(x),
+                DataAttributes = badgePropertiesFunc.Invoke(x).DataAttributes,
+                Text = badgePropertiesFunc.Invoke(x).Text
+            };
+
+            this.List = Build(this.Model, _config, _globalProperties, _itemProperties, _labelProperties, _badgeProperties);
+
+            return this;
+        }
+
+        public BsSortableListHtmlBuilder<TModel> LabelHtmlAttributes(Expression<Func<TModel, object>> attributes)
+        {
+            var labelPropertiesFunc = _labelProperties.Compile();
+            var attributesFunc = attributes.Compile();
+
+            _labelProperties = x => new HtmlProperties
+            {
+                HtmlAttributes = attributesFunc.Invoke(x),
+                DataAttributes = labelPropertiesFunc.Invoke(x).DataAttributes,
+                Text = labelPropertiesFunc.Invoke(x).Text
+            };
+
+            this.List = Build(this.Model, _config, _globalProperties, _itemProperties, _labelProperties, _badgeProperties);
+
+            return this;
+        }
+
+        public BsSortableListHtmlBuilder<TModel> BadgeText(Expression<Func<TModel, string>> text)
+        {
+            var badgePropertiesFunc = _badgeProperties.Compile();
+            var textFunc = text.Compile();
+
+            _badgeProperties = x => new HtmlProperties
+            {
+                HtmlAttributes = badgePropertiesFunc.Invoke(x).HtmlAttributes,
+                DataAttributes = badgePropertiesFunc.Invoke(x).DataAttributes,
+                Text = textFunc.Invoke(x)
+            };
+
+            this.List = Build(this.Model, _config, _globalProperties, _itemProperties, _labelProperties, _badgeProperties);
+
+            return this;
+        }
+
+        public BsSortableListHtmlBuilder<TModel> LabelText(Expression<Func<TModel, string>> text)
+        {
+            var labelPropertiesFunc = _labelProperties.Compile();
+            var textFunc = text.Compile();
+
+            _labelProperties = x => new HtmlProperties
+            {
+                HtmlAttributes = labelPropertiesFunc.Invoke(x).HtmlAttributes,
+                DataAttributes = labelPropertiesFunc.Invoke(x).DataAttributes,
+                Text = textFunc.Invoke(x)
+            };
+
+            this.List = Build(this.Model, _config, _globalProperties, _itemProperties, _labelProperties, _badgeProperties);
+
+            return this;
+        }
+
+        #endregion
+
         #endregion
 
         #region Helpers
@@ -622,38 +745,180 @@ namespace BForms.Html
     {
         public override string Render()
         {
-            if (this.Builder.List.Children != null)
+            var innerHtml = this.Builder.List.Children.Aggregate(String.Empty, (current, item) => current + this.RenderInternal(item));
+
+            var ol = new TagBuilder("ol") { InnerHtml = innerHtml };
+
+            ol.MergeAttributes(this.Builder.globalHtmlAttributes);
+            ol.MergeAttributes(this.Builder.globalDataAttributes.ToDictionary(x => "data-" + x.Key, y => y.Value));
+
+            if (this.Builder.globalHtmlAttributes.ContainsKey("class"))
             {
-                var innerHtml = this.Builder.List.Children.Aggregate(String.Empty,
-                    (current, item) => current + this.Builder.RenderInternal(item));
-
-                var ol = new TagBuilder("ol") {InnerHtml = innerHtml};
-
-                ol.MergeAttributes(this.Builder.globalHtmlAttributes);
-                ol.MergeAttributes(this.Builder.globalDataAttributes.ToDictionary(x => "data-" + x.Key, y => y.Value));
-
-                if (this.Builder.globalHtmlAttributes.ContainsKey("class"))
-                {
-                    ol.Attributes["class"] += " bs-sortable";
-                }
-                else
-                {
-                    ol.Attributes.Add("class", "bs-sortable");
-                }
-
-
-                var container = new TagBuilder("div") {InnerHtml = ol.ToString()};
-
-                container.Attributes.Add("class", "sortable-container");
-                container.Attributes.Add("data-parent-property", this.Builder.ParentPropertyName);
-
-                return container.ToString();
+                ol.Attributes["class"] += " bs-sortable";
             }
             else
             {
-                return string.Empty;
+                ol.Attributes.Add("class", "bs-sortable");
             }
-           
+
+            var container = new TagBuilder("div") { InnerHtml = ol.ToString() };
+
+            container.Attributes.Add("class", "sortable-container");
+            container.Attributes.Add("data-parent-property", this.Builder.ParentPropertyName);
+            container.Attributes.Add("data-renderer", "base");
+
+            return container.ToString();
+        }
+
+        protected string RenderInternal(SortableListItemWrapper list)
+        {
+            var htmlString = String.Empty;
+
+            if (list.BadgeTag.Attributes.ContainsKey("class"))
+            {
+                list.BadgeTag.Attributes["class"] += " label";
+            }
+            else
+            {
+                list.BadgeTag.Attributes.Add("class", "label");
+            }
+
+            if (list.ItemTag.Attributes.ContainsKey("class"))
+            {
+                list.ItemTag.Attributes["class"] += " bs-sortable-item";
+            }
+            else
+            {
+                list.ItemTag.Attributes.Add("class", "bs-sortable-item");
+            }
+
+            #region Nested elements
+
+            if (list.RootTag.Attributes.ContainsKey("class"))
+            {
+                list.RootTag.Attributes["class"] += " bs-sortable";
+            }
+            else
+            {
+                list.RootTag.Attributes.Add("class", "bs-sortable");
+            }
+
+            if (list.Children != null && list.Children.Any())
+            {
+                foreach (var child in list.Children)
+                {
+                    list.RootTag.InnerHtml += RenderInternal(child);
+                }
+            }
+
+            #endregion
+
+
+            list.ItemTag.InnerHtml += list.BadgeTag.ToString() + list.LabelTag.ToString() + list.RootTag.ToString();
+
+            htmlString = list.ItemTag.ToString();
+
+            return htmlString;
+        }
+    }
+
+    public class BsSortableLightRenderer<TModel> : BsBaseRenderer<BsSortableListHtmlBuilder<TModel>>
+    {
+        public override string Render()
+        {
+            var innerHtml = this.Builder.List.Children.Aggregate(String.Empty, (current, item) => current + this.RenderInternal(item));
+
+            var ul = new TagBuilder("ul") { InnerHtml = innerHtml };
+
+            ul.MergeAttributes(this.Builder.globalHtmlAttributes);
+            ul.MergeAttributes(this.Builder.globalDataAttributes.ToDictionary(x => "data-" + x.Key, y => y.Value));
+
+            if (this.Builder.globalHtmlAttributes.ContainsKey("class"))
+            {
+                ul.Attributes["class"] += " bs-sortable nav nav-pills nav-stacked";
+            }
+            else
+            {
+                ul.Attributes.Add("class", "bs-sortable nav nav-pills nav-stacked");
+            }
+
+            ul.Attributes.Add("style", "margin-top: 2px");
+
+            var container = new TagBuilder("div") { InnerHtml = ul.ToString() };
+
+            container.Attributes.Add("class", "sortable-container");
+            container.Attributes.Add("data-parent-property", this.Builder.ParentPropertyName);
+            container.Attributes.Add("data-renderer", "light");
+
+            return container.ToString();
+        }
+
+        public string RenderInternal(SortableListItemWrapper list)
+        {
+            var htmlString = String.Empty;
+
+            list.RootTag = new TagBuilder("ul");
+
+            if (list.ItemTag.Attributes.ContainsKey("class"))
+            {
+                list.ItemTag.Attributes["class"] += " bs-sortable-item active";
+            }
+            else
+            {
+                list.ItemTag.Attributes.Add("class", "bs-sortable-item active");
+            }
+
+            #region Nested elements
+
+            if (list.RootTag.Attributes.ContainsKey("class"))
+            {
+                list.RootTag.Attributes["class"] += " bs-sortable nav nav-pills nav-stacked";
+            }
+            else
+            {
+                list.RootTag.Attributes.Add("class", "bs-sortable nav nav-pills nav-stacked");
+            }
+
+            if (list.RootTag.Attributes.ContainsKey("style"))
+            {
+                list.RootTag.Attributes["style"] += "margin-left: 40px; margin-top: 4px;";
+            }
+            else
+            {
+                list.RootTag.Attributes.Add("style", "margin-left: 40px; margin-top: 4px;");
+            }
+
+            if (list.Children != null && list.Children.Any())
+            {
+                foreach (var child in list.Children)
+                {
+                    list.RootTag.InnerHtml += RenderInternal(child);
+                }
+            }
+
+            #endregion
+
+            var anchor = new TagBuilder("a");
+
+            anchor.Attributes.Add("href", "#");
+            anchor.SetInnerText(list.LabelTag.InnerHtml);
+
+            var span = new TagBuilder("span");
+
+            span.Attributes.Add("class", "badge pull-right");
+            span.InnerHtml = list.BadgeTag.InnerHtml;
+
+            anchor.InnerHtml = span.ToString() + anchor.InnerHtml;
+
+            list.ItemTag.InnerHtml = anchor.ToString() + list.RootTag.ToString();
+
+            // list.ItemTag.InnerHtml += spanTag.ToString() + list.RootTag.ToString();
+
+            // htmlString = list.ItemTag.ToString() + list.RootTag.ToString();
+
+            htmlString = list.ItemTag.ToString();
+
+            return htmlString;
         }
     }
 

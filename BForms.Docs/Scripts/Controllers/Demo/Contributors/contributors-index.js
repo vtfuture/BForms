@@ -434,7 +434,49 @@
 
         //// Step 3: add control to toolbar
         //this.$toolbar.bsToolbar('controls', [advancedSearch]);
+        
+        this.$toolbar.on('bstoolbarbeforeorderformsubmit', $.proxy(this.evBeforeOrderFormSubmit, this));
+
     };
+    
+    GridIndex.prototype.evBeforeOrderFormSubmit = function (e, data) {
+
+        event.preventDefault();
+        e.preventDefault();
+
+        e.stopPropagation();
+        event.stopPropagation();
+
+        var submitData = data ? this.mapOrderSerialization(data.data) : [];
+
+        $.extend(true, data, { data: submitData });
+
+        return false;
+    };
+
+    GridIndex.prototype.mapOrderSerialization = function (array) {
+
+        var mappedData = [];
+
+        if (array != null) {
+
+            for (var i in array) {
+
+                if (array[i] != null) {
+
+                    var children = array[i].children != null ? this.mapOrderSerialization(array[i].children) : null;
+
+                    mappedData.push({
+                        Id: array[i].value,
+                        Subordinates: children
+                    });
+                }
+            }
+        }
+
+        return mappedData;
+    };
+
     //#endregion
 
     //#region Dom Ready
