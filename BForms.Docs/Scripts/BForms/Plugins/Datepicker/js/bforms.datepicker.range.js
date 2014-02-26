@@ -392,6 +392,15 @@
         }
 
         this._updateAltFields();
+
+        this._trigger('onRangeChange', {
+            $container: this.$container,
+            startValue: this._startValue,
+            endValue: this._endValue,
+            $start: this.$start,
+            $end: this.$end,
+            value: this.getValue()
+        });
     };
 
     bRangePicker.prototype.applyRangeClick = function (e) {
