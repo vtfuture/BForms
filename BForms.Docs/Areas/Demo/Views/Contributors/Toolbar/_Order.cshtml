@@ -4,31 +4,48 @@
 
 @model IEnumerable<ContributorOrderModel>
 
-
 @using (Html.BeginForm())
 {
-    @Html.BsSortableListFor(Model, m => new BsSortableListConfiguration<ContributorOrderModel>
-    {
-        Id = m.Id.ToString(),
-        Order = m.Order.ToString(),
-        Text = m.Name,
-        AppendsTo = parent => m.Role != ProjectRole.TeamLeader
-    }).ListProperties(m => new HtmlProperties
-    {
-        HtmlAttributes = new { @class = "custom_class"}
-    }).BadgeProperties(m => new HtmlProperties
-    {
-        HtmlAttributes = new {@class = m.Role == ProjectRole.Tester ? "label-danger" : m.Role == ProjectRole.TeamLeader ? "label-success" : "label-info"},
-        Text = m.Role.ToString()
-    }).Renderer(new BsSortableBaseRenderer<ContributorOrderModel>())
+
 
     <div class="col-sm-12 col-lg-12 bs-validation_summary">
         @Html.BsValidationSummary()
     </div>
 
+    @(Html.BsSortableListFor(Model, m => new BsSortableListConfiguration<ContributorOrderModel>
+      {
+          Id = m.Id.ToString(),
+          Order = m.Order.ToString(),
+          Text = m.Name,
+          AppendsTo = parent => m.Role != ProjectRole.TeamLeader
+      })
+      .BadgeHtmlAttributes(m => new
+      {
+          @class = m.Role == ProjectRole.Tester ? "label-danger" : m.Role == ProjectRole.TeamLeader ? "label-success" : "label-info",
+      }).BadgeText(m => m.Role.ToString())
+          .Renderer(new BsSortableBaseRenderer<ContributorOrderModel>()))
+
+    @* OR, specify each element's properties (html attributes, data attributes and inner text)
+        using a HtmlProperties object: *@
+
+    @*@Html.BsSortableListFor(Model, m => new BsSortableListConfiguration<ContributorOrderModel>
+        {
+            Id = m.Id.ToString(),
+            Order = m.Order.ToString(),
+            Text = m.Name,
+            AppendsTo = parent => m.Role != ProjectRole.TeamLeader
+        }).ListProperties(m => new HtmlProperties
+        {
+            HtmlAttributes = new { @class = "custom_class"}
+        }).BadgeProperties(m => new HtmlProperties
+        {
+            HtmlAttributes = new {@class = m.Role == ProjectRole.Tester ? "label-danger" : m.Role == ProjectRole.TeamLeader ? "label-success" : "label-info"},
+            Text = m.Role.ToString()
+        }).Renderer(new BsSortableBaseRenderer<ContributorOrderModel>())*@
+
     <div class="grid_toolbar_submit">
         <button type="submit" class="btn btn-white js-btn-save_order" data-url="@Url.Action("Reorder")">@Resource.Save</button>
         <a href="#" class="js-btn-reset">@Resource.Refresh</a>
     </div>
-    
+
 }

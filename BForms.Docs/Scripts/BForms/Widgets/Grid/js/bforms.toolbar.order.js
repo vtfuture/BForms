@@ -38,14 +38,14 @@ define('bforms-toolbar-order', [
             actions: controls
         });
 
-        this.$sortable = $(this.options.containerSelector);
+        this.$sortable = $(this.options.containerSelector).find(this.options.listSelector + ':first');
 
-        this.bsSortableOptions = {            
-          
+        this.bsSortableOptions = {
+
             itemSelector: this.options.itemSelector,
             listSelector: this.options.listSelector,
             containerSelector: this.options.containerSelector,
-            serialize: this.options.serialize
+            sortUpdate: $.proxy(this._evOnUpdate, this)
         };
 
         this.$sortable.bsSortable(this.bsSortableOptions);
@@ -60,7 +60,7 @@ define('bforms-toolbar-order', [
         itemSelector: '.bs-sortable-item',
         listSelector: '.bs-sortable',
         containerSelector: '.sortable-container',
-        serialize: 'array'
+        serialize: 'hierarchy'
     };
 
     Order.prototype._addDefaultControls = function () {
@@ -100,14 +100,13 @@ define('bforms-toolbar-order', [
         $(this.options.containerSelector).on('update', $.proxy(this._evOnUpdate, this));
     };
 
-    Order.prototype._evOnUpdate = function (e) {
-        
-        this.reorderedList = e.updatedList;
+    Order.prototype._evOnUpdate = function (e, data) {
+
         this.updated = true;
     };
 
     Order.prototype._evOnReset = function () {
-        
+
         this.$sortable.html(this.previousConfigurationHtml);
 
         $('.placeholder').remove();
@@ -117,13 +116,17 @@ define('bforms-toolbar-order', [
 
     Order.prototype._evOnSave = function () {
 
-        if (this.updated) {
+        if (this.updated || true) {
+
+            event.preventDefault();
 
             $(this._controls.save.selector).attr('disabled', true);
             this.$orderForm.attr('disabled', true);
 
-            var data = this.reorderedList;
+            var data = this.$sortable.bsSortable('serialize', this.options.serialize);
             var url = $(this._controls.save.selector).data('url');
+
+            this.widget._trigger('beforeOrderFormSubmit', event, { data: data });
 
             $('.loading-global').show();
 
@@ -135,14 +138,14 @@ define('bforms-toolbar-order', [
                 success: this._reorderSuccess,
                 error: this._reorderError,
                 context: this,
-                loadingClass: '.loading-global'
+                loadingClass: 'loading'
             });
         }
 
     };
 
     Order.prototype._reorderError = function (response) {
-        
+
         $('.loading-global').hide();
         this.$orderForm.removeAttr('disabled');
         $(this._controls.save.selector).attr('disabled', false);
@@ -155,7 +158,6 @@ define('bforms-toolbar-order', [
         this.updated = false;
 
         $('.loading-global').hide();
-
         this.$orderForm.removeAttr('disabled');
         $(this._controls.save.selector).attr('disabled', false);
 
