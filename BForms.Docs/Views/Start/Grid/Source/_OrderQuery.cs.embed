@@ -2,7 +2,7 @@
 {
     this.orderedQueryBuilder.OrderFor(x => x.Recommended, y => y.IsRecommended);
 
-    var ordered = this.orderedQueryBuilder.Order(query, x => x.WeekendRevenue, BsOrderType.Descending);
+    var ordered = this.orderedQueryBuilder.Order(query, x => x.OrderByDescending(y => y.WeekendRevenue));
 
     return ordered;
 }
