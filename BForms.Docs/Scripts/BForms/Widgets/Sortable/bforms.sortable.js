@@ -292,7 +292,7 @@
 };
 
 if (typeof define == 'function' && define.amd) {
-    define(['jquery',
+    define('bforms-sortable', ['jquery',
             'jquery-ui-core',
             'nestedsortable'], factory);
 } else {
