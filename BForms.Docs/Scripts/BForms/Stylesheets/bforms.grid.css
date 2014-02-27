@@ -150,6 +150,8 @@ a.btn {
           font-size: 12px; }
         .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .dropdown-menu a:hover, .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .dropdown-menu a:focus {
           background: none !important; }
+        .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .popover {
+          color: #333; }
         .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .glyphicon {
           font-size: 14px; }
       .grid_container .grid_toolbar .grid_toolbar_header:after {
