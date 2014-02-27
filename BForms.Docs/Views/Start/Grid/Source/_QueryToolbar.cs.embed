@@ -1,0 +1,6 @@
+﻿public override IQueryable<Movie> Query()
+{
+    var query = db.Movies.AsQueryable();
+
+    return Filter(query);
+}
