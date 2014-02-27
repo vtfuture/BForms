@@ -92,11 +92,11 @@
 
     bsInlineQuestion.prototype._addPopover = function () {
 
-        this.$element.popover($.extend(true,{
+        this.$element.popover($.extend(true, {
             html: true,
             placement: this.options.placement,
-            content: this._renderPopover()
-        },this.options.popoverOptions)).addClass('bs-hasInlineQuestion');
+            content: this.options.cacheContent === true ? this._renderPopover() : $.proxy(this._renderPopover, this)
+        }, this.options.popoverOptions)).addClass('bs-hasInlineQuestion');
 
         this.$element.on('show.bs.popover', $.proxy(function () {
             this._trigger('show', 0, arguments);
@@ -143,14 +143,22 @@
         return this;
     };
 
-    bsInlineQuestion.prototype.content = function (data) {
-        
-        this.options.content = data.content;
-        this.options.question = data.question;
-        this.options.buttons = data.buttons;
+    bsInlineQuestion.prototype.content = function (data, overwriteIfNull) {
 
-        var html = this._renderPopover();
-        this.$tip.find('.popover-content').html(html);
+        if (typeof data !== "undefined") {
+
+            if (typeof data.content !== "undefined" || overwriteIfNull) {
+                this.options.content = data.content;
+            }
+
+            if (typeof data.question !== "undefined" || overwriteIfNull) {
+                this.options.question = data.question;
+            }
+
+            if (typeof data.buttons !== "undefined" || overwriteIfNull) {
+                this.options.buttons = data.buttons;
+            }
+        }
 
         return this;
     };
