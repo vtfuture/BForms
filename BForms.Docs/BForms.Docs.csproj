@@ -229,6 +229,7 @@
     <Content Include="Scripts\BForms\Components\HistoryJS\jquery.history.js" />
     <Content Include="Scripts\BForms\Components\ICanHaz\ICanHaz.js" />
     <Content Include="Scripts\BForms\Components\ICanHaz\singleton-ich.js" />
+    <Content Include="Scripts\BForms\Components\NestedSortable\jquery.mjs.nestedSortable.js" />
     <Content Include="Scripts\BForms\Components\PlaceholderShim\jquery.html5-placeholder-shim.js" />
     <Content Include="Scripts\BForms\Components\SelectorSet\jquery.selector-set.js" />
     <Content Include="Scripts\BForms\Components\SelectorSet\selector-set.js" />
@@ -241,7 +242,6 @@
     <Content Include="Scripts\BForms\Widgets\Grid\js\bforms.toolbar.order.js" />
     <Content Include="Scripts\BForms\Widgets\InlineQuestion\bforms.inlineQuestion.js" />
     <Content Include="Scripts\BForms\Widgets\Sortable\bforms.sortable.js" />
-    <Content Include="Scripts\BForms\Widgets\Sortable\jquery.mjs.nestedSortable.js" />
     <Content Include="Scripts\BForms\Widgets\Taglist\bforms.taglist.js" />
     <Content Include="Scripts\Controllers\Demo\UserProfile\userprofile-index.js" />
     <Content Include="Views\Start\Setup\Source\_BundleConfigJs.cs.embed" />
