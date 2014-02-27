@@ -794,7 +794,7 @@
 
     bRangePicker.prototype.getValue = function () {
 
-        if ( (typeof this._valueSettedForFirst !== "undefined" && this._valueSettedForFirst !== false) || (typeof this._valueSettedForSecond !== "undefined" && this._valueSettedForSecond !== false)) {
+        if ((typeof this._valueSettedForFirst !== "undefined" && this._valueSettedForFirst !== false) || (typeof this._valueSettedForSecond !== "undefined" && this._valueSettedForSecond !== false)) {
             var startValue = this.getStartValue(),
                 endValue = this.getEndValue();
 
@@ -842,7 +842,13 @@
 
         if (momentValue != null && momentValue.isValid() && this.$start.bsDatepicker('isValidDate', momentValue)) {
             this.$start.bsDatepicker('setValue', momentValue);
+        } else {
+            this.$start.bsDatepicker('clearValue');
         }
+
+        this.applyRange();
+
+
     };
 
     bRangePicker.prototype.setEndValue = function (value) {
@@ -856,6 +862,11 @@
         if (momentValue != null && momentValue.isValid() && this.$end.bsDatepicker('isValidDate', momentValue)) {
             this.$end.bsDatepicker('setValue', momentValue);
         }
+        else {
+            this.$end.bsDatepicker('clearValue');
+        }
+
+        this.applyRange();
     };
     //#endregion
 

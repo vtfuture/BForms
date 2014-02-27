@@ -245,7 +245,8 @@
                             if (typeof opts.cancelCssClass !== "undefined") {
                                 cancelCssClass = opts.cancelCssClass + " bs-cancel";
                             }
-                            $me.bsInlineQuestion({
+
+                            $me.bsInlineQuestion($.extend(true, opts.popoverOptions, {
                                 placement: 'auto',
                                 question: question,
                                 buttons: [{
@@ -263,7 +264,7 @@
                                        $me.bsInlineQuestion('toggle');
                                    }
                                }]
-                            });
+                            }));
 
                             $me.attr('title', $me.attr('data-original-title') || '');
 
