@@ -1,0 +1,8 @@
+﻿@model MyGrid.Models.MoviesViewModel
+@using BForms.Grid
+@using BForms.Html
+
+@(Html.BsToolbarFor(x => x.Toolbar)
+    .DisplayName("Top Movies")
+    .ConfigureActions(ca => ca.Add(BsToolbarActionType.AdvancedSearch).Tab(x => Html.BsPartialPrefixed(y => y.Search, "Toolbar/_Search", x)))
+)

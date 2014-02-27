@@ -1,0 +1,23 @@
+﻿public ActionResult Index()
+{
+    var bsGridSettings = new BsGridRepositorySettings<MoviesSearchModel>
+    {
+        Page = 1,
+        PageSize = 5
+    };
+
+    var gridModel = _gridRepository.ToBsGridViewModel(bsGridSettings);
+
+    var model = new MoviesViewModel
+    {
+        Grid = gridModel,
+        Toolbar = new BsToolbarModel<MoviesSearchModel>
+        {
+            Search = _gridRepository.GetSearchForm()
+        }
+    };
+
+    ...
+
+    return View(model);
+}

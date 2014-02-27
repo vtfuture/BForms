@@ -1,0 +1,21 @@
+﻿public class MoviesSearchModel
+{
+    public MoviesSearchModel()
+    {
+        Recommended = new BsSelectList<YesNoValueTypes?>();
+        Recommended.ItemsFromEnum(typeof(YesNoValueTypes));
+        Recommended.SelectedValues = YesNoValueTypes.Both;
+    }
+
+    [Display(Name = "Title")]
+    [BsControl(BsControlType.TextBox)]
+    public string Title { get; set; }
+
+    [Display(Name = "Release Date Interval")]
+    [BsControl(BsControlType.DatePickerRange)]
+    public BsRange<DateTime?> ReleaseDate { get; set; }
+
+    [BsControl(BsControlType.RadioButtonList)]
+    [Display(Name = "Recommended")]
+    public BsSelectList<YesNoValueTypes?> Recommended { get; set; }
+}

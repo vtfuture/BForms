@@ -1,0 +1,17 @@
+﻿public MoviesSearchModel GetSearchForm()
+{
+    return new MoviesSearchModel
+    {
+        ReleaseDate = new BsRange<DateTime?>()
+        {
+            From = new BsRangeItem<DateTime?>
+            {
+                ItemValue = new DateTime(2013, 1, 1)
+            },
+            To = new BsRangeItem<DateTime?>
+            {
+                ItemValue = DateTime.Now
+            }
+        }
+    };
+}
