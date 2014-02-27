@@ -1,0 +1,35 @@
+﻿@using BForms.Html
+@using BForms.Models
+@using MyGrid.Mock
+@model MyGrid.Models.MoviesSearchModel
+
+@using (Html.BsBeginForm())
+{
+    <div class="col-sm-12 col-lg-12 form-group">
+        @Html.BsLabelFor(m => m.Title)
+        <div class="input-group">
+            @Html.BsGlyphiconAddon(Glyphicon.FacetimeVideo)
+            @Html.BsInputFor(m => m.Title)
+        </div>
+    </div>
+    
+    <div class="col-sm-6 col-lg-6 form-group">
+        @Html.BsLabelFor(m => m.ReleaseDate)
+        <div class="input-group">
+            @Html.BsGlyphiconAddon(Glyphicon.Calendar)
+            @Html.BsRangeFor(model => model.ReleaseDate)
+        </div>
+    </div>
+   
+    <div class="col-sm-6 col-lg-6 form-group">
+        @Html.BsLabelFor(m => m.Recommended)
+        <div class="input-group">
+            @Html.BsSelectFor(model => model.Recommended, new Dictionary<string, object>() { { "data-initialvalue", (byte)YesNoValueTypes.Both } }, null)
+        </div>
+    </div>
+
+    <div class="col-sm-12 col-md-12 col-lg-12 grid_toolbar_submit">
+        <button type="submit" class="btn btn-default js-btn-search">Search</button>
+        <a href="#" class="js-btn-reset">Reset</a>
+    </div>
+}

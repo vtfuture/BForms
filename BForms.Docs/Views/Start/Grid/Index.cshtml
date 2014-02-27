@@ -8,7 +8,7 @@
         <div class="bs-sidebar">
             <ul class="nav bs-sidenav">
                 <li>
-                    <a href="#example">Grid Tutorial</a>
+                    <a href="#grid">Grid Tutorial</a>
                     <ul class="nav">
                         <li><a href="#initial">Initial Project</a></li>
                         <li><a href="#models">Models</a></li>
@@ -22,6 +22,16 @@
                         <li><a href="#bulkactions">Bulk Actions</a></li>
                     </ul>
                 </li>
+                <li>
+                    <a href="#toolbar">Toolbar Tutorial</a>
+                    <ul class="nav">
+                        <li><a href="#initialToolbar">Initial Project</a></li>
+                        <li><a href="#toolbarModels">Models</a></li>
+                        <li><a href="#toolbarController">Controller</a></li>
+                        <li><a href="#toolbarViews">Views</a></li>
+                        <li><a href="#toolbarJavascript">Javascript</a></li>
+                    </ul>
+                </li>
             </ul>
         </div>
     </div>
@@ -29,7 +39,7 @@
     <main class="col-md-9 col-lg-9" role="main">
         <div class="bs-docs-section">
             <div class="page-header">
-                <h1 id="example">Get started with BForms Grid and Toolbar</h1>
+                <h1 id="introduction">Get started with BForms Grid and Toolbar</h1>
             </div>
             <p>
                 BForms Grid and Toolbar components are designed to provide rich functionality, cross-browser, cross-device and internationalization support for tabular data providing full CRUD and search operations over complex datasets.
@@ -40,14 +50,14 @@
             <p>
                 On the client side, the Grid is deployed as an AMD jQuery widget that supports theming and templates. The styling is done using bootstrap v3 CSS grid system.
             </p>
-            <h3 id="introduction">Introduction</h3>
+            <h2 id="grid">Building a Grid</h2>
             <p>
                 In this tutorial, you will learn how to implement the <code>BForms.Grid</code> from scratch. We start by presenting the models we’ll use. Then will begin building the grid to present our data, step by step, adding more functionality as we go. At this step you will have a grid that displays your data, with sorting and pagination capabilities. Next step is to add editing capabilities to our rows by enabling the details for each row. We’ll also implement the Bulk Actions that will help us modify multiple rows at a time.
             </p>
             <h3 id="initial"> Initial Project </h3>
             <p>We will start from an empty MVC Project. The project will be setup to use RequireJS and BForms.  To see a guide on how to setup your initial project please follow this link: <a href="@Url.Action("Setup", "Start", new { area = "" })#setup">Setup BForms for ASP.NET MVC</a></p>
             <p>We will work with mocked data that will fake a movies database.</p>
-            <h4 class="sub_title">Movie Model Object</h4>
+            <h4 class="sub_title">Movie Model Class</h4>
             <pre class="prettyprint bs-example">
 @Html.InsertFileContentCached("~/Views/Start/Grid/Source/_Model.cs.embed")
             </pre>
@@ -59,7 +69,7 @@
 @Html.InsertFileContentCached("~/Views/Start/Grid/Source/_ModelInitialization.cs.embed")
             </pre>
             <br />
-            <p>The <code>BFormsContext</code> Object will be instantiated in the <code>BaseController</code> class. All our controllers will inherit from <code>BaseController</code>. This way will have access to the <code>BFormsContext</code> from inside our controllers.</p>
+            <p>The <code>BFormsContext</code> Object will be instantiated in the <code>BaseController</code> class. All our controllers will inherit from <code>BaseController</code>. This way we will have access to the <code>BFormsContext</code> from inside our controllers.</p>
             
             <h3 id="models">1. Creating the Models</h3>
             <p>
@@ -539,7 +549,7 @@
                 <img src="@Url.Content("~/Content/images/docs/eg-grid-final.png")" />
             </div>
             <br />
-            <h3 id="bulkactions">8. Bulk Actions</h3>
+            <h3 id="bulkactions">9. Bulk Actions</h3>
             <p>
                 Bulk Actions are actions applied to multiple rows at the same time. When Bulk Actions are enabled a checkbox control is rendered next to each row. You can manually select multiple rows, or you can apply a filter.
             </p>
@@ -592,6 +602,180 @@
             <p>
                 Now the Bulk Actions are functional. On the server we call the existing methods for delete and recommend/unrecommend actions. If you implement a custom action you have to send the URL in the RequireJs Options from the controller.
             </p>
+            <h2 id="toolbar">Building a Toolbar for the Grid</h2>
+            <p>
+                Now that we have a functional grid we can implement the <code>BForms.Toolbar</code> for it. The toolbar will have search functionality and will be able to filter the grid by using both <code>Advanced Search</code> and <code>Quick Search</code>. Later we will add functionality to create <code>New</code> entities and add them to the grid.
+            </p>
+            <h3 id="initialToolbar">Initial Project </h3>
+            <p>
+                We will start from where we left with the Grid Tutorial and we will add the Toolbar with <code>AdvancedSearch</code> functionality. To add the toolbar we have to add new code and also modify existing code. You will see all the changes in the following steps. We will start by making changes to our models.
+            </p>
+            <h3 id="toolbarModels">1. Creating the Toolbar and Search Models</h3>
+            <p>
+                In this step we will create the models needed to build the toolbar. Because we want to filter the grid, we add the search functionality to the toolbar. There are two built in ways to filter the grid: <code>Advanced Search</code> and <code>Quick Search</code>.
+            </p>
+            <p>
+                <code>Advanced Search</code> uses a custom partial view that will display inputs and controls, used to filter the grid on different properties, provided by us in the <code>SearchModel</code>. 
+            </p>
+            <p>
+                <code>Quick Search</code> uses an input text placed directly on the toolbar, where the user can input text that will filter the grid on multiple model properties, as he types. 
+            </p>
+            <p>
+                We will implement both, but we will start with <code>Advanced Search</code>.
+            </p>
+            <p>
+                The <code>Search Model</code> is used by the toolbar widget to populate the <code>Advanced Search</code> partial view. The fields can be annotated with the <code>BsControlAttribute</code>. This attribute will tell the view what type of control to render for that specific property.
+            </p>
+            <h4 class="sub_title">Movie Search Model Class</h4>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Grid/Source/_SearchModel.cs.embed")
+            </pre>
+            <br />
+            <p>
+                As you can see, we use only three properties to filter the grid, but you can use as many as you like. The actual filter functionality will be added later inside the repository.
+            </p>
+            <br />
+            <h3 id="viewModelToolbar">2. Modifying the View Model</h3>
+            <p>
+                Now we can modify the <code>MoviesViewModel</code>. We have to add the <code>Toolbar</code> property that will be of type <code>BsToolbarModel&lt;MoviesSearchModel&gt;</code>.
+            </p>
+            <p>
+                This is how the <code>MoviesViewModel</code> will look like:
+            </p>
+            <h4 class="sub_title">Movies View Model Class</h4>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Grid/Source/_ViewModelToolbar.cs.embed")
+            </pre>
+            <br />
+            <p>
+                The <code>BsToolbar</code> attribute is used here to set the theme for the toolbar. The theme is set to Black in this case: <code>[BsToolbar(Theme = BsTheme.Black)]</code>. We can choose a different theme for the toolbar, regardless of the theme used for the grid.
+            </p>
+            <br />
+            <h3 id="toolbarController">3. Modifying the Controller</h3>
+            <p>
+                In this step we will modify the Controller, to accomodate the changes made to our models. The search data will be passed between the client an the server with the help of a settings object of type <code>BsGridRepositorySettings</code>. The settings object will contain information about the Grid Pager, Column Order, Quick Search and Advanced Search.
+            </p>
+            <p>
+                We will create the <code>BsGridRepositorySettings</code> object inside the <code>Index()</code> Action of the Controller. After we create it, we use it as a parameter when we create the initial grid model, used to be passed to the view. We will also instantiate a toolbar, and asign it to the <code>MoviesViewModel</code> - <code>Toolbar</code> property. 
+            </p>
+            <p>
+                This is how the <code>Index()</code> Action should look like:
+            </p>
+            <h4 class="sub_title">Index Action</h4>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Grid/Source/_IndexActionSearchToolbar.cs.embed")
+            </pre>
+            <br />
+            <p>
+                As you can see, we use <code>GetSearchForm()</code> method from the repository to fill and initialize the Search form controls. In this method you can populate dropdowns or other custom controls you might use. We use it to set up the Date Range Picker control.
+            </p>
+            <h4 class="sub_title">GetSsearchForm Repository Method</h4>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Grid/Source/_GetSearchForm.cs.embed")
+            </pre>
+            <br />
+            <p>
+                Also in the Controller we have to modify the <code>Pager()</code> Action to bind it to the setting object that will be sent via Ajax by the page. The settings object passed as parameter should be of type <code>BsGridRepositorySettings&lt;MoviesSearchModel&gt;</code>.
+            </p>
+            <h4 class="sub_title">Pager Action</h4>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Grid/Source/_PagerActionToolbar.cs.embed")
+            </pre>
+            <br />
+            <p>
+                The <code>settings</code> object is serialized and send between the page and the controller. It contains QuickSearch, Advanced Search and Grid settings, and it is used in the Controller to build the database query on each request.
+            </p>
+            <br />
+            <h3 id="toolbarViews">4. Adding the Toolbar and Search Views</h3>
+            <p>
+                Now it's time to add the Views for the Toolbar and for the Advanced Search. Inside the <code>Views/Home</code> folder create a new folder named <code>Toolbar</code>. Inside this folder create two partial views. The first one will be the <code>_Toolbar</code> partial view, that will be included just above the grid view inside the index view.
+            </p>
+            <p>
+                The view will be the <code>_Search</code> partial view that will contain all the fields for the Advanced Search, and will be included as an action inside the toolbar view.
+            </p>
+            <p>
+                This is how the folders structure and the views should look like:
+            </p>
+            <div class="bs-example bs-img-example">
+                <img src="@Url.Content("~/Content/images/docs/eg-toolbar-views.jpg")" />
+            </div>
+            <br />
+            <h4 class="sub_title">Toolbar Partial View</h4>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Grid/Source/_ToolbarView.cs.embed")
+            </pre>
+            <br />
+            <p>
+                The toolbar view uses <code>Html.BsToolbarFor(x => x.Toolbar)</code> helper to render the toolbar. We can chain diferent functions to this helper to setup the toolbar the way we want. 
+            </p>
+            <p>
+                In this case we used just <code>DisplayName("Top Movies")</code> to change the dysplay name, and <code>ConfigureActions(ca => ca.Add(BsToolbarActionType.AdvancedSearch)</code> to add a predefined AdvancedSearch button to the toolbar. 
+            </p>
+            <p>
+                The panel opend by the AdvancedSearch button is set with the <code>Tab(x => Html.BsPartialPrefixed(y => y.Search, "Toolbar/_Search", x))</code>. This tells the toolbar to use the <code>_Search</code> partial view for the AdvancedSearch Tab.
+            </p>
+            <p>
+                There are predefined <code>BsToolbarActionType</code> for QuickSearch, AdvancedSearch, New and Order, but you can add your own custom action or use an <code>ActionLink</code>.
+            </p>
+            <br />
+            <h4 class="sub_title">Search Partial View</h4>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Grid/Source/_SearchView.cs.embed")
+            </pre>
+            <br />
+            <p>
+                The <code>_Search</code> partial view uses <code>Html.BsBeginForm()</code> to render a form that contains a field for each of our search model properties. We use <code>BForms</code> controlls like <code>BsRangeFor()</code> and <code>.BsSelectFor</code>.
+            </p>
+            <p>
+                Also the view contains two buttons, one for submitting the search data to the server and one to cancel and reset the form fields. The buttons will be referenced in the JavaScript files with the help of the <code>js-btn-search</code> and <code>js-btn-reset</code> classes.
+            </p>
+            <br />
+            <h4 class="sub_title">Modified Index View</h4>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Grid/Source/_IndexViewToolbar.cs.embed")
+            </pre>
+            <br />
+            <p>
+                The modified <code>Index</code> View now includes the <code>Html.Partial("Toolbar/_Toolbar", Model)</code> just above the grid partial view, inside the <code>Html.BsGridWrapper()</code>.
+            </p>
+            <p>
+                If we build the project, the toolbar will be shown, but it won't be functional yet. We still have to initialize it inside the javascript file.
+            </p>
+            <div class="bs-example bs-img-example">
+                <img src="@Url.Content("~/Content/images/docs/eg-toolbar-collapsed-grid.png")" />
+            </div>
+            <br />
+            <h3 id="toolbarJavascript">5. Initializing the Toolbar Widget</h3>
+            <p>
+                Now that we have the views we can initialize the Toolbar and the Toolbar Actions in the javascript file.
+            </p>
+            <p>
+                Inside the Scripts folder, modify the <code>Controllers/Root/Home/home-index.js</code> to initialize the Toolbar Widget and to add the search functionality.
+            </p>
+            <h4 class="sub_title">Modified Home Index Javascript</h4>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Grid/Source/_HomeIndexJsToolbar.cs.embed")
+            </pre>
+            <br />
+            <p>
+                In the code snippet above are included only the modified parts. 
+            </p>
+            <p>
+                First we have to include <code>'bforms-toolbar'</code> in the <code>require()</code> function. This way the bforms-toolbar javascript code will be loaded before we execute the code in our page.
+            </p>
+            <p>
+                Next we use jquery to reference the toolbar element <code>this.$toolbar = $('#toolbar');</code> and we call the <code>this.initToolbar();</code> function.
+            </p>
+            <p>
+                The <code>initToolbar()</code> function uses <code>.bsToolbar()</code> method to initialize the toolbar widget and to set the initial properties. In this example we only set the minimum necessary, but it will get more complicated as we add more and more functionality to our toolbar.
+            </p>
+            <p>
+                Now the toolbar is functional and we can use the <code>Advanced Search</code> to filter the grid rows. This is how the toolbar should look like with the search tab open:
+            </p>
+            <div class="bs-example bs-img-example">
+                <img src="@Url.Content("~/Content/images/docs/eg-toolbar-search-open.png")" />
+            </div>
+            <br />
         </div>
     </main>
 </div>

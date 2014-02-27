@@ -199,6 +199,9 @@
     <Content Include="Content\Images\bforms-200x200.png" />
     <Content Include="Content\Images\bforms-32x32.png" />
     <Content Include="Content\Images\bg-user.png" />
+    <Content Include="Content\Images\Docs\eg-toolbar-collapsed-grid.png" />
+    <Content Include="Content\Images\Docs\eg-toolbar-search-open.png" />
+    <Content Include="Content\Images\Docs\eg-toolbar-views.jpg" />
     <Content Include="Content\Images\Docs\main-script-file.PNG" />
     <Content Include="Content\Images\Docs\project-setup-dropdown-open.PNG" />
     <Content Include="Content\Images\Docs\project-setup-dropdown.PNG" />
@@ -1264,6 +1267,33 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Demo\Views\GroupEditor\_GroupEditorForm.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Source\_SearchModel.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Source\_ViewModelToolbar.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Source\_IndexActionSearchToolbar.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Source\_GetSearchForm.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Source\_PagerActionToolbar.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Source\_ToolbarView.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Source\_SearchView.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Source\_IndexViewToolbar.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Source\_HomeIndexJsToolbar.cs.embed" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

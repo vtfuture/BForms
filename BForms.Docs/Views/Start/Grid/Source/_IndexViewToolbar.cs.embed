@@ -1,0 +1,14 @@
+﻿@model MyGrid.Models.MoviesViewModel
+@using BForms.Html
+
+@{
+    ViewBag.Title = "Movies Grid";
+}
+
+
+@using (Html.BsGridWrapper())
+{
+    @Html.Partial("Toolbar/_Toolbar", Model)
+    
+    @Html.Partial("Grid/_Grid", Model)
+}
