@@ -741,29 +741,32 @@
 
     bRangePicker.prototype.resetValue = function () {
 
-        this._startValue = this.$start.bsDatepicker('getInitialValue');
-        this._endValue = this.$end.bsDatepicker('getInitialValue');
+        if (this.options.startOptions.initialValue) {
+            this.$startLabel.data('value', this._startValue);
+            this.$startLabel.val(this.$start.bsDatepicker('format', this._startValue));
+            this.$start.bsDatepicker('setValue', this._startValue);
+        } else {
+            this.$startLabel.removeData('value');
+            this.$start.bsDatepicker('resetValue');
+            this._setStartLabel(this.$start.bsDatepicker('getValue'));
+            this.$end.bsDatepicker('option', 'minDate', null)
+        }
 
-        this.$startLabel.data('value', this._startValue);
-        this.$startLabel.val(this.$start.bsDatepicker('format', this._startValue));
-        this.$start.bsDatepicker('setValue', this._startValue);
+        if (this.options.endOptions.initialValue) {
+            this.$endLabel.data('value', this._endValue);
+            this.$endLabel.val(this.$end.bsDatepicker('format', this._endValue));
+            this.$end.bsDatepicker('setValue', this._endValue);
+        } else {
+            this.$endLabel.removeData('value');
+            this.$end.bsDatepicker('resetValue');
+            this._setEndLabel(this.$end.bsDatepicker('getValue'));
+            this.$start.bsDatepicker('option', 'maxDate', null);
+        }
 
-        this.$endLabel.data('value', this._endValue);
-        this.$endLabel.val(this.$end.bsDatepicker('format', this._endValue));
-        this.$end.bsDatepicker('setValue', this._endValue);
         this.applyRange('');
-
 
         if (typeof this.$input !== "undefined") {
             this.$input.val('');
-        }
-
-        if (this.options.startOptions.defaultDateValue) {
-            this.$start.bsDatepicker('resetValue');
-        }
-
-        if (this.options.endOptions.defaultDateValue) {
-            this.$end.bsDatepicker('resetValue');
         }
 
         if (this.options.startOptions.initialValue && this.options.endOptions.initialValue) {
