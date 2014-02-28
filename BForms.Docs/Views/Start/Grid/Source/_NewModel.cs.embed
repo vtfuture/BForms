@@ -1,0 +1,44 @@
+﻿ public class MoviesNewModel
+ {
+     public MoviesNewModel()
+     {
+         Recommended = new BsSelectList<YesNoValueTypes?>();
+         Recommended.ItemsFromEnum(typeof(YesNoValueTypes), YesNoValueTypes.Both);
+         Recommended.SelectedValues = YesNoValueTypes.Yes; 
+     }
+
+     [Required]
+     [Display(Name = "Movie Title")]
+     [BsControl(BsControlType.TextBox)]
+     public string Title { get; set; }
+
+     [Display(Name = "Weekend Revenue")]
+     [BsControl(BsControlType.TextBox)]
+     public decimal WeekendRevenue { get; set; }
+
+     [Display(Name = "Gross Revenue")]
+     [BsControl(BsControlType.TextBox)]
+     public decimal GrossRevenue { get; set; }
+
+     [Required]
+     [Display(Name = "Release Date")]
+     [BsControl(BsControlType.DateTimePicker)]
+     public BsDateTime ReleaseDate { get; set; }
+
+     [Display(Name = "Genres", Prompt = "Select movie genres")]
+     [BsControl(BsControlType.ListBox)]
+     public BsSelectList<List<int>> GenresList { get; set; }
+
+     [Display(Name = "Rating")]
+     [BsControl(BsControlType.NumberInline)]
+     public BsRangeItem<int?> Rating { get; set; }
+
+     [Required]
+     [Display(Name = "Recommended")]
+     [BsControl(BsControlType.RadioButtonList)]
+     public BsSelectList<YesNoValueTypes?> Recommended { get; set; }
+
+     [Display(Name = "Poster Url", Prompt = "http://site.com/image.png")]
+     [BsControl(BsControlType.Url)]
+     public string Poster { get; set; }
+ }

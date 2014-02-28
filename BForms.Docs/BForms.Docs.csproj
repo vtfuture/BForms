@@ -199,8 +199,11 @@
     <Content Include="Content\Images\bforms-200x200.png" />
     <Content Include="Content\Images\bforms-32x32.png" />
     <Content Include="Content\Images\bg-user.png" />
+    <Content Include="Content\Images\Docs\eg-grid-new-row.jpg" />
     <Content Include="Content\Images\Docs\eg-quicksearch-comedy.jpg" />
+    <Content Include="Content\Images\Docs\eg-toolbar-add-collapsed.jpg" />
     <Content Include="Content\Images\Docs\eg-toolbar-collapsed-grid.png" />
+    <Content Include="Content\Images\Docs\eg-toolbar-new.jpg" />
     <Content Include="Content\Images\Docs\eg-toolbar-quicksearch.jpg" />
     <Content Include="Content\Images\Docs\eg-toolbar-search-open.png" />
     <Content Include="Content\Images\Docs\eg-toolbar-views.jpg" />
@@ -1309,6 +1312,30 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Start\Grid\Source\_FilterQuickSearch.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Source\_NewModel.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Source\_ViewModelToolbarNew.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Source\_NewView.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Source\_ToolbarViewNew.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Source\_IndexActionNewToolbar.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Source\_GetNewForm.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Source\_NewActionController.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Source\_CreateRepository.cs.embed" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
