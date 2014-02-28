@@ -22,7 +22,7 @@ namespace BForms.Html
     {
 
         /// <summary>
-        /// Renders a form suitable for BFroms fields
+        /// Renders a form suitable for BForms fields
         /// </summary>
         public static BsMvcForm BsBeginForm(this HtmlHelper htmlHelper)
         {
@@ -31,16 +31,25 @@ namespace BForms.Html
         }
 
         /// <summary>
-        /// Renders a form suitable for BFroms fields
+        /// Renders a form suitable for BForms fields
         /// </summary>
         public static BsMvcForm BsBeginForm(this HtmlHelper htmlHelper, BsTheme theme)
         {
             var routeValues = htmlHelper.ExtractRouteValues();
             return BsBeginForm(htmlHelper, routeValues["action"].ToString(), routeValues["controller"].ToString(), routeValues, FormMethod.Post, new RouteValueDictionary(), theme);
         }
-       
+
         /// <summary>
-        /// Renders a form suitable for BFroms fields
+        /// Renders a form suitable for BForms fields
+        /// </summary>
+        public static BsMvcForm BsBeginForm(this HtmlHelper htmlHelper, BsTheme theme, object htmlAttributes)
+        {
+            var routeValues = htmlHelper.ExtractRouteValues();
+            return BsBeginForm(htmlHelper, routeValues["action"].ToString(), routeValues["controller"].ToString(), routeValues, FormMethod.Post, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes), theme);
+        }
+
+        /// <summary>
+        /// Renders a form suitable for BForms fields
         /// </summary>
         public static BsMvcForm BsBeginForm(this HtmlHelper htmlHelper, object routeValues)
         {
@@ -48,7 +57,7 @@ namespace BForms.Html
         }
 
         /// <summary>
-        /// Renders a form suitable for BFroms fields
+        /// Renders a form suitable for BForms fields
         /// </summary>
         public static BsMvcForm BsBeginForm(this HtmlHelper htmlHelper, object routeValues, BsTheme theme)
         {
@@ -56,7 +65,7 @@ namespace BForms.Html
         }
 
         /// <summary>
-        /// Renders a form suitable for BFroms fields
+        /// Renders a form suitable for BForms fields
         /// </summary>
         public static BsMvcForm BsBeginForm(this HtmlHelper htmlHelper, RouteValueDictionary routeValues)
         {
@@ -64,7 +73,7 @@ namespace BForms.Html
         }
 
         /// <summary>
-        /// Renders a form suitable for BFroms fields
+        /// Renders a form suitable for BForms fields
         /// </summary>
         public static BsMvcForm BsBeginForm(this HtmlHelper htmlHelper, RouteValueDictionary routeValues, BsTheme theme)
         {
@@ -72,7 +81,7 @@ namespace BForms.Html
         }
 
         /// <summary>
-        /// Renders a form suitable for BFroms fields
+        /// Renders a form suitable for BForms fields
         /// </summary>
         public static BsMvcForm BsBeginForm(this HtmlHelper htmlHelper, string actionName, string controllerName)
         {
@@ -80,7 +89,7 @@ namespace BForms.Html
         }
 
         /// <summary>
-        /// Renders a form suitable for BFroms fields
+        /// Renders a form suitable for BForms fields
         /// </summary>
         public static BsMvcForm BsBeginForm(this HtmlHelper htmlHelper, string actionName, string controllerName, BsTheme theme)
         {
@@ -88,7 +97,7 @@ namespace BForms.Html
         }
 
         /// <summary>
-        /// Renders a form suitable for BFroms fields
+        /// Renders a form suitable for BForms fields
         /// </summary>
         public static BsMvcForm BsBeginForm(this HtmlHelper htmlHelper, string actionName, string controllerName, object routeValues)
         {
@@ -96,7 +105,7 @@ namespace BForms.Html
         }
 
         /// <summary>
-        /// Renders a form suitable for BFroms fields
+        /// Renders a form suitable for BForms fields
         /// </summary>
         public static BsMvcForm BsBeginForm(this HtmlHelper htmlHelper, string actionName, string controllerName, object routeValues, BsTheme theme)
         {
@@ -104,7 +113,7 @@ namespace BForms.Html
         }
 
         /// <summary>
-        /// Renders a form suitable for BFroms fields
+        /// Renders a form suitable for BForms fields
         /// </summary>
         public static BsMvcForm BsBeginForm(this HtmlHelper htmlHelper, string actionName, string controllerName, RouteValueDictionary routeValues)
         {
@@ -112,7 +121,7 @@ namespace BForms.Html
         }
 
         /// <summary>
-        /// Renders a form suitable for BFroms fields
+        /// Renders a form suitable for BForms fields
         /// </summary>
         public static BsMvcForm BsBeginForm(this HtmlHelper htmlHelper, string actionName, string controllerName, RouteValueDictionary routeValues, BsTheme theme)
         {
@@ -120,7 +129,7 @@ namespace BForms.Html
         }
 
         /// <summary>
-        /// Renders a form suitable for BFroms fields
+        /// Renders a form suitable for BForms fields
         /// </summary>
         public static BsMvcForm BsBeginForm(this HtmlHelper htmlHelper, string actionName, string controllerName, FormMethod method)
         {
@@ -128,7 +137,7 @@ namespace BForms.Html
         }
 
         /// <summary>
-        /// Renders a form suitable for BFroms fields
+        /// Renders a form suitable for BForms fields
         /// </summary>
         public static BsMvcForm BsBeginForm(this HtmlHelper htmlHelper, string actionName, string controllerName, FormMethod method, BsTheme theme)
         {
@@ -136,7 +145,7 @@ namespace BForms.Html
         }
 
         /// <summary>
-        /// Renders a form suitable for BFroms fields
+        /// Renders a form suitable for BForms fields
         /// </summary>
         public static BsMvcForm BsBeginForm(this HtmlHelper htmlHelper, string actionName, string controllerName, object routeValues, FormMethod method)
         {
@@ -144,7 +153,7 @@ namespace BForms.Html
         }
 
         /// <summary>
-        /// Renders a form suitable for BFroms fields
+        /// Renders a form suitable for BForms fields
         /// </summary>
         public static BsMvcForm BsBeginForm(this HtmlHelper htmlHelper, string actionName, string controllerName, object routeValues, FormMethod method, BsTheme theme)
         {
@@ -152,7 +161,7 @@ namespace BForms.Html
         }
 
         /// <summary>
-        /// Renders a form suitable for BFroms fields
+        /// Renders a form suitable for BForms fields
         /// </summary>
         public static BsMvcForm BsBeginForm(this HtmlHelper htmlHelper, string actionName, string controllerName, RouteValueDictionary routeValues, FormMethod method)
         {
@@ -160,7 +169,7 @@ namespace BForms.Html
         }
 
         /// <summary>
-        /// Renders a form suitable for BFroms fields
+        /// Renders a form suitable for BForms fields
         /// </summary>
         public static BsMvcForm BsBeginForm(this HtmlHelper htmlHelper, string actionName, string controllerName, RouteValueDictionary routeValues, FormMethod method, BsTheme theme)
         {
@@ -168,7 +177,7 @@ namespace BForms.Html
         }
 
         /// <summary>
-        /// Renders a form suitable for BFroms fields
+        /// Renders a form suitable for BForms fields
         /// </summary>
         public static BsMvcForm BsBeginForm(this HtmlHelper htmlHelper, string actionName, string controllerName, FormMethod method, object htmlAttributes)
         {
@@ -176,7 +185,7 @@ namespace BForms.Html
         }
 
         /// <summary>
-        /// Renders a form suitable for BFroms fields
+        /// Renders a form suitable for BForms fields
         /// </summary>
         public static BsMvcForm BsBeginForm(this HtmlHelper htmlHelper, string actionName, string controllerName, FormMethod method, object htmlAttributes, BsTheme theme)
         {
@@ -184,7 +193,7 @@ namespace BForms.Html
         }
 
         /// <summary>
-        /// Renders a form suitable for BFroms fields
+        /// Renders a form suitable for BForms fields
         /// </summary>
         public static BsMvcForm BsBeginForm(this HtmlHelper htmlHelper, string actionName, string controllerName, FormMethod method, IDictionary<string, object> htmlAttributes)
         {
@@ -192,7 +201,7 @@ namespace BForms.Html
         }
 
         /// <summary>
-        /// Renders a form suitable for BFroms fields
+        /// Renders a form suitable for BForms fields
         /// </summary>
         public static BsMvcForm BsBeginForm(this HtmlHelper htmlHelper, string actionName, string controllerName, FormMethod method, IDictionary<string, object> htmlAttributes, BsTheme theme)
         {
@@ -200,7 +209,7 @@ namespace BForms.Html
         }
 
         /// <summary>
-        /// Renders a form suitable for BFroms fields
+        /// Renders a form suitable for BForms fields
         /// </summary>
         public static BsMvcForm BsBeginForm(this HtmlHelper htmlHelper, string actionName, string controllerName, object routeValues, FormMethod method, object htmlAttributes)
         {
@@ -208,7 +217,7 @@ namespace BForms.Html
         }
 
         /// <summary>
-        /// Renders a form suitable for BFroms fields
+        /// Renders a form suitable for BForms fields
         /// </summary>
         public static BsMvcForm BsBeginForm(this HtmlHelper htmlHelper, string actionName, string controllerName, object routeValues, FormMethod method, object htmlAttributes, BsTheme theme)
         {
@@ -216,7 +225,7 @@ namespace BForms.Html
         }
 
         /// <summary>
-        /// Renders a form suitable for BFroms fields
+        /// Renders a form suitable for BForms fields
         /// </summary>
         public static BsMvcForm BsBeginForm(this HtmlHelper htmlHelper, string actionName, string controllerName, RouteValueDictionary routeValues, FormMethod method, IDictionary<string, object> htmlAttributes, BsTheme theme)
         {
