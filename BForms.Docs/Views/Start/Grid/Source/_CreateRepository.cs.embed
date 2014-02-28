@@ -1,0 +1,26 @@
+﻿public MoviesRowModel Create(MoviesNewModel model)
+{
+    var entity = new Movie();
+
+    if(model != null)
+    {
+        entity.Id = db.Movies.Count() + 1;
+        if(model.Recommended.SelectedValues.HasValue)
+            entity.IsRecommended = model.Recommended.SelectedValues.Value == YesNoValueTypes.Yes ? true : false;
+        entity.Title = model.Title;
+        if (model.ReleaseDate.DateValue.HasValue)
+            entity.ReleaseDate = model.ReleaseDate.DateValue.Value;
+        if (!string.IsNullOrEmpty(model.Poster))
+            entity.Poster = model.Poster;
+        entity.GrossRevenue = model.GrossRevenue;
+        entity.WeekendRevenue = model.WeekendRevenue;
+        if (model.Rating.ItemValue.HasValue)
+            entity.Rating = (double)model.Rating.ItemValue.Value;
+        entity.Genres = string.Join(",", model.GenresList.SelectedValues);
+    };
+
+    db.Movies.Add(entity);
+    db.SaveChanges();
+
+    return MapMovie_MovieRowModel(entity);
+}

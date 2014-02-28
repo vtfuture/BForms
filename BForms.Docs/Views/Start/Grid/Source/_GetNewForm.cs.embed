@@ -1,0 +1,20 @@
+﻿public MoviesNewModel GetNewForm()
+{
+    var genres = new BsSelectList<List<int>>();
+    genres.ItemsFromEnum(typeof (MovieGenre));
+    genres.SelectedValues = new List<int>();
+
+    return new MoviesNewModel
+    {
+        ReleaseDate = new BsDateTime{ DateValue = DateTime.Now },
+        GenresList = genres,
+        Rating = new BsRangeItem<int?>
+        {
+            ItemValue = 9,
+            MinValue = 0,
+            MaxValue = 10,
+            TextValue = "0-10",
+            Display = "Movie Rating"
+        }
+    };
+}

@@ -4,8 +4,6 @@
         'bforms-grid',
         'bforms-toolbar',
         'bootstrap',
-        'bforms-validate',
-        'bforms-validate-unobtrusive',
         'bforms-ajax'
 ], function () {
 
@@ -24,9 +22,6 @@
 	homeIndex.prototype.initToolbar = function () {
         this.$toolbar.bsToolbar({
             uniqueName: 'moviesToolbar',
-            controlsOptions: {
-                focusFirst: false
-            },
             subscribers: [this.$grid]
         });
     };

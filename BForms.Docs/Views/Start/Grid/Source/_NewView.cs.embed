@@ -1,0 +1,85 @@
+﻿@using BForms.Html
+@using BForms.Models
+@using MyGrid.Mock
+@model MyGrid.Models.MoviesNewModel
+@using (Html.BsBeginForm())
+{
+    <h3>Add Form</h3>
+
+    <div class="col-sm-6 col-lg-6 form-group @Html.BsValidationCssFor(m => m.Title)">
+        @Html.BsLabelFor(m => m.Title)
+        <div class="input-group">
+            @Html.BsGlyphiconAddon(Glyphicon.FacetimeVideo)
+            @Html.BsInputFor(m => m.Title)
+            @Html.BsValidationFor(m => m.Title)
+        </div>
+    </div>
+
+    <div class="col-sm-6 col-lg-4 form-group @Html.BsValidationCssFor(m => m.ReleaseDate)">
+        @Html.BsLabelFor(m => m.ReleaseDate)
+        <div class="input-group">
+            @Html.BsGlyphiconAddon(Glyphicon.Calendar)
+            @Html.BsInputFor(model => model.ReleaseDate)
+            @Html.BsValidationFor(m => m.ReleaseDate)
+        </div>
+    </div>
+
+    <div class="col-sm-6 col-lg-2 form-group @Html.BsValidationCssFor(m => m.Recommended)">
+        @Html.BsLabelFor(m => m.Recommended)
+        <div class="input-group">
+            @Html.BsSelectFor(model => model.Recommended, new Dictionary<string, object>() { { "data-initialvalue", (byte)YesNoValueTypes.Yes } }, null)
+            @Html.BsValidationFor(m => m.Recommended)
+        </div>
+    </div>
+    
+    <div class="col-sm-4 col-lg-4 form-group @Html.BsValidationCssFor(m => m.GrossRevenue)">
+        @Html.BsLabelFor(m => m.GrossRevenue)
+        <div class="input-group">
+            @Html.BsGlyphiconAddon(Glyphicon.Usd)
+            @Html.BsInputFor(m => m.GrossRevenue)
+            @Html.BsValidationFor(m => m.GrossRevenue)
+        </div>
+    </div>
+    
+    <div class="col-sm-4 col-lg-4 form-group @Html.BsValidationCssFor(m => m.WeekendRevenue)">
+        @Html.BsLabelFor(m => m.WeekendRevenue)
+        <div class="input-group">
+            @Html.BsGlyphiconAddon(Glyphicon.Usd)
+            @Html.BsInputFor(m => m.WeekendRevenue)
+            @Html.BsValidationFor(m => m.WeekendRevenue)
+        </div>
+    </div>
+    
+        <div class="col-sm-4 col-lg-4 form-group @Html.BsValidationCssFor(m => m.Rating)">
+        @Html.BsLabelFor(m => m.Rating)
+        <div class="input-group">
+            @Html.BsGlyphiconAddon(Glyphicon.Star)
+            @Html.BsInputFor(model => model.Rating)
+            @Html.BsValidationFor(m => m.Rating)
+        </div>
+    </div>
+    
+    <div class="col-sm-12 col-lg-12 form-group @Html.BsValidationCssFor(m => m.Poster)">
+        @Html.BsLabelFor(m => m.Poster)
+        <div class="input-group">
+            @Html.BsGlyphiconAddon(Glyphicon.Link)
+            @Html.BsInputFor(m => m.Poster)
+            @Html.BsValidationFor(m => m.Poster)
+        </div>
+    </div>
+    
+        <div class="col-sm-12 col-lg-12 form-group @Html.BsValidationCssFor(m => m.GenresList)">
+        @Html.BsLabelFor(m => m.GenresList)
+        <div class="input-group">
+            @Html.BsGlyphiconAddon(Glyphicon.Tags)
+            @Html.BsSelectFor(model => model.GenresList)
+            @Html.BsValidationFor(m => m.GenresList)
+        </div>
+    </div>
+
+
+    <div class="col-sm-12 col-md-12 col-lg-12 grid_toolbar_submit">
+        <button type="submit" class="btn btn-white js-btn-save" data-action="@Url.Action("New")">Add</button>
+        <a href="#" class="js-btn-reset">Reset</a>
+    </div>
+}

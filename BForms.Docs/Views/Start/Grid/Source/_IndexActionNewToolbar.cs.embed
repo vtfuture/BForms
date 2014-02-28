@@ -1,0 +1,19 @@
+﻿public ActionResult Index()
+{
+    ....
+
+    var model = new MoviesViewModel
+            {
+                Grid = gridModel,
+                Toolbar = new BsToolbarModel<MoviesSearchModel, MoviesNewModel>
+                {
+                    Search = _gridRepository.GetSearchForm(),
+                    New = _gridRepository.GetNewForm()
+                }
+            };
+
+    ....
+
+    return View(model);
+}
+

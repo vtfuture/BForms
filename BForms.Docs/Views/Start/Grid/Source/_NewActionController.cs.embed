@@ -1,0 +1,34 @@
+﻿public BsJsonResult New(BsToolbarModel<MoviesSearchModel, MoviesNewModel> model)
+{
+    var msg = string.Empty;
+    var status = BsResponseStatus.Success;
+    var row = string.Empty;
+
+    try
+    {
+        if (ModelState.IsValid)
+        {
+            var rowModel = _gridRepository.Create(model.New);
+
+            var viewModel = _gridRepository.ToBsGridViewModel(rowModel).Wrap<MoviesViewModel>(x => x.Grid);
+
+            row = this.BsRenderPartialView("Grid/_Grid", viewModel);
+        }
+        else
+        {
+            return new BsJsonResult(
+                new Dictionary<string, object> { { "Errors", ModelState.GetErrors() } },
+                BsResponseStatus.ValidationError);
+        }
+    }
+    catch (Exception ex)
+    {
+        msg = "Server Error";
+        status = BsResponseStatus.ServerError;
+    }
+
+    return new BsJsonResult(new
+    {
+        Row = row
+    }, status, msg);
+}

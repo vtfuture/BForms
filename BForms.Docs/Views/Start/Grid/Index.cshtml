@@ -32,6 +32,7 @@
                         <li><a href="#toolbarViews">Views</a></li>
                         <li><a href="#toolbarJavascript">Javascript</a></li>
                         <li><a href="#toolbarQuicksearch">Quick Search</a></li>
+                        <li><a href="#toolbarNew">Add New Entity</a></li>
                     </ul>
                 </li>
             </ul>
@@ -864,6 +865,143 @@
                 <img src="@Url.Content("~/Content/images/docs/eg-quicksearch-comedy.jpg")" />
             </div>
             <br />
+            <h3 id="toolbarNew">7. Adding New Entities</h3>
+            <p>
+                An important functionality we can add to the toolbar is the abillity to add new rows to the grid. We will use an <code>Add</code> button in the toolbar to open a new form. When the form is submitted, the new <code>Movie</code> entity is added to the database, and the grid is refreshed.
+            </p>
+            <p>
+                For this we need to add a new model and view and then to make some changes to the controller.
+            </p>
+            <p>
+                We start by adding the <code>MoviesNewModel</code> that will be used to fill the <code>New</code> form, and send the data to the server.
+            </p>
+            <h4 class="sub_title">Movies New Model Class</h4>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Grid/Source/_NewModel.cs.embed")
+            </pre>
+            <br />
+            <p>
+                This model must represent the <code>Movie</code> model. As you can see, we have all the properties needed to create a new <code>Movie</code> Entity.
+            </p>
+            <p>
+                We annotate the properties with <code>Display</code> attributes, <code>Required</code> attributes and <code>BsControl</code> attributes, as needed. This way we ensure that the fields will display and behave correctly in the view.
+            </p>
+            <p>
+                We also need to include the <code>MoviesNewModel</code> inside the <code>Toolbar</code> constructor. To do this we edit the <code>MoviesViewModel</code> and we replace tha constructor that takes only the <code>MoviesSearchModel</code> with an overloaded constructor. This constructor will also accept the <code>MoviesNewModel</code>.
+            </p>
+            <p>
+                You can see how the modified <code>MoviesViewModel</code> should look like in the snippet below.
+            </p>
+            <h4 class="sub_title">Modified Movies View Model</h4>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Grid/Source/_ViewModelToolbarNew.cs.embed")
+            </pre>
+            <br />
+            <p>
+                Now we can create the <code>_New</code> partial view inside the <code>Views/Home/Toolbar</code> Folder right next to the <code>_Toolbar</code> view.
+            </p>
+            <h4 class="sub_title">New Partial View</h4>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Grid/Source/_NewView.cs.embed")
+            </pre>
+            <br />
+            <p>
+                This view looks much like our editable <code>Details</code> views. The main difference is the <code>Add button</code> that has a data attribute set to point to the <code>New</code> Action in the Controller. We will create this action a little later.
+            </p>
+            <p>
+                The <code>Add</code> button is initialize automaticaly in javascript. All you need to do is to add the <code>js-btn-save</code> class.
+            </p>
+            <p>
+                Now that we have the <code>_New</code> partial view we can modify the <code>_Toolbar</code> view.
+            </p>
+            <h4 class="sub_title">Modified Toolbar View</h4>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Grid/Source/_ToolbarViewNew.cs.embed")
+            </pre>
+            <br />
+            <p>
+                We add the the <code>_New</code> button and form just like we did with the <code>AdvancedSearch</code>. The difference is that we use <code>BsToolbarActionType.Add</code> instead of <code>BsToolbarActionType.AdvancedSearch</code>. We also have to provide the <code>_New</code> partial view inside the <code>Tab()</code> helper.
+            </p>
+            <p>
+                This is how the toolbar should look like with the collapdes <code>Add</code> button:
+            </p>
+            <div class="bs-example bs-img-example">
+                <img src="@Url.Content("~/Content/images/docs/eg-toolbar-add-collapsed.jpg")" />
+            </div>
+            <br />
+            <p>
+                We still have to modify the Controller to make it work.
+            </p>
+            <p>
+                The first step is to modify the <code>Index()</code> Action.
+            </p>
+            <h4 class="sub_title">Modified Index Action</h4>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Grid/Source/_IndexActionNewToolbar.cs.embed")
+            </pre>
+            <br />
+            <p>
+                We modify the action to use the updated view model constructor <code>BsToolbarModel&lt;MoviesSearchModel, MoviesNewModel&gt;</code>
+            </p>
+            <p>
+                We also need to fill the <code>Toolbar.New</code> model by using <code>New = _gridRepository.GetNewForm()</code>
+            </p>
+            <p>
+                Next we will add the <code>GetNewForm()</code> function to the repository.
+            </p>
+            <h4 class="sub_title">Get New Form Method</h4>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Grid/Source/_GetNewForm.cs.embed")
+            </pre>
+            <br />
+            <p>
+                This repository method is used to fill the form controls with initial data. We only initialize the <code>Genres Select List</code> and the <code>Release Date Picker</code>.
+            </p>
+            <p>
+                Now we can visualize the uncollapsed <code>New</code> form inside the toolbar.
+            </p>
+            <div class="bs-example bs-img-example">
+                <img src="@Url.Content("~/Content/images/docs/eg-toolbar-new.jpg")" />
+            </div>
+            <br />
+            <p>
+                The last step is to add the <code>New()</code> Action to the controller. This Action is used when the form is submitted.
+            </p>
+            <h4 class="sub_title">New Controller Action</h4>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Grid/Source/_NewActionController.cs.embed")
+            </pre>
+            <br />
+            <p>
+                This action gets the <code>Toolbar</code> model and calls the <code>_gridRepository.Create(model.New)</code> Method.
+            </p>
+            <p>
+                The <code>Create()</code> method will create the new entity and will return the row model for this entity. Then the grid will be updated with the newly added row.
+            </p>
+            <p>
+                Here is how the <code>Create()</code> method should look like in the repository:
+            </p>
+            <h4 class="sub_title">Create Method Repository</h4>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Grid/Source/_CreateRepository.cs.embed")
+            </pre>
+            <br />
+            <p>
+                After we create the new <code>Movie</code> Entity, we call <code>db.Movies.Add(entity)</code> and <code>db.SaveChanges()</code> to save the changes to the database.
+            </p>
+            <p>
+                At last we use <code>MapMovie_MovieRowModel(entity)</code> to map the entity to the row model, and we return it.
+            </p>
+            <p>
+                This is how the grid looks like with new rows added:
+            </p>
+            <div class="bs-example bs-img-example">
+                <img src="@Url.Content("~/Content/images/docs/eg-grid-new-row.jpg")" />
+            </div>
+            <br />
+            <p>
+                Now we have a fully functional grid and toolbar. We can add new rows, we can filter the grid with <code>QuickSearch</code> and <code>AdvancedSearch</code>, and we can edit existing rows.
+            </p>
         </div>
     </main>
 </div>
