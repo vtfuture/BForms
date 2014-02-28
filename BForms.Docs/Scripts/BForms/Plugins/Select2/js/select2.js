@@ -3297,8 +3297,8 @@ the specific language governing permissions and limitations under the Apache Lic
         editOnClick: false,
         containerCss: {},
         dropdownCss: {},
-        containerCssClass: "custom_select",
-        containerMultiCssClass: "custom_select-multi",
+        containerCssClass: "custom_select no-initUI",
+        containerMultiCssClass: "custom_select-multi no-initUI",
         dropdownCssClass: "",
         formatResult: function (result, container, query, escapeMarkup) {
             var markup = [];
