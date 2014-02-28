@@ -51,6 +51,15 @@ namespace BForms.Html
         /// <summary>
         /// Renders a form suitable for BForms fields
         /// </summary>
+        public static BsMvcForm BsBeginForm(this HtmlHelper htmlHelper, BsTheme theme, IDictionary<string, object> htmlAttributes)
+        {
+            var routeValues = htmlHelper.ExtractRouteValues();
+            return BsBeginForm(htmlHelper, routeValues["action"].ToString(), routeValues["controller"].ToString(), routeValues, FormMethod.Post, htmlAttributes, theme);
+        }
+
+        /// <summary>
+        /// Renders a form suitable for BForms fields
+        /// </summary>
         public static BsMvcForm BsBeginForm(this HtmlHelper htmlHelper, object routeValues)
         {
             return BsBeginForm(htmlHelper, null, null, new RouteValueDictionary(routeValues), FormMethod.Post, new RouteValueDictionary(), BsTheme.Default);
