@@ -1,0 +1,52 @@
+﻿public IQueryable<Movie> Filter(IQueryable<Movie> query)
+{
+
+    if (this.Settings != null)
+    {
+        if (this.Settings.Search != null)
+        {
+            // Release Date
+
+            if (this.Settings.Search.ReleaseDate != null)
+            {
+                var fromDate = this.Settings.Search.ReleaseDate.From;
+                var toDate = this.Settings.Search.ReleaseDate.To;
+
+                if (fromDate.ItemValue.HasValue)
+                {
+                    query = query.Where(x => x.ReleaseDate >= fromDate.ItemValue.Value);
+                }
+                if (toDate.ItemValue.HasValue)
+                {
+                    query = query.Where(x => x.ReleaseDate <= toDate.ItemValue.Value);
+                }
+            }
+
+            //Title
+
+            if (!string.IsNullOrEmpty(this.Settings.Search.Title))
+            {
+                var title = this.Settings.Search.Title.ToLower();
+                query = query.Where(x => x.Title.ToLower().Contains(title));
+            }
+
+            //Recommended
+
+            if (this.Settings.Search.Recommended.SelectedValues.HasValue)
+            {
+                var isEnabled = this.Settings.Search.Recommended.SelectedValues.Value;
+
+                if (isEnabled == YesNoValueTypes.Yes)
+                {
+                    query = query.Where(x => x.IsRecommended);
+                }
+                else if (isEnabled == YesNoValueTypes.No)
+                {
+                    query = query.Where(x => !x.IsRecommended);
+                }
+            }
+        }
+    }        
+
+    return query;
+}

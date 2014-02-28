@@ -1,0 +1,23 @@
+﻿ public IQueryable<Movie> Filter(IQueryable<Movie> query)
+{
+
+    if (this.Settings != null)
+    {
+        if (!string.IsNullOrEmpty(Settings.QuickSearch))
+        {
+            var searched = Settings.QuickSearch.ToLower();
+
+            var queryQuick = query.Where(x => x.Title.ToLower().Contains(searched) ||
+                                                x.Genres.ToLower().Contains(searched));
+            query = queryQuick.Select(x => x);
+        }
+        else if (this.Settings.Search != null)
+        {
+           
+		   ....
+
+        }
+    }        
+
+    return query;
+}

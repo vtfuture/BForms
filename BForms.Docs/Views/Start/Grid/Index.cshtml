@@ -28,8 +28,10 @@
                         <li><a href="#initialToolbar">Initial Project</a></li>
                         <li><a href="#toolbarModels">Models</a></li>
                         <li><a href="#toolbarController">Controller</a></li>
+                        <li><a href="#toolbarRepository">Repository</a></li>
                         <li><a href="#toolbarViews">Views</a></li>
                         <li><a href="#toolbarJavascript">Javascript</a></li>
+                        <li><a href="#toolbarQuicksearch">Quick Search</a></li>
                     </ul>
                 </li>
             </ul>
@@ -635,7 +637,6 @@
                 As you can see, we use only three properties to filter the grid, but you can use as many as you like. The actual filter functionality will be added later inside the repository.
             </p>
             <br />
-            <h3 id="viewModelToolbar">2. Modifying the View Model</h3>
             <p>
                 Now we can modify the <code>MoviesViewModel</code>. We have to add the <code>Toolbar</code> property that will be of type <code>BsToolbarModel&lt;MoviesSearchModel&gt;</code>.
             </p>
@@ -651,7 +652,7 @@
                 The <code>BsToolbar</code> attribute is used here to set the theme for the toolbar. The theme is set to Black in this case: <code>[BsToolbar(Theme = BsTheme.Black)]</code>. We can choose a different theme for the toolbar, regardless of the theme used for the grid.
             </p>
             <br />
-            <h3 id="toolbarController">3. Modifying the Controller</h3>
+            <h3 id="toolbarController">2. Modifying the Controller</h3>
             <p>
                 In this step we will modify the Controller, to accomodate the changes made to our models. The search data will be passed between the client an the server with the help of a settings object of type <code>BsGridRepositorySettings</code>. The settings object will contain information about the Grid Pager, Column Order, Quick Search and Advanced Search.
             </p>
@@ -667,13 +668,8 @@
             </pre>
             <br />
             <p>
-                As you can see, we use <code>GetSearchForm()</code> method from the repository to fill and initialize the Search form controls. In this method you can populate dropdowns or other custom controls you might use. We use it to set up the Date Range Picker control.
+                We use <code>GetSearchForm()</code> method from the repository to fill and initialize the Search form controls. We will add this method in the next step.
             </p>
-            <h4 class="sub_title">GetSsearchForm Repository Method</h4>
-            <pre class="prettyprint bs-example">
-@Html.InsertFileContentCached("~/Views/Start/Grid/Source/_GetSearchForm.cs.embed")
-            </pre>
-            <br />
             <p>
                 Also in the Controller we have to modify the <code>Pager()</code> Action to bind it to the setting object that will be sent via Ajax by the page. The settings object passed as parameter should be of type <code>BsGridRepositorySettings&lt;MoviesSearchModel&gt;</code>.
             </p>
@@ -686,12 +682,49 @@
                 The <code>settings</code> object is serialized and send between the page and the controller. It contains QuickSearch, Advanced Search and Grid settings, and it is used in the Controller to build the database query on each request.
             </p>
             <br />
-            <h3 id="toolbarViews">4. Adding the Toolbar and Search Views</h3>
+            <h3 id="toolbarRepository">3. Modifying the Repository</h3>
             <p>
-                Now it's time to add the Views for the Toolbar and for the Advanced Search. Inside the <code>Views/Home</code> folder create a new folder named <code>Toolbar</code>. Inside this folder create two partial views. The first one will be the <code>_Toolbar</code> partial view, that will be included just above the grid view inside the index view.
+                The fist method we need to add is <code>GetSearchForm()</code>. In this method you can populate dropdowns or other custom controls you might use. We use it to set up the Date Range Picker control.
+            </p>
+            <h4 class="sub_title">GetSearchForm Repository Method</h4>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Grid/Source/_GetSearchForm.cs.embed")
+            </pre>
+            <br />
+            <p>
+                Next step is to modify the <code>Query()</code> method in such way that it filters the results before returning the query.
+            </p>
+            <h4 class="sub_title">Modified Query Method</h4>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Grid/Source/_QueryToolbar.cs.embed")
+            </pre>
+            <br />
+            <p>
+                The <code>Query()</code> method calls the <code>Filter()</code> method before returning the query. This way the result will be filtered if the user submitted the <code>Search</code> Form.
             </p>
             <p>
-                The view will be the <code>_Search</code> partial view that will contain all the fields for the Advanced Search, and will be included as an action inside the toolbar view.
+                This is how the <code>Filter()</code> method should look like:
+            </p>
+            <h4 class="sub_title">Filter Method</h4>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Grid/Source/_Filter.cs.embed")
+            </pre>
+            <br />
+            <p>
+                The <code>Filter()</code> method checks if the <code>Settings</code> object is not null and also if it has <code>Search</code> data.
+            </p>
+            <p>
+                It then uses the <code>Search</code> data to filter the query. In this case we filter the query by <code>ReleaseDate</code>, <code>Title</code> and <code>Recommended</code> properties.
+            </p>
+            <h3 id="toolbarViews">4. Adding the Toolbar and Search Views</h3>
+            <p>
+                Now it's time to add the Views for the Toolbar and for the Advanced Search. Inside the <code>Views/Home</code> folder create a new folder named <code>Toolbar</code>. Inside this folder create two partial views. 
+            </p>
+            <p>
+                The first one will be the <code>_Toolbar</code> partial view, that will be included just above the grid view inside the index view.
+            </p>
+            <p>
+                The second view will be the <code>_Search</code> partial view that will contain all the fields for the Advanced Search, and will be included as an action inside the toolbar view.
             </p>
             <p>
                 This is how the folders structure and the views should look like:
@@ -774,6 +807,61 @@
             </p>
             <div class="bs-example bs-img-example">
                 <img src="@Url.Content("~/Content/images/docs/eg-toolbar-search-open.png")" />
+            </div>
+            <br />
+            <h3 id="toolbarQuicksearch">6. Adding QuickSearch Functionality</h3>
+            <p>
+                QuickSearch will be represented by a textbox rendered inside the toolbar. When the user wants to search after a keyword in any of the grid columns, the grid will be filtered as he types.
+            </p>
+            <p>
+                The <code>QuickSearch</code> text will be added to the <code>Settings</code> object, and will be sent via Ajax to the Controller. We need to modify our query inside the repository to take into consideration this QuickSearch string.
+            </p>
+            <p>
+                We also have to modify the <code>_Toolbar</code> view to add the <code>QuickSearch</code> control to the toolbar. 
+            </p>
+            <p>
+                The <code>QuickSearch</code> and <code>AdvancedSearch</code> will be initialized automaticaly inside the javascript file. So we won't change the js file in this step. You only have to initialize manually any custom controls you might add to the toolbar.
+            </p>
+            <p>
+                Lets start by modifying the <code>_Toolbar</code> view.
+            </p>
+            <h4 class="sub_title">Modified Toolbar View</h4>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Grid/Source/_ToolbarViewQuickSearch.cs.embed")
+            </pre>
+            <br />
+            <p>
+                We use <code>Add&lt;BsToolbarQuickSearch&gt;()</code> helper inside the <code>ConfigureActions()</code> method to add the <code>QuickSearch</code> control to the toolbar.
+            </p>
+            <p>
+                The <code>Placeholder()</code> helper is used to set the placeholder attribute of the QuickSearch TextBox. You can use any string as a parameter, or a Resource if you want to localize the control.
+            </p>
+            <p>
+                This is how the toolbar should look like now:
+            </p>
+            <div class="bs-example bs-img-example">
+                <img src="@Url.Content("~/Content/images/docs/eg-toolbar-quicksearch.jpg")" />
+            </div>
+            <br />
+            <p>
+                The <code>QuickSearch</code> Textbox is not functional yet. We have to modify the <code>Filter()</code> method inside the Repository.
+            </p>
+            <h4 class="sub_title">Modified Filter Method</h4>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Grid/Source/_FilterQuickSearch.cs.embed")
+            </pre>
+            <br />
+            <p>
+                We added another test to see if the user typed something into the QuickSearch field. If yes, we capture the searched term and filter the results. In this example we test if the search term matches any title or movie genre. You can use any property of the <code>Movie</code> Entity.
+            </p>
+            <p>
+                If no <code>QuickSearch</code> term is present it will test if there is any <code>Advanced Search</code> data submitted. It won't use both <code>QuickSearch</code> and <code>AdvancedSearch</code> at the same time.
+            </p>
+            <p>
+                Here is how the grid looks like when we type into the <code>QuickSearch</code> TextBox the <code>"Comedy"</code> genre:
+            </p>
+            <div class="bs-example bs-img-example">
+                <img src="@Url.Content("~/Content/images/docs/eg-quicksearch-comedy.jpg")" />
             </div>
             <br />
         </div>

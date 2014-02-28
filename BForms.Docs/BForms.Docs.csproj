@@ -199,7 +199,9 @@
     <Content Include="Content\Images\bforms-200x200.png" />
     <Content Include="Content\Images\bforms-32x32.png" />
     <Content Include="Content\Images\bg-user.png" />
+    <Content Include="Content\Images\Docs\eg-quicksearch-comedy.jpg" />
     <Content Include="Content\Images\Docs\eg-toolbar-collapsed-grid.png" />
+    <Content Include="Content\Images\Docs\eg-toolbar-quicksearch.jpg" />
     <Content Include="Content\Images\Docs\eg-toolbar-search-open.png" />
     <Content Include="Content\Images\Docs\eg-toolbar-views.jpg" />
     <Content Include="Content\Images\Docs\main-script-file.PNG" />
@@ -1295,6 +1297,18 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Start\Grid\Source\_HomeIndexJsToolbar.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Source\_QueryToolbar.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Source\_Filter.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Source\_ToolbarViewQuickSearch.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Source\_FilterQuickSearch.cs.embed" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
