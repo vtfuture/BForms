@@ -105,6 +105,8 @@
 
         var startOptions = this.options.startOptions;
 
+        startOptions.maxDate = this.options.endOptions.maxDate || null;
+
         this.options.allowInvalidMinMax = this.options.allowInvalidMinMax && !this.options.startOptions.defaultDateValue && !this.options.endOptions.defaultDate;
 
         this.$start.bsDatepicker($.extend(true, {}, {
@@ -120,6 +122,9 @@
         }));
 
         var endOptions = this.options.endOptions;
+
+        endOptions.minDate = startOptions.minDate || null;
+
         this.$end.bsDatepicker($.extend(true, {}, {
             defaultDateValue: this.$start.bsDatepicker('getUnformattedValue'),
             defaultDate: endOptions.type == 'timepicker' ? '+1h' : '+1d',
