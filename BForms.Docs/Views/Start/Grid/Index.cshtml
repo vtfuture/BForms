@@ -20,12 +20,12 @@
                         <li><a href="#update">Row Update</a></li>
                         <li><a href="#rowactions">Row Actions</a></li>
                         <li><a href="#bulkactions">Bulk Actions</a></li>
+                        <li><a href="#reorderRows">Reorder Columns</a></li>
                     </ul>
                 </li>
                 <li>
                     <a href="#toolbar">Toolbar Tutorial</a>
                     <ul class="nav">
-                        <li><a href="#initialToolbar">Initial Project</a></li>
                         <li><a href="#toolbarModels">Models</a></li>
                         <li><a href="#toolbarController">Controller</a></li>
                         <li><a href="#toolbarRepository">Repository</a></li>
@@ -34,6 +34,9 @@
                         <li><a href="#toolbarQuicksearch">Quick Search</a></li>
                         <li><a href="#toolbarNew">Add New Entity</a></li>
                     </ul>
+                </li>
+                <li>
+                    <a href="#code">Example Code</a>
                 </li>
             </ul>
         </div>
@@ -76,10 +79,10 @@
             
             <h3 id="models">1. Creating the Models</h3>
             <p>
-                In this step we will create the models needed to build the grid. In our project let’s create a folder named ‘Models’. Add a new empty class file to this folder Named ‘MoviesModels.cs’.  This file will contain all our grid related models.
+                In this step we will create the models needed to build the grid. In our project let’s create a folder named ‘Models’. Add a new empty class file to this folder named ‘MoviesModels.cs’.  This file will contain all our grid related models.
             </p>
             <p>
-                The first model will be the row model. This model is used by the grid widget to populate the columns and header. The fields can be annotated with the <code>BsGridColumnAttribute</code>. This attribute can set some properties for the columns. For example, the ‘Title’ column width is set to 4, is made sortable and editable.
+                The first model will be the row model. This model is used by the grid widget to populate the columns and the header. The fields can be annotated with the <code>BsGridColumnAttribute</code>. This attribute can set some properties for the columns. For example, the ‘Title’ column width is set to 4, is made sortable and editable.
             </p>
             <pre class="prettyprint bs-example">
 @Html.InsertFileContentCached("~/Views/Start/Grid/Source/_RowModel.cs.embed")
@@ -91,7 +94,7 @@
             </div>
             <br />
             <p>
-                As you can see width of each column corresponds to the width specified in the model. The total width must be 12. Also because we have set the IsSortable property to false for the GrossRevenue column, you can see that the sorting is disabled in the grid, while for the other columns is enabled.
+                The width of each column corresponds to the width specified in the model. The total width must be 12. Also because we have set the IsSortable property to false for the GrossRevenue column, you can see that the sorting is disabled in the grid, while for the other columns is enabled.
             </p>
             <br />
             <p>All this properties can be overridden in the view, but we’ll see this at a later time.</p>
@@ -103,7 +106,7 @@
 @Html.InsertFileContentCached("~/Views/Start/Grid/Source/_ViewModel.cs.embed")
             </pre>
             <br />
-            <p>Using Data Annotation we can set the properties for the grid. We use <code>Display(Name)</code> to set the name shown above the grid header. You can see the text ‘Top Movies’ next to the number representing the count.</p>
+            <p>Using Data Annotation we can set the properties for the grid. We use <code>Display(Name)</code> to set the name shown above the grid header. You can see the text ‘Top Movies’ next to the number representing the total rows count.</p>
             <div class="bs-example bs-img-example">
                 <img src="@Url.Content("~/Content/images/docs/eg-view-model.png")" />
             </div>
@@ -124,7 +127,7 @@
             </pre>
             <br />
             <p>
-                As you can see, we inherit from <code>BsBaseGridRepository</code> and we pass the Movie Entity and the Movies Row Model. We also initialize the <code>BFormsContext</code> that we will later use to query the data set.
+                We inherit from <code>BsBaseGridRepository</code> and we pass the <code>Movie</code> Entity and the <code>MoviesRowModel</code>. We also initialize the <code>BFormsContext</code> that we will later use to query the data set.
             </p>
             <p>
                 Next we have to implement the <code>Query()</code> method.
@@ -147,7 +150,7 @@
                 Here we use <code>orderedQueryBuilder</code> property to order the query. In this example we order the query by WeekendRevenue descending. You can use any property of your model to set the initial order for your grid. Also if you have columns that don’t have an exact correspondent in your entity model, you have to use the <code>OrderFor()</code> method to specify the mapping. In this example we specify that the Recommended property of our row model will correspond to the IsRecommended property of our Movie Entity. Another usage of the OrderFor method would be to map one column to multiple properties of the entity.
             </p>
             <p>
-                The final method we must implement is <code>MapQuery()</code>. This method is used make the select and convert your entities in row models. To do this, you will most likely implement a mapper(TEntity, TRow) to use in the select.
+                The final method we must implement is <code>MapQuery()</code>. This method is used to make the select and convert your entities in row models. To do this, you will most likely implement a mapper(TEntity, TRow) to use in the select.
             </p>
             <p>Here is how the <code>MapQuery()</code> method will look like in our case:</p>
             <pre class="prettyprint bs-example">
@@ -155,12 +158,13 @@
             </pre>
             <br />
             <p>
-                We have to also implement the MapMovie_MovieRowModel() used in the above example. This is how the mapper will look in our case:
+                We also have to implement the <code>MapMovie_MovieRowModel()</code> used in the above example. This is how the mapper will look in our case:
             </p>
             <pre class="prettyprint bs-example">
 @Html.InsertFileContentCached("~/Views/Start/Grid/Source/_Mapper.cs.embed")
             </pre>
-            <p>This is a delegate that will take a Movie Entity and will return a <code>MovieRowModel</code>.</p>
+            <br />
+            <p>This is a delegate that will take a <code>Movie</code> Entity and will return a <code>MovieRowModel</code>.</p>
             <p>At a later time we will enhance these methods to support search and filtering functionality.</p>
             
             <h3 id="controller">3. Creating the Controller</h3>
@@ -175,7 +179,7 @@
             </pre>
             <br />
             <p>
-                The index action of this controller will render the view that will contain our grid. However we have to do some changes before we can send the model our view will be expecting. We have to initialize our Grid Model with some initial settings like ‘Page’ and ‘PageSize’. Then we’ll use this model to initialize our View Model. The View Model will be send to the view. 
+                The <code>Index()</code> action of this controller will render the view that will contain our grid. However we have to do some changes before we can send the model the way our view will be expecting. We have to initialize the <code>Grid</code> Model with some initial settings like ‘Page’ and ‘PageSize’. Then we’ll use this model to initialize our View Model. The <code>View</code> Model will be send to the view. 
             </p>
             <p>
                 Also we have to use <code>RequireJsOptions.Add()</code> method to send some data to the page. The data we need to send is the name of the ajax action that will be used by the grid pager to return other pages. This will be in the form of a Dictionary object that will contain for the moment only the <code>pageUrl</code> property.
@@ -198,10 +202,13 @@
             
             <h3 id="views">4. Creating the Views</h3>
             <p>
-                In this step we will create the Grid Views. The Grid view will be implemented as a partial view rendered inside the Index View. Let’s first create the index view. To do this right click on the index action and choose ‘Add View’.
+                In this step we will create the <code>Grid</code> Views. The <code>_Grid</code> View will be implemented as a partial view rendered inside the <code>Index</code> View. 
             </p>
             <p>
-                This is how our index.cshtml should look like:
+                Let’s first create the <code>Index</code> View. To do this right click on the <code>Index()</code> Action in the Controller and choose ‘Add View’.
+            </p>
+            <p>
+                This is how our <code>index.cshtml</code> should look like:
             </p>
             <pre class="prettyprint bs-example">
 @Html.InsertFileContentCached("~/Views/Start/Grid/Source/_IndexView.cs.embed")
@@ -250,7 +257,10 @@
             </pre>
             <br />
             <p>
-                In this javascript file we require <code>bforms-grid</code>, <code>jquery</code> and <code>bootstrap</code>. We use the jQuery document ready method to initialize our page and to get the options send from the <code>HomeController</code>. As you remember we have send as an option the ‘pageUrl’, which is a link to the action that needs to be called by the pager, to get a different page or to change the number of entries displayed. On the page initialization we also find the grid by it’s id and initialize it with the minimum required parameters. We only set a <code>uniqueName</code> and the <code>pagerUrl</code> properties. We will later set more properties as we enhance the functionality of our grid. 
+                In this javascript file we require <code>bforms-grid</code>, <code>jquery</code> and <code>bootstrap</code>. We use the jQuery document ready method to initialize our page and to get the options send from the <code>HomeController</code>. As you remember we have send as an option the ‘pageUrl’, which is a link to the action that needs to be called by the pager, to get a different page or to change the number of entries displayed. 
+            </p>
+            <p>
+                On the page initialization we also find the grid by the id attribute and initialize it with the minimum required parameters. We only set a <code>uniqueName</code> and the <code>pagerUrl</code> properties. We will later set more properties as we enhance the functionality of our grid. 
             </p>
             <p>
                 Now we have a functional grid that we can see in action.
@@ -264,11 +274,11 @@
             </p>
             <h3 id="details">6. Enable Row Details</h3>
             <p>
-                In this step we will modify our code to support row editing. For this we'll have to add a Details Model, create Details partial views, add new Actions to our Controller and add new options to our javascript Grid Widget.
+                In this step we will modify our code to support row editing. For this we'll have to add a <code>Details</code> Model, create Details partial views, add new Actions to our Controller and add new options to our javascript Grid Widget.
             </p>
-            <h4>Details Model</h4>
+            <h3>The Details Model</h3>
             <p>
-                First step is to create our <code>MovieDetailsModel</code>.
+                First step is to create the <code>MovieDetailsModel</code>.
             </p>
             <pre class="prettyprint bs-example">
 @Html.InsertFileContentCached("~/Views/Start/Grid/Source/_DetailsModel.cs.embed")
@@ -293,15 +303,15 @@
             <p>
                 The <code>Revenue</code> view will contain the <code>WeekendRevenue</code>, <code>GrossRevenue</code> and <code>ReleaseDate</code> fields.
             </p>
-            <h4>Row Model</h4>
+            <h3>The Row Model</h3>
             <p>
-                We also need to change the <code>MoviesRowModel</code> to inherit from the <code>BsGridRowModel&lt;MovieDetailsModel&gt;</code>. We'll need this in our Grid Partial View to create a <code>BsGridHtmlBuilder</code> object. The inherited class has an abstract method named <code>GetUniqueID()</code>, so we have to override this method to return the unique id for the Row Model.
+                We also need to change the <code>MoviesRowModel</code> to inherit from the <code>BsGridRowModel&lt;MovieDetailsModel&gt;</code>. We'll need this in the <code>_Grid</code> Partial View to create a <code>BsGridHtmlBuilder</code> object. The inherited class has an abstract method named <code>GetUniqueID()</code>, so we have to override this method to return the unique id for the Row Model.
             </p>
             <pre class="prettyprint bs-example">
 @Html.InsertFileContentCached("~/Views/Start/Grid/Source/_RowModelDetails.cs.embed")
             </pre>
             <br />
-            <h4>View Model</h4>
+            <h3>The View Model</h3>
             <p>
                 The final change we make to our models is to set the <code>HasDetails</code> parameter to <code>true</code> on the <code>MoviesViewModel</code>'s <code>Grid</code> property.
             </p>
@@ -309,7 +319,7 @@
 @Html.InsertFileContentCached("~/Views/Start/Grid/Source/_ViewModelDetails.cs.embed")
             </pre>
             <br />
-            <h4>The Detail Views</h4>
+            <h3>The Detail Views</h3>
             <p>
                 Now that we have the Models we can move on to the Views. Before adding the details partial views we need to make some changes to the <code>_Grid</code> partial view.
             </p>
@@ -342,12 +352,12 @@
             </div>
             <br />
             <p>In the next part we'll take a look at the code for each view.</p>
-            <h4>Details Index View</h4>
+            <h3>The Details Index View</h3>
             <p>
                 The <code>_Index</code> view includes the <code>_Info</code> and the <code>_Revenue</code> partial views using the <code>Html.BsPartialPrefixed()</code> helper method.
             </p>
             <p>
-                Also in this view we add two buttons for that will be available in each row. The <code>State</code> Button which will toggle the Recommended property of our model, and the <code>Delete</code> Button which will delete the row from the grid and from the database.
+                Also in this view we add two buttons that will be available in each row. The <code>State</code> Button which will toggle the <code>Recommended</code> property of our model, and the <code>Delete</code> Button which will delete the row from the grid and from the database.
             </p>
             <p>
                 The classes used on this button elements will be later used in the javascript file to identify the buttons and to attach event handlers on them. We used <code>js-btn_state</code> for the Recommended Button, and <code>js-btn_delete</code> for the Delete Button.
@@ -361,7 +371,7 @@
                 <img src="@Url.Content("~/Content/images/docs/eg-row-expand-readonly.png")" />
             </div>
             <br />
-            <p>We still need to implement our <code>_Info</code> and <code>Review</code> pages.</p>
+            <p>We still need to implement our <code>_Info</code> and <code>Revenue</code> pages.</p>
             <p>
                 The <code>_Info</code> view creates an editable widget and loads the <code>_InfoReadonly</code> and <code>_InfoEditable</code> partial views. By default the Readonly page is displayed. To enable editing the user has to click the 'Pencil' icon in the <code>&lt;h3&gt;</code> that has the class <code>open-editable</code>.
             </p>
@@ -397,18 +407,18 @@
             </p>
             <h3>The Controller</h3>
             <p>
-                In order to display the details on our page we have to make an ajax request to the server. The server will return the html used to render the details. For this we have to add a <code>GetRows</code> Action to our controller.
+                In order to display the details on our page we have to make an ajax request to the server. The server will return the html used to render the details. For this we have to add a <code>GetRows()</code> Action to our controller.
             </p>
-            <p>This is how the <code>GetRows</code> Action will look:</p>
+            <p>This is how the <code>GetRows()</code> Action will look:</p>
             <pre class="prettyprint bs-example">
 @Html.InsertFileContentCached("~/Views/Start/Grid/Source/_GetRowsActionController.cs.embed")
             </pre>
             <br />
             <p>
-                As you can see in the code, <code>GetRows()</code> Action calls <code>GetRowsHtml()</code> NonAction, to return the details for the requested rows. <code>GetRowsHtml()</code> calls <code>ReadRows()</code> in the repository.
+                <code>GetRows()</code> Action calls <code>GetRowsHtml()</code> NonAction, to return the details for the requested rows. <code>GetRowsHtml()</code> calls <code>ReadRows()</code> in the repository.
             </p>
             <p>
-                The <code>ReadRows()</code> method gets the entities from the database by their Ids, converts them to RowModel and returns them as a List.
+                The <code>ReadRows()</code> method gets the entities from the database by their Ids, converts them to <code>RowModel</code> and returns them as a List.
             </p>
             <pre class="prettyprint bs-example">
 @Html.InsertFileContentCached("~/Views/Start/Grid/Source/_ReadRowsGridRepository.cs.embed")
@@ -418,7 +428,7 @@
                 Finally we have to add the <code>getRowsUrl</code> and <code>editComponents</code> options to the RequireJs options dictionary. This way we can access them from the javascript file.
             </p>
             <p>
-                Here is how the <code>options</code> dictionary will look like for the <code>Index</code> Action:
+                Here is how the <code>options</code> dictionary will look like for the <code>Index()</code> Action:
             </p>
             <pre class="prettyprint bs-example">
 @Html.InsertFileContentCached("~/Views/Start/Grid/Source/_OptionsGetRowsIndexAction.cs.embed")
@@ -456,22 +466,22 @@
             </pre>
             <br />
             <p>
-                The <code>_editableOptions()</code> method needs to know the <code>updateUrl</code>. This url will be called when the user clicks the save button in the editable view. We also need to implement the Update Action in the Controller.
+                The <code>_editableOptions()</code> method needs to know the <code>updateUrl</code>. This url will be called when the user clicks the save button in the editable view. We also need to implement the <code>Update()</code> Action in the Controller.
             </p>
 
             <h3 id="update">7. Editing and Updating the Rows</h3>
             <p>
-                To update the changes made to a row the grid will make an ajax call to the <code>Update</code> action on the controller.
+                To update the changes made to a row the grid will make an ajax call to the <code>Update()</code> Action on the Controller.
             </p>
             <pre class="prettyprint bs-example">
 @Html.InsertFileContentCached("~/Views/Start/Grid/Source/_UpdateActionController.cs.embed")
             </pre>
             <br />
             <p>
-                The <code>Update</code> Action receives the modified <code>MovieDetailsModel</code> and the <code>EditComponents</code> componentId. It clears the state of the model based on the component id by calling the <code>ClearModelState</code> NonAction in the same controller.
+                The <code>Update()</code> Action receives the modified <code>MovieDetailsModel</code> and the <code>EditComponents</code> componentId. It clears the state of the model based on the component id by calling the <code>ClearModelState</code> NonAction in the same controller.
             </p>
             <p>
-                This is how the <code>ClearModelState</code> NonAction is implemented:
+                This is how the <code>ClearModelState()</code> NonAction is implemented:
             </p>
             <pre class="prettyprint bs-example">
 @Html.InsertFileContentCached("~/Views/Start/Grid/Source/_ClearModelStateController.cs.embed")
@@ -480,13 +490,13 @@
             <p>
                 After the model state is cleared, the <code>Update()</code> method in the repository is called. This will save the changes in the database and will return the details model after it fills the dropdowns and lists used in the model.
             </p>
-            <p>This is the code for the <code>Update</code> method in the repository.</p>
+            <p>This is the code for the <code>Update()</code> method in the Repository.</p>
             <pre class="prettyprint bs-example">
 @Html.InsertFileContentCached("~/Views/Start/Grid/Source/_UpdateGridRepository.cs.embed")
             </pre>
             <br />
             <p>
-                Also in the <code>Update</code> Action we call the <code>ReadRow</code> method in the repository to return the row model.
+                Also in the <code>Update()</code> Action we call the <code>ReadRow()</code> method in the repository to return the row model.
             </p>
             <pre class="prettyprint bs-example">
 @Html.InsertFileContentCached("~/Views/Start/Grid/Source/_ReadRowGridRepository.cs.embed")
@@ -554,7 +564,7 @@
             <br />
             <h3 id="bulkactions">9. Bulk Actions</h3>
             <p>
-                Bulk Actions are actions applied to multiple rows at the same time. When Bulk Actions are enabled a checkbox control is rendered next to each row. You can manually select multiple rows, or you can apply a filter.
+                Bulk Actions are actions applied to multiple rows at the same time. When Bulk Actions are enabled, a checkbox control is rendered next to each row. You can manually select multiple rows, or you can apply a filter.
             </p>
             <p>
                 In our Top Movies Grid we will filter the columns by the <code>Recommended</code> property. For example, we will be able to select all recommended Movies and call the delete bulk action to erase all the selected rows from the grid at the same time. 
@@ -581,7 +591,7 @@
                 <img src="@Url.Content("~/Content/images/docs/eg-filter-buttons.png")" />
             </div>
             <br />
-            <h4>Bulk Actions Javascript</h4>
+            <h3>Bulk Actions Javascript</h3>
             <p>
                 Now that we have the buttons added to the page we have to initialize them in the javascript file. 
             </p>
@@ -605,6 +615,76 @@
             <p>
                 Now the Bulk Actions are functional. On the server we call the existing methods for delete and recommend/unrecommend actions. If you implement a custom action you have to send the URL in the RequireJs Options from the controller.
             </p>
+            <h3 id="reorderRows">10. Reorder Grid Columns and Save Order to Session State</h3>
+            <p>
+                The <code>Grid Widget</code> alows <code>Grid Columns</code> to be reordered by Drag and Drop the column header. However, to persist the new column order we have to save it to the <code>Session</code> and read it on page refresh.
+            </p>
+            <h4 class="sub_title">Before Reordering Grid Columns</h4>
+            <div class="bs-example bs-img-example">
+                <img src="@Url.Content("~/Content/images/docs/eg-reorder-before.jpg")" />
+            </div>
+            <br />
+            <h4 class="sub_title">Drag And Drop Column Reorder</h4>
+            <div class="bs-example bs-img-example">
+                <img src="@Url.Content("~/Content/images/docs/eg-reorder-columns.jpg")" />
+            </div>
+            <br />
+            <h4 class="sub_title">After Reordering Grid Columns</h4>
+            <div class="bs-example bs-img-example">
+                <img src="@Url.Content("~/Content/images/docs/eg-reorder-after.jpg")" />
+            </div>
+            <br />
+            <p>
+                Let's make sure we store the new column order to the <code>Session State</code> so we can read it later. For this we have to make some changes to the <code>HomeController</code>.
+            </p>
+            <p>
+                Let's start by adding the <code>SetGridSetting()</code> and <code>GetGridSettings()</code> NonAction Helper methods to the Controller.
+            </p>
+            <h4 class="sub_title">Get Set Grid Settings</h4>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Grid/Source/_GetSetGridSettings.cs.embed")
+            </pre>
+            <br />
+            <p>
+                We store the new columns order as <code>GridSettings</code>. We use the <code>SetGridSettings()</code> method to save the new order to Session State, and  <code>GetGridSettings()</code> method to read the column order data from the Session.
+            </p>
+            <p>
+                The new column order is saved in the <code>Pager()</code> action. Let's see how we modified the Action to accomplish this.
+            </p>
+            <h4 class="sub_title">Modified Pager Action</h4>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Grid/Source/_PagerActionReOrder.cs.embed")
+            </pre>
+            <br />
+            <p>
+                Inside <code>Pager()</code> Action we make a call to <code>SaveGridSettings(settings)</code>. This way any changes to the grid made by the user will be saved to the Session State.
+            </p>
+            <p>
+                Now that we have the data saved, we can read it inside the <code>Index()</code> Action, and also inside <code>GetRowsHtml()</code>.
+            </p>
+            <h4 class="sub_title">Modified Index Action</h4>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Grid/Source/_IndexActionReOrder.cs.embed")
+            </pre>
+            <br />
+            <p>
+                We use <code>GetGridSettings()</code> to get the saved settings from the Session State. If it exists we modify <code>bsGridSettings</code> object and send it as an argument to <code>_gridRepository.ToBsGridViewModel()</code>.
+            </p>
+            <p>
+                We have to do the same inside <code>GetRowsHtml()</code> Action.
+            </p>
+            <h4 class="sub_title">Modified Get Rows Html NonAction</h4>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Grid/Source/_GetRowsHtmlActionReOrder.cs.embed")
+            </pre>
+            <br />
+            <p>
+                <code>GetRowsHtml()</code> NonAction is used inside <code>GetRows()</code> Action and also inside <code>RecommendUnrecommend()</code> Action.
+            </p>
+            <p>
+                Now the user can reorder grid columns, and the new order will persist on page refresh.
+            </p>
+            <br />
             <h2 id="toolbar">Building a Toolbar for the Grid</h2>
             <p>
                 Now that we have a functional grid we can implement the <code>BForms.Toolbar</code> for it. The toolbar will have search functionality and will be able to filter the grid by using both <code>Advanced Search</code> and <code>Quick Search</code>. Later we will add functionality to create <code>New</code> entities and add them to the grid.
@@ -1002,6 +1082,11 @@
             <p>
                 Now we have a fully functional grid and toolbar. We can add new rows, we can filter the grid with <code>QuickSearch</code> and <code>AdvancedSearch</code>, and we can edit existing rows.
             </p>
+            <br />
+            <h2 id="code">MoviesTop - Grid and Toolbar Example Code</h2>
+            <br />
+            @Html.Partial("~/Views/Start/Grid/Docs/_Movies.cshtml")
         </div>
     </main>
 </div>
+
