@@ -1,0 +1,23 @@
+﻿public ActionResult Index()
+{
+    var bsGridSettings = new BsGridBaseRepositorySettings
+    {
+        Page = 1,
+        PageSize = 5
+    };
+
+    var savedSettings = GetGridSettings();
+
+    if (savedSettings != null)
+    {
+        bsGridSettings.OrderableColumns = savedSettings.OrderableColumns;
+        bsGridSettings.OrderColumns = savedSettings.OrderColumns;
+        bsGridSettings.PageSize = savedSettings.PageSize;
+    }
+
+    var gridModel = _gridRepository.ToBsGridViewModel(bsGridSettings);
+
+    ....
+
+    return View(model);
+}

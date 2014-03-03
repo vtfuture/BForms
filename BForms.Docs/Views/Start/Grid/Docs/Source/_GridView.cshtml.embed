@@ -1,0 +1,52 @@
+﻿@model MyGrid.Models.MoviesViewModel
+@using BForms.Html
+@using BForms.Grid
+@using BForms.Models
+@using MyGrid.Models
+
+
+@{
+    var builder = new BsGridHtmlBuilder<MoviesViewModel, MoviesRowModel>();
+}  
+
+@(
+Html.BsGridFor(m => m.Grid, builder)
+.ConfigureColumns(cols =>
+{
+    cols.For(c => c.ReleaseDate)
+        .Name("Released")
+        .Text(x => String.Format("{0:MMM yyyy}", x.ReleaseDate));
+    cols.For(c => c.WeekendRevenue)
+        .Text(x => x.WeekendRevenue + " mil$");
+    cols.For(c => c.GrossRevenue)
+        .Text(x => x.GrossRevenue + " mil$");
+    cols.For(c => c.Recommended)
+        .Text(x => x.Recommended ? Html.BsGlyphicon(Glyphicon.ThumbsUp).ToHtmlString() : Html.BsGlyphicon(Glyphicon.ThumbsDown).ToHtmlString());
+})
+.ConfigureRows(cfg => cfg.DetailsTemplate(row => Html.Partial("Grid/Details/_Index", row.Details).ToString())
+                         .HtmlAttributes(row => new Dictionary<string, object> { { "data-objid", row.Id }, { "data-active", row.Recommended } })
+                         .Highlighter(row => row.Recommended ? "#59b444" : "#f0ad4e"))
+.GridResetButton()
+.ConfigureBulkActions(bulk =>
+        {
+            bulk.AddAction().StyleClass("btn-success js-btn-recommend_selected").Title("Recommend selected").GlyphIcon(Glyphicon.ThumbsUp);
+            bulk.AddAction().StyleClass("btn-warning js-btn-unrecommend_selected").Title("Unrecommend selected").GlyphIcon(Glyphicon.ThumbsDown);
+            bulk.AddAction(BsBulkActionType.Delete);
+
+            bulk.AddSelector(BsBulkSelectorType.All);
+            bulk.AddSelector().StyleClass("js-actives").Text("Recomended");
+            bulk.AddSelector().StyleClass("js-inactives").Text("Unrecommended");
+            bulk.AddSelector(BsBulkSelectorType.None);
+
+            bulk.ForSelector(BsBulkSelectorType.All).Text("All");
+            bulk.ForSelector(BsBulkSelectorType.None).Text("None");
+        })
+.PagerSettings(new BsPagerSettings
+     {
+        Size = 5,
+        ShowFirstLastButtons = true,
+        ShowPrevNextButtons = true,
+        HasPagesText = true,
+        HasPageSizeSelector = true
+     })
+)

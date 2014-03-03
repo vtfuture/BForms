@@ -201,6 +201,9 @@
     <Content Include="Content\Images\bg-user.png" />
     <Content Include="Content\Images\Docs\eg-grid-new-row.jpg" />
     <Content Include="Content\Images\Docs\eg-quicksearch-comedy.jpg" />
+    <Content Include="Content\Images\Docs\eg-reorder-after.jpg" />
+    <Content Include="Content\Images\Docs\eg-reorder-before.jpg" />
+    <Content Include="Content\Images\Docs\eg-reorder-columns.jpg" />
     <Content Include="Content\Images\Docs\eg-toolbar-add-collapsed.jpg" />
     <Content Include="Content\Images\Docs\eg-toolbar-collapsed-grid.png" />
     <Content Include="Content\Images\Docs\eg-toolbar-new.jpg" />
@@ -1336,6 +1339,39 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Start\Grid\Source\_CreateRepository.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Source\_GetSetGridSettings.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Source\_PagerActionReOrder.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Source\_IndexActionReOrder.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Source\_GetRowsHtmlActionReOrder.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Docs\_Movies.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Docs\Source\_GridController.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Docs\Source\_GridController.js.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Docs\Source\_GridModel.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Docs\Source\_GridView.cshtml.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Docs\Source\_ToolbarView.cshtml.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Grid\Docs\Source\_GridRepository.cs.embed" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

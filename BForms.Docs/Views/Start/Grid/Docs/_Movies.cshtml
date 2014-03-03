@@ -1,0 +1,62 @@
+﻿@using BForms.Docs.Helpers
+@using BForms.Grid
+@using BForms.Html
+@using BForms.Models
+
+<div class="docs_tabs">
+    <nav class="navbar navbar-default" role="navigation">
+
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#codeModels" data-toggle="tab">Models</a></li>
+                <li><a href="#codeGridView" data-toggle="tab">Grid View</a></li>
+                <li><a href="#codeToolbarView" data-toggle="tab">Toolbar View</a></li>
+                <li><a href="#codeController" data-toggle="tab">ASP.NET Controller</a></li>
+                <li><a href="#codeRepository" data-toggle="tab">Repository</a></li>
+                <li><a href="#codeJscontroller" data-toggle="tab">JS Controller</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="tab-content">
+        <div class="tab-pane fade in active" id="codeModels">
+            <pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Grid/Docs/Source/_GridModel.cs.embed")
+            </pre>
+        </div>
+        <div class="tab-pane fade" id="codeGridView">
+            <pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Grid/Docs/Source/_GridView.cshtml.embed")
+            </pre>
+        </div>
+        <div class="tab-pane fade" id="codeToolbarView">
+            <pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Grid/Docs/Source/_ToolbarView.cshtml.embed")
+            </pre>
+        </div>
+        <div class="tab-pane fade" id="codeController">
+            <pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Grid/Docs/Source/_GridController.cs.embed")
+            </pre>
+        </div>
+        <div class="tab-pane fade" id="codeRepository">
+            <pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Grid/Docs/Source/_GridRepository.cs.embed")
+            </pre>
+        </div>
+        <div class="tab-pane fade" id="codeJscontroller">
+            <pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Grid/Docs/Source/_GridController.js.embed")
+            </pre>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,20 @@
+﻿public BsJsonResult Pager(BsGridBaseRepositorySettings settings)
+{
+    ....
+
+    try
+    {
+        SaveGridSettings(settings);
+
+        var viewModel = _gridRepository.ToBsGridViewModel(settings, out count).Wrap<MoviesViewModel>(x => x.Grid);
+
+        html = this.BsRenderPartialView("Grid/_Grid", viewModel);
+    }
+    catch (Exception ex)
+    {
+        msg = ex.Message;
+        status = BsResponseStatus.ServerError;
+    }
+
+    ....
+}

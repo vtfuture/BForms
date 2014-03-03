@@ -1,0 +1,18 @@
+﻿[NonAction]
+private string GetRowsHtml(List<BsGridRowData<int>> items)
+{
+    var ids = items.Select(x => x.Id).ToList();
+    var rowsModel = _gridRepository.ReadRows(ids);
+    var viewModel = _gridRepository.ToBsGridViewModel(rowsModel, row => row.Id, items).Wrap<MoviesViewModel>(x => x.Grid);
+
+    var savedSettings = GetGridSettings();
+
+    if (savedSettings != null)
+    {
+        viewModel.Grid.BaseSettings.OrderableColumns = savedSettings.OrderableColumns;
+        viewModel.Grid.BaseSettings.OrderColumns = savedSettings.OrderColumns;
+        viewModel.Grid.BaseSettings.PageSize = savedSettings.PageSize;
+    }
+     
+    return this.BsRenderPartialView("Grid/_Grid", viewModel);
+}
