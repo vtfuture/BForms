@@ -1,0 +1,8 @@
+﻿Age = new BsRangeItem<int>
+{
+    ItemValue = 15,
+    MinValue = 14,
+    MaxValue = 100,
+    TextValue = "14-100",
+    Display = "Age"
+}

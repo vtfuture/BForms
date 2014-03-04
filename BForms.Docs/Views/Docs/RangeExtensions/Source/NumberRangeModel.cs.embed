@@ -1,0 +1,7 @@
+﻿public class RegisterModel
+{
+        [Display(Name = "Choose Interval")]
+        [BsControl(BsControlType.NumberRange)]
+        public BsRange<int> Interval { get; set; }
+    ...
+}

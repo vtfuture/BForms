@@ -211,6 +211,11 @@
     <Content Include="Content\Images\Docs\eg-toolbar-search-open.png" />
     <Content Include="Content\Images\Docs\eg-toolbar-views.jpg" />
     <Content Include="Content\Images\Docs\main-script-file.PNG" />
+    <Content Include="Content\Images\Docs\number-range.jpg" />
+    <Content Include="Content\Images\Docs\numberinline-input.jpg" />
+    <Content Include="Content\Images\Docs\numberinline-max-input.jpg" />
+    <Content Include="Content\Images\Docs\numberinline-min-input.jpg" />
+    <Content Include="Content\Images\Docs\numberpicker-input.jpg" />
     <Content Include="Content\Images\Docs\project-setup-dropdown-open.PNG" />
     <Content Include="Content\Images\Docs\project-setup-dropdown.PNG" />
     <Content Include="Content\Images\Docs\require-config-files.PNG" />
@@ -1371,6 +1376,42 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Start\Grid\Docs\Source\_GridRepository.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\InputExtensions\_InputNumberPicker.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\InputExtensions\Source\InputNumberPickerModel.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\InputExtensions\Source\InputNumberPickerView.cshtml.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\InputExtensions\Source\InputNumberPickerRepo.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\InputExtensions\_InputNumberInline.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\InputExtensions\Source\InputNumberInlineModel.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\InputExtensions\Source\InputNumberInlineRepo.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\InputExtensions\Source\InputNumberInlineView.cshtml.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\RangeExtensions\_NumberRange.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\RangeExtensions\Source\NumberRangeModel.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\RangeExtensions\Source\NumberRangeRepo.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\RangeExtensions\Source\NumberRangeView.cshtml.embed" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

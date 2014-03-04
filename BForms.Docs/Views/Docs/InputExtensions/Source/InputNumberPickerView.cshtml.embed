@@ -1,0 +1,8 @@
+﻿<div class="form-group">
+    @Html.BsLabelFor(m => m.Age)
+    <div class="input-group">
+        @Html.BsGlyphiconAddon(Glyphicon.Time)
+        @Html.BsInputFor(m => m.Age)
+        @Html.BsValidationFor(m => m.Age)
+    </div>
+</div>

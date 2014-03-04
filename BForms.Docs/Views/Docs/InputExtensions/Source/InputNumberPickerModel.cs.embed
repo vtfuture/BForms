@@ -1,0 +1,8 @@
+﻿public class RegisterModel
+{
+        [Display(Name = "Age")]
+        [BsControl(BsControlType.Number)]
+        public BsRangeItem<int> Age { get; set; }
+
+    ...
+}

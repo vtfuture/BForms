@@ -1,0 +1,18 @@
+﻿Interval = new BsRange<int>
+{
+    From = new BsRangeItem<int>
+    {
+        ItemValue = 10,
+        MinValue = 0,
+        MaxValue = 24,
+        Display = "From"
+    },
+    To = new BsRangeItem<int>
+    {
+        ItemValue = 18,
+        MinValue = 0,
+        MaxValue = 24,
+        Display = "To"
+    },
+    TextValue = "0-24"
+}
