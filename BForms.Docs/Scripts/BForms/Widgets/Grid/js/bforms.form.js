@@ -80,7 +80,8 @@
     Form.prototype._addDelegates = function () {
         
         if (this.options.hasGroupToggle) {
-            this.element.find(this.options.groupToggleSelector).on('click', $.proxy(this._evToggleGroup, this));
+            var $elem = this.element.find(this.options.groupToggleSelector);
+            $elem.on('click', $.proxy(this.toggleGroup, this, $elem));
         }
 
     };
@@ -93,11 +94,12 @@
             if (amplify.store(amplifyKey)) {
                 try {
                     var savedGroupContainerValues = amplify.store(amplifyKey);
-                    this.$form.find(this.options.groupToggleContainerSelector).each(function (index) {
+                    var context = this;
+                    this.$form.find(this.options.groupToggleSelector).each(function (index) {
                         if (savedGroupContainerValues[index]) {
-                            $(this).next().show();
+                            context.showGroup($(this));
                         } else {
-                            $(this).next().hide();
+                            context.hideGroup($(this));
                         }
                     });
                 }
@@ -212,13 +214,6 @@
         return this.element.parseForm(this.options.prefix ? this.options.prefix : '');
     };
     
-    Form.prototype._evToggleGroup = function(e) {
-        var $elem = $(e.currentTarget);
-        $elem.find(this.options.glyphClass).toggleClass(this.options.groupToggleUp).toggleClass(this.options.groupToggleDown);
-        $elem.toggleClass('open').closest(this.options.groupToggleContainerSelector).next().stop().slideToggle($.proxy(this._saveGroupContainer, this));
-        
-    };
-
     Form.prototype._saveGroupContainer = function () {
         if (this.options.saveGroupContainerState) {
             try {
@@ -321,6 +316,28 @@
     Form.prototype.reset = function (e) {
         this.element.bsResetForm(this.options.focusFirst);
     };
+
+    Form.prototype.toggleGroup = function ($elem) {
+        if (this.options.hasGroupToggle) {
+            $elem.find(this.options.glyphClass).toggleClass(this.options.groupToggleUp).toggleClass(this.options.groupToggleDown);
+            $elem.toggleClass('open').closest(this.options.groupToggleContainerSelector).next().stop().slideToggle($.proxy(this._saveGroupContainer, this));
+        }
+    };
+
+    Form.prototype.showGroup = function ($elem) {
+        if (this.options.hasGroupToggle) {
+            $elem.find(this.options.glyphClass).removeClass(this.options.groupToggleUp).addClass(this.options.groupToggleDown);
+            $elem.addClass('open').closest(this.options.groupToggleContainerSelector).next().stop().slideDown($.proxy(this._saveGroupContainer, this));
+        }
+    };
+
+    Form.prototype.hideGroup = function ($elem) {
+        if (this.options.hasGroupToggle) {
+            $elem.find(this.options.glyphClass).addClass(this.options.groupToggleUp).removeClass(this.options.groupToggleDown);
+            $elem.removeClass('open').closest(this.options.groupToggleContainerSelector).next().stop().slideUp($.proxy(this._saveGroupContainer, this));
+        }
+    };
+
     //#endregion
     
     $.widget('bforms.bsForm', Form.prototype);
