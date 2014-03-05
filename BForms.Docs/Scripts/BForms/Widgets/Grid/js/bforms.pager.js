@@ -126,7 +126,6 @@
 
         if (!window.isNaN(oldTopMargin)) {
             var pageSize = this.getPageSize();
-            debugger;
             if (oldTopMargin > pageSize * (currentPage - 1) &&  oldTopMargin < pageSize * currentPage) {
                 var newTopMargin = oldTopMargin + 1;
                 this.element.find(this.options.topResultsMargin).text(newTopMargin);
