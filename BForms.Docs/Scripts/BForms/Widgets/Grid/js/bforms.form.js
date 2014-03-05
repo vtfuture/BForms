@@ -78,12 +78,13 @@
     };
 
     Form.prototype._addDelegates = function () {
-        
-        if (this.options.hasGroupToggle) {
-            var $elem = this.element.find(this.options.groupToggleSelector);
-            $elem.on('click', $.proxy(this.toggleGroup, this, $elem));
-        }
 
+        if (this.options.hasGroupToggle) {
+            this.element.on('click', this.options.groupToggleSelector, $.proxy(function (e) {
+                var $elem = $(e.currentTarget);
+                this.toggleGroup($elem);
+            }, this));
+        }
     };
 
     Form.prototype._initAmplifyStore = function () {
