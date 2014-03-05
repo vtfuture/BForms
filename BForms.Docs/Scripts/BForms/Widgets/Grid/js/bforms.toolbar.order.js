@@ -151,6 +151,8 @@ define('bforms-toolbar-order', [
         $(this._controls.save.selector).attr('disabled', false);
 
         this.updated = false;
+        
+        this.widget._trigger('afterOrderFormSubmit', event, { response: response });
     };
 
     Order.prototype._reorderSuccess = function (response) {
@@ -162,6 +164,8 @@ define('bforms-toolbar-order', [
         $(this._controls.save.selector).attr('disabled', false);
 
         this.previousConfigurationHtml = this.$sortable.html();
+        
+        this.widget._trigger('afterOrderFormSubmit', event, { response: response });
     };
 
     return Order;

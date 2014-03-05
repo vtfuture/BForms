@@ -99,10 +99,19 @@
             this.widget.subscribers[i].bsGrid('add', response.Row, data, response);
         }
         this.$addForm.bsForm('reset');
+
+        this.widget._trigger('afterAdd', 0, {
+            data: data,
+            response: response
+        });
     };
 
     Add.prototype._evOnReset = function (data) {
         this.$addForm.bsForm('reset');
+
+        this.widget._trigger('afterReset', 0, {
+            data: data
+        });
     };
 
     return Add;
