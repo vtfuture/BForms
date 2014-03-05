@@ -362,7 +362,7 @@
 
         var data = this._getXhrData();
 
-        this._trigger('beforeReadonlyLoad', data);
+        this._trigger('beforeReadonlyLoad', 0, data);
 
         this.$content.find(this.options.formSelector).addClass('loading');
 
@@ -417,7 +417,7 @@
 
         var data = this._getXhrData();
 
-        this._trigger('beforeEditableLoad', data);
+        this._trigger('beforeEditableLoad', 0, data);
 
         this.$content.find(this.options.formSelector).addClass('loading');
 
