@@ -2,7 +2,7 @@
 
 <h3 id="ToolbarHelper">Toolbar helper</h3>
 
-<p>In order to render a toolbar you will need to use the <code>Html.ToolbarFor</code> helper extension.
+<p>In order to render a toolbar you will need to use the <code>Html.ToolbarFor()</code> helper extension.
 The basic setup requirements for this to render something looks like this:    
 </p>
 <pre class="prettyprint lang-cs bs-example">
@@ -25,13 +25,13 @@ The basic setup requirements for this to render something looks like this:
     It can be set both ways.
 </p>
 
-<p>Declarative - Decorate your property model with DisplayAttribute that comes with MVC</p>
+<p><strong>Declarative</strong> - Decorate your property model with DisplayAttribute that comes with MVC</p>
 <pre class="prettyprint lang-cs bs-example">
 @Html.InsertFileContentCached("~/Views/Docs/Toolbar/Source/_DisplayNameDeclarative.cs.embed")
 </pre>
 <br />
 
-<p>Razor</p>
+<p><strong>Razor</strong></p>
 <pre class="prettyprint lang-cs bs-example">
 @Html.InsertFileContentCached("~/Views/Docs/Toolbar/Source/_DisplayNameRazor.cs.embed")
 </pre>
@@ -41,23 +41,47 @@ The basic setup requirements for this to render something looks like this:
 </div>
 <br />
 
-<h4>Theme</h4>
+<h3>Toolbar Theme</h3>
 <p>
     You can easily change the look of your toolbar by setting the theme. It actually just changes the colour of your component, but it is a simple and elegant feature that helps you to change basic styling with no effort at all.
-    It can be set both ways.
+    There are three ways in which you can change the theme.
 </p>
 
-<p>Declarative - Decorate your property model with BsToolbarAttribute and set BsTheme property to the theme of your desire</p>
+<p>
+    <strong>Global</strong> - You can set the theme globally in the <code>Global.asax</code> file, inside the <code>Application_Start()</code> method.
+</p>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/Toolbar/Source/_ThemeGlobal.cs.embed")
+</pre>
+<br />
+
+<p>
+    <strong>Declarative</strong> - Decorate your property model with <code>BsToolbarAttribute</code> and set the <code>Theme</code> property to the theme of your desire. It will override the global theme.
+</p>
 <pre class="prettyprint lang-cs bs-example">
 @Html.InsertFileContentCached("~/Views/Docs/Toolbar/Source/_ThemeDeclarative.cs.embed")
 </pre>
 <br />
 
-<p>Razor</p>
+<p>
+    <strong>Razor</strong> - Use <code>SetTheme()</code> to set the theme inside the view. It will override the theme attribute on the model.
+</p>
 <pre class="prettyprint lang-cs bs-example">
 @Html.InsertFileContentCached("~/Views/Docs/Toolbar/Source/_ThemeRazor.cs.embed")
 </pre>
 <br />
+
+<p>
+    <strong>Razor (Get Global)</strong> - Use <code>Html.GetTheme()</code> method to get the theme set in the <code>Global.asax</code> if any. If none is set inside <code>Global.asax</code> it will return the default one (Turqoise).
+</p>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/Toolbar/Source/_ThemeRazorGlobal.cs.embed")
+</pre>
+<br />
+
+<p>
+    As you can see above, there are multiple places where you can set the theme. The order of precedence is (from the least important to the most important) <code>Global.asax</code> &gt; <code>Model</code> &gt; <code>View</code>.
+</p>
 
 <p>
     The default theme is Turqoise and you can choose from Black, Blue, Orange, Green and Purple.
@@ -65,13 +89,13 @@ The basic setup requirements for this to render something looks like this:
 </p>
 <br />
 
-<h4 id="ToolbarControls">Controls</h4>
+<h3 id="ToolbarControls">Controls</h3>
 <p>
     Now you must say OK it can be blue, it can be black, it can have a name but it still has no buttons to interact with and you are right. It's time to add some controls.
-    Be careful! By adding controls on the servers side doesn't mean that the user can instantly interact with them. For that you must do a little client side coding; more of that <a href="#javascript">here</a>.
+    Be careful! By adding controls on the servers side doesn't mean that the user can instantly interact with them. For that you must do a little client side coding; more of that <a href="#Javascript">here</a>.
 </p>
 <p>
-    Out of the box <code>BsToolbar</code> comes with 3 functionalities: quick search, advanced search and add. Sadly this part is for Razor only.
+    Out of the box <code>BsToolbar</code> comes with 4 functionalities: quick search, advanced search, add and order. Sadly this part is for Razor only.
 </p>
 
 <pre class="prettyprint lang-cs bs-example">
@@ -80,7 +104,7 @@ The basic setup requirements for this to render something looks like this:
 <br />
 
 <p>
-    There are 3 types of controls: actions, tabs and custom. Above we have two examples of tabs (Add and AdvancedSearch - well they are not entirely tabs yet, will discuss it later) and a custom one(QuickSearch)
+    There are 3 types of controls: actions, tabs and custom. Above we have three examples of tabs (Add, AdvancedSearch and Order - well they are not entirely tabs yet, will discuss it later) and a custom one(QuickSearch)
 </p>
 
 <p>
@@ -105,7 +129,31 @@ The basic setup requirements for this to render something looks like this:
 </p>
 <br />
 
-<h4 id="razor-custom-controls">Custom controls</h4>
+<p>
+    You can also use a button of type <code>ActionLink</code> that will redirect the user to the specified controller action.
+</p>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/Toolbar/Source/_ActionLink.cs.embed")
+</pre>
+<br />
+
+<p>
+    If you want a submenu you can use <code>AddButtonGroup()</code> to create a button group. After you create it, you can use this group to add default or custom buttons to it.
+</p>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/Toolbar/Source/_ButtonGroup.cs.embed")
+</pre>
+<br />
+
+<p>
+    There are a series of helper extensions that you can apply to your buttons to change their properties. You can use <code>Text()</code> to change the text of your button, <code>DisplayName()</code> to change the display text of your group, <code>GlyphIcon()</code> to add an icon to your button or group, <code>Tab()</code> to set the Tab that will be opened on button click, or <code>Placeholder()</code> to change the placeholder text of your textbox (applies to QuickSearch).
+</p>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/Toolbar/Source/_HelperExtensions.cs.embed")
+</pre>
+<br />
+
+<h3 id="razor-custom-controls">Custom controls (C#)</h3>
 <p>
     As stated above you can add custom controls to your toolbar and <strong>BsForms</strong> comes with a built-in one - <code>BsToolbarQuickSearch</code>. To use it simply add
 </p>
@@ -214,7 +262,7 @@ The basic setup requirements for this to render something looks like this:
 
 <br />
 
-<h4 id="js_custom_controls">Custom controls</h4>
+<h3 id="js_custom_controls">Custom controls (js)</h3>
 
 <p>
     <a href="#razor-custom-controls">Earlier</a> I've showed you how to implement a custom control on the server side.
@@ -230,7 +278,7 @@ The basic setup requirements for this to render something looks like this:
 </pre>
 <br />
 
-<h4 id="manually_controls">Adding controls manually</h4>
+<h3 id="manually_controls">Adding controls manually</h3>
 
 <p>
     In order to stop your controls to be automatically added to your toolbar you have to set <code>autoInitControls</code> to <code>false</code>.
@@ -242,7 +290,7 @@ The basic setup requirements for this to render something looks like this:
 </pre>
 <br />
 
-<h4 id="customizing_controls">Customizing controls</h4>
+<h3 id="customizing_controls">Customizing controls</h3>
 
 <p>
     Advanced search and add controls manipulate the toolbar subscribers by submiting a form. By using their corresponding plugins

@@ -19,8 +19,6 @@
         // merge options
         this.options = $.extend(true, {}, this._defaultOptions, options);
 
-        this._init();
-
     };
 
     // plugin default options
@@ -35,7 +33,8 @@
     };
 
     // plugin init
-    QuickSearch.prototype._init = function () {
+    // it will automatically be called
+    QuickSearch.prototype.init = function () {
 
         // keep toolbar widget refrence as we need it later when 
         this.widget = this.$toolbar.data('bformsBsToolbar');

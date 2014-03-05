@@ -1,0 +1,5 @@
+﻿@(Html.BsToolbarFor(x => x.Toolbar)
+    .ConfigureActions(ca =>
+    {
+        ca.AddActionLink().Action(Url.Action("YourAction", "YourController"));
+    })

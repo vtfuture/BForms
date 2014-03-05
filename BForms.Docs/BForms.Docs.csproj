@@ -1413,6 +1413,21 @@
   <ItemGroup>
     <Content Include="Views\Docs\RangeExtensions\Source\NumberRangeView.cshtml.embed" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Toolbar\Source\_ThemeGlobal.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Toolbar\Source\_ThemeRazorGlobal.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Toolbar\Source\_ActionLink.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Toolbar\Source\_ButtonGroup.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Toolbar\Source\_HelperExtensions.cs.embed" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
