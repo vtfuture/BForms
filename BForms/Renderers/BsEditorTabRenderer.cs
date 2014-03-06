@@ -50,84 +50,87 @@ namespace BForms.Renderers
                 list.AddCssClass("group_profiles");
                 list.AddCssClass("bs-tabItemsList");
 
-                foreach (var item in this.Builder.Model.GetItems<TRow>())
+                if (this.Builder.HasItems)
                 {
-                    var listItem = new TagBuilder("li");
-
-                    listItem.MergeAttribute("data-objid", MvcHelpers.Serialize(item.GetUniqueID()));
-
-                    listItem.MergeAttribute("data-model", MvcHelpers.Serialize(item));
-
-                    IDictionary<string, object> itemAttributes = null;
-
-                    if (this.rowConfigurator.htmlExpression != null)
+                    foreach (var item in this.Builder.Model.GetItems<TRow>())
                     {
-                        itemAttributes = this.rowConfigurator.htmlExpression.Compile().Invoke(item);
+                        var listItem = new TagBuilder("li");
+
+                        listItem.MergeAttribute("data-objid", MvcHelpers.Serialize(item.GetUniqueID()));
+
+                        listItem.MergeAttribute("data-model", MvcHelpers.Serialize(item));
+
+                        IDictionary<string, object> itemAttributes = null;
+
+                        if (this.rowConfigurator.htmlExpression != null)
+                        {
+                            itemAttributes = this.rowConfigurator.htmlExpression.Compile().Invoke(item);
+                        }
+
+                        listItem.MergeAttributes(itemAttributes);
+
+                        listItem.MergeClassAttribute("bs-tabItem", itemAttributes);
+
+                        var listItemWrapper = new TagBuilder("div");
+
+                        listItemWrapper.AddCssClass("media profile large");
+
+                        if (this.rowConfigurator.avatarExpression != null)
+                        {
+                            var anchorLeft = new TagBuilder("a");
+
+                            anchorLeft.MergeAttribute("href", "#");
+
+                            anchorLeft.AddCssClass("pull-left");
+
+                            var img = new TagBuilder("img");
+
+                            img.AddCssClass("media-object");
+
+                            string avatar = this.rowConfigurator.avatarExpression.Compile().Invoke(item);
+
+                            img.MergeAttribute("src", avatar);
+
+                            anchorLeft.InnerHtml += img;
+
+                            listItemWrapper.InnerHtml += anchorLeft;
+                        }
+
+                        var anchorRight = new TagBuilder("a");
+
+                        anchorRight.MergeAttribute("href", "#");
+
+                        anchorRight.AddCssClass("btn btn-white select_profile");
+
+                        var isSelected = IsSelected(item);
+
+                        if (isSelected)
+                        {
+                            anchorRight.InnerHtml += GetGlyphicon(Glyphicon.Ok);
+
+                            listItem.AddCssClass("selected");
+                        }
+                        else
+                        {
+                            anchorRight.AddCssClass("bs-addBtn");
+
+                            anchorRight.InnerHtml += GetGlyphicon(Glyphicon.Plus);
+                        }
+
+                        listItemWrapper.InnerHtml += anchorRight;
+
+                        var templateWrapper = new TagBuilder("div");
+
+                        templateWrapper.AddCssClass("media-body");
+
+                        templateWrapper.InnerHtml += this.Builder.RenderModel<TRow>(item, "");
+
+                        listItemWrapper.InnerHtml += templateWrapper;
+
+                        listItem.InnerHtml += listItemWrapper;
+
+                        list.InnerHtml += listItem;
                     }
-
-                    listItem.MergeAttributes(itemAttributes);
-
-                    listItem.MergeClassAttribute("bs-tabItem", itemAttributes);
-
-                    var listItemWrapper = new TagBuilder("div");
-
-                    listItemWrapper.AddCssClass("media profile large");
-
-                    if (this.rowConfigurator.avatarExpression != null)
-                    {
-                        var anchorLeft = new TagBuilder("a");
-
-                        anchorLeft.MergeAttribute("href", "#");
-
-                        anchorLeft.AddCssClass("pull-left");
-
-                        var img = new TagBuilder("img");
-
-                        img.AddCssClass("media-object");
-
-                        string avatar = this.rowConfigurator.avatarExpression.Compile().Invoke(item);
-
-                        img.MergeAttribute("src", avatar);
-
-                        anchorLeft.InnerHtml += img;
-
-                        listItemWrapper.InnerHtml += anchorLeft;
-                    }
-
-                    var anchorRight = new TagBuilder("a");
-
-                    anchorRight.MergeAttribute("href", "#");
-
-                    anchorRight.AddCssClass("btn btn-white select_profile");
-
-                    var isSelected = IsSelected(item);
-
-                    if (isSelected)
-                    {
-                        anchorRight.InnerHtml += GetGlyphicon(Glyphicon.Ok);
-
-                        listItem.AddCssClass("selected");
-                    }
-                    else
-                    {
-                        anchorRight.AddCssClass("bs-addBtn");
-
-                        anchorRight.InnerHtml += GetGlyphicon(Glyphicon.Plus);
-                    }
-
-                    listItemWrapper.InnerHtml += anchorRight;
-
-                    var templateWrapper = new TagBuilder("div");
-
-                    templateWrapper.AddCssClass("media-body");
-
-                    templateWrapper.InnerHtml += this.Builder.RenderModel<TRow>(item, "");
-
-                    listItemWrapper.InnerHtml += templateWrapper;
-
-                    listItem.InnerHtml += listItemWrapper;
-
-                    list.InnerHtml += listItem;
                 }
 
                 result += list;
@@ -172,12 +175,7 @@ namespace BForms.Renderers
         {
             this.InitPager();
 
-            var result = "";
-
-            if (this.Builder.HasItems)
-            {
-                result += RenderItems();
-            }
+            var result = RenderItems();
 
             result += RenderPager();
 
