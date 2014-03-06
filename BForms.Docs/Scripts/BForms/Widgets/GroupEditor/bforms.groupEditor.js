@@ -1170,24 +1170,27 @@
 
         $loadedTabs.each($.proxy(function (idx, tab) {
 
-            var $tab = $(tab),
+             var $tab = $(tab),
                 tabModel = {
                     container: $tab,
                     loaded: true,
                     tabId: $tab.data('tabid'),
                     connectsWith: $tab.data('connectswith')
-                };
-
-            this._ajaxGetTab({
-                tabModel: tabModel,
-                data: {
+                },
+                data = {
                     settings: {
                         Page: 1,
                         PageSize: 5,
                         TabId: tabModel.tabId,
                     },
                     preventShow: true
-                }
+                };
+
+            this._trigger('beforeResetTab', 0, data);
+
+            this._ajaxGetTab({
+                tabModel: tabModel,
+                data: data
             });
         }, this));
 
