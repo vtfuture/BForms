@@ -1,0 +1,8 @@
+﻿@(Html.BsToolbarFor(x => x.Toolbar)
+    .ConfigureActions(ca =>
+    {
+        var groupButton = ca.AddButtonGroup();
+
+        groupButton.Add(BsToolbarActionType.Order);        
+        groupButton.AddActionLink().Action(Url.Action("YourAction", "YourController"));
+    })

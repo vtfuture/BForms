@@ -1,0 +1,16 @@
+﻿@(Html.BsToolbarFor(x => x.Toolbar)
+    .ConfigureActions(ca =>
+    {
+        var groupButton = ca.AddButtonGroup().DisplayName("Options").GlyphIcon(Glyphicon.Cog);
+
+        groupButton.AddActionLink()
+            .Text("User profile")
+            .GlyphIcon(Glyphicon.User)
+            .Action(Url.Action("Index", "UserProfile"));
+
+        ca.Add<BsToolbarQuickSearch>()
+          .Placeholder("Search");
+        
+        ca.Add(BsToolbarActionType.AdvancedSearch)
+          .Tab(x => Html.BsPartialPrefixed(y => y.Search, "Toolbar/_Search", x));
+    })

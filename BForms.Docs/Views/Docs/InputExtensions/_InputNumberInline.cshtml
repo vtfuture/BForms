@@ -1,0 +1,38 @@
+﻿@using BForms.Docs.Helpers
+<h3 id="Input-NumberInline">Number Inline Input</h3>
+
+<p>        
+    In order to render a text input of type number inline you will need to use the 
+    <code>@@Html.BsInputFor</code> helper extension and 
+    decorate your model property with <code>[BsControl(BsControlType.NumberInline)]</code>. Also the model property must be of type <code>BsRangeItem&lt;int&gt;</code>.
+</p>
+
+<h4 class="sub_title">Example</h4>    
+<div class="bs-example bs-img-example">
+    <img src="@Url.Content("~/Content/images/docs/numberinline-input.jpg")">
+</div>
+
+<h4 class="sub_title">Minimum Value Reached</h4>
+<div class="bs-example bs-img-example">
+    <img src="@Url.Content("~/Content/images/docs/numberinline-min-input.jpg")">
+</div>
+
+<h4 class="sub_title">Maximum Value Reached</h4>
+<div class="bs-example bs-img-example">
+    <img src="@Url.Content("~/Content/images/docs/numberinline-max-input.jpg")">
+</div>
+
+<h4 class="sub_title">Model</h4>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/InputExtensions/Source/InputNumberInlineModel.cs.embed")
+</pre>
+
+<h4 class="sub_title">View</h4>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/InputExtensions/Source/InputNumberInlineView.cshtml.embed")
+</pre>
+
+<h4 class="sub_title">Example Initialization</h4>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/InputExtensions/Source/InputNumberInlineRepo.cs.embed")
+</pre>

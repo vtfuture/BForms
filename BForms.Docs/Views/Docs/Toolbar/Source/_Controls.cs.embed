@@ -6,4 +6,6 @@
         ca.Add<BsToolbarQuickSearch>();
         
         ca.Add(BsToolbarActionType.AdvancedSearch);
+
+        ca.Add(BsToolbarActionType.Order)
     })

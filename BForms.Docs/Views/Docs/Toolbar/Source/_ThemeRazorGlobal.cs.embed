@@ -1,3 +1,3 @@
 ﻿@(Html.BsToolbarFor(x => x.Toolbar)
     .DisplayName("Dev Team")
-    .SetTheme(BsTheme.Purple)
+    .SetTheme(Html.GetTheme())

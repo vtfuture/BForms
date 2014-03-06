@@ -1,0 +1,8 @@
+﻿  <div class="form-group">
+    @Html.BsLabelFor(m => m.Interval)
+    <div class="input-group">
+      @Html.BsGlyphiconAddon(Glyphicon.Time)
+      @Html.BsRangeFor(m => m.Interval)
+      @Html.BsValidationFor(m => m.Interval)
+    </div>
+  </div>

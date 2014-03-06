@@ -1,0 +1,6 @@
+﻿protected void Application_Start()
+{
+    ....
+
+    BForms.Utilities.BsUIManager.Theme(BsTheme.Orange);
+}
