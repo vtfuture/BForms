@@ -1162,6 +1162,8 @@
         this._trigger('beforeReset');
 
         this.$element.find(this.options.groupItemSelector).remove();
+		//Reset group items counter
+        this.$counter.html(0);
 
         var $loadedTabs = this.$tabs.find('*[data-loaded]').filter(function () {
             var loaded = $(this).data('loaded');
