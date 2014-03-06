@@ -88,7 +88,8 @@ namespace BForms.Renderers
                         throw new Exception("Tab property Id is not set for tab " + tab.Name);
                     }
 
-                    anchor.InnerHtml += tab.Name;
+                    var resourceTabName = BsResourceManager.Resource(tab.Name);
+                    anchor.InnerHtml += string.IsNullOrEmpty(resourceTabName) ? tab.Name : resourceTabName;
 
                     item.InnerHtml += anchor;
 
