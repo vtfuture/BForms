@@ -34,6 +34,9 @@
         },
         formOptions: {
 
+            validateSave: true,
+            parseSave: true,
+
         },
 
         formSelector: 'form',
@@ -319,9 +322,9 @@
             actions: [{
                 name: 'save',
                 selector: this.options.saveFormSelector,
-                validate: true,
+                validate: this.options.formOptions.validateSave,
                 actionUrl: this.options.saveUrl,
-                parse: true,
+                parse: this.options.formOptions.parseSave,
                 getExtraData: $.proxy(function (data) {
                     data.componentId = this._componentId;
                     data.objId = this._objId;
