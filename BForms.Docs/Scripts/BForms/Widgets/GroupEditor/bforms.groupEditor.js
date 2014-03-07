@@ -196,6 +196,7 @@
             tabModel.container.data('init', true);
 
             this._initDraggable(tabModel);
+            this._initBulkMove(tabModel);
         }
     };
 
@@ -248,6 +249,17 @@
             uniqueName: $form.data('uid')
         });
 
+    };
+
+    GroupEditor.prototype._initBulkMove = function (tab) {
+        tab.container.find(this.options.groupBulkMoveSelector).each($.proxy(function (idx, bulkMoveItem) {
+
+            var $bulkMoveItem = $(bulkMoveItem);
+            if (jQuery.inArray($bulkMoveItem.data('groupid'), tab.connectsWith) < 0) {
+                $bulkMoveItem.parent().remove();
+            }
+
+        }, this));
     };
     //#endregion
 
