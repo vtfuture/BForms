@@ -253,9 +253,10 @@ textarea {
 		background: $Gray;
 		color: #333;
 	}
-	.select2-result-label {
+	.select2-result-label, .select2-save, .select2-no-results {
 		padding: 5px 8px;
 	}
+
 }
 .select2-display-none .select2-results {
 	margin: 0;
