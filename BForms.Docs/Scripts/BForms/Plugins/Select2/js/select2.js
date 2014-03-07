@@ -1032,7 +1032,7 @@ the specific language governing permissions and limitations under the Apache Lic
             data[this.opts.propName] = value;
 
             if (this.opts.additionalData) {
-                if (this.opts.additionalDataValue.length == 0) {
+                if (typeof this.opts.additionalDataValue === "undefined" || this.opts.additionalDataValue.length == 0) {
                     this.select.trigger('additionalDataValue', data);
                 } else {
                     data[this.opts.additionalData] = this.opts.additionalDataValue;
