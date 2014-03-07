@@ -173,6 +173,7 @@
         }, this));
 
         this.$picker.on('change', '.bs-rangeInput', $.proxy(this._onInputChange, this));
+        this.$picker.on('keypress', '.bs-rangeInput', $.proxy(this._onInputKeyPress, this));
     };
 
     rangePicker.prototype._initRenderer = function () {
@@ -504,7 +505,7 @@
         var limits = this._getLimits(idx),
             parsedValue = window.parseInt(value, 10);
 
-        if (!window.isNaN(parsedValue) && parsedValue >= limits.min && parsedValue <= limits.max) return true;
+        if (!window.isNaN(parsedValue) && parsedValue == value && parsedValue >= limits.min && parsedValue <= limits.max) return true;
         return false;
     };
 
@@ -618,6 +619,14 @@
             this._rangeDownTimeoutSpeed = null;
         }
 
+    };
+
+    rangePicker.prototype._onInputKeyPress = function (e) {
+        var keyCode = (e.keyCode ? e.keyCode : e.which);
+        //enter key
+        if (keyCode == '13') {
+            this._onInputChange(e);
+        }
     };
 
     rangePicker.prototype._onInputChange = function (e) {
