@@ -436,16 +436,9 @@
     GroupEditor.prototype._evRemove = function (e) {
         e.preventDefault();
         var $el = $(e.currentTarget),
-            $item = $el.parents(this.options.groupItemSelector),
-            tabId = $item.data('tabid'),
-            objId = $item.data('objid');
+            $item = $el.parents(this.options.groupItemSelector);
 
-        $item.effect('drop', function () {
-            $item.remove();
-        });
-
-        this._toggleItemCheck(this._getTabItem(tabId, objId), true);
-        this._countGroupItems();
+        this._removeItemGroup($item);
     };
 
     GroupEditor.prototype._evAdd = function (e) {
@@ -753,6 +746,17 @@
         }
 
         this._trigger('afterToggleItem', 0, arguments);
+    };
+
+    GroupEditor.prototype._removeItemGroup = function ($item) {
+        var tabId = $item.data('tabid'),
+            objId = $item.data('objid');
+
+        $item.effect('drop', $.proxy(function () {
+            $item.remove();
+            this._toggleItemCheck(this._getTabItem(tabId, objId), true);
+            this._countGroupItems();
+        }, this));
     };
 
     GroupEditor.prototype._uncheckAllItems = function () {
@@ -1228,15 +1232,7 @@
             var $item = $(itemGroup);
             var model = $item.data('model');
             if (!model.hasOwnProperty(modelProperty) || model[modelProperty] != propertyValue) {
-                var tabId = $item.data('tabid'),
-                            objId = $item.data('objid');
-
-                $item.effect('drop', function () {
-                    $item.remove();
-                });
-
-                this._toggleItemCheck(this._getTabItem(tabId, objId), true);
-                this._countGroupItems();
+                this._removeItemGroup($item);
             }
         }, this));
     };
