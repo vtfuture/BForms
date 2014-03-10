@@ -1169,13 +1169,15 @@
         };
     };
 
-    GroupEditor.prototype.reset = function () {
+    GroupEditor.prototype.reset = function (preventItemsRemove) {
 
         this._trigger('beforeReset');
 
-        this.$element.find(this.options.groupItemSelector).remove();
-		//Reset group items counter
-        this.$counter.html(0);
+        if (typeof preventItemsRemove === "undefined" || preventItemsRemove == false) {
+            this.$element.find(this.options.groupItemSelector).remove();
+            //Reset group items counter
+            this.$counter.html(0);
+        }
 
         var $loadedTabs = this.$tabs.find('*[data-loaded]').filter(function () {
             var loaded = $(this).data('loaded');
@@ -1184,21 +1186,21 @@
 
         $loadedTabs.each($.proxy(function (idx, tab) {
 
-             var $tab = $(tab),
-                tabModel = {
-                    container: $tab,
-                    loaded: true,
-                    tabId: $tab.data('tabid'),
-                    connectsWith: $tab.data('connectswith')
-                },
-                data = {
-                    settings: {
-                        Page: 1,
-                        PageSize: 5,
-                        TabId: tabModel.tabId,
-                    },
-                    preventShow: true
-                };
+            var $tab = $(tab),
+               tabModel = {
+                   container: $tab,
+                   loaded: true,
+                   tabId: $tab.data('tabid'),
+                   connectsWith: $tab.data('connectswith')
+               },
+               data = {
+                   settings: {
+                       Page: 1,
+                       PageSize: 5,
+                       TabId: tabModel.tabId,
+                   },
+                   preventShow: true
+               };
 
             this._trigger('beforeResetTab', 0, data);
 
@@ -1218,6 +1220,25 @@
         this.$element.find('form').bsResetForm();
 
         this._trigger('afterReset');
+    };
+
+    GroupEditor.prototype.filterGroupItems = function (groupId, modelProperty, propertyValue) {
+        var $group = this._getGroup(groupId);
+        $group.find(this.options.groupItemSelector).each($.proxy(function (idx, itemGroup) {
+            var $item = $(itemGroup);
+            var model = $item.data('model');
+            if (!model.hasOwnProperty(modelProperty) || !model[modelProperty] === propertyValue) {
+                var tabId = $item.data('tabid'),
+                            objId = $item.data('objid');
+
+                $item.effect('drop', function () {
+                    $item.remove();
+                });
+
+                this._toggleItemCheck(this._getTabItem(tabId, objId), true);
+                this._countGroupItems();
+            }
+        }, this));
     };
 
     GroupEditor.prototype.setTabContent = function (html) {
