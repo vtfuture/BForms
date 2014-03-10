@@ -1227,7 +1227,7 @@
         $group.find(this.options.groupItemSelector).each($.proxy(function (idx, itemGroup) {
             var $item = $(itemGroup);
             var model = $item.data('model');
-            if (!model.hasOwnProperty(modelProperty) || !model[modelProperty] === propertyValue) {
+            if (!model.hasOwnProperty(modelProperty) || model[modelProperty] != propertyValue) {
                 var tabId = $item.data('tabid'),
                             objId = $item.data('objid');
 
