@@ -99,15 +99,25 @@
         for (var i = 0; i < this.widget.subscribers.length; i++) {
             this.widget.subscribers[i].bsGrid('search', data);
         }
+        
+        this.widget._trigger('afterAdvancedSearch', 0, {
+            data: data
+        });
     };
 
     AdvancedSearch.prototype._evOnReset = function () {
+      
         this.$searchForm.bsForm('reset');
         var data = {};
         this.$searchForm.bsForm('getFormData', data);
         for (var i = 0; i < this.widget.subscribers.length; i++) {
             this.widget.subscribers[i].bsGrid('reset', data);
         }
+        
+        this.widget._trigger('afterAdvancedSearchReset', 0, {
+            data: data
+        });
+
     };
 
     return AdvancedSearch;
