@@ -446,6 +446,9 @@ a.btn {
           margin: 0; }
           .grid_container .grid_view .grid_rows_wrapper .grid_row_details .users li p em {
             color: #6AABDF; }
+        .grid_container .grid_view .grid_rows_wrapper .grid_row_details .users li.disabled {
+          opacity: 0.7;
+          filter: alpha(opacity=70); }
       .grid_container .grid_view .grid_rows_wrapper .grid_row_details .check-list label span {
         font-size: 11px;
         display: block; }
