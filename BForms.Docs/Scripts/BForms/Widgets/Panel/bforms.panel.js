@@ -361,9 +361,9 @@
     //#endregion
 
     //#region ajax
-    bsPanel.prototype._loadReadonlyContent = function () {
+    bsPanel.prototype._loadReadonlyContent = function (additionalData) {
 
-        var data = this._getXhrData();
+        var data = $.extend(true, this._getXhrData(), additionalData);
 
         this._trigger('beforeReadonlyLoad', 0, data);
 
@@ -416,9 +416,9 @@
         }
     };
 
-    bsPanel.prototype._loadEditableContent = function () {
+    bsPanel.prototype._loadEditableContent = function (additionalData) {
 
-        var data = this._getXhrData();
+        var data = $.extend(true, this._getXhrData(), additionalData);
 
         this._trigger('beforeEditableLoad', 0, data);
 
@@ -541,11 +541,11 @@
         }
     };
 
-    bsPanel.prototype.refresh = function () {
+    bsPanel.prototype.refresh = function (additionalData) {
 
         var method = this._readonly ? '_loadReadonlyContent' : "_loadEditableContent";
 
-        this[method]().then($.proxy(function () {
+        this[method](additionalData).then($.proxy(function () {
             this._initControls();
             this._loadState();
 
