@@ -934,6 +934,8 @@
         this._removeOpacity();
 
         this._trigger('onDragStop', 0, arguments);
+
+        this._countGroupItems();
     };
 
     GroupEditor.prototype._sortStart = function (e, ui) {
