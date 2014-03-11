@@ -396,6 +396,8 @@
 
         this._currentResultsCount++;
 
+        this._changeCount();
+
         this.$pager.bsPager('add');
 
         if (this.$rowsContainer.hasClass('no_results')) {
