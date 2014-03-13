@@ -23,7 +23,7 @@ namespace BForms.Renderers
             if (this.Builder.pager != null)
             {
                 var pagesBuilder = new TagBuilder("div");
-                pagesBuilder.AddCssClass("col-md-8 col-lg-6 bs-pages");
+                pagesBuilder.AddCssClass("col-md-9 col-lg-9 bs-pages");
 
                 #region pagination
 
@@ -207,7 +207,7 @@ namespace BForms.Renderers
 
                 var selectWrapperBuilder = new TagBuilder("div");
 
-                selectWrapperBuilder.AddCssClass("col-md-4 col-lg-6 results_per_page");
+                selectWrapperBuilder.AddCssClass("col-md-3 col-lg-3 results_per_page");
 
                 if (this.Builder.hidePageSize)
                 {
@@ -220,12 +220,6 @@ namespace BForms.Renderers
                 #region right side
                 var dropdownContainerBuilder = new TagBuilder("div");
                 dropdownContainerBuilder.AddCssClass("dropdown dropup");
-
-                var resPerPageTagBuilder = new TagBuilder("span");
-                resPerPageTagBuilder.SetInnerText(BsResourceManager.Resource("ResultsPerPage").ToLower());
-                resPerPageTagBuilder.AddCssClass("results_per_page_container");
-
-                dropdownContainerBuilder.InnerHtml += resPerPageTagBuilder.ToString();
 
                 var dropdownTriggerBuilder = new TagBuilder("a");
                 dropdownTriggerBuilder.MergeAttribute("data-toggle", "dropdown");
