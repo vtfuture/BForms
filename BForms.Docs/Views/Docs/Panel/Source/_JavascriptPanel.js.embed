@@ -1,0 +1,6 @@
+﻿$('.bs-userRole').bsPanel({
+    name: 'userRole',
+    editSuccessHandler : function(e, data) {
+        $('.js-userRole').text(data.Role);
+    }
+});

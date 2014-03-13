@@ -1,0 +1,12 @@
+﻿@(Html.BsPanelsFor(Model).ConfigurePanels(cfg =>
+{
+    cfg.Renderer<BsPanelBaseRenderer>();
+    
+    cfg.GetReadonlyUrl = Url.Action("GetReadonlyContent");
+    cfg.GetEditableUrl = Url.Action("GetEditableContent");
+    cfg.UpdateUrl = Url.Action("SetContent");
+
+    cfg.For(x => x.UserInfo).Content(Html.Partial("Readonly/_UserInfo", Model.UserInfo).ToString());
+
+    cfg.For(x => x.UserRole).HtmlAttributes(new { @class = "bs-userRole" }).Theme(BsPanelTheme.LightGreen).InitialEditable();
+}))  

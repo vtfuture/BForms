@@ -1,0 +1,51 @@
+﻿@{
+    ViewBag.Title = "Panel control";
+}
+
+<div class="row">
+    <div class="hidden-xs hidden-sm col-md-3 col-lg-3">
+        <div class="bs-sidebar">
+            <ul class="nav bs-sidenav">
+                <li>
+                    <a href="#panel-section">Panel control</a>
+                    <ul class="nav">
+                        <li><a href="#Models"><strong>Server side</strong></a></li>
+                        <li><a href="#Models">Models</a></li>
+                        <li><a href="#PanelHelper">Panel Helper</a></li>
+                        <li><a href="#Javascript"><strong>Client side</strong></a></li>
+                        <li><a href="#Javascript">JavaScript</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <main class="col-md-9 col-lg-9" role="main">
+        <div class="bs-docs-section">
+            <div class="page-header">
+                <h1 id="panel-section">Panel</h1>
+            </div>
+            <p>
+                BForms <strong>Panel</strong> component is designed to provide rich functionality, cross-browser, cross-device and internationalization support for your entities.
+            </p>
+            <p>
+                The feature set includes AJAX-enabled editing adapted for Entity Framework that can be customized with your own update logic. The UI is touch friendly and HTML5 enhanced featuring edit in place. 
+            </p>
+            <p>
+                On the client side, the Panel is deployed as an AMD jQuery widget that supports theming and templates. 
+                The styling is done using bootstrap v3 CSS grid system.  
+            </p>
+            <hr/>
+
+            @Html.Partial("Panel/_Models")
+            <hr />
+
+            @Html.Partial("Panel/_PanelHelper")
+            <hr />
+            
+            @Html.Partial("Panel/_Javascript")
+            <hr />
+        </div>
+
+    </main>
+</div>

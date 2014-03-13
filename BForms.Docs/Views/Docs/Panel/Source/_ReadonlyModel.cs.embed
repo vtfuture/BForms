@@ -1,0 +1,10 @@
+﻿public class UserReadonlyModel
+{
+    [BsPanel(Id = PanelComponentsEnum.UserInfo, Expandable = true, Editable = false)]
+    [Display(Name = "User info")]
+    public UserInfoModel UserInfo { get; set; }
+
+    [BsPanel(Id = PanelComponentsEnum.UserRole)]
+    [Display(Name = "User role")]
+    public UserRoleModel UserRole { get; set; }
+}

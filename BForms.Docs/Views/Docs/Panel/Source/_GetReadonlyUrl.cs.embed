@@ -1,0 +1,1 @@
+﻿cfg.GetReadonlyUrl = Url.Action("GetReadonlyContent")
