@@ -13,6 +13,8 @@
     padding-bottom: 70px; }
   .group_editor .row {
     margin: 0; }
+  .group_editor hr {
+    margin: 10px 0; }
   .group_editor .navbar-default {
     border: none;
     margin: 5px 5px 0; }
