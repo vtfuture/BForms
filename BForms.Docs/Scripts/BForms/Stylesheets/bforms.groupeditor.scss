@@ -147,8 +147,11 @@ $borderColor: #e8e8e8;
 		bottom: 0;
 		width: 100%;
 	}
+	.bs-pager > div {
+		margin: 10px 0;
+	}
 	.counter {
-		padding: 17px 0;
+		padding: 9px 0;
 	}
 	.title {
 		background: #eee;

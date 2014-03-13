@@ -97,8 +97,10 @@
     position: absolute;
     bottom: 0;
     width: 100%; }
+  .group_editor .bs-pager > div {
+    margin: 10px 0; }
   .group_editor .counter {
-    padding: 17px 0; }
+    padding: 9px 0; }
   .group_editor .title {
     background: #eee;
     margin-bottom: 5px !important; }
