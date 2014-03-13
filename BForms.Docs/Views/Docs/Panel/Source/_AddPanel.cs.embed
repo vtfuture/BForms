@@ -1,0 +1,1 @@
+﻿cfg.AddPanel(new BsPanelAttribute {Id = 6, Editable = true, Expandable = true, IsLarge = false}, new DisplayAttribute {Name = "Custom"});

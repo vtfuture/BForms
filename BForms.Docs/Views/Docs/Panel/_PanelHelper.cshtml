@@ -1,0 +1,581 @@
+﻿@using BForms.Docs.Helpers
+<h3 id="PanelHelper">Panel helper</h3>
+
+<p>In order to render a panel collection, use the <code>Html.BsPanelsFor()</code> html helper extension.</p>
+
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/Panel/Source/_PanelsHelperSimple.cs.embed")
+</pre>
+<br />
+
+<p>
+    This helper returns a <code>BsPanelsHtmlBuilder</code> used to build and configure the html of the panels collection.
+</p>
+
+<hr />
+
+<code>BsPanelsHtmlBuilder</code>
+
+<h4 class="sub_title">Methods</h4>
+
+<p>
+    <code>HtmlAttributes(Dictionary&#60;string, object&#62; htmlAttributes)</code>
+</p>
+<p>
+    <strong>params:</strong>
+    <ul>
+        <li>
+            <code>htmlAttributes</code>
+            <p>
+                <strong>type </strong><code>Dictionary&#60;string, object&#62;</code><br/>
+                <strong>default</strong> none <br />
+                <strong>description</strong> object representing a key-value set of html attributes
+            </p>
+        </li>
+    </ul>
+</p>
+
+<p>
+    Set html attributes to the panel collection's dom element wrapper.
+</p>
+
+<h4 class="sub_title">Example</h4>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/Panel/Source/_HtmlAttributes.cs.embed")
+</pre>
+<hr />
+
+<p>
+    <code>SetTheme(BsTheme theme)</code>
+</p>
+
+<p>
+    <strong>params:</strong>
+    <ul>
+        <li>
+            <code>theme</code>
+            <p>
+                <strong>type </strong><code>BsTheme</code><br />
+                <strong>default</strong> <code>BsTheme.Default</code><br />
+                <strong>description</strong> theme selector
+            </p>
+        </li>
+    </ul>
+</p>
+
+<p>
+    Set the panel collection's color theme.
+</p>
+
+<h4 class="sub_title">Example</h4>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/Panel/Source/_PanelsTheme.cs.embed")
+</pre>
+
+<div class="bs-example bs-img-example">
+    <img src="@Url.Content("~/Content/images/docs/panel-readonly-green.jpg")">
+</div>
+
+<hr/>
+
+<p>
+    <code>ConfigurePanels(Action&#60;BsGridRowConfigurator&#60;TRow&#62;&#62; configurator)</code>
+</p>
+<p>
+    <strong>params:</strong>
+    <ul>
+        <li>
+            <code>configurator</code>
+            <p>
+                <strong>type </strong><code>Action&#60;BsPanelsConfigurator&#60;TModel&#62;&#62;</code><br />
+                <strong>default</strong> none <br />
+                <strong>description</strong> panels configurator (html attributes, is editable, is expanded, mode, content, color)
+            </p>
+        </li>
+    </ul>
+</p>
+
+<p>
+    Using this method, you can add html attributes to each panel, set its color or modify different properties. Each panel in the group can be customized as you like by using the provided methods.
+</p>
+
+<h4 class="sub_title">Example</h4>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/Panel/Source/_PanelsHelper.cs.embed")
+</pre>
+<hr />
+
+<code>BsPanelsConfigurator</code>
+
+<h4 class="sub_title">Properties</h4>
+
+<p>
+    <code>GetReadonlyUrl</code>
+    <p>
+        <strong>type </strong><code>string</code><br />
+        <strong>default</strong> none <br />
+        <strong>description</strong> url string
+    </p>
+</p>
+
+<p>
+    Specify url from where the readonly form will be loaded.
+</p>
+
+<h4 class="sub_title">Example</h4>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/Panel/Source/_GetReadonlyUrl.cs.embed")
+</pre>
+<hr />
+
+<p>
+    <code>GetEditableUrl</code>
+<p>
+    <strong>type </strong><code>string</code><br />
+    <strong>default</strong> none <br />
+    <strong>description</strong> url string
+</p>
+</p>
+
+<p>
+    Specify url from where the editable form will be loaded. It will assume that the box form is editable.
+</p>
+
+<h4 class="sub_title">Example</h4>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/Panel/Source/_GetEditableUrl.cs.embed")
+</pre>
+<hr />
+
+<p>
+    <code>UpdateUrl</code>
+<p>
+    <strong>type </strong><code>string</code><br />
+    <strong>default</strong> none <br />
+    <strong>description</strong> url string
+</p>
+</p>
+
+<p>
+    Specify url where the changed form will be submitted.
+</p>
+
+<h4 class="sub_title">Example</h4>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/Panel/Source/_UpdateUrl.cs.embed")
+</pre>
+<hr />
+
+<h4 class="sub_title">Methods</h4>
+
+<p>
+    <code>AddPanel(panelAttribute, displayAttribute)</code>
+</p>
+<p>
+    <strong>params:</strong>
+    <ul>
+        <li>
+            <code>panelAttribute</code>
+            <p>
+                <strong>type </strong><code>BsPanelAttribute</code><br />
+                <strong>default</strong> none <br />
+                <strong>description</strong> Set panel attributes like Id, IsLarge, Expandable, Editable for the new panel.
+            </p>
+        </li>
+        <li>
+            <code>displayAttribute</code>
+            <p>
+                <strong>type </strong><code>DisplayAttribute</code><br />
+                <strong>default</strong> none <br />
+                <strong>description</strong> Set display attributes like Name, Order, Description for the new panel.
+            </p>
+        </li>
+    </ul>
+</p>
+
+<p>
+    Adds a new panel to the existing panel collection and and sets its properties if any is provided.
+</p>
+
+<h4 class="sub_title">Example</h4>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/Panel/Source/_AddPanel.cs.embed")
+</pre>
+<hr />
+
+<p>
+    <code>For&#60;TValue&#62;(Expression&#60;Func&#60;TModel, TValue&#62;&#62; expression)</code>
+</p>
+
+<p>
+    This helper returns a <code>BsPanelHtmlBuilder</code> used to build and configure the html of the panel.
+</p>
+
+<h4 class="sub_title">Example</h4>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/Panel/Source/_For.cs.embed")
+</pre>
+<hr />
+
+<code>BsPanelHtmlBuilder</code>
+
+<h4 class="sub_title">Methods</h4>
+
+<p>
+    <code>HtmlAttributes(Dictionary&#60;string, object&#62; htmlAttributes)</code>
+</p>
+<p>
+    <strong>params:</strong>
+    <ul>
+        <li>
+            <code>htmlAttributes</code>
+<p>
+    <strong>type </strong><code>Dictionary&#60;string, object&#62;</code><br />
+    <strong>default</strong> none <br />
+    <strong>description</strong> object representing a key-value set of html attributes
+</p>
+        </li>
+    </ul>
+</p>
+
+<p>
+    Set html attributes to the panel collection's dom element wrapper.
+</p>
+
+<h4 class="sub_title">Example</h4>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/Panel/Source/_PanelHtmlAttributes.cs.embed")
+</pre>
+<hr />
+
+<p>
+    <code>NoHeader()</code>
+</p>
+<p>
+    Removes the panel header.
+</p>
+
+<h4 class="sub_title">Example</h4>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/Panel/Source/_NoHeader.cs.embed")
+</pre>
+<hr />
+
+<p>
+    <code>Name(string name)</code>
+</p>
+<p>
+    <strong>params:</strong>
+    <ul>
+        <li>
+            <code>name</code>
+<p>
+    <strong>type </strong><code>string</code><br />
+    <strong>default</strong> none <br />
+    <strong>description</strong> string value representing the display name
+</p>
+        </li>
+    </ul>
+</p>
+
+<p>
+    Sets the panel display name.
+</p>
+
+<h4 class="sub_title">Example</h4>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/Panel/Source/_Name.cs.embed")
+</pre>
+<hr />
+
+<p>
+    <code>Id(object id)</code>
+</p>
+<p>
+    <strong>params:</strong>
+    <ul>
+        <li>
+            <code>id</code>
+            <p>
+                <strong>type </strong><code>object</code><br />
+                <strong>default</strong> none <br />
+                <strong>description</strong> object representing the unique id
+            </p>
+        </li>
+    </ul>
+</p>
+
+<p>
+    Sets the panel's unique id.
+</p>
+
+<h4 class="sub_title">Example</h4>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/Panel/Source/_Id.cs.embed")
+</pre>
+<hr />
+
+<p>
+    <code>ObjId(object objId)</code>
+</p>
+<p>
+    <strong>params:</strong>
+    <ul>
+        <li>
+            <code>objId</code>
+<p>
+    <strong>type </strong><code>object</code><br />
+    <strong>default</strong> none <br />
+    <strong>description</strong> object representing the ObjId
+</p>
+        </li>
+    </ul>
+</p>
+
+<p>
+    Sets the panel's objId property.
+</p>
+
+<h4 class="sub_title">Example</h4>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/Panel/Source/_Id.cs.embed")
+</pre>
+<hr />
+
+<p>
+    <code>InitialEditable()</code>
+</p>
+<p>
+    Specify if the panel form initial state is editable. The panel must have an editable component.
+</p>
+
+<h4 class="sub_title">Example</h4>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/Panel/Source/_InitialEditable.cs.embed")
+</pre>
+<hr />
+
+<p>
+    <code>Editable(bool isEditable)</code>
+</p>
+<p>
+    <strong>params:</strong>
+    <ul>
+        <li>
+            <code>isEditable</code>
+            <p>
+                <strong>type </strong><code>bool</code><br />
+                <strong>default</strong> none <br />
+                <strong>description</strong> boolean value representing if the form can be editable
+            </p>
+        </li>
+    </ul>
+</p>
+
+<p>
+    Specify if the panel form has an editable component.
+</p>
+
+<h4 class="sub_title">Example</h4>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/Panel/Source/_Editable.cs.embed")
+</pre>
+<div class="bs-example bs-img-example">
+    <img src="@Url.Content("~/Content/images/docs/panel-editable.jpg")">
+</div>
+<hr />
+
+<p>
+    <code>Expanded(bool isExpanded)</code>
+</p>
+<p>
+    <strong>params:</strong>
+    <ul>
+        <li>
+            <code>isExpanded</code>
+<p>
+    <strong>type </strong><code>bool</code><br />
+    <strong>default</strong> none <br />
+    <strong>description</strong> boolean value representing if the form initial state is expanded
+</p>
+        </li>
+    </ul>
+</p>
+
+<p>
+    Specify if the panel form is already expanded.
+</p>
+
+<h4 class="sub_title">Example</h4>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/Panel/Source/_Expanded.cs.embed")
+</pre>
+<div class="bs-example bs-img-example">
+    <img src="@Url.Content("~/Content/images/docs/panel-collapsed.jpg")">
+</div>
+<hr />
+
+<p>
+    <code>Expandable(bool isExpandable)</code>
+</p>
+<p>
+    <strong>params:</strong>
+    <ul>
+        <li>
+            <code>isExpandable</code>
+<p>
+    <strong>type </strong><code>bool</code><br />
+    <strong>default</strong> true <br />
+    <strong>description</strong> boolean value representing if the form can be expanded
+</p>
+        </li>
+    </ul>
+</p>
+
+<p>
+    Specify if the box form is expandable or static.
+</p>
+
+<h4 class="sub_title">Example</h4>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/Panel/Source/_Expandable.cs.embed")
+</pre>
+<hr />
+
+<p>
+    <code>Mode(BsPanelMode mode)</code>
+</p>
+<p>
+    <strong>params:</strong>
+    <ul>
+        <li>
+            <code>mode</code>
+<p>
+    <strong>type </strong><code>BsPanelMode</code><br />
+    <strong>default</strong> none <br />
+    <strong>description</strong> BsPanelMode enum can be Readonly, Editable or Both.
+</p>
+        </li>
+    </ul>
+</p>
+
+<p>
+    Sets panel type, readonly/editable/both, overrides any past and future settings.
+</p>
+
+<h4 class="sub_title">Example</h4>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/Panel/Source/_Mode.cs.embed")
+</pre>
+<hr />
+
+<p>
+    <code>Content(string content)</code>
+</p>
+<p>
+    <strong>params:</strong>
+    <ul>
+        <li>
+            <code>content</code>
+<p>
+    <strong>type </strong><code>string</code><br />
+    <strong>default</strong> none <br />
+    <strong>description</strong> Custom html content.
+</p>
+        </li>
+    </ul>
+</p>
+
+<p>
+    Sets the content of the panel form. It will also set the panel as expanded and loaded.
+</p>
+
+<h4 class="sub_title">Example</h4>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/Panel/Source/_Content.cs.embed")
+</pre>
+<hr />
+
+<p>
+    <code>Renderer(BsPanelBaseRenderer renderer)</code>
+</p>
+<p>
+    <strong>params:</strong>
+    <ul>
+        <li>
+            <code>renderer</code>
+<p>
+    <strong>type </strong><code>BsPanelBaseRenderer</code><br />
+    <strong>default</strong> none <br />
+    <strong>description</strong> Choose which renderer you want to use for the panel.
+</p>
+        </li>
+    </ul>
+</p>
+
+<p>
+    Set the renderer for the panel. You can choose from <code>BsPanelLightRenderer</code> and <code>BsPanelBaseRenderer</code>.
+</p>
+
+<h4 class="sub_title">Example</h4>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/Panel/Source/_Renderer.cs.embed")
+</pre>
+<div class="bs-example bs-img-example">
+    <img src="@Url.Content("~/Content/images/docs/panel-light-readonly.jpg")">
+</div>
+<hr />
+
+<p>
+    <code>Theme(BsPanelTheme theme)</code>
+</p>
+<p>
+    <strong>params:</strong>
+    <ul>
+        <li>
+            <code>theme</code>
+            <p>
+                <strong>type </strong><code>BsPanelTheme</code><br />
+                <strong>default</strong> Default <br />
+                <strong>description</strong> Choose which theme you want to use for the panel.
+            </p>
+        </li>
+    </ul>
+</p>
+
+<p>
+    Set the theme for the panel. You can choose from <code>BsPanelTheme</code> enum: Default, Blue, LightGreen, LightBlue, LightYellow, Red.
+</p>
+
+<h4 class="sub_title">Example</h4>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/Panel/Source/_Theme.cs.embed")
+</pre>
+<hr />
+
+<p>
+    <code>Glyphicon(Glyphicon glyphicon)</code>
+</p>
+<p>
+    <strong>params:</strong>
+    <ul>
+        <li>
+            <code>glyphicon</code>
+<p>
+    <strong>type </strong><code>Glyphicon</code><br />
+    <strong>default</strong> None <br />
+    <strong>description</strong> Choose a glyphicon for the panel.
+</p>
+        </li>
+    </ul>
+</p>
+
+<p>
+    Set the glyphicon for the panel. You can choose from <code>Glyphicon</code> enum.
+</p>
+
+<h4 class="sub_title">Example</h4>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/Panel/Source/_Glyphicon.cs.embed")
+</pre>
+<hr />

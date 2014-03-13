@@ -216,6 +216,11 @@
     <Content Include="Content\Images\Docs\numberinline-max-input.jpg" />
     <Content Include="Content\Images\Docs\numberinline-min-input.jpg" />
     <Content Include="Content\Images\Docs\numberpicker-input.jpg" />
+    <Content Include="Content\Images\Docs\panel-collapsed.jpg" />
+    <Content Include="Content\Images\Docs\panel-editable.jpg" />
+    <Content Include="Content\Images\Docs\panel-light-readonly.jpg" />
+    <Content Include="Content\Images\Docs\panel-readonly-green.jpg" />
+    <Content Include="Content\Images\Docs\panel-readonly.jpg" />
     <Content Include="Content\Images\Docs\project-setup-dropdown-open.PNG" />
     <Content Include="Content\Images\Docs\project-setup-dropdown.PNG" />
     <Content Include="Content\Images\Docs\require-config-files.PNG" />
@@ -260,6 +265,7 @@
     <Content Include="Scripts\BForms\Widgets\Sortable\bforms.sortable.js" />
     <Content Include="Scripts\BForms\Widgets\Taglist\bforms.taglist.js" />
     <Content Include="Scripts\Controllers\Demo\UserProfile\userprofile-index.js" />
+    <Content Include="Scripts\Controllers\Root\Docs\docs-panel.js" />
     <Content Include="Views\Start\Setup\Source\_BundleConfigJs.cs.embed" />
     <Content Include="Views\Start\Setup\Source\_Files.embed" />
     <Content Include="Areas\Demo\Views\Contributors\Grid\Details\_IdentityEditable.cshtml">
@@ -1428,6 +1434,96 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Docs\Toolbar\Source\_HelperExtensions.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Panel\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Panel\_Models.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Panel\Source\_ReadonlyModel.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Panel\Source\_ComponentsEnum.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Panel\_PanelHelper.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Panel\Source\_PanelsHelperSimple.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Panel\Source\_PanelsHelper.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Panel\Source\_GetReadonlyUrl.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Panel\Source\_HtmlAttributes.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Panel\Source\_PanelsTheme.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Panel\Source\_GetEditableUrl.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Panel\Source\_UpdateUrl.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Panel\Source\_AddPanel.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Panel\Source\_For.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Panel\Source\_PanelHtmlAttributes.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Panel\Source\_InitialEditable.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Panel\Source\_Expanded.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Panel\Source\_Editable.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Panel\Source\_Expandable.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Panel\Source\_Mode.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Panel\Source\_Content.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Panel\Source\_Renderer.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Panel\Source\_Theme.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Panel\Source\_Glyphicon.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Panel\Source\_NoHeader.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Panel\Source\_Name.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Panel\Source\_Id.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Panel\_Javascript.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Panel\Source\_JavascriptPanelRequire.js.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Panel\Source\_JavascriptPanel.js.embed" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

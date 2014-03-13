@@ -1,0 +1,316 @@
+﻿@using BForms.Docs.Helpers
+<h3 id="Javascript">Javascript</h3>
+
+<p>
+    First step is to require <strong>bforms.panel.js</strong> aka <strong>bforms-panel</strong> (defined in <strong>RequireJS.config</strong>).
+</p>
+
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/Panel/Source/_JavascriptPanelRequire.js.embed")
+</pre>
+
+<br />
+
+<p>
+    Now that the script is loaded we can apply the panel widget on the element.
+</p>
+
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/Panel/Source/_JavascriptPanel.js.embed")
+</pre>
+<br />
+<p>
+    For further configuration see the list of options below:
+</p>
+<hr />
+
+<h4 class="sub_title">Options</h4>
+
+<code>name</code>
+
+<p>
+    <strong>type</strong> <code>string</code>
+    <br />
+    <strong>default</strong> <code>DOM element id</code>
+</p>
+
+<p>
+    Used to uniquely identify the panel. It is not required as long as the panel has the id attribute set.
+</p>
+
+<code>readonlyUrl</code>
+
+<p>
+    <strong>type</strong> <code>string</code>
+    <br />
+    <strong>default</strong> <code>null</code>
+</p>
+
+<p>
+    Specify url from where the readonly form will be loaded.
+</p>
+
+<code>editableUrl</code>
+
+<p>
+    <strong>type</strong> <code>string</code>
+    <br />
+    <strong>default</strong> <code>null</code>
+</p>
+
+<p>
+    Specify url from where the editable form will be loaded. It will assume that the box form is editable.
+</p>
+
+<code>saveUrl</code>
+
+<p>
+    <strong>type</strong> <code>string</code>
+    <br />
+    <strong>default</strong> <code>null</code>
+</p>
+
+<p>
+    Specify url where the changed form will be submitted.
+</p>
+
+<code>initialReadonly</code>
+
+<p>
+    <strong>type</strong> <code>bool</code>
+    <br />
+    <strong>default</strong> <code>true</code>
+</p>
+
+<p>
+    Specify if the panel form initial state is editable. The panel must have an editable component.
+</p>
+
+<code>editable</code>
+
+<p>
+    <strong>type</strong> <code>bool</code>
+    <br />
+    <strong>default</strong> <code>true</code>
+</p>
+
+<p>
+    Specify if the panel has an editable component.
+</p>
+
+<code>cacheReadonlyContent</code>
+
+<p>
+    <strong>type</strong> <code>bool</code>
+    <br />
+    <strong>default</strong> <code>true</code>
+</p>
+
+<p>
+    Specify if the panel should cache readdonly content.
+</p>
+
+<code>formOptions</code>
+
+<p>
+    <strong>type</strong> <code>obj</code>
+    <br />
+    <strong>default</strong> <code>{validateSave: true, parseSave: true}</code>
+</p>
+
+<p>
+    Specify if the form data should be validated and parsed on save.
+</p>
+
+<code>additionalData</code>
+
+<p>
+    <strong>type</strong> <code>object</code>
+    <br />
+    <strong>default</strong> <code>{}</code>
+</p>
+
+<p>
+    Set aditional data.
+</p>
+
+
+<code>actions</code>
+
+<p>
+    <strong>type</strong> <code>array</code>
+    <br />
+    <strong>default</strong> <code>[]</code>
+</p>
+
+<p>
+    Represents a set of actions applicable on the specified form. By default the panel has a save action if it has an editable component.
+</p>
+
+<code>beforeSaveAjax</code>
+
+<p>
+    <strong>type</strong> <code>Function</code>
+    <br />
+    <strong>default</strong> <code> none </code>
+</p>
+
+<p>
+    Specify a function to be called before ajax save action.
+</p>
+
+<code>beforeEditSuccessHandler</code>
+
+<p>
+    <strong>type</strong> <code>Function</code>
+    <br />
+    <strong>default</strong> <code> none </code>
+</p>
+
+<p>
+    Specify a function to be called before edit success handler function is called.
+</p>
+
+<code>editSuccessHandler</code>
+
+<p>
+    <strong>type</strong> <code>Function</code>
+    <br />
+    <strong>default</strong> <code> none </code>
+</p>
+
+<p>
+    Specify a function to be called after the data was successfully saved.
+</p>
+
+<code>afterFormInit</code>
+
+<p>
+    <strong>type</strong> <code>Function</code>
+    <br />
+    <strong>default</strong> <code> none </code>
+</p>
+
+<p>
+    Specify a function to be called after the form is initialized.
+</p>
+
+<code>beforeReadonlyLoad</code>
+
+<p>
+    <strong>type</strong> <code>Function</code>
+    <br />
+    <strong>default</strong> <code> none </code>
+</p>
+
+<p>
+    Specify a function to be called before the readonly data is loaded.
+</p>
+
+<code>onReadonlyLoadSuccess</code>
+
+<p>
+    <strong>type</strong> <code>Function</code>
+    <br />
+    <strong>default</strong> <code> none </code>
+</p>
+
+<p>
+    Specify a function to be called after the readonly data is loaded successfully.
+</p>
+
+<code>beforeEditableLoad</code>
+
+<p>
+    <strong>type</strong> <code>Function</code>
+    <br />
+    <strong>default</strong> <code> none </code>
+</p>
+
+<p>
+    Specify a function to be called before the editable form is loaded.
+</p>
+
+<code>onEditableLoadSuccess</code>
+
+<p>
+    <strong>type</strong> <code>Function</code>
+    <br />
+    <strong>default</strong> <code> none </code>
+</p>
+
+<p>
+    Specify a function to be called after the editable form is loaded successfully.
+</p>
+
+<code>beforeOpen</code>
+
+<p>
+    <strong>type</strong> <code>Function</code>
+    <br />
+    <strong>default</strong> <code> none </code>
+</p>
+
+<p>
+    Specify a function to be called before the panel is open.
+</p>
+
+<code>afterOpen</code>
+
+<p>
+    <strong>type</strong> <code>Function</code>
+    <br />
+    <strong>default</strong> <code> none </code>
+</p>
+
+<p>
+    Specify a function to be called after the panel is open.
+</p>
+
+<code>beforeClose</code>
+
+<p>
+    <strong>type</strong> <code>Function</code>
+    <br />
+    <strong>default</strong> <code> none </code>
+</p>
+
+<p>
+    Specify a function to be called before the panel is closed.
+</p>
+
+<code>afterClose</code>
+
+<p>
+    <strong>type</strong> <code>Function</code>
+    <br />
+    <strong>default</strong> <code> none </code>
+</p>
+
+<p>
+    Specify a function to be called after the panel is closed.
+</p>
+
+<code>onReadonlyShow</code>
+
+<p>
+    <strong>type</strong> <code>Function</code>
+    <br />
+    <strong>default</strong> <code> none </code>
+</p>
+
+<p>
+    Specify a function to be called when the readonly component is shown.
+</p>
+
+<code>onEditableShow</code>
+
+<p>
+    <strong>type</strong> <code>Function</code>
+    <br />
+    <strong>default</strong> <code> none </code>
+</p>
+
+<p>
+    Specify a function to be called when the editable component is shown.
+</p>
