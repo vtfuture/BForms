@@ -287,7 +287,7 @@
         }
     };
 
-    Form.prototype._onRefreshSuccess = function (response) {
+    Form.prototype._onRefreshSuccess = function (response, callbackData) {
 
         var $html = $(response.Html);
         this.$form.html($html.html());
