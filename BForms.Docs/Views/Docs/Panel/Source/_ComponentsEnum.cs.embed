@@ -1,0 +1,5 @@
+﻿public enum PanelComponentsEnum
+{
+    UserInfo = 1,
+    UserRole = 2
+}

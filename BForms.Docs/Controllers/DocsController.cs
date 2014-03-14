@@ -34,6 +34,11 @@ namespace BForms.Docs.Controllers
             return View("SelectExtensions/SelectExtensions");
         }
 
+        public ActionResult Panel()
+        {
+            return View("Panel/Index");
+        }
+
         public ActionResult Grid()
         {
             return View("Grid/Index");

@@ -1,0 +1,96 @@
+﻿@using BForms.Docs.Helpers
+<h3 id="Models">Models</h3>
+
+<p>
+    The first step in the panel creation is the model definition. You can set Readonly and/or Editable components for your model. Also the model can be divided into subcomponents.
+</p>
+<p>
+    It is not required to split your model in multiple components, but it is recomended to handle the ajax requests in an optimal manner. Best practice is to divide your entity in logical parts. Maybe you don't want all properties of your model editable, or maybe you don't want to update all the properties on the model at the same time. For this you can create multiple panels for your entity.
+</p>
+<p>
+    We can use an enum to hold all the components of our model.
+</p>
+
+<h4 class="sub_title">Components Enum</h4>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/Panel/Source/_ComponentsEnum.cs.embed")
+</pre>
+<br />
+
+<p>
+    After we divided the entity into logical subgoups we can go further and create the Readonly and Editable Models.
+</p>
+
+<h4 class="sub_title">Readonly Model</h4>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/Panel/Source/_ReadonlyModel.cs.embed")
+</pre>
+<br />
+
+<h4 class="sub_title">Example</h4>
+<div class="bs-example bs-img-example">
+    <img src="@Url.Content("~/Content/images/docs/panel-readonly.jpg")">
+</div>
+
+<p>
+    As you may have noticed in the above code example, there are some custom attributes declared in the readonly model.
+    The <code>BsPanelAttribute</code> allows you to set specific properties for the panel.
+</p>
+
+<hr />
+
+<code>BsPanelAttribute</code>
+
+<h4 class ="sub_title">Options</h4>
+
+<code>Expandable</code>
+
+<p>
+    <strong>type</strong> <code>bool</code>
+    <br />
+    <strong>default</strong> <code>true</code>
+</p>
+
+<p>
+    Set the panel as expandable.
+</p>
+
+<code>Editable</code>
+
+<p>
+    <strong>type</strong> <code>bool</code>
+    <br />
+    <strong>default</strong> <code>true</code>
+</p>
+
+<p>
+    Set the panel as editable.
+</p>
+
+<code>IsLarge</code>
+
+<p>
+    <strong>type</strong> <code>bool</code>
+    <br />
+    <strong>default</strong> <code>false</code>
+</p>
+
+<p>
+    Set the panel aspect as large.
+</p>
+
+<code>Id</code>
+
+<p>
+    <strong>type</strong> <code>object</code>
+    <br />
+    <strong>default</strong> <code>none</code>
+</p>
+
+<p>
+    Set the panel unique id.
+</p>
+
+<p>
+    Add also editable models if your panels suport editing.
+</p>

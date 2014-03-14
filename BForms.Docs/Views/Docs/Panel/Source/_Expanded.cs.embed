@@ -1,0 +1,1 @@
+﻿cfg.For(x => x.UserInfo).Expanded(false);
