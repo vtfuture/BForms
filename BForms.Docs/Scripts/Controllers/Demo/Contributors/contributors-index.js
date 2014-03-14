@@ -404,6 +404,11 @@
             controlsOptions: {
                 focusFirst: false
             },
+            customControlsOptions: {
+                AdvancedSearch: {
+                    focusFirst: true
+                }
+            },
             subscribers: [this.$grid]/*,
             autoInitControls: false,
             //initialize default controls manually

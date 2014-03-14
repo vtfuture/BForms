@@ -27,17 +27,8 @@
         groupToggleUp: 'glyphicon-chevron-up',
         groupToggleDown: 'glyphicon-chevron-down',
         glyphClass: '.glyphicon',
-        actions: []         //[{
-                            //    name: 'refresh',
-                            //    selector: '.bs-refreshBtn',
-                            //    url: '',
-                            //    handler: '',
-                            // setAdditionalData: null,
-                            //    validate: true,
-                            //    parse: true
-                            //}]
+        actions: []
     };
-    
 
     //#region init
     Form.prototype._init = function () {

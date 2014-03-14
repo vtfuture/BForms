@@ -57,7 +57,15 @@
             //init default controls if any
             for (var k in $.bforms.toolbar.defaults) {
                 if (k in $.bforms.toolbar.defaults) {
-                    var control = new $.bforms.toolbar.defaults[k](this.element, this.options.controlsOptions);
+
+                    var opts = $.extend(true, {}, this.options.controlsOptions);
+
+                    if (typeof this.options.customControlsOptions !== "undefined" &&  typeof this.options.customControlsOptions[k] !== "undefined") {
+                        $.extend(true, opts, this.options.customControlsOptions[k]);
+                    }
+
+                    var control = new $.bforms.toolbar.defaults[k](this.element, opts);                  
+
                     var $btn = this.element.find(control._defaultOptions.selector);
                     if ($btn.length > 0) {
                         control.$element = $btn;

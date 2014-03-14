@@ -242,6 +242,7 @@
     <Content Include="Scripts\BForms\Components\FileUpload\jquery.fileupload-validate.js" />
     <Content Include="Scripts\BForms\Components\FileUpload\jquery.fileupload.js" />
     <Content Include="Scripts\BForms\Components\FileUpload\jquery.iframe-transport.js" />
+    <Content Include="Scripts\BForms\Components\Gremlins\gremlins.min.js" />
     <Content Include="Scripts\BForms\Components\HistoryJS\jquery.history.js" />
     <Content Include="Scripts\BForms\Components\ICanHaz\ICanHaz.js" />
     <Content Include="Scripts\BForms\Components\ICanHaz\singleton-ich.js" />
