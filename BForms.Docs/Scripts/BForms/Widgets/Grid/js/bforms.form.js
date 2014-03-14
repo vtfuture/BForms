@@ -27,7 +27,8 @@
         groupToggleUp: 'glyphicon-chevron-up',
         groupToggleDown: 'glyphicon-chevron-down',
         glyphClass: '.glyphicon',
-        actions: []
+        actions: [],
+        refreshUrl: null
     };
 
     //#region init
@@ -249,6 +250,24 @@
 
     };
 
+    Form.prototype._refresh = function (data) {
+        var deferred = $.Deferred();
+
+        return $.bforms.ajax({
+            name: 'BsForm|Refresh|' + this.options.uniqueName,
+            url: this.options.refreshUrl,
+            data: data,
+            callbackData: {
+                deferred: deferred
+            },
+            context: this,
+            success: this._onRefreshSuccess,
+            error: this._onRefreshError,
+            loadingElement: this.$form,
+            loadingClass: 'loading'
+        });
+    };
+
     Form.prototype._getKeyForGroupContainer = function () {
         return this.options.appendUrlToUniqueName ? 'groupContainer|' + this.options.uniqueName + "|" + location.host + location.pathname : 'groupContainer|' + this.options.uniqueName;
     };
@@ -262,6 +281,35 @@
     };
 
     Form.prototype._btnClickAjaxError = function (data) {
+        if (data.Message) {
+            var validatedForm = this.$form.data('validator');
+            validatedForm.showSummaryError(data.Message);
+        }
+    };
+
+    Form.prototype._onRefreshSuccess = function (response) {
+
+        var $html = $(response.Html);
+        this.$form.html($html.html());
+
+        this._initSelectors();
+        this._initAmplifyStore();
+        this._addActions(this.options.actions);
+
+        this.reset();
+
+        var initUIPromise = this.$form.bsInitUI(this.options.style);
+        initUIPromise.done($.proxy(function () {
+            this._trigger('afterInitUI', 0, {
+                name: this.options.uniqueName,
+                form: this.$form
+            });
+            callbackData.deferred.resolve();
+        }, this));
+    };
+
+    Form.prototype._onRefreshError = function (data) {
+
         if (data.Message) {
             var validatedForm = this.$form.data('validator');
             validatedForm.showSummaryError(data.Message);
@@ -303,6 +351,10 @@
             action.elem.trigger('click');
         }
 
+    };
+
+    Form.prototype.refresh = function (data) {
+        return this._refresh(data);
     };
 
     Form.prototype.reset = function (e) {

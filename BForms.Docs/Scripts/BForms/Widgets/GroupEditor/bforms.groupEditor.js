@@ -1115,7 +1115,7 @@
                             $group: $group
                         };
 
-                    this._trigger('onGroupItemFormValidation', validationData);
+                    this._trigger('onGroupItemFormValidation', 0, validationData);
 
                     isValid = isValid && validationData.valid;
 
@@ -1157,7 +1157,7 @@
                     validator: groupFormValidator
                 };
 
-                this._trigger('onGroupFormValidation', groupFormValidationData);
+                this._trigger('onGroupFormValidation', 0, groupFormValidationData);
 
                 isValid = isValid && groupFormValidationData.valid;
             }
