@@ -1066,7 +1066,7 @@
 
         this._addAdditionalData(data);
 
-        this._trigger('beforePager', data);
+        this._trigger('beforePager', 0, data);
 
         //ajax
         var ajaxOptions = {
