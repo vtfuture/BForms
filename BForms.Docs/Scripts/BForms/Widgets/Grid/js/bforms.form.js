@@ -296,7 +296,7 @@
         this._initAmplifyStore();
         this._addActions(this.options.actions);
 
-        this.reset();
+        this.element.bsResetForm(false);
 
         var initUIPromise = this.$form.bsInitUI(this.options.style);
         initUIPromise.done($.proxy(function () {
