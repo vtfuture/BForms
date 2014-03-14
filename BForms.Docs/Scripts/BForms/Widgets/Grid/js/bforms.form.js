@@ -251,11 +251,15 @@
     };
 
     Form.prototype._refresh = function (data) {
+        var deferred = $.Deferred();
 
         return $.bforms.ajax({
             name: 'BsForm|Refresh|' + this.options.uniqueName,
             url: this.options.refreshUrl,
             data: data,
+            callbackData: {
+                deferred: deferred
+            },
             context: this,
             success: this._onRefreshSuccess,
             error: this._onRefreshError,
@@ -300,6 +304,7 @@
                 name: this.options.uniqueName,
                 form: this.$form
             });
+            callbackData.deferred.resolve();
         }, this));
     };
 
