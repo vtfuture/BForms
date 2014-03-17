@@ -132,6 +132,12 @@
     };
 
     $.fn.bsSelectInput = function (opts) {
+
+        if ($(this).length === 0) {
+            console.warn('bsSelectInput must be applied on an element');
+            return $(this);
+        }
+
         return new selectInput2($(this), $.extend(true, {}, $.fn.bsSelectInputDefaults, opts));
     };
 
