@@ -24,7 +24,7 @@ the specific language governing permissions and limitations under the Apache Lic
             'jquery'
         ], function (jQuery) {
             factory(jQuery);
-            var selectResources = requireConfig.websiteOptions.locale == 'ro' ? 'select2-ro' : '';
+            var selectResources = requireConfig.locale == 'ro' ? 'select2-ro' : '';
             require([selectResources]);
         });
     } else {
