@@ -18,6 +18,7 @@ namespace BForms.Editor
     {
         #region Properties
         internal BsPagerSettings pagerSettings;
+        internal string noResultsTemplate;
         protected string name { get; set; }
         protected object uid { get; set; }
         internal bool selected { get; set; }
@@ -239,6 +240,13 @@ namespace BForms.Editor
         public BsEditorTabBuilder<TModel> ConnectsWith(params object[] ids)
         {
             this.connectsWith = ids;
+
+            return this;
+        }
+
+        public BsEditorTabBuilder<TModel> NoResultsTemplate(string template)
+        {
+            this.noResultsTemplate = template;
 
             return this;
         }

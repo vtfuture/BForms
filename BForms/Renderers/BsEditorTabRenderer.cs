@@ -132,6 +132,22 @@ namespace BForms.Renderers
                         list.InnerHtml += listItem;
                     }
                 }
+                else
+                {
+                    var listItem = new TagBuilder("li");
+                    listItem.AddCssClass("bs-noResultsTabItem");
+
+                    var infoBuilder = new TagBuilder("div");
+                    infoBuilder.MergeAttribute("class", "alert alert-info");
+
+                    infoBuilder.InnerHtml += !string.IsNullOrEmpty(this.Builder.noResultsTemplate) ?
+                                   this.Builder.viewContext.Controller.BsRenderPartialView(this.Builder.noResultsTemplate, null) :
+                                   BsResourceManager.Resource("NoResults");
+
+                    listItem.InnerHtml += infoBuilder.ToString();
+
+                    list.InnerHtml += listItem;
+                }
 
                 result += list;
             }
