@@ -188,7 +188,9 @@
                             validatedForm = this.$form.validate();
                         }
 
-                        validatedForm.showErrors(response.Errors,true);
+                        validatedForm.showErrors(response.Errors, true);
+
+                        this._trigger("validationError", 0, response);
                     }
                 }
             });
@@ -285,6 +287,8 @@
             var validatedForm = this.$form.data('validator');
             validatedForm.showSummaryError(data.Message);
         }
+
+        this._trigger("ajaxError", 0, data);
     };
 
     Form.prototype._onRefreshSuccess = function (response, callbackData) {
