@@ -53,7 +53,8 @@
 
         validation: {},
         errorMessageContainer: '.bs-errorMessage',
-        errorMessageHolder : '.bs-errorMessageHolder'
+        errorMessageHolder: '.bs-errorMessageHolder',
+        noResultsItemTabSelector: '.bs-noResultsTabItem',
         
     };
     //#endregion
@@ -1257,6 +1258,8 @@
         $row.draggable(this._getDraggableOptions(tabModel));
 
         tabModel.container.find('.bs-pager').bsPager('add');
+
+        tabModel.container.find(this.options.noResultsItemTabSelector).remove();
     };
 
     GroupEditor.prototype.getItemCount = function (itemId, tabId) {
