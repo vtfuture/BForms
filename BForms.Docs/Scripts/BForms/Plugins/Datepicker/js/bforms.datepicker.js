@@ -2110,6 +2110,10 @@
 
     $.fn.bsDatepicker = function () {
 
+        if ($(this).length == 0) {
+            return $(this);
+        }
+
         var args = Array.prototype.slice.call(arguments, 0),
             options = args[0],
             methodParams = args.splice(1);
