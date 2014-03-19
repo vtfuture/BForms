@@ -543,7 +543,12 @@
         }
 
         if (newVal == Infinity || newVal == -Infinity) {
-            newVal = 0;
+            if (!window.isNaN(limits.min) && limits.min > 0) {
+                newVal = limits.min;
+            }
+            else {
+                newVal = 0;
+            }
         }
 
         if (newVal >= limits.min && newVal <= limits.max) {
@@ -591,7 +596,12 @@
         }
 
         if (newVal == Infinity || newVal == -Infinity) {
-            newVal = 0;
+            if (!window.isNaN(limits.max) && limits.max < 0) {
+                newVal = limits.max;
+            }
+            else {
+                newVal = 0;
+            }
         }
 
         if (newVal >= limits.min && newVal <= limits.max) {
