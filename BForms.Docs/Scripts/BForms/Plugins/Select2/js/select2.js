@@ -2606,10 +2606,18 @@ the specific language governing permissions and limitations under the Apache Lic
                             killEvent(e);
                             return;
                         case KEY.ENTER:
-                        case KEY.SPACE:
                             this.selectHighlighted();
                             killEvent(e);
                             return;
+                        case KEY.SPACE:
+                            if (typeof this.opts.tokenSeparators !== "undefined") {
+                                if (this.opts.tokenSeparators.indexOf(' ') > -1) {
+                                    this.selectHighlighted();
+                                    killEvent(e);
+                                    return;
+                                }
+                            }
+                            break;
                         case KEY.TAB:
                             this.selectHighlighted({ noFocus: true });
                             this.close();
