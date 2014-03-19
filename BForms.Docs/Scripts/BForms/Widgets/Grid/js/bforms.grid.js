@@ -96,7 +96,8 @@
         Search: {},
         Page: 1,
         PageSize: 5,
-        quickSearch: ''
+        quickSearch: '',
+        fromReset: false
     };
 
     Grid.prototype._initialModel = {
@@ -340,6 +341,10 @@
     //#endregion
 
     //#region public methods
+    Grid.prototype.initSearch = function (data) {
+        this.refreshModel.Search = data;
+    };
+
     Grid.prototype.search = function (data, isQuick) {
         if (data.Page) {
             this.refreshModel.Page = data.Page;
@@ -361,6 +366,8 @@
             this._hideFilterIcon();
         }
 
+        this.refreshModel.fromReset = false;
+
         this._getPage();
     };
 
@@ -369,6 +376,7 @@
         this.refreshModel.Page = 1;
         this.refreshModel.Search = data;
         this.refreshModel.quickSearch = null;
+        this.refreshModel.fromReset = true;
         this._hideFilterIcon();
 
         if (preventPagination !== true) {

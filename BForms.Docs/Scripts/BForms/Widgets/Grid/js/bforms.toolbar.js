@@ -53,6 +53,13 @@
 
         this._controls = [];
 
+        // add 
+        this.subscribers = new Array();
+
+        if (this.options.subscribers) {
+            this._addSubscribers(this.options.subscribers);
+        }
+
         if (this.options.autoInitControls) {
             //init default controls if any
             for (var k in $.bforms.toolbar.defaults) {
@@ -101,19 +108,13 @@
             }
         }
 
-        // add 
-        this.subscribers = new Array();
-
-        if (this.options.subscribers) {
-            this._addSubscribers(this.options.subscribers);
-        }
-
         this._addControls(this._controls);
 
         this._expandSavedTab();
     };
 
     Toolbar.prototype.reset = function () {
+        debugger;
         this._reset(arguments);
         if (typeof this.options.reset === "function") {
             this.options.reset.apply(this, arguments);
@@ -121,7 +122,7 @@
     };
 
     Toolbar.prototype._reset = function (options) {
-
+        
         var preventPagination = true,
             quickSearch = this.getControl('quickSearch');
 

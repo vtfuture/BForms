@@ -6,6 +6,7 @@
         'bootstrap',
         'bforms-ajax',
         'bforms-inlineQuestion',
+        'history-js',
         'main-script'
 ], function () {
 
@@ -21,6 +22,7 @@
 
         this.initGrid();
         this.initToolbar();
+        this.initHistory();
         //this.$toolbar.bsToolbar('toggleControl', 'add');
     };
     //#endregion
@@ -32,6 +34,7 @@
             $toolbar: this.$toolbar,
             uniqueName: 'usersGrid',
             pagerUrl: this.options.pagerUrl,
+            afterPaginationSuccess: $.proxy(this.afterPaginationSuccess, this),
             addValidation: function (data, response) {
                 if (data["New.FirstName"] == "Cristi Pufu") return false;
             },
@@ -227,6 +230,58 @@
     };
 
     GridIndex.prototype._evExportToExcel = function (e, $selectedRows) {
+
+    };
+
+    GridIndex.prototype.afterPaginationSuccess = function (e, data) {
+
+        if (!History.enabled) { // browser doesn't support history js
+            return false;
+        }
+
+        if (data.ComponentState) {
+            this.changedState = true;
+            History.pushState({ state: data.ComponentState }, "ContributorsGridState", "?stateId=" + data.ComponentState);
+        } else {
+
+            if (!this.fromResetToolbar) {
+                History.back();
+            } else {
+                this.fromResetToolbar = false;
+            }
+        }
+    };
+
+    GridIndex.prototype.initHistory = function () {
+
+        this.changedState = false;
+        this.fromResetToolbar = false;
+
+        History.Adapter.bind(window, 'statechange', $.proxy(function () {
+
+            if (!this.changedState) { // back or forward browser btn
+
+                var State = History.getState();
+
+                if (!State.data.state) { // back button
+
+                    this.fromResetToolbar = true;
+
+                    this.$toolbar.bsToolbar('reset');
+
+                } else { // forward button
+
+                    window.location.href = State.url;
+
+                }
+
+            } else { // programatically pushed state
+
+                this.changedState = false;
+
+            }
+
+        }, this));
 
     };
 

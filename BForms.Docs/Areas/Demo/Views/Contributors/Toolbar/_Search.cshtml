@@ -50,7 +50,7 @@
         @Html.BsLabelFor(m => m.RoleList)
         <div class="input-group">
             @Html.BsGlyphiconAddon(Glyphicon.Star)
-            @Html.BsSelectFor(model => model.RoleList)
+            @Html.BsSelectFor(model => model.RoleList, new { data_initialvalue = "" })
         </div>
     </div>
 

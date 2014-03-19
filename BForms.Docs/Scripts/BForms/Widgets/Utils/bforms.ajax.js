@@ -16,7 +16,8 @@
         context: null,
         registerGlobal: true,
         killPrevious: true,
-        loadingDelay: 100
+        loadingDelay: 100,
+        parseQueryString: true
     };
 
     AjaxWrapper.prototype._getStack = function () {
@@ -100,6 +101,18 @@
             }
         }
     };
+    
+    AjaxWrapper.prototype._getQueryStringObject = function () {
+        var pairs = location.search.slice(1).split('&');
+
+        var result = {};
+        pairs.forEach(function (pair) {
+            pair = pair.split('=');
+            result[pair[0]] = decodeURIComponent(pair[1] || '');
+        });
+
+        return JSON.parse(JSON.stringify(result));
+    }
     //#endregion
 
     //#region public methods
@@ -118,6 +131,10 @@
 
         var xhrSettings = $.extend({}, this.getDefaultOptions(), opts),
             jqXHR = null;
+
+        if (this.getDefaultOptions().parseQueryString === true) {
+            $.extend(true, xhrSettings.data, this._getQueryStringObject());
+        }
 
         xhrSettings.name = xhrSettings.name || xhrSettings.url;
 

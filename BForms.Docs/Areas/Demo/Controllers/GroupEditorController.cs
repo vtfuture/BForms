@@ -21,7 +21,6 @@ using BForms.Docs.Resources;
 namespace BForms.Docs.Areas.Demo.Controllers
 {
 
-
     public class GroupEditorController : BaseController
     {
         private readonly ContributorsRepository repo;
@@ -44,7 +43,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
                         Page = 1,
                         PageSize = 5
                     }),
-                    Search = repo.GetSearchForm(),
+                    Search = repo.GetSearchForm(null),
                     Order = new ContributorsOrderModel()
                 },
 
@@ -55,7 +54,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
                         Page = 1,
                         PageSize = 5
                     }),
-                    Search = repo.GetSearchForm(),
+                    Search = repo.GetSearchForm(null),
                     New = repo.GetNewForm()
                 },
 

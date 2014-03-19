@@ -11,6 +11,7 @@ using System.Web.Mvc;
 
 namespace BForms.Docs.Controllers
 {
+    [OutputCache(Duration = 0, NoStore = true)]
     public class BaseController : RequireJS.RequireJsController
     {
         public BFormsContext Db 

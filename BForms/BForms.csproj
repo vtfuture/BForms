@@ -42,6 +42,9 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -154,6 +157,7 @@
       <DependentUpon>BFormsResources.resx</DependentUpon>
     </Compile>
     <Compile Include="Utilities\Attributes\DisplayFormatted.cs" />
+    <Compile Include="Utilities\BsComponentStateHandler.cs" />
     <Compile Include="Utilities\BsUIManager.cs" />
     <Compile Include="Utilities\BsResourceManager.cs" />
     <Compile Include="Grid\BsGridRowConfigurator.cs" />

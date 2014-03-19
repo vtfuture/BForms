@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using DocumentFormat.OpenXml.Bibliography;
+using BForms.Utilities;
 
 namespace BForms.Grid
 {
@@ -11,10 +12,27 @@ namespace BForms.Grid
         public TSearch Search { get; set; }
 
         public string QuickSearch { get; set; }
+
+        public bool FromReset { get; set; }
+
+        public BsComponentState<BsComponentStateIdentifier> ToBsComponentState(string componentId, string referralUrl)
+        {
+            return new BsComponentState<BsComponentStateIdentifier>()
+            {
+                Identifier = new BsComponentStateIdentifier()
+                {
+                    ComponentId = componentId,
+                    ReferralUrl = referralUrl
+                },
+                OrderableColumns = OrderableColumns,
+                OrderColumns = OrderColumns,
+                PerPage = PageSize,
+                QuickSearch = QuickSearch,
+                SearchData = Newtonsoft.Json.JsonConvert.SerializeObject(Search)
+            };
+        }
     }
-
-
-
+    
     public class BsGridBaseRepositorySettings : BsBaseRepositorySettings
     {
         public List<BsColumnOrder> OrderableColumns { get; set; } // order grid by column

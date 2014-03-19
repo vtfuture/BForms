@@ -25,6 +25,10 @@ namespace BForms.Docs.Areas.Demo.Repositories
             {
                 return settings as BsGridRepositorySettings<ContributorSearchModel>;
             }
+            set
+            {
+                settings = value;
+            }
         }
 
         public ContributorsRepository(BFormsContext _db)
@@ -157,7 +161,7 @@ namespace BForms.Docs.Areas.Demo.Repositories
                     #endregion
 
                     #region Enabled
-                    if (Settings.Search.IsEnabled.SelectedValues.HasValue)
+                    if (Settings.Search.IsEnabled != null && Settings.Search.IsEnabled.SelectedValues.HasValue)
                     {
                         var isEnabled = Settings.Search.IsEnabled.SelectedValues.Value;
 
@@ -226,7 +230,7 @@ namespace BForms.Docs.Areas.Demo.Repositories
                     }
                     #endregion
 
-                    #region age
+                    #region Age
 
                     if (!String.IsNullOrEmpty(Settings.Search.AgeRange.TextValue))
                         query =
@@ -452,13 +456,47 @@ namespace BForms.Docs.Areas.Demo.Repositories
 
         #region Helpers
         [System.Diagnostics.DebuggerHidden()]
-        public ContributorSearchModel GetSearchForm()
+        public ContributorSearchModel GetSearchForm(ContributorSearchModel stateModel)
         {
-            return new ContributorSearchModel()
+            var model = new ContributorSearchModel();
+
+            model.IsEnabled = new BsSelectList<YesNoValueTypes?>();
+            model.IsEnabled.ItemsFromEnum(typeof(YesNoValueTypes));
+            model.RoleList = new BsSelectList<ProjectRole?>();
+            model.RoleList.ItemsFromEnum(typeof(ProjectRole));
+            model.CountriesList = Lists.AllCounties<string>(false);
+            model.LanguagesList = Lists.AllLanguages<List<string>>();
+
+            if (stateModel != null)
             {
-                CountriesList = Lists.AllCounties<string>(false),
-                LanguagesList = Lists.AllLanguages<List<string>>(),
-                StartDateRange = new BsRange<DateTime?>()
+                if (stateModel.IsEnabled != null && stateModel.IsEnabled.SelectedValues.HasValue)
+                {
+                    model.IsEnabled.SelectedValues = stateModel.IsEnabled.SelectedValues;
+                }
+                else
+                {
+                    model.IsEnabled.SelectedValues = YesNoValueTypes.Both;
+                }
+
+                if (stateModel.RoleList != null && stateModel.RoleList.SelectedValues.HasValue)
+                {
+                    model.RoleList.SelectedValues = stateModel.RoleList.SelectedValues;
+                }
+
+                if (stateModel.CountriesList != null && stateModel.CountriesList.SelectedValues != null)
+                {
+                    model.CountriesList.SelectedValues = stateModel.CountriesList.SelectedValues;
+                }
+
+                if (stateModel.LanguagesList != null && stateModel.LanguagesList.SelectedValues != null)
+                {
+                    model.LanguagesList.SelectedValues = stateModel.LanguagesList.SelectedValues;
+                }
+            }
+
+            if (model.StartDateRange == null)
+            {
+                model.StartDateRange = new BsRange<DateTime?>()
                 {
                     From = new BsRangeItem<DateTime?>
                     {
@@ -468,26 +506,32 @@ namespace BForms.Docs.Areas.Demo.Repositories
                     {
                         ItemValue = DateTime.Now
                     }
-                },
-                AgeRange = new BsRange<int?>
+                };
+            }
+
+            if (model.AgeRange == null)
+            {
+                model.AgeRange = new BsRange<int?>
                 {
                     From = new BsRangeItem<int?>
                     {
-                        ItemValue = 18,
+                        ItemValue = 14,
                         MinValue = 10,
-                        TextValue = "18",
+                        TextValue = "14",
                         Display = "Start"
                     },
                     To = new BsRangeItem<int?>
                     {
-                        ItemValue = 21,
+                        ItemValue = 32,
                         MaxValue = 100,
-                        TextValue = "21",
+                        TextValue = "32",
                         Display = "End"
                     },
                     TextValue = "18 - 21"
-                }
-            };
+                };
+            }
+
+            return model;
         }
 
         public ContributorNewModel GetNewForm()

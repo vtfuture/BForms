@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Data.Entity;
 using BForms.Docs.Areas.Demo.Models;
+using BForms.Utilities;
 
 namespace BForms.Docs.Areas.Demo.Mock
 {
@@ -13,6 +14,20 @@ namespace BForms.Docs.Areas.Demo.Mock
     {
         public BFormsContext()
         {
+            ComponentStates = new List<BsComponentState<BsComponentStateIdentifier>>()
+            {
+                new BsComponentState<BsComponentStateIdentifier>()
+                {
+                    Identifier = new BsComponentStateIdentifier()
+                    {
+                        ComponentId = "contributorsGrid",
+                        ReferralUrl = ""
+                    },
+                    PerPage = 10,
+                    SearchData = ""
+                }
+            };
+
             #region Contributors
             Contributors = new List<Contributor>()
                     {
@@ -28,7 +43,9 @@ namespace BForms.Docs.Areas.Demo.Mock
                             Languages = new List<string>() { "C#", "Javascript", "SQL", "Objective-C" },
                             Url = "http://www.stefanprodan.eu/",
                             Contributions = "concept, api design, razor helpers, documentation, c# bug fixing, testing",
-                            Order = 1
+                            Order = 1,
+                            Age = 30
+
                         },
                         new Contributor()
                         {
@@ -56,7 +73,8 @@ namespace BForms.Docs.Areas.Demo.Mock
                             Languages = new List<string>() { "C#", "Javascript", "SQL", "PHP" },
                             StartDate = new DateTime(2013, 8, 15),
                             Contributions = "documentation, razor helpers",
-                            Order = 3
+                            Order = 3,
+                            Age = 24
                         },
                         new Contributor()
                         {
@@ -83,7 +101,8 @@ namespace BForms.Docs.Areas.Demo.Mock
                             StartDate = new DateTime(2013, 10, 1),
                             Languages = new List<string>() { "C#", "Javascript" },
                             Contributions = "grid component, bug fixing",
-                            Order = 4
+                            Order = 4,
+                            Age = 23
                         },
                         new Contributor()
                         {
@@ -96,7 +115,8 @@ namespace BForms.Docs.Areas.Demo.Mock
                             StartDate = new DateTime(2013, 8, 5),
                             Languages = new List<string>() { "CSS", "HTML", "SASS" },
                             Contributions = "UI & UX, css master",
-                            Order = 5
+                            Order = 5,
+                            Age = 26
                         },
                         new Contributor()
                         {
@@ -110,7 +130,8 @@ namespace BForms.Docs.Areas.Demo.Mock
                             Languages = new List<string>() { "C#", "Javascript" },
                             Contributions = "testing, bug fixing",
                             Order = 6,
-                            Id_Coordinator = 1
+                            Id_Coordinator = 1,
+                            Age = 30
                         },
                         new Contributor()
                         {
@@ -124,7 +145,8 @@ namespace BForms.Docs.Areas.Demo.Mock
                             Languages = new List<string>() { "C#", "Javascript" },
                             Contributions = "testing, bug fixing",
                             Order = 7,
-                            Id_Coordinator = 7
+                            Id_Coordinator = 7,
+                            Age = 23
                         },
                         new Contributor()
                         {
@@ -138,7 +160,8 @@ namespace BForms.Docs.Areas.Demo.Mock
                             Languages = new List<string>() { "C#", "Javascript" },
                             Contributions = "testing, bug fixing",
                             Order = 8,
-                            Id_Coordinator = 3
+                            Id_Coordinator = 3,
+                            Age = 23
                         },
                         new Contributor()
                         {
@@ -152,7 +175,8 @@ namespace BForms.Docs.Areas.Demo.Mock
                             Languages = new List<string>() { "C#", "Javascript" },
                             Contributions = "testing, bug fixing",
                             Order = 9,
-                            Id_Coordinator = 3
+                            Id_Coordinator = 3,
+                            Age = 23
                         },
                         new Contributor()
                         {
@@ -166,7 +190,8 @@ namespace BForms.Docs.Areas.Demo.Mock
                             Languages = new List<string>() { "C#", "Javascript" },
                             Contributions = "testing, bug fixing",
                             Order = 10,
-                            Id_Coordinator = 3
+                            Id_Coordinator = 3,
+                            Age = 23
                         },
                         new Contributor()
                         {
@@ -180,7 +205,8 @@ namespace BForms.Docs.Areas.Demo.Mock
                             Languages = new List<string>() { "C#", "Javascript" },
                             Contributions = "testing, bug fixing",
                             Order = 11,
-                            Id_Coordinator = 7
+                            Id_Coordinator = 7,
+                            Age = 23
                         },
                         new Contributor()
                         {
@@ -194,7 +220,8 @@ namespace BForms.Docs.Areas.Demo.Mock
                             Languages = new List<string>() { "C#", "Javascript" },
                             Contributions = "testing, bug fixing",
                             Order = 12,
-                            Id_Coordinator = 14
+                            Id_Coordinator = 14,
+                            Age = 23
                         },
                         new Contributor()
                         {
@@ -208,7 +235,8 @@ namespace BForms.Docs.Areas.Demo.Mock
                             Languages = new List<string>() { "C#", "Javascript" },
                             Contributions = "testing, bug fixing",
                             Order = 13,
-                            Id_Coordinator = 1
+                            Id_Coordinator = 1,
+                            Age = 23
                         },
                         new Contributor()
                         {
@@ -222,11 +250,14 @@ namespace BForms.Docs.Areas.Demo.Mock
                             Languages = new List<string>() { "C#", "Javascript" },
                             Contributions = "testing, bug fixing",
                             Order = 14,
-                            Id_Coordinator = 14
+                            Id_Coordinator = 14,
+                            Age = 23
                         },
                     };
             #endregion
         }
+
+        public List<BsComponentState<BsComponentStateIdentifier>> ComponentStates { get; set; }
 
         public List<Contributor> Contributors { get; set; }
 

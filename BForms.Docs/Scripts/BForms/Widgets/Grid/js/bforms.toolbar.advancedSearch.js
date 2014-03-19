@@ -44,6 +44,7 @@
 
         this.$searchForm = this.$container.bsForm(opts);
 
+        this._initSearchModel(this.$searchForm.bsForm('parse'));
     };
 
     AdvancedSearch.prototype._addDefaultOptions = function () {
@@ -103,6 +104,12 @@
         this.widget._trigger('afterAdvancedSearch', 0, {
             data: data
         });
+    };
+
+    AdvancedSearch.prototype._initSearchModel = function (data) {
+        for (var i = 0; i < this.widget.subscribers.length; i++) {
+            this.widget.subscribers[i].bsGrid('initSearch', data);
+        }
     };
 
     AdvancedSearch.prototype._evOnReset = function () {

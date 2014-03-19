@@ -145,12 +145,6 @@ namespace BForms.Docs.Areas.Demo.Models
 
     public class ContributorModel
     {
-        public ContributorModel()
-        {
-            RoleList = new BsSelectList<ProjectRole?>();
-            RoleList.ItemsFromEnum(typeof(ProjectRole));
-        }
-
         [Display(Name = "Web address", Prompt = "http://mysite.com or http://twitter.com/id")]
         [BsControl(BsControlType.Url)]
         public string Url { get; set; }
@@ -177,16 +171,6 @@ namespace BForms.Docs.Areas.Demo.Models
 
     public class ContributorSearchModel : ContributorModel
     {
-        public ContributorSearchModel()
-        {
-            IsEnabled = new BsSelectList<YesNoValueTypes?>();
-            IsEnabled.ItemsFromEnum(typeof(YesNoValueTypes));
-            IsEnabled.SelectedValues = YesNoValueTypes.Both;
-
-            RoleList = new BsSelectList<ProjectRole?>();
-            RoleList.ItemsFromEnum(typeof(ProjectRole));
-        }
-
         [Display(Name = "ChooseInterval", ResourceType = typeof(Resource))]
         [BsControl(BsControlType.DatePickerRange)]
         public BsRange<DateTime?> StartDateRange { get; set; }

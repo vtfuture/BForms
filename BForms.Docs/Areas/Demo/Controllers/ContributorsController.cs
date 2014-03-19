@@ -14,6 +14,7 @@ using BForms.Models;
 using BForms.Mvc;
 using RequireJS;
 using BForms.Docs.Areas.Demo.Helpers;
+using BForms.Utilities;
 
 namespace BForms.Docs.Areas.Demo.Controllers
 {
@@ -21,30 +22,40 @@ namespace BForms.Docs.Areas.Demo.Controllers
     {
         #region Properties and Constructor
         private readonly ContributorsRepository _gridRepository;
+        private readonly ComponentStateHandler _componentState;
 
         public ContributorsController()
         {
             _gridRepository = new ContributorsRepository(Db);
+            _componentState = new ComponentStateHandler(Db);
         }
         #endregion
 
         #region Pages
-        public ActionResult Index()
+        public ActionResult Index(int? stateId)
         {
-            var savedSettings = GetGridSettings();
+            BsGridRepositorySettings<ContributorSearchModel> bsGridSettings = null;
 
-            var bsGridSettings = new BsGridRepositorySettings<ContributorSearchModel>
+            if (stateId.HasValue)
             {
-                Page = 1,
-                PageSize = 5
-            };
+                var state = _componentState.Get(stateId.Value);
 
-            if (savedSettings != null)
-            {
-                bsGridSettings.OrderableColumns = savedSettings.OrderableColumns;
-                bsGridSettings.OrderColumns = savedSettings.OrderColumns;
-                bsGridSettings.PageSize = savedSettings.PageSize;
+                if (state != null)
+                {
+                    bsGridSettings = state.ToBsGridRepositorySettings<ContributorSearchModel>();
+                }
             }
+
+            if (bsGridSettings == null)
+            {
+                bsGridSettings = new BsGridRepositorySettings<ContributorSearchModel>()
+                {
+                    PageSize = 5,
+                    Page = 1
+                };
+            }
+
+            bsGridSettings.Search = _gridRepository.GetSearchForm(bsGridSettings.Search);
 
             var gridModel = _gridRepository.ToBsGridViewModel(bsGridSettings);
 
@@ -53,7 +64,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
                 Grid = gridModel,
                 Toolbar = new BsToolbarModel<ContributorSearchModel, ContributorNewModel, List<ContributorOrderModel>>
                 {
-                    Search = _gridRepository.GetSearchForm(),
+                    Search = bsGridSettings.Search,
                     New = _gridRepository.GetNewForm(),
                     Order = _gridRepository.GetOrderForm(true)
                 }
@@ -83,6 +94,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
             var status = BsResponseStatus.Success;
             var html = string.Empty;
             var count = 0;
+            var componentState = 0;
 
             try
             {
@@ -92,11 +104,16 @@ namespace BForms.Docs.Areas.Demo.Controllers
                     throw new Exception("This is how an exception message is displayed in grid header");
                 }
 
-                SaveGridSettings(settings);
-
                 var viewModel = _gridRepository.ToBsGridViewModel(settings, out count).Wrap<ContributorsViewModel>(x => x.Grid);
 
                 html = this.BsRenderPartialView("Grid/_Grid", viewModel);
+
+                if (!settings.FromReset)
+                {
+                    var state = settings.ToBsComponentState("contributorsGrid", this.Request.UrlReferrer.LocalPath);
+
+                    componentState = _componentState.Save(state);
+                }
             }
             catch (Exception ex)
             {
@@ -106,6 +123,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
 
             return new BsJsonResult(new
             {
+                ComponentState = componentState,
                 Count = count,
                 Html = html
             }, status, msg);
@@ -238,7 +256,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
             return new BsJsonResult(null, status, msg);
         }
 
-        public BsJsonResult GetRows(List<BsGridRowData<int>> items)
+        public BsJsonResult GetRows(List<BsGridRowData<int>> items, int? stateId)
         {
             var msg = string.Empty;
             var status = BsResponseStatus.Success;
@@ -246,7 +264,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
 
             try
             {
-                rowsHtml = GetRowsHtml(items);
+                rowsHtml = GetRowsHtml(items, stateId);
             }
             catch (Exception ex)
             {
@@ -287,9 +305,8 @@ namespace BForms.Docs.Areas.Demo.Controllers
             return new BsJsonResult(null, status, msg);
         }
 
-        public BsJsonResult EnableDisable(List<BsGridRowData<int>> items, bool? enable)
+        public BsJsonResult EnableDisable(List<BsGridRowData<int>> items, bool? enable, int? stateId)
         {
-            Thread.Sleep(1000);
             var msg = string.Empty;
             var status = BsResponseStatus.Success;
             var rowsHtml = string.Empty;
@@ -307,7 +324,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
                     _gridRepository.EnableDisable(item.Id, enable);
                 }
 
-                rowsHtml = GetRowsHtml(items);
+                rowsHtml = GetRowsHtml(items, stateId);
             }
             catch (Exception ex)
             {
@@ -379,22 +396,24 @@ namespace BForms.Docs.Areas.Demo.Controllers
 
         #region Helpers
         [NonAction]
-        private string GetRowsHtml(List<BsGridRowData<int>> items)
+        private string GetRowsHtml(List<BsGridRowData<int>> items, int? stateId)
         {
             var ids = items.Select(x => x.Id).ToList();
             var rowsModel = _gridRepository.ReadRows(items.Select(x => x.Id).ToList());
-            var viewModel = _gridRepository.ToBsGridViewModel(rowsModel, row => row.Id, items)
-                    .Wrap<ContributorsViewModel>(x => x.Grid);
 
-            var savedSettings = GetGridSettings();
-
-            if (savedSettings != null)
+            if (stateId.HasValue)
             {
-                viewModel.Grid.BaseSettings.OrderableColumns = savedSettings.OrderableColumns;
-                viewModel.Grid.BaseSettings.OrderColumns = savedSettings.OrderColumns;
-                viewModel.Grid.BaseSettings.PageSize = savedSettings.PageSize;
+                var state = _componentState.Get(stateId.Value);
+
+                if (state != null)
+                {
+                    _gridRepository.Settings = state.ToBsGridRepositorySettings<ContributorSearchModel>();
+                }
             }
 
+            var viewModel = _gridRepository.ToBsGridViewModel(rowsModel, row => row.Id, items)
+                    .Wrap<ContributorsViewModel>(x => x.Grid);
+                       
             return this.BsRenderPartialView("Grid/_Grid", viewModel);
         }
 
@@ -413,36 +432,6 @@ namespace BForms.Docs.Areas.Demo.Controllers
                     ms.ClearModelState(model.GetPropertyName(m => m.ProjectRelated) + ".");
                     break;
             }
-        }
-
-        [NonAction]
-        public void SaveGridSettings(BsGridRepositorySettings<ContributorSearchModel> settings)
-        {
-            if (settings.OrderColumns != null)
-            {
-                Session["GridSettings"] = new BsGridSavedSettings
-                {
-                    PageSize = settings.PageSize,
-                    OrderableColumns = settings.OrderableColumns,
-                    OrderColumns = settings.OrderColumns
-                };
-            }
-        }
-
-        [NonAction]
-        public BsGridSavedSettings GetGridSettings()
-        {
-            return Session["GridSettings"] as BsGridSavedSettings;
-        }
-
-        [Serializable]
-        public class BsGridSavedSettings
-        {
-            public int PageSize { get; set; }
-
-            public List<BsColumnOrder> OrderableColumns { get; set; } // order grid by column
-
-            public Dictionary<string, int>  OrderColumns{ get; set; } // swap columns order
         }
         #endregion
     }
