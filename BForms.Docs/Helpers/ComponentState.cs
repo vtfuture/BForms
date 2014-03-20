@@ -18,7 +18,7 @@ namespace BForms.Docs.Helpers
 
         public int Save(BsComponentState<BsComponentStateIdentifier> state)
         {
-            var entity = Get(state.Identifier);
+            var entity = Get<BsComponentState<BsComponentStateIdentifier>>(state.Identifier);
 
             if (entity != null)
             {
@@ -47,9 +47,9 @@ namespace BForms.Docs.Helpers
             return db.ComponentStates.FirstOrDefault(x => x.Id == id);
         }
 
-        public BsComponentState<BsComponentStateIdentifier> Get(BsComponentStateIdentifier identifier)
+        public T Get<T>(BsComponentStateIdentifier identifier) where T : class
         {
-            return db.ComponentStates.FirstOrDefault(x => x.Identifier.ComponentId == identifier.ComponentId && x.Identifier.ReferralUrl == identifier.ReferralUrl);
+            return db.ComponentStates.FirstOrDefault(x => x.Identifier.ComponentId == identifier.ComponentId && x.Identifier.ReferralUrl == identifier.ReferralUrl) as T;
         }
     }
 }

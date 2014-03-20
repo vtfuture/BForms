@@ -42,7 +42,7 @@ namespace BForms.Utilities
     public interface IBsComponentStateHandler<T> where T : BsComponentStateIdentifier
     {
         int Save(BsComponentState<T> state);
-        BsComponentState<T> Get(T identifier);
+        TEntity Get<TEntity>(T identifier) where TEntity : class;
         BsComponentState<T> Get(int id);
     }
 }
