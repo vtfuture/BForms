@@ -1,0 +1,99 @@
+﻿@using BForms.Docs.Helpers
+<h3 id="GroupEditorHelper">GroupEditor helper</h3>
+
+<p>In order to render a group editor, use the <code>Html.BsGroupEditorFor()</code> html helper extension.</p>
+
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/GroupEditor/Source/_GroupEditorHelperSimple.cs.embed")
+</pre>
+<br />
+
+<p>
+    This helper returns a <code>BsEditorHtmlBuilder</code> used to build and configure the html of the <code>GroupEditor</code> groups and tabs.
+</p>
+
+<hr />
+
+<code>BsEditorHtmlBuilder</code>
+
+<h4 class="sub_title">Methods</h4>
+
+<p>
+    <code>ConfigureTabs(Action&#60;BsEditorTabConfigurator&#60;TModel&#62;&#62; configurator)</code>
+</p>
+<p>
+    <strong>params:</strong>
+    <ul>
+        <li>
+            <code>configurator</code>
+            <p>
+                <strong>type </strong><code>Action&#60;BsEditorTabConfigurator&#60;TModel&#62;&#62;</code><br />
+                <strong>default</strong> none <br />
+                <strong>description</strong> tab configurator (template, connectsWith, bulkMove, quickSearch)
+            </p>
+        </li>
+    </ul>
+</p>
+
+<p>
+    Using this method, you can customize the editor <code>Tabs</code> as you like by using the provided methods.
+</p>
+
+<h4 class="sub_title">Example</h4>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/GroupEditor/Source/_GroupEditorHelper.cs.embed")
+</pre>
+<hr />
+
+<code>BsEditorTabConfigurator</code>
+
+<h4 class="sub_title">Properties</h4>
+
+<p>
+    <code>Title</code>
+<p>
+    <strong>type </strong><code>string</code><br />
+    <strong>default</strong> none <br />
+    <strong>description</strong> display title string
+</p>
+</p>
+
+<p>
+    Specify the tabs group title displayed above the tabs.
+</p>
+
+<h4 class="sub_title">Example</h4>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/GroupEditor/Source/_TabTitle.cs.embed")
+</pre>
+<hr />
+
+
+<h4 class="sub_title">Methods</h4>
+
+<p>
+    <code>For&lt;TEditor&gt;</code>
+</p>
+<p>
+    <strong>params:</strong>
+    <ul>
+        <li>
+            <code>BsEditorTabModel</code>
+            <p>
+                <strong>type </strong><code>BsEditorTabModel</code><br />
+                <strong>default</strong> none <br />
+                <strong>description</strong> Set tab attributes like Editable, Selected, PagerSettings, displayName for the new panel.
+            </p>
+        </li>
+    </ul>
+</p>
+
+<p>
+    Adds a new Tab to the existing collection and sets its properties if any is provided.
+</p>
+
+<h4 class="sub_title">Example</h4>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/GroupEditor/Source/_AddTab.cs.embed")
+</pre>
+<hr />

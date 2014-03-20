@@ -210,6 +210,10 @@
     <Content Include="Content\Images\Docs\eg-toolbar-quicksearch.jpg" />
     <Content Include="Content\Images\Docs\eg-toolbar-search-open.png" />
     <Content Include="Content\Images\Docs\eg-toolbar-views.jpg" />
+    <Content Include="Content\Images\Docs\group-editor-editable.jpg" />
+    <Content Include="Content\Images\Docs\group-editor-example.jpg" />
+    <Content Include="Content\Images\Docs\group-editor-new.jpg" />
+    <Content Include="Content\Images\Docs\group-editor-search.jpg" />
     <Content Include="Content\Images\Docs\main-script-file.PNG" />
     <Content Include="Content\Images\Docs\number-range.jpg" />
     <Content Include="Content\Images\Docs\numberinline-input.jpg" />
@@ -265,6 +269,7 @@
     <Content Include="Scripts\BForms\Widgets\Sortable\bforms.sortable.js" />
     <Content Include="Scripts\BForms\Widgets\Taglist\bforms.taglist.js" />
     <Content Include="Scripts\Controllers\Demo\UserProfile\userprofile-index.js" />
+    <Content Include="Scripts\Controllers\Root\Docs\docs-groupeditor.js" />
     <Content Include="Scripts\Controllers\Root\Docs\docs-panel.js" />
     <Content Include="Views\Start\Setup\Source\_BundleConfigJs.cs.embed" />
     <Content Include="Views\Start\Setup\Source\_Files.embed" />
@@ -1524,6 +1529,45 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Docs\Panel\Source\_JavascriptPanel.js.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\GroupEditor\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\GroupEditor\_Models.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\GroupEditor\Source\_GroupEditorViewModel.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\GroupEditor\Source\_GroupEditorModel.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\GroupEditor\Source\_TabSearchModel.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\GroupEditor\Source\_TabNewModel.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\GroupEditor\Source\_GroupRowModel.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\GroupEditor\Source\_RowFormModel.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\GroupEditor\_GroupEditorHelper.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\GroupEditor\Source\_GroupEditorHelperSimple.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\GroupEditor\Source\_GroupEditorHelper.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\GroupEditor\Source\_TabTitle.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\GroupEditor\Source\_AddTab.cs.embed" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

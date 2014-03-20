@@ -1,0 +1,14 @@
+﻿public class SampleGroupRowModel : BsEditorGroupItemModel<SampleRowFormModel>
+{
+    public int Id { get; set; }
+    public string DisplayNameLocal { get; set; }
+    public string DisplayNameInternational { get; set; }
+    public string Permissions { get; set; }
+    public string Link { get; set; }
+    public Glyphicon? Icon { get; set; }
+
+    public override object GetUniqueID()
+    {
+        return this.Id;
+    }
+}

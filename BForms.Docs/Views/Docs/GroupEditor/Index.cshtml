@@ -1,0 +1,46 @@
+﻿@{
+    ViewBag.Title = "GroupEditor control";
+}
+
+<div class="row">
+    <div class="hidden-xs hidden-sm col-md-3 col-lg-3">
+        <div class="bs-sidebar">
+            <ul class="nav bs-sidenav">
+                <li>
+                    <a href="#panel-section">Group Editor control</a>
+                    <ul class="nav">
+                        <li><a href="#Models"><strong>Server side</strong></a></li>
+                        <li><a href="#Models">Models</a></li>
+                        <li><a href="#GroupEditorHelper">GroupEditor Helper</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <main class="col-md-9 col-lg-9" role="main">
+        <div class="bs-docs-section">
+            <div class="page-header">
+                <h1 id="groupeditor-section">Group Editor</h1>
+            </div>
+            <p>
+                BForms <strong>GroupEditor</strong> component is designed to provide rich functionality, cross-browser, cross-device and internationalization support for your group editting needs.
+            </p>
+            <p>
+                The feature set includes drag & drop functionality to add items to groups, AJAX-enabled editing for the group items adapted for Entity Framework, creation and filtering of group items. The UI is touch friendly and HTML5 enhanced featuring edit in place. 
+            </p>
+            <p>
+                On the client side, the GroupEditor is deployed as an AMD jQuery widget that supports theming and templates. 
+                The styling is done using bootstrap v3 CSS grid system.  
+            </p>
+            <hr/>
+
+            @Html.Partial("GroupEditor/_Models")
+            <hr />
+
+            @Html.Partial("GroupEditor/_PanelHelper")
+            <hr />
+        </div>
+
+    </main>
+</div>
