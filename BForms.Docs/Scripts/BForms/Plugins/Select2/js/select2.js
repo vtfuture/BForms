@@ -2113,7 +2113,6 @@ the specific language governing permissions and limitations under the Apache Lic
                 if (!this.opened()) {
                     this.container.removeClass("select2-container-active");
                     this.opts.element.trigger($.Event("select2-blur"));
-                    this.select.trigger("focusout");
                 }
             }));
             this.search.on("focus", this.bind(function () {
