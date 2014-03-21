@@ -12,6 +12,9 @@
                         <li><a href="#Models"><strong>Server side</strong></a></li>
                         <li><a href="#Models">Models</a></li>
                         <li><a href="#GroupEditorHelper">GroupEditor Helper</a></li>
+                        <li><a href="#Repository">Repository</a></li>
+                        <li><a href="#Javascript"><strong>Client side</strong></a></li>
+                        <li><a href="#Javascript">Javascript</a></li>
                     </ul>
                 </li>
             </ul>
@@ -27,7 +30,7 @@
                 BForms <strong>GroupEditor</strong> component is designed to provide rich functionality, cross-browser, cross-device and internationalization support for your group editting needs.
             </p>
             <p>
-                The feature set includes drag & drop functionality to add items to groups, AJAX-enabled editing for the group items adapted for Entity Framework, creation and filtering of group items. The UI is touch friendly and HTML5 enhanced featuring edit in place. 
+                The feature set includes drag & drop functionality to add items to groups, AJAX-enabled editing of the group items, creation and filtering of group items. The UI is touch friendly and HTML5 enhanced featuring edit in place. 
             </p>
             <p>
                 On the client side, the GroupEditor is deployed as an AMD jQuery widget that supports theming and templates. 
@@ -39,6 +42,12 @@
             <hr />
 
             @Html.Partial("GroupEditor/_GroupEditorHelper")
+            <hr />
+            
+            @Html.Partial("GroupEditor/_Repository")
+            <hr />
+            
+            @Html.Partial("GroupEditor/_Javascript")
             <hr />
         </div>
 

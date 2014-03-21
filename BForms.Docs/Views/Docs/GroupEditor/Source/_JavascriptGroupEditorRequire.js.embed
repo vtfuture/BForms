@@ -1,0 +1,3 @@
+﻿require([
+        'bforms-groupEditor'    
+], function () { }

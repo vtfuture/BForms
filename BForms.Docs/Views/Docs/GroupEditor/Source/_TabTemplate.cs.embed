@@ -1,0 +1,7 @@
+﻿builder.ConfigureTabs(cfg =>
+{
+	var tab1 = cfg.For(x => x.Tab1)
+            .Template(x => x.Grid, "_TabItem")
+            .Template(x => x.Search, "~/Views/Home/_Search.cshtml")
+            .Template(x => x.New, "~/Views/Home/_New.cshtml");
+})

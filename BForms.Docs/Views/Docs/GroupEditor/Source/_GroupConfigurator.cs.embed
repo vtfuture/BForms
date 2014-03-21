@@ -1,0 +1,19 @@
+﻿builder.ConfigureGroups(cfg =>
+{
+    cfg.For(x => x.Group1)
+        .DisplayText("Adauga la Public Menu")
+        .DisplayName("Public Menu (FrontEnd)")
+        .Template(x => x.Items, "_GroupItem");
+
+    cfg.For(x => x.Group2)
+        .DisplayText("Adauga la Users Menu")
+        .DisplayName("Users Menu (Authentication Required)")
+        .Template(x => x.Items, "_GroupItem");
+
+    cfg.For(x => x.Group3)
+        .DisplayText("Adauga la Admin Menu")
+        .DisplayName("Admin Menu (BackEnd)")
+        .Template(x => x.Items, "_GroupItem");
+
+    cfg.Title = "Menus";
+})

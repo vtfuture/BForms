@@ -1,0 +1,4 @@
+﻿builder.ConfigureTabs(cfg =>
+{
+	var tab1 = cfg.For(x => x.Tab3).PagerSettings(new BsPagerSettings {DefaultPageSize = 5, ShowFirstLastButtons = true, ShowPrevNextButtons = false})
+})

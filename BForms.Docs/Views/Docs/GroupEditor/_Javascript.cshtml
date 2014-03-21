@@ -1,0 +1,112 @@
+﻿@using BForms.Docs.Helpers
+<h3 id="Javascript">Javascript</h3>
+
+<p>
+    First step is to require <strong>bforms.groupEditor.js</strong> aka <strong>bforms-groupEditor</strong> (defined in <strong>RequireJS.config</strong>).
+</p>
+
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/GroupEditor/Source/_JavascriptGroupEditorRequire.js.embed")
+</pre>
+
+<br />
+
+<p>
+    Now that the script is loaded we can apply the groupEditor widget on the element.
+</p>
+
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/GroupEditor/Source/_JavascriptGroupEditor.js.embed")
+</pre>
+<br />
+<p>
+    On creation you can set different properties and options by providing a JSON object in the constructor as a parameter. For further configuration see the list of options below:
+</p>
+<hr />
+
+<h4 class="sub_title">Options</h4>
+
+<code>getTabUrl</code>
+
+<p>
+    <strong>type</strong> <code>string</code>
+    <br />
+    <strong>default</strong> <code>none</code>
+</p>
+
+<p>
+    Used to set the url to the getTabUrl Action. Usualy you get this url from the options object send from the controller via requireJs <code>this.options.getTabUrl</code>.
+</p>
+
+<code>buildDragHelper</code>
+
+<p>
+    <strong>type</strong> <code>Function</code>
+    <br />
+    <strong>default</strong> <code>none</code>
+</p>
+
+<p>
+    A function that takes as parameters the model, the tabId and the connectsWith array and returns a jquery Html fragment used to construct the dragged element.
+</p>
+
+<code>buildGroupItem</code>
+
+<p>
+    <strong>type</strong> <code>Function</code>
+    <br />
+    <strong>default</strong> <code>none</code>
+</p>
+
+<p>
+    A function that takes as parameters the model, the $group, the tabId and the objId and returns a jquery Html fragment used to construct the newly added group item.
+</p>
+
+<code>validateMove</code>
+
+<p>
+    <strong>type</strong> <code>Function</code>
+    <br />
+    <strong>default</strong> <code>none</code>
+</p>
+
+<p>
+    A function that takes as parameters the model, the tabId and the $group jquery object and returns false if a custom defined condition fails. If the function returns false the dragged item won't be added to the group.
+    You don't want to return true from this function. If you return true any other conditions won't be tested, for example if the item already exists in the group.
+</p>
+
+<code>onSaveSuccess</code>
+
+<p>
+    <strong>type</strong> <code>Function</code>
+    <br />
+    <strong>default</strong> <code>none</code>
+</p>
+
+<p>
+    A function to be called if the Save ajax call is successful.
+</p>
+
+<code>validation</code>
+
+<p>
+    <strong>type</strong> <code>Object</code>
+    <br />
+    <strong>default</strong> <code>none</code>
+</p>
+
+<p>
+    Object to set validation options. For example: required: {unobtrusive: true, message: "Please add at least one item."}
+</p>
+
+<code>initEditorForm</code>
+
+<p>
+    <strong>type</strong> <code>Function</code>
+    <br />
+    <strong>default</strong> <code>none</code>
+</p>
+
+<p>
+    A function called to initialize the groupEditor forms such as the Search form and the New Form on the tabs.
+</p>

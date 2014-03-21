@@ -1,0 +1,5 @@
+﻿builder.ConfigureTabs(cfg =>
+{
+	var tab1 = cfg.For(x => x.Tab1)
+            .ConnectsWith(MenuTypes.PublicMenu, MenuTypes.UsersMenu, MenuTypes.AdminMenu);
+})
