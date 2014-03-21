@@ -1,0 +1,4 @@
+﻿builder.ConfigureGroups(cfg =>
+{
+    var tab1 = cfg.For(x => x.Group1);
+})

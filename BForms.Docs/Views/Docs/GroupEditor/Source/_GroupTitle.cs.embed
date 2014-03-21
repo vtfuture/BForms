@@ -1,0 +1,4 @@
+﻿builder.ConfigureGroups(cfg =>
+{
+	cfg.Title = "My Groups";
+})

@@ -1,0 +1,4 @@
+﻿builder.ConfigureGroups(cfg =>
+{
+ 	cfg.FormTemplate(Html.Partial("_GroupEditorForm", Model.Editor2.Form));
+})

@@ -1,0 +1,4 @@
+﻿builder.ConfigureTabs(cfg =>
+{
+	cfg.Title = "Menu Items";
+})

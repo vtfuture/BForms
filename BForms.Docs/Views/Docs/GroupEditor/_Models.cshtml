@@ -1,0 +1,189 @@
+﻿@using BForms.Docs.Helpers
+<h3 id="Models">Models</h3>
+
+<p>
+    The first step in the <code>GroupEditor</code> creation is the model definition. You can divide your entities in multiple categories represented in the UI as tabs and groups.
+</p>
+<p>
+    It is not required to split your entities in multiple tabs but this gives you more flexibility. You can set associations between specific tabs and groups. This way you constrain the items in one tab to only be dragable to a specific group.
+</p>
+<p>
+    Firstly we need a view model for the group editor. The view model consists of one or more <code>GroupEditor</code> models. You can have multiple GroupEditors on the same page.
+</p>
+
+<h4 class="sub_title">Group Editor View Model</h4>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/GroupEditor/Source/_GroupEditorViewModel.cs.embed")
+</pre>
+<br />
+
+<p>
+    The <code>GroupEditorModel</code> is a collection of tabs and groups. The tabs will contain the dragable items while the groups will represent the dropable targets.
+</p>
+<p>
+    You can have as many tabs and groups as you like.
+</p>
+
+<h4 class="sub_title">Group Editor Model</h4>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/GroupEditor/Source/_GroupEditorModel.cs.embed")
+</pre>
+<br />
+
+<h4 class="sub_title">Example</h4>
+<div class="bs-example bs-img-example">
+    <img src="@Url.Content("~/Content/images/docs/group-editor-example.jpg")">
+</div>
+
+<p>
+    As you may have noticed in the above code example that there are some custom attributes declared in the <code>GroupEditorModel</code> model.
+    The <code>BsEditorTab</code> attribute allows you to set specific properties for the tabs, and <code>BsEditorGroup</code> attribute allows you to set specific properties for the groups.
+</p>
+
+<hr />
+
+<code>BsEditorTab</code> Attribute
+
+<h4 class ="sub_title">Options</h4>
+
+<code>Name</code>
+
+<p>
+    <strong>type</strong> <code>string</code>
+    <br />
+    <strong>default</strong> <code>none</code>
+</p>
+
+<p>
+    Set the tab display name.
+</p>
+
+<code>Id</code>
+
+<p>
+    <strong>type</strong> <code>object</code>
+    <br />
+    <strong>default</strong> <code>none</code>
+</p>
+
+<p>
+    Set the tab unique id.
+</p>
+
+<code>Selected</code>
+
+<p>
+    <strong>type</strong> <code>bool</code>
+    <br />
+    <strong>default</strong> <code>false</code>
+</p>
+
+<p>
+    Specify if the tab is selected on the first page load.
+</p>
+
+<code>Editable</code>
+
+<p>
+    <strong>type</strong> <code>bool</code>
+    <br />
+    <strong>default</strong> <code>false</code>
+</p>
+
+<p>
+    Set the tab as editable.
+</p>
+
+<hr />
+
+<code>BsEditorGroup</code> Attribute
+
+<h4 class="sub_title">Options</h4>
+
+<code>Id</code>
+
+<p>
+    <strong>type</strong> <code>object</code>
+    <br />
+    <strong>default</strong> <code>none</code>
+</p>
+
+<p>
+    Set the group unique id.
+</p>
+
+<hr />
+
+<p>
+    For each tab you can have <code>QuickSearch</code> field, <code>AdvancedSearch</code> form and <code>NewItem</code> form. Of course you can also add custom forms. 
+</p>
+<p>
+    Let's see how the <code>Search</code> and <code>New</code> models look.
+</p>
+
+<h4 class="sub_title">Tab Search Model</h4>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/GroupEditor/Source/_TabSearchModel.cs.embed")
+</pre>
+<br />
+
+<h4 class="sub_title">Example</h4>
+<div class="bs-example bs-img-example">
+    <img src="@Url.Content("~/Content/images/docs/group-editor-search.jpg")">
+</div>
+
+<h4 class="sub_title">New Tab Item Model</h4>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/GroupEditor/Source/_TabNewModel.cs.embed")
+</pre>
+<br />
+
+<h4 class="sub_title">Example</h4>
+<div class="bs-example bs-img-example">
+    <img src="@Url.Content("~/Content/images/docs/group-editor-new.jpg")">
+</div>
+
+<hr />
+
+<p>
+    You also need a <code>GroupRowModel</code> to create the tabs and groups models. The <code>GroupRowModel</code> must inherit from <code>BsEditorGroupItemModel</code>
+</p>
+<p>
+    Here is an example implementation:
+</p>
+
+<h4 class="sub_title">Group Row Model</h4>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/GroupEditor/Source/_GroupRowModel.cs.embed")
+</pre>
+<br />
+
+<p>
+    Once you have these models you can create the <code>BsEditorTabModel</code> and the <code>BsEditorGroupModel</code> for the <code>GroupEditorModel</code>.
+</p>
+<p>
+    The <code>BsEditorTabModel</code> has three overloaded contructors. One takes only the <code>GroupRowModel</code>. Use it if your tab has no <code>Search</code> or <code>New</code> forms. 
+</p>
+<p>
+    The second constructor takes also the <code>Search</code> model. This means that the tab will implement <code>AdvancedSearch</code> functionality.
+</p>
+<p>
+    The last one takes all three models <code>BsEditorTabModel&lt;TRow, TSearch, TNew&gt;</code>. This tab will also implement the <code>New</code> item form.
+</p>
+<p>
+    Even if the models exists you can decide later in the view if you want to render these buttons and forms in the tab header.
+</p>
+<p>
+    The group items can also be edited. For this you need to create also a <code>RowFormModel</code>. This model should include all the fields you want to edit.
+</p>
+
+<h4 class="sub_title">Group Row Model</h4>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/GroupEditor/Source/_RowFormModel.cs.embed")
+</pre>
+<br />
+
+<h4 class="sub_title">Example</h4>
+<div class="bs-example bs-img-example">
+    <img src="@Url.Content("~/Content/images/docs/group-editor-editable.jpg")">
+</div>
