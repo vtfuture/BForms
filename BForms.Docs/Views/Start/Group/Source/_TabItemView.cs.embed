@@ -1,0 +1,18 @@
+﻿@using BForms.Html
+@model Menu.Models.MenuGroupRowModel
+
+
+<dl class="to-left">
+    <dt>Name:</dt>
+    <dd>@if (Model.Icon.HasValue)
+        {
+            @Html.BsGlyphicon(Model.Icon.Value);
+        } @Model.DisplayNameInternational</dd>
+    
+    <dt>Link:</dt>
+    <dd>@Model.Link</dd>
+
+    <dt>Permissions:</dt>
+    <dd>@Model.Permissions</dd>
+
+</dl>

@@ -1,0 +1,11 @@
+﻿new MenuItem()
+{
+    Id = 1,
+    DisplayNameLocal = "Home",
+    DisplayNameInternational = "Home",
+    MenuItemType = MenuItemTypes.Page,
+    Link = "/Home.html",
+    Icon = Glyphicon.Home,
+    Visibility = MenuItemVisibility.Any
+};
+

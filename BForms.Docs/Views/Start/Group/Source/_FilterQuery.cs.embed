@@ -1,0 +1,49 @@
+﻿public IQueryable<MenuItem> Filter(IQueryable<MenuItem> query)
+{
+
+    var settings = this.Settings;
+
+    if (settings != null)
+    {
+        if(settings.TabId != null)
+            query = query.Where(x => x.MenuItemType == settings.TabId);
+
+        if (!string.IsNullOrEmpty(Settings.QuickSearch))
+        {
+            var searched = settings.QuickSearch.ToLower();
+
+            query = query.Where(x => x.DisplayNameLocal.ToLower().Contains(searched) ||
+                                                x.DisplayNameInternational.ToLower().Contains(searched) ||
+                                                x.Link.ToLower().Contains(searched));
+        }
+        else if (settings.Search != null)
+        {
+            #region DisplayName
+            if (!string.IsNullOrEmpty(Settings.Search.DisplayName))
+            {
+                var displayName = Settings.Search.DisplayName.ToLower();
+                query = query.Where(x => x.DisplayNameLocal.ToLower().Contains(displayName) ||
+                                         x.DisplayNameInternational.ToLower().Contains(displayName));
+            }
+            #endregion
+
+            #region Link
+            if (!string.IsNullOrEmpty(Settings.Search.Link))
+            {
+                var link = Settings.Search.Link.ToLower();
+                query = query.Where(x => x.Link.ToLower().Contains(link));
+            }
+            #endregion
+
+            #region DisplayName
+            if (Settings.Search.Visibility.SelectedValues.HasValue)
+            {
+                var visibility = Settings.Search.Visibility.SelectedValues.Value;
+                query = query.Where(x => x.Visibility == visibility);
+            }
+            #endregion
+        }
+    }
+
+    return query;
+}

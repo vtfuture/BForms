@@ -1,0 +1,12 @@
+﻿@model Menu.Models.GroupEditorModel
+@using BForms.Html
+@using Menu.Models
+@using BForms.Editor
+
+@{
+    var builder = (BsEditorHtmlBuilder<GroupEditorModel>)ViewData["builder"];
+}
+
+@(Html.BsGroupEditorFor(Model, builder)
+      .HtmlAttributes(new Dictionary<string, object>() { { "id", "myGroupEditor" } })
+)

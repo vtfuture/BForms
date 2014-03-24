@@ -1,0 +1,4 @@
+﻿public class GroupEditorSettings : BsGridRepositorySettings<MenuItemSearchModel>
+{
+    public MenuItemTypes TabId { get; set; }
+}

@@ -1,0 +1,22 @@
+﻿homeIndex.prototype._initSearchForm = function($form, uid) {
+    $form.bsForm({
+        uniqueName: 'searchForm',
+        prefix: 'prefix' + uid + '.',
+        actions: [
+        {
+            name: 'search',
+            selector: '.js-btn-search',
+            actionUrl: this.options.advancedSearchUrl,
+            parse: true,
+            handler: $.proxy(function (formData, response) {
+                $('#myGroupEditor').bsGroupEditor('setTabContent', response.Html);
+            }, this)
+        }, {
+            name: 'reset',
+            selector: '.js-btn-reset',
+            handler: $.proxy(function () {
+                $form.bsForm('reset');
+            }, this)
+        }]
+    });
+};

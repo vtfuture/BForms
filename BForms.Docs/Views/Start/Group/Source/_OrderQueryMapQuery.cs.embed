@@ -1,0 +1,16 @@
+﻿public override IQueryable<MenuItem> Query()
+{
+    var query = db.MenuItems.AsQueryable();
+    return Filter(query);
+}
+
+public override IOrderedQueryable<MenuItem> OrderQuery(IQueryable<MenuItem> query)
+{
+    var orderedQuery = this.orderedQueryBuilder.Order(query, x => x.OrderBy(y => y.Id));
+    return orderedQuery;
+}
+
+public override IEnumerable<MenuGroupRowModel> MapQuery(IQueryable<MenuItem> query)
+{
+    return query.Select(MapMenuItem_SampleGroupRowModel);
+}

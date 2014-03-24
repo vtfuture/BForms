@@ -1,0 +1,51 @@
+﻿public ActionResult Index()
+{
+    var bsGridSettings = new GroupEditorSettings
+    {
+        Page = 1,
+        PageSize = 5,
+        TabId = MenuItemTypes.Page
+    };
+
+    var model = new GroupEditorModel()
+    {
+        Tab1 = new BsEditorTabModel<MenuGroupRowModel, MenuItemSearchModel, PageNewModel>
+        {
+            Grid = repo.ToBsGridViewModel(bsGridSettings),
+            Search = repo.GetSearchForm(),
+            New = repo.GetNewPageForm()
+        },
+
+        Group1 = new BsEditorGroupModel<MenuGroupRowModel>
+        {
+            Items = new List<MenuGroupRowModel>()
+        },
+
+        Group2 = new BsEditorGroupModel<MenuGroupRowModel>
+        {
+            Items = new List<MenuGroupRowModel>()
+        },
+
+        Group3 = new BsEditorGroupModel<MenuGroupRowModel>
+        {
+            Items = new List<MenuGroupRowModel>()
+        }
+    };
+
+    var viewModel = new GroupEditorViewModel
+    {
+        Editor = model
+    };
+
+    var options = new
+    {
+        getTabUrl = Url.Action("GetTab"),
+        save = Url.Action("Save"),
+        advancedSearchUrl = Url.Action("Search"),
+        addUrl = Url.Action("NewPage")
+    };
+
+    RequireJsOptions.Add("index", options);
+
+    return View(viewModel);
+}

@@ -157,6 +157,11 @@
 @Html.InsertFileContentCached("~/Views/Docs/GroupEditor/Source/_GroupRowModel.cs.embed")
 </pre>
 <br />
+<h4 class="sub_title">Example</h4>
+<div class="bs-example bs-img-example">
+    <img src="@Url.Content("~/Content/images/docs/group-editor-group-items.jpg")">
+</div>
+<br />
 
 <p>
     Once you have these models you can create the <code>BsEditorTabModel</code> and the <code>BsEditorGroupModel</code> for the <code>GroupEditorModel</code>.
@@ -177,7 +182,7 @@
     The group items can also be edited. For this you need to create also a <code>RowFormModel</code>. This model should include all the fields you want to edit.
 </p>
 
-<h4 class="sub_title">Group Row Model</h4>
+<h4 class="sub_title">Group Form Model</h4>
 <pre class="prettyprint lang-cs bs-example">
 @Html.InsertFileContentCached("~/Views/Docs/GroupEditor/Source/_RowFormModel.cs.embed")
 </pre>
