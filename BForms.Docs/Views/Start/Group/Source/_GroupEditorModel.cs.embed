@@ -1,0 +1,20 @@
+﻿public class GroupEditorModel
+{
+    [BsEditorTab(Name = "Pages", Id = MenuItemTypes.Page, Selected = true)]
+    public BsEditorTabModel<MenuGroupRowModel, MenuItemSearchModel, PageNewModel> Tab1 { get; set; }
+
+    [BsEditorTab(Name = "Custom Links", Id = MenuItemTypes.CustomLink, Selected = false)]
+    public BsEditorTabModel<MenuGroupRowModel, MenuItemSearchModel, CustomLinkNewModel> Tab2 { get; set; }
+
+    [BsEditorTab(Name = "Categories", Id = MenuItemTypes.Category, Selected = false)]
+    public BsEditorTabModel<MenuGroupRowModel, MenuItemSearchModel, CategoryNewModel> Tab3 { get; set; }
+
+    [BsEditorGroup(Id = MenuTypes.PublicMenu)]
+    public BsEditorGroupModel<MenuGroupRowModel> Group1 { get; set; }
+
+    [BsEditorGroup(Id = MenuTypes.UsersMenu)]
+    public BsEditorGroupModel<MenuGroupRowModel> Group2 { get; set; }
+
+    [BsEditorGroup(Id = MenuTypes.AdminMenu)]
+    public BsEditorGroupModel<MenuGroupRowModel> Group3 { get; set; }
+}

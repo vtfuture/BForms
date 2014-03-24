@@ -1,0 +1,12 @@
+﻿public class MenuRowFormModel
+{
+    [Display(Name = "DisplayNameInternational", ResourceType = typeof(Resource))]
+    [Required]
+    [BsControl(BsControlType.TextBox)]
+    public string DisplayNameInternational { get; set; }
+
+    [Display(Name = "DisplayNameLocal", ResourceType = typeof(Resource))]
+    [Required]
+    [BsControl(BsControlType.TextBox)]
+    public string DisplayNameLocal { get; set; }
+}

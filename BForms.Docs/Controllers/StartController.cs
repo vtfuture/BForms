@@ -23,5 +23,10 @@ namespace BForms.Docs.Controllers
         {
             return View("Grid/Index");
         }
+
+        public ActionResult Group()
+        {
+            return View("Group/Index");
+        }
     }
 }

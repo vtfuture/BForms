@@ -1,0 +1,14 @@
+﻿public class HomeController : BaseController
+{
+    private readonly MenuRepository repo;
+
+    public HomeController()
+    {
+        repo = new MenuRepository(Db);
+    }
+
+    public ActionResult Index()
+    {
+        return View();
+    }
+}

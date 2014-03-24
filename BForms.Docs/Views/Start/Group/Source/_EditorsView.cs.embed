@@ -1,0 +1,66 @@
+﻿@model Menu.Models.GroupEditorViewModel
+@using BForms.Html
+@using Menu.Mock
+
+@{
+    var builder = Html.BsGroupEditorFor(x => x.Editor);
+
+    builder.ConfigureTabs(cfg =>
+    {
+        var tab1 = cfg.For(x => x.Tab1)
+            .Template(x => x.Grid, "_TabItem")
+            .Template(x => x.Search, "~/Views/Home/_Search.cshtml")
+            .Template(x => x.New, "~/Views/Home/_New.cshtml")
+            .ConnectsWith(MenuTypes.PublicMenu, MenuTypes.UsersMenu, MenuTypes.AdminMenu);
+
+        var tab2 = cfg.For(x => x.Tab2)
+            .Template(x => x.Grid, "_TabItem")
+            .ConnectsWith(MenuTypes.PublicMenu);
+
+        var tab3 = cfg.For(x => x.Tab3)
+            .Template(x => x.Grid, "_TabItem")
+            .ConnectsWith(MenuTypes.UsersMenu);
+
+
+        tab1.BulkMove = false;
+        tab1.Toolbar.QuickSearch = true;
+        tab2.Toolbar.QuickSearch = true;
+        tab3.Toolbar.QuickSearch = true;
+
+        cfg.Title = "Menu Items";
+
+    })
+        .ConfigureGroups(cfg =>
+        {
+            cfg.For(x => x.Group1)
+                .DisplayText("Adauga la Public Menu")
+                .DisplayName("Public Menu (FrontEnd)")
+                .Template(x => x.Items, "_GroupItem");
+
+            cfg.For(x => x.Group2)
+                .DisplayText("Adauga la Users Menu")
+                .DisplayName("Users Menu (Authentication Required)")
+                .Template(x => x.Items, "_GroupItem");
+
+            cfg.For(x => x.Group3)
+                .DisplayText("Adauga la Admin Menu")
+                .DisplayName("Admin Menu (BackEnd)")
+                .Template(x => x.Items, "_GroupItem");
+
+            cfg.Title = "Menus";
+        })
+        .IgnoreAjaxRequest(false);
+
+    ViewData["builder"] = builder;
+}
+
+@if (Model.Editor != null)
+{
+    Html.Partial("_GroupEditor", Model.Editor);
+}
+
+<script id="js-groupItem" type="text/x-icanhaz">
+
+    <span>{{DisplayNameInternational}}</span>
+
+</script>

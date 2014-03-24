@@ -212,10 +212,13 @@
     <Content Include="Content\Images\Docs\eg-toolbar-quicksearch.jpg" />
     <Content Include="Content\Images\Docs\eg-toolbar-search-open.png" />
     <Content Include="Content\Images\Docs\eg-toolbar-views.jpg" />
+    <Content Include="Content\Images\Docs\group-editor-drag-drop.jpg" />
     <Content Include="Content\Images\Docs\group-editor-editable.jpg" />
     <Content Include="Content\Images\Docs\group-editor-example.jpg" />
+    <Content Include="Content\Images\Docs\group-editor-group-items.jpg" />
     <Content Include="Content\Images\Docs\group-editor-new.jpg" />
     <Content Include="Content\Images\Docs\group-editor-search.jpg" />
+    <Content Include="Content\Images\Docs\group-editor-tab-items.jpg" />
     <Content Include="Content\Images\Docs\main-script-file.PNG" />
     <Content Include="Content\Images\Docs\number-range.jpg" />
     <Content Include="Content\Images\Docs\numberinline-input.jpg" />
@@ -274,6 +277,7 @@
     <Content Include="Scripts\Controllers\Demo\UserProfile\userprofile-index.js" />
     <Content Include="Scripts\Controllers\Root\Docs\docs-groupeditor.js" />
     <Content Include="Scripts\Controllers\Root\Docs\docs-panel.js" />
+    <Content Include="Scripts\Controllers\Root\Start\start-group.js" />
     <Content Include="Views\Start\Setup\Source\_BundleConfigJs.cs.embed" />
     <Content Include="Views\Start\Setup\Source\_Files.embed" />
     <Content Include="Areas\Demo\Views\Contributors\Grid\Details\_IdentityEditable.cshtml">
@@ -431,6 +435,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Demo\Views\Shared\" />
     <Folder Include="Properties\PublishProfiles\" />
+    <Folder Include="Views\Start\Group\Docs\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -1637,6 +1642,78 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Docs\GroupEditor\_Repository.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Group\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Group\Source\_Model.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Group\Source\_ModelInitialization.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Group\Source\_MenuRowFormModel.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Group\Source\_MenuGroupRowModel.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Group\Source\_MenuItemSearchModel.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Group\Source\_MenuItemNewModel.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Group\Source\_GroupEditorModel.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Group\Source\_GroupEditorViewModel.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Group\Source\_OrderQueryMapQuery.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Group\Source\_FilterQuery.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Group\Source\_GroupEditorSettings.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Group\Source\_Mapper.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Group\Source\_ControllerInitial.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Group\Source\_ControllerIndexAction.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Group\Source\_ControllerRenderTabAction.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Group\Source\_IndexView.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Group\Source\_EditorsView.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Group\Source\_GroupEditorView.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Group\Source\_GroupItemView.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Group\Source\_TabItemView.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Group\Source\_HomeIndexJs.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Group\Source\_HomeIndexJsInitAdd.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Start\Group\Source\_HomeIndexJsInitSearch.cs.embed" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
