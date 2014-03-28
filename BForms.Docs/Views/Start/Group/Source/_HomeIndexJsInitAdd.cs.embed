@@ -1,0 +1,24 @@
+﻿homeIndex.prototype._initAddForm = function ($form, uid) {
+    $form.bsForm({
+        uniqueName: 'newForm',
+        prefix: 'prefix' + uid + '.',
+        actions: [
+        {
+            name: 'add',
+            selector: '.js-btn-save',
+            actionUrl: this.options.addUrl,
+            parse: true,
+            validate: true,
+            handler: $.proxy(function (formData, response) {
+                var $row = $(response.Row).find('.bs-tabItem');
+                $('#myGroupEditor').bsGroupEditor('addTabItem', $row);
+            }, this)
+        }, {
+            name: 'reset',
+            selector: '.js-btn-reset',
+            handler: $.proxy(function () {
+                $form.bsForm('reset');
+            }, this)
+        }]
+    });
+};

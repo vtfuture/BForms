@@ -38,7 +38,7 @@
             parseSave: true,
 
         },
-
+        expandable: true,
         formSelector: 'form',
 
         retryMessage: 'Reload'
@@ -118,8 +118,9 @@
     };
 
     bsPanel.prototype._delegateEvents = function () {
-
-        this.$element.on('click', this.options.toggleSelector, $.proxy(this._onToggleClick, this));
+        if (this.options.expandable) {
+            this.$element.on('click', this.options.toggleSelector, $.proxy(this._onToggleClick, this));
+        }
 
         if (this.options.editable !== false) {
             if (this.options.headerToggle) {

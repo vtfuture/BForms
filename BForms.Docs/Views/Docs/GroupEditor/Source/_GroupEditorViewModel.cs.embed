@@ -1,0 +1,4 @@
+﻿public class GroupEditorViewModel
+{
+    public GroupEditorModel Editor { get; set; }
+}

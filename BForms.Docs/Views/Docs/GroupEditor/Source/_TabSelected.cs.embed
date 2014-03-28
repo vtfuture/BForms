@@ -1,0 +1,6 @@
+﻿builder.ConfigureTabs(cfg =>
+{
+	var tab1 = cfg.For(x => x.Tab1).Selected(true);
+
+	var tab2 = cfg.For(x => x.Tab2).Selected(false);
+})

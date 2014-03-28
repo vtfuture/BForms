@@ -1,0 +1,371 @@
+﻿@using BForms.Docs.Helpers
+@{
+    ViewBag.Title = "Get started with BForms GroupEditor";
+}
+
+<div class="row">
+    <div class="hidden-xs hidden-sm col-md-3 col-lg-3">
+        <div class="bs-sidebar">
+            <ul class="nav bs-sidenav">
+                <li>
+                    <a href="#grid">Group Editor Tutorial</a>
+                    <ul class="nav">
+                        <li><a href="#initial">Initial Project</a></li>
+                        <li><a href="#models">Models</a></li>
+                        <li><a href="#repository">Repository</a></li>
+                        <li><a href="#controller">Controller</a></li>
+                        <li><a href="#views">Views</a></li>
+                        <li><a href="#javascript">Javascript</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <main class="col-md-9 col-lg-9" role="main">
+        <div class="bs-docs-section">
+            <div class="page-header">
+                <h1 id="introduction">Get started with BForms Group Editor</h1>
+            </div>
+            <p>
+                BForms <strong>GroupEditor</strong> component is designed to provide rich functionality, cross-browser, cross-device and internationalization support for your group editting needs.
+            </p>
+            <p>
+                The feature set includes drag & drop functionality to add items to groups, AJAX-enabled editing of the group items, creation and filtering of group items. The UI is touch friendly and HTML5 enhanced featuring edit in place.
+            </p>
+            <p>
+                On the client side, the GroupEditor is deployed as an AMD jQuery widget that supports theming and templates.
+                The styling is done using bootstrap v3 CSS grid system.
+            </p>
+            <hr />
+            <h2 id="grid">Building a Group Editor</h2>
+            <p>
+                In this tutorial, you will learn how to implement the <code>BForms.GroupEditor</code> from scratch. We start by presenting the models we’ll use. Then will begin building the grid to present our data, step by step, adding more functionality as we go. At this step you will have a grid that displays your data, with sorting and pagination capabilities. Next step is to add editing capabilities to our rows by enabling the details for each row. We’ll also implement the Bulk Actions that will help us modify multiple rows at a time.
+            </p>
+            <h3 id="initial"> Initial Project </h3>
+            <p>We will start from an empty MVC Project. The project will be setup to use RequireJS and BForms.  To see a guide on how to setup your initial project please follow this link: <a href="@Url.Action("Setup", "Start", new { area = "" })#setup">Setup BForms for ASP.NET MVC</a></p>
+            <p>We will work with mocked data that will fake a menu editor. We create Pages, Links and Categories as menu items. We will also have Public Menu, Users Menu and Admin Menu as groups. The menu items can be added to any of the groups or can be restricted to one or more of the groups.</p>
+            <h4 class="sub_title">Menu Item Model Class</h4>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Group/Source/_Model.cs.embed")
+            </pre>
+            <br />
+            <p>
+                Our mocked data will consist in a list of MenuItem objects added in the <code>BFormsContext</code> Constructor method. Here is an example of a movie record:
+            </p>
+
+            <h4 class="sub_title">New Menu Item</h4>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Group/Source/_ModelInitialization.cs.embed")
+            </pre>
+            <br />
+            <p>The <code>BFormsContext</code> Object will be instantiated in the <code>BaseController</code> class. All our controllers will inherit from <code>BaseController</code>. This way we will have access to the <code>BFormsContext</code> from inside our controllers.</p>
+            
+            <h3 id="models">1. Creating the Models</h3>
+            <p>
+                In this step we will create the models needed to build the group editor. In our project let’s create a folder named ‘Models’. Add a new empty class file to this folder named ‘MenuModels.cs’.  This file will contain all our grid related models.
+            </p>
+            <p>
+                The first model will be the <code>RowForm</code> model. This model is used by the goup editor widget to define the editable form for each group item. The group items can have editable properties. In this case we only want to modify the Local and International DisplayName for each menu item.
+            </p>
+
+            <h4 class="sub_title">Menu Row Form Model Class</h4>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Group/Source/_MenuRowFormModel.cs.embed")
+            </pre>
+            <br />
+            
+            <p>
+                Next step is to create the <code>GroupRowModel</code>. This row model is used to create the grid rows for the tabs and groups. This model should contain the readonly properies that you want to display on each row.
+            </p>
+            <h4 class="sub_title">Group Row Model Class</h4>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Group/Source/_MenuGroupRowModel.cs.embed")
+            </pre>
+            <br />
+            
+            <p>
+                If you want to add filter functionality to the tabs, you must include a search model. This model will be used in the <code>AdvancedSearch</code> form to filter the grid rows.
+            </p>
+            <h4 class="sub_title">Search Model Class</h4>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Group/Source/_MenuItemSearchModel.cs.embed")
+            </pre>
+            <br />
+            <div class="bs-example bs-img-example">
+                <img src="@Url.Content("~/Content/images/docs/group-editor-search.jpg")" />
+            </div>
+            <br />
+            
+            <p>
+                Also you can add new menu items for each tab. For this you need to create a <code>NewMenuItem</code> Model. If the tabs have different menu items, for example pages, links and categories, you should create a model for each.
+            </p>
+            <h4 class="sub_title">New Model Class</h4>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Group/Source/_MenuItemNewModel.cs.embed")
+            </pre>
+            <br />
+            <div class="bs-example bs-img-example">
+                <img src="@Url.Content("~/Content/images/docs/group-editor-new.jpg")" />
+            </div>
+            <br />
+
+            <p>
+                Now we have all we need to create a <code>BsEditorTabModel</code> or a <code>BsEditorGroupModel</code>. We can now define the <code>GroupEditor</code> model. This model is used by the grid widget to populate the columns and the header. The fields can be annotated with the <code>BsEditorTabAttribute</code> and <code>BsEditorGroupAttribute</code>. This attributes can set some properties for the tabs and groups. For example, the ‘Name’ of the first tab is set to 'Pages', and by setting the 'Selected' property to <code>true</code> you can set this tab to be selected on initialization.
+            </p>
+            <h4 class="sub_title">Group Editor Model Class</h4>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Group/Source/_GroupEditorModel.cs.embed")
+            </pre>
+            <br />
+            <p>
+                Here is how the menu group editor will look for this <code>GroupEditorModel</code>:
+            </p>
+            <div class="bs-example bs-img-example">
+                <img src="@Url.Content("~/Content/images/docs/group-editor-example.jpg")" />
+            </div>
+            <br />
+            
+            <p>
+                Last step in model creation is to define the group editor view model. Our model will have only one property because we have only one Group Editor widget. However you can have multiple group editors on the same page.
+            </p>
+            <h4 class="sub_title">Group Editor View Model Class</h4>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Group/Source/_GroupEditorViewModel.cs.embed")
+            </pre>
+            <br />
+
+            <h3 id="repository">2. Creating the Repository</h3>
+            <p>
+                The Repository for the <code>GroupEditor</code> component won't have anything special. However, because the <code>GroupEditor</code> componet uses the <code>BsGrid</code> component, the repository must include the methods specified in the grid and toolbar tutorial. 
+            </p>
+            <p>
+                This repository will inherit from <code>BsBaseGridRepository</code> and we will have to override a few methods: <code>Query()</code>, <code>OrderQuery()</code> and <code>MapQuery()</code>. These methods will be used to filter and sort the grid. 
+            </p>
+            <h4 class="sub_title">Query OredrQuery MapQuery</h4>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Group/Source/_OrderQueryMapQuery.cs.embed")
+            </pre>
+            <br />
+            <p>
+                You also need to provide the <code>Filter()</code> method and the mapper.
+            </p>
+            <p>
+                In this example this is how the Filter method looks like:
+            </p>
+            <h4 class="sub_title">Filter Query</h4>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Group/Source/_FilterQuery.cs.embed")
+            </pre>
+            <br />
+            <p>
+                The <code>Filter()</code> method reads the <code>Settings</code> object and uses it to create the <code>QuickSearch</code> and the <code>AdvancedSearch</code> query.
+            </p>
+            <p>
+                The unique thing about this repository is that we need the <code>Tab</code> information in our queries. For this we need to build a new settings object specific to the <code>GroupEditor</code> that will include also the tab info.
+            </p>
+            <p>
+                This setting object will inherit from <code>BsGridRepositorySettings</code>.
+            </p>
+            <h4 class="sub_title">Filter Query</h4>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Group/Source/_GroupEditorSettings.cs.embed")
+            </pre>
+            <br />
+            
+            <p>
+                The mapper is simple. We use it to convert from <code>MenuItem</code> to <code>MenuGroupRowModel</code>.
+            </p>
+            <h4 class="sub_title">Mapper</h4>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Group/Source/_Mapper.cs.embed")
+            </pre>
+            <br />
+            
+            <h3 id="controller">3. Adding the Controller</h3>
+            <p>
+                In this step we will create the GroupEditor Controller. This controller will contain the actions needed to display the tabs, grids and the groups. We will display our group editor on the home page so our controller will be named 'HomeController'.
+            </p>
+            <p>
+                Create a new controller in the ‘Controllers’ folder. This controller will inherit from the BaseController. This is how it will look like:
+            </p>
+            <h4 class="sub_title">Home Controller</h4>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Group/Source/_ControllerInitial.cs.embed")
+            </pre>
+            <br />
+            
+            <p>
+                The Index() action of this controller will render the view that will contain the group editor. However we have to do some changes before we can send the model the way our view will be expecting. We have to initialize the <code>GroupEditor</code> Model with some initial settings for the tabs, the groups and the search and new forms. Then we’ll use this model to initialize our View Model. The View Model will be send to the view.
+            </p>
+            <p>
+                Also we have to use RequireJsOptions.Add() method to send some data to the page. The data we need to send is the name of the ajax action that will be used by the grid pager to return other pages. This will be in the form of a Dictionary object that will contain the urls for the <code>GetTab</code>, <code>Save</code>, <code>Search</code>, <code>NewPage</code> actions that we will define later.
+            </p>
+            <p>
+                This is how our Index Action will look like at the end:
+            </p>
+            <h4 class="sub_title">Index Action</h4>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Group/Source/_ControllerIndexAction.cs.embed")
+            </pre>
+            <br />
+                
+            <p>
+                As you can see in the <code>GroupEditorModel</code> we only initialize the first tab. We do this because this is the tab that has the <code>Selected</code> property set to <code>true</code>. 
+            </p>
+            <p>
+                We initialize the other tabs on the user request with the help of the <code>GetTab()</code> action.
+            </p>
+            <p>
+                Next we have to implement the <code>RenderTab()</code> nonaction that will be used in the <code>GetTab()</code>, <code>Search</code> and <code>NewPage</code> actions to render the requested tabs.
+            </p>
+            <h4 class="sub_title">Render Tab Action</h4>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Group/Source/_ControllerRenderTabAction.cs.embed")
+            </pre>
+            <br />
+
+            <p>After we implement these actions, our controller is ready. Next we have to create the views.</p>
+
+            <h3 id="views">4. Creating the Views</h3>
+            <p>
+                In this step we will create the <code>GroupEditor</code> Views. The <code>_Editors</code> View will be implemented as a partial view rendered inside the <code>Index</code> View.
+            </p>
+            <p>
+                Let’s first create the <code>Index</code> View. To do this right click on the <code>Index()</code> Action in the Controller and choose ‘Add View’.
+            </p>
+            <p>
+                This is how our <code>index.cshtml</code> should look like:
+            </p>
+            <h4 class="sub_title">Index View</h4>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Group/Source/_IndexView.cs.embed")
+            </pre>
+            <br />
+            <p>
+                This view is just a container for the group editor. Let’s now create the <code>_Editors</code> partial view. 
+            </p>
+            <p>
+                Here we use the <code>BsGroupEditorFor()</code> html helper to create our group editor. This helper returns a <code>BsEditorHtmlBuilder</code> used to build and configure the tabs, groups and forms for the <code>GroupEditor</code>. 
+            </p>
+            <p>
+                This is how the <code>_Editors</code> partial view should look:
+            </p>
+            <h4 class="sub_title">Editors View</h4>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Group/Source/_EditorsView.cs.embed")
+            </pre>
+            <br />
+            <p>
+                In this partial view you can set the properties for the tabs and groups. For example you can set the partial view templates used for the <code>Search</code> and <code>New</code> forms or you can specify if a tab has <code>QuickSearch</code> functionality.
+            </p>
+            <p>
+                For a complete list you can read the <code>GroupEditor</code> <a href="@Url.Action("GroupEditor", "Docs", new { area=""})#GroupEditorHelper" target="blank">documentation</a>.
+            </p>
+            <p>
+                The <code>_Editors</code> view uses the <code>_GroupEditor</code> partial view to render the <code>GroupEditor</code> widget.
+            </p>
+            <h4 class="sub_title">Group Editor View</h4>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Group/Source/_GroupEditorView.cs.embed")
+            </pre>
+            <br />
+            
+            <p>
+                We also need a partial view for the <code>TabItem</code> and one for the <code>GroupItem</code>. These views will be used to render the tabs grid rows and the groups grid rows.
+            </p>
+            <h4 class="sub_title">Group Item View</h4>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Group/Source/_GroupItemView.cs.embed")
+            </pre>
+            <br />
+            <div class="bs-example bs-img-example">
+                <img src="@Url.Content("~/Content/images/docs/group-editor-group-items.jpg")" />
+            </div>
+            <br />
+            <h4 class="sub_title">Tab Item View</h4>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Group/Source/_TabItemView.cs.embed")
+            </pre>
+            <br />
+            <div class="bs-example bs-img-example">
+                <img src="@Url.Content("~/Content/images/docs/group-editor-tab-items.jpg")" />
+            </div>
+            <br />
+            
+            <h3 id="javascript">5. Initializing the GroupEditor Widget</h3>
+            <p>
+                In this step we will create the javascript file that will be executed when the index page loads. There are two ways of working with the BForms JS components. One way is to use <code>RequireJS.NET</code> and the other is to reference the js files directly from the <code>~/Scripts/BForms/Bundles/js</code> folder. In this example we’ll use the RequireJS way. For this let’s create the folder structure that the RequireJs expects for our views.
+            </p>
+            <h4 class="sub_title">Javascript Folder Structure</h4>
+            <div class="bs-example bs-img-example">
+                <img src="@Url.Content("~/Content/images/docs/eg-js-folder.png")" />
+            </div>
+            <br />
+            <p>
+                Inside the Scripts folder create the following folder structure corresponding to our Home Controller, Index page: <code>Controllers/Root/Home/home-index.js</code>
+            </p>
+            <p>
+                This is how the javascript file will look:
+            </p>
+            <h4 class="sub_title">Home Index Js</h4>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Group/Source/_HomeIndexJs.cs.embed")
+            </pre>
+            <br />
+            <p>
+                In this javascript file we require <code>bforms-groupEditor</code>, <code>jquery</code> and a few other files. 
+            </p>
+            <p>
+                We use the jQuery document ready method to initialize the page and to get the options send from the <code>HomeController</code>.
+            </p>
+            <p>
+                The options sent from the controller via <code>RequireJs</code> will extend and override the default settings.
+            </p>
+            <p>
+                On the page initialization we find the <code>GroupEditor</code> by the id attribute and initialize it by calling the <code>bsGroupEditor()</code> constructor method.
+            </p>
+            <p>
+                We can define the html for the dragged and dropped elements in the <code>buildDragHelper</code> and <code>buildGroupItem</code> parameters.
+            </p>
+            <p>
+                We use the <code>validateMove</code> parameter to provide a function that returns false if a condition is met. If the function returns false, then the move is not validated and the <code>GroupItem</code> will not be added to the <code>Group</code>.
+            </p>
+            <p>
+                We can also implement a <code>Save</code> method to save the current sate of the groups. If the save is successful then the <code>onSaveSuccess</code> handler is called.
+            </p>
+            <p>
+                Now we need to initialize the search form and the new form in the <code>initEditorForm</code> handler.
+            </p>
+            <p>
+                In the <code>Search</code> form we need to initialize the <code>Search</code> and the <code>Reset</code> buttons.
+            </p>
+            <h4 class="sub_title">Initialize Search Form</h4>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Group/Source/_HomeIndexJsInitSearch.cs.embed")
+            </pre>
+            <br />
+            
+            <p>
+                In the <code>New</code> form we need to initialize the <code>Add</code> and the <code>Reset</code> buttons.
+            </p>
+            <h4 class="sub_title">Initialize New Form</h4>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Group/Source/_HomeIndexJsInitAdd.cs.embed")
+            </pre>
+            <br />
+            <p>
+                On initialization we can set different properties for the forms. For example we can specify if the form should pe parsed or validated.
+            </p>
+            <p>
+                Now we have a functional <code>GroupEditor</code>. We can switch tabs, add new <code>MenuItems</code> to the tabs, use <code>QuickSearch</code> and <code>AdvancedSearch</code> to filter the <code>MenuItems</code>, drag and drop <code>MenuItems</code> to the <code>Menus</code> and validate if the move is legal.
+            </p>
+            <h4 class="sub_title">Drag And Drop</h4>
+            <div class="bs-example bs-img-example">
+                <img src="@Url.Content("~/Content/images/docs/group-editor-drag-drop.jpg")" />
+            </div>
+            <br />
+        </div>
+    </main>
+</div>
+

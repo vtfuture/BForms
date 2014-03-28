@@ -1,0 +1,10 @@
+﻿public class MenuItem
+{
+    public int Id { get; set; }
+    public string DisplayNameLocal { get; set; }
+    public string DisplayNameInternational { get; set; }
+    public MenuItemTypes MenuItemType { get; set; }
+    public string Link { get; set; }
+    public Glyphicon? Icon { get; set; }
+    public MenuItemVisibility Visibility { get; set; }
+}

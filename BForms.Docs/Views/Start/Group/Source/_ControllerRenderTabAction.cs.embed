@@ -1,0 +1,56 @@
+﻿[NonAction]
+public string RenderTab(GroupEditorSettings settings, out int count)
+{
+    var html = string.Empty;
+    count = 0;
+
+    var model = new GroupEditorModel();
+
+    switch (settings.TabId)
+    {
+        case MenuItemTypes.Page:
+
+            var grid1 = repo.ToBsGridViewModel(settings, out count);
+
+            model.Tab1 = new BsEditorTabModel<MenuGroupRowModel, MenuItemSearchModel, PageNewModel>
+            {
+                Grid = grid1,
+                Search = repo.GetSearchForm(),
+                New = repo.GetNewPageForm()
+            };
+            break;
+
+        case MenuItemTypes.CustomLink:
+
+            var grid2 = repo.ToBsGridViewModel(settings, out count);
+
+            model.Tab2 = new BsEditorTabModel<MenuGroupRowModel, MenuItemSearchModel, CustomLinkNewModel>
+            {
+                Grid = grid2,
+                Search = repo.GetSearchForm(),
+                New = repo.GetNewLinkForm()
+            };
+            break;
+
+        case MenuItemTypes.Category:
+
+            var grid3 = repo.ToBsGridViewModel(settings, out count);
+
+            model.Tab3 = new BsEditorTabModel<MenuGroupRowModel, MenuItemSearchModel, CategoryNewModel>
+            {
+                Grid = grid3,
+                Search = repo.GetSearchForm(),
+                New = repo.GetNewCategoryForm()
+            };
+            break;
+    }
+
+    var viewModel = new GroupEditorViewModel()
+    {
+        Editor = model
+    };
+
+    html = this.BsRenderPartialView("_Editors", viewModel);
+
+    return html;
+}

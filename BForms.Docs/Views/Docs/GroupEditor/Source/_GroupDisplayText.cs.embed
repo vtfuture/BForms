@@ -1,0 +1,4 @@
+﻿builder.ConfigureGroups(cfg =>
+{
+	var group1 = cfg.For(x => x.Group1).DisplayText("Add to Group One");
+})

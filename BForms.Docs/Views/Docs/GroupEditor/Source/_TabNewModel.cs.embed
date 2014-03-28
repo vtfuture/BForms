@@ -1,0 +1,38 @@
+﻿public class MenuItemNewModel
+{
+    public MenuItemNewModel()
+    {
+        Visibility = new BsSelectList<MenuItemVisibility>();
+        Visibility.ItemsFromEnum(typeof(MenuItemVisibility));
+        Visibility.SelectedValues = MenuItemVisibility.Any;
+
+        Icon = new BsSelectList<Glyphicon?>();
+        Icon.ItemsFromEnum(typeof(Glyphicon));
+    }
+
+    [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
+    [BsControl(BsControlType.RadioButtonList)]
+    [Display(Name = "Visibility", ResourceType = typeof(Resource))]
+    public BsSelectList<MenuItemVisibility> Visibility { get; set; }
+
+    [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
+    [Display(Name = "DisplayNameLocal", ResourceType = typeof(Resource))]
+    [BsControl(BsControlType.TextBox)]
+    public string DisplayNameLocal { get; set; }
+
+    [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
+    [Display(Name = "DisplayNameInternational", ResourceType = typeof(Resource))]
+    [BsControl(BsControlType.TextBox)]
+    public string DisplayNameInternational { get; set; }
+
+    [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
+    [Display(Name = "Link", ResourceType = typeof(Resource))]
+    [BsControl(BsControlType.TextBox)]
+    public string Link { get; set; }
+
+    [Display(Name = "Icon", Prompt = "PromptIcon", ResourceType = typeof(Resource))]
+    [BsControl(BsControlType.DropDownList)]
+    public BsSelectList<Glyphicon?> Icon { get; set; }
+
+    public virtual MenuItemTypes MenuItemType { get; set; }
+}

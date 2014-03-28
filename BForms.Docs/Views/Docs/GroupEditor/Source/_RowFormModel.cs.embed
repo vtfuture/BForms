@@ -1,0 +1,16 @@
+﻿public class SampleRowFormModel
+{
+    [Display(Name = "DisplayNameLocal", ResourceType = typeof(Resource))]
+    [Required]
+    [BsControl(BsControlType.TextBox)]
+    public string DisplayNameLocal { get; set; }
+
+	[Display(Name = "DisplayNameInternational", ResourceType = typeof(Resource))]
+    [Required]
+    [BsControl(BsControlType.TextBox)]
+    public string DisplayNameInternational { get; set; }
+
+    [Display(Name = "Link", Prompt = "PromptLink", ResourceType = typeof(Resource))]
+    [BsControl(BsControlType.TextBox)]
+    public string Link { get; set; }
+}

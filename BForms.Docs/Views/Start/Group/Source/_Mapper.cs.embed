@@ -1,0 +1,10 @@
+﻿public Func<MenuItem, MenuGroupRowModel> MapMenuItem_SampleGroupRowModel = x =>
+new MenuGroupRowModel
+{
+    Id = x.Id,
+    DisplayNameLocal = x.DisplayNameLocal,
+    DisplayNameInternational = x.DisplayNameInternational,
+    Link = x.Link,
+    Permissions = x.Visibility.ToString(),
+    Icon = x.Icon
+};

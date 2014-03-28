@@ -18,7 +18,7 @@
     });
 
 $('.bs-contact').bsPanel({
-    name: 'contact'
+    name: 'contact',
 });
 
 });

@@ -1,0 +1,30 @@
+﻿builder.ConfigureTabs(cfg =>
+{
+    var tab1 = cfg.For(x => x.Tab1)
+        //.Editable()
+        .Template(x => x.Grid, "_TabItem")
+        .Template(x => x.Search, "~/Views/Home/_Search.cshtml")
+        .Template(x => x.New, "~/Views/Home/_New.cshtml")
+        .ConnectsWith(MenuTypes.PublicMenu, MenuTypes.UsersMenu, MenuTypes.AdminMenu);
+
+    var tab2 = cfg.For(x => x.Tab2)
+        .Template(x => x.Grid, "_TabItem")
+        //.Template(x => x.Search, "~/Views/Home/_Search.cshtml")
+        //.Template(x => x.New, "~/Views/Home/_New.cshtml")
+        .ConnectsWith(MenuTypes.PublicMenu);
+
+    var tab3 = cfg.For(x => x.Tab3)
+        .Template(x => x.Grid, "_TabItem")
+        //.Template(x => x.Search, "~/Views/Home/_Search.cshtml")
+        //.Template(x => x.New, "~/Views/Home/_New.cshtml")
+        .ConnectsWith(MenuTypes.UsersMenu);
+
+
+    tab1.BulkMove = false;
+    tab1.Toolbar.QuickSearch = true;
+    tab2.Toolbar.QuickSearch = true;
+    tab3.Toolbar.QuickSearch = true;
+
+    cfg.Title = "Menu Items";
+
+})

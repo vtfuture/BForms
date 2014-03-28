@@ -1,0 +1,20 @@
+﻿public class MenuItemSearchModel
+{
+    public MenuItemSearchModel()
+    {
+        Visibility = new BsSelectList<MenuItemVisibility?>();
+        Visibility.ItemsFromEnum(typeof(MenuItemVisibility));
+    }
+
+    [Display(Name = "DisplayName", ResourceType = typeof(Resource))]
+    [BsControl(BsControlType.TextBox)]
+    public string DisplayName { get; set; }
+
+    [Display(Name = "Link", ResourceType = typeof(Resource))]
+    [BsControl(BsControlType.TextBox)]
+    public string Link { get; set; }
+
+    [BsControl(BsControlType.RadioButtonList)]
+    [Display(Name = "Visibility", ResourceType = typeof(Resource))]
+    public BsSelectList<MenuItemVisibility?> Visibility { get; set; }
+}

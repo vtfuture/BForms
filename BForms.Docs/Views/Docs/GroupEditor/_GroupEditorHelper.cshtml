@@ -1,0 +1,578 @@
+﻿@using BForms.Docs.Helpers
+<h3 id="GroupEditorHelper">GroupEditor helper</h3>
+
+<p>
+    In order to render a group editor, use the <code>Html.BsGroupEditorFor()</code> html helper extension.
+</p>
+
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/GroupEditor/Source/_GroupEditorHelperSimple.cs.embed")
+</pre>
+<br />
+
+<p>
+    This helper returns a <code>BsEditorHtmlBuilder</code> used to build and configure the html of the <code>GroupEditor</code> groups and tabs.
+</p>
+
+<hr />
+
+<code>BsEditorHtmlBuilder</code>
+
+<h4 class="sub_title">Methods</h4>
+
+<p>
+    <code>SaveUrl(string saveUrl)</code>
+</p>
+<p>
+    <strong>params:</strong>
+    <ul>
+        <li>
+            <code>saveUrl</code>
+<p>
+    <strong>type </strong><code>string</code><br />
+    <strong>default</strong> none <br />
+    <strong>description</strong> Save Url Action path.
+</p>
+        </li>
+    </ul>
+</p>
+
+<p>
+    Sets the Save Action Path for the GroupEditor.
+</p>
+
+<h4 class="sub_title">Example</h4>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/GroupEditor/Source/_SaveUrl.cs.embed")
+</pre>
+<hr />
+
+<p>
+    <code>IgnoreAjaxRequest(bool ignoreAjaxRequest)</code>
+</p>
+<p>
+    <strong>params:</strong>
+    <ul>
+        <li>
+            <code>ignoreAjaxRequest</code>
+<p>
+    <strong>type </strong><code>bool</code><br />
+    <strong>default</strong> none <br />
+    <strong>description</strong> Sets the <code>ignoreAjaxRequest</code> property for the <code>GroupEditor</code>.
+</p>
+        </li>
+    </ul>
+</p>
+
+<p>
+    Sets the <code>ignoreAjaxRequest</code> property for the <code>GroupEditor</code>.
+</p>
+
+<h4 class="sub_title">Example</h4>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/GroupEditor/Source/_IgnoreAjaxRequest.cs.embed")
+</pre>
+<hr />
+
+<p>
+    <code>ConfigureTabs(Action&#60;BsEditorTabConfigurator&#60;TModel&#62;&#62; configurator)</code>
+</p>
+<p>
+    <strong>params:</strong>
+    <ul>
+        <li>
+            <code>configurator</code>
+            <p>
+                <strong>type </strong><code>Action&#60;BsEditorTabConfigurator&#60;TModel&#62;&#62;</code><br />
+                <strong>default</strong> none <br />
+                <strong>description</strong> tab configurator (template, connectsWith, bulkMove, quickSearch)
+            </p>
+        </li>
+    </ul>
+</p>
+
+<p>
+    Using this method, you can customize the editor <code>Tabs</code> as you like by using the provided methods.
+</p>
+
+<h4 class="sub_title">Example</h4>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/GroupEditor/Source/_GroupEditorHelper.cs.embed")
+</pre>
+<hr />
+
+<h3>Tab Configurator</h3>
+
+<code>BsEditorTabConfigurator</code>
+
+<h4 class="sub_title">Properties</h4>
+
+<p>
+    <code>Title</code>
+</p>
+
+<p>
+    <strong>type </strong><code>string</code><br />
+    <strong>default</strong> none <br />
+    <strong>description</strong> display title string
+</p>
+
+<p>
+    Specify the tabs group title displayed above the tabs.
+</p>
+
+<h4 class="sub_title">Example</h4>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/GroupEditor/Source/_TabTitle.cs.embed")
+</pre>
+<hr />
+
+
+<h4 class="sub_title">Methods</h4>
+
+<p>
+    <code>For&lt;TEditor&gt;</code>
+</p>
+<p>
+    <strong>params:</strong>
+    <ul>
+        <li>
+            <code>BsEditorTabModel</code>
+            <p>
+                <strong>type </strong><code>BsEditorTabModel</code><br />
+                <strong>default</strong> none <br />
+                <strong>description</strong> Set tab attributes like Editable, Selected, PagerSettings, displayName for the new panel.
+            </p>
+        </li>
+    </ul>
+</p>
+
+<p>
+    Sets the tab properties if any is provided. Returns a <code>BsEditorTabBuilder</code>.
+</p>
+
+<h4 class="sub_title">Example</h4>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/GroupEditor/Source/_AddTab.cs.embed")
+</pre>
+<hr />
+
+<h3>BsEditorTabBuilder</h3>
+
+<h4 class="sub_title">Methods</h4>
+
+<p>
+    <code>Template&lt;TValue&gt;(Expression&lt;Func&lt;TModel, TValue&gt;&gt; expression, string template)</code>
+</p>
+<p>
+    <strong>params:</strong>
+    <ul>
+        <li>
+            <code>expression</code>
+            <p>
+                <strong>type </strong><code>Expression</code><br />
+                <strong>default</strong> none <br />
+                <strong>description</strong> Used to select the Grid, the New Form or the AdvancedSearch Form.
+            </p>
+        </li>
+        <li>
+            <code>template</code>
+            <p>
+                <strong>type </strong><code>string</code><br />
+                <strong>default</strong> none <br />
+                <strong>description</strong> Used to set the partial view for the selected part.
+            </p>
+        </li>
+    </ul>
+</p>
+
+<p>
+    Sets the template property for the GridItem, New Form and AdvancedSearch Form by specifying the partial view for each.
+</p>
+
+<h4 class="sub_title">Example</h4>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/GroupEditor/Source/_TabTemplate.cs.embed")
+</pre>
+<hr />
+
+<p>
+    <code>Editable()</code>
+</p>
+
+<p>
+    Specifies if the tab is editable or not.
+</p>
+
+<h4 class="sub_title">Example</h4>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/GroupEditor/Source/_TabEditable.cs.embed")
+</pre>
+<hr />
+
+
+<p>
+    <code>Selected(bool selected)</code>
+</p>
+<p>
+    <strong>params:</strong>
+    <ul>
+        <li>
+            <code>selected</code>
+            <p>
+                <strong>type </strong><code>bool</code><br />
+                <strong>default</strong> none <br />
+                <strong>description</strong> Sets the selected property for the tab.
+            </p>
+        </li>
+    </ul>
+</p>
+
+<p>
+    Specifies if the tab is selected or not on the widget initialization.
+</p>
+
+<h4 class="sub_title">Example</h4>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/GroupEditor/Source/_TabSelected.cs.embed")
+</pre>
+<hr />
+
+<p>
+    <code>PagerSettings(BsPagerSettings pagerSettings)</code>
+</p>
+<p>
+    <strong>params:</strong>
+    <ul>
+        <li>
+            <code>pagerSettings</code>
+<p>
+    <strong>type </strong><code>BsPagerSettings</code><br />
+    <strong>default</strong> none <br />
+    <strong>description</strong> Sets the properties for the grid pager.
+</p>
+        </li>
+    </ul>
+</p>
+
+<p>
+    Sets the pager settings for the grid, such as DefaultPageSize, ShowPrevNextButtons, ShowFirstLastButtons, Template.
+</p>
+
+<h4 class="sub_title">Example</h4>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/GroupEditor/Source/_TabPagerSettings.cs.embed")
+</pre>
+<hr />
+
+<p>
+    <code>DisplayName(string name)</code>
+</p>
+<p>
+    <strong>params:</strong>
+    <ul>
+        <li>
+            <code>name</code>
+<p>
+    <strong>type </strong><code>string</code><br />
+    <strong>default</strong> none <br />
+    <strong>description</strong> Sets the display name for the tab.
+</p>
+        </li>
+    </ul>
+</p>
+
+<p>
+    Sets the display name for the tab.
+</p>
+
+<h4 class="sub_title">Example</h4>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/GroupEditor/Source/_TabDisplayName.cs.embed")
+</pre>
+<hr />
+
+<p>
+    <code>Id(object uid)</code>
+</p>
+<p>
+    <strong>params:</strong>
+    <ul>
+        <li>
+            <code>uid</code>
+<p>
+    <strong>type </strong><code>object</code><br />
+    <strong>default</strong> none <br />
+    <strong>description</strong> Sets the unique id for the tab.
+</p>
+        </li>
+    </ul>
+</p>
+
+<p>
+    Sets the unique id for the tab.
+</p>
+
+<h4 class="sub_title">Example</h4>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/GroupEditor/Source/_TabId.cs.embed")
+</pre>
+<hr />
+
+<p>
+    <code>ConnectsWith(params object[] ids)</code>
+</p>
+<p>
+    <strong>params:</strong>
+    <ul>
+        <li>
+            <code>uid</code>
+<p>
+    <strong>type </strong><code>object[]</code><br />
+    <strong>default</strong> none <br />
+    <strong>description</strong> Sets the groups that the tab is allowed to connect with.
+</p>
+        </li>
+    </ul>
+</p>
+
+<p>
+    Sets the collection of group ids that the tab is allowed to connect with. If a group is not in this collection then the respective group will not be a drop target for the tab group items.
+</p>
+
+<h4 class="sub_title">Example</h4>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/GroupEditor/Source/_TabConnectsWith.cs.embed")
+</pre>
+<hr />
+
+<h3>Group Configurator</h3>
+
+<p>
+    <code>ConfigureGroups(Action&#60;BsEditorGroupConfigurator&#60;TModel&#62;&#62; configurator)</code>
+</p>
+<p>
+    <strong>params:</strong>
+    <ul>
+        <li>
+            <code>configurator</code>
+<p>
+    <strong>type </strong><code>Action&#60;BsEditorGroupConfigurator&#60;TModel&#62;&#62;</code><br />
+    <strong>default</strong> none <br />
+    <strong>description</strong> group configurator (template, connectsWith, bulkMove, quickSearch)
+</p>
+        </li>
+    </ul>
+</p>
+
+<p>
+    Using this method, you can customize the editor <code>Groups</code> as you like by using the provided methods.
+</p>
+
+<h4 class="sub_title">Example</h4>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/GroupEditor/Source/_GroupConfigurator.cs.embed")
+</pre>
+<hr />
+
+<code>BsEditorGroupConfigurator</code>
+
+<h4 class="sub_title">Properties</h4>
+
+<p>
+    <code>Title</code>
+</p>
+
+<p>
+    <strong>type </strong><code>string</code><br />
+    <strong>default</strong> none <br />
+    <strong>description</strong> display title string
+</p>
+
+<p>
+    Specify the groups title displayed above the groups section.
+</p>
+
+<h4 class="sub_title">Example</h4>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/GroupEditor/Source/_GroupTitle.cs.embed")
+</pre>
+<hr />
+
+
+<h4 class="sub_title">Methods</h4>
+
+<p>
+    <code>For&lt;TEditor&gt;</code>
+</p>
+<p>
+    <strong>params:</strong>
+    <ul>
+        <li>
+            <code>BsEditorGroupModel</code>
+<p>
+    <strong>type </strong><code>BsEditorGroupModel</code><br />
+    <strong>default</strong> none <br />
+    <strong>description</strong> Set group attributes like Id, DisplayText, DisplayName for the group.
+</p>
+        </li>
+    </ul>
+</p>
+
+<p>
+    Sets the group properties if any is provided. Returns a <code>BsEditorGroupBuilder</code>.
+</p>
+
+<h4 class="sub_title">Example</h4>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/GroupEditor/Source/_AddGroup.cs.embed")
+</pre>
+<hr />
+
+<p>
+    <code>FormTemplate(MvcHtmlString template)</code>
+</p>
+<p>
+    <strong>params:</strong>
+    <ul>
+        <li>
+            <code>template</code>
+<p>
+    <strong>type </strong><code>MvcHtmlString</code><br />
+    <strong>default</strong> none <br />
+    <strong>description</strong> Set group editable form partial view.
+</p>
+        </li>
+    </ul>
+</p>
+
+<p>
+    Sets the editable form partial view for the group collection. This form is not required.
+</p>
+
+<h4 class="sub_title">Example</h4>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/GroupEditor/Source/_FormTemplate.cs.embed")
+</pre>
+<hr />
+
+<h3>BsEditorGroupBuilder</h3>
+
+<h4 class="sub_title">Methods</h4>
+
+<p>
+    <code>Template&lt;TValue&gt;(Expression&lt;Func&lt;TModel, TValue&gt;&gt; expression, string template)</code>
+</p>
+<p>
+    <strong>params:</strong>
+    <ul>
+        <li>
+            <code>expression</code>
+<p>
+    <strong>type </strong><code>Expression</code><br />
+    <strong>default</strong> none <br />
+    <strong>description</strong> Used to select the Group Items.
+</p>
+        </li>
+<li>
+    <code>template</code>
+    <p>
+        <strong>type </strong><code>string</code><br />
+        <strong>default</strong> none <br />
+        <strong>description</strong> Used to set the partial view for the selected part.
+    </p>
+</li>
+    </ul>
+</p>
+
+<p>
+    Sets the template property for the GroupItem or GroupForm by specifying the partial view for each.
+</p>
+
+<h4 class="sub_title">Example</h4>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/GroupEditor/Source/_GroupTemplate.cs.embed")
+</pre>
+<hr />
+
+<p>
+    <code>DisplayText(string text)</code>
+</p>
+<p>
+    <strong>params:</strong>
+    <ul>
+        <li>
+            <code>text</code>
+<p>
+    <strong>type </strong><code>string</code><br />
+    <strong>default</strong> none <br />
+    <strong>description</strong> Sets the display text for the group.
+</p>
+        </li>
+    </ul>
+</p>
+
+<p>
+    Sets the display text for the group dropable area.
+</p>
+
+<h4 class="sub_title">Example</h4>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/GroupEditor/Source/_GroupDisplayText.cs.embed")
+</pre>
+<hr />
+
+<p>
+    <code>DisplayName(string name)</code>
+</p>
+<p>
+    <strong>params:</strong>
+    <ul>
+        <li>
+            <code>name</code>
+<p>
+    <strong>type </strong><code>string</code><br />
+    <strong>default</strong> none <br />
+    <strong>description</strong> Sets the display name for the group.
+</p>
+        </li>
+    </ul>
+</p>
+
+<p>
+    Sets the display name for the group.
+</p>
+
+<h4 class="sub_title">Example</h4>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/GroupEditor/Source/_GroupDisplayName.cs.embed")
+</pre>
+<hr />
+
+<p>
+    <code>Id(object uid)</code>
+</p>
+<p>
+    <strong>params:</strong>
+    <ul>
+        <li>
+            <code>uid</code>
+<p>
+    <strong>type </strong><code>object</code><br />
+    <strong>default</strong> none <br />
+    <strong>description</strong> Sets the unique id for the group.
+</p>
+        </li>
+    </ul>
+</p>
+
+<p>
+    Sets the unique id for the group.
+</p>
+
+<h4 class="sub_title">Example</h4>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/GroupEditor/Source/_GroupId.cs.embed")
+</pre>
+<hr />
+

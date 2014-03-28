@@ -39,6 +39,11 @@ namespace BForms.Docs.Controllers
             return View("Panel/Index");
         }
 
+        public ActionResult GroupEditor()
+        {
+            return View("GroupEditor/Index");
+        }
+
         public ActionResult Grid()
         {
             return View("Grid/Index");

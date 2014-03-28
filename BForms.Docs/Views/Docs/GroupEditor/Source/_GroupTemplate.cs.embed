@@ -1,0 +1,6 @@
+﻿builder.ConfigureGroups(cfg =>
+{
+	var group1 = cfg.For(x => x.Group1)
+                .Template(x => x.Items, "_GroupItem")
+                .Template(x => x.Form, "_RowForm");
+})

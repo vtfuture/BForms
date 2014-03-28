@@ -1,0 +1,18 @@
+﻿@model Menu.Models.GroupEditorViewModel
+
+<style type="text/css">
+    body {
+        max-width: 1400px;
+        margin: 50px auto;
+    }
+
+    .ui-effects-transfer {
+        border: 1px dotted black;
+    }
+</style>
+
+<div class="grid_container">
+
+    @Html.Partial("_Editors", Model)
+
+</div>

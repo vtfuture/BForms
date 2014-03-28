@@ -1,0 +1,4 @@
+﻿builder.ConfigureTabs(cfg =>
+{
+	var tab1 = cfg.For(x => x.Tab1).DisplayName("Tab One");
+})
