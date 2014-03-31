@@ -714,6 +714,10 @@
                 this.$container.hide();
                 this._visible = false;
 
+                if (typeof this.$input !== "undefined") {
+                    this.$input.trigger('blur');
+                }
+
                 this._trigger('afterHide', {
                     datepicker: this.$container,
                     element: this.$element,

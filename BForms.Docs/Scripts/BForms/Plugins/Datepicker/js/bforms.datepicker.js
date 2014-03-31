@@ -1624,6 +1624,10 @@
                 this.$picker.hide();
                 this._visible = false;
 
+                if (typeof this.$input !== "undefined") {
+                    this.$input.trigger('blur');
+                }
+
                 this._trigger('afterHide', {
                     datepicker: this.$picker,
                     element: this.$element,
