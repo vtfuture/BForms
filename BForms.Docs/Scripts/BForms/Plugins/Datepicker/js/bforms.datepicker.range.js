@@ -255,6 +255,16 @@
                     }, this));
                 }
             }
+
+            if (typeof this.$input !== "undefined") {
+                this.$input.on('focusout', $.proxy(function (e) {
+
+                    if (e.relatedTarget) {
+                        this.hide();
+                    }
+
+                }, this));
+            }
         }
 
         this.$container.on('click', '.bs-applyRange', $.proxy(this.applyRangeClick, this));

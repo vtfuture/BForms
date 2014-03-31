@@ -324,6 +324,16 @@
                 }, this));
             }
 
+            if (typeof this.$input !== "undefined") {
+                this.$input.on('focusout', $.proxy(function (e) {
+
+                    if (e.relatedTarget) {
+                        this.hide();
+                    }
+
+                }, this));
+            }
+
             if (typeof this.options.openOn !== "undefined" && $.isArray(this.options.openOn)) {
 
                 for (var idxO in this.options.openOn) {
