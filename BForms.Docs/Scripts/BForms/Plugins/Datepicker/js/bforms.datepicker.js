@@ -1893,10 +1893,6 @@
         it.month(0);
 
         for (; i < 12; i++) {
-            if (it.date() !== dayInMonth) {
-                it.date(dayInMonth);
-            }
-
             months.push({
                 month: it.format('MMM'),
                 value: it.format(),
