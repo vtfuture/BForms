@@ -17,7 +17,8 @@
         registerGlobal: true,
         killPrevious: true,
         loadingDelay: 100,
-        parseQueryString: true
+        parseQueryString: true,
+        lang : typeof requireConfig !== "undefined" ? requireConfig.locale : 'en'
     };
 
     AjaxWrapper.prototype._getStack = function () {
@@ -101,7 +102,7 @@
             }
         }
     };
-    
+
     AjaxWrapper.prototype._getQueryStringObject = function () {
         var pairs = location.search.slice(1).split('&');
 
@@ -238,6 +239,8 @@
                 var xhrReq = self._xhrStack[xhrSettings.name];
                 if (xhrReq.aborted === true) return;
 
+                self._applyLocalization(response, xhrReq.settings.lang);
+
                 try {
                     if (response.Status == self._statusEnum.Success || response.Status == self._statusEnum.ValidationError) {
                         deferredXHR.resolve(response.Status, [response.Data, xhrSettings.callbackData]);
@@ -245,7 +248,7 @@
                         deferredXHR.reject(response.Status, [response, jqXHR, textStatus, null, xhrSettings.callbackData]);
                     }
                 } catch (ex) {
-                   
+
 
                     if (typeof ex.stack !== "undefined") {
                         console.warn("Exception occurred in ajax request");
@@ -356,9 +359,45 @@
 
         }
     };
+
+    AjaxWrapper.prototype._applyLocalization = function (response, lang) {
+        if (response.Release == true) {
+
+            var statusName;
+
+            for (var key in this._statusEnum) {
+                if (this._statusEnum[key] == response.Status) {
+                    statusName = key;
+                    break;
+                }
+            }
+
+            if (!response.Message && typeof statusName === "string" && typeof $.bforms.ajaxResources[lang] === "object" && typeof $.bforms.ajaxResources[lang][statusName] === "string") {
+                response.Message = $.bforms.ajaxResources[lang][statusName];
+            }
+        }
+    };
+
     //#endregion
 
     $.extend(true, $.bforms, new AjaxWrapper());
+
+    $.bforms.ajaxResources = $.extend(true, $.bforms.ajaxResources, {
+        en: {
+            ValidationError: 'A validation error has occured',
+            Denied: 'The request was denied',
+            ServerError: 'Server error'
+        }
+    });
+
+    $.bforms.addResources = function (lang, resources) {
+
+        if (typeof $.bforms.ajaxResources[lang] !== "undefined") {
+            $.extend(true, $.bforms.ajaxResources[lang], resources);
+        } else {
+            $.bforms.ajaxResources[lang] = resources;
+        }
+    };
 
     // return module
     return AjaxWrapper;

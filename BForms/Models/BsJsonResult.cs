@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using BForms.Utilities;
@@ -30,7 +31,8 @@ namespace BForms.Models
                     {
                         Data = obj,
                         Status = statusInfo,
-                        Message = errorMessage
+                        Message = errorMessage,
+                        Release = BForms.Utilities.BsConfigurationManager.GetRelease()
                     };
 
                 Json = serializer.Serialize(result);

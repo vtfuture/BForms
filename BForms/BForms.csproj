@@ -158,6 +158,7 @@
     </Compile>
     <Compile Include="Utilities\Attributes\DisplayFormatted.cs" />
     <Compile Include="Utilities\BsComponentStateHandler.cs" />
+    <Compile Include="Utilities\BsConfigurationManager.cs" />
     <Compile Include="Utilities\BsUIManager.cs" />
     <Compile Include="Utilities\BsResourceManager.cs" />
     <Compile Include="Grid\BsGridRowConfigurator.cs" />
