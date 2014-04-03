@@ -1565,7 +1565,7 @@
 
             $currentRow.find('.bs-hasPanel').each(function (idx, detailsPart) {
                 var $detailsPart = $(detailsPart);
-                if ($detailsPart.hasClass('bs-panelEditMode')) {
+                if ($detailsPart.hasClass('bs-panelEditMode') && !$detailsPart.hasClass('bs-replaceEditable')) {
                     var $newDetails = $row.find('#' + $detailsPart.attr('id'));
                     $newDetails.replaceWith($detailsPart);
                 }
