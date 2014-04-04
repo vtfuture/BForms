@@ -255,6 +255,16 @@
                     }, this));
                 }
             }
+
+            if (typeof this.$input !== "undefined") {
+                this.$input.on('focusout', $.proxy(function (e) {
+
+                    if (e.relatedTarget && $(e.relatedTarget).parents(this.$element).length == 0) {
+                        this.hide();
+                    }
+
+                }, this));
+            }
         }
 
         this.$container.on('click', '.bs-applyRange', $.proxy(this.applyRangeClick, this));
@@ -713,6 +723,10 @@
 
                 this.$container.hide();
                 this._visible = false;
+
+                if (typeof this.$input !== "undefined") {
+                    this.$input.trigger('blur');
+                }
 
                 this._trigger('afterHide', {
                     datepicker: this.$container,

@@ -89,7 +89,10 @@
                     var savedGroupContainerValues = amplify.store(amplifyKey);
                     var context = this;
                     this.$form.find(this.options.groupToggleSelector).each(function (index) {
-                        if (savedGroupContainerValues[index]) {
+
+                        var keepOpen = $(this).closest(context.options.groupToggleContainerSelector).data("keepopen");
+
+                        if (savedGroupContainerValues[index] || keepOpen) {
                             context.showGroup($(this));
                         } else {
                             context.hideGroup($(this));
@@ -381,8 +384,8 @@
 
     Form.prototype.hideGroup = function ($elem) {
         if (this.options.hasGroupToggle) {
-            $elem.find(this.options.glyphClass).addClass(this.options.groupToggleUp).removeClass(this.options.groupToggleDown);
-            $elem.removeClass('open').closest(this.options.groupToggleContainerSelector).next().stop().slideUp($.proxy(this._saveGroupContainer, this));
+                $elem.find(this.options.glyphClass).addClass(this.options.groupToggleUp).removeClass(this.options.groupToggleDown);
+                $elem.removeClass('open').closest(this.options.groupToggleContainerSelector).next().stop().slideUp($.proxy(this._saveGroupContainer, this));
         }
     };
 

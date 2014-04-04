@@ -324,6 +324,16 @@
                 }, this));
             }
 
+            if (typeof this.$input !== "undefined") {
+                this.$input.on('focusout', $.proxy(function (e) {
+
+                    if (e.relatedTarget) {
+                        this.hide();
+                    }
+
+                }, this));
+            }
+
             if (typeof this.options.openOn !== "undefined" && $.isArray(this.options.openOn)) {
 
                 for (var idxO in this.options.openOn) {
@@ -1624,6 +1634,10 @@
                 this.$picker.hide();
                 this._visible = false;
 
+                if (typeof this.$input !== "undefined") {
+                    this.$input.trigger('blur');
+                }
+
                 this._trigger('afterHide', {
                     datepicker: this.$picker,
                     element: this.$element,
@@ -1879,10 +1893,6 @@
         it.month(0);
 
         for (; i < 12; i++) {
-            if (it.date() !== dayInMonth) {
-                it.date(dayInMonth);
-            }
-
             months.push({
                 month: it.format('MMM'),
                 value: it.format(),

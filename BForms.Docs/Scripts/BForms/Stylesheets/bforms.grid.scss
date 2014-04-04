@@ -344,7 +344,10 @@ a.btn {
 				background: url(../images/pencil-small.png) right 50% no-repeat;
 				padding-right: 20px;
 			}
-			header {				
+			header {
+				> div {
+					word-break: break-word;
+				}
 				&:after {
 					@extend .clear_all;
 				}

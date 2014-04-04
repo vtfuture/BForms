@@ -27,6 +27,10 @@ namespace BForms.Docs
             BForms.Utilities.BsResourceManager.Register(Resources.Resource.ResourceManager);
             //BForms.Utilities.BsUIManager.Theme(BsTheme.Black);
 
+#if !DEBUG
+            BForms.Utilities.BsConfigurationManager.Release(true);
+#endif
+
         }
     }
 }

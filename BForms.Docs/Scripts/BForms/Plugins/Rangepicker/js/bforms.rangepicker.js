@@ -84,6 +84,17 @@
                 }, this));
             }
 
+            if (typeof this.$input !== "undefined") {
+                this.$input.on('focusout', $.proxy(function (e) {
+
+
+                    if (e.relatedTarget && !($(e.relatedTarget).hasClass('bs-rangeInput'))) {
+                        this.hide();
+                    }
+
+                }, this));
+            }
+
             if (typeof this.options.openOn !== "undefined" && $.isArray(this.options.openOn)) {
 
                 for (var idxO in this.options.openOn) {
@@ -577,7 +588,6 @@
     };
 
     rangePicker.prototype.downClick = function (arg) {
-
         var index = arg;
 
         if (typeof arg === "object" && arg != null) {
@@ -659,38 +669,48 @@
         var textValue = this.$element.val(),
             values = textValue.split(this.options.delimiter);
 
-        if (textValue === '' && this._hasInitialValue == false) {
-
+        if (textValue === '' && this.options.allowEmptyValue) {
             $.each(this.options.ranges, $.proxy(function (index) {
-
-                if (this.options.minValueOnClear) {
-                    var limits = this._getLimits(index);
-                    this._getInput(index).val(limits.min);
-                    this._updateListener(index, limits.min);
-                } else {
-                    this._updateListener(index, textValue);
-                }
-
+                this._getInput(index).val('');
+                this._blockRanges();
+                this._updateListener(index, null);
             }, this));
 
-            if (this.options.minValueOnClear) {
-                this._updateLabels();
-            }
-
         } else {
-            if (values.length == this.options.ranges.length) {
-                $.each(values, $.proxy(function (index, value) {
 
-                    var parsedValue = window.parseInt(value, 10);
+            if (textValue === '' && this._hasInitialValue == false) {
 
-                    if (this._isValidValue(parsedValue, index)) {
-                        this._getInput(index).val(parsedValue);
+                $.each(this.options.ranges, $.proxy(function (index) {
+
+                    if (this.options.minValueOnClear) {
+                        var limits = this._getLimits(index);
+                        this._getInput(index).val(limits.min);
+                        this._updateListener(index, limits.min);
                     } else {
-                        this._updateLabels();
-                        return false;
+                        this._updateListener(index, textValue);
                     }
 
                 }, this));
+
+                if (this.options.minValueOnClear) {
+                    this._updateLabels();
+                }
+
+            } else {
+                if (values.length == this.options.ranges.length) {
+                    $.each(values, $.proxy(function (index, value) {
+
+                        var parsedValue = window.parseInt(value, 10);
+
+                        if (this._isValidValue(parsedValue, index)) {
+                            this._getInput(index).val(parsedValue);
+                        } else {
+                            this._updateLabels();
+                            return false;
+                        }
+
+                    }, this));
+                }
             }
 
             this._updateLabels();
@@ -861,6 +881,7 @@
         holdMinInterval: 50,
         delimiter: ' - ',
         minValueOnClear: false,
+        allowEmptyValue: false
     };
 
     $.fn.bsRangePicker = function () {

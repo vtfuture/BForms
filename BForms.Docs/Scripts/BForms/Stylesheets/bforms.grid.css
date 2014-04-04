@@ -253,6 +253,8 @@ a.btn {
       border-bottom: 1px dashed #45ada8;
       background: url(../images/pencil-small.png) right 50% no-repeat;
       padding-right: 20px; }
+    .grid_container .grid_view .grid_row header > div {
+      word-break: break-word; }
     .grid_container .grid_view .grid_row .row_check {
       position: absolute;
       right: 10px;
