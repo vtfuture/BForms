@@ -364,7 +364,8 @@
     };
 
     AjaxWrapper.prototype._applyLocalization = function (response, lang) {
-        if (response && response.Release == true) {
+
+        if (!response.Message) {
 
             var statusName;
 
@@ -375,10 +376,11 @@
                 }
             }
 
-            if (!response.Message && typeof statusName === "string" && typeof $.bforms.ajaxResources[lang] === "object" && typeof $.bforms.ajaxResources[lang][statusName] === "string") {
+            if (typeof statusName === "string" && typeof $.bforms.ajaxResources[lang] === "object" && typeof $.bforms.ajaxResources[lang][statusName] === "string") {
                 response.Message = $.bforms.ajaxResources[lang][statusName];
             }
         }
+
     };
 
     //#endregion
