@@ -291,9 +291,12 @@
         var $row = data.$row,
             response = data.data;
 
+        var objId = $row.data('objid');
+
         var identityOpt = this._editableOptions($row, this.options.editComponents.Identity);
 
-        $row.find('.js-editableIdentity').bsPanel(identityOpt).bsPanel('option', 'onEditableShow', function () {
+        $row.find('.js-editableIdentity').bsPanel(identityOpt).bsPanel('option', 'onEditableShow', $.proxy(function () {
+
             var $saveBtn = $row.find('.js-editableIdentity').find('.bs-savePanelQuestion');
 
             $saveBtn.bsInlineQuestion({
@@ -303,7 +306,7 @@
                     text: 'Yes',
                     cssClass: 'btn-primary bs-confirm',
                     callback: $.proxy(function () {
-                        $row.find('.js-editableIdentity').bsPanel('save');
+                        this.$grid.bsGrid('getRowElement', objId).find('.js-editableIdentity').bsPanel('save');
                     }, this)
                 },
                     {
@@ -314,7 +317,8 @@
                         }
                     }]
             });
-        });
+
+        },this));
 
 
 

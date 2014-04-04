@@ -46,6 +46,9 @@
 
     //#region init
     bsPanel.prototype._init = function () {
+
+        if (this.element.hasClass('bs-hasPanel')) return this.element;
+
         this.$element = this.element;
 
         this.$element.addClass('bs-hasPanel');

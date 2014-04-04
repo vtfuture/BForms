@@ -30,7 +30,12 @@
 
     //#region init and render
     bsInlineQuestion.prototype._init = function () {
+
+        if (this.element.hasClass('bs-hasInlineQuestion')) return this.element;
+        
         this.$element = this.element;
+
+        this.$element.addClass('bs-hasInlineQuestion');
 
         if (this.options.placement === 'auto') {
             this._placementArray = this.options.placementArray.split(',');

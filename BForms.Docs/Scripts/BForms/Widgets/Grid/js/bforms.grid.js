@@ -1609,6 +1609,10 @@
 
         return items;
     };
+
+    Grid.prototype.getRowElement = function (objId) {
+        return this._getRowElement(objId);
+    };
     //#endregion
 
     //#region row controls
