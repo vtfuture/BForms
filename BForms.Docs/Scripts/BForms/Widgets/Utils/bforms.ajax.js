@@ -18,7 +18,7 @@
         killPrevious: true,
         loadingDelay: 100,
         parseQueryString: true,
-        lang : typeof requireConfig !== "undefined" ? requireConfig.locale : 'en'
+        lang: typeof requireConfig !== "undefined" ? requireConfig.locale : 'en'
     };
 
     AjaxWrapper.prototype._getStack = function () {
@@ -231,61 +231,64 @@
     };
 
     AjaxWrapper.prototype._ajaxWithoutFiles = function (xhrSettings, calldata, deferredXHR) {
-        var self = this;
+        var self = this,
+            jqXHRSettings = $.extend({}, xhrSettings, {
+                success: function (response, textStatus, jqXHR) {
 
-        var jqXHRSettings = $.extend({}, xhrSettings, {
-            success: function (response, textStatus, jqXHR) {
+                    var xhrReq = self._xhrStack[xhrSettings.name];
+                    if (xhrReq.aborted === true) return;
 
-                var xhrReq = self._xhrStack[xhrSettings.name];
-                if (xhrReq.aborted === true) return;
+                    self._applyLocalization(response, xhrReq.settings.lang);
 
-                self._applyLocalization(response, xhrReq.settings.lang);
+                    try {
+                        if (response.Status == self._statusEnum.Success || response.Status == self._statusEnum.ValidationError) {
+                            deferredXHR.resolve(response.Status, [response.Data, xhrSettings.callbackData]);
+                        } else {
+                            deferredXHR.reject(response.Status, [response, jqXHR, textStatus, null, xhrSettings.callbackData]);
+                        }
+                    } catch (ex) {
 
-                try {
-                    if (response.Status == self._statusEnum.Success || response.Status == self._statusEnum.ValidationError) {
-                        deferredXHR.resolve(response.Status, [response.Data, xhrSettings.callbackData]);
-                    } else {
-                        deferredXHR.reject(response.Status, [response, jqXHR, textStatus, null, xhrSettings.callbackData]);
+
+                        if (typeof ex.stack !== "undefined") {
+                            console.warn("Exception occurred in ajax request");
+                            console.log(ex.stack);
+                        } else {
+                            console.warn("Exception occurred in ajax request: " + ex);
+                        }
                     }
-                } catch (ex) {
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
 
+                    var xhrReq = self._xhrStack[xhrSettings.name];
+                    if (typeof xhrReq !== 'undefined' && xhrReq != null && xhrReq.aborted === true) return;
 
-                    if (typeof ex.stack !== "undefined") {
-                        console.warn("Exception occurred in ajax request");
-                        console.log(ex.stack);
-                    } else {
-                        console.warn("Exception occurred in ajax request: " + ex);
+                    try {
+
+                        if (typeof jqXHR.responseText !== "undefined") {
+
+                            var response = JSON.parse(jqXHR.responseText);
+
+                            self._applyLocalization(response, xhrReq.settings.lang);
+
+                            deferredXHR.reject(response.Status, [response, jqXHR, textStatus, errorThrown, xhrSettings.callbackData]);
+                        } else {
+                            deferredXHR.reject(self._statusEnum.ServerError, [{
+                                Message: errorThrown
+                            }, jqXHR, textStatus, errorThrown, xhrSettings.callbackData]);
+                        }
+
+                    } catch (ex) {
+                        window.console.log(ex.stack);
                     }
-                }
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-
-                var xhrReq = self._xhrStack[xhrSettings.name];
-                if (typeof xhrReq !== 'undefined' && xhrReq != null && xhrReq.aborted === true) return;
-
-                try {
-
-                    if (typeof jqXHR.responseText !== "undefined") {
-                        var response = JSON.parse(jqXHR.responseText);
-                        deferredXHR.reject(response.Status, [response, jqXHR, textStatus, errorThrown, xhrSettings.callbackData]);
-                    } else {
-                        deferredXHR.reject(self._statusEnum.ServerError, [{
-                            Message: errorThrown
-                        }, jqXHR, textStatus, errorThrown, xhrSettings.callbackData]);
+                },
+                complete: function () {
+                    var xhrReq = self._xhrStack[xhrSettings.name];
+                    if (typeof xhrReq !== 'undefined') {
+                        xhrReq.finished = true;
                     }
-
-                } catch (ex) {
-                    window.console.log(ex.stack);
+                    self._toggleLoading(xhrSettings.name, false);
                 }
-            },
-            complete: function () {
-                var xhrReq = self._xhrStack[xhrSettings.name];
-                if (typeof xhrReq !== 'undefined') {
-                    xhrReq.finished = true;
-                }
-                self._toggleLoading(xhrSettings.name, false);
-            }
-        });
+            });
 
         var _settings = this._updateXHRSettings(jqXHRSettings);
 
@@ -361,7 +364,7 @@
     };
 
     AjaxWrapper.prototype._applyLocalization = function (response, lang) {
-        if (response.Release == true) {
+        if (response && response.Release == true) {
 
             var statusName;
 
