@@ -297,6 +297,8 @@
 
         $row.find('.js-editableIdentity').bsPanel(identityOpt).bsPanel('option', 'onEditableShow', $.proxy(function () {
 
+            this.$grid.bsGrid('disableRowActions', $row);
+
             var $saveBtn = $row.find('.js-editableIdentity').find('.bs-savePanelQuestion');
 
             $saveBtn.bsInlineQuestion({
@@ -328,11 +330,14 @@
     };
 
     GridIndex.prototype._editableOptions = function ($row, componentId) {
+
+        var objId = $row.data('objid');
+
         return $.extend(true, {}, {
             url: this.options.updateUrl,
-            prefix: 'x' + $row.data('objid') + '.',
+            prefix: 'x' + objId + '.',
             additionalData: {
-                objId: $row.data('objid'),
+                objId: objId,
                 componentId: componentId
             },
             editSuccessHandler: $.proxy(function (e, editResponse) {
@@ -342,12 +347,19 @@
                 uniqueName: 'test'
             },
             onEditableShow: $.proxy(function () {
-                this.$grid.bsGrid('disableRowActions', $row);
+                var $safeRow = this.$grid.bsGrid('getRowElement', objId);
+
+                this.$grid.bsGrid('disableRowActions', $safeRow);
             }, this),
             onReadonlyShow: $.proxy(function () {
-                if ($row.find('.bs-panelEditMode').length == 0) {
-                    this.$grid.bsGrid('enableRowActions', $row);
+                var $safeRow = this.$grid.bsGrid('getRowElement', objId);
+
+                if ($safeRow.find('.bs-panelEditMode').length == 0) {
+                    this.$grid.bsGrid('enableRowActions', $safeRow);
+                } else {
+                    this.$grid.bsGrid('disableRowActions', $safeRow);
                 }
+
             }, this)
         });
     };

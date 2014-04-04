@@ -321,6 +321,10 @@
             console.warn("No save button found");
         }
 
+        if (this.options.formOptions.parseSave != true) {
+            debugger;
+        }
+
         var formOptions = $.extend(true, {}, {
             prefix: this.options.prefix,
             actions: [{
@@ -328,7 +332,7 @@
                 selector: this.options.saveFormSelector,
                 validate: this.options.formOptions.validateSave,
                 actionUrl: this.options.saveUrl,
-                parse: this.options.formOptions.parseSave,
+                parse: true,
                 getExtraData: $.proxy(function (data) {
                     data.componentId = this._componentId;
                     data.objId = this._objId;
