@@ -673,6 +673,11 @@
 
         this._addAdditionalData(data);
 
+        this._trigger('beforeGetMultiDetails', 0, {
+            data: data,
+            $rows: $rows
+        });
+
         $.bforms.ajax({
             name: this.options.uniqueName + '|multiDetails',
             url: this.options.detailsUrl,
