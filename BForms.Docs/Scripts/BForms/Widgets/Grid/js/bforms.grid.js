@@ -77,6 +77,7 @@
 
         sortable: true,
         rowClickExpandable: true,
+        expandByToggleSelector: true,
 
         defaultFilterButtons: [{
             btnSelector: '.js-all',
@@ -110,6 +111,11 @@
         if (!this.options.uniqueName) {
             this.options.uniqueName = this.element.attr('id');
         }
+
+        if (!this.options.expandByToggleSelector) {
+            $(this.options.expandToggleSelector).hide();
+        }
+
 
         if (!this.options.uniqueName) {
             throw 'grid needs a unique name or the element on which it is aplied has to have an id attr';
@@ -289,7 +295,9 @@
 
         this.element.on('click', this.options.errorCloseSelector, $.proxy(this._evOnErrorRemove, this));
 
-        this.element.on('click', this.options.expandToggleSelector, $.proxy(this._evOnExpandToggle, this));
+        if (this.options.expandByToggleSelector) {
+            this.element.on('click', this.options.expandToggleSelector, $.proxy(this._evOnExpandToggle, this));
+        }
 
         this.element.on('click', this.options.addSelector, $.proxy(function () {
 
@@ -1150,6 +1158,10 @@
         this._updateExpandToggle();
 
         this._trigger('afterPaginationSuccess', 0, data);
+
+        if (!this.options.expandByToggleSelector) {
+            $(this.options.expandToggleSelector).hide();
+        }
     };
 
     Grid.prototype._changeCount = function () {

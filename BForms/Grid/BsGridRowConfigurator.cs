@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace BForms.Grid
 {
@@ -90,6 +91,14 @@ namespace BForms.Grid
         public BsGridRowConfigurator<TRow> DetailsTemplate(Func<TRow,string> detailsTemplate)
         {
             this._detailsTemplate = detailsTemplate;
+
+            return this;
+        }
+        public BsGridRowConfigurator<TRow> DetailsTemplate(Func<TRow, MvcHtmlString> detailsTemplate)
+        {
+            Func<TRow, string> detailsAsString = t => detailsTemplate(t).ToString();
+
+            this._detailsTemplate = detailsAsString;
 
             return this;
         }
