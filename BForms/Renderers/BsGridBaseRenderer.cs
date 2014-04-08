@@ -266,7 +266,7 @@ namespace BForms.Renderers
                     var rowBuilder = new TagBuilder("div");
                     rowBuilder.MergeAttribute("class", "row grid_row");
 
-                    rowBuilder.MergeAttribute("data-objid", MvcHelpers.Serialize(row.GetUniqueID()));
+                    rowBuilder.MergeAttribute("data-objid", row.GetUniqueID().ToString());
 
                     if (this.Builder.Model.BaseSettings.DetailsAll || this.Builder.Model.BaseSettings.HasDetails(rowIndex))
                     {
