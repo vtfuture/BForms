@@ -29,19 +29,20 @@
             DateTimepicker: 3
         }
     };
-    
+
     bDatepickerRenderer.prototype.renderDatepicker = function (model) {
-        
+
         var template = this.r.bDatepicker(model, true);
 
         return $(template);
     };
-    
+
     bDatepickerRenderer.prototype.renderRangeContainer = function (model) {
 
         var template = this.r.rangePicker(model, true);
 
         return $(template);
+
     };
 
     bDatepickerRenderer.prototype.renderDate = function (model) {
@@ -68,10 +69,10 @@
 
     bDatepickerRenderer.prototype.initTemplates = function () {
 
-        if(typeof this.r.yearsTemplate !== "function") {
+        if (typeof this.r.yearsTemplate !== "function") {
             this.r.addTemplate("yearsTemplate", this.dateTemplates.yearsTemplate);
         }
-        
+
         if (typeof this.r.monthsTemplate !== "function") {
 
             this.r.addTemplate("monthsTemplate", this.dateTemplates.monthsTemplate);
@@ -86,12 +87,12 @@
 
             this.r.addTemplate("dateHeadTemplate", this.dateTemplates.headTemplate);
         }
-        
+
         if (typeof this.r.dateContTemplate !== "function") {
 
             this.r.addTemplate("dateContTemplate", this.dateTemplates.contTemplate);
         }
-        
+
         if (typeof this.r.dateFooterTemplate !== "function") {
 
             this.r.addTemplate("dateFooterTemplate", this.dateTemplates.secondaryActions);
@@ -101,7 +102,7 @@
 
             this.r.addTemplate("timeContTemplate", this.timeTemplates.contTemplate);
         }
-        
+
         if (typeof this.r.timeFooterTemplate !== "function") {
 
             this.r.addTemplate("timeFooterTemplate", this.timeTemplates.secondaryActions);
@@ -111,7 +112,7 @@
 
             this.r.addTemplate("datepickerTemplate", this.mainTemplates.datepickerTemplate);
         }
-        
+
         if (typeof this.r.timepickerTemplate !== "function") {
 
             this.r.addTemplate("timepickerTemplate", this.mainTemplates.timepickerTemplate);
@@ -126,7 +127,7 @@
 
             this.r.addTemplate("rangePicker", this.mainTemplates.rangeTemplate);
         }
-        
+
         if (typeof this.r.modalPicker !== "function") {
             this.r.addTemplate('modalPicker', this.mainTemplates.modalPickerTemplate);
         }
@@ -134,7 +135,7 @@
     };
 
     bDatepickerRenderer.prototype.mainTemplates = {
-        
+
         rangeTemplate: '<div class="bs-range-picker {{theme}} {{#hideRanges}}bs-hide_range{{/hideRanges}}">' +
                             '<div class="ranges">' +
                                 '<div class="form-group">' +
@@ -152,11 +153,28 @@
                             '</div>' +
                             '<button class="btn btn-default bs-applyRange">{{applyText}}</button>&nbsp;' +
                             '<button class="btn bs-cancelRange">{{cancelText}}</button>' +
+
+                            '{{#hasPresetRanges}}' +
+                                '<div class="bs-preset-ranges_container" style="margin-top:10px">' +
+                                    '<label>{{presetRangesText}}</label>' +
+                                    '<select style="width:100%" class="bs-preset-ranges">' +
+                                            '<option value="">' +
+                                                '{{presetRangesPlaceholderText}}' +
+                                            '</option>' +
+                                        '{{#presetRanges}}' +
+                                            '<option value="{{value}}" data-source="{{source}}" data-priority="{{priority}}" data-expressionfrom="{{expressionFrom}}" data-expressionto="{{expressionTo}}">' +
+                                                '{{text}}' +
+                                            '</option>' +
+                                        '{{/presetRanges}}' +
+                                    '</select>' +
+                                '</div>' +
+                            '{{/hasPresetRanges}}' +
+
                             '</div>' +
-            
+
                         '<div class="bs-start-replace"></div>' +
                         '<div class="bs-end-replace"></div>' +
-            
+
                         '</div>',
 
         mainTemplate: '<div class="bs-datetime-picker {{WrapperClass}} {{Theme}}">' +
@@ -181,7 +199,7 @@
                                 '{{>timeFooterTemplate}}' +
 
                              '</div>',
-        
+
         modalPickerTemplate: '<div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">' +
                            '<div class="modal-dialog">' +
                                '<div class="modal-content">' +

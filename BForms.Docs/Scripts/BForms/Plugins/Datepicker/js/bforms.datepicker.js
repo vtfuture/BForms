@@ -1796,6 +1796,95 @@
         this._updateDateView(forceRender);
         this._updateTimeView();
     };
+
+    bDatepicker.prototype.applyExpression = function (expression, source) {
+        if (!moment.isMoment(source)) {
+            source = moment();
+        }
+
+        if (expression == 'now') {
+            return moment();
+        } else {
+            var helper = source.clone();
+
+            var pairs = expression.split(' '),
+                   i = 0,
+                   l = pairs.length;
+
+            for (; i < l; i++) {
+                var p = pairs[i];
+
+                var operand = p[0],
+                    format = p[p.length - 1],
+                    val = window.parseInt(p.slice(1, p.length - 1), 10);
+
+                if (!window.isNaN(val)) {
+                    if (operand === '+') {
+                        helper.add(val, format);
+                    } else if (operand === '-') {
+                        helper.subtract(val, format);
+                    } else {
+
+                        var func = '';
+
+                        switch (format) {
+                            case 'm':
+                                {
+                                    func = 'minute';
+                                    break;
+                                }
+                            case 's':
+                                {
+                                    func = 'second';
+                                    break;
+                                }
+                            case 'h':
+                                {
+                                    func = 'hour';
+                                    break;
+                                }
+                            case 'M':
+                                {
+                                    func = 'month';
+                                    break;
+                                }
+                            case 'd':
+                                {
+                                    func = 'hour';
+                                    break;
+                                }
+                            case 'y':
+                                {
+                                    func = 'year';
+                                    break;
+                                }
+                        }
+
+                        if (typeof helper[func] === "function") {
+                            helper[func](val);
+                        }
+                    }
+                }
+            }
+
+            return helper;
+        }
+    };
+
+    bDatepicker.prototype.setValueFromExpression = function (expression, source) {
+
+        var validSource = source;
+
+        if (!moment.isMoment(source)) {
+            validSource = this.getUnformattedValue();
+        }
+
+        var newValue = this.applyExpression(expression, validSource);
+
+        this.setValue(newValue);
+
+        return newValue;
+    };
     //#endregion
 
     //#region helpers

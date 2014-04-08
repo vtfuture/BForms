@@ -76,11 +76,15 @@
             applyText: this.options.applyText,
             cancelText: this.options.cancelText,
             fromText: this.options.fromText,
+            presetRangesText: this.options.presetRangesText,
+            presetRangesPlaceholderText : this.options.presetRangesPlaceholderText,
             toText: this.options.toText,
             allowDeselectStart: this.options.allowDeselectStart,
             allowDeselectEnd: this.options.allowDeselectEnd,
             theme: this.options.theme,
-            hideRanges: this.options.hideRanges
+            hideRanges: this.options.hideRanges,
+            hasPresetRanges: this.options.usePresetRanges,
+            presetRanges: this.options.usePresetRanges ? this._getPresetRanges() : null
         });
 
         this.$start = this.$container.find('.bs-start-replace');
@@ -271,6 +275,8 @@
         this.$container.on('click', '.bs-cancelRange', $.proxy(this.cancelRange, this));
 
         this.$container.on('click', '.bs-resetDateRange', $.proxy(this.cancelDate, this));
+
+        this.$container.on('change', '.bs-preset-ranges', $.proxy(this._onPresetRangeChange, this));
     };
 
     bRangePicker.prototype._initInlineMobile = function () {
@@ -355,6 +361,12 @@
         }
 
         this._trigger('onStartChange', data);
+
+        if (this._resetRangeOnChange) {
+            this.$container.find('.bs-preset-ranges').val('');
+
+            this._resetRangeOnChange = false;
+        }
     };
 
     bRangePicker.prototype.onEndChange = function (data) {
@@ -381,6 +393,12 @@
         }
 
         this._trigger('onEndChange', data);
+
+        if (this._resetRangeOnChange) {
+            this.$container.find('.bs-preset-ranges').val('');
+
+            this._resetRangeOnChange = false;
+        }
     };
 
     bRangePicker.prototype.applyRange = function (value) {
@@ -509,6 +527,41 @@
         }
 
         return returnModel;
+    };
+
+    bRangePicker.prototype._onPresetRangeChange = function (e) {
+
+        e.preventDefault();
+
+        var $selectedOption = $(e.currentTarget).find('option:selected'),
+            data = $selectedOption.data();
+
+        if ($selectedOption.attr('value')) {
+
+            this._resetRangeOnChange = false;
+
+            var expressionFrom = data.expressionfrom,
+                expressionTo = data.expressionto,
+                priority = data.priority;
+
+            if (data.priority == "to") {
+
+                var toValue = this.$end.bsDatepicker('setValueFromExpression', data.expressionto, data.source == "now" ? moment() : null);
+                this.$start.bsDatepicker('setValueFromExpression', data.expressionfrom, toValue);
+
+            } else {
+                var fromValue = this.$start.bsDatepicker('setValueFromExpression', data.expressionfrom, data.source == "now" ? moment() : null);
+                this.$end.bsDatepicker('setValueFromExpression', data.expressionto, fromValue);
+            }
+
+            this._resetRangeOnChange = true;
+            this.applyRangeClick();
+
+        } else {
+
+            this._resetRangeOnChange = false;
+        }
+
     };
     //#endregion
 
@@ -674,6 +727,40 @@
                 }
             }
         }
+    };
+
+    bRangePicker.prototype._getPresetRanges = function () {
+
+        if (typeof this.options.getPresetRanges == "function") return this.options.getPresetRanges();
+
+        return [
+            {
+                text: 'Today',
+                value: 1,
+                source: 'now',
+                expressionFrom: '_0h _0m _0s',
+                expressionTo: '_23h _59m _59s',
+                priority: 'to'
+            }, {
+                text: 'Last 12 hours',
+                expressionFrom: '-12h',
+                expressionTo: 'now',
+                value: 2,
+                priority: 'to'
+            }, {
+                text: "Last 7 days",
+                expressionFrom: '-7d',
+                expressionTo: 'now',
+                value: 3,
+                priority: 'to'
+            }, {
+                text: 'Last month',
+                expressionFrom: '-1M',
+                expressionTo: 'now',
+                value: 4,
+                priority: 'to'
+            }
+        ];
     };
     //#endregion
 
@@ -914,7 +1001,8 @@
         allowInvalidMinMax: true,
         checkForMobileDevice: true,
         allowSame: true,
-        deferredRender: true
+        deferredRender: true,
+        usePresetRanges: false
     };
 
     $.fn.bsDateRangeLang = {
@@ -923,14 +1011,18 @@
             cancelText: 'Cancel',
             fromText: 'From',
             toText: 'To',
-            placeholder: 'not specified'
+            placeholder: 'not specified',
+            presetRangesPlaceholderText: 'Choose preset',
+            presetRangesText : 'Preset ranges'
         },
         'ro': {
             applyText: 'Setează',
             cancelText: 'Anulare',
             fromText: 'De la',
             toText: 'Până la',
-            placeholder: 'nespecificat'
+            placeholder: 'nespecificat',
+            presetRangesPlaceholderText: 'Alege intervalul',
+            presetRangesText: 'Intervale predefinite'
         }
     };
 
