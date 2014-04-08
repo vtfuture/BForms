@@ -116,6 +116,14 @@ namespace BForms.Grid
         {
         }
 
+        public BsToolbarAction Add(string descriptorClass)
+        {
+            var toolbarAction = new BsToolbarAction(descriptorClass, this.viewContext);
+            actions.Add(toolbarAction);
+
+            return toolbarAction;
+        }
+
     }
 
     public class BsToolbarActionsFactory : BsToolbarActionsBaseFactory
