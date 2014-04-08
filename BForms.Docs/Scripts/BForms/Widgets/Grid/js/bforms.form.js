@@ -21,7 +21,7 @@
         focusFirst: true,
         // save opened group containers in localstorage and retreive it later
         saveGroupContainerState: true,
-        appendUrlToUniqueName :true,
+        appendUrlToUniqueName: true,
         groupToggleSelector: '.bs-group_toggle',
         groupToggleContainerSelector: '.bs-group_toggle_container',
         groupToggleUp: 'glyphicon-chevron-up',
@@ -34,7 +34,7 @@
     //#region init
     Form.prototype._init = function () {
 
-        if (!this.options.uniqueName){ 
+        if (!this.options.uniqueName) {
             this.options.uniqueName = this.element.attr('id');
         }
 
@@ -51,16 +51,16 @@
         this._initAmplifyStore();
 
         this._addActions(this.options.actions);
-        
+
         var initUIPromise = this.$form.bsInitUI(this.options.style);
-        initUIPromise.done($.proxy(function() {
+        initUIPromise.done($.proxy(function () {
             this._trigger('afterInitUI', 0, {
                 name: this.options.uniqueName,
                 form: this.$form
             });
         }, this));
-        
-       
+
+
     };
 
     Form.prototype._initSelectors = function () {
@@ -100,7 +100,7 @@
                     });
                 }
                 catch (err) {
-                    console.warn('Error on saving on local storage:'+err);
+                    console.warn('Error on saving on local storage:' + err);
                 }
             }
         }
@@ -117,7 +117,7 @@
     };
 
     Form.prototype._addAction = function (buttonOpt) {
-        
+
         var $elem = this.element.find(buttonOpt.selector);
 
         if ($elem.length == 0) {
@@ -139,7 +139,7 @@
 
     //#region events
     Form.prototype._evBtnClick = function (e) {
-       
+
         e.preventDefault();
 
         var $me = $(e.currentTarget);
@@ -185,7 +185,7 @@
                 validationError: function (response) {
 
                     if (response != null && response.Errors != null) {
-                        
+
                         if (typeof validatedForm === "undefined") {
                             $.validator.unobtrusive.parse(this.$form);
                             validatedForm = this.$form.validate();
@@ -211,7 +211,7 @@
     Form.prototype._parse = function () {
         return this.element.parseForm(this.options.prefix ? this.options.prefix : '');
     };
-    
+
     Form.prototype._saveGroupContainer = function () {
         if (this.options.saveGroupContainerState) {
             try {
@@ -226,7 +226,7 @@
             }
             catch (err) {
                 console.warn('Error on saving on local storage:' + err);
-            } 
+            }
         }
     };
 
@@ -243,13 +243,12 @@
             form: this.$form,
             name: this.options.uniqueName
         });
-
         return this.$form.valid();
     };
 
     Form.prototype._getAction = function (action) {
-        
-        return $.grep(this._buttons, function(elem, idx) {
+
+        return $.grep(this._buttons, function (elem, idx) {
             return elem.name == action;
         })[0];
 
@@ -326,9 +325,9 @@
 
     //#region public methods
     Form.prototype.getFormData = function (data) {
-     
+
         var form = this.element.find('form');
-        
+
         form.removeData("validator");
         form.removeData("unobtrusiveValidation");
         $.validator.unobtrusive.parse(form);
@@ -343,14 +342,14 @@
         if (form.valid()) {
             data = this._parse();
         }
-       
+
     };
 
-    Form.prototype.parse = function(e) {
+    Form.prototype.parse = function (e) {
         return this._parse();
     };
 
-    Form.prototype.triggerAction = function(actionName) {
+    Form.prototype.triggerAction = function (actionName) {
 
         var action = this._getAction(actionName);
 
@@ -365,6 +364,8 @@
     };
 
     Form.prototype.reset = function (e) {
+
+        this.removeSummarySuccess();
         this.element.bsResetForm(this.options.focusFirst);
     };
 
@@ -384,14 +385,39 @@
 
     Form.prototype.hideGroup = function ($elem) {
         if (this.options.hasGroupToggle) {
-                $elem.find(this.options.glyphClass).addClass(this.options.groupToggleUp).removeClass(this.options.groupToggleDown);
-                $elem.removeClass('open').closest(this.options.groupToggleContainerSelector).next().stop().slideUp($.proxy(this._saveGroupContainer, this));
+            $elem.find(this.options.glyphClass).addClass(this.options.groupToggleUp).removeClass(this.options.groupToggleDown);
+            $elem.removeClass('open').closest(this.options.groupToggleContainerSelector).next().stop().slideUp($.proxy(this._saveGroupContainer, this));
         }
     };
 
+    Form.prototype.showSummarySuccess = function (message) {
+        var $successContainer = this.$form.find('.bs-validation_summary');
+
+        if ($successContainer.length == 0) {
+            $successContainer = $('<div class="col-sm-12 col-lg-12 bs-validation_summary"></div>');
+            this.$form.prepend($successContainer);
+        }
+
+        var $success = $('<div class="bs-form-success alert alert-success">' +
+                                '<button class="close" data-dismiss="alert" type="button">×</button>' +
+                                 message +
+                            '</div>'
+                        );
+
+        $successContainer.html($success);
+        return {
+            element: $success
+        };
+    };
+    Form.prototype.removeSummarySuccess = function () {
+        var $successContainer = this.$form.find('.bs-validation_summary');
+        if ($successContainer.length) {
+            $successContainer.html('');
+        }
+    };
     //#endregion
-    
+
     $.widget('bforms.bsForm', Form.prototype);
-       
+
     return Form;
 });
