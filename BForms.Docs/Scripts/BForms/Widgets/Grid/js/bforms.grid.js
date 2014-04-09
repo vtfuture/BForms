@@ -574,13 +574,20 @@
 
     Grid.prototype._detailsAjaxSuccess = function (data) {
 
-        var $html = $(data.RowsHtml);
-        $html.find(this.options.rowSelector).each($.proxy(function (idx, updatedRow) {
+        var $html = $(data.RowsHtml),
+        $rowList = $html.find(this.options.rowSelector);
+
+        $rowList.each($.proxy(function (idx, updatedRow) {
 
             var $updatedRow = $(updatedRow);
+
+            //improvement for grid in grid details
+            if ($updatedRow.parents($rowList).length > 1)
+                return true;
+
             var $row = this._getRowElement($updatedRow.data('objid'));
 
-            $row.find(this.options.rowHeaderSelector).replaceWith($updatedRow.find(this.options.rowHeaderSelector));
+            $row.find(this.options.rowHeaderSelector).replaceWith($updatedRow.find(this.options.rowHeaderSelector).first());
             $row.append($updatedRow.find(this.options.rowDetailsSelector).hide());
 
             data.$detailsHtml = $row.find(this.options.rowDetailsSelector);
