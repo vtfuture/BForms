@@ -748,6 +748,7 @@
     Grid.prototype._evOnOrderChange = function (e) {
 
         e.preventDefault();
+   	e.stopPropagation();
 
         if (!this._currentResultsCount) {
             return;
