@@ -432,6 +432,11 @@
 
         this.$rowsContainer.show();
         this.element.find(this.options.noResultsRowSelector).remove();
+
+        this._trigger('afterAdd', 0, {
+            row: row,
+            data: data
+        });
     };
 
     Grid.prototype.collapseAll = function () {
