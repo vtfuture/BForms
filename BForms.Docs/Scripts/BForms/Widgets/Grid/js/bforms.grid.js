@@ -47,6 +47,7 @@
         rowSelector: '.grid_row',
         rowHeaderSelector: 'header',
         rowDetailsSelector: '.grid_row_details',
+        rowAddBeforeSelector: '.grid_row',
         rowActionsContainerSelector: '.bs-row_controls',
         rowDetailsSuccessHandler: null,
         rowActions: [],
@@ -406,7 +407,7 @@
             this.$gridRowsHeader.closest('.row').show();
         }
 
-        this.$rowsContainer.prepend($row.find(this.options.rowSelector));
+        this.$rowsContainer.find(this.options.rowAddBeforeSelector).first().before($row.find(this.options.rowSelector));
 
         this.$pager.bsPager('updateTotal', this._currentResultsCount);
 
@@ -732,7 +733,7 @@
     Grid.prototype._evOnOrderChange = function (e) {
 
         e.preventDefault();
-   	e.stopPropagation();
+   	    e.stopPropagation();
 
         if (!this._currentResultsCount) {
             return;
