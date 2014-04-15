@@ -59,6 +59,8 @@ namespace BForms.Editor
         protected Dictionary<string, BsEditorFormBuilder> forms { get; set; }
         protected object[] editableTabIds { get; set; }
 
+        protected bool isReadonly { get; set; }
+
         internal object[] EditableTabIds
         {
             get
@@ -72,6 +74,14 @@ namespace BForms.Editor
             get
             {
                 return this.forms;
+            }
+        }
+
+        internal bool IsReadonly
+        {
+            get
+            {
+                return this.isReadonly;
             }
         }
 
@@ -117,6 +127,14 @@ namespace BForms.Editor
             return this;
         }
 
+        public BsEditorGroupBuilder<TModel> Readonly(bool isReadonly)
+        {
+            this.isReadonly = isReadonly;
+
+            return this;
+
+        }
+
         internal BsEditorGroupBuilder<TModel> SetPropertyName(string propertyName)
         {
             this.propertyName = propertyName;
@@ -158,5 +176,7 @@ namespace BForms.Editor
         {
             this.renderer = new BsEditorGroupRenderer<TModel, TRow, TForm>(this);
         }
+
+        
     }
 }

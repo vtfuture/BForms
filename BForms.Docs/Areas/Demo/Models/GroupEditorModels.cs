@@ -42,7 +42,7 @@ namespace BForms.Docs.Areas.Demo.Models
 
     public class GroupEditorModel
     {
-        [BsEditorTab(Name = "Contributors1", Id = YesNoValueTypes.Yes, Selected = true, Editable = true)]
+        [BsEditorTab(Name = "Contributors1", Id = YesNoValueTypes.Yes, Selected = true, Editable = true, Readonly = true)]
         public ContributorsInheritExample Contributors { get; set; }
 
         [BsEditorTab(Name = "Contributors2", Id = YesNoValueTypes.No, Selected = false)]

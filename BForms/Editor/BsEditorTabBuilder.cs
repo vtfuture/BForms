@@ -28,6 +28,7 @@ namespace BForms.Editor
         internal bool bulkMove { get; set; }
         internal object[] connectsWith { get; set; }
         internal string bulkMoveHtml { get; set; }
+        protected bool isReadonly { get; set; }
 
         internal object Uid
         {
@@ -66,6 +67,13 @@ namespace BForms.Editor
             }
         }
 
+        internal bool IsReadonly
+        {
+            get
+            {
+                return this.isReadonly;
+            }
+        }
         #endregion
 
         #region Methods
@@ -142,7 +150,6 @@ namespace BForms.Editor
             this.connections = connections;
             this.viewContext = viewContext;
             this.model = (TModel)model;
-
             this.toolbar = new BsEditorToolbarHtmlBuilder<TModel>(this, viewContext);
             this.pagerSettings = new BsPagerSettings();
         }
@@ -207,6 +214,8 @@ namespace BForms.Editor
             return this;
         }
 
+        
+
         public BsEditorTabBuilder<TModel> Selected(bool selected)
         {
             this.selected = selected;
@@ -226,6 +235,14 @@ namespace BForms.Editor
             this.name = name;
 
             return this;
+
+        }
+        public BsEditorTabBuilder<TModel> Readonly(bool isReadonly)
+        {
+            this.isReadonly = isReadonly;
+
+            return this;
+
         }
 
         public BsEditorTabBuilder<TModel> Id(object uid)
@@ -236,7 +253,6 @@ namespace BForms.Editor
 
             return this;
         }
-
         public BsEditorTabBuilder<TModel> ConnectsWith(params object[] ids)
         {
             this.connectsWith = ids;
@@ -262,6 +278,8 @@ namespace BForms.Editor
         {
             return this.selected;
         }
+
+        
 
         internal override void SetSelected(bool selected)
         {

@@ -104,11 +104,12 @@ namespace BForms.Editor
             where TEditor : IBsEditorTabModel
             where TRow : BsItemModel
         {
-            var tab = new BsEditorTabBuilder<TEditor>(model, this.viewContext, connections)
-                       .ConnectsWith(groupIds)
-                       .DisplayName(attr.Name)
-                       .Id(attr.Id)
-                       .Selected(attr.Selected);
+            var tab =
+                new BsEditorTabBuilder<TEditor>(model, this.viewContext, connections).ConnectsWith(groupIds)
+                    .DisplayName(attr.Name)
+                    .Id(attr.Id)
+                    .Selected(attr.Selected)
+                    .Readonly(attr.Readonly);
 
             if (attr.Editable)
             {

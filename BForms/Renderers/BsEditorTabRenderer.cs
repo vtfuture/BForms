@@ -104,6 +104,12 @@ namespace BForms.Renderers
 
                         var isSelected = IsSelected(item);
 
+                        if (this.Builder.IsReadonly)
+                        {
+                            anchorRight.AddCssClass("disabled");
+                            listItem.AddCssClass("bs-notDraggable");
+                        }
+
                         if (isSelected)
                         {
                             anchorRight.InnerHtml += GetGlyphicon(Glyphicon.Ok);
@@ -212,6 +218,8 @@ namespace BForms.Renderers
             }
 
             wrapper.MergeAttribute("data-editable", MvcHelpers.Serialize(this.Builder.IsEditable));
+
+            wrapper.MergeAttribute("data-readonly", MvcHelpers.Serialize(this.Builder.IsReadonly));
 
             wrapper.MergeAttribute("data-loaded", MvcHelpers.Serialize(this.Builder.HasModel));
 

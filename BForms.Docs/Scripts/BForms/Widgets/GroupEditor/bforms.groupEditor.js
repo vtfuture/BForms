@@ -55,7 +55,7 @@
         errorMessageContainer: '.bs-errorMessage',
         errorMessageHolder: '.bs-errorMessageHolder',
         noResultsItemTabSelector: '.bs-noResultsTabItem',
-        
+
     };
     //#endregion
 
@@ -208,7 +208,8 @@
             connectWith: this.options.groupSelector,
             start: $.proxy(this._sortStart, this),
             beforeStop: $.proxy(this._beforeSortStop, this),
-            stop: $.proxy(this._sortStop, this)
+            stop: $.proxy(this._sortStop, this),
+            cancel: '.bs-notDraggable'
         });
     };
 
@@ -679,13 +680,15 @@
     GroupEditor.prototype._isItemSelected = function (objid, tabId, groupIds, itemModel) {
         var $groups = this._getGroups(groupIds),
             allowedGroupsMove = 0,
-            inGroups = 0;
-
+            inGroups = 0,
+            selectDisabled = false;
+            
         $.each($groups, $.proxy(function (idx, group) {
 
             var $group = $(group),
                 isInGroup = this._isInGroup(objid, tabId, $group),
-                allowMove = true;
+                allowMove = true,
+                groupReadonlyState = $group.data('readonly');
 
             if (typeof this.options.validateMove === "function") {
                 var validateResult = this.options.validateMove(itemModel, tabId, $group);
@@ -696,15 +699,18 @@
                 allowedGroupsMove++;
             }
 
-            if (isInGroup) {
+            if (isInGroup || groupReadonlyState) {
                 inGroups++;
             }
 
+            if (isInGroup && groupReadonlyState) {
+                selectDisabled = true;
+            }
         }, this));
 
         var itemCount = this.getItemCount(objid);
 
-        return (allowedGroupsMove > 0 || itemCount > 0) ? (allowedGroupsMove == 0 ? (allowedGroupsMove + itemCount === inGroups) : allowedGroupsMove === inGroups) : false;
+        return selectDisabled ? true : ((allowedGroupsMove > 0 || itemCount > 0) ? (allowedGroupsMove == 0 ? (allowedGroupsMove + itemCount === inGroups) : allowedGroupsMove === inGroups) : false);
     };
 
     GroupEditor.prototype._isInGroup = function (objId, tabId, $group) {
@@ -720,6 +726,7 @@
                 return false;
             }
         });
+
         return isInGroup;
     };
 
@@ -812,23 +819,30 @@
         return $item;
     };
 
-    GroupEditor.prototype._getGroup = function (groupId) {
-        return this.$groups.find('div[data-groupid="' + groupId + '"]');
+    GroupEditor.prototype._getGroup = function (groupId, readonlyState) {
+        if (typeof readonlyState === "undefined") {
+            return this.$groups.find('div[data-groupid="' + groupId + '"]');
+        }
+        return this.$groups.find('div[data-groupid="' + groupId + '"][data-readonly = "' + readonlyState + '"]');
     };
 
     GroupEditor.prototype._getGroupItems = function () {
         return this.$groups.find(this.options.groupItemSelector + ':not(' + this.options.groupItemTemplateSelector + ' >)');
     };
 
-    GroupEditor.prototype._getGroups = function (groupIds) {
+    GroupEditor.prototype._getGroups = function (groupIds, readonlyState) {
         var $groups;
         if (groupIds) {
             $groups = [];
             $.each(groupIds, $.proxy(function (idx, groupId) {
-                $groups.push(this._getGroup(groupId));
+                $groups.push(this._getGroup(groupId, readonlyState));
             }, this));
         } else {
-            $groups = this.$groups.find('div[data-groupid]');
+            if (typeof readonlyState === "undefined") {
+                $groups = this.$groups.find('div[data-groupid]');
+            } else {
+                $groups = this.$groups.find('div[data-groupid][data-readonly = "' + readonlyState + '"]');
+            }
         }
         return $groups;
     };
@@ -885,7 +899,7 @@
             },
             start: $.proxy(this._dragStart, this),
             stop: $.proxy(this._dragStop, this),
-            cancel: '.selected'
+            cancel: '.selected,.bs-notDraggable'
         };
     };
 
@@ -1230,7 +1244,7 @@
     };
 
     GroupEditor.prototype.filterGroupItems = function (groupId, modelProperty, propertyValue) {
-        var $group = this._getGroup(groupId);
+        var $group = this._getGroup(groupId, true);
         $group.find(this.options.groupItemSelector).each($.proxy(function (idx, itemGroup) {
             var $item = $(itemGroup);
             var model = $item.data('model');
@@ -1371,7 +1385,7 @@
     //#endregion
 
     //#region Validation
-    GroupEditor.prototype.valid = function() {
+    GroupEditor.prototype.valid = function () {
 
         var isValid = true;
 
@@ -1384,7 +1398,7 @@
         return isValid;
     };
 
-    GroupEditor.prototype.validateUnobtrusive = function() {
+    GroupEditor.prototype.validateUnobtrusive = function () {
         var isValid = true;
 
         for (var key in this.options.validation) {
@@ -1433,8 +1447,8 @@
         this.$element.find(this.options.errorMessageContainer).remove();
     };
 
-    GroupEditor.prototype._createErrorContainer = function(message) {
-        var $error = $("<div></div>").addClass("alert alert-danger").addClass(this.options.errorMessageContainer.replace('.',''));
+    GroupEditor.prototype._createErrorContainer = function (message) {
+        var $error = $("<div></div>").addClass("alert alert-danger").addClass(this.options.errorMessageContainer.replace('.', ''));
 
         var $closeBtn = $("<button></button>").addClass("close").attr('data-dismiss', 'alert').prop('type', 'button').text('×');
 
@@ -1455,7 +1469,7 @@
 
         var isValid = itemsCount > 0;
 
-        if(!isValid && showError === true) {
+        if (!isValid && showError === true) {
             if (typeof this["_showError_" + rule] === "function") {
                 this["_showError_" + rule].apply(this, [this.options.validation[rule].message]);
             } else {
@@ -1466,7 +1480,7 @@
         return isValid;
     };
 
-    GroupEditor.prototype.addValidationRule = function(rule, validationFunc, errorFunc) {
+    GroupEditor.prototype.addValidationRule = function (rule, validationFunc, errorFunc) {
 
         if (typeof validationFunc === "function") {
             this["_validate_" + rule] = validationFunc;

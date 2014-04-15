@@ -37,6 +37,7 @@ namespace BForms.Editor
         internal string saveUrl { get; set; }
 
         internal bool? ignoreAjaxRequest { get; set; }
+        internal bool isReadonly { get; set; }
 
         public BsEditorHtmlBuilder(TModel model)
         {
@@ -133,6 +134,13 @@ namespace BForms.Editor
         public BsEditorHtmlBuilder<TModel> IgnoreAjaxRequest(bool ignoreAjaxRequest)
         {
             this.ignoreAjaxRequest = ignoreAjaxRequest;
+
+            return this;
+        }
+
+        public BsEditorHtmlBuilder<TModel> Readonly(bool isReadonly)
+        {
+            this.isReadonly = isReadonly;
 
             return this;
         }
