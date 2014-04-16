@@ -41,6 +41,7 @@
 
         removeBtn: '.bs-removeBtn',
         addBtn: '.bs-addBtn',
+        selectedBtn: '.bs-selectedBtn',
         editBtn: '.bs-editBtn',
         upBtn: '.bs-upBtn',
         downBtn: '.bs-downBtn',
@@ -110,6 +111,7 @@
         this.$navbar.on('click', 'a', $.proxy(this._evChangeTab, this));
         this.$tabs.find('div[data-tabid]').on('click', 'button' + this.options.toolbarBtnSelector, $.proxy(this._evChangeToolbarForm, this));
         this.$tabs.on('click', this.options.addBtn, $.proxy(this._evAdd, this));
+        this.$tabs.on('click', this.options.selectedBtn, $.proxy(this._evPreventDefault, this));
         this.$groups.on('click', this.options.removeBtn, $.proxy(this._evRemove, this));
         this.$groups.on('click', this.options.editBtn, $.proxy(this._evEdit, this));
         this.$groups.on('click', this.options.upBtn, $.proxy(this._evUp, this));
@@ -682,7 +684,7 @@
             allowedGroupsMove = 0,
             inGroups = 0,
             selectDisabled = false;
-            
+
         $.each($groups, $.proxy(function (idx, group) {
 
             var $group = $(group),
@@ -732,7 +734,8 @@
 
     GroupEditor.prototype._toggleItemCheck = function ($item, forceUncheck) {
         var $glyph = $item.find('span.glyphicon'),
-            addBtn = this.options.addBtn.replace(".", "");
+            addBtn = this.options.addBtn.replace(".", ""),
+            selectedBtn = this.options.selectedBtn.replace(".", "");
 
         if (forceUncheck && !$item.hasClass('selected')) {
             return false;
@@ -744,6 +747,7 @@
 
         $item.toggleClass('selected');
         $glyph.parents('a:first').toggleClass(addBtn);
+        $glyph.parents('a:first').toggleClass(selectedBtn);
 
         if ($glyph.hasClass('glyphicon-ok')) {
             $glyph.removeClass('glyphicon-ok')
@@ -918,7 +922,8 @@
 
     GroupEditor.prototype._buildConnectsWithSelector = function (allowed) {
         var selector = '';
-        for (var key in allowed) {
+
+        for (var key in this._filterConnectsWith(allowed)) {
             selector += this.options.groupSelector + '[data-groupid="' + allowed[key] + '"]' + ' ' + this.options.groupItemsWrapper;
 
             if (key < allowed.length - 1) {
@@ -1081,6 +1086,26 @@
     GroupEditor.prototype._removeOpacity = function () {
         var $groups = this.$element.find(this.options.groupSelector);
         $groups.css('opacity', '1');
+    };
+
+    GroupEditor.prototype._filterConnectsWith = function (connectsWith) {
+        var $groups = this._getGroups(connectsWith, true);
+
+        $.each($groups, $.proxy(function (idx, group) {
+            var $group = $(group),
+                groupId = $group.data('groupid'),
+                index = connectsWith.indexOf(groupId);
+
+            if (index != -1) {
+                connectsWith.splice(index, 1);
+            }
+        }, this));
+
+        return connectsWith;
+    }
+
+    GroupEditor.prototype._evPreventDefault = function (e) {
+        e.preventDefault();
     };
     //#endregion
 

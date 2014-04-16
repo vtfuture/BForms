@@ -10,7 +10,6 @@
 
 @{
     var builder = Html.BsGroupEditorFor(x => x.Editor2);
-    builder.Readonly(true);
     builder.Theme = Html.GetTheme();
 
     builder.ConfigureTabs(cfg =>
@@ -25,7 +24,6 @@
 
         var tab1 = cfg.For(x => x.Contributors)
             .Editable()
-            .Readonly(true)
             .Template(x => x.Grid, "_TabItem")
             .Template(x => x.Search, "~/Areas/Demo/Views/Contributors/Toolbar/_Search.cshtml")
             .Template(x => x.Order, "_Order")
@@ -39,7 +37,6 @@
         .ConfigureGroups(cfg =>
         {
             cfg.For(x => x.Group1)
-                .Readonly(true)
                 .DisplayText("Adauga la grup 1")
                 .DisplayName("Group1")
                 .Template(x => x.Items, "_GroupItem")
