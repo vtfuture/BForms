@@ -28,6 +28,7 @@ namespace BForms.Editor
         internal bool bulkMove { get; set; }
         internal object[] connectsWith { get; set; }
         internal string bulkMoveHtml { get; set; }
+        protected bool isReadonly { get; set; }
 
         internal object Uid
         {
@@ -66,6 +67,17 @@ namespace BForms.Editor
             }
         }
 
+        internal bool IsReadonly
+        {
+            get
+            {
+                return this.isReadonly;
+            }
+            set
+            {
+                this.isReadonly = value;
+            }
+        }
         #endregion
 
         #region Methods
@@ -142,7 +154,6 @@ namespace BForms.Editor
             this.connections = connections;
             this.viewContext = viewContext;
             this.model = (TModel)model;
-
             this.toolbar = new BsEditorToolbarHtmlBuilder<TModel>(this, viewContext);
             this.pagerSettings = new BsPagerSettings();
         }
@@ -185,15 +196,21 @@ namespace BForms.Editor
             }
             else
             {
+                // Remove Add Form if Readonly
+                if (key == "New" && this.isReadonly)
+                {
+                    return this;
+                }
+
                 var part = this.toolbar.Add<TValue>(expression, template);
 
                 if (key == "Search")
                 {
-                    part.Button("Cauta", Glyphicon.Search);
+                    part.Button(BsResourceManager.Resource("Search"), Glyphicon.Search);
                 }
                 else if (key == "New")
                 {
-                    part.Button("New", Glyphicon.Plus);
+                    part.Button(BsResourceManager.Resource("New"), Glyphicon.Plus);
                 }
             }
 
@@ -206,6 +223,8 @@ namespace BForms.Editor
 
             return this;
         }
+
+        
 
         public BsEditorTabBuilder<TModel> Selected(bool selected)
         {
@@ -226,6 +245,7 @@ namespace BForms.Editor
             this.name = name;
 
             return this;
+
         }
 
         public BsEditorTabBuilder<TModel> Id(object uid)
@@ -236,7 +256,6 @@ namespace BForms.Editor
 
             return this;
         }
-
         public BsEditorTabBuilder<TModel> ConnectsWith(params object[] ids)
         {
             this.connectsWith = ids;
@@ -262,7 +281,7 @@ namespace BForms.Editor
         {
             return this.selected;
         }
-
+        
         internal override void SetSelected(bool selected)
         {
             this.selected = selected;

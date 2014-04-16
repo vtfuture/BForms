@@ -123,6 +123,9 @@
   <data name="Items" xml:space="preserve">
     <value>items</value>
   </data>
+  <data name="New" xml:space="preserve">
+    <value>New</value>
+  </data>
   <data name="NoResults" xml:space="preserve">
     <value>There are no results</value>
   </data>

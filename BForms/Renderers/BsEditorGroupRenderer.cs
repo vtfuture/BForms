@@ -91,6 +91,8 @@ namespace BForms.Renderers
                 container.MergeAttribute("data-propertyname", this.Builder.PropertyName);
             }
 
+            container.MergeAttribute("data-readonly", MvcHelpers.Serialize(this.Builder.IsReadonly));
+
             var title = new TagBuilder("div");
 
             title.AddCssClass("row grid_row title");
@@ -125,27 +127,30 @@ namespace BForms.Renderers
 
             wrapper.AddCssClass("grid_rows_wrapper bs-itemsWrapper");
 
-            div = new TagBuilder("div");
+            if (!this.Builder.IsReadonly)
+            {
+                div = new TagBuilder("div");
 
-            div.AddCssClass("row grid_row");
+                div.AddCssClass("row grid_row");
 
-            var header = new TagBuilder("header");
+                var header = new TagBuilder("header");
 
-            var headerContent = new TagBuilder("div");
+                var headerContent = new TagBuilder("div");
 
-            headerContent.AddCssClass("col-lg-12 col-md-12 col-sm-12");
+                headerContent.AddCssClass("col-lg-12 col-md-12 col-sm-12");
 
-            var span = new TagBuilder("span");
+                var span = new TagBuilder("span");
 
-            span.InnerHtml += this.Builder.Text;
+                span.InnerHtml += this.Builder.Text;
 
-            headerContent.InnerHtml += span;
+                headerContent.InnerHtml += span;
 
-            header.InnerHtml += headerContent;
+                header.InnerHtml += headerContent;
 
-            div.InnerHtml += header;
+                div.InnerHtml += header;
 
-            wrapper.InnerHtml += div;
+                wrapper.InnerHtml += div;
+            }
 
             if (this.Builder.Model != null)
             {
@@ -177,6 +182,11 @@ namespace BForms.Renderers
 
             container.AddCssClass("row grid_row bs-groupItem");
 
+            if (this.Builder.IsReadonly)
+            {
+                container.AddCssClass("bs-notDraggable");
+            }
+
             var header = new TagBuilder("header");
 
             var leftSide = new TagBuilder("div");
@@ -191,7 +201,11 @@ namespace BForms.Renderers
 
             rightSide.AddCssClass("col-lg-6 col-md-6");
 
-            rightSide.InnerHtml += RenderControls(this.Builder.EditableTabIds.Any(x => x.Equals(item.TabId)) ? false : true);
+            if (!this.Builder.IsReadonly)
+            {
+                rightSide.InnerHtml +=
+                    RenderControls(!this.Builder.EditableTabIds.Any(x => x.Equals(item.TabId)));
+            }
 
             header.InnerHtml += rightSide;
 
@@ -205,9 +219,11 @@ namespace BForms.Renderers
 
             detailsContainer.MergeAttribute("style", "display: none;");
 
-            container.InnerHtml += detailsContainer;
-
-            this.RenderForm(container, item);
+            if (!this.Builder.IsReadonly)
+            {
+                container.InnerHtml += detailsContainer;
+                this.RenderForm(container, item);
+            }
 
             return container.ToString();
         }

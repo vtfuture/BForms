@@ -90,7 +90,7 @@ namespace BForms.Renderers
 
             div.AddCssClass("grid_view");
 
-            if (!String.IsNullOrEmpty(this.Builder.GroupConfigurator.FormHtml))
+            if (!this.Builder.isReadonly && !string.IsNullOrEmpty(this.Builder.GroupConfigurator.FormHtml))
             {
                 var formWrapper = new TagBuilder("div");
                 formWrapper.AddCssClass("inline");
@@ -114,7 +114,6 @@ namespace BForms.Renderers
 
         public string RenderGroupsFooter()
         {
-
             var cssClass = "col-lg-6 col-md-6 col-sm-6";
 
             var counter = new TagBuilder("div");
@@ -126,31 +125,32 @@ namespace BForms.Renderers
             total.InnerHtml += "Total: " + span;
             counter.InnerHtml += total;
 
-            var reset = new TagBuilder("div");
-            reset.AddCssClass(cssClass);
-
-            var anchor = new TagBuilder("a");
-            anchor.MergeAttribute("href", "#");
-            anchor.AddCssClass("btn btn-white pull-right bs-resetGroupEditor");
-            anchor.InnerHtml += GetGlyphicon(Models.Glyphicon.Refresh);
-            anchor.InnerHtml += " " + BsResourceManager.Resource("Reset");
-
-            if (!String.IsNullOrEmpty(this.Builder.saveUrl))
+            if (!this.Builder.isReadonly)
             {
-                var saveAnchor = new TagBuilder("a");
-                saveAnchor.MergeAttribute("href", this.Builder.saveUrl);
-                saveAnchor.MergeAttribute("style", "margin-left:10px");
-                saveAnchor.AddCssClass("btn btn-white pull-right bs-saveGroupEditor");
-                saveAnchor.InnerHtml += GetGlyphicon(Models.Glyphicon.Save);
-                saveAnchor.InnerHtml += " " + BsResourceManager.Resource("Save");
+                var reset = new TagBuilder("div");
+                reset.AddCssClass(cssClass);
 
-                reset.InnerHtml += saveAnchor;
+                var anchor = new TagBuilder("a");
+                anchor.MergeAttribute("href", "#");
+                anchor.AddCssClass("btn btn-white pull-right bs-resetGroupEditor");
+                anchor.InnerHtml += GetGlyphicon(Models.Glyphicon.Refresh);
+                anchor.InnerHtml += " " + BsResourceManager.Resource("Reset");
+
+                if (!string.IsNullOrEmpty(this.Builder.saveUrl))
+                {
+                    var saveAnchor = new TagBuilder("a");
+                    saveAnchor.MergeAttribute("href", this.Builder.saveUrl);
+                    saveAnchor.MergeAttribute("style", "margin-left:10px");
+                    saveAnchor.AddCssClass("btn btn-white pull-right bs-saveGroupEditor");
+                    saveAnchor.InnerHtml += GetGlyphicon(Models.Glyphicon.Save);
+                    saveAnchor.InnerHtml += " " + BsResourceManager.Resource("Save");
+
+                    reset.InnerHtml += saveAnchor;
+                }
+
+                reset.InnerHtml += anchor;
+                counter.InnerHtml += reset;
             }
-
-
-            reset.InnerHtml += anchor;
-
-            counter.InnerHtml += reset;
 
             return counter.ToString();
         }
@@ -176,8 +176,7 @@ namespace BForms.Renderers
 
         public string RenderMoveToGroups()
         {
-
-            if (this.Builder.GroupConfigurator.Groups.Any())
+            if (!this.Builder.isReadonly && this.Builder.GroupConfigurator.Groups.Any())
             {
                 var button = new TagBuilder("button");
 

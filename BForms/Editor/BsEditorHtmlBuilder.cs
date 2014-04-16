@@ -37,6 +37,7 @@ namespace BForms.Editor
         internal string saveUrl { get; set; }
 
         internal bool? ignoreAjaxRequest { get; set; }
+        internal bool isReadonly { get; set; }
 
         public BsEditorHtmlBuilder(TModel model)
         {
@@ -108,6 +109,9 @@ namespace BForms.Editor
         #region Public Methods
         public BsEditorHtmlBuilder<TModel> ConfigureTabs(Action<BsEditorTabConfigurator<TModel>> config)
         {
+            // Apply Editor Props to Tabs
+            this.tabConfigurator.Tabs.ToList().ForEach(x => x.Value.IsReadonly = this.isReadonly);
+
             config(this.tabConfigurator);
 
             return this;
@@ -115,6 +119,9 @@ namespace BForms.Editor
 
         public BsEditorHtmlBuilder<TModel> ConfigureGroups(Action<BsEditorGroupConfigurator<TModel>> config)
         {
+            // Apply Editor Props to Groups
+            this.groupConfigurator.Groups.ToList().ForEach(x => x.Value.IsReadonly = this.isReadonly);
+
             if (!this.IsAjaxRequest() || (this.ignoreAjaxRequest.HasValue && this.ignoreAjaxRequest.Value))
             {
                 config(this.groupConfigurator);
@@ -133,6 +140,13 @@ namespace BForms.Editor
         public BsEditorHtmlBuilder<TModel> IgnoreAjaxRequest(bool ignoreAjaxRequest)
         {
             this.ignoreAjaxRequest = ignoreAjaxRequest;
+
+            return this;
+        }
+
+        public BsEditorHtmlBuilder<TModel> Readonly(bool isReadonly)
+        {
+            this.isReadonly = isReadonly;
 
             return this;
         }

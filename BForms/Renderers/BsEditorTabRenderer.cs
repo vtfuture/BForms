@@ -1,13 +1,12 @@
-﻿using BForms.Editor;
-using BForms.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Mvc;
-using BForms.Mvc;
+
+using BForms.Editor;
 using BForms.Grid;
+using BForms.Models;
+using BForms.Mvc;
 using BForms.Utilities;
 
 namespace BForms.Renderers
@@ -41,7 +40,7 @@ namespace BForms.Renderers
 
         protected virtual string RenderItems()
         {
-            var result = "";
+            var result = string.Empty;
 
             if (!string.IsNullOrEmpty(this.Builder.template))
             {
@@ -113,8 +112,18 @@ namespace BForms.Renderers
                         else
                         {
                             anchorRight.AddCssClass("bs-addBtn");
-
+                            
                             anchorRight.InnerHtml += GetGlyphicon(Glyphicon.Plus);
+                        }
+
+                        if (this.Builder.IsReadonly)
+                        {
+                            anchorRight.AddCssClass("disabled");
+                            listItem.AddCssClass("bs-notDraggable");
+                            if (!isSelected)
+                            {
+                                anchorRight.MergeAttribute("style", "display: none;");
+                            }
                         }
 
                         listItemWrapper.InnerHtml += anchorRight;
@@ -123,7 +132,7 @@ namespace BForms.Renderers
 
                         templateWrapper.AddCssClass("media-body");
 
-                        templateWrapper.InnerHtml += this.Builder.RenderModel<TRow>(item, "");
+                        templateWrapper.InnerHtml += this.Builder.RenderModel<TRow>(item, string.Empty);
 
                         listItemWrapper.InnerHtml += templateWrapper;
 
@@ -212,6 +221,8 @@ namespace BForms.Renderers
             }
 
             wrapper.MergeAttribute("data-editable", MvcHelpers.Serialize(this.Builder.IsEditable));
+
+            wrapper.MergeAttribute("data-readonly", MvcHelpers.Serialize(this.Builder.IsReadonly));
 
             wrapper.MergeAttribute("data-loaded", MvcHelpers.Serialize(this.Builder.HasModel));
 

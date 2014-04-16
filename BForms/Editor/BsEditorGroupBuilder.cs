@@ -18,7 +18,7 @@ namespace BForms.Editor
         protected string name { get; set; }
         protected string text { get; set; }
         protected string propertyName { get; set; }
-
+        protected bool isReadonly { get; set; }
         internal string PropertyName
         {
             get
@@ -51,6 +51,17 @@ namespace BForms.Editor
                 return this.text;
             }
         }
+        internal bool IsReadonly
+        {
+            get
+            {
+                return this.isReadonly;
+            }
+            set
+            {
+                this.isReadonly = value;
+            }
+        }
     }
 
     public class BsEditorGroupBuilder<TModel> : BsEditorGroupBuilder where TModel : IBsEditorGroupModel
@@ -58,6 +69,8 @@ namespace BForms.Editor
         protected TModel model { get; set; }
         protected Dictionary<string, BsEditorFormBuilder> forms { get; set; }
         protected object[] editableTabIds { get; set; }
+
+        protected bool isReadonly { get; set; }
 
         internal object[] EditableTabIds
         {
@@ -158,5 +171,7 @@ namespace BForms.Editor
         {
             this.renderer = new BsEditorGroupRenderer<TModel, TRow, TForm>(this);
         }
+
+        
     }
 }
