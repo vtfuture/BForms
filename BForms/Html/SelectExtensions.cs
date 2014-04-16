@@ -143,30 +143,30 @@ namespace BForms.Html
                     case BsControlType.TagList:
                         allowMultiple = true;
                         htmlSelect = BsTagListInternal(htmlHelper, name,
-                            selectList, optionLabel, htmlAttributes, bsCssClass).ToHtmlString();
+                            selectList, optionLabel, htmlAttributes, bsCssClass, metadata).ToHtmlString();
                         break;
                     case BsControlType.CheckBoxList:
                         allowMultiple = true;
                         htmlSelect = BsRadioListInternal(htmlHelper, name,
-                            selectList, htmlAttributes, allowMultiple, bsCssClass).ToHtmlString();
+                            selectList, htmlAttributes, allowMultiple, bsCssClass, metadata).ToHtmlString();
                         break;
                     case BsControlType.RadioButtonList:
                         allowMultiple = false;
                         htmlSelect = BsRadioListInternal(htmlHelper, name,
-                            selectList, htmlAttributes, allowMultiple, bsCssClass).ToHtmlString();
+                            selectList, htmlAttributes, allowMultiple, bsCssClass, metadata).ToHtmlString();
                         break;
                     case BsControlType.ListBox:
                     case BsControlType.ListBoxGrouped:
                         allowMultiple = true;
                         htmlSelect = BsSelectInternal(htmlHelper, name, selectList,
-                            optionLabel, htmlAttributes, allowMultiple, bsCssClass).ToHtmlString();
+                            optionLabel, htmlAttributes, allowMultiple, bsCssClass, metadata).ToHtmlString();
                         break;
                     case BsControlType.DropDownList:
                     case BsControlType.DropDownListGrouped:
                     case BsControlType.Autocomplete:
                         allowMultiple = false;
                         htmlSelect = BsSelectInternal(htmlHelper, name, selectList,
-                        optionLabel, htmlAttributes, allowMultiple, bsCssClass).ToHtmlString();
+                        optionLabel, htmlAttributes, allowMultiple, bsCssClass, metadata).ToHtmlString();
                         break;
                     default:
                         throw new ArgumentException("The " + name + " of type " + bsControl.ControlType.GetDescription() + " does not match a select element");
@@ -191,7 +191,7 @@ namespace BForms.Html
 
         private static MvcHtmlString BsSelectInternal<TKey>(this HtmlHelper htmlHelper, string name,
             BsSelectList<TKey> selectList, string optionLabel,
-            IDictionary<string, object> htmlAttributes, bool allowMultiple, string bsCssClass)
+            IDictionary<string, object> htmlAttributes, bool allowMultiple, string bsCssClass, ModelMetadata metadata = null)
         {
             //TODO: refactoring
             //bind the selected values BsSelectList.SelectedValues
@@ -298,13 +298,13 @@ namespace BForms.Html
                 tagBuilder.MergeAttribute("multiple", "multiple");
             }
 
-            tagBuilder.BsSelectListValidation(htmlHelper, name);
+            tagBuilder.BsSelectListValidation(htmlHelper, name, metadata);
 
             return MvcHtmlString.Create(tagBuilder.ToString());
         }
 
         private static MvcHtmlString BsRadioListInternal<TKey>(this HtmlHelper htmlHelper, string name,
-            BsSelectList<TKey> radioList, IDictionary<string, object> htmlAttributes, bool allowMultiple, string bsCssClass)
+            BsSelectList<TKey> radioList, IDictionary<string, object> htmlAttributes, bool allowMultiple, string bsCssClass, ModelMetadata metadata = null)
         {
             //TODO: refactoring
             //bind the selected values BsSelectList.SelectedValues
@@ -352,7 +352,7 @@ namespace BForms.Html
                 radioBuilder.MergeAttributes(radioHtmlAttributes);
                 if (item.Selected) radioBuilder.MergeAttribute("checked", "checked");
 
-                radioBuilder.BsSelectListValidation(htmlHelper, name);
+                radioBuilder.BsSelectListValidation(htmlHelper, name, metadata);
 
                 if (allowMultiple)
                 {
@@ -396,7 +396,7 @@ namespace BForms.Html
 
         private static MvcHtmlString BsTagListInternal<TKey>(this HtmlHelper htmlHelper, string name,
             BsSelectList<TKey> selectList, string optionLabel,
-            IDictionary<string, object> htmlAttributes, string bsCssClass)
+            IDictionary<string, object> htmlAttributes, string bsCssClass, ModelMetadata metadata = null)
         {
             //TODO: refactoring
             //bind the selected values BsSelectList.SelectedValues
@@ -485,7 +485,7 @@ namespace BForms.Html
                 tagBuilder.MergeAttribute("multiple", "multiple");
             }
 
-            tagBuilder.BsSelectListValidation(htmlHelper, name);
+            tagBuilder.BsSelectListValidation(htmlHelper, name, metadata);
 
             return MvcHtmlString.Create(tagBuilder.ToString());
         }
@@ -539,7 +539,7 @@ namespace BForms.Html
             return builder.ToString(TagRenderMode.Normal);
         }
 
-        internal static void BsSelectListValidation(this TagBuilder tagBuilder, HtmlHelper htmlHelper, string name)
+        internal static void BsSelectListValidation(this TagBuilder tagBuilder, HtmlHelper htmlHelper, string name, ModelMetadata metadata = null)
         {
             // If there are any errors for a named field, we add the css attribute.
             ModelState modelState;
@@ -554,7 +554,7 @@ namespace BForms.Html
             //Validation Hack
             name = name.Replace(".SelectedValues", "");
 
-            var attributes = htmlHelper.GetUnobtrusiveValidationAttributes(name);
+            var attributes = htmlHelper.GetUnobtrusiveValidationAttributes(name, metadata);
 
             if (name.Contains(".") && !attributes.Any())
             {
