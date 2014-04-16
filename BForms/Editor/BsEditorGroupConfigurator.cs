@@ -71,8 +71,7 @@ namespace BForms.Editor
         {
 
             var group = new BsEditorGroupBuilder<TEditor>(model, this.viewContext, editableTabIds)
-                       .Id(attr.Id)
-                       .Readonly(attr.Readonly);
+                       .Id(attr.Id);
 
             group.SetPropertyName(propertyName);
 

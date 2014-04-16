@@ -108,8 +108,7 @@ namespace BForms.Editor
                 new BsEditorTabBuilder<TEditor>(model, this.viewContext, connections).ConnectsWith(groupIds)
                     .DisplayName(attr.Name)
                     .Id(attr.Id)
-                    .Selected(attr.Selected)
-                    .Readonly(attr.Readonly);
+                    .Selected(attr.Selected);
 
             if (attr.Editable)
             {

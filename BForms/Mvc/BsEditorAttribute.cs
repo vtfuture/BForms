@@ -17,8 +17,6 @@ namespace BForms.Mvc
 
         public bool Editable { get; set; }
 
-        public bool Readonly { get; set; }
-
         /// <summary>
         /// Empty ctor
         /// </summary>
@@ -31,8 +29,6 @@ namespace BForms.Mvc
     public class BsEditorGroupAttribute : Attribute
     {
         public object Id { get; set; }
-
-        public bool Readonly { get; set; }
 
         /// <summary>
         /// Empty ctor

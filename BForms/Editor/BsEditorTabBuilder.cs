@@ -73,6 +73,10 @@ namespace BForms.Editor
             {
                 return this.isReadonly;
             }
+            set
+            {
+                this.isReadonly = value;
+            }
         }
         #endregion
 
@@ -192,15 +196,21 @@ namespace BForms.Editor
             }
             else
             {
+                // Remove Add Form if Readonly
+                if (key == "New" && this.isReadonly)
+                {
+                    return this;
+                }
+
                 var part = this.toolbar.Add<TValue>(expression, template);
 
                 if (key == "Search")
                 {
-                    part.Button("Cauta", Glyphicon.Search);
+                    part.Button(BsResourceManager.Resource("Search"), Glyphicon.Search);
                 }
                 else if (key == "New")
                 {
-                    part.Button("New", Glyphicon.Plus);
+                    part.Button(BsResourceManager.Resource("New"), Glyphicon.Plus);
                 }
             }
 
@@ -233,13 +243,6 @@ namespace BForms.Editor
         public BsEditorTabBuilder<TModel> DisplayName(string name)
         {
             this.name = name;
-
-            return this;
-
-        }
-        public BsEditorTabBuilder<TModel> Readonly(bool isReadonly)
-        {
-            this.isReadonly = isReadonly;
 
             return this;
 
@@ -278,9 +281,7 @@ namespace BForms.Editor
         {
             return this.selected;
         }
-
         
-
         internal override void SetSelected(bool selected)
         {
             this.selected = selected;

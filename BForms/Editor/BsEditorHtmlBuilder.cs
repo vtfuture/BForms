@@ -109,6 +109,9 @@ namespace BForms.Editor
         #region Public Methods
         public BsEditorHtmlBuilder<TModel> ConfigureTabs(Action<BsEditorTabConfigurator<TModel>> config)
         {
+            // Apply Editor Props to Tabs
+            this.tabConfigurator.Tabs.ToList().ForEach(x => x.Value.IsReadonly = this.isReadonly);
+
             config(this.tabConfigurator);
 
             return this;
@@ -116,6 +119,9 @@ namespace BForms.Editor
 
         public BsEditorHtmlBuilder<TModel> ConfigureGroups(Action<BsEditorGroupConfigurator<TModel>> config)
         {
+            // Apply Editor Props to Groups
+            this.groupConfigurator.Groups.ToList().ForEach(x => x.Value.IsReadonly = this.isReadonly);
+
             if (!this.IsAjaxRequest() || (this.ignoreAjaxRequest.HasValue && this.ignoreAjaxRequest.Value))
             {
                 config(this.groupConfigurator);

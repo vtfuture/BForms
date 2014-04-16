@@ -682,15 +682,13 @@
     GroupEditor.prototype._isItemSelected = function (objid, tabId, groupIds, itemModel) {
         var $groups = this._getGroups(groupIds),
             allowedGroupsMove = 0,
-            inGroups = 0,
-            selectDisabled = false;
+            inGroups = 0;
 
         $.each($groups, $.proxy(function (idx, group) {
 
             var $group = $(group),
                 isInGroup = this._isInGroup(objid, tabId, $group),
-                allowMove = true,
-                groupReadonlyState = $group.data('readonly');
+                allowMove = true;
 
             if (typeof this.options.validateMove === "function") {
                 var validateResult = this.options.validateMove(itemModel, tabId, $group);
@@ -701,18 +699,15 @@
                 allowedGroupsMove++;
             }
 
-            if (isInGroup || groupReadonlyState) {
+            if (isInGroup) {
                 inGroups++;
             }
 
-            if (isInGroup && groupReadonlyState) {
-                selectDisabled = true;
-            }
         }, this));
 
         var itemCount = this.getItemCount(objid);
 
-        return selectDisabled ? true : ((allowedGroupsMove > 0 || itemCount > 0) ? (allowedGroupsMove == 0 ? (allowedGroupsMove + itemCount === inGroups) : allowedGroupsMove === inGroups) : false);
+        return (allowedGroupsMove > 0 || itemCount > 0) ? (allowedGroupsMove == 0 ? (allowedGroupsMove + itemCount === inGroups) : allowedGroupsMove === inGroups) : false;
     };
 
     GroupEditor.prototype._isInGroup = function (objId, tabId, $group) {
@@ -728,12 +723,12 @@
                 return false;
             }
         });
-
         return isInGroup;
     };
 
     GroupEditor.prototype._toggleItemCheck = function ($item, forceUncheck) {
         var $glyph = $item.find('span.glyphicon'),
+            $glyphContainer = $glyph.parents('a:first'),
             addBtn = this.options.addBtn.replace(".", ""),
             selectedBtn = this.options.selectedBtn.replace(".", "");
 
@@ -746,15 +741,23 @@
         }
 
         $item.toggleClass('selected');
-        $glyph.parents('a:first').toggleClass(addBtn);
-        $glyph.parents('a:first').toggleClass(selectedBtn);
+        $glyphContainer.toggleClass(addBtn);
+        $glyphContainer.toggleClass(selectedBtn);
 
         if ($glyph.hasClass('glyphicon-ok')) {
             $glyph.removeClass('glyphicon-ok')
                 .addClass('glyphicon-plus');
+
+            if ($glyphContainer.hasClass('disabled')) {
+                $glyphContainer.hide();
+            }
         } else {
             $glyph.removeClass('glyphicon-plus')
                 .addClass('glyphicon-ok');
+
+            if ($glyphContainer.hasClass('disabled')) {
+                $glyphContainer.show();
+            }
         }
 
         this._trigger('afterToggleItem', 0, arguments);
@@ -823,30 +826,23 @@
         return $item;
     };
 
-    GroupEditor.prototype._getGroup = function (groupId, readonlyState) {
-        if (typeof readonlyState === "undefined") {
-            return this.$groups.find('div[data-groupid="' + groupId + '"]');
-        }
-        return this.$groups.find('div[data-groupid="' + groupId + '"][data-readonly = "' + readonlyState + '"]');
+    GroupEditor.prototype._getGroup = function (groupId) {
+        return this.$groups.find('div[data-groupid="' + groupId + '"]');
     };
 
     GroupEditor.prototype._getGroupItems = function () {
         return this.$groups.find(this.options.groupItemSelector + ':not(' + this.options.groupItemTemplateSelector + ' >)');
     };
 
-    GroupEditor.prototype._getGroups = function (groupIds, readonlyState) {
+    GroupEditor.prototype._getGroups = function (groupIds) {
         var $groups;
         if (groupIds) {
             $groups = [];
             $.each(groupIds, $.proxy(function (idx, groupId) {
-                $groups.push(this._getGroup(groupId, readonlyState));
+                $groups.push(this._getGroup(groupId));
             }, this));
         } else {
-            if (typeof readonlyState === "undefined") {
-                $groups = this.$groups.find('div[data-groupid]');
-            } else {
-                $groups = this.$groups.find('div[data-groupid][data-readonly = "' + readonlyState + '"]');
-            }
+            $groups = this.$groups.find('div[data-groupid]');
         }
         return $groups;
     };
@@ -903,7 +899,7 @@
             },
             start: $.proxy(this._dragStart, this),
             stop: $.proxy(this._dragStop, this),
-            cancel: '.selected,.bs-notDraggable'
+            cancel: '.selected, .bs-notDraggable'
         };
     };
 
@@ -922,8 +918,7 @@
 
     GroupEditor.prototype._buildConnectsWithSelector = function (allowed) {
         var selector = '';
-
-        for (var key in this._filterConnectsWith(allowed)) {
+        for (var key in allowed) {
             selector += this.options.groupSelector + '[data-groupid="' + allowed[key] + '"]' + ' ' + this.options.groupItemsWrapper;
 
             if (key < allowed.length - 1) {
@@ -1087,22 +1082,6 @@
         var $groups = this.$element.find(this.options.groupSelector);
         $groups.css('opacity', '1');
     };
-
-    GroupEditor.prototype._filterConnectsWith = function (connectsWith) {
-        var $groups = this._getGroups(connectsWith, true);
-
-        $.each($groups, $.proxy(function (idx, group) {
-            var $group = $(group),
-                groupId = $group.data('groupid'),
-                index = connectsWith.indexOf(groupId);
-
-            if (index != -1) {
-                connectsWith.splice(index, 1);
-            }
-        }, this));
-
-        return connectsWith;
-    }
 
     GroupEditor.prototype._evPreventDefault = function (e) {
         e.preventDefault();
@@ -1269,7 +1248,7 @@
     };
 
     GroupEditor.prototype.filterGroupItems = function (groupId, modelProperty, propertyValue) {
-        var $group = this._getGroup(groupId, true);
+        var $group = this._getGroup(groupId);
         $group.find(this.options.groupItemSelector).each($.proxy(function (idx, itemGroup) {
             var $item = $(itemGroup);
             var model = $item.data('model');

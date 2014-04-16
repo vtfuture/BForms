@@ -90,7 +90,7 @@ namespace BForms.Renderers
 
             div.AddCssClass("grid_view");
 
-            if (!String.IsNullOrEmpty(this.Builder.GroupConfigurator.FormHtml))
+            if (!this.Builder.isReadonly && !string.IsNullOrEmpty(this.Builder.GroupConfigurator.FormHtml))
             {
                 var formWrapper = new TagBuilder("div");
                 formWrapper.AddCssClass("inline");
@@ -136,7 +136,7 @@ namespace BForms.Renderers
                 anchor.InnerHtml += GetGlyphicon(Models.Glyphicon.Refresh);
                 anchor.InnerHtml += " " + BsResourceManager.Resource("Reset");
 
-                if (!String.IsNullOrEmpty(this.Builder.saveUrl))
+                if (!string.IsNullOrEmpty(this.Builder.saveUrl))
                 {
                     var saveAnchor = new TagBuilder("a");
                     saveAnchor.MergeAttribute("href", this.Builder.saveUrl);

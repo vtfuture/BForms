@@ -18,7 +18,7 @@ namespace BForms.Editor
         protected string name { get; set; }
         protected string text { get; set; }
         protected string propertyName { get; set; }
-
+        protected bool isReadonly { get; set; }
         internal string PropertyName
         {
             get
@@ -51,6 +51,17 @@ namespace BForms.Editor
                 return this.text;
             }
         }
+        internal bool IsReadonly
+        {
+            get
+            {
+                return this.isReadonly;
+            }
+            set
+            {
+                this.isReadonly = value;
+            }
+        }
     }
 
     public class BsEditorGroupBuilder<TModel> : BsEditorGroupBuilder where TModel : IBsEditorGroupModel
@@ -74,14 +85,6 @@ namespace BForms.Editor
             get
             {
                 return this.forms;
-            }
-        }
-
-        internal bool IsReadonly
-        {
-            get
-            {
-                return this.isReadonly;
             }
         }
 
@@ -125,14 +128,6 @@ namespace BForms.Editor
             this.name = name;
 
             return this;
-        }
-
-        public BsEditorGroupBuilder<TModel> Readonly(bool isReadonly)
-        {
-            this.isReadonly = isReadonly;
-
-            return this;
-
         }
 
         internal BsEditorGroupBuilder<TModel> SetPropertyName(string propertyName)
