@@ -88,7 +88,7 @@
                 this.$input.on('focusout', $.proxy(function (e) {
 
 
-                    if (e.relatedTarget && !($(e.relatedTarget).hasClass('bs-rangeInput'))) {
+                    if (e.relatedTarget && this.$picker.find($(e.relatedTarget)).length == 0) {
                         this.hide();
                     }
 

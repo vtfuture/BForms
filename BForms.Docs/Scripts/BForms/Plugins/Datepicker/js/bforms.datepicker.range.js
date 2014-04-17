@@ -263,7 +263,7 @@
             if (typeof this.$input !== "undefined") {
                 this.$input.on('focusout', $.proxy(function (e) {
 
-                    if (e.relatedTarget && $(e.relatedTarget).parents(this.$element).length == 0) {
+                    if (e.relatedTarget && this.$container.find($(e.relatedTarget)).length == 0) {
                         this.hide();
                     }
 
