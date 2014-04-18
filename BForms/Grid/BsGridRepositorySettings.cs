@@ -11,8 +11,6 @@ namespace BForms.Grid
     {
         public TSearch Search { get; set; }
 
-        public string QuickSearch { get; set; }
-
         public bool FromReset { get; set; }
 
         public BsComponentState<BsComponentStateIdentifier> ToBsComponentState(string componentId, string referralUrl)
@@ -35,6 +33,8 @@ namespace BForms.Grid
     
     public class BsGridBaseRepositorySettings : BsBaseRepositorySettings
     {
+        public string QuickSearch { get; set; }
+
         public List<BsColumnOrder> OrderableColumns { get; set; } // order grid by column
 
         public Dictionary<string, int> OrderColumns { get; set; } // swap columns order
