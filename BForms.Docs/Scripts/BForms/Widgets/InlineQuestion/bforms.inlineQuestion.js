@@ -141,12 +141,8 @@
 
         if (this.options.content instanceof jQuery) {
 
-            console.log(popover);
-
             var $pop = $(popover);
             $pop.find('.js-replaceme').replaceWith(this.options.content);
-
-            console.log($pop);
 
             return $pop;
         }
