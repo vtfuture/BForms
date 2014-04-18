@@ -260,8 +260,10 @@
                                     text: confirmButtonText,
                                     cssClass: confirmCssClass,
                                     callback: $.proxy(function () {
-                                        $me.bsInlineQuestion('toggle');
-                                        opts.handler.call(this, this.element.find(this.options.rowSelector + '.selected'), this);
+                                        var preventClose = opts.handler.call(this, this.element.find(this.options.rowSelector + '.selected'), this);
+                                        if (preventClose !== false) {
+                                            $me.bsInlineQuestion('toggle');
+                                        }
                                     }, grid)
                                 },
                                {
