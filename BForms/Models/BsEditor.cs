@@ -45,14 +45,18 @@ namespace BForms.Models
     {
         public TabGroupConnection GetTabGroupConnection()
         {
-            return new TabGroupConnection
+            if (this.Items != null)
             {
-                Items = this.Items.Select(x => new TabGroupConnectionItem
+                return new TabGroupConnection
                 {
-                    TabId = x.TabId,
-                    Id = x.GetUniqueID()
-                }).ToList()
-            };
+                    Items = this.Items.Select(x => new TabGroupConnectionItem
+                    {
+                        TabId = x.TabId,
+                        Id = x.GetUniqueID()
+                    }).ToList()
+                };
+            }
+            return null;
         }
     }
 

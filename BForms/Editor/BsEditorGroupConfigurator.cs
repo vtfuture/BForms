@@ -94,8 +94,12 @@ namespace BForms.Editor
             if (model != null)
             {
                 var connection = model.GetTabGroupConnection();
-                connection.GroupId = attr.Id;
-                this.Connections.Add(connection);
+
+                if (connection != null)
+                {
+                    connection.GroupId = attr.Id;
+                    this.Connections.Add(connection);
+                }
             }
 
             InsertGroup<TEditor, TRow>(attr.Id, group);

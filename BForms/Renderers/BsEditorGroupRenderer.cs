@@ -154,9 +154,14 @@ namespace BForms.Renderers
 
             if (this.Builder.Model != null)
             {
-                foreach (var item in (this.Builder.Model as BsEditorGroupModel<TRow>).Items) 
+                var items = (this.Builder.Model as BsEditorGroupModel<TRow>).Items;
+
+                if (items != null)
                 {
-                    wrapper.InnerHtml += RenderItem(item);
+                    foreach (var item in (this.Builder.Model as BsEditorGroupModel<TRow>).Items)
+                    {
+                        wrapper.InnerHtml += RenderItem(item);
+                    }
                 }
             }
 
