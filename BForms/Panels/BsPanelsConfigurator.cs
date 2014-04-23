@@ -116,7 +116,7 @@ namespace BForms.Panels
         #region Internal methods
         public BsPanelHtmlBuilder GetPanel(object id)
         {
-            return Panels.FirstOrDefault(p => p.id.Equals(id));
+            return Panels.FirstOrDefault(p => p._id.Equals(id));
         }
 
         public BsPanelsConfigurator<TModel> Renderer<TPanel>() where TPanel : BsPanelBaseRenderer, new()

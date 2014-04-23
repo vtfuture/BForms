@@ -17,25 +17,159 @@ namespace BForms.Panels
 {
     public class BsPanelHtmlBuilder : BsBaseComponent<BsPanelHtmlBuilder>
     {
+        public bool noHeader
+        {
+            get
+            {
+                return this._noHeader;
+            }
+        }
+
+        public string name
+        {
+            get
+            {
+                return this._name;
+            }
+        }
+
+        public bool isEditable
+        {
+            get
+            {
+                return this._isEditable;
+            }
+        }
+
+        public bool hasReadonly
+        {
+            get
+            {
+                return this._hasReadonly;
+            }
+        }
+
+        public bool isExpanded
+        {
+            get
+            {
+                return this._isExpanded;
+            }
+        }
+
+        public bool isExpandable
+        {
+            get
+            {
+                return this._isExpandable;
+            }
+        }
+
+        public bool isLoaded
+        {
+            get
+            {
+                return this._isLoaded;
+            }
+        }
+
+        public string readonlyUrl
+        {
+            get
+            {
+                return this._readonlyUrl;
+            }
+        }
+
+        public string editableUrl
+        {
+            get
+            {
+                return this._editableUrl;
+            }
+        }
+
+        public string saveUrl
+        {
+            get
+            {
+                return this._saveUrl;
+            }
+        }
+
+        public string content
+        {
+            get
+            {
+                return this._content;
+            }
+        }
+
+        public object id
+        {
+            get
+            {
+                return this._id;
+            }
+        }
+
+        public object objId
+        {
+            get
+            {
+                return this._objId;
+            }
+        }
+
+        public Glyphicon? glyphicon
+        {
+            get
+            {
+                return this._glyphicon;
+            }
+        }
+
+        public bool initialReadonly
+        {
+            get
+            {
+                return this._initialReadonly;
+            }
+        }
+
+        public BsPanelTheme theme
+        {
+            get
+            {
+                return this._theme;
+            }
+        }
+        public BsPanelMode? mode
+        {
+            get
+            {
+                return this._mode;
+            }
+        }
 
         #region Properties and Constructor
-        internal string name;
-        internal bool isEditable;
-        internal bool hasReadonly;
-        internal bool isExpanded;
-        internal bool isExpandable = true;
-        internal bool isLoaded;
-        internal string readonlyUrl;
-        internal string editableUrl;
-        internal string saveUrl;
-        internal string content;
-        internal object id;
-        internal object objId;
-        internal bool noHeader;
-        internal Glyphicon? glyphicon;
-        internal bool initialReadonly = true;
-        internal BsPanelTheme theme = BsPanelTheme.Default;
-        internal BsPanelMode? mode;
+        internal string _name;
+        internal bool _isEditable;
+        internal bool _hasReadonly;
+        internal bool _isExpanded;
+        internal bool _isExpandable = true;
+        internal bool _isLoaded;
+        internal string _readonlyUrl;
+        internal string _editableUrl;
+        internal string _saveUrl;
+        internal string _content;
+        internal object _id;
+        internal object _objId;
+        internal bool _noHeader;
+        internal Glyphicon? _glyphicon;
+        internal bool _initialReadonly = true;
+        internal BsPanelTheme _theme = BsPanelTheme.Default;
+        internal BsPanelMode? _mode;
 
         /// <summary>
         /// Sets the ViewContext property for the BaseComponent
@@ -81,37 +215,37 @@ namespace BForms.Panels
         /// </summary>
         public BsPanelHtmlBuilder Name(string name)
         {
-            this.name = name;
+            this._name = name;
             return this;
         }
 
         public BsPanelHtmlBuilder Id(object id)
         {
-            this.id = id;
+            this._id = id;
             return this;
         }
 
         public BsPanelHtmlBuilder ObjId(object objId)
         {
-            this.objId = objId;
+            this._objId = objId;
             return this;
         }
 
         public BsPanelHtmlBuilder NoHeader()
         {
-            this.noHeader = true;
+            this._noHeader = true;
             return this;
         }
 
         public BsPanelHtmlBuilder Glyphicon(Glyphicon glyphicon)
         {
-            this.glyphicon = glyphicon;
+            this._glyphicon = glyphicon;
             return this;
         }
 
         public BsPanelHtmlBuilder Theme(BsPanelTheme theme)
         {
-            this.theme = theme;
+            this._theme = theme;
             return this;
         }
 
@@ -120,13 +254,13 @@ namespace BForms.Panels
         /// </summary>
         public BsPanelHtmlBuilder Editable(bool isEditable)
         {
-            this.isEditable = isEditable;
+            this._isEditable = isEditable;
             return this;
         }
 
         public BsPanelHtmlBuilder InitialEditable()
         {
-            this.initialReadonly = false;
+            this._initialReadonly = false;
             return this;
         }
 
@@ -135,7 +269,7 @@ namespace BForms.Panels
         /// </summary>
         public BsPanelHtmlBuilder Expanded(bool isExpanded)
         {
-            this.isExpanded = isExpanded;
+            this._isExpanded = isExpanded;
             return this;
         }
 
@@ -144,7 +278,7 @@ namespace BForms.Panels
         /// </summary>
         public BsPanelHtmlBuilder Expandable(bool isExpandable)
         {
-            this.isExpandable = isExpandable;
+            this._isExpandable = isExpandable;
           
             return this;
         }
@@ -154,8 +288,8 @@ namespace BForms.Panels
         /// </summary>
         public BsPanelHtmlBuilder ReadonlyUrl(string url)
         {
-            this.readonlyUrl = url;
-            this.hasReadonly = true;
+            this._readonlyUrl = url;
+            this._hasReadonly = true;
             return this;
         }
 
@@ -165,15 +299,15 @@ namespace BForms.Panels
         /// </summary>
         public BsPanelHtmlBuilder EditableUrl(string url)
         {
-            this.editableUrl = url;
-            this.isEditable = true;
+            this._editableUrl = url;
+            this._isEditable = true;
 
             return this;
         }
 
         public BsPanelHtmlBuilder SaveUrl(string url)
         {
-            this.saveUrl = url;
+            this._saveUrl = url;
 
             return this;
         }
@@ -185,7 +319,7 @@ namespace BForms.Panels
         /// <returns></returns>
         public BsPanelHtmlBuilder Mode(BsPanelMode mode)
         {
-            this.mode = mode;
+            this._mode = mode;
             return this;
         }
 
@@ -195,9 +329,9 @@ namespace BForms.Panels
         /// </summary>
         public BsPanelHtmlBuilder Content(string content)
         {
-            this.content = content;
-            this.isExpanded = true;
-            this.isLoaded = true;
+            this._content = content;
+            this._isExpanded = true;
+            this._isLoaded = true;
 
             return this;
         }

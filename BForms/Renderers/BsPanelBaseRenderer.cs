@@ -18,7 +18,7 @@ namespace BForms.Renderers
 
         private string GetThemeClass()
         {
-            switch (this.Builder.theme)
+            switch (this.Builder._theme)
             {
                 case BsPanelTheme.Blue:
                     return "panel-primary";
@@ -36,7 +36,6 @@ namespace BForms.Renderers
 
             return "panel-default";
         }
-
 
         public virtual string RenderHeader()
         {
