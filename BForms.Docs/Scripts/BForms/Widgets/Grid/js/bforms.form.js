@@ -19,6 +19,7 @@
         hasGroupToggle: true,
         style: {},
         focusFirst: true,
+        ignoreFields: '.bs-noreset',
         // save opened group containers in localstorage and retreive it later
         saveGroupContainerState: true,
         appendUrlToUniqueName: true,
@@ -302,7 +303,7 @@
         this._initAmplifyStore();
         this._addActions(this.options.actions);
 
-        this.element.bsResetForm(false);
+        this.element.bsResetForm(false, this.options.ignoreFields);
 
         var initUIPromise = this.$form.bsInitUI(this.options.style);
         initUIPromise.done($.proxy(function () {
@@ -366,7 +367,7 @@
     Form.prototype.reset = function (e) {
 
         this.removeSummarySuccess();
-        this.element.bsResetForm(this.options.focusFirst);
+        this.element.bsResetForm(this.options.focusFirst, this.options.ignoreFields);
     };
 
     Form.prototype.toggleGroup = function ($elem) {
