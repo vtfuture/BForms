@@ -176,7 +176,7 @@ namespace BForms.Grid
         /// </summary>
         public BsToolbarAction<TToolbar> HtmlAttributes(IDictionary<string, object> htmlAttributes)
         {
-            this.htmlAttributes = htmlAttributes;
+            this._htmlAttributes = htmlAttributes;
             return this;
         }
 
@@ -322,7 +322,7 @@ namespace BForms.Grid
         /// </summary>
         public BsToolbarAction HtmlAttributes(IDictionary<string, object> htmlAttributes)
         {
-            this.htmlAttributes = htmlAttributes;
+            this._htmlAttributes = htmlAttributes;
             return this;
         }
 
