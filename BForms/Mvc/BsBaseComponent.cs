@@ -9,7 +9,15 @@ namespace BForms.Mvc
 {
     public abstract class BsBaseComponent<TComponent> : BsBaseComponent where TComponent : BsBaseComponent<TComponent>
     {
-        internal IDictionary<string, object> htmlAttributes;
+        public IDictionary<string, object> htmlAttributes
+        {
+            get
+            {
+                return this._htmlAttributes;
+            }
+        }
+
+        internal IDictionary<string, object> _htmlAttributes;
 
         public BsBaseComponent(){}
 
@@ -26,7 +34,7 @@ namespace BForms.Mvc
 
         public virtual TComponent HtmlAttributes(IDictionary<string, object> htmlAttributes)
         {
-            this.htmlAttributes = htmlAttributes;
+            this._htmlAttributes = htmlAttributes;
 
             return (TComponent)this;
         }
