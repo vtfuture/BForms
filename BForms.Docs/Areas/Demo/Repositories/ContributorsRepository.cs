@@ -232,7 +232,7 @@ namespace BForms.Docs.Areas.Demo.Repositories
 
                     #region Age
 
-                    if (!String.IsNullOrEmpty(Settings.Search.AgeRange.TextValue))
+                    if (Settings.Search.AgeRange != null && !string.IsNullOrEmpty(Settings.Search.AgeRange.TextValue))
                         query =
                             query.Where(
                                 x =>
