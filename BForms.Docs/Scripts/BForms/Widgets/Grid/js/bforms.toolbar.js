@@ -315,7 +315,22 @@
             }
         }
 
-        tab.$container.stop(true, false).slideToggle();
+        var context = this,
+            toggled = tab.$container.is(':hidden'),
+            triggerOptions = {
+                toggled: toggled,
+                tab: tab
+            };
+
+        tab.$container.stop(true, false).slideToggle({
+
+            start: function () {
+                context._trigger('beforeTabToggle', 0, triggerOptions);
+            },
+            complete: function () {
+                context._trigger('afterTabToggle', 0, triggerOptions);
+            }
+        });
 
         var isSelected = tab.$element.hasClass('selected');
 
