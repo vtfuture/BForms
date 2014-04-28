@@ -146,7 +146,7 @@
                 if ($current.val() == value)
                     self.data('value', value);
 
-                if (typeof $current.valid === "function") {
+                if ($current.data('val') === true && typeof $current.valid === "function") {
                     $current.valid();
                 }
 

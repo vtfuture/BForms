@@ -132,7 +132,7 @@
 
                     $current.prop("checked", newVal);
 
-                    if (typeof $current.valid === "function") {
+                    if ($current.data('val') === true && typeof $current.valid === "function") {
                         $current.valid();
                     }
                 }
