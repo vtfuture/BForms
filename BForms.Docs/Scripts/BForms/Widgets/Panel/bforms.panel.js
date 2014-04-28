@@ -355,6 +355,7 @@
                         this._cachedReadonlyContent = this.$content.html();
                     }
 
+                    this._trigger('onReadonlyLoadSuccess', 0, data);
                     this.showReadonly();
 
                     this._trigger('editSuccessHandler', 0, data);
