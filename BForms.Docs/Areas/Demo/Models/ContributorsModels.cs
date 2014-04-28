@@ -256,19 +256,19 @@ namespace BForms.Docs.Areas.Demo.Models
     {
         public int Id { get; set; }
 
-        [BsGridColumn(Width = 2, IsEditable = true)]
+        [BsGridColumn(Width = 2, IsEditable = true, ExtraSmallWidth = 11)]
         public string Name { get; set; }
 
-        [BsGridColumn(Width = 3)]
+        [BsGridColumn(Width = 3, ExtraSmallWidth = 11)]
         public ProjectRole Role { get; set; }
 
-        [BsGridColumn(Width = 3)]
+        [BsGridColumn(Width = 3, ExtraSmallWidth = 11)]
         public DateTime StartDate { get; set; }
 
-        [BsGridColumn(Width = 4)]
+        [BsGridColumn(Width = 4, ExtraSmallWidth = 11)]
         public string Contributions { get; set; }
 
-        [BsGridColumn(Width = 1, Usage = BsGridColumnUsage.Excel)]
+        [BsGridColumn(Width = 1, ExtraSmallWidth = 11, Usage = BsGridColumnUsage.Excel)]
         public bool Enabled { get; set; }
 
         public override object GetUniqueID()
