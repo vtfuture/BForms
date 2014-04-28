@@ -63,6 +63,7 @@
         pagerSelector: '.bs-pager',
         pagerGoTopTitle: 'Go top',
         pagerDataPageContainer: 'page',
+        goTopAfterPagination: true,
 
         detailsSelector: '.bs-expand',
         detailsUrl: null,
@@ -730,7 +731,7 @@
         this.refreshModel.Page = data.page;
         var pageChanged = true;
 
-        if (data.pageSize) {
+        if (data.pageSize && this.refreshModel.PageSize !== data.pageSize) {
             this.refreshModel.PageSize = data.pageSize;
             pageChanged = false;
         }
@@ -1177,6 +1178,10 @@
         if (!this.options.expandByToggleSelector) {
             $(this.options.expandToggleSelector).hide();
         }
+
+        if (this.options.goTopAfterPagination) {
+            $.bforms.scrollToElement(this.element);
+        }
     };
 
     Grid.prototype._changeCount = function () {
@@ -1197,6 +1202,8 @@
 
             this._addError(data.Message, $errorContainer);
         }
+
+        console.log(arguments);
 
         if (arguments[4] && arguments[4].pageChanged) {
             $.bforms.scrollToElement(this.$gridHeader);
