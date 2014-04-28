@@ -432,7 +432,7 @@
 
                             } else if (name.indexOf(this.settings.validationSummaryKey) !== -1) {//validation summary?
                                 summaryError = this.showSummaryError(errors[name]);
-                            } else {
+                            } else if(typeof summaryError === "undefined") {
                                 this.removeSummaryError();
                             }
                         }
@@ -449,7 +449,7 @@
                         this.defaultShowErrors();
                     }
 
-                    if (this.errorList.length === 0) {
+                    if (this.errorList.length === 0 && typeof summaryError === "undefined") {
                         this.removeSummaryError();
                     }
 

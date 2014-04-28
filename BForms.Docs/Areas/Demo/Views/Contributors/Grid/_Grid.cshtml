@@ -27,9 +27,6 @@
               .Text(row => string.IsNullOrEmpty(row.Contributions) ? "" : String.Join(", ", row.Contributions.Split(new[] { ',' }).Take(2)));
 
           cols.For(row => row.Name).Name(Resource.Name);
-
-          cols.Add("Actions")
-              .Text(RowButtonTemplate);
       });
 }
 @(Html.BsGridFor(m => m.Grid, builder)
