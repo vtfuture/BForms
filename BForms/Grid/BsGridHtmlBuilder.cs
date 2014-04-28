@@ -258,7 +258,7 @@ namespace BForms.Grid
                         var column = new BsGridColumn<TRow>(property, this.viewContext);
 
                         column.IsSortable = columnAttr.IsSortable;
-                        column.SetWidth(columnAttr.Width);
+                        column.SetWidth(columnAttr.Width, columnAttr.MediumWidth, columnAttr.SmallWidth, columnAttr.ExtraSmallWidth );
                         column.SetOrder(columnAttr.Order);
 
                         System.ComponentModel.DataAnnotations.DisplayAttribute displayAttribute = null;

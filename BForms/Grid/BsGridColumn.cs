@@ -27,7 +27,6 @@ namespace BForms.Grid
         /// Small devices Tablets and Phones
         /// </summary>
         Small = 3,
-
         /// <summary>
         /// Small Phones
         /// </summary>
@@ -151,17 +150,12 @@ namespace BForms.Grid
             return this.SetWidth(largeWidth, mediumWidth, mediumWidth);
         }
 
-        public BsGridColumn<TRow> SetWidth(int largeWidth, int mediumWidth, int normalWidth)
+        public BsGridColumn<TRow> SetWidth(int largeWidth, int mediumWidth, int smallWidth)
         {
-            return this.SetWidth(largeWidth, mediumWidth, normalWidth, normalWidth);
+            return this.SetWidth(largeWidth, mediumWidth, smallWidth, smallWidth);
         }
 
-        public BsGridColumn<TRow> SetWidth(int largeWidth, int mediumWidth, int normalWidth, int smallWidth)
-        {
-            return this.SetWidth(largeWidth, mediumWidth, normalWidth, smallWidth, smallWidth);
-        }
-
-        public BsGridColumn<TRow> SetWidth(int largeWidth, int mediumWidth, int normalWidth, int smallWidth, int extraSmallWidth)
+        public BsGridColumn<TRow> SetWidth(int largeWidth, int mediumWidth, int smallWidth, int extraSmallWidth)
         {
             this.widthSizes = new List<BsColumnWidth>();
             this.widthSizes.Add(new BsColumnWidth
@@ -173,19 +167,19 @@ namespace BForms.Grid
             this.widthSizes.Add(new BsColumnWidth
             {
                 ScreenType = BsScreenType.Medium,
-                Size = mediumWidth
+                Size = mediumWidth == 0 ? largeWidth : mediumWidth
             });
 
             this.widthSizes.Add(new BsColumnWidth
             {
                 ScreenType = BsScreenType.Small,
-                Size = smallWidth
+                Size = smallWidth == 0 ?  (mediumWidth == 0 ? largeWidth : mediumWidth ): smallWidth
             });
 
             this.widthSizes.Add(new BsColumnWidth
             {
                 ScreenType = BsScreenType.ExtraSmall,
-                Size = extraSmallWidth
+                Size = extraSmallWidth == 0 ? (smallWidth == 0 ? (mediumWidth == 0 ? largeWidth : mediumWidth) : smallWidth) : extraSmallWidth
             });
 
             return this;

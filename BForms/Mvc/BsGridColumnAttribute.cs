@@ -53,6 +53,21 @@ namespace BForms.Mvc
         /// </summary>
         public int Width { get; set; }
 
+        /// <summary>
+        /// Column width expected values 1-12
+        /// </summary>
+        public int MediumWidth { get; set; }
+
+        /// <summary>
+        /// Column width expected values 1-12
+        /// </summary>
+        public int SmallWidth { get; set; }
+
+        /// <summary>
+        /// Column width expected values 1-12
+        /// </summary>
+        public int ExtraSmallWidth { get; set; }
+
         private BsGridColumnUsage _usage = BsGridColumnUsage.Both;
 
         /// <summary>

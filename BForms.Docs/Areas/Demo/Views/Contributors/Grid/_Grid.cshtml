@@ -12,21 +12,17 @@
       {
           //cols.NoHeader();
           cols.For(row => row.Name).Name(Resource.Name)
-              .SetWidth(2)
               .Sortable();
 
           cols.For(row => row.Role).Name("Role")
-              .SetWidth(3)
               .Sortable()
               .Text(row => Html.GetRoleIcon(row.Role) + " " + Html.BsEnumDisplayName(row.Role));
 
           cols.For(row => row.StartDate).Name("Contributor since")
-              .SetWidth(3)
               .Sortable()
               .Text(row => Html.BsGlyphicon(Glyphicon.Calendar) + " " + row.StartDate.ToMonthNameDate());
 
           cols.For(row => row.Contributions).Name("Contributions")
-              .SetWidth(3)
               .Sortable()
               .Text(row => string.IsNullOrEmpty(row.Contributions) ? "" : String.Join(", ", row.Contributions.Split(new[] { ',' }).Take(2)));
 
