@@ -134,6 +134,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Demo\Controllers\ContributorsController.cs" />
+    <Compile Include="Areas\Demo\Controllers\FormBuilderController.cs" />
     <Compile Include="Areas\Demo\Controllers\LoginController.cs" />
     <Compile Include="Areas\Demo\Controllers\GroupEditorController.cs" />
     <Compile Include="Areas\Demo\Controllers\UserProfileController.cs" />
@@ -269,11 +270,17 @@
     <Content Include="Scripts\BForms\Plugins\Rangepicker\images\icn-arr-down.png" />
     <Content Include="Scripts\BForms\Plugins\Rangepicker\images\icn-arr-up.png" />
     <Content Include="Scripts\BForms\Plugins\Rangepicker\images\icn-remove.png" />
+    <Content Include="Scripts\BForms\Stylesheets\bforms.formbuilder.css" />
     <Content Include="Scripts\BForms\Widgets\FileUpload\bforms.fileUpload.js" />
+    <Content Include="Scripts\BForms\Widgets\FormBuilder\bforms.formBuilder.formRenderer.js" />
+    <Content Include="Scripts\BForms\Widgets\FormBuilder\bforms.formBuilder.js" />
+    <Content Include="Scripts\BForms\Widgets\FormBuilder\bforms.formBuilder.models.js" />
+    <Content Include="Scripts\BForms\Widgets\FormBuilder\bforms.formBuilder.templates.js" />
     <Content Include="Scripts\BForms\Widgets\Grid\js\bforms.toolbar.order.js" />
     <Content Include="Scripts\BForms\Widgets\InlineQuestion\bforms.inlineQuestion.js" />
     <Content Include="Scripts\BForms\Widgets\Sortable\bforms.sortable.js" />
     <Content Include="Scripts\BForms\Widgets\Taglist\bforms.taglist.js" />
+    <Content Include="Scripts\Controllers\Demo\FormBuilder\index.js" />
     <Content Include="Scripts\Controllers\Demo\UserProfile\userprofile-index.js" />
     <Content Include="Scripts\Controllers\Root\Docs\docs-groupeditor.js" />
     <Content Include="Scripts\Controllers\Root\Docs\docs-panel.js" />
@@ -1714,6 +1721,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Start\Group\Source\_HomeIndexJsInitSearch.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Demo\Views\FormBuilder\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\BForms\Stylesheets\bforms.formbuilder.scss" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
