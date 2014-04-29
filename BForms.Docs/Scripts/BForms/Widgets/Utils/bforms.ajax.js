@@ -135,7 +135,7 @@
         var xhrSettings = $.extend({}, this.getDefaultOptions(), opts),
             jqXHR = null;
 
-        if (this.getDefaultOptions().parseQueryString === true) {
+        if (opts.parseQueryString === true) {
             $.extend(true, xhrSettings.data, this._getQueryStringObject());
         }
 
