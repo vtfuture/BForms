@@ -1179,7 +1179,7 @@
             $(this.options.expandToggleSelector).hide();
         }
 
-        if (this.options.goTopAfterPagination) {
+        if (this.options.goTopAfterPagination && callbackData.pageChanged == true) {
             $.bforms.scrollToElement(this.element);
         }
     };
