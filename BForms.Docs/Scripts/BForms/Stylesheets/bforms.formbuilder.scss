@@ -1,0 +1,71 @@
+﻿.border {
+	border: 1px solid #e8e8e8 !important;
+}
+
+.form_builder {
+
+	.form_builder-controlsList {	
+		list-style-type: none;
+        margin-top: 10px;
+
+		.form_builder-controlItem {
+			margin-top: 10px;
+			.badge{
+
+				@extend .border
+
+				color: black;
+				background-color: white;
+				
+				&:hover{
+					background-color: #999999;
+				}
+			}
+		}
+	}
+
+	li {	
+		a {		
+			h1 {
+                border-bottom: none !important;
+                display: inline;			
+			}
+		}
+	}
+
+	.form_builder-settingsContainer {
+		h3 {
+			margin-bottom: 10px;
+			border-bottom: 1px solid #eee;
+			position: relative;
+			font-weight: normal;
+			font-size: 14px;
+			padding: 5px 0;
+		}
+	}
+
+	[data-addon-toggle]:not([data-addon-toggle="grab"]){
+		cursor: pointer;
+	}
+
+	[data-addon-toggle="grab"] {
+		cursor: move;
+	}
+
+	.form_builder-properties {
+		h3 {
+			font-size: 17px;
+			&:hover {
+				border-bottom: 1px solid black;
+				cursor: pointer;
+			}
+		}
+
+		a {
+			margin-left: 4px;
+			&:hover{
+				color: black;
+			}
+		}
+	}
+}
