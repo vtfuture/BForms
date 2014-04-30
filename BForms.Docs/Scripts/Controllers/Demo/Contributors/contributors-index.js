@@ -23,6 +23,7 @@
         this.initGrid();
         this.initToolbar();
         this.initHistory();
+        this.historyTimestamps = []; // Array of unique timestamps.
         //this.$toolbar.bsToolbar('toggleControl', 'add');
     };
     //#endregion
@@ -238,49 +239,30 @@
         if (!History.enabled) { // browser doesn't support history js
             return false;
         }
+        var t = new Date().getTime();
 
         if (data.ComponentState) {
-            this.changedState = true;
-            History.pushState({ state: data.ComponentState }, "ContributorsGridState", "?stateId=" + data.ComponentState);
-        } else {
-
-            if (!this.fromResetToolbar) {
-                History.back();
-            } else {
-                this.fromResetToolbar = false;
-            }
+            this.historyTimestamps[t] = t;
+            History.pushState({ state: data.ComponentState, parseForm: data.sendData, timestamp: t }, "ContributorsGridState", "?stateId=" + data.ComponentState);
+        } else if (data.sendData.fromReset) {
+            this.historyTimestamps[t] = t;
+            History.pushState({ state:null, parseForm:null, timestamp: t }, "ContributorsGridState", window.location.pathname);
         }
     };
 
     GridIndex.prototype.initHistory = function () {
 
-        this.changedState = false;
-        this.fromResetToolbar = false;
-
         History.Adapter.bind(window, 'statechange', $.proxy(function () {
 
-            if (!this.changedState) { // back or forward browser btn
+            var state = History.getState();
 
-                var State = History.getState();
-
-                if (!State.data.state) { // back button
-
-                    this.fromResetToolbar = true;
-
-                    this.$toolbar.bsToolbar('reset');
-
-                } else { // forward button
-
-                    window.location.href = State.url;
-
-                }
-
-            } else { // programatically pushed state
-
-                this.changedState = false;
-
+            if (state.data.timestamp in this.historyTimestamps) {
+                // Deleting the unique timestamp associated with the state
+                delete this.historyTimestamps[state.data.timestamp];
+            } else {
+                // Manage Back/Forward button here      
+                window.location.href = state.url;
             }
-
         }, this));
 
     };

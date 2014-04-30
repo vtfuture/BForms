@@ -1127,6 +1127,8 @@
 
     Grid.prototype._pagerAjaxSuccess = function (data, callbackData) {
 
+        data.sendData = callbackData.sent;
+
         this._trigger('beforePaginationSuccess', 0, data);
 
         this._currentResultsCount = data.Count || 0;

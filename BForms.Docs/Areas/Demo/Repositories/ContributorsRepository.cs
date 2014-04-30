@@ -469,6 +469,11 @@ namespace BForms.Docs.Areas.Demo.Repositories
 
             if (stateModel != null)
             {
+                if (stateModel.Name != null)
+                {
+                    model.Name = stateModel.Name;
+                }
+
                 if (stateModel.IsEnabled != null && stateModel.IsEnabled.SelectedValues.HasValue)
                 {
                     model.IsEnabled.SelectedValues = stateModel.IsEnabled.SelectedValues;
