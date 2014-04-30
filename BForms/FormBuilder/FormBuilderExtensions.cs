@@ -73,10 +73,26 @@ namespace BForms.FormBuilder
 
             defaultControls.Add(new FormBuilderControlViewModel
             {
+                Type = FormBuilderControlType.NumberPickerRange,
+                Glyphicon = Glyphicon.PlusSign,
+                Text = "Number picker range",
+                Order = 4
+            });
+
+            defaultControls.Add(new FormBuilderControlViewModel
+            {
                 Type = FormBuilderControlType.DatePicker,
                 Glyphicon = Glyphicon.Calendar,
                 Text = "Date picker",
-                Order = 4
+                Order = 5
+            });
+
+            defaultControls.Add(new FormBuilderControlViewModel
+            {
+                Type = FormBuilderControlType.DatePickerRange,
+                Glyphicon = Glyphicon.Calendar,
+                Text = "Date picker range",
+                Order = 6
             });
 
             defaultControls.Add(new FormBuilderControlViewModel
@@ -84,7 +100,23 @@ namespace BForms.FormBuilder
                 Type = FormBuilderControlType.RadioButtonList,
                 Glyphicon = Glyphicon.ListAlt,
                 Text = "Radio button list",
-                Order = 5
+                Order = 7
+            });
+
+            defaultControls.Add(new FormBuilderControlViewModel
+            {
+                Type = FormBuilderControlType.Checkbox,
+                Glyphicon = Glyphicon.Check,
+                Text = "Checkbox",
+                Order = 8
+            });
+
+            defaultControls.Add(new FormBuilderControlViewModel
+            {
+                Type = FormBuilderControlType.CheckboxList,
+                Glyphicon = Glyphicon.Check,
+                Text = "Checkbox list",
+                Order = 9
             });
 
             defaultControls.Add(new FormBuilderControlViewModel
@@ -92,23 +124,31 @@ namespace BForms.FormBuilder
                 Type = FormBuilderControlType.SingleSelect,
                 Glyphicon = Glyphicon.List,
                 Text = "Select list",
-                Order = 6
+                Order = 10
             });
 
             defaultControls.Add(new FormBuilderControlViewModel
             {
-                Type = FormBuilderControlType.MultipleSelect,
+                Type = FormBuilderControlType.ListBox,
+                Glyphicon = Glyphicon.Tag,
+                Text = "List box",
+                Order = 11
+            });
+
+            defaultControls.Add(new FormBuilderControlViewModel
+            {
+                Type = FormBuilderControlType.TagList,
                 Glyphicon = Glyphicon.Tags,
-                Text = "Multiple select list",
-                Order = 7
+                Text = "Tag list",
+                Order = 12
             });
 
             defaultControls.Add(new FormBuilderControlViewModel
             {
                 Type = FormBuilderControlType.Title,
-                Glyphicon = Glyphicon.Font,
+                Glyphicon = Glyphicon.TextWidth,
                 Text = "Title",
-                Order = 8
+                Order = 13
             });
 
             defaultControls.Add(new FormBuilderControlViewModel
@@ -116,7 +156,7 @@ namespace BForms.FormBuilder
                 Type = FormBuilderControlType.Pagebreak,
                 Glyphicon = Glyphicon.LogIn,
                 Text = "Pagebreak",
-                Order = 9
+                Order = 14
             });
 
             return defaultControls;

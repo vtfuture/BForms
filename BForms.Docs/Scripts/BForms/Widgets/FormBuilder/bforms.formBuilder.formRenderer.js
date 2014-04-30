@@ -125,14 +125,14 @@
             type = model.type,
             glyphicon = model.glyphicon,
             description = model.description;
- 
+
         var required = model.constraints ? model.constraints.required : false;
 
         var labelModel = {
-                text: labelText,
-                controlId: id,
-                required: required
-            },
+            text: labelText,
+            controlId: id,
+            required: required
+        },
             glyphiconModel = {
                 glyphicon: glyphicon
             },
@@ -199,9 +199,148 @@
 
     FormRenderer.prototype.renderDropdown = function (model) {
 
+        model.name = model.name + '.SelectedValues';
+
+        model = $.extend(true, {}, model, {
+            id: this._generateIdFromName(model.name)
+        });
+
         var dropdown = ich.dropdown(model, true);
 
         return this.renderControlGroup(model, dropdown);
+    };
+
+    FormRenderer.prototype.renderRadioButtonList = function (model) {
+
+        model.name = model.name + '.SelectedValues';
+
+        var id = this._generateIdFromName(model.name);
+
+        var items = model.items ? model.items.map(function (item, index) {
+
+            return {
+                value: item.value,
+                label: item.label,
+                controlName: model.name,
+                id: id + '_' + index,
+                selected: model.selectedValue === item.value
+            };
+
+        }) : [];
+
+        var radioListModel = $.extend(true, {}, model, {
+            items: items
+        });
+
+        var radioButtonList = ich.radioButtonList(radioListModel, true);
+
+        return this.renderControlGroup(radioListModel, radioButtonList);
+    };
+
+    FormRenderer.prototype.renderTextArea = function (model) {
+
+        model = $.extend(true, {}, model, {
+            id: this._generateIdFromName(model.name)
+        });
+
+        var textArea = ich.textArea(model, true);
+
+        return this.renderControlGroup(model, textArea);
+    };
+
+    FormRenderer.prototype.renderTagList = function (model) {
+
+        model.name = model.name + '.SelectedValues';
+
+        model = $.extend(true, {}, model, {
+            id: this._generateIdFromName(model.name)
+        });
+
+        var multiSelect = ich.tagList(model, true);
+
+        return this.renderControlGroup(model, multiSelect);
+    };
+
+    FormRenderer.prototype.renderListBox = function (model) {
+
+        model.name = model.name + '.SelectedValues';
+
+        var listBox = ich.listBox(model, true);
+
+        return this.renderControlGroup(model, listBox);
+    };
+
+    FormRenderer.prototype.renderTitle = function (model) {
+
+        var title = ich.formTitle(model, true);
+
+        model.glyphicon = null;
+
+        return this.renderControlGroup(model, title);
+    };
+
+    FormRenderer.prototype.renderDatePicker = function (model) {
+
+        model = $.extend(true, {}, model, {
+            id: this._generateIdFromName(model.name)
+        });
+
+        var datePicker = ich.datePicker(model, true);
+
+        return this.renderControlGroup(model, datePicker);
+    };
+
+    FormRenderer.prototype.renderDatePickerRange = function (model) {
+
+        model = $.extend(true, {}, model, {
+            id: this._generateIdFromName(model.name)
+        });
+
+        var datePicker = ich.datePickerRange(model, true);
+
+        return this.renderControlGroup(model, datePicker);
+    };
+
+    FormRenderer.prototype.renderCheckBox = function (model) {
+
+        model = $.extend(true, {}, model, {
+            id: this._generateIdFromName(model.name)
+        });
+
+        var checkBox = ich.checkBox(model, true);
+
+        return this.renderControlGroup(model, checkBox);
+    };
+
+    FormRenderer.prototype.renderCheckBoxList = function (model) {
+
+        model.name = model.name + '.SelectedValues';
+
+        var id = this._generateIdFromName(model.name);
+
+        model = $.extend(true, {}, model, {
+            id: id
+        });
+
+        var items = model.items ? model.items.map(function (item, index) {
+
+            return {
+                value: item.value,
+                label: item.label,
+                controlName: model.name,
+                id: id + '_' + index,
+                selected: model.selectedValue === item.value
+            };
+
+        }) : [];
+
+        var checkBoxListModel = $.extend(true, {}, model, {
+            items: items
+        });
+
+        var checkBoxList = ich.checkBoxList(checkBoxListModel, true);
+
+        return this.renderControlGroup(model, checkBoxList);
     };
 
     FormRenderer.prototype.renderCustomControl = function (controlName, model) {
@@ -220,6 +359,10 @@
     // #region private methods
 
     FormRenderer.prototype._generateIdFromName = function (name) {
+
+        if (typeof name != 'string') {
+            return null;
+        }
 
         var dotReplacement = this.options.idDotReplacement || '_',
             id = name.replace(/\./g, dotReplacement);
@@ -248,6 +391,15 @@
         }
 
         return model;
+    };
+
+    FormRenderer.prototype._getGlyphiconName = function(glyphiconClass) {
+
+        if (typeof glyphiconClass != 'string') {
+            return '';
+        }
+
+        return glyphiconClass.replace('glyphicon-', '');
     };
 
     // #endregion

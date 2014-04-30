@@ -66,13 +66,14 @@
         this.$form = this.$element.find(this.options.formSelector);
     };
 
-    FormBuilder.prototype._initMembers = function() {
+    FormBuilder.prototype._initMembers = function () {
 
         this.renderer = new FormRenderer({
             defaultAddons: this._defaultAddons
         });
 
         this.formModel = [];
+        this.resource = this.options.resource;
         this.draggedControl = null;
 
         var controlsOptions = JSON.parse(this.$element.attr('data-controls'));
@@ -89,6 +90,17 @@
 
     FormBuilder.prototype._initForm = function () {
 
+        this._initSpoofModel();
+
+        this._renderForm(this.formModel);
+        this._initFormControlsSort();
+        this._initFormControlsResize();
+        this._initFormControlActions();
+        this._computeFormSize();
+    };
+
+    FormBuilder.prototype._initSpoofModel = function () {
+
         this.formModel.push({
             type: models.controlTypes.textBox,
             label: 'First name',
@@ -100,35 +112,6 @@
             },
             constraints: {
                 required: true
-            }
-        });
-
-        this.formModel.push({
-            type: models.controlTypes.singleSelect,
-            label: 'Race',
-            name: 'Race',
-            glyphicon: 'list',
-            size: 12,
-            options: [
-                {
-                    text: 'Arian',
-                    value: 1
-                },
-                {
-                    text: 'Non-Arian',
-                    value: 2
-                }
-            ],
-            widget: 'select2',
-            widgetOptions: {
-                query: function () {
-
-                }
-            },
-            properties: {
-            },
-            constraints: {
-                required: false
             }
         });
 
@@ -146,17 +129,118 @@
             }
         });
 
-        this._renderForm(this.formModel);
-        this._initFormControlsSort();
-        this._initFormControlsResize();
-        this._initFormControlActions();
+        //this.formModel.push({
+        //    type: models.controlTypes.title,
+        //    text: 'Highlights',
+        //    glyphicon: 'glyphicon-star-empty'
+        //});
+
+        this.formModel.push({
+            type: models.controlTypes.singleSelect,
+            label: 'location',
+            name: 'Location',
+            glyphicon: 'map-marker',
+            size: 12,
+            items: [
+                {
+                    text: 'Bucharest',
+                    value: 1
+                },
+                {
+                    text: 'Militari',
+                    value: 2
+                }
+            ],
+            widget: 'select2',
+            widgetOptions: {
+                query: function () {
+
+                }
+            },
+            properties: {
+            },
+            constraints: {
+                required: false
+            }
+        });
+
+        this.formModel.push({
+            type: models.controlTypes.radioButtonList,
+            label: 'Role',
+            name: 'Role',
+            glyphicon: 'star',
+            size: 12,
+            selectedValue: 2,
+            items: [
+                {
+                    value: 1,
+                    label: 'Team leader'
+                },
+                {
+                    value: 2,
+                    label: 'Developer'
+                },
+                {
+                    value: 3,
+                    label: 'Tester'
+                }
+            ],
+            properties: {
+
+            },
+            constraints: {
+                required: true
+            }
+        });
+
+        this.formModel.push({
+            type: models.controlTypes.textArea,
+            label: 'Description',
+            name: 'Description',
+            glyphicon: 'font',
+            size: 12,
+            properties: {
+
+            },
+            constraints: {
+                required: false
+            }
+        });
+
+        this.formModel.push({
+            type: models.controlTypes.tagList,
+            label: 'Languages',
+            name: 'Languages',
+            glyphicon: 'tags',
+            size: 12,
+            items: [
+                {
+                    value: 'C#',
+                    text: 'C#'
+                },
+                {
+                    value: 'JavaScript',
+                    text: 'JavaScript'
+                },
+                {
+                    value: 'Perl',
+                    text: 'Perl'
+                }
+            ],
+            properties: {
+
+            },
+            constraints: {
+                required: false
+            }
+        });
     };
 
     FormBuilder.prototype._initProperties = function () {
 
         var $properties = this.renderer.renderControlProperties(models.controlTypes.textBox);
 
-        this.$propertiesTab.append($properties);
+        // this.$propertiesTab.append($properties);
     };
 
     FormBuilder.prototype._initControlsDrag = function () {
@@ -173,29 +257,14 @@
             zIndex: 100,
             opacity: '0.85',
             connectWith: this.$form.find(this.options.formContainerSelector),
-            drag: function (e,ui) {
+            drag: function (e, ui) {
 
                 var $controlItem = ui.item;
 
                 context.draggedControlType = $controlItem.attr('data-controltype');
             },
             helper: function (e, $item) {
-
                 return $item.get(0);
-
-                var controlHtml = context._renderControl({
-                    type: models.controlTypes.textBox,
-                    label: 'New Textbox',
-                    glyphicon: 'font',
-                    name: 'temp',
-                    size: 12
-                });
-
-                var $control = $(controlHtml);
-
-                $item.data('control', $control);
-
-                return $($control).get(0);
             }
         });
     };
@@ -228,19 +297,30 @@
 
             var width = parseInt($item.css('width').replace('px', ''));
 
-            $item.resizable({
-                handles: {
-                    e: $handle
-                },
-                grid: [width / 2, width / 2]
+            if ($handle.length != 0) {
+                $item.resizable({
+                    handles: {
+                        e: $handle
+                    },
+                    grid: [width / 2, width / 2]
 
-            });
+                });
+            }
         });
     };
 
     FormBuilder.prototype._initFormControlActions = function () {
 
         this.$form.on('click', this.options.formControlAddonSelector, $.proxy(this._evFormControlActionClick, this));
+    };
+
+    FormBuilder.prototype._computeFormSize = function () {
+
+        var height = this.$controlItemsList.css('height').replace('px', '');
+
+        height = parseInt(height) + 22;
+
+        this.$form.css('height', height);
     };
 
     FormBuilder.prototype._renderInitialControls = function (initialControls) {
@@ -276,8 +356,35 @@
             case models.controlTypes.textBox: {
                 return this.renderer.renderTextBox(model);
             }
+            case models.controlTypes.textArea: {
+                return this.renderer.renderTextArea(model);
+            }
             case models.controlTypes.singleSelect: {
                 return this.renderer.renderDropdown(model);
+            }
+            case models.controlTypes.radioButtonList: {
+                return this.renderer.renderRadioButtonList(model);
+            }
+            case models.controlTypes.tagList: {
+                return this.renderer.renderTagList(model);
+            }
+            case models.controlTypes.title: {
+                return this.renderer.renderTitle(model);
+            }
+            case models.controlTypes.listBox: {
+                return this.renderer.renderListBox(model);
+            }
+            case models.controlTypes.datePicker: {
+                return this.renderer.renderDatePicker(model);
+            }
+            case models.controlTypes.datePickerRange: {
+                return this.renderer.renderDatePickerRange(model);
+            }
+            case models.controlTypes.checkBox: {
+                return this.renderer.renderCheckBox(model);
+            }
+            case models.controlTypes.checkBoxList: {
+                return this.renderer.renderCheckBoxList(model);
             }
         }
 
@@ -300,28 +407,32 @@
         var $target = $(e.target).is('a') ? $(e.target) : $(e.target).parents('a:first'),
             $controlItem = $target.parents(this.options.controlItemSelector),
             $lastFormControl = this.$form.find(this.options.formControlSelector + ':last'),
-            controlType = $controlItem.attr('data-controlType');
+            controlType = $controlItem.attr('data-controlType'),
+            displayName = $controlItem.attr('data-name'),
+            glyphicon = $controlItem.attr('data-glyphicon');
 
-        var newControl = this._createNewControl(controlType);
+        var newControl = this._createNewControl(controlType, displayName, glyphicon);
 
-        this._appendControl(newControl, {after: $lastFormControl});
+        this._appendControl(newControl, { after: $lastFormControl });
     };
 
     FormBuilder.prototype._evFormReceive = function (e, ui) {
 
         var $controlItem = ui.item,
             type = parseInt($controlItem.attr('data-controltype')),
-            name = $controlItem.attr('data-name') || 'control name',
+            name = $controlItem.attr('data-name'),
             position = $controlItem.attr('data-position'),
-            glyphicon = $controlItem.attr('data-glyphicon') || 'pencil',
+            glyphicon = $controlItem.attr('data-glyphicon'),
+            displayName = $controlItem.attr('data-name'),
             $newControlItem = this.renderer.renderControlListItem({
                 type: type,
                 name: name,
-                glyphicon: glyphicon
+                glyphicon: glyphicon,
+                order: position
             });
 
-        var newControl = this._createNewControl(type);
-   
+        var newControl = this._createNewControl(type, displayName, glyphicon);
+
         this._appendControlItem($newControlItem, position);
         this._appendControl(newControl, { replace: ui.item });
     };
@@ -344,6 +455,9 @@
             $after = options ? options.after : null,
             $toReplace = options ? options.replace : null;
 
+        $control.attr('data-controlType', control.type);
+        $control.attr('data-uid', this._generateUid());
+
         if (!options) {
             $formContainer.append($control);
         } else {
@@ -362,7 +476,7 @@
             control: control,
             $element: $control
         });
-         
+
         this.formModel.push(control);
     };
 
@@ -374,7 +488,9 @@
         if (typeof control.applyWidget == 'function') {
             control.applyWidget($control);
         } else {
-            $control.bsInitUI();
+            if (!control.noInitUI) {
+                $control.bsInitUI();
+            }
         }
     };
 
@@ -398,17 +514,139 @@
         }
     };
 
-    FormBuilder.prototype._createNewControl = function (type) {
+    FormBuilder.prototype._createNewControl = function (type, displayName, glyphicon) {
 
         type = parseInt(type);
 
-        var control = {
-            type: type,
-            name: 'New',
-            label: 'New control'
+        var name = this._getControlTypeName(type),
+            defaultModel = {
+                type: type,
+                name: 'New.' + name,
+                label: 'New ' + displayName,
+                glyphicon: this.renderer._getGlyphiconName(glyphicon)
+            },
+            model = {};
+
+        var defaultListItems = [
+            {
+                value: '',
+                text: 'Choose'
+            },
+            {
+                value: 1,
+                text: 'A'
+            },
+            {
+                value: 2,
+                text: 'B'
+            }
+        ];
+
+        var defaultRadioListItems = [
+            {
+                value: 1,
+                label: 'A'
+            },
+            {
+                value: 2,
+                label: 'B'
+            }
+        ];
+
+        var defaultDatePickerModel = {
+            textValueName: 'New.' + name + '.TextValue',
+            textValueId: this.renderer._generateIdFromName('New.' + name + '.TextValue'),
+            dateValueName: 'New.' + name + '.DateValue',
+            dateValueId: this.renderer._generateIdFromName('New.' + name + '.DateValue')
         };
 
-        return control;
+        switch (type) {
+            case models.controlTypes.title:
+                {
+                    model = {
+                        text: 'Title',
+                        glyphicon: 'glyphicon-header'
+                    };
+
+                    break;
+                }
+            case models.controlTypes.singleSelect:
+                {
+                    model = {
+                        items: defaultListItems
+                    };
+
+                    break;
+                }
+            case models.controlTypes.listBox:
+                {
+                    model = {
+                        items: defaultListItems
+                    };
+
+                    break;
+                }
+            case models.controlTypes.tagList:
+                {
+                    model = {
+                        items: defaultListItems
+                    };
+
+                    break;
+                }
+            case models.controlTypes.radioButtonList:
+                {
+                    model = {
+                        items: defaultRadioListItems
+                    };
+
+                    break;
+                }
+            case models.controlTypes.datePicker:
+                {
+                    model = defaultDatePickerModel;
+
+                    break;
+                }
+            case models.controlTypes.datePickerRange:
+                {
+                    var fromName = 'New.' + name + '.From.TextValue',
+                        toName = 'New.' + name + '.To.TextValue';
+
+                    var rangePickerModel = {
+                        fromName: fromName,
+                        fromId: this.renderer._generateIdFromName(fromName),
+                        toName: toName,
+                        toId: this.renderer._generateIdFromName(toName)
+                    };
+
+                    $.extend(true, model, defaultDatePickerModel, rangePickerModel);
+
+                    break;
+                }
+            case models.controlTypes.checkBox:
+                {
+                    model = {
+                        items: defaultRadioListItems
+                    };
+
+                    break;
+                }
+            case models.controlTypes.checkBoxList:
+                {
+                    model = {
+                        items: defaultRadioListItems
+                    };
+
+                    break;
+                }
+            default:
+                {
+                    break;
+                }
+        }
+
+        return $.extend(true, defaultModel, model);
     };
 
     // #endregion
@@ -429,6 +667,41 @@
         };
 
         return model;
+    };
+
+    FormBuilder.prototype._generateUid = function () {
+
+        this._uid = this._uid ? this._uid + 1 : 1;
+
+        return this._uid;
+    };
+
+    FormBuilder.prototype._getControlTypeName = function (controlType) {
+
+        for (var name in models.controlTypes) {
+            if (models.controlTypes.hasOwnProperty(name) && models.controlTypes[name] === controlType) {
+                return name;
+            }
+        }
+
+        return null;
+    };
+
+    FormBuilder.prototype._getLocalizedString = function (string) {
+
+        if (typeof string != 'string') {
+            return null;
+        }
+
+        if (typeof this.resource == 'object' && this.resource != null) {
+            return this.resource[string];
+        }
+
+        if (typeof this.resource == 'function') {
+            return this.resource(string);
+        }
+
+        return string;
     };
 
     // #endregion
