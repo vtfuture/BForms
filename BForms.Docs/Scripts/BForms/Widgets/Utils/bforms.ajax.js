@@ -103,11 +103,11 @@
         }
     };
 
-    AjaxWrapper.prototype._getQueryStringObject = function () {
+    AjaxWrapper.prototype._getQueryStringObject = function() {
         var pairs = location.search.slice(1).split('&');
         var result = {};
 
-        pairs.forEach(function (pair) {
+        pairs.forEach(function(pair) {
             if (pair) {
                 pair = pair.split('=');
                 result[pair[0]] = decodeURIComponent(pair[1] || '');
@@ -115,7 +115,7 @@
         });
 
         return JSON.parse(JSON.stringify(result));
-    }
+    };
     //#endregion
 
     //#region public methods
@@ -266,7 +266,7 @@
 
                     try {
 
-                        if (typeof jqXHR.responseText !== "undefined") {
+                        if (typeof jqXHR.responseText !== "undefined" && jqXHR.responseText != '') {
 
                             var response = JSON.parse(jqXHR.responseText);
 
