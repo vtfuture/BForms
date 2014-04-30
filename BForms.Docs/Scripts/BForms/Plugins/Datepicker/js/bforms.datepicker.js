@@ -1583,6 +1583,10 @@
     //#endregion
 
     //#region public methods
+    bDatepicker.prototype.reposition = function() {
+        this._positionPicker();
+    };
+
     bDatepicker.prototype.show = function (position) {
 
         if (this._visible !== true) {

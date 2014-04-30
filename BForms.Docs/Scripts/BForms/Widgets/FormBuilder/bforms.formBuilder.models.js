@@ -2,7 +2,21 @@
 
     var controlTypes = {
         textBox: 1,
-        singleSelect: 7
+        textArea: 2,
+        numberPicker: 3,
+        numberPickerRange: 4,
+        decimalNumberPicker: 5,
+        datePicker: 6,
+        datePickerRange: 7,
+        timePicker: 8,
+        singleSelect: 9,
+        tagList: 10,
+        listBox: 11,
+        radioButtonList: 12,
+        checkBoxList: 13,
+        checkBox: 14,
+        pagebreak: 15,
+        title: 16
     };
 
     var propertiesModels = [
