@@ -26,7 +26,7 @@
                                 '</div>' +
                             '</div>',
 
-        controlListItem: '<li class="form_builder-controlItem list-group-item" data-controltype="{{type}}" data-position="{{order}}" data-name="{{name}}" data-glyphicon="{{glyphicon}}">' +
+        controlListItem: '<li class="form_builder-controlItem list-group-item" data-controltype="{{type}}" data-position="{{order}}" data-name="{{name}}" data-glyphicon="{{glyphicon}}" data-controlname="{{controlName}}" data-tabid="{{tabId}}">' +
                             '<span class="form_builder-controlItem-glyphicon {{glyphicon}} glyphicon"></span>' +
                             '<a class="badge form_builder-controlItem-add">' +
                                 '<span class="glyphicon glyphicon-plus"></span>' +
@@ -126,7 +126,7 @@
                          '<input class="bs-range-from" data-allowdeselect="{{fromAllowDeselect}}" data-for="{{textValueName}}" id="{{fromId}}" name="{{fromName}}" type="hidden" value="{{fromValue}}" data-minvalue="{{fromMinValue}}" data-maxvalue="{{fromMaxValue}}">' +
                          '<input class="bs-range-to" data-allowdeselect="{{toAllowDeselect}}" data-for="{{textValueName}}" id="{{toId}}" name="{{toName}}" type="hidden" value="{{toValue}}" data-minvalue="{{toMinValue}}" data-maxvalue="{{toMaxValue}}">',
 
-        checkBox: 'Do we really need a checkbox? :-/',
+        checkBox: '<input type="checkbox" {{#checked}}checked="checked"{{/checked}} />',
 
         checkBoxList: '<div class="form-control bs-checkbox-list checkBoxList-done" id="{{id}}" style="display:none;">' +
                           '{{#items}}' +
@@ -143,10 +143,30 @@
                                 '<a data-value="{{value}}" class="option">{{label}}</a>' +
                             '{{/items}}' +
                         '</div>' +
-                      '</div>'
+                      '</div>',
+
+        numberPicker: '<input class="form-control bs-number-inline bs-number-single_range_inline" id="{{textValueId}}" name="{{textValueName}}" type="text" value="{{textValue}}" />' +
+                      '<input class="bs-number-value" data-for="{{textValueName}}" data-maxvalue="{{maxValue}}" data-minvalue="{{minValue}}" id="{{itemValueId}}" name="{{itemValueName}}" type="hidden" value="{{itemValue}}" />',
+
+        numberPickerRange: '<input class="form-control bs-number-range" id="{{textValueId}}" name="{{textValueName}}" type="" value="{{fromTextValue}} - {{toTextValue}}">' +
+                           '<input class="bs-range-from" data-allowdeselect="{{fromAllowDeselect}}" data-display="{{fromDisplay}}" data-for="{{textValueName}}" data-minvalue="{{fromMinValue}}" data-maxvalue="{{fromMaxValue}}" id="{{fromId}}" name="{{fromName}}" type="hidden" value="{{fromValue}}">' +
+                           '<input class="bs-range-to" data-allowdeselect="{{toAllowDeselect}}" data-display="{{toDisplay}}" data-for="{{textValueName}}" data-minvalue="{{toMinValue}}" data-maxvalue="{{toMaxValue}}" id="{{toId}}" name="{{toName}}" type="hidden" value="{{toValue}}">',
+
+        pageBreak: '<div class="col-lg-12 col-md-12 col-sm-12">' +
+                       '<hr/>' +
+                   '</div>'
     };
 
-    var templates = $.extend(true, {}, wrapperTemplates, validationTemplates, controlsTemplates, helperTemplates);
+    var builderTemplates = {
+        
+        tabControl: '<div class="btn-group btn-group-justified form_builder-tabControl">' +
+                                '{{#tabs}}' +
+                                    '<a role="button" class="btn btn-default form_builder-tabBtn" data-tabId="{{id}}">{{text}}</a>' +
+                                '{{/tabs}}' +
+                            '</div>'
+    };
+
+    var templates = $.extend(true, {}, wrapperTemplates, validationTemplates, controlsTemplates, helperTemplates, builderTemplates);
 
     return templates;
 };

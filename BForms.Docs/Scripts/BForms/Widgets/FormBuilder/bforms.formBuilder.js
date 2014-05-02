@@ -16,6 +16,8 @@
         controlItemAddSelector: '.form_builder-controlItem-add',
         controlItemLabelSelector: '.form_builder-controlItem-label',
         formTabSelector: '.form_builder-tab.form_builder-form',
+        controlTabSelector: '.form_builder-tabBtn',
+        controlsTabWrapperSelector: '.form_builder-controlsWrapper',
         formControlSelector: '.form_builder-formControl',
         formControlAddonSelector: '[data-addon-toggle]',
         propertiesTabSelector: '.form_builder-tab.form_builder-properties'
@@ -43,6 +45,15 @@
             glyphicon: 'remove-circle'
         }
     ];
+
+    FormBuilder.prototype._defaultActions = {
+
+        grab: 'grab',
+        up: 'up',
+        down: 'down',
+        settings: 'settings',
+        close: 'close'
+    }
 
     // #region init
 
@@ -85,6 +96,7 @@
 
         this._renderInitialControls(this.availableControls);
 
+        this._initControlsTabs();
         this._initControlsDrag();
     };
 
@@ -129,15 +141,9 @@
             }
         });
 
-        //this.formModel.push({
-        //    type: models.controlTypes.title,
-        //    text: 'Highlights',
-        //    glyphicon: 'glyphicon-star-empty'
-        //});
-
         this.formModel.push({
             type: models.controlTypes.singleSelect,
-            label: 'location',
+            label: 'Location',
             name: 'Location',
             glyphicon: 'map-marker',
             size: 12,
@@ -174,11 +180,11 @@
             items: [
                 {
                     value: 1,
-                    label: 'Team leader'
+                    label: 'Lead'
                 },
                 {
                     value: 2,
-                    label: 'Developer'
+                    label: 'Dev'
                 },
                 {
                     value: 3,
@@ -269,6 +275,11 @@
         });
     };
 
+    FormBuilder.prototype._initControlsTabs = function () {
+
+        this.$controlsTab.on('click', this.options.controlTabSelector, $.proxy(this._evControlTabClick, this));
+    };
+
     FormBuilder.prototype._initFormControlsSort = function () {
 
         this.$form.find(this.options.formContainerSelector).sortable({
@@ -316,11 +327,16 @@
 
     FormBuilder.prototype._computeFormSize = function () {
 
-        var height = this.$controlItemsList.css('height').replace('px', '');
+        //var height = this.$controlsTab.find(this.options.controlsTabWrapperSelector).css('height').replace('px', '');
 
-        height = parseInt(height) + 22;
+        var height = 600;
 
-        this.$form.css('height', height);
+        var formHeight = parseInt(height) - 8,
+            propertiesHeight = formHeight + 52;
+
+        this.$controlsTab.find(this.options.controlsTabWrapperSelector).css('height', height);
+        this.$form.css('height', formHeight);
+        this.$propertiesTab.css('height', propertiesHeight);
     };
 
     FormBuilder.prototype._renderInitialControls = function (initialControls) {
@@ -329,10 +345,24 @@
 
             var model = this._mapControlModelToControlListModel(initialControls[i]);
 
-            var $controlItem = this.renderer.renderControlListItem(model);
+            var $controlItem = this.renderer.renderControlListItem(model),
+                $controlItemsList = this._getTab(model.tabId);
 
-            this.$controlItemsList.append($controlItem);
+            $controlItemsList.append($controlItem);
         }
+
+        var $controlItemsLists = this.$element.find(this.options.controlItemsListSelector);
+
+        var context = this;
+
+        $controlItemsLists.each(function (idx, el) {
+
+            var $items = $(el).find(context.options.controlItemSelector);
+
+            $items.each(function(i, e) {
+                $(e).attr('data-position', i + 1);
+            });
+        });
     };
 
     FormBuilder.prototype._renderForm = function (controls) {
@@ -386,6 +416,18 @@
             case models.controlTypes.checkBoxList: {
                 return this.renderer.renderCheckBoxList(model);
             }
+            case models.controlTypes.numberPicker: {
+                return this.renderer.renderNumberPicker(model);
+            }
+            case models.controlTypes.numberPickerRange: {
+                return this.renderer.renderNumberPickerRange(model);
+            }
+            case models.controlTypes.pagebreak: {
+                return this.renderer.renderPageBreak(model);
+            }
+            case models.controlTypes.customControl: {
+                return this.renderer.renderCustomControl(model);
+            }
         }
 
         return null;
@@ -424,16 +466,18 @@
             position = $controlItem.attr('data-position'),
             glyphicon = $controlItem.attr('data-glyphicon'),
             displayName = $controlItem.attr('data-name'),
+            tabId = $controlItem.attr('data-tabid'),
             $newControlItem = this.renderer.renderControlListItem({
                 type: type,
                 name: name,
                 glyphicon: glyphicon,
-                order: position
+                order: position,
+                tabId: tabId
             });
 
         var newControl = this._createNewControl(type, displayName, glyphicon);
 
-        this._appendControlItem($newControlItem, position);
+        this._appendControlItem($newControlItem, position, tabId);
         this._appendControl(newControl, { replace: ui.item });
     };
 
@@ -442,6 +486,30 @@
         e.preventDefault();
 
         console.log('action click');
+    };
+
+    FormBuilder.prototype._evControlTabClick = function (e) {
+
+        e.preventDefault();
+
+        var $btn = $(e.target),
+            alreadySelected = $btn.hasClass('selected');
+
+        if (alreadySelected) {
+            return;
+        }
+
+        var $btnGroup = $btn.parent(),
+            tabId = $btn.attr('data-tabid');
+
+        $btnGroup.find(this.options.controlTabSelector).removeClass('selected');
+        $btn.addClass('selected');
+
+        var $lists = this.$element.find(this.options.controlItemsListSelector),
+            $listToShow = $lists.filter('[data-tabid="' + tabId + '"]');
+
+        $lists.hide();
+        $listToShow.show('slide');
     };
 
     // #endregion
@@ -457,6 +525,7 @@
 
         $control.attr('data-controlType', control.type);
         $control.attr('data-uid', this._generateUid());
+        $control.attr('data-displayName', control.label);
 
         if (!options) {
             $formContainer.append($control);
@@ -468,6 +537,8 @@
 
                 if ($toReplace && $toReplace.length !== 0) {
                     $toReplace.replaceWith($control);
+                } else {
+                    $formContainer.append($control);
                 }
             }
         }
@@ -494,16 +565,18 @@
         }
     };
 
-    FormBuilder.prototype._appendControlItem = function ($item, position) {
+    FormBuilder.prototype._appendControlItem = function ($item, position, tabId) {
 
         position = parseInt(position);
 
-        var $items = this.$controlItemsList.find(this.options.controlItemSelector);
+        var $controlItemsList = this._getTab(tabId);
+
+        var $items = $controlItemsList.find(this.options.controlItemSelector);
 
         position = !isNaN(position) && position >= 0 ? position : 0;
 
-        if ($items.length == 0) {
-            this.$controlItemsList.append($item);
+        if ($items.length == 0 || $items.length + 1 === position) {
+            $controlItemsList.append($item);
         } else {
 
             $items.each(function (idx, el) {
@@ -558,6 +631,13 @@
             textValueId: this.renderer._generateIdFromName('New.' + name + '.TextValue'),
             dateValueName: 'New.' + name + '.DateValue',
             dateValueId: this.renderer._generateIdFromName('New.' + name + '.DateValue')
+        };
+
+        var defaultNumberPickerModel = {
+            textValueName: 'New.' + name + '.TextValue',
+            textValueId: this.renderer._generateIdFromName('New.' + name + '.TextValue'),
+            dateValueName: 'New.' + name + '.ItemValue',
+            dateValueId: this.renderer._generateIdFromName('New.' + name + '.ItemValue')
         };
 
         switch (type) {
@@ -640,6 +720,31 @@
 
                     break;
                 }
+            case models.controlTypes.numberPicker:
+                {
+                    model = defaultNumberPickerModel;
+
+                    break;
+                }
+            case models.controlTypes.numberPickerRange:
+                {
+                    model = $.extend(true, defaultNumberPickerModel, {
+                        textValueName: 'New.' + name + '.TextValue',
+                        textValueId: this.renderer._generateIdFromName('New.' + name + '.TextValue'),
+                        fromName: 'New.' + name + '.From.ItemValue',
+                        fromId: this.renderer._generateIdFromName('New.' + name + '.From.ItemValue'),
+                        toName: 'New.' + name + '.To.ItemValue',
+                        toId: this.renderer._generateIdFromName('New.' + name + '.To.ItemValue'),
+                        fromValue: 1,
+                        fromTextValue: '1',
+                        fromDisplay: 'From',
+                        toValue: 10,
+                        toTextValue: '10',
+                        toDisplay: 'To'
+                    });
+
+                    break;
+                }
             default:
                 {
                     break;
@@ -663,7 +768,9 @@
             type: controlModel.Type,
             name: controlModel.Text,
             glyphicon: controlModel.Glyphicon,
-            order: controlModel.Order
+            order: controlModel.Order,
+            tabId: controlModel.TabId,
+            controlName: controlModel.ControlName
         };
 
         return model;
@@ -703,6 +810,13 @@
 
         return string;
     };
+
+    FormBuilder.prototype._getTab = function (tabId) {
+
+        var $tab = this.$element.find(this.options.controlItemsListSelector + '[data-tabid="' + tabId + '"]');
+
+        return $tab;
+    }
 
     // #endregion
 
