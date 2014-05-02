@@ -343,6 +343,45 @@
         return this.renderControlGroup(model, checkBoxList);
     };
 
+    FormRenderer.prototype.renderNumberPicker = function (model) {
+
+        var id = this._generateIdFromName(model.name);
+
+        model = $.extend(true, {}, model, {
+            id: id
+        });
+
+        var numberPickerModel = $.extend(true, model, {});
+
+        var numberPicker = ich.numberPicker(numberPickerModel, true);
+
+        return this.renderControlGroup(model, numberPicker);
+    };
+
+    FormRenderer.prototype.renderNumberPickerRange = function (model) {
+
+        var id = this._generateIdFromName(model.name);
+
+        model = $.extend(true, {}, model, {
+            id: id
+        });
+
+        var numberPickerRangeModel = $.extend(true, model, {});
+
+        var numberPickerRange = ich.numberPickerRange(numberPickerRangeModel, true);
+
+        return this.renderControlGroup(model, numberPickerRange);
+    };
+
+    FormRenderer.prototype.renderPageBreak = function (model) {
+
+        model.glyphicon = null;
+
+        var pageBreak = ich.pageBreak(model, true);
+
+        return this.renderControlGroup(model, pageBreak);
+    };
+
     FormRenderer.prototype.renderCustomControl = function (controlName, model) {
 
         var method = this.customRenderers[controlName];
@@ -352,6 +391,11 @@
         }
 
         return method(model);
+    };
+
+    FormRenderer.prototype.renderTabControl = function (model) {
+
+        return ich.tabControl(model, true);
     };
 
     // #endregion
@@ -393,7 +437,7 @@
         return model;
     };
 
-    FormRenderer.prototype._getGlyphiconName = function(glyphiconClass) {
+    FormRenderer.prototype._getGlyphiconName = function (glyphiconClass) {
 
         if (typeof glyphiconClass != 'string') {
             return '';

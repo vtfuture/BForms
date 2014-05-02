@@ -41,10 +41,12 @@ namespace BForms.Renderers
                 Type = x.Type,
                 Text = x.Text,
                 Order = x.Order,
-                Glyphicon = x.Glyphicon.GetDescription()
+                Glyphicon = x.Glyphicon.GetDescription(),
+                TabId = x.TabId,
+                ControlName = x.ControlName
             });
 
-            var controlsData = new Dictionary<string, object> {{"controls", availableControls}};
+            var controlsData = new Dictionary<string, object> { { "controls", availableControls } };
 
             containerBuilder.MergeAttribute("data-controls", controlsData.ToJsonString());
 
@@ -59,11 +61,12 @@ namespace BForms.Renderers
             controlsContainerBuilder.AddCssClass("form_builder-tab form_builder-controls col-lg-3 col-md-3 col-sm-3 border");
             controlsContainerBuilder.InnerHtml = toolbarBuilder.ToString();
 
-            var controlsListBuilder = new TagBuilder("ul");
-
-            controlsListBuilder.AddCssClass("form_builder-controlsList list-group");
-
             var controls = this.Builder.GetAvailableControls();
+            var groupedControls = controls.GroupBy(x => x.TabId, (key, group) => new
+            {
+                TabId = key,
+                Controls = group.ToList()
+            });
 
             if (controls != null && controls.Any())
             {
@@ -79,7 +82,57 @@ namespace BForms.Renderers
                 this.Builder.options.Add("controls", controlOptions);
             }
 
-            controlsContainerBuilder.InnerHtml += controlsListBuilder.ToString();
+            var controlsWrapper = new TagBuilder("div");
+
+            controlsWrapper.AddCssClass("form_builder-controlsWrapper");
+
+            var tabs = this.Builder.GetTabs();
+
+            if (tabs.Any(x => !x.IsDefaultTab))
+            {
+                tabs.Remove(tabs.FirstOrDefault(x => x.IsDefaultTab));
+            }
+
+            if (tabs.Any() && tabs.Any(x => !x.IsDefaultTab))
+            {
+                if (!tabs.Any(x => x.IsOpen && !x.IsDefaultTab))
+                {
+                    tabs.FirstOrDefault(x => !x.IsDefaultTab).IsOpen = true;
+                }
+
+                var controlTabsBuilder = GetControlTabsBuilder(tabs);
+
+                controlsWrapper.InnerHtml = controlTabsBuilder.ToString();
+            }
+
+            if (tabs.Count(x => x.IsOpen) > 1)
+            {
+                var firstOpenTab = tabs.FirstOrDefault(x => x.IsOpen);
+
+                tabs.ForEach(x =>
+                {
+                    x.IsOpen = false;
+                });
+
+                firstOpenTab.IsOpen = true;
+            }
+
+            foreach (var tab in tabs)
+            {
+                var controlsListBuilder = new TagBuilder("ul");
+
+                controlsListBuilder.AddCssClass("form_builder-controlsList list-group");
+                controlsListBuilder.Attributes.Add("data-tabid", tab.Id.ToString());
+
+                if (!tab.IsOpen)
+                {
+                    controlsListBuilder.Attributes.Add("style", "display:none;");
+                }
+
+                controlsWrapper.InnerHtml += controlsListBuilder.ToString();
+            }
+
+            controlsContainerBuilder.InnerHtml += controlsWrapper.ToString();
 
             return controlsContainerBuilder.ToString();
         }
@@ -139,6 +192,36 @@ namespace BForms.Renderers
             toolbarBuilder.InnerHtml = toolbarHeaderBuilder.ToString();
 
             return toolbarBuilder;
+        }
+
+        private TagBuilder GetControlTabsBuilder(IEnumerable<FormBuilderTabBuilder> tabs)
+        {
+            var btnGroupBuilder = new TagBuilder("div");
+
+            btnGroupBuilder.AddCssClass("btn-group btn-group-justifird form_builder-tabControl");
+
+            foreach (var tab in tabs)
+            {
+                if (!tab.IsDefaultTab)
+                {
+                    var tabBuilder = new TagBuilder("a");
+
+                    tabBuilder.AddCssClass("btn btn-default form_builder-tabBtn");
+                    tabBuilder.Attributes.Add("role", "button");
+                    tabBuilder.Attributes.Add("data-tabid", tab.Id.ToString());
+                    tabBuilder.MergeAttributes(tab.Attributes);
+                    tabBuilder.InnerHtml = tab.Text;
+
+                    if (tab.IsOpen)
+                    {
+                        tabBuilder.AddCssClass("selected");
+                    }
+
+                    btnGroupBuilder.InnerHtml += tabBuilder.ToString();
+                }
+            }
+
+            return btnGroupBuilder;
         }
 
         private TagBuilder GetControlItemBuilder(FormBuilderControlViewModel model)

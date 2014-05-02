@@ -94,8 +94,10 @@
     <Compile Include="FormBuilder\ControlFactory.cs" />
     <Compile Include="FormBuilder\ControlModels.cs" />
     <Compile Include="FormBuilder\Enums.cs" />
+    <Compile Include="FormBuilder\FormBuilderControlsFactory.cs" />
     <Compile Include="FormBuilder\FormBuilderExtensions.cs" />
     <Compile Include="FormBuilder\FormBuilderRenderers.cs" />
+    <Compile Include="FormBuilder\FormBuilderTabsFactory.cs" />
     <Compile Include="FormBuilder\PropertiesModels.cs" />
     <Compile Include="FormBuilder\ViewModels.cs" />
     <Compile Include="Grid\BsBaseGridRepository.cs" />

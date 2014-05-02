@@ -9,5 +9,6 @@ namespace BForms.FormBuilder
         public Glyphicon Glyphicon { get; set; }
         public int Order { get; set; }
         public int TabId { get; set; }
+        public string ControlName { get; set; }
     }
 }

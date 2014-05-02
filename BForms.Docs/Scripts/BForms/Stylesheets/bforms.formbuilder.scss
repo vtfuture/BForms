@@ -1,5 +1,7 @@
-﻿.border {
-	border: 1px solid #e8e8e8 !important;
+﻿$grey: #dddddd;
+
+.border {
+	border: 1px solid #cccccc !important;
 }
 
 .form-title {
@@ -8,6 +10,36 @@
 
 .form_builder {
 
+	.form_builder-tabControl {
+
+		margin-top: 10px;
+		width: 230px;
+
+		.btn {
+			background-color: #eeeeee !important;
+			color: black !important;
+			border: solid 1px #cccccc;
+		    overflow: hidden !important;
+			text-overflow: ellipsis;
+			word-break: break-all;
+			&:hover {
+				background-color: white !important;
+			}
+		}
+
+		.btn.selected {
+
+			@extend .btn;
+
+			border-bottom: none;
+			background-color: white !important;
+			&:hover {
+				cursor: default;
+				background-color: white !important;
+			}
+		}
+	}
+
 	.form_builder-controlsList {	
 		list-style-type: none;
         margin-top: 10px;
@@ -15,6 +47,7 @@
 		.form_builder-controlItem {
 			margin-top: 10px;
 			cursor: move;
+			border: 1px solid #cccccc;
 			.badge{
 
 				@extend .border;
@@ -38,6 +71,11 @@
 		}
 	}
 
+	.form_builder-form {
+		border-left: none !important;
+		border-right: none !important;
+	}
+
 	.form_builder-formContainer {
 
 		overflow-y: scroll;
@@ -57,6 +95,8 @@
 			font-size: 14px;
 			padding: 5px 0;
 		}
+
+		overflow-y: scroll;
 	}
 
 	[data-addon-toggle]:not([data-addon-toggle="grab"]){

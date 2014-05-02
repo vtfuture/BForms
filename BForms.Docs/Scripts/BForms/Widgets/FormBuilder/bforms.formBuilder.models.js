@@ -16,7 +16,8 @@
         checkBoxList: 13,
         checkBox: 14,
         pagebreak: 15,
-        title: 16
+        title: 16,
+        customControl: 17
     };
 
     var propertiesModels = [

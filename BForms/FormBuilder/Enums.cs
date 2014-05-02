@@ -23,7 +23,8 @@ namespace BForms.FormBuilder
         CheckboxList,
         Checkbox,
         Pagebreak,
-        Title
+        Title,
+        CustomControl
     }
     
     public enum TextboxType

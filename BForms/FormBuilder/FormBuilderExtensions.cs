@@ -26,6 +26,7 @@ namespace BForms.FormBuilder
         protected BsTheme EditorTheme;
         protected List<FormBuilderControlViewModel> AvailableControls;
         protected List<FormBuilderControl> SelectedControls;
+        protected FormBuilderTabsFactory TabsFactory;
         protected ViewContext ViewContext;
 
         public FormBuilder(ViewContext viewContext)
@@ -33,10 +34,11 @@ namespace BForms.FormBuilder
         {
             ViewContext = viewContext;
 
-            this.renderer = new FormEditorBaseRenderer(this);
+            renderer = new FormEditorBaseRenderer(this);
 
             EditorTheme = BsTheme.Default;
             AvailableControls = GetDefaultControls();
+            TabsFactory = new FormBuilderTabsFactory();
         }
 
         #endregion
@@ -52,7 +54,8 @@ namespace BForms.FormBuilder
                 Type = FormBuilderControlType.Textbox,
                 Glyphicon = Glyphicon.Pencil,
                 Text = "Textbox",
-                Order = 1
+                Order = 1,
+                TabId = 1
             });
 
             defaultControls.Add(new FormBuilderControlViewModel
@@ -60,7 +63,8 @@ namespace BForms.FormBuilder
                 Type = FormBuilderControlType.Textarea,
                 Glyphicon = Glyphicon.Font,
                 Text = "Textarea",
-                Order = 2
+                Order = 2,
+                TabId = 1
             });
 
             defaultControls.Add(new FormBuilderControlViewModel
@@ -68,7 +72,8 @@ namespace BForms.FormBuilder
                 Type = FormBuilderControlType.NumberPicker,
                 Glyphicon = Glyphicon.PlusSign,
                 Text = "Number picker",
-                Order = 3
+                Order = 3,
+                TabId = 1
             });
 
             defaultControls.Add(new FormBuilderControlViewModel
@@ -76,7 +81,8 @@ namespace BForms.FormBuilder
                 Type = FormBuilderControlType.NumberPickerRange,
                 Glyphicon = Glyphicon.PlusSign,
                 Text = "Number picker range",
-                Order = 4
+                Order = 4,
+                TabId = 1
             });
 
             defaultControls.Add(new FormBuilderControlViewModel
@@ -84,7 +90,8 @@ namespace BForms.FormBuilder
                 Type = FormBuilderControlType.DatePicker,
                 Glyphicon = Glyphicon.Calendar,
                 Text = "Date picker",
-                Order = 5
+                Order = 5,
+                TabId = 1
             });
 
             defaultControls.Add(new FormBuilderControlViewModel
@@ -92,7 +99,8 @@ namespace BForms.FormBuilder
                 Type = FormBuilderControlType.DatePickerRange,
                 Glyphicon = Glyphicon.Calendar,
                 Text = "Date picker range",
-                Order = 6
+                Order = 6,
+                TabId = 1
             });
 
             defaultControls.Add(new FormBuilderControlViewModel
@@ -100,23 +108,26 @@ namespace BForms.FormBuilder
                 Type = FormBuilderControlType.RadioButtonList,
                 Glyphicon = Glyphicon.ListAlt,
                 Text = "Radio button list",
-                Order = 7
+                Order = 7,
+                TabId = 2
             });
 
-            defaultControls.Add(new FormBuilderControlViewModel
-            {
-                Type = FormBuilderControlType.Checkbox,
-                Glyphicon = Glyphicon.Check,
-                Text = "Checkbox",
-                Order = 8
-            });
+            //defaultControls.Add(new FormBuilderControlViewModel
+            //{
+            //    Type = FormBuilderControlType.Checkbox,
+            //    Glyphicon = Glyphicon.Check,
+            //    Text = "Checkbox",
+            //    Order = 8,
+            //    TabId = 2
+            //});
 
             defaultControls.Add(new FormBuilderControlViewModel
             {
                 Type = FormBuilderControlType.CheckboxList,
                 Glyphicon = Glyphicon.Check,
                 Text = "Checkbox list",
-                Order = 9
+                Order = 9,
+                TabId = 2
             });
 
             defaultControls.Add(new FormBuilderControlViewModel
@@ -124,7 +135,8 @@ namespace BForms.FormBuilder
                 Type = FormBuilderControlType.SingleSelect,
                 Glyphicon = Glyphicon.List,
                 Text = "Select list",
-                Order = 10
+                Order = 10,
+                TabId = 2
             });
 
             defaultControls.Add(new FormBuilderControlViewModel
@@ -132,7 +144,8 @@ namespace BForms.FormBuilder
                 Type = FormBuilderControlType.ListBox,
                 Glyphicon = Glyphicon.Tag,
                 Text = "List box",
-                Order = 11
+                Order = 11,
+                TabId = 2,
             });
 
             defaultControls.Add(new FormBuilderControlViewModel
@@ -140,7 +153,8 @@ namespace BForms.FormBuilder
                 Type = FormBuilderControlType.TagList,
                 Glyphicon = Glyphicon.Tags,
                 Text = "Tag list",
-                Order = 12
+                Order = 12,
+                TabId = 2,
             });
 
             defaultControls.Add(new FormBuilderControlViewModel
@@ -148,7 +162,8 @@ namespace BForms.FormBuilder
                 Type = FormBuilderControlType.Title,
                 Glyphicon = Glyphicon.TextWidth,
                 Text = "Title",
-                Order = 13
+                Order = 13,
+                TabId = 3,
             });
 
             defaultControls.Add(new FormBuilderControlViewModel
@@ -156,7 +171,8 @@ namespace BForms.FormBuilder
                 Type = FormBuilderControlType.Pagebreak,
                 Glyphicon = Glyphicon.LogIn,
                 Text = "Pagebreak",
-                Order = 14
+                Order = 14,
+                TabId = 3
             });
 
             return defaultControls;
@@ -189,9 +205,26 @@ namespace BForms.FormBuilder
             return ViewContext;
         }
 
+        public List<FormBuilderTabBuilder> GetTabs()
+        {
+            return TabsFactory.GetTabs();
+        }
+
         #endregion
 
         #region Fluent methods
+
+        public FormBuilder ConfigureControls()
+        {
+            return this;
+        }
+
+        public FormBuilder ConfigureTabs(Action<FormBuilderTabsFactory> action)
+        {
+            action(TabsFactory);
+
+            return this;
+        }
 
         #endregion
     }
