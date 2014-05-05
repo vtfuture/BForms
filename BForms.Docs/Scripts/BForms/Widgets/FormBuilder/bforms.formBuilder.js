@@ -17,10 +17,12 @@
         controlItemLabelSelector: '.form_builder-controlItem-label',
         formTabSelector: '.form_builder-tab.form_builder-form',
         controlTabSelector: '.form_builder-tabBtn',
+        controlTabsContainerSelector: '.form_builder-tabControl',
         controlsTabWrapperSelector: '.form_builder-controlsWrapper',
         formControlSelector: '.form_builder-formControl',
         formControlAddonSelector: '[data-addon-toggle]',
-        propertiesTabSelector: '.form_builder-tab.form_builder-properties'
+        propertiesTabSelector: '.form_builder-tab.form_builder-properties',
+        settingsContainerSelector: '.form_builder-settingsContainer'
     };
 
     FormBuilder.prototype._defaultAddons = [
@@ -60,20 +62,25 @@
     FormBuilder.prototype._init = function () {
 
         this._cacheElements();
+
         this._initMembers();
         this._addDelegates();
         this._initControls();
         this._initForm();
         this._initProperties();
+        this._applyDisplayFixes();
     };
 
     FormBuilder.prototype._cacheElements = function () {
 
         this.$element = this.element;
         this.$controlsTab = this.$element.find(this.options.controlsTabSelector);
+        this.$controlsWrapper = this.$controlsTab.find(this.options.controlsTabWrapperSelector);
         this.$controlItemsList = this.$controlsTab.find(this.options.controlItemsListSelector);
+        this.$tabsContainer = this.$controlsTab.find(this.options.controlTabsContainerSelector);
         this.$formTab = this.$element.find(this.options.formTabSelector);
         this.$propertiesTab = this.$element.find(this.options.propertiesTabSelector);
+        this.$settingsContainer = this.$propertiesTab.find(this.options.settingsContainerSelector);
         this.$form = this.$element.find(this.options.formSelector);
     };
 
@@ -98,17 +105,18 @@
 
         this._initControlsTabs();
         this._initControlsDrag();
+        this._initTabsReceive();
     };
 
     FormBuilder.prototype._initForm = function () {
 
         this._initSpoofModel();
 
+        this._assignUids(this.formModel);
         this._renderForm(this.formModel);
         this._initFormControlsSort();
         this._initFormControlsResize();
         this._initFormControlActions();
-        this._computeFormSize();
     };
 
     FormBuilder.prototype._initSpoofModel = function () {
@@ -249,6 +257,35 @@
         // this.$propertiesTab.append($properties);
     };
 
+    FormBuilder.prototype._applyDisplayFixes = function () {
+
+        var items = [this.$controlsTab, this.$formTab, this.$propertiesTab];
+
+        var largestElementIndex,
+            maxHeight = 0;
+
+        for (var i in items) {
+
+            var $item = items[i],
+                height = this._getHeight($item);
+
+            if (height > maxHeight) {
+                maxHeight = height;
+                largestElementIndex = i;
+            }
+        }
+
+        for (var i in items) {
+
+            var $item = items[i];
+
+            if (i !== largestElementIndex) {
+                $item.css('border-left', 'none');
+                $item.css('border-right', 'none');
+            }
+        }
+    };
+
     FormBuilder.prototype._initControlsDrag = function () {
 
         var $controlItemsList = this.$controlsTab.find(this.options.controlItemsListSelector),
@@ -256,28 +293,43 @@
 
         $controlItems.css('background-color', 'white');
 
-        var context = this;
-
         $controlItemsList.sortable({
             cursor: 'move',
             zIndex: 100,
             opacity: '0.85',
             connectWith: this.$form.find(this.options.formContainerSelector),
-            drag: function (e, ui) {
-
-                var $controlItem = ui.item;
-
-                context.draggedControlType = $controlItem.attr('data-controltype');
-            },
-            helper: function (e, $item) {
-                return $item.get(0);
-            }
+            drag: $.proxy(this._evControlItemsSortDrag, this),
+            helper: $.proxy(this._evControlItemsSortHelper, this),
+            update: $.proxy(this._evControlItemsSortUpdate, this)
         });
     };
 
     FormBuilder.prototype._initControlsTabs = function () {
 
         this.$controlsTab.on('click', this.options.controlTabSelector, $.proxy(this._evControlTabClick, this));
+
+        this._updateTabsPositions();
+    };
+
+    FormBuilder.prototype._initTabsReceive = function () {
+
+        var $tabsContainer = this.$controlsTab.find(this.options.controlTabsContainerSelector),
+            $tabs = $tabsContainer.find(this.options.controlTabSelector);
+
+        $tabsContainer.sortable({
+            items: this.options.controlTabSelector,
+            containment: 'document',
+            start: $.proxy(this._evTabsSortStart, this),
+            stop: $.proxy(this._evTabsSortStop, this)
+        });
+
+        $tabs.droppable({
+            accept: this.options.controlItemSelector,
+            tolerance: 'pointer',
+            drop: $.proxy(this._evTabReceive, this),
+            over: $.proxy(this._evTabOver, this),
+            out: $.proxy(this._evTabOut, this)
+        });
     };
 
     FormBuilder.prototype._initFormControlsSort = function () {
@@ -325,20 +377,6 @@
         this.$form.on('click', this.options.formControlAddonSelector, $.proxy(this._evFormControlActionClick, this));
     };
 
-    FormBuilder.prototype._computeFormSize = function () {
-
-        //var height = this.$controlsTab.find(this.options.controlsTabWrapperSelector).css('height').replace('px', '');
-
-        var height = 600;
-
-        var formHeight = parseInt(height) - 8,
-            propertiesHeight = formHeight + 52;
-
-        this.$controlsTab.find(this.options.controlsTabWrapperSelector).css('height', height);
-        this.$form.css('height', formHeight);
-        this.$propertiesTab.css('height', propertiesHeight);
-    };
-
     FormBuilder.prototype._renderInitialControls = function (initialControls) {
 
         for (var i in initialControls) {
@@ -359,7 +397,7 @@
 
             var $items = $(el).find(context.options.controlItemSelector);
 
-            $items.each(function(i, e) {
+            $items.each(function (i, e) {
                 $(e).attr('data-position', i + 1);
             });
         });
@@ -426,7 +464,7 @@
                 return this.renderer.renderPageBreak(model);
             }
             case models.controlTypes.customControl: {
-                return this.renderer.renderCustomControl(model);
+                return this.renderer.renderCustomControl(model.controlName, model);
             }
         }
 
@@ -458,6 +496,28 @@
         this._appendControl(newControl, { after: $lastFormControl });
     };
 
+    FormBuilder.prototype._evControlItemsSortUpdate = function (e, ui) {
+
+        var $list = ui.item.parents(this.options.controlItemsListSelector),
+            $items = $list.find(this.options.controlItemSelector);
+
+        $items.each(function (idx, el) {
+            $(el).attr('data-position', idx + 1);
+        });
+    };
+
+    FormBuilder.prototype._evControlItemsSortDrag = function (e, ui) {
+
+        var $controlItem = ui.item;
+
+        this.draggedControlType = $controlItem.attr('data-controltype');
+    };
+
+    FormBuilder.prototype._evControlItemsSortHelper = function (e, $item) {
+
+        return $item.get(0);
+    };
+
     FormBuilder.prototype._evFormReceive = function (e, ui) {
 
         var $controlItem = ui.item,
@@ -477,7 +537,11 @@
 
         var newControl = this._createNewControl(type, displayName, glyphicon);
 
-        this._appendControlItem($newControlItem, position, tabId);
+        this._appendControlItem($newControlItem, {
+            position: position,
+            tabId: tabId
+        });
+
         this._appendControl(newControl, { replace: ui.item });
     };
 
@@ -492,7 +556,7 @@
 
         e.preventDefault();
 
-        var $btn = $(e.target),
+        var $btn = $(e.target).is(this.options.controlTabSelector) ? $(e.target) : $(e.target).parents(this.options.controlTabSelector),
             alreadySelected = $btn.hasClass('selected');
 
         if (alreadySelected) {
@@ -502,14 +566,102 @@
         var $btnGroup = $btn.parent(),
             tabId = $btn.attr('data-tabid');
 
-        $btnGroup.find(this.options.controlTabSelector).removeClass('selected');
-        $btn.addClass('selected');
-
         var $lists = this.$element.find(this.options.controlItemsListSelector),
             $listToShow = $lists.filter('[data-tabid="' + tabId + '"]');
 
-        $lists.hide();
-        $listToShow.show('slide');
+       $lists.hide();
+
+        var selectedTabPosition = $btnGroup.find('.selected').attr('data-position'),
+            clickedTabPosition = $btn.attr('data-position');
+
+        var slideFromRight = parseInt(selectedTabPosition) <= parseInt(clickedTabPosition);
+
+        $btnGroup.find(this.options.controlTabSelector).removeClass('selected');
+        $btn.addClass('selected');
+
+        this._slideTab($listToShow, slideFromRight);
+    };
+
+    FormBuilder.prototype._evTabReceive = function (e, ui) {
+
+        var $controlItem = ui.draggable,
+            $tab = $(e.target),
+            tabId = $tab.attr('data-tabid');
+
+        $tab.removeClass('over');
+
+        var type = $controlItem.attr('data-controltype'),
+            name = $controlItem.attr('data-name'),
+            glyphicon = $controlItem.attr('data-glyphicon');
+
+        var $newTab = this._getTab(tabId),
+            $newTabItems = $newTab.find(this.options.controlItemSelector);
+
+        var position = $newTabItems.length + 1;
+
+        $controlItem.remove();
+
+        var appendOptions = {
+            tabId: tabId
+        };
+
+        if (tabId == $controlItem.attr('data-tabid')) {
+
+            position = parseInt($controlItem.attr('data-position'));
+
+            $.extend(true, appendOptions, {
+                position: position
+            });
+        }
+
+        var $newControlItem = this.renderer.renderControlListItem({
+            type: type,
+            name: name,
+            glyphicon: glyphicon,
+            order: position,
+            tabId: tabId
+        });
+
+        this._appendControlItem($newControlItem, appendOptions);
+    };
+
+    FormBuilder.prototype._evTabOver = function (e, ui) {
+
+        var $helper = ui.helper,
+            $tab = $(e.target);
+
+        $tab.addClass('over');
+        $helper.css('opacity', 0.2);
+
+        this.$draggedHelper = $helper;
+    };
+
+    FormBuilder.prototype._evTabOut = function (e, ui) {
+
+        var $tab = $(e.target);
+
+        $tab.removeClass('over');
+
+        this.$draggedHelper.css('opacity', 1);
+    };
+
+    FormBuilder.prototype._evTabsSortStart = function (e, ui) {
+
+        var $visibleTab = this.$controlsTab.find(this.options.controlItemSelector + ':visible');
+
+        $visibleTab.addClass('loading');
+    };
+
+    FormBuilder.prototype._evTabsSortStop = function (e, ui) {
+
+        var $visibleTab = this.$controlsTab.find(this.options.controlItemSelector + ':visible');
+
+        $visibleTab.removeClass('loading');
+    };
+
+    FormBuilder.prototype._evTabsSortUpdate = function (e, ui) {
+
+        this._updateTabsPositions();
     };
 
     // #endregion
@@ -565,17 +717,17 @@
         }
     };
 
-    FormBuilder.prototype._appendControlItem = function ($item, position, tabId) {
+    FormBuilder.prototype._appendControlItem = function ($item, options) {
+
+        var position = options.position,
+            tabId = options.tabId;
 
         position = parseInt(position);
 
-        var $controlItemsList = this._getTab(tabId);
+        var $controlItemsList = this._getTab(tabId),
+            $items = $controlItemsList.find(this.options.controlItemSelector);
 
-        var $items = $controlItemsList.find(this.options.controlItemSelector);
-
-        position = !isNaN(position) && position >= 0 ? position : 0;
-
-        if ($items.length == 0 || $items.length + 1 === position) {
+        if (isNaN(position) || $items.length == 0 || $items.length + 1 === position) {
             $controlItemsList.append($item);
         } else {
 
@@ -754,6 +906,27 @@
         return $.extend(true, defaultModel, model);
     };
 
+    FormBuilder.prototype._updateTabsPositions = function () {
+
+        var $tabs = this.$controlsTab.find(this.options.controlTabSelector);
+
+        $tabs.each(function (idx, el) {
+            $(el).attr('data-position', idx + 1);
+        });
+    };
+
+    FormBuilder.prototype._assignUids = function (items) {
+
+        for (var i in items) {
+
+            var item = items[i];
+
+            if (typeof item.uid == 'undefined') {
+                item.ui = this._generateUid();
+            }
+        }
+    };
+
     // #endregion
 
     // #region public methods
@@ -770,7 +943,8 @@
             glyphicon: controlModel.Glyphicon,
             order: controlModel.Order,
             tabId: controlModel.TabId,
-            controlName: controlModel.ControlName
+            controlName: controlModel.ControlName,
+            actions: controlModel.Actions
         };
 
         return model;
@@ -818,6 +992,41 @@
         return $tab;
     }
 
+    FormBuilder.prototype._slideTab = function ($tab, fromRight) {
+
+        var direction = fromRight ? 'right' : 'left';
+
+        $tab.show('slide', { direction: direction }, 250);
+    };
+
+    FormBuilder.prototype._toggleElements = function (toggled, animate) {
+
+        var $controlItemsList = this.$element.find(this.options.controlItemsListSelector),
+            $form = this.$form,
+            $propertiesContainer = this.$element.find(this.options.settingsContainerSelector);
+
+        var $elements = $controlItemsList.add($form).add($propertiesContainer);
+
+        if (toggled) {
+            if (animate) {
+                $elements.slideDown('fast');
+            } else {
+                $elements.show();
+            }
+        } else {
+            if (animate) {
+                $elements.slideUp('fast');
+            } else {
+                $elements.hide();
+            }
+        }
+    };
+
+    FormBuilder.prototype._getHeight = function ($element) {
+
+        return parseInt($element.css('height').replace('px', ''));
+    };
+
     // #endregion
 
     $.widget('bforms.bsFormBuilder', FormBuilder.prototype);
@@ -826,11 +1035,15 @@
 };
 
 if (typeof define == 'function' && define.amd) {
-    define('bforms-formBuilder', ['jquery',
-                                  'bforms-formBuilder-formRenderer',
-                                  'bforms-formBuilder-models',
-                                  'jquery-ui-core',
-                                  'select2'], factory);
+    define('bforms-formBuilder', [
+                                    'jquery',
+                                    'bforms-formBuilder-formRenderer',
+                                    'bforms-formBuilder-models',
+                                    'jquery-ui-core',
+                                    'amplify',
+                                    'select2',
+                                    'bforms-form'
+    ], factory);
 } else {
     factory(window.jQuery);
 }

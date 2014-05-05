@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
+using BForms.Models;
 
 namespace BForms.FormBuilder
 {
@@ -10,11 +12,14 @@ namespace BForms.FormBuilder
 
         public int Id { get; set; }
         public string Text { get; set; }
+        public Glyphicon? Glyphicon { get; set; }
         public bool IsDefaultTab { get; set; }
         public bool IsOpen { get; set; }
         public Dictionary<string, object> Attributes { get; set; } 
 
         public List<FormBuilderControlViewModel> Controls { get; set; }
+
+        private FormBuilderControlFactory _controlFactory = new FormBuilderControlFactory();
 
         #endregion
 
@@ -23,6 +28,13 @@ namespace BForms.FormBuilder
         public FormBuilderTabBuilder SetText(string text)
         {
             Text = text;
+
+            return this;
+        }
+
+        public FormBuilderTabBuilder SetGlyphicon(Glyphicon glyphicon)
+        {
+            Glyphicon = glyphicon;
 
             return this;
         }
@@ -51,16 +63,43 @@ namespace BForms.FormBuilder
         public FormBuilderTabBuilder AddControl(FormBuilderControlViewModel control)
         {
             Controls.Add(control);
-
+            
             return this;
         }
 
-        public FormBuilderTabBuilder AddControls(List<FormBuilderControlViewModel> controls)
+        public FormBuilderTabBuilder AddControls(IEnumerable<FormBuilderControlViewModel> controls)
         {
             Controls.AddRange(controls);
 
             return this;
         }
+
+        public FormBuilderTabBuilder AddControls(params FormBuilderControlViewModel[] controls)
+        {
+            return AddControls(controls.ToList());
+        }
+
+        public FormBuilderTabBuilder AddControl(FormBuilderControlType controlType)
+        {
+            var control = _controlFactory.Create(controlType, Id);
+
+            return AddControl(control);
+        }
+
+        public FormBuilderTabBuilder AddControls(IEnumerable<FormBuilderControlType> controlTypes)
+        {
+            var controls = controlTypes.Select(x => _controlFactory.Create(x, Id));
+
+            return AddControls(controls);
+        }
+
+        public FormBuilderTabBuilder AddControls(params FormBuilderControlType[] controlTypes)
+        {
+            var types = controlTypes.ToList();
+
+            return AddControls(types);
+        }
+
         public FormBuilderTabBuilder HtmlAttributes(Dictionary<string, object> attributes)
         {
             Attributes = attributes;
@@ -68,6 +107,12 @@ namespace BForms.FormBuilder
             return this;
         }
 
+        public FormBuilderTabBuilder ClearControls()
+        {
+            Controls.Clear();
+
+            return this;
+        }
 
         #endregion
     }
@@ -112,6 +157,11 @@ namespace BForms.FormBuilder
 
         public FormBuilderTabBuilder Add(int id, string text)
         {
+            return Add(id, text, null);
+        }
+
+        public FormBuilderTabBuilder Add(int id, string text, Glyphicon? glyphicon = null)
+        {
             if (_tabs.Select(x => x.Id).Contains(id))
             {
                 throw new Exception("A tab with id " + id + " has already been added");
@@ -121,8 +171,21 @@ namespace BForms.FormBuilder
             {
                 Id = id,
                 Text = text,
+                Glyphicon = glyphicon,
                 Controls = new List<FormBuilderControlViewModel>()
             });
+        }
+
+        public FormBuilderTabBuilder Add(int id, Glyphicon glyphicon)
+        {
+            return Add(id, null, glyphicon);
+        }
+
+        public FormBuilderTabBuilder Add(Glyphicon glyphicon)
+        {
+            var id = GenerateId();
+
+            return Add(id, glyphicon);
         }
 
         public void Remove(int id)
@@ -145,7 +208,19 @@ namespace BForms.FormBuilder
         public List<FormBuilderTabBuilder> GetTabs()
         {
             return _tabs;
-        } 
+        }
+
+        public FormBuilderTabsFactory ClearTabs()
+        {
+            foreach (var tab in _tabs)
+            {
+                tab.ClearControls();
+            }
+
+            _tabs.RemoveAll(x => !x.IsDefaultTab);
+
+            return this;
+        }
 
         #endregion
 

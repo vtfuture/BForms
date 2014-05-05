@@ -1,12 +1,33 @@
 ﻿@using BForms.FormBuilder
+@using BForms.Models
 
 <div class="grid_container">
-    @(Html.FormBuilderFor()
+    @(Html.FormBuilder()
           .HtmlAttributes(new { id = "formBuilder" })
           .ConfigureTabs(tabs =>
           {
-              tabs.Add("Inputs");
-              tabs.Add("Lists");
-              tabs.Add("Other");
+              tabs.Add("Inputs").AddControls(FormBuilderControlType.Textbox,
+                                            FormBuilderControlType.Textarea,
+                                            FormBuilderControlType.NumberPicker,
+                                            FormBuilderControlType.NumberPickerRange,
+                                            FormBuilderControlType.DatePicker,
+                                            FormBuilderControlType.DatePickerRange);
+
+              tabs.Add("Lists").AddControls(FormBuilderControlType.SingleSelect,
+                                            FormBuilderControlType.ListBox,
+                                            FormBuilderControlType.TagList,
+                                            FormBuilderControlType.RadioButtonList,
+                                            FormBuilderControlType.CheckboxList);
+
+              tabs.Add("Other").AddControls(FormBuilderControlType.Title,
+                                            FormBuilderControlType.Pagebreak);
+
+              tabs.Add(Glyphicon.HeartEmpty).AddControl(new FormBuilderControlViewModel
+              {
+                  Type = FormBuilderControlType.CustomControl,
+                  ControlName = "uberCustomControl",
+                  Text = "Uber custom control",
+                  Glyphicon = Glyphicon.Heart
+              });
           }))
 </div>

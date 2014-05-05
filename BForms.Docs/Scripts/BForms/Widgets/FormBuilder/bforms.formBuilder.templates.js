@@ -81,9 +81,9 @@
                    '{{text}}' +
                '</label>',
 
-        input: '<input class="form-control {{cssClass}}" type="{{type}}" id="{{id}}" name="{{name}}" value="{{value}}" placeholder="{{placeholder}}" />',
+        input: '<input {{#applyValidation}}data-val="{{required}}" data-val-required="{{requiredMessage}}"{{/applyValidation}} class="form-control {{cssClass}}" type="{{type}}" id="{{id}}" name="{{name}}" value="{{value}}" placeholder="{{placeholder}}" />',
 
-        dropdown: '<select class="form-control bs-dropdown" id="{{id}}" name="{{name}}" tabindex="-1">' +
+        dropdown: '<select {{#applyValidation}}data-val="{{required}}" data-val-required="{{requiredMessage}}"{{/applyValidation}} class="form-control bs-dropdown" id="{{id}}" name="{{name}}" tabindex="-1">' +
                       '{{#items}}' +
                           '<option value="{{value}}">{{text}}</option>' +
                       '{{/items}}' +
@@ -92,21 +92,21 @@
         radioButtonList: '<div class="form-control bs-radio-list radioButtonList-done {{cssClass}}" data-initialvalue="{{initialValue}}" id="{{id}}" style="display:none;">' +
                             '{{#items}}' +
                                 '<div>' +
-                                    '<input data-initialValue="{{initialValue}}" id="{{id}}" name="{{controlName}}" type="radio" value="{{value}}" {{#selected}}checked="checked"{{/selected}}/>' +
+                                    '<input {{#applyValidation}}data-val="{{required}}" data-val-required="{{requiredMessage}}"{{/applyValidation}} data-initialValue="{{initialValue}}" id="{{id}}" name="{{controlName}}" type="radio" value="{{value}}" {{#selected}}checked="checked"{{/selected}}/>' +
                                     '<label for="{{id}}">{{label}}</label>' +
                                 '</div>' +
                             '{{/items}}' +
                          '</div>',
 
-        textArea: '<textarea class="form-control bs-textarea {{cssClass}} cols="20" rows="2" name="{{name}}" id="{{id}}"></textarea>',
+        textArea: '<textarea {{#applyValidation}}data-val="{{required}}" data-val-required="{{requiredMessage}}"{{/applyValidation}} class="form-control bs-textarea {{cssClass}} cols="20" rows="2" name="{{name}}" id="{{id}}"></textarea>',
 
-        tagList: '<select id="{{id}}" name="{{name}}" multiple="multiple" class="form-control bs-tag-list bs-hasBformsSelect" style="display:none;">' +
+        tagList: '<select {{#applyValidation}}data-val="{{required}}" data-val-required="{{requiredMessage}}"{{/applyValidation}} id="{{id}}" name="{{name}}" multiple="multiple" class="form-control bs-tag-list bs-hasBformsSelect" style="display:none;">' +
                             '{{#items}}' +
                                 '<option value="{{value}}">{{text}}</option>' +
                             '{{/items}}' +
                         '</select>',
 
-        listBox: '<select class="form-control bs-listbox select2-offscreen bs-hasBformsSelect" id="{{id}}" name="{{name}}" multiple="multiple" tabindex="-1">' +
+        listBox: '<select {{#applyValidation}}data-val="{{required}}" data-val-required="{{requiredMessage}}"{{/applyValidation}} class="form-control bs-listbox select2-offscreen bs-hasBformsSelect" id="{{id}}" name="{{name}}" multiple="multiple" tabindex="-1">' +
                     '{{#items}}' +
                         '<option value="{{value}}">{{text}}</option>' +
                     '{{/items}}' +
@@ -119,20 +119,20 @@
                        '</h4>' +
                    '</div>',
 
-        datePicker: '<input class="form-control bs-datetime " id="{{textValueId}}" name="{{textValueName}}" type="text" value="{{textValue}}" data-minvalue="{{minValue}}" data-maxvalue="{{maxValue}}">' +
-                    '<input class="bs-date-iso" data-for="{{textValueName}}" id="{{dateValueId}}" name="{{dateValueName}}" type="hidden" value="{{dateValue}}">',
+        datePicker: '<input {{#applyValidation}}data-val="{{required}}" data-val-required="{{requiredMessage}}"{{/applyValidation}} class="form-control bs-datetime " id="{{textValueId}}" name="{{textValueName}}" type="text" value="{{textValue}}" data-minvalue="{{minValue}}" data-maxvalue="{{maxValue}}">' +
+                    '<input {{#applyValidation}}data-val="{{required}}" data-val-required="{{requiredMessage}}"{{/applyValidation}} class="bs-date-iso" data-for="{{textValueName}}" id="{{dateValueId}}" name="{{dateValueName}}" type="hidden" value="{{dateValue}}">',
 
-        datePickerRange: '<input class="form-control bs-datetime-range" data-maxvalue="{{maxValue}}" data-minvalue="{{minValue}}" id="{{textValueId}}" name="{{textValueName}}" placeholder="{{placeHolder}}" type="text" value="{{value}}">' +
-                         '<input class="bs-range-from" data-allowdeselect="{{fromAllowDeselect}}" data-for="{{textValueName}}" id="{{fromId}}" name="{{fromName}}" type="hidden" value="{{fromValue}}" data-minvalue="{{fromMinValue}}" data-maxvalue="{{fromMaxValue}}">' +
-                         '<input class="bs-range-to" data-allowdeselect="{{toAllowDeselect}}" data-for="{{textValueName}}" id="{{toId}}" name="{{toName}}" type="hidden" value="{{toValue}}" data-minvalue="{{toMinValue}}" data-maxvalue="{{toMaxValue}}">',
+        datePickerRange: '<input {{#applyValidation}}data-val="{{required}}" data-val-required="{{requiredMessage}}"{{/applyValidation}} class="form-control bs-datetime-range" data-maxvalue="{{maxValue}}" data-minvalue="{{minValue}}" id="{{textValueId}}" name="{{textValueName}}" placeholder="{{placeHolder}}" type="text" value="{{value}}">' +
+                         '<input {{#applyValidation}}data-val="{{required}}" data-val-required="{{requiredMessage}}"{{/applyValidation}} class="bs-range-from" data-allowdeselect="{{fromAllowDeselect}}" data-for="{{textValueName}}" id="{{fromId}}" name="{{fromName}}" type="hidden" value="{{fromValue}}" data-minvalue="{{fromMinValue}}" data-maxvalue="{{fromMaxValue}}">' +
+                         '<input {{#applyValidation}}data-val="{{required}}" data-val-required="{{requiredMessage}}"{{/applyValidation}} class="bs-range-to" data-allowdeselect="{{toAllowDeselect}}" data-for="{{textValueName}}" id="{{toId}}" name="{{toName}}" type="hidden" value="{{toValue}}" data-minvalue="{{toMinValue}}" data-maxvalue="{{toMaxValue}}">',
 
-        checkBox: '<input type="checkbox" {{#checked}}checked="checked"{{/checked}} />',
+        checkBox: '<input {{#applyValidation}}data-val="{{required}}" data-val-required="{{requiredMessage}}"{{/applyValidation}} type="checkbox" {{#checked}}checked="checked"{{/checked}} />',
 
         checkBoxList: '<div class="form-control bs-checkbox-list checkBoxList-done" id="{{id}}" style="display:none;">' +
                           '{{#items}}' +
                               '<div>' +
-                                  '<input data-value="{{value}}" id="{{id}}" name="{{controlName}}" type="checkbox" />' +
-                                  '<input name="{{controlName}}" type="hidden" value="{{#selected}}true{{/selected}}{{^selected}}false{{/selected}}"/>' +
+                                  '<input {{#applyValidation}}data-val="{{required}}" data-val-required="{{requiredMessage}}"{{/applyValidation}} data-value="{{value}}" id="{{id}}" name="{{controlName}}" type="checkbox" />' +
+                                  '<input {{#applyValidation}}data-val="{{required}}" data-val-required="{{requiredMessage}}"{{/applyValidation}} name="{{controlName}}" type="hidden" value="{{#selected}}true{{/selected}}{{^selected}}false{{/selected}}"/>' +
                                   '<label for="{{id}}">{{label}}</label>' +
                               '</div>' +
                           '{{/items}}' +
@@ -145,12 +145,12 @@
                         '</div>' +
                       '</div>',
 
-        numberPicker: '<input class="form-control bs-number-inline bs-number-single_range_inline" id="{{textValueId}}" name="{{textValueName}}" type="text" value="{{textValue}}" />' +
-                      '<input class="bs-number-value" data-for="{{textValueName}}" data-maxvalue="{{maxValue}}" data-minvalue="{{minValue}}" id="{{itemValueId}}" name="{{itemValueName}}" type="hidden" value="{{itemValue}}" />',
+        numberPicker: '<input {{#applyValidation}}data-val="{{required}}" data-val-required="{{requiredMessage}}"{{/applyValidation}} class="form-control bs-number-inline bs-number-single_range_inline" id="{{textValueId}}" name="{{textValueName}}" type="text" value="{{textValue}}" />' +
+                      '<input {{#applyValidation}}data-val="{{required}}" data-val-required="{{requiredMessage}}"{{/applyValidation}} class="bs-number-value" data-for="{{textValueName}}" data-maxvalue="{{maxValue}}" data-minvalue="{{minValue}}" id="{{itemValueId}}" name="{{itemValueName}}" type="hidden" value="{{itemValue}}" />',
 
-        numberPickerRange: '<input class="form-control bs-number-range" id="{{textValueId}}" name="{{textValueName}}" type="" value="{{fromTextValue}} - {{toTextValue}}">' +
-                           '<input class="bs-range-from" data-allowdeselect="{{fromAllowDeselect}}" data-display="{{fromDisplay}}" data-for="{{textValueName}}" data-minvalue="{{fromMinValue}}" data-maxvalue="{{fromMaxValue}}" id="{{fromId}}" name="{{fromName}}" type="hidden" value="{{fromValue}}">' +
-                           '<input class="bs-range-to" data-allowdeselect="{{toAllowDeselect}}" data-display="{{toDisplay}}" data-for="{{textValueName}}" data-minvalue="{{toMinValue}}" data-maxvalue="{{toMaxValue}}" id="{{toId}}" name="{{toName}}" type="hidden" value="{{toValue}}">',
+        numberPickerRange: '<input {{#applyValidation}}data-val="{{required}}" data-val-required="{{requiredMessage}}"{{/applyValidation}} class="form-control bs-number-range" id="{{textValueId}}" name="{{textValueName}}" type="" value="{{fromTextValue}} - {{toTextValue}}">' +
+                           '<input {{#applyValidation}}data-val="{{required}}" data-val-required="{{requiredMessage}}"{{/applyValidation}} class="bs-range-from" data-allowdeselect="{{fromAllowDeselect}}" data-display="{{fromDisplay}}" data-for="{{textValueName}}" data-minvalue="{{fromMinValue}}" data-maxvalue="{{fromMaxValue}}" id="{{fromId}}" name="{{fromName}}" type="hidden" value="{{fromValue}}">' +
+                           '<input {{#applyValidation}}data-val="{{required}}" data-val-required="{{requiredMessage}}"{{/applyValidation}} class="bs-range-to" data-allowdeselect="{{toAllowDeselect}}" data-display="{{toDisplay}}" data-for="{{textValueName}}" data-minvalue="{{toMinValue}}" data-maxvalue="{{toMaxValue}}" id="{{toId}}" name="{{toName}}" type="hidden" value="{{toValue}}">',
 
         pageBreak: '<div class="col-lg-12 col-md-12 col-sm-12">' +
                        '<hr/>' +

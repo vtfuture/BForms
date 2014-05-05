@@ -4,16 +4,29 @@
 	border: 1px solid #cccccc !important;
 }
 
+.form-group.selected {
+	.input-group {
+		border: 1px solid wheat;
+	}
+}
+
 .form-title {
 	border-bottom: 1px solid #858585 !important;
 }
 
 .form_builder {
 
+	@extend .border;
+
+	.form_builder-tab {
+		border-left: 1px solid #cccccc;
+		border-right: 1px solid #cccccc;
+	}
+
 	.form_builder-tabControl {
 
 		margin-top: 10px;
-		width: 230px;
+		//width: 230px;
 
 		.btn {
 			background-color: #eeeeee !important;
@@ -25,6 +38,13 @@
 			&:hover {
 				background-color: white !important;
 			}
+			&.over {
+				background-color: wheat !important;
+			}
+			&.tabs-sortable-placeholder {
+				width: 10px;
+				height: 0px;
+			}
 		}
 
 		.btn.selected {
@@ -32,7 +52,11 @@
 			@extend .btn;
 
 			border-bottom: none;
-			background-color: white !important;
+
+			&:not(.over){
+				background-color: white !important;
+			}
+			
 			&:hover {
 				cursor: default;
 				background-color: white !important;
@@ -71,15 +95,10 @@
 		}
 	}
 
-	.form_builder-form {
-		border-left: none !important;
-		border-right: none !important;
-	}
-
 	.form_builder-formContainer {
 
-		overflow-y: scroll;
-		overflow-x: hidden;
+		//overflow-y: scroll;
+		//overflow-x: hidden;
 
 		.form_container{
 			margin-top: 8px;

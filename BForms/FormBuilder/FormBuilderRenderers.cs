@@ -27,6 +27,8 @@ namespace BForms.Renderers
 
             var renderingOptions = this.Builder.GetRenderingOptions();
 
+            this.Builder.ApplyPreRenderingChanges();
+
             containerBuilder.AddCssClass("form_builder row");
 
             var controlsTab = RenderControlsTab(renderingOptions);
@@ -58,7 +60,7 @@ namespace BForms.Renderers
             var controlsContainerBuilder = new TagBuilder("div");
             var toolbarBuilder = GetToolbarBuilder("Controls", renderingOptions);
 
-            controlsContainerBuilder.AddCssClass("form_builder-tab form_builder-controls col-lg-3 col-md-3 col-sm-3 border");
+            controlsContainerBuilder.AddCssClass("form_builder-tab form_builder-controls col-lg-3 col-md-3 col-sm-3");
             controlsContainerBuilder.InnerHtml = toolbarBuilder.ToString();
 
             var controls = this.Builder.GetAvailableControls();
@@ -150,7 +152,7 @@ namespace BForms.Renderers
 
             panelBuilder.InitialEditable().Id("").Name("Settings").Glyphicon(Glyphicon.Cog);
 
-            propertiesContainerBuilder.AddCssClass("form_builder-tab form_builder-properties col-lg-3 col-md-3 col-sm-3 border");
+            propertiesContainerBuilder.AddCssClass("form_builder-tab form_builder-properties col-lg-3 col-md-3 col-sm-3");
             propertiesContainerBuilder.InnerHtml = toolbarBuilder.ToString() + settingsContainerBuilder.ToString();
 
             return propertiesContainerBuilder.ToString();
@@ -171,7 +173,7 @@ namespace BForms.Renderers
             formBuilder.InnerHtml = formInnerContainerBuilder.ToString();
             formWrapperBuilder.InnerHtml = formBuilder.ToString();
 
-            formContainerBuilder.AddCssClass("form_builder-tab form_builder-form col-lg-6 col-md-6 col-sm-6 border");
+            formContainerBuilder.AddCssClass("form_builder-tab form_builder-form col-lg-6 col-md-6 col-sm-6");
             formContainerBuilder.InnerHtml = toolbarBuilder.ToString() + formWrapperBuilder.ToString();
 
             return formContainerBuilder.ToString();
@@ -205,12 +207,23 @@ namespace BForms.Renderers
                 if (!tab.IsDefaultTab)
                 {
                     var tabBuilder = new TagBuilder("a");
+                    var glyphiconHtml = String.Empty;
+
+                    if (tab.Glyphicon != null)
+                    {
+                        var tabGlyphiconBuilder = new TagBuilder("span");
+                        var glyphicon = (Glyphicon) tab.Glyphicon;
+
+                        tabGlyphiconBuilder.AddCssClass("glyphicon " + glyphicon.GetDescription());
+
+                        glyphiconHtml = tabGlyphiconBuilder.ToString();
+                    }
 
                     tabBuilder.AddCssClass("btn btn-default form_builder-tabBtn");
                     tabBuilder.Attributes.Add("role", "button");
                     tabBuilder.Attributes.Add("data-tabid", tab.Id.ToString());
                     tabBuilder.MergeAttributes(tab.Attributes);
-                    tabBuilder.InnerHtml = tab.Text;
+                    tabBuilder.InnerHtml = glyphiconHtml + (tab.Text ?? String.Empty);
 
                     if (tab.IsOpen)
                     {

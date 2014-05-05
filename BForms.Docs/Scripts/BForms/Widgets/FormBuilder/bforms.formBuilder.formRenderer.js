@@ -8,12 +8,15 @@
     };
 
     FormRenderer.prototype.options = {
-        idDotReplacement: '_'
+        idDotReplacement: '_',
+        applyValidation: undefined
     };
 
     // #region init
 
     FormRenderer.prototype._init = function () {
+
+        this.customRenderers = {};
 
         this._initTemplates();
     };
@@ -180,7 +183,9 @@
             name: name,
             id: id,
             type: type,
-            placeholder: placeholder
+            placeholder: placeholder,
+            required: required,
+            applyValidation: this.options.applyValidation
         };
 
         var input = ich.input(inputModel, true);
@@ -191,7 +196,8 @@
     FormRenderer.prototype.renderTextBox = function (model) {
 
         var textBoxModel = $.extend(true, {}, model, {
-            type: 'text'
+            type: 'text',
+            applyValidation: this.options.applyValidation
         });
 
         return this.renderInput(textBoxModel);
@@ -202,7 +208,8 @@
         model.name = model.name + '.SelectedValues';
 
         model = $.extend(true, {}, model, {
-            id: this._generateIdFromName(model.name)
+            id: this._generateIdFromName(model.name),
+            applyValidation: this.options.applyValidation
         });
 
         var dropdown = ich.dropdown(model, true);
@@ -229,7 +236,8 @@
         }) : [];
 
         var radioListModel = $.extend(true, {}, model, {
-            items: items
+            items: items,
+            applyValidation: this.options.applyValidation
         });
 
         var radioButtonList = ich.radioButtonList(radioListModel, true);
@@ -240,7 +248,8 @@
     FormRenderer.prototype.renderTextArea = function (model) {
 
         model = $.extend(true, {}, model, {
-            id: this._generateIdFromName(model.name)
+            id: this._generateIdFromName(model.name),
+            applyValidation: this.options.applyValidation
         });
 
         var textArea = ich.textArea(model, true);
@@ -253,7 +262,8 @@
         model.name = model.name + '.SelectedValues';
 
         model = $.extend(true, {}, model, {
-            id: this._generateIdFromName(model.name)
+            id: this._generateIdFromName(model.name),
+            applyValidation: this.options.applyValidation
         });
 
         var multiSelect = ich.tagList(model, true);
@@ -264,6 +274,7 @@
     FormRenderer.prototype.renderListBox = function (model) {
 
         model.name = model.name + '.SelectedValues';
+        model.applyValidation = this.options.applyValidation;
 
         var listBox = ich.listBox(model, true);
 
@@ -282,7 +293,8 @@
     FormRenderer.prototype.renderDatePicker = function (model) {
 
         model = $.extend(true, {}, model, {
-            id: this._generateIdFromName(model.name)
+            id: this._generateIdFromName(model.name),
+            applyValidation: this.options.applyValidation
         });
 
         var datePicker = ich.datePicker(model, true);
@@ -293,7 +305,8 @@
     FormRenderer.prototype.renderDatePickerRange = function (model) {
 
         model = $.extend(true, {}, model, {
-            id: this._generateIdFromName(model.name)
+            id: this._generateIdFromName(model.name),
+            applyValidation: this.options.applyValidation
         });
 
         var datePicker = ich.datePickerRange(model, true);
@@ -304,7 +317,8 @@
     FormRenderer.prototype.renderCheckBox = function (model) {
 
         model = $.extend(true, {}, model, {
-            id: this._generateIdFromName(model.name)
+            id: this._generateIdFromName(model.name),
+            applyValidation: this.options.applyValidation
         });
 
         var checkBox = ich.checkBox(model, true);
@@ -335,7 +349,8 @@
         }) : [];
 
         var checkBoxListModel = $.extend(true, {}, model, {
-            items: items
+            items: items,
+            applyValidation: this.options.applyValidation
         });
 
         var checkBoxList = ich.checkBoxList(checkBoxListModel, true);
@@ -348,7 +363,8 @@
         var id = this._generateIdFromName(model.name);
 
         model = $.extend(true, {}, model, {
-            id: id
+            id: id,
+            applyValidation: this.options.applyValidation
         });
 
         var numberPickerModel = $.extend(true, model, {});
@@ -363,7 +379,8 @@
         var id = this._generateIdFromName(model.name);
 
         model = $.extend(true, {}, model, {
-            id: id
+            id: id,
+            applyValidation: this.options.applyValidation
         });
 
         var numberPickerRangeModel = $.extend(true, model, {});
@@ -389,6 +406,10 @@
         if (typeof method != 'function') {
             throw 'No method for rendering ' + controlName + ' custom control was found';
         }
+
+        $.extend(true, model, {
+            applyValidation: this.options.applyValidation
+        });
 
         return method(model);
     };
@@ -456,7 +477,13 @@
 };
 
 if (typeof define == 'function' && define.amd) {
-    define('bforms-formBuilder-formRenderer', ['jquery', 'bforms-formBuilder-templates', 'bforms-formBuilder-models', 'icanhaz'], factory);
+    define('bforms-formBuilder-formRenderer', [
+                                                'jquery',
+                                                'bforms-formBuilder-templates',
+                                                'bforms-formBuilder-models',
+                                                'icanhaz',
+                                                'bforms-form'
+                                              ], factory);
 } else {
     factory(window.jQuery);
 }
