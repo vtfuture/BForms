@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Common.EntitySql;
 using System.Linq;
-using System.Threading;
 using System.Web.Mvc;
 using BForms.Docs.Areas.Demo.Models;
 using BForms.Docs.Areas.Demo.Repositories;
@@ -14,7 +12,6 @@ using BForms.Models;
 using BForms.Mvc;
 using RequireJS;
 using BForms.Docs.Areas.Demo.Helpers;
-using BForms.Utilities;
 
 namespace BForms.Docs.Areas.Demo.Controllers
 {
