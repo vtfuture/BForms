@@ -10,6 +10,7 @@ using BForms.Models;
 using BForms.Panels;
 using BForms.FormBuilder;
 using BForms.Utilities;
+using DocumentFormat.OpenXml.Office2010.ExcelAc;
 
 namespace BForms.Renderers
 {
@@ -45,12 +46,28 @@ namespace BForms.Renderers
                 Order = x.Order,
                 Glyphicon = x.Glyphicon.GetDescription(),
                 TabId = x.TabId,
-                ControlName = x.ControlName
+                ControlName = x.ControlName,
+                Actions = x.Actions != null ?  x.Actions.Select(y => y.GetDisplayAttribute().Name).ToList() : new List<string>(),
+                CustomActions = x.CustomActions.Select(y => new
+                {
+                    Name = y.Name,
+                    Glyphicon = y.Glyphicon.GetDescription(),
+                    Title = y.Title
+                })
             });
 
             var controlsData = new Dictionary<string, object> { { "controls", availableControls } };
+            var defaultActionsData = new Dictionary<string, object> { { "actions", this.Builder.GetDefaultActions().Select(x=>x.GetDisplayAttribute().Name) } };
+            var customActionsData = new Dictionary<string, object> { { "actions", this.Builder.GetCustomActions().Select(x => new
+            {
+                Name = x.Name,
+                Title = x.Title,
+                Glyphicon = x.Glyphicon.GetDescription()
+            }) } };
 
             containerBuilder.MergeAttribute("data-controls", controlsData.ToJsonString());
+            containerBuilder.MergeAttribute("data-defaultactions", defaultActionsData.ToJsonString());
+            containerBuilder.MergeAttribute("data-customactions", customActionsData.ToJsonString());
 
             return containerBuilder.ToString();
         }

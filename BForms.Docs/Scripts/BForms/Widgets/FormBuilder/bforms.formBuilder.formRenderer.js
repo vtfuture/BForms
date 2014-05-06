@@ -143,7 +143,9 @@
                 replace: 'true',
                 controlName: name
             },
-            controlAddons = typeof model.addons != 'undefined' ? model.addons : this.options.defaultAddons;
+            controlAddons =  model.addons || this.options.defaultAddons;
+
+        controlAddons = this._removeDuplicateAddons(controlAddons);
 
         var label = ich.label(labelModel, true),
             addon = glyphicon ? ich.glyphiconAddon(glyphiconModel, true) : '',
@@ -465,6 +467,24 @@
         }
 
         return glyphiconClass.replace('glyphicon-', '');
+    };
+
+    FormRenderer.prototype._removeDuplicateAddons = function (controlAddons) {
+
+        var addons = [],
+            encountered = {};
+
+        for (var i in controlAddons) {
+
+            var addon = controlAddons[i];
+
+            if (!encountered[addon.name]) {
+                addons.push(addon);
+                encountered[addon.name] = true;
+            }
+        }
+
+        return addons;
     };
 
     // #endregion

@@ -42,9 +42,17 @@
         }
     ];
 
+    var directions = {
+        up: 'up',
+        down: 'down',
+        left: 'left',
+        right: 'right'
+    };
+
     var models = {
         controlTypes: controlTypes,
-        propertiesModels: propertiesModels
+        propertiesModels: propertiesModels,
+        directions: directions
     };
 
     return models;

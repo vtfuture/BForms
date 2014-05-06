@@ -95,6 +95,7 @@
     <Compile Include="FormBuilder\ControlFactory.cs" />
     <Compile Include="FormBuilder\ControlModels.cs" />
     <Compile Include="FormBuilder\Enums.cs" />
+    <Compile Include="FormBuilder\FormBuilderControlActionsFactory.cs" />
     <Compile Include="FormBuilder\FormBuilderControlsFactory.cs" />
     <Compile Include="FormBuilder\FormBuilderExtensions.cs" />
     <Compile Include="FormBuilder\FormBuilderRenderers.cs" />

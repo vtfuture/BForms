@@ -8,7 +8,7 @@
                            '{{{control}}}' +
                            '{{{validation}}}' +
                            '{{#controlAddons}}' +
-                               '<span class="input-group-addon glyphicon glyphicon-{{glyphicon}}" data-addon-toggle="{{name}}"></span>' +
+                               '<span class="input-group-addon glyphicon {{glyphicon}}" data-addon-toggle="{{name}}" title="{{title}}"></span>' +
                            '{{/controlAddons}}' +
                        '</div>' +
                    '</div>',

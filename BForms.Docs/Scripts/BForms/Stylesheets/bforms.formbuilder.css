@@ -63,6 +63,9 @@
   cursor: pointer; }
   .form_builder [data-addon-toggle]:not([data-addon-toggle="grab"]):hover {
     background-color: wheat; }
+.form_builder [data-addon-toggle].selected {
+  background-color: wheat;
+  cursor: default; }
 .form_builder [data-addon-toggle="grab"] {
   cursor: move; }
 .form_builder .form_builder-properties h3 {
