@@ -99,5 +99,19 @@ namespace BForms.FormBuilder
 
             return null;
         }
+
+        public static FormBuilderControlDisplay GetDisplayAttribute(this FormBuilderControlActionType type)
+        {
+            var fieldInfo = typeof(FormBuilderControlActionType).GetField(type.ToString());
+
+            if (fieldInfo != null)
+            {
+                var displayAttribute = Attribute.GetCustomAttribute(fieldInfo, typeof(FormBuilderControlDisplay)) as FormBuilderControlDisplay;
+
+                return displayAttribute;
+            }
+
+            return null;
+        }
     }
 }

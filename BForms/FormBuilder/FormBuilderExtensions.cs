@@ -28,9 +28,9 @@ namespace BForms.FormBuilder
         protected List<FormBuilderControl> SelectedControls;
         protected FormBuilderTabsFactory TabsFactory;
         protected FormBuilderControlsFactory ControlsFactory;
+        protected FormBuilderControlActionsFactory ActionsFactory;
         protected ViewContext ViewContext;
         protected int DefaultTabId;
-        protected List<FormBuilderControlActionType> DefaultActions;
 
         public FormBuilder(ViewContext viewContext)
             : base(viewContext)
@@ -43,7 +43,7 @@ namespace BForms.FormBuilder
             AvailableControls = GetDefaultControls();
             TabsFactory = new FormBuilderTabsFactory();
             ControlsFactory = new FormBuilderControlsFactory(AvailableControls, DefaultTabId);
-            DefaultActions = new List<FormBuilderControlActionType> { FormBuilderControlActionType.All };
+            ActionsFactory = new FormBuilderControlActionsFactory();
         }
 
         #endregion
@@ -201,6 +201,16 @@ namespace BForms.FormBuilder
             return TabsFactory.GetTabs();
         }
 
+        public List<FormBuilderControlActionType> GetDefaultActions()
+        {
+            return ActionsFactory.GetDefaultActions();
+        }
+
+        public List<FormBuilderCustomAction> GetCustomActions()
+        {
+            return ActionsFactory.GetRegisteredCustomActions();
+        }
+
         public void ApplyPreRenderingChanges()
         {
             var tabGroups = TabsFactory.GetTabs().ToDictionary(x => x.Id, x => x.Controls);
@@ -223,6 +233,8 @@ namespace BForms.FormBuilder
                     AvailableControls.AddRange(controls);
                 }
             }
+
+            ActionsFactory.SetActions(ref AvailableControls);
         }
 
         #endregion
@@ -247,16 +259,9 @@ namespace BForms.FormBuilder
             return this;
         }
 
-        public FormBuilder DeafultControlActions(IEnumerable<FormBuilderControlActionType> actions)
+        public FormBuilder ConfigureActions(Action<FormBuilderControlActionsFactory> action)
         {
-            DefaultActions = actions.ToList();
-
-            return this;
-        }
-
-        public FormBuilder DeafultControlActions(FormBuilderControlActionType action)
-        {
-            DefaultActions = new List<FormBuilderControlActionType> { action };
+            action.Invoke(ActionsFactory);
 
             return this;
         }

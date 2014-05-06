@@ -25,37 +25,42 @@
         settingsContainerSelector: '.form_builder-settingsContainer'
     };
 
-    FormBuilder.prototype._defaultAddons = [
-        {
+    FormBuilder.prototype._addons = {
+        grab: {
             name: 'grab',
-            glyphicon: 'sort'
+            glyphicon: 'glyphicon-sort',
+            title: 'Sort'
         },
-        {
+        up: {
             name: 'up',
-            glyphicon: 'chevron-up'
+            glyphicon: 'glyphicon-chevron-up',
+            title: 'Move up'
         },
-        {
+        down: {
             name: 'down',
-            glyphicon: 'chevron-down'
+            glyphicon: 'glyphicon-chevron-down',
+            title: 'Move down'
         },
-        {
+        settings: {
             name: 'settings',
-            glyphicon: 'wrench'
+            glyphicon: 'glyphicon-wrench',
+            title: 'Settings'
         },
-        {
-            name: 'close',
-            glyphicon: 'remove-circle'
+        remove: {
+            name: 'remove',
+            glyphicon: 'glyphicon-remove-circle',
+            title: 'Remove'
         }
-    ];
+    };
 
-    FormBuilder.prototype._defaultActions = {
-
+    FormBuilder.prototype._controlActions = {
+        all: 'all',
         grab: 'grab',
         up: 'up',
         down: 'down',
         settings: 'settings',
-        close: 'close'
-    }
+        remove: 'remove'
+    };
 
     // #region init
 
@@ -86,15 +91,20 @@
 
     FormBuilder.prototype._initMembers = function () {
 
+        this._defaultActions = this._getDefaultActions();
+        this._customActions = this._getCustomActions();
+
         this.renderer = new FormRenderer({
-            defaultAddons: this._defaultAddons
+            defaultAddons: this._defaultActions.map($.proxy(this._mapControlActionToControlAddon, this))
         });
 
         this.formModel = [];
         this.resource = this.options.resource;
         this.draggedControl = null;
 
-        var controlsOptions = JSON.parse(this.$element.attr('data-controls'));
+        var controlsData = this.$element.attr('data-controls') ? this.$element.attr('data-controls') : '{}';
+
+        var controlsOptions = JSON.parse(controlsData);
 
         this.availableControls = controlsOptions ? (controlsOptions.controls || []) : [];
     };
@@ -146,7 +156,12 @@
             },
             constraints: {
                 required: true
-            }
+            },
+            customActions: [
+            {
+                name: 'cacat',
+                glyphicon: 'glyphicon-asterisk'
+            }]
         });
 
         this.formModel.push({
@@ -419,6 +434,10 @@
 
     FormBuilder.prototype._renderControl = function (model) {
 
+        var addons = this._getAddons(model);
+
+        $.extend(true, model, { addons: addons });
+
         switch (model.type) {
 
             case models.controlTypes.textBox: {
@@ -549,7 +568,12 @@
 
         e.preventDefault();
 
-        console.log('action click');
+        var $action = $(e.target),
+            $formControl = $action.parents(this.options.formControlSelector),
+            actionName = $action.attr('data-addon-toggle'),
+            controlModel = this._getFormControlModel($formControl);
+
+        this._handleAction(actionName, controlModel);
     };
 
     FormBuilder.prototype._evControlTabClick = function (e) {
@@ -569,7 +593,7 @@
         var $lists = this.$element.find(this.options.controlItemsListSelector),
             $listToShow = $lists.filter('[data-tabid="' + tabId + '"]');
 
-       $lists.hide();
+        $lists.hide();
 
         var selectedTabPosition = $btnGroup.find('.selected').attr('data-position'),
             clickedTabPosition = $btn.attr('data-position');
@@ -579,7 +603,9 @@
         $btnGroup.find(this.options.controlTabSelector).removeClass('selected');
         $btn.addClass('selected');
 
-        this._slideTab($listToShow, slideFromRight);
+        var direction = slideFromRight ? models.directions.right : models.directions.left;
+
+        this._slideTab($listToShow, direction);
     };
 
     FormBuilder.prototype._evTabReceive = function (e, ui) {
@@ -922,8 +948,208 @@
             var item = items[i];
 
             if (typeof item.uid == 'undefined') {
-                item.ui = this._generateUid();
+                item.uid = this._generateUid();
             }
+        }
+    };
+
+    FormBuilder.prototype._getDefaultActions = function () {
+
+        var defaultActionsOptions = this.$element.attr('data-defaultactions') ? this.$element.attr('data-defaultactions') : '{}';
+
+        var actions = JSON.parse(defaultActionsOptions).actions || [];
+
+        actions = this._getAvailableActions(actions);
+
+        return actions;
+    };
+
+    FormBuilder.prototype._getCustomActions = function () {
+
+        var customActionsOptions = this.$element.attr('data-customactions') ? this.$element.attr('data-customactions') : '{}';
+
+        var customActions = JSON.parse(customActionsOptions).actions || [];
+
+        customActions = customActions.map($.proxy(this._mapCustomActionModelToCustomAction, this));
+
+        return customActions;
+    };
+
+    FormBuilder.prototype._getAvailableActions = function (actionsToCheck) {
+
+        var actions = actionsToCheck.slice();
+
+        if (actions.indexOf(this._controlActions.all) != -1) {
+
+            actions = [];
+
+            for (var actionName in this._controlActions) {
+                if (this._controlActions.hasOwnProperty(actionName) && actionName != 'all') {
+                    actions.push(actionName);
+                }
+            }
+        }
+
+        return actions;
+    };
+
+    FormBuilder.prototype._getAddons = function (model) {
+
+        for (var i in this.availableControls) {
+
+            var control = this._mapControlModelToControlListModel(this.availableControls[i]);
+
+            if (control.type === model.type) {
+
+                var actions = this._getAvailableActions(control.actions),
+                    addons = actions.map($.proxy(this._mapControlActionToControlAddon, this));
+
+                addons = addons.concat(control.customActions);
+
+                return addons;
+            }
+        }
+
+        return null;
+    };
+
+    FormBuilder.prototype._handleAction = function (actionName, controlModel) {
+
+        if (this._controlActions[actionName]) {
+            this._handleDefaultAction(actionName, controlModel);
+        } else {
+            this._handleCustomAction(actionName, controlModel);
+        }
+    };
+
+    FormBuilder.prototype._handleDefaultAction = function (actionName, controlModel) {
+
+        switch (actionName) {
+
+            case this._controlActions.grab:
+                {
+                    break;
+                }
+            case this._controlActions.up:
+                {
+                    this._moveFormElement(models.directions.up, controlModel);
+
+                    break;
+                }
+            case this._controlActions.down:
+                {
+                    this._moveFormElement(models.directions.down, controlModel);
+
+                    break;
+                }
+            case this._controlActions.settings:
+                {
+                    this._toggleSettings(controlModel);
+
+                    break;
+                }
+            case this._controlActions.remove:
+                {
+                    this._removeFormElement(controlModel);
+
+                    break;
+                }
+            default:
+                {
+                    break;
+                }
+        }
+    };
+
+    FormBuilder.prototype._moveFormElement = function (direction, controlModel) {
+
+        console.log('going ' + direction + '!');
+    };
+
+    FormBuilder.prototype._toggleSettings = function (controlModel, hide) {
+
+        if (controlModel.uid == null) {
+            return;
+        }
+
+        var $formControl = this._getFormControl(controlModel.uid),
+            $settingsBtn = this._getFormControlAddon(controlModel.uid, this._controlActions.settings);
+
+        if (hide) {
+
+            $formControl.removeClass('selected');
+            $settingsBtn.removeClass('selected');
+
+            return;
+        }
+
+        if (this._openedSettingsUid === controlModel.uid) {
+            return;
+        }
+
+        this._toggleSettings({ uid: this._openedSettingsUid }, true);
+
+        this._openedSettingsUid = controlModel.uid;
+
+        $formControl.addClass('selected');
+        $settingsBtn.addClass('selected');
+
+    };
+
+    FormBuilder.prototype._removeFormElement = function (controlModel) {
+
+        var uid = controlModel.uid;
+
+        var formModelIndex = null;
+
+        for (var i in this.formModel) {
+
+            if (this.formModel[i].uid === uid) {
+
+                formModelIndex = i;
+
+                break;
+            }
+        }
+
+        if (formModelIndex !== null) {
+            this.formModel.splice(formModelIndex, 1);
+        }
+
+        var $formControl = this._getFormControl(uid);
+
+        this._toggleSettings({ uid: uid }, false);
+
+        $formControl.hide({
+            duration: 200,
+            easing: 'swing',
+            done: function() {
+                $formControl.remove();
+            }
+        });
+    };
+
+    FormBuilder.prototype._handleCustomAction = function (actionName, controlModel) {
+
+        var actionHandler;
+
+        if (this.options.customActions instanceof Array) {
+            
+            for (var i in this.options.customActions) {
+
+                var customAction = this.options.customActions[i];
+
+                if (customAction.name === actionName) {
+
+                    actionHandler = customAction.handler;
+                }
+            }
+        }
+
+        if (typeof actionHandler == 'function') {
+            actionHandler(controlModel);
+        } else {
+            throw 'Handler not defined for custom action "' + actionName + '"';
         }
     };
 
@@ -944,10 +1170,31 @@
             order: controlModel.Order,
             tabId: controlModel.TabId,
             controlName: controlModel.ControlName,
-            actions: controlModel.Actions
+            actions: controlModel.Actions,
+            customActions: controlModel.CustomActions ? controlModel.CustomActions.map($.proxy(this._mapCustomActionModelToCustomAction, this)) : []
         };
 
         return model;
+    };
+
+    FormBuilder.prototype._mapCustomActionModelToCustomAction = function (customActionModel) {
+
+        return {
+            name: customActionModel.Name,
+            glyphicon: customActionModel.Glyphicon,
+            title: customActionModel.Title
+        };
+    };
+
+    FormBuilder.prototype._mapControlActionToControlAddon = function (controlAction) {
+
+        var addon = this._addons[controlAction];
+
+        return {
+            name: addon.name,
+            glyphicon: addon.glyphicon,
+            title: addon.title,
+        };
     };
 
     FormBuilder.prototype._generateUid = function () {
@@ -992,9 +1239,7 @@
         return $tab;
     }
 
-    FormBuilder.prototype._slideTab = function ($tab, fromRight) {
-
-        var direction = fromRight ? 'right' : 'left';
+    FormBuilder.prototype._slideTab = function ($tab, direction) {
 
         $tab.show('slide', { direction: direction }, 250);
     };
@@ -1025,6 +1270,27 @@
     FormBuilder.prototype._getHeight = function ($element) {
 
         return parseInt($element.css('height').replace('px', ''));
+    };
+
+    FormBuilder.prototype._getFormControlModel = function ($formControl) {
+
+        var model = {
+            uid: parseInt($formControl.attr('data-uid')),
+            displayName: $formControl.attr('data-displayname'),
+            type: parseInt($formControl.attr('data-controltype'))
+        };
+
+        return model;
+    };
+
+    FormBuilder.prototype._getFormControl = function (uid) {
+
+        return this.$form.find(this.options.formControlSelector + '[data-uid="' + uid + '"]');
+    };
+
+    FormBuilder.prototype._getFormControlAddon = function (formControlUid, actionName) {
+
+        return this._getFormControl(formControlUid).find('[data-addon-toggle="' + actionName + '"]');
     };
 
     // #endregion

@@ -1,5 +1,6 @@
 ﻿@using BForms.FormBuilder
 @using BForms.Models
+@using DocumentFormat.OpenXml.Office2010.ExcelAc
 
 <div class="grid_container">
     @(Html.FormBuilder()
@@ -29,5 +30,18 @@
                   Text = "Uber custom control",
                   Glyphicon = Glyphicon.Heart
               });
+          })
+          .ConfigureActions(actions =>
+          {
+              actions.ActionsFor(x => x.Type == FormBuilderControlType.Textbox, new List<FormBuilderControlActionType> { FormBuilderControlActionType.Grab, FormBuilderControlActionType.Remove });
+
+              actions.RegisterCustomAction(new FormBuilderCustomAction
+              {
+                  Name = "custom",
+                  Glyphicon = Glyphicon.ThumbsUp,
+                  Title = "Like us on Facebook"
+              });
+              
+              actions.CustomActionsFor(x => x.Type == FormBuilderControlType.Textbox, new List<string> { "custom" });
           }))
 </div>
