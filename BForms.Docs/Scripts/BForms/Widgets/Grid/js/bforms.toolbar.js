@@ -67,11 +67,11 @@
 
                     var opts = $.extend(true, {}, this.options.controlsOptions);
 
-                    if (typeof this.options.customControlsOptions !== "undefined" &&  typeof this.options.customControlsOptions[k] !== "undefined") {
+                    if (typeof this.options.customControlsOptions !== "undefined" && typeof this.options.customControlsOptions[k] !== "undefined") {
                         $.extend(true, opts, this.options.customControlsOptions[k]);
                     }
 
-                    var control = new $.bforms.toolbar.defaults[k](this.element, opts);                  
+                    var control = new $.bforms.toolbar.defaults[k](this.element, opts);
 
                     var $btn = this.element.find(control._defaultOptions.selector);
                     if ($btn.length > 0) {
@@ -98,7 +98,7 @@
         if (this.options.controls instanceof Array) {
             for (var i = 0; i < this.options.controls.length; i++) {
                 if (typeof (this.options.controls[i]) != 'undefined') {
-                    var control = new this.options.controls[i](this.element);
+                    var control = new this.options.controls[i](this.element, this.options);
                     var $btn = this.element.find(control._defaultOptions.selector);
                     if ($btn.length > 0) {
                         control.$element = $btn;
@@ -122,7 +122,7 @@
     };
 
     Toolbar.prototype._reset = function (options) {
-        
+
         var preventPagination = true,
             quickSearch = this.getControl('quickSearch');
 
