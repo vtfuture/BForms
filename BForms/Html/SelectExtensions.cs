@@ -304,7 +304,7 @@ namespace BForms.Html
         }
 
         private static MvcHtmlString BsRadioListInternal<TKey>(this HtmlHelper htmlHelper, string name,
-            BsSelectList<TKey> radioList, IDictionary<string, object> htmlAttributes, bool allowMultiple, string bsCssClass, ModelMetadata metadata = null)
+           BsSelectList<TKey> radioList, IDictionary<string, object> htmlAttributes, bool allowMultiple, string bsCssClass, ModelMetadata metadata = null)
         {
             //TODO: refactoring
             //bind the selected values BsSelectList.SelectedValues
@@ -316,11 +316,18 @@ namespace BForms.Html
             divTag.MergeAttribute("id", fullName, true);
             divTag.AddCssClass(bsCssClass);
             divTag.AddCssClass("form-control");
-            
+
 
             if (htmlAttributes != null)
             {
                 divTag.MergeAttributes(htmlAttributes);
+            }
+
+            // Create a radio button temporary to get the common SelectListValidation (hack to preverv them)
+            var commonRadioBuilder = new TagBuilder("input");
+            if (radioList.Items.Any())
+            {
+                commonRadioBuilder.BsSelectListValidation(htmlHelper, name, metadata);
             }
 
             // Create a radio button for each item in the list
@@ -345,14 +352,18 @@ namespace BForms.Html
                     });
                 }
 
-                //build radio or checkbox input
+                // build radio or checkbox input
                 var input = string.Empty;
                 var radioBuilder = new TagBuilder("input");
                 radioBuilder.MergeAttribute("name", fullName, true);
                 radioBuilder.MergeAttributes(radioHtmlAttributes);
-                if (item.Selected) radioBuilder.MergeAttribute("checked", "checked");
+                if (item.Selected)
+                {
+                    radioBuilder.MergeAttribute("checked", "checked");
+                }
 
-                radioBuilder.BsSelectListValidation(htmlHelper, name, metadata);
+                // merge common atributes
+                radioBuilder.MergeAttributes(commonRadioBuilder.Attributes);
 
                 if (allowMultiple)
                 {
