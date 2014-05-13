@@ -1385,8 +1385,16 @@
         return columnOrder;
     };
 
-    Grid.prototype._getRowElement = function (objId) {
-        return this.element.find(this.options.rowSelector + '[data-objid="' + objId + '"]');
+    Grid.prototype._getRowElement = function (objId, dataKey) {
+        var el = null;
+
+        if (dataKey) {
+            el = this.element.find(this.options.rowSelector + '[data-' + dataKey + '="' + objId + '"]');
+        }
+        if (el == null || el.length == 0) {
+            el = this.element.find(this.options.rowSelector + '[data-objid="' + objId + '"]');
+        }
+        return el;
     };
 
     Grid.prototype._initInitialDetails = function ($row) {
@@ -1595,9 +1603,9 @@
         $rows.each($.proxy(function (idx, row) {
 
             var $row = $(row),
-            objId = $row.data(key);
+            objId = $row.data(key) || $row.data('objid');
 
-            var $currentRow = this._getRowElement(objId);
+            var $currentRow = this._getRowElement(objId, dataKey);
 
             if (this.options.hasRowCheck) {
                 var checked = $currentRow.find(this.options.rowCheckSelector).prop('checked');
