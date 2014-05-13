@@ -1586,15 +1586,16 @@
         this._showResetGridButton();
     };
 
-    Grid.prototype.updateRows = function (html) {
+    Grid.prototype.updateRows = function (html, dataKey) {
 
         var $container = $(html);
         var $rows = $container.find(this.options.rowSelector);
+        var key = dataKey ? dataKey : 'objid';
 
         $rows.each($.proxy(function (idx, row) {
 
             var $row = $(row),
-            objId = $row.data('objid');
+            objId = $row.data(key);
 
             var $currentRow = this._getRowElement(objId);
 
