@@ -16,11 +16,13 @@ namespace BForms.Renderers
 {
     public class FormEditorBaseRenderer : BsBaseRenderer<BForms.FormBuilder.FormBuilder>
     {
-        public FormEditorBaseRenderer(BForms.FormBuilder.FormBuilder builder)
+        public FormEditorBaseRenderer(BForms.FormBuilder.FormBuilder builder, HtmlHelper helper)
             : base(builder)
         {
-
+            FormHtmlRenderer = new BsFormHtmlRenderer(helper);
         }
+
+        protected BsFormHtmlRenderer FormHtmlRenderer;
 
         public override string Render()
         {
@@ -163,6 +165,50 @@ namespace BForms.Renderers
             var settingsContainerBuilder = new TagBuilder("div");
 
             settingsContainerBuilder.AddCssClass("form_builder-settingsContainer row");
+
+            var controls = this.Builder.GetControlsMetadata();
+
+            foreach (var control in controls)
+            {
+                var metadataBuilder = new TagBuilder("div");
+                
+                metadataBuilder.AddCssClass("col-lg-12 col-md-12 col-sm-12");
+
+                var propertiesTabs = from prop in control.GetType().GetProperties()
+                    let propertiesAttributes = prop.GetCustomAttributes(typeof (FormBuilderPropertiesTab), true)
+                    where propertiesAttributes.Length == 1
+                    select new
+                    {
+                        PropertiesAttribute = propertiesAttributes.FirstOrDefault() as FormBuilderPropertiesTab,
+                        PropertyInfo = prop
+                    };
+
+                foreach (var propertiesTab in propertiesTabs)
+                {
+                    var title = "Some tab";
+
+                    var titleBuilder = new TagBuilder("h3");
+                    var titleGlyphiconBuilder = new TagBuilder("span");
+                    var arrowGlyphiconBuilder = new TagBuilder("span");
+
+                    titleGlyphiconBuilder.AddCssClass("glyphicon " + propertiesTab.PropertiesAttribute.Glyphicon.GetDescription());
+                    arrowGlyphiconBuilder.AddCssClass("pull-right glyphicon " + Glyphicon.ChevronUp.GetDescription());
+
+                    titleBuilder.InnerHtml = titleGlyphiconBuilder.ToString() + " " + title +
+                                             arrowGlyphiconBuilder.ToString();
+
+                    var formModel = propertiesTab.PropertyInfo.GetValue(control);
+
+                    var propertiesFormString = FormHtmlRenderer.RenderForm(formModel, renderingOptions.Theme);
+
+                    metadataBuilder.InnerHtml += titleBuilder.ToString() + propertiesFormString;
+                }
+
+                metadataBuilder.MergeAttribute("data-properties-for", ((int) control.Type).ToString());
+                metadataBuilder.MergeAttribute("style", "display:none;");
+
+                settingsContainerBuilder.InnerHtml += metadataBuilder.ToString();
+            }
 
             var panelBuilder = new BsPanelHtmlBuilder(this.Builder.GetViewContext());
             var panelRenderer = new BsPanelLightRenderer(panelBuilder);

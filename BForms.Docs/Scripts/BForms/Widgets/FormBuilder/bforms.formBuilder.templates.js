@@ -20,7 +20,7 @@
                                     '<div class="col-lg-1 col-md-1 col-sm-1 col-xs-4 form-group">' +
                                         '<label class="control-label"></label>' +
                                         '<div class="input-group">' +
-                                            '<button class="btn btn-white pull-left">cacat</button>' +
+                                            '<button class="btn btn-white pull-left"></button>' +
                                         '</div>' +
                                     '</div>' +
                                 '</div>' +

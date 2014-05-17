@@ -33,15 +33,15 @@
           })
           .ConfigureActions(actions =>
           {
-              actions.ActionsFor(x => x.Type == FormBuilderControlType.Textbox, new List<FormBuilderControlActionType> { FormBuilderControlActionType.Grab, FormBuilderControlActionType.Remove });
+              //actions.ActionsFor(x => x.Type == FormBuilderControlType.Textbox, new List<FormBuilderControlActionType> { FormBuilderControlActionType.Grab, FormBuilderControlActionType.Remove });
 
-              actions.RegisterCustomAction(new FormBuilderCustomAction
-              {
-                  Name = "custom",
-                  Glyphicon = Glyphicon.ThumbsUp,
-                  Title = "Like us on Facebook"
-              });
+              //actions.RegisterCustomAction(new FormBuilderCustomAction
+              //{
+              //    Name = "custom",
+              //    Glyphicon = Glyphicon.ThumbsUp,
+              //    Title = "Like us on Facebook"
+              //});
               
-              actions.CustomActionsFor(x => x.Type == FormBuilderControlType.Textbox, new List<string> { "custom" });
+              //actions.CustomActionsFor(x => x.Type == FormBuilderControlType.Textbox, new List<string> { "custom" });
           }))
 </div>
