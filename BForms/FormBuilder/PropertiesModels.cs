@@ -9,21 +9,39 @@ using BForms.Grid;
 using BForms.Models;
 using System.Text.RegularExpressions;
 using BForms.Mvc;
+using DocumentFormat.OpenXml.Office2010.ExcelAc;
 
 namespace BForms.FormBuilder
 {
+    public class BaseControlProperties
+    {
+        public BaseControlProperties()
+        {
+            Buttons = new List<BsButtonModel>
+            {
+                new BsButtonModel("Save", BsComponentStatus.Default),
+                new BsButtonModel("Reset", BsComponentStatus.Warning)
+            };
+        }
 
-    public class DefaultcontrolProperties
+        [FormButtons]
+        public IEnumerable<BsButtonModel> Buttons { get; set; } 
+    }
+
+    public class DefaultcontrolProperties : BaseControlProperties
     {
         [BsControl(BsControlType.DropDownList)]
+        [FormGroup(ColumnWidth.Large, Glyphicon.ResizeHorizontal)]
         [Display(Name = "Width")]
         public BsSelectList<ColumnWidth> Width { get; set; }
 
         [BsControl(BsControlType.TextBox)]
+        [FormGroup(ColumnWidth.Large, Glyphicon.Tag)]
         [Display(Name = "Label")]
         public string Label { get; set; }
 
         [BsControl(BsControlType.TextBox)]
+        [FormGroup(ColumnWidth.Large, Glyphicon.Pencil)]
         [Display(Name = "Name")]
         public string Name { get; set; }
     }
@@ -32,18 +50,22 @@ namespace BForms.FormBuilder
     {
         [BsControl(BsControlType.TextBox)]
         [Display(Name = "Placeholder")]
+        [FormGroup(ColumnWidth.Large, Glyphicon.Pushpin)]
         public string Placeholder { get; set; }
 
         [BsControl(BsControlType.TextBox)]
         [Display(Name = "Initial value")]
+        [FormGroup(ColumnWidth.Large, Glyphicon.LogIn)]
         public string InitialValue { get; set; }
 
         [BsControl(BsControlType.DropDownList)]
         [Display(Name = "Type")]
+        [FormGroup(ColumnWidth.Large, Glyphicon.QuestionSign)]
         public BsSelectList<FormBuilderInputType> Type { get; set; }
 
         [BsControl(BsControlType.TextBox)]
         [Display(Name = "Regex validation")]
+        [FormGroup(ColumnWidth.Large, Glyphicon.Asterisk)]
         public string RegexString { get; set; }
     }
 
@@ -51,6 +73,7 @@ namespace BForms.FormBuilder
     {
         [BsControl(BsControlType.TextBox)]
         [Display(Name = "Initial value")]
+        [FormGroup(ColumnWidth.Large, Glyphicon.LogIn)]
         public string InitialValue { get; set; }
     }
     

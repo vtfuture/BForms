@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +11,7 @@ using BForms.Models;
 using BForms.Panels;
 using BForms.FormBuilder;
 using BForms.Utilities;
+using DocumentFormat.OpenXml.Drawing.Charts;
 using DocumentFormat.OpenXml.Office2010.ExcelAc;
 
 namespace BForms.Renderers
@@ -176,16 +178,20 @@ namespace BForms.Renderers
 
                 var propertiesTabs = from prop in control.GetType().GetProperties()
                     let propertiesAttributes = prop.GetCustomAttributes(typeof (FormBuilderPropertiesTab), true)
+                    let displayAttributes = prop.GetCustomAttributes(typeof(DisplayAttribute), true)
                     where propertiesAttributes.Length == 1
                     select new
                     {
                         PropertiesAttribute = propertiesAttributes.FirstOrDefault() as FormBuilderPropertiesTab,
+                        DisplayAttribute = displayAttributes.Select(x => x as DisplayAttribute).FirstOrDefault(),
                         PropertyInfo = prop
                     };
 
+                propertiesTabs = propertiesTabs.OrderBy(x => x.PropertiesAttribute.Order);
+
                 foreach (var propertiesTab in propertiesTabs)
                 {
-                    var title = "Some tab";
+                    var title = propertiesTab.DisplayAttribute.GetName();
 
                     var titleBuilder = new TagBuilder("h3");
                     var titleGlyphiconBuilder = new TagBuilder("span");
@@ -199,9 +205,12 @@ namespace BForms.Renderers
 
                     var formModel = propertiesTab.PropertyInfo.GetValue(control);
 
-                    var propertiesFormString = FormHtmlRenderer.RenderForm(formModel, renderingOptions.Theme);
+                    if (formModel != null)
+                    {
+                        var propertiesFormString = FormHtmlRenderer.RenderForm(formModel, renderingOptions.Theme);
 
-                    metadataBuilder.InnerHtml += titleBuilder.ToString() + propertiesFormString;
+                        metadataBuilder.InnerHtml += titleBuilder.ToString() + propertiesFormString;
+                    }
                 }
 
                 metadataBuilder.MergeAttribute("data-properties-for", ((int) control.Type).ToString());

@@ -4,15 +4,12 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Web.Mvc;
 using BForms.Html;
 using BForms.Models;
 using BForms.Mvc;
 using BForms.Utilities;
-using DocumentFormat.OpenXml.Office2010.ExcelAc;
 
 namespace BForms.FormBuilder
 {
@@ -25,9 +22,15 @@ namespace BForms.FormBuilder
             _helper = helper;
         }
 
-        public string RenderForm<TFormModel>(TFormModel formModel, BsTheme theme = BsTheme.Default, bool wrapInForm = true)
+        public string RenderForm<TFormModel>(TFormModel formModel, BsTheme theme = BsTheme.Default, bool wrapInForm = true) where TFormModel : class
         {
+            if (formModel == null)
+            {
+                throw new Exception("The form model passed as an argument cannot be null");
+            }
+
             var formString = String.Empty;
+            var formButtonsString = String.Empty;
 
             var formBuilder = new TagBuilder("form");
             var formContainerBuilder = new TagBuilder("div");
@@ -35,16 +38,18 @@ namespace BForms.FormBuilder
             formBuilder.MergeAttribute("novalidate", "novalidate");
             formContainerBuilder.AddCssClass("form_container " + theme.GetDescription());
 
+            var properties = formModel.GetType().GetProperties();
+
             var bsControlProperties = from prop in formModel.GetType().GetProperties()
                                       let bsControl = prop.GetCustomAttributes(typeof(BsControlAttribute), true)
                                       let required = prop.GetCustomAttributes(typeof(RequiredAttribute), true)
                                       let display = prop.GetCustomAttributes(typeof(DisplayAttribute), true)
-                                      let width = prop.GetCustomAttributes(typeof(FormGroupWidth), true)
+                                      let formGroup = prop.GetCustomAttributes(typeof(FormGroup), true)
                                       where bsControl.Length == 1
                                       select new FormControlPropertyMetadata
                                       {
                                           PropertyInfo = prop,
-                                          WidthAttribute = width.FirstOrDefault() as FormGroupWidth,
+                                          FormGroupAttribute = formGroup.FirstOrDefault() as FormGroup,
                                           RequiredAttribute = required.FirstOrDefault() as RequiredAttribute,
                                           DisplayAttribute = display.FirstOrDefault() as DisplayAttribute,
                                           BsControlAttribute = bsControl.FirstOrDefault() as BsControlAttribute
@@ -55,7 +60,25 @@ namespace BForms.FormBuilder
                 formString += RenderFormGroup(property, formModel);
             }
 
-            formContainerBuilder.InnerHtml = formString;
+            var buttonsProperties = from prop in formModel.GetType().GetProperties()
+                where prop.GetCustomAttributes(typeof (FormButtons), true).Any()
+                select prop;
+
+            var buttons = buttonsProperties.Select(prop => prop.GetValue(formModel)).FirstOrDefault();
+
+            if (buttons != null)
+            {
+                var buttonsList = buttons as IEnumerable<BsButtonModel>;
+
+                if (buttonsList == null)
+                {
+                    throw new Exception("Properties decorated with the BsButtonModel attribute must be of type IEnumerable<BsButtonModel>");
+                }
+
+                formButtonsString = RenderFormButtons(buttonsList);
+            }
+
+            formContainerBuilder.InnerHtml = formString + formButtonsString;
 
             if (wrapInForm)
             {
@@ -74,14 +97,27 @@ namespace BForms.FormBuilder
             var formGroupBuilder = new TagBuilder("div");
             var inputGroupBuilder = new TagBuilder("div");
 
-            var width = propertyMetadata.WidthAttribute != null
-                ? propertyMetadata.WidthAttribute.Width
+            var width = propertyMetadata.FormGroupAttribute != null
+                ? propertyMetadata.FormGroupAttribute.Width
                 : ColumnWidth.Large;
 
             formGroupBuilder.AddCssClass("form-group " + width.GetDescription());
             inputGroupBuilder.AddCssClass("input-group");
 
-            inputGroupBuilder.InnerHtml = controlHtml;
+            var glyphiconAddonHtml = String.Empty;
+
+            if (propertyMetadata.FormGroupAttribute != null && propertyMetadata.FormGroupAttribute.GlyphiconAddon != Glyphicon.Custom)
+            {
+                var glyphicon = propertyMetadata.FormGroupAttribute.GlyphiconAddon;
+
+                var glyphiconAddonbuilder = new TagBuilder("span");
+
+                glyphiconAddonbuilder.AddCssClass("input-group-addon glyphicon " + glyphicon.GetDescription());
+
+                glyphiconAddonHtml = glyphiconAddonbuilder.ToString();
+            }
+
+            inputGroupBuilder.InnerHtml = glyphiconAddonHtml + controlHtml;
             formGroupBuilder.InnerHtml = RenderBsLabel(propertyMetadata, formModel) + inputGroupBuilder.ToString();
 
             return formGroupBuilder.ToString();
@@ -149,6 +185,27 @@ namespace BForms.FormBuilder
             }
 
             return controlString;
+        }
+
+        internal string RenderFormButtons(IEnumerable<BsButtonModel> buttons)
+        {
+            var buttonsString = String.Empty;
+
+            if (buttons != null)
+            {
+                foreach (var button in buttons)
+                {
+                    buttonsString += button.ToString();
+                }
+            }
+
+            var buttonsContainerBuilder = new TagBuilder("div");
+
+            buttonsContainerBuilder.AddCssClass("col-lg-12 col-md-12 col-sm-12 form-group");
+
+            buttonsContainerBuilder.InnerHtml = buttonsString;
+
+            return buttonsContainerBuilder.ToString();
         }
 
         #region Individual rendering methods
@@ -305,6 +362,6 @@ namespace BForms.FormBuilder
         public BsControlAttribute BsControlAttribute { get; set; }
         public RequiredAttribute RequiredAttribute { get; set; }
         public DisplayAttribute DisplayAttribute { get; set; }
-        public FormGroupWidth WidthAttribute { get; set; }
+        public FormGroup FormGroupAttribute { get; set; }
     }
 }

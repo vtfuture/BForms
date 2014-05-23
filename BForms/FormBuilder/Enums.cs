@@ -1,7 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using BForms.Models;
+using BForms.Utilities;
 
 namespace BForms.FormBuilder
 {
@@ -124,6 +126,42 @@ namespace BForms.FormBuilder
         No = 2
     }
 
+    public enum BsComponentStatus
+    {
+        [Description("")]
+        None = 0,
+        [Description("default")]
+        Default = 1,
+        [Description("success")]
+        Success = 2,
+        [Description("info")]
+        Info = 3,
+        [Description("warning")]
+        Warning = 4,
+        [Description("danger")]
+        Danger = 5,
+        [Description("add")]
+        Add = 6,
+        [Description("primary")]
+        Primary = 7
+    }
+
+    public enum BsComponentType
+    {
+        [Description("btn")]
+        Button = 1,
+        [Description("alert")]
+        Alert = 2,
+        [Description("label")]
+        Label = 3,
+        [Description("progress-bar")]
+        ProgressBar = 4,
+        [Description("list-group-item")]
+        ListGroupItem = 5
+    }
+
+    #region Enum extensions
+
     public static class FormBuilderEnumExtensions
     {
         public static FormBuilderControlDisplay GetDisplayAttribute(this FormBuilderControlType type)
@@ -168,4 +206,6 @@ namespace BForms.FormBuilder
             return null;
         }
     }
+
+    #endregion
 }

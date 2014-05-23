@@ -25,10 +25,19 @@ namespace BForms.FormBuilder
             {
                 Type = BsSelectList<FormBuilderInputType>.FromEnum(typeof (FormBuilderInputType))
             };
+
+            DefaultProperties = new DefaultcontrolProperties
+            {
+                Width = BsSelectList<ColumnWidth>.FromEnum(typeof (ColumnWidth))
+            };
         }
 
-        [FormBuilderPropertiesTab]
-        [Display(Name = "Properties")]
+        [FormBuilderPropertiesTab(Glyphicon = Glyphicon.Wrench)]
+        [Display(Name = "Default properties")]
+        public DefaultcontrolProperties DefaultProperties { get; set; }
+
+        [FormBuilderPropertiesTab(Glyphicon = Glyphicon.Cog)]
+        [Display(Name = "Specific properties")]
         public InputControlProperties Properties { get; set; }
     }
 
