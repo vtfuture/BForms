@@ -51,6 +51,12 @@ namespace BForms.Renderers
                 nameTag.AddCssClass("bs-togglePanel");
                 nameTag.MergeAttribute("href", "#");
 
+                if (this.Builder.glyphicon.HasValue)
+                {
+                    nameTag.MergeAttribute("style", "margin-left: 5px;");
+                    headerTitleTag.InnerHtml += this.GetGlyphicon(this.Builder.glyphicon.Value);
+                }
+
                 var loaderImg = new TagBuilder("span");
                 loaderImg.AddCssClass("bs-panelLoader loading-spinner");
 
