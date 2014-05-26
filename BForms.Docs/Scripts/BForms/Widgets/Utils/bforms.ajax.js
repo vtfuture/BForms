@@ -328,12 +328,28 @@
             var stackedXhr = this._xhrStack[xhrRequest.name];
 
             if (xhrRequest.readyState === 4 && stackedXhr.aborted !== true) {
-                var response = JSON.parse(xhrRequest.responseText);
-                if (response.Status == self._statusEnum.Success || response.Status == self._statusEnum.ValidationError) {
-                    deferredXHR.resolve(response.Status, [response, opts.callbackData]);
-                } else {
-                    deferredXHR.reject(response.Status, [response != null ? null : response.Data, jqXHR, textStatus, errorThrown, opts.callbackData]);
+
+                var isValidJson = false;
+
+                try {
+                    var response = JSON.parse(xhrRequest.responseText);
+                    isValidJson = true;
+                } catch (ex) {
+                    deferredXHR.reject(self._statusEnum.ServerError, [response != null ? response.Data : null, xhrRequest, xhrRequest.statusText, null, opts.callbackData]);
                 }
+
+                if (isValidJson) {
+                    try {
+                        if (response.Status == self._statusEnum.Success || response.Status == self._statusEnum.ValidationError) {
+                            deferredXHR.resolve(response.Status, [response, opts.callbackData]);
+                        } else {
+                            deferredXHR.reject(response.Status, [response != null ? response.Data : null, xhrRequest, xhrRequest.statusText, null, opts.callbackData]);
+                        }
+                    } catch (ex) {
+                        window.console.log(ex.stack);
+                    }
+                }
+
 
                 self._toggleLoading(opts.name, false);
             }
