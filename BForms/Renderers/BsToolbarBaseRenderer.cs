@@ -190,6 +190,15 @@ namespace BForms.Renderers
                     }
                 }
 
+                // Render actions inside the toolbar
+                foreach (var action in this.Builder.ActionsFactory.Actions)
+                {
+                    // check if action is default
+                    var defaultAction = action as BsToolbarAction;
+
+                    controlsBuilder.InnerHtml += action.ToString();
+                }
+
                 toolbarHeaderBuilder.InnerHtml += controlsBuilder.ToString();
             }
 
