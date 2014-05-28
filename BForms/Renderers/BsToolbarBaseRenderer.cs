@@ -166,6 +166,15 @@ namespace BForms.Renderers
                 var controlsBuilder = new TagBuilder("div");
                 controlsBuilder.AddCssClass("grid_toolbar_controls");
 
+                // Render actions inside the toolbar
+                foreach (var action in this.Builder.ActionsFactory.Actions)
+                {
+                    // check if action is default
+                    var defaultAction = action as BsToolbarAction;
+
+                    controlsBuilder.InnerHtml += action.ToString();
+                }
+
                 // Render tab within ButtonGroup
                 if (this.Builder.ActionsFactory.ButtonGroups != null)
                 {
@@ -188,15 +197,6 @@ namespace BForms.Renderers
                         }
                         controlsBuilder.InnerHtml += buttonGroup.ToString();
                     }
-                }
-
-                // Render actions inside the toolbar
-                foreach (var action in this.Builder.ActionsFactory.Actions)
-                {
-                    // check if action is default
-                    var defaultAction = action as BsToolbarAction;
-
-                    controlsBuilder.InnerHtml += action.ToString();
                 }
 
                 toolbarHeaderBuilder.InnerHtml += controlsBuilder.ToString();

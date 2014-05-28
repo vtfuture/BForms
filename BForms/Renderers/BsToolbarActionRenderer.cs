@@ -80,6 +80,7 @@ namespace BForms.Renderers
         {
             var actionBuilder = new TagBuilder("a");
             actionBuilder.AddCssClass(this.Builder.descriptorClass);
+            actionBuilder.AddCssClass("btn");
             actionBuilder.AddCssClass(this.Builder.styleClasses);
             actionBuilder.MergeAttribute("href", this.Builder.href ?? "#");
 
