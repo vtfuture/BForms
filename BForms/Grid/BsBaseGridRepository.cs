@@ -3,10 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Web;
 using System.Web.Mvc;
 using BForms.Utilities;
-using DocumentFormat.OpenXml.Office2010.PowerPoint;
 
 namespace BForms.Grid
 {
@@ -15,7 +13,6 @@ namespace BForms.Grid
     /// </summary>
     /// <typeparam name="TEntity">Grid row bse model type. Usually maps on entity set</typeparam>
     /// <typeparam name="TRow">Grid row model type</typeparam>
-    /// <typeparam name="TSearch">Grid search model type </typeparam>
     public abstract class BsBaseGridRepository<TEntity, TRow> where TEntity : class
     {
         /// <summary>
