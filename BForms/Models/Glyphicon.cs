@@ -345,6 +345,8 @@ namespace BForms.Models
         Flash,
         [Description("glyphicon-import")]
         Import,
+        [Description("glyphicon-export")]
+        Export,
         [Description("glyphicon-save")]
         Save,
         [Description("glyphicon-saved")]
