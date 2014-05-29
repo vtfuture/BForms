@@ -1594,6 +1594,10 @@
         this._showResetGridButton();
     };
 
+    Grid.prototype.setInitialCount = function (count) {
+        this._currentResultsCount = count;
+    };
+
     Grid.prototype.updateRows = function (html, dataKey) {
 
         var $container = $(html);
