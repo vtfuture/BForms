@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,17 +11,20 @@ using BForms.Models;
 using BForms.Panels;
 using BForms.FormBuilder;
 using BForms.Utilities;
+using DocumentFormat.OpenXml.Drawing.Charts;
 using DocumentFormat.OpenXml.Office2010.ExcelAc;
 
 namespace BForms.Renderers
 {
     public class FormEditorBaseRenderer : BsBaseRenderer<BForms.FormBuilder.FormBuilder>
     {
-        public FormEditorBaseRenderer(BForms.FormBuilder.FormBuilder builder)
+        public FormEditorBaseRenderer(BForms.FormBuilder.FormBuilder builder, HtmlHelper helper)
             : base(builder)
         {
-
+            FormHtmlRenderer = new BsFormHtmlRenderer(helper);
         }
+
+        protected BsFormHtmlRenderer FormHtmlRenderer;
 
         public override string Render()
         {
@@ -163,6 +167,57 @@ namespace BForms.Renderers
             var settingsContainerBuilder = new TagBuilder("div");
 
             settingsContainerBuilder.AddCssClass("form_builder-settingsContainer row");
+
+            var controls = this.Builder.GetControlsMetadata();
+
+            foreach (var control in controls)
+            {
+                var metadataBuilder = new TagBuilder("div");
+                
+                metadataBuilder.AddCssClass("col-lg-12 col-md-12 col-sm-12");
+
+                var propertiesTabs = from prop in control.GetType().GetProperties()
+                    let propertiesAttributes = prop.GetCustomAttributes(typeof (FormBuilderPropertiesTab), true)
+                    let displayAttributes = prop.GetCustomAttributes(typeof(DisplayAttribute), true)
+                    where propertiesAttributes.Length == 1
+                    select new
+                    {
+                        PropertiesAttribute = propertiesAttributes.FirstOrDefault() as FormBuilderPropertiesTab,
+                        DisplayAttribute = displayAttributes.Select(x => x as DisplayAttribute).FirstOrDefault(),
+                        PropertyInfo = prop
+                    };
+
+                propertiesTabs = propertiesTabs.OrderBy(x => x.PropertiesAttribute.Order);
+
+                foreach (var propertiesTab in propertiesTabs)
+                {
+                    var title = propertiesTab.DisplayAttribute.GetName();
+
+                    var titleBuilder = new TagBuilder("h3");
+                    var titleGlyphiconBuilder = new TagBuilder("span");
+                    var arrowGlyphiconBuilder = new TagBuilder("span");
+
+                    titleGlyphiconBuilder.AddCssClass("glyphicon " + propertiesTab.PropertiesAttribute.Glyphicon.GetDescription());
+                    arrowGlyphiconBuilder.AddCssClass("pull-right glyphicon " + Glyphicon.ChevronUp.GetDescription());
+
+                    titleBuilder.InnerHtml = titleGlyphiconBuilder.ToString() + " " + title +
+                                             arrowGlyphiconBuilder.ToString();
+
+                    var formModel = propertiesTab.PropertyInfo.GetValue(control);
+
+                    if (formModel != null)
+                    {
+                        var propertiesFormString = FormHtmlRenderer.RenderForm(formModel, renderingOptions.Theme);
+
+                        metadataBuilder.InnerHtml += titleBuilder.ToString() + propertiesFormString;
+                    }
+                }
+
+                metadataBuilder.MergeAttribute("data-properties-for", ((int) control.Type).ToString());
+                metadataBuilder.MergeAttribute("style", "display:none;");
+
+                settingsContainerBuilder.InnerHtml += metadataBuilder.ToString();
+            }
 
             var panelBuilder = new BsPanelHtmlBuilder(this.Builder.GetViewContext());
             var panelRenderer = new BsPanelLightRenderer(panelBuilder);

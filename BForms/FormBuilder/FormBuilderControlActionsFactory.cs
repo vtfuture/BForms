@@ -121,6 +121,7 @@ namespace BForms.FormBuilder
 
             return this;
         }
+
         public FormBuilderControlActionsFactory CustomActionsFor(Func<FormBuilderControlViewModel, bool> controlSelector, IEnumerable<string> customActionNames)
         {
             var customActions = GetCustomActions(customActionNames);
@@ -129,7 +130,6 @@ namespace BForms.FormBuilder
 
             return this;
         }
-
 
         public FormBuilderControlActionsFactory ClearCustomActionsFor(Func<FormBuilderControlViewModel, bool> controlSelector)
         {
@@ -215,11 +215,6 @@ namespace BForms.FormBuilder
         #endregion
 
         #region Private methods
-
-        private bool CustomActionRegistered(string customActionName)
-        {
-            return _customActions.Any(x => x.Name == customActionName);
-        }
 
         private FormBuilderCustomAction GetCustomAction(string customActionName)
         {

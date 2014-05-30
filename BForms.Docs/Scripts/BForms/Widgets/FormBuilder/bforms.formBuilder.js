@@ -354,6 +354,7 @@
             handle: '[data-addon-toggle="grab"]',
             cursor: 'move',
             opacity: '0.85',
+           tolerance: 'pointer',
             receive: $.proxy(this._evFormReceive, this)
         });
     };
@@ -427,7 +428,7 @@
             $formContainer.empty();
 
             for (var i in controls) {
-                this._appendControl(controls[i]);
+                this._appendControl(controls[i], { noAnimate: true });
             }
         }
     };
@@ -483,7 +484,7 @@
                 return this.renderer.renderPageBreak(model);
             }
             case models.controlTypes.customControl: {
-                return this.renderer.renderCustomControl(model.controlName, model);
+                 return this.renderer.renderCustomControl(model.controlName, model);
             }
         }
 
@@ -573,7 +574,9 @@
             actionName = $action.attr('data-addon-toggle'),
             controlModel = this._getFormControlModel($formControl);
 
-        this._handleAction(actionName, controlModel);
+        this._handleAction(actionName, controlModel, {
+            hide: $action.hasClass('selected')
+        });
     };
 
     FormBuilder.prototype._evControlTabClick = function (e) {
@@ -668,7 +671,9 @@
 
         $tab.removeClass('over');
 
-        this.$draggedHelper.css('opacity', 1);
+        if (this.$draggedHelper) {
+            this.$draggedHelper.css('opacity', 1);
+        }    
     };
 
     FormBuilder.prototype._evTabsSortStart = function (e, ui) {
@@ -696,14 +701,29 @@
 
     FormBuilder.prototype._appendControl = function (control, options) {
 
+        if (options && options.replace) {
+            options.replace.empty();
+        }
+
+        var controlHtml = '',
+            caughtException;
+
+        try {
+            controlHtml = this._renderControl(control);
+        } catch (e) {
+            caughtException = e;
+        }
+
         var $formContainer = this.$form.find(this.options.formContainerSelector),
-            $control = $(this._renderControl(control)),
+            $control = $(controlHtml),
             $after = options ? options.after : null,
             $toReplace = options ? options.replace : null;
 
         $control.attr('data-controlType', control.type);
         $control.attr('data-uid', this._generateUid());
         $control.attr('data-displayName', control.label);
+
+        $control.hide();
 
         if (!options) {
             $formContainer.append($control);
@@ -721,6 +741,17 @@
             }
         }
 
+        if (caughtException) {
+            throw caughtException;
+        }
+
+        var showOptions = options.noAnimate ? null : {
+            easing: 'swing',
+            duration: 200
+        };
+
+        $control.show(showOptions);
+
         this.applyWidget({
             control: control,
             $element: $control
@@ -737,7 +768,7 @@
         if (typeof control.applyWidget == 'function') {
             control.applyWidget($control);
         } else {
-            if (!control.noInitUI) {
+            if (!control.noInitUI) {        
                 $control.bsInitUI();
             }
         }
@@ -1013,16 +1044,16 @@
         return null;
     };
 
-    FormBuilder.prototype._handleAction = function (actionName, controlModel) {
+    FormBuilder.prototype._handleAction = function (actionName, controlModel, actionParams) {
 
         if (this._controlActions[actionName]) {
-            this._handleDefaultAction(actionName, controlModel);
+            this._handleDefaultAction(actionName, controlModel, actionParams);
         } else {
-            this._handleCustomAction(actionName, controlModel);
+            this._handleCustomAction(actionName, controlModel, actionParams);
         }
     };
 
-    FormBuilder.prototype._handleDefaultAction = function (actionName, controlModel) {
+    FormBuilder.prototype._handleDefaultAction = function (actionName, controlModel, actionParams) {
 
         switch (actionName) {
 
@@ -1044,7 +1075,7 @@
                 }
             case this._controlActions.settings:
                 {
-                    this._toggleSettings(controlModel);
+                    this._toggleSettings(controlModel, actionParams.hide);
 
                     break;
                 }
@@ -1094,6 +1125,24 @@
         $formControl.addClass('selected');
         $settingsBtn.addClass('selected');
 
+        var $formSettings = this._getFormSettingsTab(controlModel.type);
+
+        if (hide) {
+            $formSettings.slideUp('fast');
+        } else {
+
+            $formSettings.addClass('loading');
+
+            $formSettings.slideDown({
+                duration: 250,
+                complete: function() {
+
+                    $formSettings.find('.form-group').bsInitUI().done(function() {
+                        $formSettings.removeClass('loading');
+                    });
+                }
+            });
+        }
     };
 
     FormBuilder.prototype._removeFormElement = function (controlModel) {
@@ -1291,6 +1340,11 @@
     FormBuilder.prototype._getFormControlAddon = function (formControlUid, actionName) {
 
         return this._getFormControl(formControlUid).find('[data-addon-toggle="' + actionName + '"]');
+    };
+
+    FormBuilder.prototype._getFormSettingsTab = function (type, uid) {
+
+        return this.$element.find('[data-properties-for="' + type + '"]');
     };
 
     // #endregion

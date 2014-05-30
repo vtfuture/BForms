@@ -1,145 +1,154 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using BForms.Models;
 
 namespace BForms.FormBuilder
 {
-    #region Base control types
-
-    public abstract class FormBuilderControl
+    public class FormBuilderControl
     {
-        public FormBuilderControlType ControlType { get; set; }
-    }
+        public FormBuilderControlType Type { get; set; }
+        public string Name { get; set; }
 
-    public abstract class FormBuilderControl<TProperties, TConstraints> : FormBuilderControl where TProperties : FormBuilderControlProperties
-                                                                                    where TConstraints : FormBuilderControlConstraints
-    {
-        public TProperties Properties { get; set; }
-        public TConstraints Constraints { get; set; }
-    }
-
-    public class FormBuilderInputControl<TValue> : FormBuilderControl<FormBuilderInputControlProperties<TValue>, FormBuilderInputControlConstraints<TValue>>
-    {
-        public IComparer<TValue> ValueComparer { get; set; }
-        public Func<TValue, int> SizeDelegate { get; set; }
-    }
-
-    public class FormBuilderNumberControl<TValue> : FormBuilderControl<FormBuilderNumberControlProperties<TValue>, FormBuilderNumberControlConstraints<TValue>>
-    {
-
-    }
-
-    public class FormBuilderSelectControl<TValue> : FormBuilderControl<FormBuilderSelectControlProperties<TValue>, FormBuilderSelectControlConstraints<TValue>>
-    {
-        public IEnumerable<BsSelectListItem> Items { get; set; }
-
-        public TValue DefaultValue { get; set; }
-        public TValue SelectedValue { get; set; }
-    }
-
-    #endregion
-
-    #region Specialized controls
-
-    public class FormBuilderTextboxControl : FormBuilderInputControl<string>
-    {
-        public TextboxType TextboxType { get; set; }
-
-        public FormBuilderTextboxControl()
+        public FormBuilderControl(FormBuilderControlType type)
         {
-            ControlType = FormBuilderControlType.Textbox;
-
-            Properties = new FormBuilderInputControlProperties<string>
-            {
-                Type = BsControlType.TextBox,
-                Width = 12
-            };
-
-            Constraints = new FormBuilderInputControlConstraints<string>();
+            Type = type;
         }
     }
 
-    public class FormBuilderTextareaControl : FormBuilderInputControl<string>
+    public class InputControlModel : FormBuilderControl
     {
-        public FormBuilderTextareaControl()
+        public InputControlModel() :
+            base(FormBuilderControlType.Textbox)
         {
-            ControlType = FormBuilderControlType.Textarea;
-
-            Properties = new FormBuilderInputControlProperties<string>
+            Properties = new InputControlProperties
             {
-                Type = BsControlType.TextArea,
-                Width = 12
+                Type = BsSelectList<FormBuilderInputType>.FromEnum(typeof (FormBuilderInputType))
             };
 
-            Constraints = new FormBuilderInputControlConstraints<string>();
-        }
-    }
-
-    public class FormBuilderNumberPickerControl : FormBuilderNumberControl<long>
-    {
-        public FormBuilderNumberPickerControl()
-        {
-            ControlType = FormBuilderControlType.NumberPicker;
-
-            Properties = new FormBuilderNumberControlProperties<long>
+            DefaultProperties = new DefaultcontrolProperties
             {
-                Type = BsControlType.Number,
-                TextValue = String.Empty,
-                DefaultTextValue = String.Empty
+                Width = BsSelectList<ColumnWidth>.FromEnum(typeof (ColumnWidth))
             };
-
-            Constraints = new FormBuilderNumberControlConstraints<long>();
         }
+
+        [FormBuilderPropertiesTab(Glyphicon = Glyphicon.Wrench)]
+        [Display(Name = "Default properties")]
+        public DefaultcontrolProperties DefaultProperties { get; set; }
+
+        [FormBuilderPropertiesTab(Glyphicon = Glyphicon.Cog)]
+        [Display(Name = "Specific properties")]
+        public InputControlProperties Properties { get; set; }
     }
 
-    public class FormBuilderDecimalNumberPickerControl : FormBuilderNumberControl<double>
+    public class SingleSelectControlModel : FormBuilderControl
     {
-        public FormBuilderDecimalNumberPickerControl()
+        public SingleSelectControlModel() :
+            base(FormBuilderControlType.SingleSelect)
         {
-            ControlType = FormBuilderControlType.DecimalNumberPicker;
 
-            Properties = new FormBuilderNumberControlProperties<double>
-            {
-                Type = BsControlType.Number,
-                TextValue = String.Empty,
-                DefaultTextValue = String.Empty
-            };
-
-            Constraints = new FormBuilderNumberControlConstraints<double>();
         }
+
+        [FormBuilderPropertiesTab]
+        [Display(Name = "Properties")]
+        public SingleSelectControlProperties Properties { get; set; }
     }
 
-    public class FormBuilderDatepickerControl : FormBuilderControl<FormBuilderDatepickerControlProperties, FormBuilderDatepickerControlConstraints>
+    public class ListBoxControlModel : FormBuilderControl
     {
+        public ListBoxControlModel() :
+            base(FormBuilderControlType.ListBox)
+        {
 
+        }
+
+        [FormBuilderPropertiesTab]
+        [Display(Name = "Properties")]
+        public MultipleSelectControlProperties Properties { get; set; }
     }
 
-    public class FormBuilderFileControl : FormBuilderControl<FormBuilderFileControlProperties, FormBuilderFileControlConstraints>
+    public class TagListControlModel : FormBuilderControl
     {
+        public TagListControlModel() :
+            base(FormBuilderControlType.TagList)
+        {
 
+        }
+
+        [FormBuilderPropertiesTab]
+        [Display(Name = "Properties")]
+        public MultipleSelectControlProperties Properties { get; set; }
     }
 
-    public class FormBuilderTextEditorControl : FormBuilderControl<FormBuilderTextEditorControlProperties, FormBuilderTextEditorControlConstraints>
+    public class NumberPickerControlModel : FormBuilderControl
     {
+        public NumberPickerControlModel()
+            : base(FormBuilderControlType.NumberPicker)
+        {
 
+        }
+
+        [FormBuilderPropertiesTab]
+        [Display(Name = "Properties")]
+        public NumberPickerControlProperties Properties { get; set; }
     }
 
-    #region Void controls
-
-    public class FormBuilderWizardPagebreak : FormBuilderControl
+    public class NumberPickerRangeControlModel : FormBuilderControl
     {
+        public NumberPickerRangeControlModel()
+            : base(FormBuilderControlType.NumberPickerRange)
+        {
 
+        }
+
+        [FormBuilderPropertiesTab]
+        [Display(Name = "Left bound properties")]
+        public NumberPickerControlProperties LeftBoundProperties { get; set; }
+
+        [FormBuilderPropertiesTab]
+        [Display(Name = "Right bound properties")]
+        public NumberPickerControlProperties RightBoundProperties { get; set; }
     }
 
-    public class FormBuilderTitle : FormBuilderControl
+    public class DatePickerControlModel : FormBuilderControl
     {
-        public string Title { get; set; }
-        public Glyphicon Glyphicon { get; set; }
+        public DatePickerControlModel()
+            : base(FormBuilderControlType.DatePicker)
+        {
+
+        }
+
+        [FormBuilderPropertiesTab]
+        [Display(Name = "Properties")]
+        public DatePickerControlProperties Properties { get; set; }
     }
 
-    #endregion
+    public class DatePickerRangeControlModel : FormBuilderControl
+    {
+        public DatePickerRangeControlModel()
+            : base(FormBuilderControlType.DatePickerRange)
+        {
 
-    #endregion
+        }
 
+        [FormBuilderPropertiesTab]
+        [Display(Name = "Left bound properties")]
+        public DatePickerControlProperties LeftBoundProperties { get; set; }
+
+        [FormBuilderPropertiesTab]
+        [Display(Name = "Right bound properties")]
+        public DatePickerControlProperties RightBoundProperties { get; set; }
+    }
+
+    public class RadioButtonListControlModel : FormBuilderControl
+    {
+        public RadioButtonListControlModel()
+            : base(FormBuilderControlType.RadioButtonList)
+        {
+
+        }
+
+        public RadioButtonListControlProperties Properties { get; set; }
+    }
 
 }

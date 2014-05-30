@@ -91,6 +91,8 @@
     </Compile>
     <Compile Include="Editor\BsEditorRowConfigurator.cs" />
     <Compile Include="FormBuilder\Attributes.cs" />
+    <Compile Include="FormBuilder\BsFormHtmlRenderer.cs" />
+    <Compile Include="FormBuilder\ComponentModels.cs" />
     <Compile Include="FormBuilder\ConstraintsModels.cs" />
     <Compile Include="FormBuilder\ControlFactory.cs" />
     <Compile Include="FormBuilder\ControlModels.cs" />

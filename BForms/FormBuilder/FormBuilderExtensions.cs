@@ -15,7 +15,7 @@ namespace BForms.FormBuilder
     {
         public static FormBuilder FormBuilder(this HtmlHelper helper)
         {
-            return new FormBuilder(helper.ViewContext);
+            return new FormBuilder(helper.ViewContext, helper);
         }
     }
 
@@ -25,19 +25,19 @@ namespace BForms.FormBuilder
 
         protected BsTheme EditorTheme;
         protected List<FormBuilderControlViewModel> AvailableControls;
-        protected List<FormBuilderControl> SelectedControls;
+        //protected List<FormBuilderControl> SelectedControls;
         protected FormBuilderTabsFactory TabsFactory;
         protected FormBuilderControlsFactory ControlsFactory;
         protected FormBuilderControlActionsFactory ActionsFactory;
         protected ViewContext ViewContext;
         protected int DefaultTabId;
 
-        public FormBuilder(ViewContext viewContext)
+        public FormBuilder(ViewContext viewContext, HtmlHelper helper)
             : base(viewContext)
         {
             ViewContext = viewContext;
 
-            renderer = new FormEditorBaseRenderer(this);
+            renderer = new FormEditorBaseRenderer(this, helper);
 
             EditorTheme = BsTheme.Default;
             AvailableControls = GetDefaultControls();
@@ -186,10 +186,10 @@ namespace BForms.FormBuilder
             return AvailableControls;
         }
 
-        public List<FormBuilderControl> GetSelectedControls()
-        {
-            return SelectedControls;
-        }
+        //public List<FormBuilderControl> GetSelectedControls()
+        //{
+        //    return SelectedControls;
+        //}
 
         public ViewContext GetViewContext()
         {
@@ -235,6 +235,15 @@ namespace BForms.FormBuilder
             }
 
             ActionsFactory.SetActions(ref AvailableControls);
+        }
+
+        public List<FormBuilderControl> GetControlsMetadata()
+        {
+            return new List<FormBuilderControl>
+            {
+                new InputControlModel()
+             //   new NumberPickerControlModel()
+            };
         }
 
         #endregion
