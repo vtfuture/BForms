@@ -97,6 +97,11 @@
     };
 
     AdvancedSearch.prototype._evOnSearch = function (data) {
+
+        this.widget._trigger('beforeAdvancedSearch', 0, {
+            data: data
+        });
+
         for (var i = 0; i < this.widget.subscribers.length; i++) {
             this.widget.subscribers[i].bsGrid('search', data);
         }

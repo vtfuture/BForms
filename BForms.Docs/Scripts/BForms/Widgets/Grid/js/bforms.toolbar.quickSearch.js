@@ -81,10 +81,18 @@
     // search trigger
     QuickSearch.prototype._search = function (quickSearch) {
 
+        this.widget._trigger('beforeQuickSearch', 0, {
+            quickSearch: quickSearch
+        });
+
         // notify grid subscribers that a search was made
         for (var i = 0; i < this.widget.subscribers.length; i++) {
             this.widget.subscribers[i].bsGrid('search', quickSearch, true);
         }
+
+        this.widget._trigger('afterQuickSearch', 0, {
+            quickSearch: quickSearch
+        });
 
     };
 
