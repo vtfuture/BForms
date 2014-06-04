@@ -16,6 +16,7 @@
 
     GroupEditor.prototype.options = {
         uniqueName: '',
+        enableQuickSearch: false,
 
         tabsSelector: '.bs-tabs',
         groupsSelector: '.bs-groups',
@@ -192,8 +193,12 @@
 
                 }, this));
 
-                tabModel.container.on('change', this.options.tabInlineSearch, $.proxy(this._evInlineSearch, this, tabModel));
+                if (this.options.enableQuickSearch) {
+                    tabModel.container.on('keyup', this.options.tabInlineSearch, $.proxy(this._evInlineSearch, this, tabModel));
 
+                } else {
+                    tabModel.container.on('change', this.options.tabInlineSearch, $.proxy(this._evInlineSearch, this, tabModel));
+                }
             }
 
             tabModel.container.data('init', true);
