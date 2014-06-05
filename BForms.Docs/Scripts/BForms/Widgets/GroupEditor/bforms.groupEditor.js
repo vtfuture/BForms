@@ -992,6 +992,11 @@
             isConnectable = connectsWith.indexOf(groupId) !== -1,
             allowMove = isConnectable && !isInGroup;
 
+
+        //cleanup
+        $item.removeData('groupid')
+             .removeClass('temp-sortable');
+
         if (this._dragging !== true) {
 
             //inner group sorting or moving from one group to another
@@ -1002,9 +1007,6 @@
 
         }
 
-        //cleanup
-        $item.removeData('groupid')
-             .removeClass('temp-sortable');
 
         if (typeof this.options.validateMove === "function") {
             var validateResult = this.options.validateMove(model, tabId, $group);
