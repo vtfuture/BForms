@@ -347,4 +347,29 @@
         return $(this);
     };
     //#endregion
+
+    //#region $.fn.bsDisableForm
+    $.fn.bsDisableForm = function (ignore) {
+        $(this).find('input:not(' + ignore + '), textarea:not(' + ignore + '), select' + ':not(' + ignore + ')').each(function () {
+            $(this).css({
+                'cursor': 'not-allowed !important',
+                'background-color': '#eeeeee !important',
+                'opacity': '1 !important'
+            });
+            $(this).attr('disabled', 'disabled');
+        });
+    };
+    //#endregion
+
+    //#region $.fn.bsEnableForm
+    $.fn.bsEnableForm = function (ignore) {
+        $(this).find('input:not(' + ignore + '), textarea:not(' + ignore + '), select' + ':not(' + ignore + ')').each(function () {
+            $(this).removeAttr('disabled');
+            $(this).css({
+                'cursor': 'auto',
+                'background-color': 'transparent'
+            });
+        });
+    };
+    //#endregion
 });
