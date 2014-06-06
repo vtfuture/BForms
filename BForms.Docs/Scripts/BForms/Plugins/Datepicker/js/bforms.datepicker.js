@@ -327,7 +327,7 @@
             if (typeof this.$input !== "undefined") {
                 this.$input.on('focusout', $.proxy(function (e) {
 
-                    if (e.relatedTarget) {
+                    if (e.relatedTarget && this.$picker.find(e.relatedTarget).length == 0) {
                         this.hide();
                     }
 
