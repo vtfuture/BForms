@@ -270,7 +270,10 @@
     <Content Include="Scripts\BForms\Plugins\Rangepicker\images\icn-arr-down.png" />
     <Content Include="Scripts\BForms\Plugins\Rangepicker\images\icn-arr-up.png" />
     <Content Include="Scripts\BForms\Plugins\Rangepicker\images\icn-remove.png" />
+    <Content Include="Scripts\BForms\Stylesheets\bforms.controlpanel.css" />
     <Content Include="Scripts\BForms\Stylesheets\bforms.formbuilder.css" />
+    <Content Include="Scripts\BForms\Stylesheets\bforms.helpers.css" />
+    <Content Include="Scripts\BForms\Widgets\ControlPanel\bforms.controlPanel.js" />
     <Content Include="Scripts\BForms\Widgets\FileUpload\bforms.fileUpload.js" />
     <Content Include="Scripts\BForms\Widgets\FormBuilder\bforms.formBuilder.formRenderer.js" />
     <Content Include="Scripts\BForms\Widgets\FormBuilder\bforms.formBuilder.js" />
@@ -1727,6 +1730,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\BForms\Stylesheets\bforms.formbuilder.scss" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\BForms\Stylesheets\bforms.helpers.scss" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\BForms\Stylesheets\bforms.controlpanel.scss" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

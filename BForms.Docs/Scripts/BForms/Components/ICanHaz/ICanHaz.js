@@ -520,18 +520,14 @@ More info at: http://icanhazjs.com
                     }
                     return;
                 }
-                if (ich[name]) {
-                    console.error("Invalid name: " + name + ".");
-                } else if (ich.templates[name]) {
-                    console.error("Template \"" + name + "  \" exists");
-                } else {
-                    ich.templates[name] = templateString;
-                    ich[name] = function (data, raw) {
-                        data = data || {};
-                        var result = Mustache.to_html(ich.templates[name], data, ich.templates);
-                        return (ich.$ && !raw) ? ich.$(trim(result)) : result;
-                    };
-                }
+
+                ich.templates[name] = templateString;
+                ich[name] = function (data, raw) {
+                    data = data || {};
+                    var result = Mustache.to_html(ich.templates[name], data, ich.templates);
+                    return (ich.$ && !raw) ? ich.$(trim(result)) : result;
+                };
+
             },
 
             // clears all retrieval functions and empties cache
@@ -596,9 +592,9 @@ More info at: http://icanhazjs.com
                     ich.grabTemplates();
                 });
             } else {
-                
+
                 if (typeof document.addEventListener === "function") {
-                    document.addEventListener('DOMContentLoaded', function() {
+                    document.addEventListener('DOMContentLoaded', function () {
                         ich.grabTemplates();
                     }, true);
                 } else {
