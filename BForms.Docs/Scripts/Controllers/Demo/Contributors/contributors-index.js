@@ -25,6 +25,7 @@
         this.initHistory();
         this.historyTimestamps = []; // Array of unique timestamps.
         //this.$toolbar.bsToolbar('toggleControl', 'add');
+
     };
     //#endregion
 
