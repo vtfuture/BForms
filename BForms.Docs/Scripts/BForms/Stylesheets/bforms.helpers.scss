@@ -1,0 +1,184 @@
+﻿
+/* Custom colors for components */
+$Blue: #559ed6;
+$Green: #59B390;
+$Purple: #703D6F;
+$Orange: #F27435;
+$Black: #424141;
+$Turquoise: #45ada8;
+$Gray: #e0e0e0;
+$White: white;
+
+/*Background colors*/
+
+.bg-blue {
+    background-color: $Blue !important;
+}
+
+.bg-green {
+    background-color: $Green !important;
+}
+
+.bg-orange {
+    background-color: $Orange !important;
+}
+
+.bg-purple {
+    background-color: $Purple !important;
+}
+
+.bg-turquoise {
+    background-color: $Turquoise !important;
+}
+
+.bg-black {
+    background-color: $Black !important;
+}
+
+/*Text colors*/
+
+.fg-blue {
+    color: $Blue !important;
+}
+
+.fg-green {
+    color: $Green !important;
+}
+
+.fg-orange {
+    color: $Orange !important;
+}
+
+.fg-purple {
+    color: $Purple !important;
+}
+
+.fg-turquoise {
+    color: $Turquoise !important;
+}
+
+.fg-black {
+    color: $Black !important;
+}
+
+.fg-white {
+    color: $White !important;
+}
+
+/* Borders */
+
+.border:not(.border-no-top) {
+    border-top: 1px solid $Gray !important;
+}
+
+.border:not(.border-no-left) {
+    border-left: 1px solid $Gray !important;
+}
+
+.border:not(.border-no-right) {
+    border-right: 1px solid $Gray !important;
+}
+
+.border:not(.border-no-bottom) {
+    border-bottom: 1px solid $Gray !important;
+}
+
+.border-no-top {
+    border-top: none !important;
+}
+
+.border-no-left {
+    border-left: none !important;
+}
+
+.border-no-right {
+    border-right: none !important;
+}
+
+.border-no-bottom {
+    border-bottom: none !important;
+}
+
+.border-blue {
+    border-color: $Blue !important;
+}
+
+.border-green {
+    border-color: $Green !important;
+}
+
+.border-orange {
+    border-color: $Orange !important;
+}
+
+.border-purple {
+    border-color: $Purple !important;
+}
+
+.border-turquoise {
+    border-color: $Turquoise !important;
+}
+
+.border-black {
+    border-color: $Black !important;
+}
+
+/* Shapes */
+
+.circle {
+    border-radius: 100% !important;
+}
+
+.rectangle {
+    border-radius: 0px !important;
+}
+
+.oval {
+    border-radius: 20px !important;
+}
+
+/* Anchors */
+
+a.no-decoration {
+    text-decoration: none !important;
+}
+
+a.no-hover:hover {
+    text-decoration: none !important;
+}
+
+a.no-pointer:hover {
+    cursor: default !important;
+}
+
+/* Form stuff */
+
+h3.description-title {
+
+    font-size: 17px;
+    padding: 9px 0;
+    border-bottom: 1px solid $Gray;
+    padding-left: 4px;
+
+	.glyphicon {
+		padding-left: 4px;
+	}
+
+	.description-title-text {
+		margin-left: 8px;
+	}
+}
+
+/* Cursors */
+
+.cursor-default {
+    cursor: default !important;
+}
+
+.cursor-move {
+    cursor: move !important;
+}
+
+.cursor-pointer {
+    cursor: pointer !important;
+}

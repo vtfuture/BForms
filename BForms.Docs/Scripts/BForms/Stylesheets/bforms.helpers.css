@@ -1,0 +1,125 @@
+/* Custom colors for components */
+/*Background colors*/
+.bg-blue {
+  background-color: #559ed6 !important; }
+
+.bg-green {
+  background-color: #59b390 !important; }
+
+.bg-orange {
+  background-color: #f27435 !important; }
+
+.bg-purple {
+  background-color: #703d6f !important; }
+
+.bg-turquoise {
+  background-color: #45ada8 !important; }
+
+.bg-black {
+  background-color: #424141 !important; }
+
+/*Text colors*/
+.fg-blue {
+  color: #559ed6 !important; }
+
+.fg-green {
+  color: #59b390 !important; }
+
+.fg-orange {
+  color: #f27435 !important; }
+
+.fg-purple {
+  color: #703d6f !important; }
+
+.fg-turquoise {
+  color: #45ada8 !important; }
+
+.fg-black {
+  color: #424141 !important; }
+
+.fg-white {
+  color: white !important; }
+
+/* Borders */
+.border:not(.border-no-top) {
+  border-top: 1px solid #e0e0e0 !important; }
+
+.border:not(.border-no-left) {
+  border-left: 1px solid #e0e0e0 !important; }
+
+.border:not(.border-no-right) {
+  border-right: 1px solid #e0e0e0 !important; }
+
+.border:not(.border-no-bottom) {
+  border-bottom: 1px solid #e0e0e0 !important; }
+
+.border-no-top {
+  border-top: none !important; }
+
+.border-no-left {
+  border-left: none !important; }
+
+.border-no-right {
+  border-right: none !important; }
+
+.border-no-bottom {
+  border-bottom: none !important; }
+
+.border-blue {
+  border-color: #559ed6 !important; }
+
+.border-green {
+  border-color: #59b390 !important; }
+
+.border-orange {
+  border-color: #f27435 !important; }
+
+.border-purple {
+  border-color: #703d6f !important; }
+
+.border-turquoise {
+  border-color: #45ada8 !important; }
+
+.border-black {
+  border-color: #424141 !important; }
+
+/* Shapes */
+.circle {
+  border-radius: 100% !important; }
+
+.rectangle {
+  border-radius: 0px !important; }
+
+.oval {
+  border-radius: 20px !important; }
+
+/* Anchors */
+a.no-decoration {
+  text-decoration: none !important; }
+
+a.no-hover:hover {
+  text-decoration: none !important; }
+
+a.no-pointer:hover {
+  cursor: default !important; }
+
+/* Form stuff */
+h3.description-title {
+  font-size: 17px;
+  padding: 9px 0;
+  border-bottom: 1px solid #e0e0e0;
+  padding-left: 4px; }
+  h3.description-title .glyphicon {
+    padding-left: 4px; }
+  h3.description-title .description-title-text {
+    margin-left: 8px; }
+
+/* Cursors */
+.cursor-default {
+  cursor: default !important; }
+
+.cursor-move {
+  cursor: move !important; }
+
+.cursor-pointer {
+  cursor: pointer !important; }
