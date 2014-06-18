@@ -10,11 +10,15 @@
 
     var typeaheadSelect = function ($elem, opts) {
         this.$elem = $elem;
+
+        if (this.$elem.hasClass('tt-query') || this.$elem.hasClass('has-typeahead')) return;
+
         this.options = opts;
         this.init();
 
         this.$elem.data('typeaheadSelect', this);
         this.$input.data('typeaheadSelect', this);
+        this.$elem.addClass('has-typeahead');
 
         return $elem;
     };
