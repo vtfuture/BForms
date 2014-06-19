@@ -499,7 +499,7 @@
             data: data,
             callbackData: {
                 sent: data,
-                pageChanged: pageChanged
+                pageChanged: false
             },
             context: this,
             success: $.proxy(this._pagerAjaxSuccess, this),
