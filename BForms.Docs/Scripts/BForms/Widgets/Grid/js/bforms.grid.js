@@ -487,6 +487,30 @@
             this._addError(data.Message, $errorContainer);
         }
     };
+
+    Grid.prototype.manualPager = function(data) {
+
+        this._trigger('beforeManualPager', 0, data);
+
+        //ajax
+        var ajaxOptions = {
+            name: this.options.uniqueName + '|pager',
+            url: this.options.pagerUrl,
+            data: data,
+            callbackData: {
+                sent: data,
+                pageChanged: pageChanged
+            },
+            context: this,
+            success: $.proxy(this._pagerAjaxSuccess, this),
+            error: $.proxy(this._pagerAjaxError, this),
+            loadingElement: this.$rowsContainer,
+            loadingDelay: 100,
+            loadingClass: 'loading'
+        };
+
+        $.bforms.ajax(ajaxOptions);
+    };
     //#endregion
 
     //#region grid details
