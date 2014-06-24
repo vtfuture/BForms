@@ -488,7 +488,7 @@
         }
     };
 
-    Grid.prototype.manualPager = function(data) {
+    Grid.prototype.manualPager = function(data, pageChanged) {
 
         this._trigger('beforeManualPager', 0, data);
 
@@ -499,7 +499,7 @@
             data: data,
             callbackData: {
                 sent: data,
-                pageChanged: false
+                pageChanged: pageChanged || false
             },
             context: this,
             success: $.proxy(this._pagerAjaxSuccess, this),
