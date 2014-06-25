@@ -14,7 +14,7 @@ namespace BForms.FormBuilder
         [Display(Name = "Default properties")]
         public DefaultcontrolProperties DefaultProperties { get; set; }
 
-        public FormBuilderControl(FormBuilderControlType type)
+        public FormBuilderControl(FormBuilderControlType type = FormBuilderControlType.CustomControl)
         {
             Type = type;
             DefaultProperties = new DefaultcontrolProperties();
