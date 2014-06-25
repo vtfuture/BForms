@@ -28,7 +28,7 @@ namespace BForms.Renderers
                     foreach (var form in this.Builder.RowForms)
                     {
                         // create prefix for inline forms (unique prefix => based on groupId/tabId/Id)
-                        var uid = item.GetUniqueID().ToString() + "_" + item.TabId.ToString() + "_" + this.Builder.Uid;
+                        var uid = item.GetUniqueID().ToString() + "_" + ((byte)item.TabId).ToString() + "_" + this.Builder.Uid;
 
                         var formBuilder = new BsEditorFormBuilder<TForm>(item.Form, uid, this.Builder.viewContext).Template(form.Value.template);
 
