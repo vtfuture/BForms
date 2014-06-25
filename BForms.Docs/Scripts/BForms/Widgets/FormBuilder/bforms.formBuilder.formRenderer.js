@@ -129,7 +129,7 @@
             glyphicon = model.glyphicon,
             description = model.description;
 
-        var required = model.constraints ? model.constraints.required : false;
+        var required = model.required || false;
 
         var labelModel = {
             text: labelText,
@@ -173,13 +173,9 @@
         // basic properties
         var name = model.name,
             id = this._generateIdFromName(name),
-            type = model.type;
-
-        // specific properties
-        var placeholder = model.properties ? model.properties.placeholder : '';
-
-        // contraints   
-        var required = model.constraints ? model.constraints.required : false;
+            type = model.type,
+            placeholder = model.placeholder,
+            required = model.required || false;
 
         var inputModel = {
             name: name,

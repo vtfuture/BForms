@@ -22,7 +22,8 @@
         formControlSelector: '.form_builder-formControl',
         formControlAddonSelector: '[data-addon-toggle]',
         propertiesTabSelector: '.form_builder-tab.form_builder-properties',
-        settingsContainerSelector: '.form_builder-settingsContainer'
+        settingsContainerSelector: '.form_builder-settingsContainer',
+        inputGroupSelector: '.input-group'
     };
 
     FormBuilder.prototype._addons = {
@@ -107,6 +108,10 @@
         var controlsOptions = JSON.parse(controlsData);
 
         this.availableControls = controlsOptions ? (controlsOptions.controls || []) : [];
+
+        this._settingsTabs = {};
+
+        this._saveModel = [];
     };
 
     FormBuilder.prototype._initControls = function () {
@@ -120,7 +125,7 @@
 
     FormBuilder.prototype._initForm = function () {
 
-        this._initSpoofModel();
+        // this._initSpoofModel();
 
         this._assignUids(this.formModel);
         this._renderForm(this.formModel);
@@ -137,12 +142,8 @@
             name: 'FirstName',
             glyphicon: 'user',
             size: 12,
-            properties: {
-                placeholder: 'Type your first name here'
-            },
-            constraints: {
-                required: true
-            }
+            placeholder: 'Type your first name here',
+            required: true
         });
 
         this.formModel.push({
@@ -151,17 +152,8 @@
             name: 'LastName',
             glyphicon: 'user',
             size: 12,
-            properties: {
-                placeholder: 'Type your last name here'
-            },
-            constraints: {
-                required: true
-            },
-            customActions: [
-            {
-                name: 'cacat',
-                glyphicon: 'glyphicon-asterisk'
-            }]
+            placeholder: 'Type your last name here',
+            required: true
         });
 
         this.formModel.push({
@@ -186,11 +178,7 @@
 
                 }
             },
-            properties: {
-            },
-            constraints: {
-                required: false
-            }
+            required: false
         });
 
         this.formModel.push({
@@ -214,12 +202,7 @@
                     label: 'Tester'
                 }
             ],
-            properties: {
-
-            },
-            constraints: {
-                required: true
-            }
+            required: true
         });
 
         this.formModel.push({
@@ -227,13 +210,8 @@
             label: 'Description',
             name: 'Description',
             glyphicon: 'font',
-            size: 12,
-            properties: {
-
-            },
-            constraints: {
-                required: false
-            }
+            size: 12,            
+            required: false 
         });
 
         this.formModel.push({
@@ -255,13 +233,8 @@
                     value: 'Perl',
                     text: 'Perl'
                 }
-            ],
-            properties: {
-
-            },
-            constraints: {
-                required: false
-            }
+            ],       
+            required: false 
         });
     };
 
@@ -299,6 +272,11 @@
                 $item.css('border-right', 'none');
             }
         }
+
+        //this.$form.css('min-height', maxHeight);
+        this.$form.find('.form_container').css('min-height', '200px');
+
+        //this.$propertiesTab.css('min-height', maxHeight);
     };
 
     FormBuilder.prototype._initControlsDrag = function () {
@@ -354,7 +332,7 @@
             handle: '[data-addon-toggle="grab"]',
             cursor: 'move',
             opacity: '0.85',
-           tolerance: 'pointer',
+            tolerance: 'pointer',
             receive: $.proxy(this._evFormReceive, this)
         });
     };
@@ -484,7 +462,7 @@
                 return this.renderer.renderPageBreak(model);
             }
             case models.controlTypes.customControl: {
-                 return this.renderer.renderCustomControl(model.controlName, model);
+                return this.renderer.renderCustomControl(model.controlName, model);
             }
         }
 
@@ -673,7 +651,7 @@
 
         if (this.$draggedHelper) {
             this.$draggedHelper.css('opacity', 1);
-        }    
+        }
     };
 
     FormBuilder.prototype._evTabsSortStart = function (e, ui) {
@@ -768,7 +746,7 @@
         if (typeof control.applyWidget == 'function') {
             control.applyWidget($control);
         } else {
-            if (!control.noInitUI) {        
+            if (!control.noInitUI) {
                 $control.bsInitUI();
             }
         }
@@ -809,31 +787,9 @@
             },
             model = {};
 
-        var defaultListItems = [
-            {
-                value: '',
-                text: 'Choose'
-            },
-            {
-                value: 1,
-                text: 'A'
-            },
-            {
-                value: 2,
-                text: 'B'
-            }
-        ];
+        var defaultListItems = [];
 
-        var defaultRadioListItems = [
-            {
-                value: 1,
-                label: 'A'
-            },
-            {
-                value: 2,
-                label: 'B'
-            }
-        ];
+        var defaultRadioListItems = [];
 
         var defaultDatePickerModel = {
             textValueName: 'New.' + name + '.TextValue',
@@ -1075,7 +1031,7 @@
                 }
             case this._controlActions.settings:
                 {
-                    this._toggleSettings(controlModel, actionParams.hide);
+                    this._toggleSettings(controlModel, actionParams.hide, true);
 
                     break;
                 }
@@ -1094,10 +1050,43 @@
 
     FormBuilder.prototype._moveFormElement = function (direction, controlModel) {
 
-        console.log('going ' + direction + '!');
+        var $formControl = this._getFormControl(controlModel.uid);
+
+        var $formControls = this.$form.find(this.options.formControlSelector);
+
+        var previousIndex, nextIndex, currentIndex;
+
+        $formControls.each($.proxy(function (idx, el) {
+
+            var $formControl = $(el);
+
+            if ($formControl.attr('data-uid') == controlModel.uid) {
+                currentIndex = idx;
+            }
+
+        }, this));
+
+        currentIndex = currentIndex + 1;
+        previousIndex = currentIndex - 1;
+        nextIndex = currentIndex + 1;
+
+        var $previous = this.$form.find(this.options.formControlSelector + ':nth-child(' + previousIndex + ')'),
+            $next = this.$form.find(this.options.formControlSelector + ':nth-child(' + nextIndex + ')');
+
+
+
+        if (direction === models.directions.up) {
+            //  $previous.before($formControl);
+
+            this._swapElements($formControl, $previous, direction);
+        } else {
+            // $next.after($formControl);
+
+            this._swapElements($formControl, $next, direction);
+        }
     };
 
-    FormBuilder.prototype._toggleSettings = function (controlModel, hide) {
+    FormBuilder.prototype._toggleSettings = function (controlModel, hide, abortIfOpen) {
 
         if (controlModel.uid == null) {
             return;
@@ -1106,12 +1095,14 @@
         var $formControl = this._getFormControl(controlModel.uid),
             $settingsBtn = this._getFormControlAddon(controlModel.uid, this._controlActions.settings);
 
+        if ($settingsBtn.hasClass('selected') && abortIfOpen) {
+            return;
+        }
+
         if (hide) {
 
             $formControl.removeClass('selected');
             $settingsBtn.removeClass('selected');
-
-            return;
         }
 
         if (this._openedSettingsUid === controlModel.uid) {
@@ -1125,24 +1116,333 @@
         $formControl.addClass('selected');
         $settingsBtn.addClass('selected');
 
-        var $formSettings = this._getFormSettingsTab(controlModel.type);
+        var settingsInitialized = true;
+
+        var $formSettings = this._settingsTabs['' + controlModel.uid];
+
+        if (!$formSettings) {
+
+            settingsInitialized = false;
+
+            $formSettings = this._getFormSettingsTab(controlModel.type).clone();
+
+            $formSettings.hide();
+
+            $formSettings.attr('data-uid', controlModel.uid);
+
+            this.$settingsContainer.append($formSettings);
+
+            this._settingsTabs['' + controlModel.uid] = $formSettings;
+        }
+
+        var $otherPropertiesTabs = this.$settingsContainer.find('[data-properties-for][data-uid]:not([data-uid="' + controlModel.uid + '"])').hide();
 
         if (hide) {
+
             $formSettings.slideUp('fast');
+
         } else {
 
-            $formSettings.addClass('loading');
+            $formSettings.slideDown('fast');
 
-            $formSettings.slideDown({
-                duration: 250,
-                complete: function() {
+            if (!settingsInitialized) {
 
-                    $formSettings.find('.form-group').bsInitUI().done(function() {
-                        $formSettings.removeClass('loading');
-                    });
-                }
-            });
+                $formSettings.find('form').each($.proxy(this._initPropertiesForm, this, controlModel));
+            }
         }
+    };
+
+    FormBuilder.prototype._initPropertiesForm = function(controlModel, idx, el){
+
+        var $form = $(el);
+
+        var baseUniqueName = 'settings|' + controlModel.uid;
+
+        var formOptions = {
+            validate: true,
+            parse: true,
+            actions: [
+                {
+                    selector: '.btn-default',
+                    handler: $.proxy(this._handlePropertiesSave, this, $form, controlModel),
+                    parse: true,
+                    validate: true
+                },
+                {
+                    selector: '.btn-warning',
+                    handler: function (e, data) {
+                        $formSettings.find('form').bsForm('reset');
+                    },
+                    parse: true,
+                    validate: true
+                }
+            ]
+        };
+
+        var uniqueName = baseUniqueName + '|' + idx;
+
+        $form.bsForm($.extend(true, formOptions, {
+            uniqueName: uniqueName
+        }));
+    };
+
+    FormBuilder.prototype._handlePropertiesSave = function ($form, controlModel, parsedForm) {
+
+        var controlType = controlModel.type,
+            uid = controlModel.uid;
+
+        var savedPropertyName = $form.attr('data-property-name');
+
+        var eventModel = {
+            controlModel: controlModel,
+            propertyName: savedPropertyName,
+            $form: $form,
+            parsedForm: parsedForm
+        };
+
+        switch (controlType) {
+            case models.controlTypes.textBox: {
+
+                this._handleTextBoxPropertiesSave(uid, eventModel);
+
+                break;
+            }
+            case models.controlTypes.textArea: {
+
+                this._handleTextAreaPropertiesSave(uid, eventModel);
+
+                break;
+            }
+            case models.controlTypes.singleSelect: {
+
+                this._handleSingleSelectPropertiesSave(uid, eventModel);
+
+                break;
+            }
+            case models.controlTypes.tagList: {
+
+                this._handleTagListPropertiesSave(uid, eventModel);
+
+                break;
+            }
+            case models.controlTypes.listBox: {
+
+                this._handleListBoxPropertiesSave(uid, eventModel);
+
+                break;
+            }
+            case models.controlTypes.radioButtonList: {
+
+                this._handleRadioButtonListPropertiesSave(uid, eventModel);
+
+                break;
+            }
+        }
+
+        var model = this._getFormModel(controlModel.uid);
+
+        if (model == null) {
+            model = {
+                uid: controlModel.uid,
+                type: controlModel.type,
+                name: controlModel.name
+            };
+        }
+
+        model[savedPropertyName] = $.extend(true, {}, parsedForm);
+
+        this._updateFormModel(model);
+    };
+
+    FormBuilder.prototype._handleDefaultPropertiesChange = function ($element, $formGroup, properties) {
+
+        var $label = $formGroup.find('label'),
+            $glyphiconAddon = $formGroup.find('.input-group-addon:first');
+
+        $element.attr('name', properties.Name);
+        $element.attr('name', properties.Name);
+
+        $label.text(properties.Label);
+
+        if (properties['Required.SelectedValues'] === '' + models.yesNoValues.yes) {
+            $label.addClass('required');
+        }
+
+        var glyphicon = properties['GlyphiconAddon.SelectedValues'];
+
+        if (glyphicon) {
+            $glyphiconAddon.attr('class', 'input-group-addon glyphicon ' + glyphicon);
+        } else {
+            $glyphiconAddon.attr('class', 'input-group-addon glyphicon');
+        }
+    };
+
+    FormBuilder.prototype._handleTextBoxPropertiesSave = function (uid, data) {
+
+        var $formControl = this._getFormControl(uid);
+
+        var $inputGroup = $formControl.find(this.options.inputGroupSelector);
+
+        var parsedForm = data.parsedForm,
+            propertyName = data.propertyName;
+
+        var $input = $inputGroup.find('input');
+
+        if (propertyName === models.propertyNames.defaultProperties) {
+
+            this._handleDefaultPropertiesChange($input, $formControl, parsedForm);
+
+        } else {
+
+            $input.attr('placeholder', parsedForm.Placeholder);
+            $input.attr('value', parsedForm.InitialValue);
+            $input.attr('type', models.inputTypes['' + parsedForm['Type.SelectedValues']]);
+        }
+
+    };
+
+    FormBuilder.prototype._handleTextAreaPropertiesSave = function (uid, data) {
+
+        var $formControl = this._getFormControl(uid);
+
+        var $inputGroup = $formControl.find(this.options.inputGroupSelector);
+
+        var parsedForm = data.parsedForm,
+            propertyName = data.propertyName;
+
+        var $textArea = $inputGroup.find('textarea');
+
+        if (propertyName === models.propertyNames.defaultProperties) {
+
+            this._handleDefaultPropertiesChange($textArea, $formControl, parsedForm);
+
+        } else {
+
+        }
+
+    };
+
+    FormBuilder.prototype._handleSingleSelectPropertiesSave = function (uid, data) {
+
+        var $formControl = this._getFormControl(uid);
+
+        var $inputGroup = $formControl.find(this.options.inputGroupSelector);
+
+        var parsedForm = data.parsedForm,
+            propertyName = data.propertyName;
+
+        var $select = $inputGroup.find('select');
+
+        if (propertyName === models.propertyNames.defaultProperties) {
+
+            this._handleDefaultPropertiesChange($select, $formControl, parsedForm);
+
+        } else {
+
+            var items = this._getSelectItemsFromSavedProperties(parsedForm, 'Items.SelectedValues');
+
+            var options = this._getOptionsFromSelectItems(items);
+
+            $select.html(options);
+            $select.select2('val', '');
+        }
+
+    };
+
+    FormBuilder.prototype._handleTagListPropertiesSave = function (uid, data) {
+
+        var $formControl = this._getFormControl(uid);
+
+        var $inputGroup = $formControl.find(this.options.inputGroupSelector);
+
+        var parsedForm = data.parsedForm,
+            propertyName = data.propertyName;
+
+        var $select = $inputGroup.find('.bs-tag-list');
+
+        if (propertyName === models.propertyNames.defaultProperties) {
+
+            this._handleDefaultPropertiesChange($select, $formControl, parsedForm);
+
+        } else {
+
+            return;
+
+            var items = this._getSelectItemsFromSavedProperties(parsedForm, 'Items.SelectedValues');
+
+            var options = this._getOptionsFromSelectItems(items);
+
+            var data = items.map(function (item) {
+                return {
+                    id: item,
+                    text: item
+                };
+            });
+
+            $select.filter('select').html(options);
+            $select.select2('val', '');
+        }
+
+    };
+
+    FormBuilder.prototype._handleListBoxPropertiesSave = function (uid, data) {
+
+        var $formControl = this._getFormControl(uid);
+
+        var $inputGroup = $formControl.find(this.options.inputGroupSelector);
+
+        var parsedForm = data.parsedForm,
+            propertyName = data.propertyName;
+
+        var $select = $inputGroup.find('select');
+
+        if (propertyName === models.propertyNames.defaultProperties) {
+
+            this._handleDefaultPropertiesChange($select, $formControl, parsedForm);
+
+        } else {
+
+            var items = this._getSelectItemsFromSavedProperties(parsedForm, 'Items.SelectedValues');
+
+            var options = this._getOptionsFromSelectItems(items);
+
+            $select.html(options);
+            $select.select2('val', '');
+        }
+
+    };
+
+    FormBuilder.prototype._handleRadioButtonListPropertiesSave = function (uid, data) {
+
+        var $formControl = this._getFormControl(uid);
+
+        var $inputGroup = $formControl.find(this.options.inputGroupSelector);
+
+        var parsedForm = data.parsedForm,
+            propertyName = data.propertyName;
+
+        var $buttons = $inputGroup.find('.btn-group-justified');
+
+        if (propertyName === models.propertyNames.defaultProperties) {
+
+            this._handleDefaultPropertiesChange($buttons, $formControl, parsedForm);
+
+        } else {
+
+            var items = this._getSelectItemsFromSavedProperties(parsedForm, 'Items.SelectedValues');
+
+            var buttonsHtml = '';
+
+            for (var i in items) {
+
+                var buttonHtml = '<a class="option" value="' + items[i] + '">' + items[i] + '</a>';
+
+                buttonsHtml += buttonHtml;
+            }
+
+            $buttons.html(buttonsHtml);
+        }
+
     };
 
     FormBuilder.prototype._removeFormElement = function (controlModel) {
@@ -1167,12 +1467,14 @@
 
         var $formControl = this._getFormControl(uid);
 
-        this._toggleSettings({ uid: uid }, false);
+        this._openedSettingsUid = null;
+
+        this._toggleSettings({ uid: uid }, true);
 
         $formControl.hide({
             duration: 200,
             easing: 'swing',
-            done: function() {
+            done: function () {
                 $formControl.remove();
             }
         });
@@ -1183,7 +1485,7 @@
         var actionHandler;
 
         if (this.options.customActions instanceof Array) {
-            
+
             for (var i in this.options.customActions) {
 
                 var customAction = this.options.customActions[i];
@@ -1205,6 +1507,19 @@
     // #endregion
 
     // #region public methods
+
+    FormBuilder.prototype.serialize = function () {
+
+        var model = this.formModel.map(function (item) {
+
+            return $.extend(true, item, {
+                Type: item.type,
+                Name: item.DefaultProperties ? item.DefaultProperties.Name : null
+            });
+        });
+
+        return model;
+    };
 
     // #endregion
 
@@ -1344,7 +1659,91 @@
 
     FormBuilder.prototype._getFormSettingsTab = function (type, uid) {
 
-        return this.$element.find('[data-properties-for="' + type + '"]');
+        return this.$element.find('[data-properties-for="' + type + '"]:first');
+    };
+
+    FormBuilder.prototype._swapElements = function ($first, $second, direction) {
+
+        $first.hide();
+        $second.hide();
+
+        var animationOptions = {
+            easing: null,
+            duration: 200
+        };
+
+        animationOptions = null;
+
+        $first.show(animationOptions);
+
+        if (direction === models.directions.up) {
+
+            $second.before($first);
+            $second.show(animationOptions);
+        } else {
+
+            $second.after($first);
+            $second.show(animationOptions);
+        }
+    };
+
+    FormBuilder.prototype._getFormModel = function (uid) {
+
+        for (var i in this.formModel) {
+
+            if (this.formModel[i].uid === uid) {
+                return this.formModel[i];
+            }
+        }
+
+        return null;
+    };
+
+    FormBuilder.prototype._updateFormModel = function (model) {
+
+        var index = 0;
+
+        for (var i in this.formModel) {
+
+            if (this.formModel[i].uid === model.uid) {
+
+                index = i;
+
+                break;
+            }
+        }
+
+        this.formModel.splice(index, 1);
+
+        this.formModel.push(model);
+
+    };
+
+    FormBuilder.prototype._getSelectItemsFromSavedProperties = function (properties, propertyPrefix) {
+
+        var items = [];
+
+        for (var prop in properties) {
+            if (properties.hasOwnProperty(prop) && prop.indexOf(propertyPrefix) == 0) {
+                items.push(properties[prop]);
+            }
+        }
+
+        return items;
+    };
+
+    FormBuilder.prototype._getOptionsFromSelectItems = function (items) {
+
+        var html = '';
+
+        for (var i in items) {
+
+            var option = '<option value="' + items[i] + '">' + items[i] + '</option>';
+
+            html += option;
+        }
+
+        return html;
     };
 
     // #endregion

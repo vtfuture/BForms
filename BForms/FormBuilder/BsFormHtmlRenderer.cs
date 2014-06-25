@@ -22,7 +22,7 @@ namespace BForms.FormBuilder
             _helper = helper;
         }
 
-        public string RenderForm<TFormModel>(TFormModel formModel, BsTheme theme = BsTheme.Default, bool wrapInForm = true) where TFormModel : class
+        public string RenderForm<TFormModel>(TFormModel formModel, BsTheme theme = BsTheme.Default, bool wrapInForm = true, string propertyName = null) where TFormModel : class
         {
             if (formModel == null)
             {
@@ -84,6 +84,8 @@ namespace BForms.FormBuilder
             {
                 formBuilder.InnerHtml = formContainerBuilder.ToString();
 
+                formBuilder.MergeAttribute("data-property-name", propertyName);
+
                 return formBuilder.ToString();
             }
 
@@ -121,6 +123,75 @@ namespace BForms.FormBuilder
             formGroupBuilder.InnerHtml = RenderBsLabel(propertyMetadata, formModel) + inputGroupBuilder.ToString();
 
             return formGroupBuilder.ToString();
+        }
+
+        public string RenderFormGroup(FormBuilderControl control, string controlHtml)
+        {
+            var formGroupBuilder = new TagBuilder("div");
+            var inputGroupBuilder = new TagBuilder("div");
+
+            var width = control.DefaultProperties != null && control.DefaultProperties.Width != null
+                ? control.DefaultProperties.Width.SelectedValues
+                : ColumnWidth.Large;
+
+            formGroupBuilder.AddCssClass("form-group " + width.GetDescription());
+            inputGroupBuilder.AddCssClass("input-group");
+
+            var glyphiconAddonHtml = String.Empty;
+
+            if (control.DefaultProperties != null && control.DefaultProperties.GlyphiconAddon != null)
+            {
+                var glyphicon = control.DefaultProperties.GlyphiconAddon.SelectedValues;
+
+                if(glyphicon != null)
+                {
+                    var glyphiconAddonbuilder = new TagBuilder("span");
+
+                    glyphiconAddonbuilder.AddCssClass("input-group-addon glyphicon " + glyphicon.GetDescription());
+
+                    glyphiconAddonHtml = glyphiconAddonbuilder.ToString();
+                }
+            }
+
+            inputGroupBuilder.InnerHtml = glyphiconAddonHtml + controlHtml;
+            formGroupBuilder.InnerHtml = RenderBsLabel(control) + inputGroupBuilder.ToString();
+
+            return formGroupBuilder.ToString();
+        }
+
+        public string RenderBsLabel(FormBuilderControl control)
+        {
+            var labelBuilder = new TagBuilder("label");
+            var name = control.DefaultProperties.Name;
+            var displayName = control.DefaultProperties.Label;
+
+            switch (control.Type)
+            {
+                case FormBuilderControlType.SingleSelect:
+                case FormBuilderControlType.ListBox:
+                case FormBuilderControlType.RadioButtonList:
+                case FormBuilderControlType.TagList:
+                    {
+                        name = name + ".SelectedValues";
+
+                        break;
+                    }
+                default:
+                    {
+                        break;
+                    }
+            }
+
+            var id = GetIdAttributeFromName(name);
+
+            var required = control.DefaultProperties.Required != null && control.DefaultProperties.Required.SelectedValues == YesNoValues.Yes;
+
+            labelBuilder.AddCssClass("control-label " + (required ? "required" : ""));
+            labelBuilder.MergeAttribute("for", id);
+
+            labelBuilder.InnerHtml = displayName;
+
+            return labelBuilder.ToString();
         }
 
         public string RenderFormControl<TFormModel, TProperty>(Expression<Func<TFormModel, TProperty>> propertySelector, TFormModel formModel)
@@ -169,6 +240,12 @@ namespace BForms.FormBuilder
                 case BsControlType.TagList:
                     {
                         controlString = RenderBsTagList(propertyMetadata, formModel);
+
+                        break;
+                    }
+                case BsControlType.RadioButtonList:
+                    {
+                        controlString = RenderRadioButtonList(propertyMetadata, formModel);
 
                         break;
                     }
@@ -242,33 +319,72 @@ namespace BForms.FormBuilder
             return labelBuilder.ToString();
         }
 
-        public string RenderBsDropdown<TFormModel>(FormControlPropertyMetadata propertyMetadata, TFormModel formModel)
+        public string RenderBsDropdown<TFormModel>(FormControlPropertyMetadata propertyMetadata, TFormModel formModel, object value = null)
         {
-            var selectBuilder = GetBsSelectTagBuilder(propertyMetadata, formModel);
+            var controlValue = value ?? propertyMetadata.PropertyInfo.GetValue(formModel);
 
-            selectBuilder.AddCssClass("bs-dropdown");
+            var bsSelectlistItems = controlValue.GetType().GetProperty("Items").GetValue(controlValue, null) as List<BsSelectListItem>;
 
-            return selectBuilder.ToString();
+            var selectedValues = controlValue.GetType().GetProperty("SelectedValues").GetValue(controlValue, null) as string;
+
+            var bsSelectList = new BsSelectList<string>
+            {
+                Items = bsSelectlistItems,
+                SelectedValues = selectedValues
+            };
+
+            return _helper.BsSelectList<string>(bsSelectList, propertyMetadata.BsControlAttribute.ControlType, propertyMetadata.PropertyInfo.Name, false, null).ToString();
         }
 
-        public string RenderBsListBox<TFormModel>(FormControlPropertyMetadata propertyMetadata, TFormModel formModel)
+        public string RenderBsListBox<TFormModel>(FormControlPropertyMetadata propertyMetadata, TFormModel formModel, object value = null)
         {
-            var selectBuilder = GetBsSelectTagBuilder(propertyMetadata, formModel);
+            var controlValue = value ?? propertyMetadata.PropertyInfo.GetValue(formModel);
 
-            selectBuilder.AddCssClass("bs-listbox");
-            selectBuilder.MergeAttribute("style", "display:none;");
+            var bsSelectlistItems = controlValue.GetType().GetProperty("Items").GetValue(controlValue, null) as List<BsSelectListItem>;
 
-            return selectBuilder.ToString();
+            var selectedValues = controlValue.GetType().GetProperty("SelectedValues").GetValue(controlValue, null) as List<string>;
+
+            var bsSelectList = new BsSelectList<List<string>>
+            {
+                Items = bsSelectlistItems,
+                SelectedValues = selectedValues
+            };
+
+            return _helper.BsSelectList<List<string>>(bsSelectList, propertyMetadata.BsControlAttribute.ControlType, propertyMetadata.PropertyInfo.Name, true, null).ToString();
         }
 
-        public string RenderBsTagList<TFormModel>(FormControlPropertyMetadata propertyMetadata, TFormModel formModel)
+        public string RenderBsTagList<TFormModel>(FormControlPropertyMetadata propertyMetadata, TFormModel formModel, object value = null)
         {
-            var selectBuilder = GetBsSelectTagBuilder(propertyMetadata, formModel);
+            var controlValue = value ?? propertyMetadata.PropertyInfo.GetValue(formModel);
 
-            selectBuilder.AddCssClass("bs-tag-list");
-            selectBuilder.MergeAttribute("style", "display:none;");
+            var bsSelectlistItems = controlValue.GetType().GetProperty("Items").GetValue(controlValue, null) as List<BsSelectListItem>;
 
-            return selectBuilder.ToString();
+            var selectedValues = controlValue.GetType().GetProperty("SelectedValues").GetValue(controlValue, null) as List<string>;
+
+            var bsSelectList = new BsSelectList<List<string>>
+            {
+                Items = bsSelectlistItems,
+                SelectedValues = selectedValues
+            };
+
+            return _helper.BsTagList<List<string>>(bsSelectList, propertyMetadata.BsControlAttribute.ControlType, propertyMetadata.PropertyInfo.Name, null).ToString();
+        }
+
+        public string RenderRadioButtonList<TFormModel>(FormControlPropertyMetadata propertyMetadata, TFormModel formModel, object value = null)
+        {
+            var controlValue = value ?? propertyMetadata.PropertyInfo.GetValue(formModel);
+
+            var bsSelectlistItems = controlValue.GetType().GetProperty("Items").GetValue(controlValue, null) as List<BsSelectListItem>;
+
+            var selectedValues = controlValue.GetType().GetProperty("SelectedValues").GetValue(controlValue, null) as string;
+
+            var bsSelectList = new BsSelectList<string>
+            {
+                Items = bsSelectlistItems,
+                SelectedValues = selectedValues
+            };
+
+            return _helper.BsRadioList<string>(bsSelectList, propertyMetadata.BsControlAttribute.ControlType, propertyMetadata.PropertyInfo.Name, null, false).ToString();
         }
 
         public string RenderBsNumberPickerInline<TFormModel>(FormControlPropertyMetadata propertyMetadata, TFormModel formModel)
@@ -294,6 +410,129 @@ namespace BForms.FormBuilder
             numberInputBuilder.MergeAttribute("value", controlValue.ToString());
 
             return textInputBuilder.ToString() + numberInputBuilder.ToString();
+        }
+
+        #endregion
+
+        #region Render form iteratively
+
+        public string RenderControls(IEnumerable<FormBuilderControl> controls)
+        {
+            var controlsString = String.Empty;
+
+            foreach(var control in controls)
+            {
+                var controlString = String.Empty;
+
+                switch(control.Type)
+                {
+                    case FormBuilderControlType.Textbox:
+                        {
+                            var inputControl = control as InputControlModel;
+
+                            controlString = _helper.BsTextBox(inputControl.Name, inputControl.Properties.InitialValue).ToString();
+
+                            break;
+                        }
+                    case FormBuilderControlType.Textarea:
+                        {
+                            var textareaControl = control as TextAreaControlModel;
+
+                            controlString = _helper.BsTextBox(textareaControl.Name, String.Empty).ToString();
+
+                            break;
+                        }
+                    case FormBuilderControlType.SingleSelect:
+                        {
+                            var selectControl = control as SingleSelectControlModel;
+
+                            var bsSelectList = new BsSelectList<string>
+                            {
+                                Items = selectControl.Properties.Items.SelectedValues.Select(x => new BsSelectListItem
+                                {
+                                    Text = x,
+                                    Value = x
+                                }).ToList()
+                            };                                
+
+                            controlString = _helper.BsSelectList<string>(bsSelectList, BsControlType.DropDownList, selectControl.Name, false, null).ToString();
+
+                            break;
+                        }
+                    case FormBuilderControlType.ListBox:
+                        {
+                            var selectControl = control as ListBoxControlModel;
+
+                            var bsSelectList = new BsSelectList<string>
+                            {
+                                Items = selectControl.Properties.Items.SelectedValues.Select(x => new BsSelectListItem
+                                {
+                                    Text = x,
+                                    Value = x
+                                }).ToList()
+                            };                                
+
+                            controlString = _helper.BsSelectList<string>(bsSelectList, BsControlType.ListBox, selectControl.Name, true, null).ToString();
+
+                            break;
+                        }
+                    case FormBuilderControlType.TagList:
+                        {
+                            var selectControl = control as TagListControlModel;
+
+                            var bsSelectList = new BsSelectList<string>
+                            {
+                                Items = selectControl.Properties.Items.SelectedValues.Select(x => new BsSelectListItem
+                                {
+                                    Text = x,
+                                    Value = x
+                                }).ToList()
+                            };                                
+
+                            controlString = _helper.BsTagList<string>(bsSelectList, BsControlType.TagList, selectControl.Name, null).ToString();
+
+
+                            break;
+                        }
+                    case FormBuilderControlType.RadioButtonList:
+                        {
+                            var selectControl = control as RadioButtonListControlModel;
+
+                            var bsSelectList = new BsSelectList<string>
+                            {
+                                Items = selectControl.Properties.Items.SelectedValues.Select(x => new BsSelectListItem
+                                {
+                                    Text = x,
+                                    Value = x
+                                }).ToList()
+                            };     
+
+                            controlString = _helper.BsRadioList<string>(bsSelectList, BsControlType.RadioButtonList,selectControl.Name, null, false).ToString();
+
+                            break;
+                        }
+                    default:
+                        {
+                            break;
+                        }
+                }
+
+                var formGroupString = RenderFormGroup(control, controlString);
+
+                controlsString += formGroupString;
+            }
+
+            var buttons = new List<BsButtonModel>
+            {
+                new BsButtonModel("Save", BsComponentStatus.Default),
+                new BsButtonModel("Reset", BsComponentStatus.Add)
+            };
+
+            var buttonsString = RenderFormButtons(buttons);
+
+            controlsString += buttonsString;
+
+            return controlsString;
         }
 
         #endregion

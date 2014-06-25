@@ -17,6 +17,15 @@ namespace BForms.FormBuilder
         {
             return new FormBuilder(helper.ViewContext, helper);
         }
+
+        public static MvcHtmlString RenderFormControls(this HtmlHelper helper, IEnumerable<FormBuilderControl> controls)
+        {
+            var htmlRenderer = new BsFormHtmlRenderer(helper);
+
+            var controlsString = htmlRenderer.RenderControls(controls);
+
+            return new MvcHtmlString(controlsString);
+        }
     }
 
     public class FormBuilder : BsBaseComponent<FormBuilder>
@@ -241,8 +250,16 @@ namespace BForms.FormBuilder
         {
             return new List<FormBuilderControl>
             {
-                new InputControlModel()
-             //   new NumberPickerControlModel()
+                new InputControlModel(),
+                new TextAreaControlModel(),
+                new SingleSelectControlModel(),
+                new ListBoxControlModel(),
+                new TagListControlModel(),
+                new RadioButtonListControlModel(),
+                new NumberPickerControlModel(),       
+                new NumberPickerRangeControlModel(),
+                new DatePickerControlModel(),
+                new DatePickerRangeControlModel()
             };
         }
 

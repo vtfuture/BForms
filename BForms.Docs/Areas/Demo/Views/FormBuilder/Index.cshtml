@@ -1,8 +1,9 @@
 ﻿@using BForms.FormBuilder
 @using BForms.Models
-@using DocumentFormat.OpenXml.Office2010.ExcelAc
+@using BForms.Html
 
 <div class="grid_container">
+
     @(Html.FormBuilder()
           .HtmlAttributes(new { id = "formBuilder" })
           .ConfigureTabs(tabs =>
@@ -23,13 +24,13 @@
               tabs.Add("Other").AddControls(FormBuilderControlType.Title,
                                             FormBuilderControlType.Pagebreak);
 
-              tabs.Add(Glyphicon.HeartEmpty).AddControl(new FormBuilderControlViewModel
-              {
-                  Type = FormBuilderControlType.CustomControl,
-                  ControlName = "uberCustomControl",
-                  Text = "Uber custom control",
-                  Glyphicon = Glyphicon.Heart
-              });
+              //tabs.Add(Glyphicon.HeartEmpty).AddControl(new FormBuilderControlViewModel
+              //{
+              //    Type = FormBuilderControlType.CustomControl,
+              //    ControlName = "uberCustomControl",
+              //    Text = "Uber custom control",
+              //    Glyphicon = Glyphicon.Heart
+              //});
           })
           .ConfigureActions(actions =>
           {
@@ -44,4 +45,117 @@
               
               //actions.CustomActionsFor(x => x.Type == FormBuilderControlType.Textbox, new List<string> { "custom" });
           }))
+
+    @*@{
+        var controls = new List<FormBuilderControl>
+        {
+            new InputControlModel
+            {
+                DefaultProperties = new DefaultcontrolProperties
+                {
+                    Buttons = null,
+                    Name = "Name", 
+                    Label = "Name",
+                    GlyphiconAddon = new BsSelectList<Glyphicon?>
+                    {
+                        SelectedValues = (Glyphicon?) Glyphicon.User
+                    }             
+                },
+                Name = "Name",
+                Properties = new InputControlProperties
+                {
+                    InitialValue = String.Empty
+                }
+            },
+            new SingleSelectControlModel
+            {
+                DefaultProperties = new DefaultcontrolProperties
+                {
+                    Buttons = null,
+                    Name = "Profession", 
+                    Label = "Profession",
+                    GlyphiconAddon = new BsSelectList<Glyphicon?>
+                    {
+                        SelectedValues = (Glyphicon?) Glyphicon.Tag
+                    }             
+                },
+                Properties = new SingleSelectControlProperties
+                {
+                    Items = new BsSelectList<List<string>>
+                    {
+                        SelectedValues = new List<string> { "1", "2" }
+                    }
+                }
+            },
+            new ListBoxControlModel
+            {
+                DefaultProperties = new DefaultcontrolProperties
+                {
+                    Buttons = null,
+                    Name = "Profession2", 
+                    Label = "Profession 2",
+                    GlyphiconAddon = new BsSelectList<Glyphicon?>
+                    {
+                        SelectedValues = (Glyphicon?) Glyphicon.Tags
+                    }             
+                },
+                Properties = new MultipleSelectControlProperties
+                {
+                    Items = new BsSelectList<List<string>>
+                    {
+                        SelectedValues = new List<string> { "1", "2", "3" }
+                    }
+                }
+            },
+            new TagListControlModel
+            {
+                DefaultProperties = new DefaultcontrolProperties
+                {
+                    Buttons = null,
+                    Name = "Profession3", 
+                    Label = "Profession 3",
+                    GlyphiconAddon = new BsSelectList<Glyphicon?>
+                    {
+                        SelectedValues = (Glyphicon?) Glyphicon.Tags
+                    }             
+                },
+                Properties = new MultipleSelectControlProperties
+                {
+                    Items = new BsSelectList<List<string>>
+                    {
+                        SelectedValues = new List<string> { "1", "2", "3", "4"}
+                    }
+                }
+            },
+            new RadioButtonListControlModel
+            {
+                DefaultProperties = new DefaultcontrolProperties
+                {
+                    Buttons = null,
+                    Name = "Profession3", 
+                    Label = "Are you a faggot?",
+                    GlyphiconAddon = new BsSelectList<Glyphicon?>
+                    {
+                        SelectedValues = (Glyphicon?) Glyphicon.Tags
+                    }             
+                },
+                Properties = new RadioButtonListControlProperties
+                {
+                    Items = new BsSelectList<List<string>>
+                    {
+                        SelectedValues = new List<string> { "Yes", "No" }
+                    }
+                }
+            }
+        };
+    }
+
+    <form novalidate="novalidate">
+        <div class="form_container turquoise">
+
+            @Html.RenderFormControls(controls)
+
+        </div>
+    </form>*@
+
 </div>
