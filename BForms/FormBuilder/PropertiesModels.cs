@@ -9,7 +9,7 @@ using BForms.Grid;
 using BForms.Models;
 using System.Text.RegularExpressions;
 using BForms.Mvc;
-using DocumentFormat.OpenXml.Office2010.ExcelAc;
+using BForms.Utilities;
 
 namespace BForms.FormBuilder
 {
@@ -38,15 +38,57 @@ namespace BForms.FormBuilder
         [BsControl(BsControlType.TextBox)]
         [FormGroup(ColumnWidth.Large, Glyphicon.Tag)]
         [Display(Name = "Label")]
+        [Required]
         public string Label { get; set; }
 
         [BsControl(BsControlType.TextBox)]
         [FormGroup(ColumnWidth.Large, Glyphicon.Pencil)]
         [Display(Name = "Name")]
         public string Name { get; set; }
+
+        [BsControl(BsControlType.DropDownList)]
+        [FormGroup(ColumnWidth.Large, Glyphicon.User)]
+        [Display(Name = "Glyphicon")]
+        public BsSelectList<Glyphicon?> GlyphiconAddon { get; set; }
+
+        [BsControl(BsControlType.RadioButtonList)]
+        [FormGroup(ColumnWidth.Large, Glyphicon.Asterisk)]
+        [Display(Name = "Required")]
+        [Required]
+        public BsSelectList<YesNoValues> Required { get; set; }
+
+        public DefaultcontrolProperties()
+        {
+            Width = BsSelectList<ColumnWidth>.FromEnum(typeof(ColumnWidth));
+
+            GlyphiconAddon = new BsSelectList<Glyphicon?>();
+
+            var glyphiconList = new BsSelectList<Glyphicon>();
+
+            glyphiconList.Items = Enum.GetValues(typeof(Glyphicon)).Cast<Glyphicon>()
+                .Where(x=> x != Glyphicon.Custom)
+                .Select(x => new BsSelectListItem
+                {
+                    Text = x.ToString(),
+                    Value = x.GetDescription()
+                }).ToList();
+
+            GlyphiconAddon.Items = glyphiconList.Items;
+
+            GlyphiconAddon.Items.Insert(0, new BsSelectListItem
+            {
+                Text = "None",
+                Value = String.Empty
+            });
+
+            Required = BsSelectList<YesNoValues>.FromEnum(typeof(YesNoValues));
+
+            Width.SelectedValues = ColumnWidth.Large;
+            Required.SelectedValues = YesNoValues.No;
+        }
     }
 
-    public class InputControlProperties
+    public class InputControlProperties : BaseControlProperties
     {
         [BsControl(BsControlType.TextBox)]
         [Display(Name = "Placeholder")]
@@ -67,43 +109,88 @@ namespace BForms.FormBuilder
         [Display(Name = "Regex validation")]
         [FormGroup(ColumnWidth.Large, Glyphicon.Asterisk)]
         public string RegexString { get; set; }
+
+        public InputControlProperties()
+        {
+            Type = BsSelectList<FormBuilderInputType>.FromEnum(typeof (FormBuilderInputType));
+        }
     }
 
-    public class TextAreaControlProperties
+    public class TextAreaControlProperties : BaseControlProperties
     {
         [BsControl(BsControlType.TextBox)]
         [Display(Name = "Initial value")]
         [FormGroup(ColumnWidth.Large, Glyphicon.LogIn)]
         public string InitialValue { get; set; }
     }
-    
-    public class SelectControlBaseProperties
+
+    public class SelectControlBaseProperties : BaseControlProperties
     {
         [BsControl(BsControlType.TagList)]
         [Display(Name = "Items")]
         [Required]
         public BsSelectList<List<string>> Items { get; set; } 
+
+        public SelectControlBaseProperties()
+        {
+            Items = new BsSelectList<List<string>>();
+
+            //Items.Items.Add(new BsSelectListItem
+            //{
+            //    Text = "A",
+            //    Value = "A"
+            //});
+
+            //Items.Items.Add(new BsSelectListItem
+            //{
+            //    Text = "B",
+            //    Value = "B"
+            //});
+
+            //Items.SelectedValues = Items.Items.Select(x => x.Value).ToList();
+        }
     }
 
     public class SingleSelectControlProperties : SelectControlBaseProperties
     {
-        [BsControl(BsControlType.DropDownList)]
+        //[BsControl(BsControlType.DropDownList)]
         [Display(Name = "Initial value")]
         public BsSelectList<string> InitialValue { get; set; }
+
+        public SingleSelectControlProperties()
+        {
+            InitialValue = new BsSelectList<string>();
+
+            InitialValue.Items = new List<BsSelectListItem>(Items.Items);
+        }
     }
 
     public class MultipleSelectControlProperties : SelectControlBaseProperties
     {
-        [BsControl(BsControlType.ListBox)]
+       // [BsControl(BsControlType.ListBox)]
         [Display(Name = "Initial values")]
         public BsSelectList<List<string>> InitialValues { get; set; }
+
+        public MultipleSelectControlProperties()
+        {
+            InitialValues = new BsSelectList<List<string>>();
+
+            InitialValues.Items = new List<BsSelectListItem>(Items.Items);
+        }
     }
 
     public class RadioButtonListControlProperties : SelectControlBaseProperties
     {
-        [BsControl(BsControlType.RadioButtonList)]
+       // [BsControl(BsControlType.RadioButtonList)]
         [Display(Name = "Initial value")]
-        public BsSelectList<List<int>> InitialValue { get; set; }
+        public BsSelectList<int> InitialValue { get; set; }
+
+        public RadioButtonListControlProperties()
+        {
+            InitialValue = new BsSelectList<int>();
+
+            InitialValue.Items = new List<BsSelectListItem>(Items.Items);
+        }
     }
 
     public class CheckBoxListControlProperties : SelectControlBaseProperties
@@ -111,6 +198,13 @@ namespace BForms.FormBuilder
         [BsControl(BsControlType.CheckBoxList)]
         [Display(Name = "Initial values")]
         public BsSelectList<List<int>> InitialValues { get; set; }
+
+        public CheckBoxListControlProperties()
+        {
+            InitialValues = new BsSelectList<List<int>>();
+
+            InitialValues.Items = new List<BsSelectListItem>(Items.Items);
+        }
     }
 
     public class DatePickerControlProperties
@@ -120,16 +214,23 @@ namespace BForms.FormBuilder
         public BsDateTime InitialValue { get; set; }
 
         [BsControl(BsControlType.DatePicker)]
-        [Display(Name = "Max value")]
+        [Display(Name = "Min value")]
         public BsDateTime MinValue { get; set; }
 
         [BsControl(BsControlType.DatePicker)]
-        [Display(Name = "Min value")]
+        [Display(Name = "Max value")]
         public BsDateTime MaxValue { get; set; }
 
         [BsControl(BsControlType.TextBox)]
         [Display(Name = "Null value display")]
         public string NullValueDisplay { get; set; }
+
+        public DatePickerControlProperties()
+        {
+            InitialValue = new BsDateTime();
+            MinValue = new BsDateTime();
+            MaxValue = new BsDateTime();
+        }
     }
 
     public class NumberPickerControlProperties
@@ -149,6 +250,13 @@ namespace BForms.FormBuilder
         [BsControl(BsControlType.TextBox)]
         [Display(Name = "Zero value display")]
         public string ZeroValueDisplay { get; set; }
+
+        public NumberPickerControlProperties()
+        {
+            InitialValue = new BsRangeItem<int>();
+            MinValue = new BsRangeItem<int>();
+            MaxValue = new BsRangeItem<int>();
+        }
     }
 
     public class FileControlProperties

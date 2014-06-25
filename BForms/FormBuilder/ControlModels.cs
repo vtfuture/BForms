@@ -10,9 +10,14 @@ namespace BForms.FormBuilder
         public FormBuilderControlType Type { get; set; }
         public string Name { get; set; }
 
+        [FormBuilderPropertiesTab(Glyphicon = Glyphicon.Wrench)]
+        [Display(Name = "Default properties")]
+        public DefaultcontrolProperties DefaultProperties { get; set; }
+
         public FormBuilderControl(FormBuilderControlType type)
         {
             Type = type;
+            DefaultProperties = new DefaultcontrolProperties();
         }
     }
 
@@ -21,24 +26,25 @@ namespace BForms.FormBuilder
         public InputControlModel() :
             base(FormBuilderControlType.Textbox)
         {
-            Properties = new InputControlProperties
-            {
-                Type = BsSelectList<FormBuilderInputType>.FromEnum(typeof (FormBuilderInputType))
-            };
+            Properties = new InputControlProperties();
 
-            DefaultProperties = new DefaultcontrolProperties
-            {
-                Width = BsSelectList<ColumnWidth>.FromEnum(typeof (ColumnWidth))
-            };
+            DefaultProperties.Name = "New.textBox";
+            DefaultProperties.Label = "New Textbox";
         }
 
-        [FormBuilderPropertiesTab(Glyphicon = Glyphicon.Wrench)]
-        [Display(Name = "Default properties")]
-        public DefaultcontrolProperties DefaultProperties { get; set; }
-
         [FormBuilderPropertiesTab(Glyphicon = Glyphicon.Cog)]
-        [Display(Name = "Specific properties")]
+        [Display(Name = "Input properties")]
         public InputControlProperties Properties { get; set; }
+    }
+
+    public class TextAreaControlModel : FormBuilderControl
+    {
+        public TextAreaControlModel() :
+            base(FormBuilderControlType.Textarea)
+        {
+            DefaultProperties.Name = "New.textArea";
+            DefaultProperties.Label = "New Textarea";
+        }
     }
 
     public class SingleSelectControlModel : FormBuilderControl
@@ -46,11 +52,14 @@ namespace BForms.FormBuilder
         public SingleSelectControlModel() :
             base(FormBuilderControlType.SingleSelect)
         {
+            Properties = new SingleSelectControlProperties();
 
+            DefaultProperties.Name = "New.singleSelect.SelectedValues";
+            DefaultProperties.Label = "New Single select";
         }
 
-        [FormBuilderPropertiesTab]
-        [Display(Name = "Properties")]
+       // [FormBuilderPropertiesTab(Glyphicon = Glyphicon.Cog)]
+        [Display(Name = "Select properties")]
         public SingleSelectControlProperties Properties { get; set; }
     }
 
@@ -59,11 +68,14 @@ namespace BForms.FormBuilder
         public ListBoxControlModel() :
             base(FormBuilderControlType.ListBox)
         {
+            Properties = new MultipleSelectControlProperties();
 
+            DefaultProperties.Name = "New.listBox.SelectedValues";
+            DefaultProperties.Label = "New Listbox";
         }
 
-        [FormBuilderPropertiesTab]
-        [Display(Name = "Properties")]
+       // [FormBuilderPropertiesTab(Glyphicon = Glyphicon.Cog)]
+        [Display(Name = "Listbox properties")]
         public MultipleSelectControlProperties Properties { get; set; }
     }
 
@@ -72,11 +84,14 @@ namespace BForms.FormBuilder
         public TagListControlModel() :
             base(FormBuilderControlType.TagList)
         {
+            Properties = new MultipleSelectControlProperties();
 
+            DefaultProperties.Name = "New.tagList.SelectedValues";
+            DefaultProperties.Label = "New Taglist";
         }
 
-        [FormBuilderPropertiesTab]
-        [Display(Name = "Properties")]
+      //  [FormBuilderPropertiesTab(Glyphicon = Glyphicon.Cog)]
+        [Display(Name = "Taglist properties")]
         public MultipleSelectControlProperties Properties { get; set; }
     }
 
@@ -85,11 +100,11 @@ namespace BForms.FormBuilder
         public NumberPickerControlModel()
             : base(FormBuilderControlType.NumberPicker)
         {
-
+            Properties = new NumberPickerControlProperties();
         }
 
-        [FormBuilderPropertiesTab]
-        [Display(Name = "Properties")]
+        [FormBuilderPropertiesTab(Glyphicon = Glyphicon.Cog)]
+        [Display(Name = "Number picker properties")]
         public NumberPickerControlProperties Properties { get; set; }
     }
 
@@ -98,14 +113,15 @@ namespace BForms.FormBuilder
         public NumberPickerRangeControlModel()
             : base(FormBuilderControlType.NumberPickerRange)
         {
-
+            LeftBoundProperties = new NumberPickerControlProperties();
+            RightBoundProperties = new NumberPickerControlProperties();
         }
 
-        [FormBuilderPropertiesTab]
+        [FormBuilderPropertiesTab(Glyphicon = Glyphicon.Cog)]
         [Display(Name = "Left bound properties")]
         public NumberPickerControlProperties LeftBoundProperties { get; set; }
 
-        [FormBuilderPropertiesTab]
+        [FormBuilderPropertiesTab(Glyphicon = Glyphicon.Cog)]
         [Display(Name = "Right bound properties")]
         public NumberPickerControlProperties RightBoundProperties { get; set; }
     }
@@ -115,11 +131,11 @@ namespace BForms.FormBuilder
         public DatePickerControlModel()
             : base(FormBuilderControlType.DatePicker)
         {
-
+            Properties = new DatePickerControlProperties();
         }
 
-        [FormBuilderPropertiesTab]
-        [Display(Name = "Properties")]
+        [FormBuilderPropertiesTab(Glyphicon = Glyphicon.Cog)]
+        [Display(Name = "Date picker properties")]
         public DatePickerControlProperties Properties { get; set; }
     }
 
@@ -128,14 +144,15 @@ namespace BForms.FormBuilder
         public DatePickerRangeControlModel()
             : base(FormBuilderControlType.DatePickerRange)
         {
-
+            LeftBoundProperties = new DatePickerControlProperties();
+            RightBoundProperties = new DatePickerControlProperties();
         }
 
-        [FormBuilderPropertiesTab]
+        [FormBuilderPropertiesTab(Glyphicon = Glyphicon.Cog)]
         [Display(Name = "Left bound properties")]
         public DatePickerControlProperties LeftBoundProperties { get; set; }
 
-        [FormBuilderPropertiesTab]
+        [FormBuilderPropertiesTab(Glyphicon = Glyphicon.Cog)]
         [Display(Name = "Right bound properties")]
         public DatePickerControlProperties RightBoundProperties { get; set; }
     }
@@ -145,9 +162,14 @@ namespace BForms.FormBuilder
         public RadioButtonListControlModel()
             : base(FormBuilderControlType.RadioButtonList)
         {
+            Properties = new RadioButtonListControlProperties();
 
+            DefaultProperties.Name = "New.radioButtonList.SelectedValues";
+            DefaultProperties.Label = "New Radio button list";
         }
 
+       // [FormBuilderPropertiesTab(Glyphicon = Glyphicon.Cog)]
+        [Display(Name = "Radio list properties")]
         public RadioButtonListControlProperties Properties { get; set; }
     }
 

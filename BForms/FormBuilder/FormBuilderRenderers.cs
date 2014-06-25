@@ -207,7 +207,7 @@ namespace BForms.Renderers
 
                     if (formModel != null)
                     {
-                        var propertiesFormString = FormHtmlRenderer.RenderForm(formModel, renderingOptions.Theme);
+                        var propertiesFormString = FormHtmlRenderer.RenderForm(formModel, renderingOptions.Theme, true, propertiesTab.PropertyInfo.Name);
 
                         metadataBuilder.InnerHtml += titleBuilder.ToString() + propertiesFormString;
                     }

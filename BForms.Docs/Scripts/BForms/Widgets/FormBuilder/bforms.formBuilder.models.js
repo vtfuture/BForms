@@ -50,10 +50,31 @@
         right: 'right'
     };
 
+    var propertyNames = {
+        defaultProperties: 'DefaultProperties',
+        specificProperties: 'Properties'
+    };
+
+    var yesNoValues = {
+        yes: 1,
+        no: 2
+    };
+
+    var inputTypes = {
+        '1': 'text',
+        '2': 'email',
+        '3': 'url',
+        '4': 'password',
+        '5': 'search'
+    };
+
     var models = {
         controlTypes: controlTypes,
-        propertiesModels: propertiesModels,
-        directions: directions
+       // propertiesModels: propertiesModels,
+        directions: directions,
+        propertyNames: propertyNames,
+        yesNoValues: yesNoValues,
+        inputTypes: inputTypes
     };
 
     return models;

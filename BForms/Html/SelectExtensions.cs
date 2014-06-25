@@ -65,8 +65,8 @@ namespace BForms.Html
         /// Returns a BForms select element based on BsControlAttribute
         /// </summary>
         public static MvcHtmlString BsSelectFor<TModel, TKey>(this HtmlHelper<TModel> htmlHelper,
-            Expression<Func<TModel, BsSelectList<TKey>>> expression, 
-            IDictionary<string, object> htmlAttributes, 
+            Expression<Func<TModel, BsSelectList<TKey>>> expression,
+            IDictionary<string, object> htmlAttributes,
             IDictionary<string, object> dataOptions)
         {
             if (htmlAttributes == null)
@@ -92,11 +92,11 @@ namespace BForms.Html
             if (selectList.SelectedValues != null && selectList.Items != null && selectList.Items.Any())
             {
                 var selectedValuesStr = new List<string>();
-                var bsKeyType = typeof (TKey);
-                if (typeof (IEnumerable).IsAssignableFrom(bsKeyType) && bsKeyType != typeof (string))
+                var bsKeyType = typeof(TKey);
+                if (typeof(IEnumerable).IsAssignableFrom(bsKeyType) && bsKeyType != typeof(string))
                 {
-                    
-                    var selectedValues = (IEnumerable) selectList.SelectedValues;
+
+                    var selectedValues = (IEnumerable)selectList.SelectedValues;
                     selectedValuesStr = (from object selectedValue in selectedValues select ReflectionHelpers.GetNonEnumerableValue(selectedValue)).ToList();
                 }
                 else
@@ -170,7 +170,7 @@ namespace BForms.Html
                         break;
                     default:
                         throw new ArgumentException("The " + name + " of type " + bsControl.ControlType.GetDescription() + " does not match a select element");
-                        
+
                 }
             }
             else
@@ -387,7 +387,7 @@ namespace BForms.Html
                     radioBuilder.MergeAttribute("type", "radio");
                     radioBuilder.MergeAttribute("value", item.Value);
                     input = radioBuilder.ToString(TagRenderMode.SelfClosing);
-                }   
+                }
 
                 // Create the html string
                 // e.g. <input data-val="true" data-val-required="You must select an option" id="TestRadio_1" name="TestRadio" type="radio" value="1" /><label for="TestRadio_1">Line1</label>
@@ -573,6 +573,21 @@ namespace BForms.Html
             }
 
             tagBuilder.MergeAttributes(attributes);
+        }
+
+        public static MvcHtmlString BsSelectList<TKey>(this HtmlHelper helper, BsSelectList<TKey> selectList, BsControlType controlType, string name, bool allowMultiple, Dictionary<string, object> htmlAttributes, ModelMetadata metadata = null)
+        {
+            return BsSelectInternal(helper, name, selectList, null, htmlAttributes, allowMultiple, controlType.GetDescription(), null);
+        }
+
+        public static MvcHtmlString BsTagList<TKey>(this HtmlHelper helper, BsSelectList<TKey> selectList, BsControlType controlType, string name, Dictionary<string, object> htmlAttributes, ModelMetadata metadata = null)
+        {
+            return BsTagListInternal(helper, name, selectList, null, htmlAttributes, controlType.GetDescription(), null);
+        }
+
+        public static MvcHtmlString BsRadioList<TKey>(this HtmlHelper htmlHelper,BsSelectList<TKey> radioList, BsControlType controlType, string name, IDictionary<string, object> htmlAttributes, bool allowMultiple, ModelMetadata metadata = null)
+        {
+            return BsRadioListInternal(htmlHelper, name, radioList, htmlAttributes, allowMultiple, controlType.GetDescription(), metadata);
         }
     }
 }

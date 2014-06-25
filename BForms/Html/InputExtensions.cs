@@ -217,5 +217,99 @@ namespace BForms.Html
 
             return MvcHtmlString.Create(inputHtml.ToHtmlString() + description.ToHtmlString());
         }
+
+        public static MvcHtmlString BsInput<TProperty>(this HtmlHelper htmlHelper, BsControlType controlType,
+            string name, string format, string value,
+            IDictionary<string, object> htmlAttributes,
+            IDictionary<string, object> dataOptions,
+            ModelMetadata metadata = null)
+        {
+            var inputHtml = new MvcHtmlString("");
+
+            if (htmlAttributes == null)
+            {
+                htmlAttributes = new Dictionary<string, object>();
+            }
+            if (dataOptions == null)
+            {
+                dataOptions = new Dictionary<string, object>();
+            }
+
+            //add html attributes
+            htmlAttributes.ApplyBFormsAttributes(metadata, dataOptions);
+
+            //set html5 input type based on BsControlType attribute
+
+            htmlAttributes.MergeAttribute("type", controlType.GetHtml5Type(), true);
+            htmlAttributes.MergeAttribute("class", controlType.GetDescription());
+
+
+            switch (controlType)
+                {
+                    case BsControlType.TextBox:
+                        inputHtml = htmlHelper.TextBoxInternal(name, value, format, htmlAttributes);
+                        break;
+                    case BsControlType.TextArea:
+                        inputHtml = htmlHelper.TextAreaInternal(name, value, 2, 20, htmlAttributes);
+                        break;
+                    case BsControlType.Password:
+                        inputHtml = htmlHelper.PasswordInternal(name, value, htmlAttributes);
+                        break;
+                    case BsControlType.Url:
+                    case BsControlType.Email:
+                    case BsControlType.Number:
+                    case BsControlType.NumberInline:
+                        var genericArguments = typeof(TProperty).GetGenericArguments();
+
+                        if (genericArguments.Any() && (genericArguments[0] == typeof(int) || genericArguments[0] == typeof(int?)))
+                        {
+                            htmlAttributes.MergeAttribute("class",
+                                controlType == BsControlType.NumberInline
+                                    ? "bs-number-single_range_inline"
+                                    : "bs-number-single_range");
+                            htmlAttributes.MergeAttribute("type", "text");
+
+                            if (genericArguments[0] == typeof(int))
+                            {
+                               // var numberRange = (Expression<Func<TModel, BsRangeItem<int>>>)(object)expression;
+                               // inputHtml = htmlHelper.NumberRangeForInternal(numberRange, htmlAttributes, dataOptions);
+                            }
+                            else
+                            {
+                              //  var numberRange = (Expression<Func<TModel, BsRangeItem<int?>>>)(object)expression;
+                              //  inputHtml = htmlHelper.NumberRangeForInternal(numberRange, htmlAttributes, dataOptions);
+                            }
+
+                        }
+                        else
+                        {
+                            inputHtml = htmlHelper.TextBoxInternal(name, value, format, htmlAttributes);
+                        }
+
+                        break;
+                    case BsControlType.DatePicker:
+                    case BsControlType.DateTimePicker:
+                    case BsControlType.TimePicker:
+                        if (typeof(TProperty) != typeof(BsDateTime))
+                        {
+                            throw new ArgumentException("The " + name + " property must be of type BsDateTime");
+                        }
+                        //var dateExpression = (Expression<Func<TModel, BsDateTime>>)(object)expression;
+                        //inputHtml = htmlHelper.DateTimeForInternal(dateExpression, htmlAttributes, dataOptions);
+                        break;
+                    default:
+                        throw new ArgumentException("The " + name + " of type " + controlType.GetDescription() + " does not match an input element");
+                }
+            
+
+            //add info tooltip
+            var description = new MvcHtmlString("");
+            if (!string.IsNullOrEmpty(metadata.Description))
+            {
+               // description = htmlHelper.BsDescriptionFor(expression);
+            }
+
+            return MvcHtmlString.Create(inputHtml.ToHtmlString() + description.ToHtmlString());
+        }
     }
 }

@@ -62,15 +62,15 @@ namespace BForms.FormBuilder
 
     public enum ColumnWidth
     {
-        [Description("col-lg-4 col-md-4 col-sm-4")]
-        [Display(Name = "small")]
-        Small = 4,
+        [Description("col-lg-12 col-md-12 col-sm-12")]
+        [Display(Name = "large")]
+        Large = 12,
         [Description("col-lg-6 col-md-6 col-sm-6")]
         [Display(Name = "medium")]
         Medium = 6,
-        [Description("col-lg-12 col-md-12 col-sm-12")]
-        [Display(Name = "large")]
-        Large = 12
+        [Description("col-lg-4 col-md-4 col-sm-4")]
+        [Display(Name = "small")]
+        Small = 4
     }
 
     public enum FormBuilderInputType

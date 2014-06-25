@@ -28,6 +28,13 @@ namespace BForms.FormBuilder
 
         public override string ToString()
         {
+            var tagBuilder = GetTagBuilder();
+
+            return tagBuilder.ToString();
+        }
+
+        protected TagBuilder GetTagBuilder()
+        {
             var tagBuilder = new TagBuilder(TagName);
 
             var componentClass = Type.GetDescription();
@@ -55,7 +62,7 @@ namespace BForms.FormBuilder
 
             tagBuilder.InnerHtml = innerHtml;
 
-            return tagBuilder.ToString();
+            return tagBuilder;
         }
     }
 
@@ -66,6 +73,15 @@ namespace BForms.FormBuilder
         {
             TagName = "button";
             Type = BsComponentType.Button;
+        }
+
+        public override string ToString()
+        {
+            var tagBuilder = GetTagBuilder();
+
+            tagBuilder.MergeAttribute("style", "margin-left: 10px;");
+
+            return tagBuilder.ToString();
         }
     }
 }
