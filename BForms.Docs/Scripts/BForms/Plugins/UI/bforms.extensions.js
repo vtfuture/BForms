@@ -239,9 +239,7 @@
 
                 if (thisObj.hasClass('bs-radio-list')) {
 
-                    if (thisObj.data("initialvalue") != undefined) {
-                        thisObj.bsRadioButtonsListUpdateSelf(thisObj.data("initialvalue"));
-                    }
+                    thisObj.bsResetRadioButtons();
 
                 } else if (thisObj.is('select')) {
 
