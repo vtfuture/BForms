@@ -4,7 +4,7 @@
 
 <div class="grid_container">
 
-    @*@(Html.FormBuilder()
+    @(Html.FormBuilder()
           .HtmlAttributes(new { id = "formBuilder" })
           .ConfigureTabs(tabs =>
           {
@@ -44,9 +44,9 @@
               //});
               
               //actions.CustomActionsFor(x => x.Type == FormBuilderControlType.Textbox, new List<string> { "custom" });
-          }))*@
+          }))
 
-    @{
+    @*@{
         var controls = new List<FormBuilderControl>
         {
             new InputControlModel
@@ -156,6 +156,6 @@
             @Html.RenderFormControls(controls)
 
         </div>
-    </form>
+    </form>*@
 
 </div>
