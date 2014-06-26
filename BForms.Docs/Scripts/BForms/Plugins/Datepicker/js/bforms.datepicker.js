@@ -592,7 +592,12 @@
 
             this._updateDisplays();
         } else {
-            this.resetValue();
+
+            if (this.options.allowDeselect) {
+                this._deselectValue();
+            } else {
+                this.resetValue();
+            }
         }
     };
 
