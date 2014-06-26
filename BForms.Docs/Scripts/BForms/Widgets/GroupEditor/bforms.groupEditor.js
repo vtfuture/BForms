@@ -31,6 +31,19 @@
         tabItemsListSelector: '.bs-tabItemsList',
 
         groupBulkMoveSelector: '.bs-moveToGroupBtn',
+        groupBulkMoveMainSelector: '.bs-bulkGroupMove',
+        groupBulkMoveConfirmContent: 'Are you sure?',
+        groupBulkMoveConfirm: false,
+        groupBulkMoveConfirmBtns: [{
+            text: 'Yes',
+            cssClass: 'btn-primary bs-confirm',
+            callback: function () {}
+        },
+        {
+            text: 'No',
+            cssClass: 'btn-default bs-cancel',
+            callback: function (e) {}
+        }],
         groupEditorFormSelector: '.bs-groupForm',
         groupItemSelector: '.bs-groupItem',
         groupItemTemplateSelector: '.bs-itemTemplate',
@@ -120,7 +133,33 @@
         this.$groups.on('click', this.options.toggleExpandBtn, $.proxy(this._evToggleExpand, this));
         this.$element.on('click', this.options.resetBtn, $.proxy(this._evResetClick, this));
         this.$element.on('click', this.options.saveBtn, $.proxy(this._evSaveClick, this));
-        this.$tabs.on('click', this.options.groupBulkMoveSelector, $.proxy(this._evBulkMoveClick, this));
+
+        if (!this.options.groupBulkMoveConfirm) {
+            this.$tabs.on('click', this.options.groupBulkMoveSelector, $.proxy(this._evBulkMoveClick, this));
+        } else {
+            this.groupBulkInlineQuestion = this.$tabs.find(this.options.groupBulkMoveMainSelector).bsInlineQuestion({
+                container: 'body',
+                toggle: 'popover',
+                placement: 'top',
+                content: this.options.groupBulkMoveConfirmContent,
+                buttons: this.options.groupBulkMoveConfirmBtns,
+                popoverOptions: {
+                    trigger: 'manual'
+                }
+            });
+            this.$tabs.on('click', this.options.groupBulkMoveSelector, $.proxy(function (e) {
+                var $el = $(e.currentTarget),
+                    targetGroupId = $el.data('groupid');
+
+                this.groupBulkInlineQuestion.bsInlineQuestion('option', 'additionalData', {
+                    groupId: targetGroupId,
+                    groupEditor: this
+                });
+                this.groupBulkInlineQuestion.bsInlineQuestion('show');
+
+                e.preventDefault();
+            }, this));
+        }
     };
 
     GroupEditor.prototype._initSelectedTab = function () {
@@ -352,9 +391,7 @@
         }
     };
 
-    GroupEditor.prototype._evBulkMoveClick = function (e) {
-
-        var targetGroupId = $(e.currentTarget).data('groupid');
+    GroupEditor.prototype.bulkMoveToGroup = function (groupId, additionalData) {
 
         var currentTab = this._getSelectedTab(),
             $movableItems = currentTab.container.find(this.options.tabItemSelector),
@@ -368,13 +405,22 @@
                 objId: $tabItem.data('objid'),
                 itemModel: $tabItem.data('model'),
                 tabId: currentTab.tabId
-            }, targetGroupId, true) || hasMoved;
+            }, groupId, true, additionalData) || hasMoved;
 
         }, this));
 
         if (!hasMoved) {
             this._showMoveError(this.$element);
         }
+
+    };
+
+    GroupEditor.prototype._evBulkMoveClick = function (e) {
+
+        var $el = $(e.currentTarget),
+            targetGroupId = $el.data('groupid');
+
+        this.bulkMoveToGroup(targetGroupId);
 
         e.preventDefault();
     };
@@ -1300,7 +1346,7 @@
      * @param data json containing objId, itemModel, tabId
      * @param groupId destination group
      */
-    GroupEditor.prototype.addToGroup = function (data, groupId, preventAnimation) {
+    GroupEditor.prototype.addToGroup = function (data, groupId, preventAnimation, additionalData) {
 
         var $group = this._getGroup(groupId),
             objId = data.objId,
@@ -1339,7 +1385,8 @@
                 model: model,
                 tabId: tabId,
                 $row: $template,
-                $group: $group
+                $group: $group,
+                additionalData: additionalData
             });
 
             if ($tabItem.length) {

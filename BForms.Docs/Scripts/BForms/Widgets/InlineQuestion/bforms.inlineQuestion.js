@@ -77,7 +77,6 @@
             if (btn != null && typeof btn.callback === "function") {
                 e.preventDefault();
                 e.stopPropagation();
-
                 btn.callback.apply(this, arguments);
             }
 

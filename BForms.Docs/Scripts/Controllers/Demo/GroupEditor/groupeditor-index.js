@@ -18,6 +18,30 @@
     GroupEditorIndex.prototype.init = function () {
         $('#myGroupEditor').bsGroupEditor({
             getTabUrl: this.options.getTabUrl,
+            groupBulkMoveConfirm: false,
+            groupBulkMoveConfirmContent: 'Are you sure ?',
+            groupBulkMoveConfirmBtns: [{
+                text: 'Yes',
+                cssClass: 'btn-primary bs-confirm',
+                callback: function () {
+                    var editor = this.options.additionalData.groupEditor,
+                        groupId = this.options.additionalData.groupId;
+
+                    var additionalData = {
+                        Test: "test"
+                    };
+
+                    editor.bulkMoveToGroup(groupId, additionalData);
+                }
+            },
+            {
+                text: 'No',
+                cssClass: 'btn-default bs-cancel',
+                callback: function (e) {}
+            }],
+            onTabItemAdd: function (e, response) {
+                //console.log(response.additionalData)
+            },
             buildDragHelper: function (model, tabId, connectsWith) {
                 return $('<div class="col-lg-6 col-md-6 bs-itemContent" style="z-index:999"><span>' + model.Name + '</span></div>');
             },
