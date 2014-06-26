@@ -33,6 +33,8 @@
         groupBulkMoveSelector: '.bs-moveToGroupBtn',
         groupBulkMoveMainSelector: '.bs-bulkGroupMove',
         groupBulkMoveConfirmContent: 'Are you sure?',
+        groupBulkMoveConfirmShown: function(){
+        },
         groupBulkMoveConfirm: false,
         groupBulkMoveConfirmBtns: [{
             text: 'Yes',
@@ -143,19 +145,24 @@
                 placement: 'top',
                 content: this.options.groupBulkMoveConfirmContent,
                 buttons: this.options.groupBulkMoveConfirmBtns,
+                shown: this.options.groupBulkMoveConfirmShown,
                 popoverOptions: {
                     trigger: 'manual'
                 }
             });
+
             this.$tabs.on('click', this.options.groupBulkMoveSelector, $.proxy(function (e) {
                 var $el = $(e.currentTarget),
                     targetGroupId = $el.data('groupid');
 
-                this.groupBulkInlineQuestion.bsInlineQuestion('option', 'additionalData', {
+                var $inlineParent = $el.parents(this.options.groupBulkMoveMainSelector + ":first");
+
+                $inlineParent.bsInlineQuestion('option', 'additionalData', {
                     groupId: targetGroupId,
                     groupEditor: this
                 });
-                this.groupBulkInlineQuestion.bsInlineQuestion('show');
+
+                $inlineParent.bsInlineQuestion('show');
 
                 e.preventDefault();
             }, this));

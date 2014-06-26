@@ -18,6 +18,9 @@
     GroupEditorIndex.prototype.init = function () {
         $('#myGroupEditor').bsGroupEditor({
             getTabUrl: this.options.getTabUrl,
+            groupBulkMoveConfirmShown: function () {
+                //console.log('ha ha ha')
+            },
             groupBulkMoveConfirm: false,
             groupBulkMoveConfirmContent: 'Are you sure ?',
             groupBulkMoveConfirmBtns: [{
@@ -26,18 +29,18 @@
                 callback: function () {
                     var editor = this.options.additionalData.groupEditor,
                         groupId = this.options.additionalData.groupId;
-
                     var additionalData = {
                         Test: "test"
                     };
-
                     editor.bulkMoveToGroup(groupId, additionalData);
+                    this.hide();
                 }
-            },
-            {
+            }, {
                 text: 'No',
                 cssClass: 'btn-default bs-cancel',
-                callback: function (e) {}
+                callback: function (e) {
+                    this.hide();
+                }
             }],
             onTabItemAdd: function (e, response) {
                 //console.log(response.additionalData)
