@@ -235,6 +235,8 @@ namespace BForms.Renderers
         {
             var tabsContainerBuilder = new TagBuilder("ul");
 
+            tabsContainerBuilder.AddCssClass("control-panel-tabs");
+
             foreach (var tab in options.Tabs)
             {
                 var tabBuilder = new TagBuilder("li");
@@ -246,6 +248,8 @@ namespace BForms.Renderers
                 {
                     tabBuilder.MergeAttribute("style", "display:none;");
                 }
+
+                tabBuilder.MergeAttribute("data-content-type", tab.ContentType.GetDescription());
 
                 tabBuilder.InnerHtml = tab.Content ?? String.Empty;
                 
@@ -259,10 +263,15 @@ namespace BForms.Renderers
         {
             var panelBuilder = new TagBuilder("div");
 
-            panelBuilder.AddCssClass("panel control-panel");
             panelBuilder.MergeAttributes(this.Builder.htmlAttributes);
+            panelBuilder.AddCssClass("panel control-panel");
 
             var renderingOptions = this.Builder.GetRenderingOptions();
+
+            if (!String.IsNullOrEmpty(renderingOptions.PanelId))
+            {
+                panelBuilder.MergeAttribute("id", renderingOptions.PanelId);
+            }
 
             var headerBuilder = GetHeaderBuilder(renderingOptions);
             var bodyBuilder = GetBodyBuilder(renderingOptions);

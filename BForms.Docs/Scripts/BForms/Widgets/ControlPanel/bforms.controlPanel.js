@@ -6,26 +6,42 @@
 
     ControlPanel.prototype.options = {
 
+        instantQuickSearch: true,
+
         panelActionSelector: '.control-panel-action',
         panelHeadingSelector: '.panel-heading',
         panelBodySelector: '.panel-body',
         tabButtonSelector: '.control-panel-nav-tab',
         tabSelector: '.control-panel-tab',
-        quickSearchSelector: '.tab-search'
+        quickSearchSelector: '.tab-search',
+        titleSelector: '.control-panel-title',
+        gridSelector: '.grid_view'
     };
 
     ControlPanel.prototype.predefinedActions = {
         remove: 'remove',
         toggle: 'toggle'
-    }
+    };
+
+    ControlPanel.prototype.tabContentTypes = {
+
+        defaultContent: 'default',
+        form: 'form',
+        grid: 'grid'
+    };
 
     // #region init
 
     ControlPanel.prototype._init = function () {
 
-        this._cacheElements();
         this._initMembers();
+        this._cacheElements();
         this._addHandlers();
+    };
+
+    ControlPanel.prototype._initMembers = function () {
+
+        this._initializedTabs = {};
     };
 
     ControlPanel.prototype._cacheElements = function () {
@@ -37,19 +53,38 @@
         this.$quickSearch = this.$element.find(this.options.quickSearchSelector);
     };
 
-    ControlPanel.prototype._initMembers = function () {
-
-    };
-
     ControlPanel.prototype._addHandlers = function () {
 
         this.$element.on('click', this.options.panelActionSelector, $.proxy(this.evActionClick, this));
         this.$element.on('click', this.options.tabButtonSelector, $.proxy(this.evTabButtonSelectorClick, this));
+
+        if (!this.$element.attr('id') || this.options.preventAnchoring) {
+
+            this.$element.find(this.options.titleSelector).on('click', 'a:not(.control-panel-action)', function (e) {
+                e.preventDefault();
+            });
+        }
+
+        this._initQuickSearch();
+    };
+
+    ControlPanel.prototype._initQuickSearch = function () {
+
+        this.$quickSearch.on('keyup', $.proxy(this._evQuickSearchKeyUp, this));
+
+        this.$element.find(this.options.gridSelector).on('bsgridbeforereset', $.proxy(this._evGridReset, this));
     };
 
     // #endregion
 
     // #region event handlers
+
+    ControlPanel.prototype._evGridReset = function (e, data) {
+
+        if (this.$quickSearch.is(':visible')) {
+            this.$quickSearch.val('');
+        }
+    };
 
     ControlPanel.prototype.evTabButtonSelectorClick = function (e) {
 
@@ -69,6 +104,33 @@
 
             $currentTab.hide();
             $tab.show();
+
+            if (!this._initializedTabs[tabId]) {
+
+                var initializationData = {
+                    tabId: tabId,
+                    $tab: $tab,
+                    contentType: $tab.attr('data-content-type')
+                };
+
+                var initializationResult = this._initializeTab(initializationData);
+
+                if (initializationResult && typeof initializationData.done == 'function') {
+
+                    initializationResult.done($.proxy(function (ev, data) {
+
+                        this._trigger('afterTabInitialization', e, initializationData);
+
+                    }, this));
+
+                } else {
+
+                    this._trigger('afterTabInitialization', e, initializationData);
+                }
+
+                this._initializedTabs[tabId] = true;
+
+            }
 
             if (quickSearchIsVisible) {
                 this.$quickSearch.show();
@@ -94,9 +156,80 @@
         }
     };
 
+    ControlPanel.prototype._evQuickSearchKeyUp = function (e) {
+
+        var $currentTab = this._getCurrentTab();
+
+        var $grid = $currentTab.find(this.options.gridSelector);
+
+        if ($grid.length == 0) {
+            return;
+        }
+
+        var instantQuickSearch = this.options.instantQuickSearch,
+            quickSearchTimeout = this.options.quickSearchTimeout;
+
+        var searchValue = this.$quickSearch.val();
+
+        if (instantQuickSearch) {
+
+            if (this.quickSearchTimeout) {
+                window.clearTimeout(this.quickSearchTimeout);
+            }
+            
+            this.quickSearchTimeout = window.setTimeout($.proxy(function () {
+                
+                $grid.bsGrid('search', searchValue, true);
+
+            }, this), quickSearchTimeout);
+
+        } else if (e.which == 13 || e.keyCode == 13) {
+            
+            $grid.bsGrid('search', searchValue, true);
+
+        }
+
+    };
+
     // #endregion
 
     // #region private methods
+
+    ControlPanel.prototype._initializeTab = function (tabData) {
+
+        var $tab = tabData.$tab,
+            contentType = tabData.contentType;
+
+        var result;
+
+        var tabOptions = this.options.tabOptions ? (this.options.tabOptions[tabData.tabId] || {}) : {};
+
+        switch (contentType) {
+
+            case this.tabContentTypes.defaultContent:
+                {
+                    break;
+                }
+            case this.tabContentTypes.form:
+                {
+                    result = $tab.find('form').bsForm(tabOptions);
+
+                    break;
+                }
+            case this.tabContentTypes.grid:
+                {
+                    result = $tab.find(this.options.gridSelector).bsGrid(tabOptions);
+
+                    break;
+                }
+            default:
+                {
+                    break;
+                }
+        }
+
+        return result;
+    };
 
     ControlPanel.prototype._executePredefinedAction = function (action) {
 
@@ -150,7 +283,7 @@
         return this.$element.find(this.options.tabSelector + '[data-tabid="' + tabId + '"]');
     }
 
-    ControlPanel.prototype._getCurrentTab = function (tabId) {
+    ControlPanel.prototype._getCurrentTab = function () {
 
         return this.$element.find(this.options.tabSelector + ':visible');
     }

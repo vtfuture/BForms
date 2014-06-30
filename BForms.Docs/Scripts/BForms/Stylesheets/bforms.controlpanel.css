@@ -23,6 +23,10 @@
     min-height: 220px; }
     .control-panel .panel-body ul {
       list-style-type: none; }
+    .control-panel .panel-body .control-panel-tabs .control-panel-tab {
+        margin-left: -40px;
+        margin-top: 20px;
+    }
     .control-panel .panel-body .control-panel-nav-tabs li:hover {
       background: white; }
     .control-panel .panel-body .control-panel-nav-tabs li.active:hover {
