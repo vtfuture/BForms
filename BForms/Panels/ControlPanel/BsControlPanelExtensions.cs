@@ -12,7 +12,7 @@ namespace BForms.Panels.ControlPanel
     {
         public static BsControlPanelBuilder BsControlPanel(this HtmlHelper helper)
         {
-            return new BsControlPanelBuilder(helper.ViewContext);
+            return new BsControlPanelBuilder(helper.ViewContext, helper);
         }
     }
 }

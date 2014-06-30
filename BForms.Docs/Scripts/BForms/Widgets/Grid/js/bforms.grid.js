@@ -1029,6 +1029,10 @@
         this._hideResetGridButton(true);
         this._removeErrors();
 
+        this._trigger('beforeReset', e, {
+            goToFirstPage: goToFirstPage
+        });
+
         if (this.refreshModel.PageSize != this._initialModel.PageSize) {
             goToFirstPage = true;
             this.refreshModel.PageSize = this._initialModel.PageSize;

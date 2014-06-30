@@ -24,11 +24,11 @@ namespace BForms.Html
         protected string PanelContent;
         protected bool HasGlobalQuicksearch;
 
-        public BsControlPanelBuilder(ViewContext viewContext)
+        public BsControlPanelBuilder(ViewContext viewContext, HtmlHelper helper)
             : base(viewContext)
         {
             ActionsFactory = new BsControlPanelActionsFactory();
-            TabsFactory = new BsControlPanelTabsFactory();
+            TabsFactory = new BsControlPanelTabsFactory(helper);
 
             PanelTheme = BsTheme.Default;
 
@@ -121,6 +121,40 @@ namespace BForms.Html
         public BsControlPanelBuilder HasQuicksearch(bool hasQuicksearch = true)
         {
             HasGlobalQuicksearch = hasQuicksearch;
+
+            return this;
+        }
+
+        public BsControlPanelBuilder Expandable(bool expandable = true)
+        {
+            if (expandable)
+            {
+                if (!ActionsFactory.GetActions().Any(x => x.ActionName == ControlPanelActionType.Toggle.GetAction().ActionName))
+                {
+                    ActionsFactory.Add(ControlPanelActionType.Toggle);
+                }           
+            }
+            else
+            {
+                ActionsFactory.Remove(ControlPanelActionType.Toggle);
+            }
+
+            return this;
+        }
+
+        public BsControlPanelBuilder Removable(bool removable = true)
+        {
+            if (removable)
+            {
+                if (!ActionsFactory.GetActions().Any(x => x.ActionName == ControlPanelActionType.Remove.GetAction().ActionName))
+                {
+                    ActionsFactory.Add(ControlPanelActionType.Remove);
+                }
+            }
+            else
+            {
+                ActionsFactory.Remove(ControlPanelActionType.Remove);
+            }
 
             return this;
         }

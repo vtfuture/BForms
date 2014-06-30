@@ -145,6 +145,7 @@
     <Compile Include="Panels\ControlPanel\BsControlPanelActionsFactory.cs" />
     <Compile Include="Panels\ControlPanel\BsControlPanelBaseRenderer.cs" />
     <Compile Include="Panels\ControlPanel\BsControlPanelBuilder.cs" />
+    <Compile Include="Panels\ControlPanel\BsControlPanelCustomTabs.cs" />
     <Compile Include="Panels\ControlPanel\BsControlPanelExtensions.cs" />
     <Compile Include="Panels\ControlPanel\BsControlPanelTabsFactory.cs" />
     <Compile Include="Renderers\BsBaseRenderer.cs" />
