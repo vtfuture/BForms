@@ -152,9 +152,18 @@ namespace BForms.Panels
             }
         }
 
+        public bool isEditableBtnVisible
+        {
+            get
+            {
+                return this._isEditableVisible ?? true;
+            }
+        }
+
         #region Properties and Constructor
         internal string _name;
         internal bool _isEditable;
+        internal bool? _isEditableVisible;
         internal bool _hasReadonly;
         internal bool _isExpanded;
         internal bool _isExpandable = true;
@@ -255,6 +264,12 @@ namespace BForms.Panels
         public BsPanelHtmlBuilder Editable(bool isEditable)
         {
             this._isEditable = isEditable;
+            return this;
+        }
+
+        public BsPanelHtmlBuilder IsEditableBtnVisible(bool isVisible)
+        {
+            this._isEditableVisible = isVisible;
             return this;
         }
 

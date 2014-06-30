@@ -97,6 +97,11 @@ namespace BForms.Renderers
                     editableTag.MergeAttribute("href", this.Builder.editableUrl);
                     editableTag.AddCssClass("pull-right bs-editPanel");
 
+                    if (!this.Builder.isEditableBtnVisible)
+                    {
+                        editableTag.MergeAttribute("style", "display:none;");
+                    }
+
                     var glyphTag = this.GetGlyphicon(Glyphicon.Pencil);
 
                     editableTag.InnerHtml += glyphTag;
@@ -184,7 +189,8 @@ namespace BForms.Renderers
                 {
                     loaded = this.Builder.isLoaded,
                     initialReadonly = this.Builder.initialReadonly,
-                    editable = this.Builder.isEditable
+                    editable = this.Builder.isEditable,
+                    isEditableBtnVisible = this.Builder.isEditableBtnVisible
                 }).ToJsonString());
 
             if (this.Builder.id != null)

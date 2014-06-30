@@ -26,6 +26,7 @@
             cfg.For(x => x.Basic).Content(Html.Partial("Readonly/_Basic", Model.Basic).ToString());
 
             cfg.For(x => x.UserInfo).HtmlAttributes(new { @class = "bs-userInfo" }).Theme(BsPanelTheme.LightGreen);
+                            //.IsEditableBtnVisible(false);
 
             cfg.For(x => x.Contact).HtmlAttributes(new {@class = "bs-contact"}).InitialEditable();
         }))  

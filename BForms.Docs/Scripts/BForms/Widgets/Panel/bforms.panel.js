@@ -248,7 +248,7 @@
 
     bsPanel.prototype._initControls = function () {
 
-        if (this.options.editable) {
+        if (this.options.editable && this.options.isEditableBtnVisible) {
             this._toggleEditBtn(this._readonly ? true : false);
         }
 
