@@ -1,4 +1,5 @@
-﻿using BForms.Grid;
+﻿using System.Runtime.CompilerServices;
+using BForms.Grid;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,7 @@ using System.Web.Mvc;
 using BForms.Utilities;
 using BForms.Models;
 using BForms.Mvc;
+using DocumentFormat.OpenXml.Spreadsheet;
 
 namespace BForms.Renderers
 {
@@ -21,7 +23,7 @@ namespace BForms.Renderers
 
         public BsGridBaseRenderer(BsGridHtmlBuilder<TModel, TRow> builder)
             : base(builder)
-        { 
+        {
 
         }
 
@@ -32,10 +34,10 @@ namespace BForms.Renderers
                 Theme = this.Builder.Theme
             };
 
-             var ignoreAjaxRequest = this.Builder.ignoreAjaxRequest.HasValue && this.Builder.ignoreAjaxRequest.Value;
-             var result = this.Builder.IsAjaxRequest() && !ignoreAjaxRequest ?
-                this.RenderAjax() :
-                this.RenderIndex();
+            var ignoreAjaxRequest = this.Builder.ignoreAjaxRequest.HasValue && this.Builder.ignoreAjaxRequest.Value;
+            var result = this.Builder.IsAjaxRequest() && !ignoreAjaxRequest ?
+               this.RenderAjax() :
+               this.RenderIndex();
 
             return result;
         }
@@ -317,6 +319,7 @@ namespace BForms.Renderers
                         }
 
                         cellBuilder.AddCssClass(column.GetWidthClasses());
+                        cellBuilder.AddCssClass("grid_cell");
 
                         var text = string.Empty;
 
@@ -338,19 +341,32 @@ namespace BForms.Renderers
                         if (column.CellTitle != null)
                         {
                             title = (column.CellTitle(row) ?? string.Empty).ToString();
-                            cellBuilder.MergeAttribute("title",title);
+                            cellBuilder.MergeAttribute("title", title);
                         }
+
+                        cellBuilder.InnerHtml += text;
+
                         if (column.IsEditable)
                         {
-                            var editBuilder = new TagBuilder("span");
-                            editBuilder.MergeAttribute("class", "edit_col");
-                            editBuilder.InnerHtml = text;
+                            var editableContentContainerBuilder = new TagBuilder("span");
 
-                            cellBuilder.InnerHtml += editBuilder.ToString();
-                        }
-                        else
-                        {
-                            cellBuilder.InnerHtml += text;
+                            var editToggleBuilder = new TagBuilder("a");
+                            var editGlyphiconBuilder = new TagBuilder("span");
+
+                            editGlyphiconBuilder.AddCssClass("glyphicon glyphicon-pencil");
+
+                            editToggleBuilder.AddCssClass("toggle_edit pull-right");
+                            editToggleBuilder.MergeAttribute("style", "display:none;");
+                            editToggleBuilder.MergeAttribute("href", "#");
+                            editToggleBuilder.InnerHtml = editGlyphiconBuilder.ToString();
+
+                            editableContentContainerBuilder.MergeAttribute("style", "display:none;");
+                            editableContentContainerBuilder.AddCssClass("cell_editable_content");
+
+                            editableContentContainerBuilder.InnerHtml = column.GetEditableContent();
+
+                            cellBuilder.InnerHtml += editableContentContainerBuilder.ToString();
+                            cellBuilder.InnerHtml += editToggleBuilder.ToString();
                         }
 
                         headerBuilder.InnerHtml += cellBuilder.ToString();

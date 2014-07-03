@@ -46,6 +46,8 @@ namespace BForms.Grid
     {
         internal string PrivateName { get; set; }
 
+        protected BsGridEditableColumnConfigurator EditableColumnConfigurator;
+
         public PropertyInfo Property { get; set; }
 
         public bool IsSortable { get; set; }
@@ -100,7 +102,8 @@ namespace BForms.Grid
             this.renderer = new BsGridColumnRenderer<TRow>(this);
         }
 
-        public BsGridColumn(ViewContext viewContext) : base(viewContext) 
+        public BsGridColumn(ViewContext viewContext)
+            : base(viewContext)
         {
             this.renderer = new BsGridColumnRenderer<TRow>(this);
         }
@@ -131,6 +134,17 @@ namespace BForms.Grid
         {
             this.EditableContent = configurator(new TRow());
             this.IsEditable = true;
+            return this;
+        }
+
+        public BsGridColumn<TRow> InlineEditable(ViewContext viewContext, Action<BsGridEditableColumnConfigurator> action)
+        {
+            IsEditable = true;
+
+            EditableColumnConfigurator = new BsGridEditableColumnConfigurator(viewContext);
+
+            action.Invoke(EditableColumnConfigurator);
+
             return this;
         }
 
@@ -173,7 +187,7 @@ namespace BForms.Grid
             this.widthSizes.Add(new BsColumnWidth
             {
                 ScreenType = BsScreenType.Small,
-                Size = smallWidth == 0 ?  (mediumWidth == 0 ? largeWidth : mediumWidth ): smallWidth
+                Size = smallWidth == 0 ? (mediumWidth == 0 ? largeWidth : mediumWidth) : smallWidth
             });
 
             this.widthSizes.Add(new BsColumnWidth
@@ -239,6 +253,11 @@ namespace BForms.Grid
             }
 
             return classes;
+        }
+
+        public string GetEditableContent()
+        {
+            return EditableColumnConfigurator.GetRenderedForm();
         }
     }
 }

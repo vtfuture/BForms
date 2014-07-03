@@ -68,18 +68,24 @@ namespace BForms.FormBuilder
 
     public class BsButtonModel : BsComponentModel
     {
-        public BsButtonModel(string text, BsComponentStatus status = BsComponentStatus.None, Glyphicon? glyphicon = null)
+        private string cssClass;
+
+        public BsButtonModel(string text, BsComponentStatus status = BsComponentStatus.None, Glyphicon? glyphicon = null, string cssClass = null)
             : base(text, status, glyphicon)
         {
             TagName = "button";
             Type = BsComponentType.Button;
+            this.cssClass = cssClass;
         }
 
         public override string ToString()
         {
             var tagBuilder = GetTagBuilder();
 
-            tagBuilder.MergeAttribute("style", "margin-left: 10px;");
+            if (!String.IsNullOrEmpty(cssClass))
+            {
+                tagBuilder.AddCssClass(cssClass);
+            }
 
             return tagBuilder.ToString();
         }
