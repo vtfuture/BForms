@@ -842,6 +842,12 @@
         return this.$end.bsDatepicker('getValue');
     };
     
+    bRangePicker.prototype.clearRange = function (val) {
+        this.$start.bsDatepicker('clearValue');
+        this.$end.bsDatepicker('clearValue');
+        this.applyRange(val);
+    };
+    
     bRangePicker.prototype.resetRange = function (val) {
         this.$startLabel.data('value', this._startValue);
         this.$startLabel.val(this.$start.bsDatepicker('format', this._startValue));
