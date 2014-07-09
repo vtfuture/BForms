@@ -419,7 +419,7 @@
 
     };
 
-    rangePicker.prototype._getLimits = function (idx) {
+   rangePicker.prototype._getLimits = function (idx) {
         var limits = {
             max: this.options.maxValue,
             min: this.options.minValue
@@ -428,11 +428,19 @@
         var $prevRange = this._getInput(idx - 1);
         if ($prevRange.length) {
             limits.min = window.parseInt($prevRange.val() || limits.min, 10);
+
+            if (window.isNaN(limits.min) && !window.isNaN(this.options.minValue)) {
+                limits.min = this.options.minValue;
+            }
         }
 
         var $nextRange = this._getInput(idx + 1);
         if ($nextRange.length) {
             limits.max = window.parseInt($nextRange.val() || limits.max, 10);
+
+            if (window.isNaN(limits.max) && !window.isNaN(this.options.maxValue)) {
+                limits.max = this.options.maxValue;
+            }
         }
         return limits;
     };
