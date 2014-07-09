@@ -33,6 +33,7 @@
         }
 
         this._initOptions();
+        this._initLang(this.options.language);
         this._initRenderModel();
         this._initRenderer();
         this._buildElement();
@@ -198,6 +199,12 @@
 
         if (typeof this.r["renderNumberRangePicker"] !== "function") {
             this.r.addTemplate("renderNumberRangePicker", $.fn.bsRangePickerTemplates.mainTemplate);
+        }
+    };
+
+    rangePicker.prototype._initLang = function (lang) {
+        if (typeof $.fn.bsRangeLang[lang] !== "undefined") {
+            $.extend(true, this.options, $.fn.bsRangeLang[lang]);
         }
     };
     //#endregion
@@ -476,12 +483,12 @@
 
         this._trigger('beforeFormatLabel');
 
-        var startVal = this._getInput(0).val();
+        var startVal = this._decorateValue(this._getInput(0).val());
 
         if (this._single) {
             formattedString = typeof this.options.format !== "undefined" ? this.options.format.replace('{0}', startVal) : startVal;
         } else {
-            var endVal = this._getInput(1).val();
+            var endVal = this._decorateValue(this._getInput(1).val());
             formattedString = typeof this.options.format !== "undefined" ? this.options.format.replace('{0}', startVal).replace('{1}', endVal) : startVal + this.options.delimiter + endVal;
         }
 
@@ -517,6 +524,11 @@
             parsedValue = window.parseInt(value, 10);
 
         if (!window.isNaN(parsedValue) && parsedValue == value && parsedValue >= limits.min && parsedValue <= limits.max) return true;
+
+        if (value == '' && this.options.allowUnspecifiedValue) {
+            return true;
+        }
+
         return false;
     };
 
@@ -530,6 +542,21 @@
                 $currentListener.text(value);
             }
         }
+    };
+
+    rangePicker.prototype._decorateValue = function (value) {
+
+        var triggerData = {
+            value: value
+        };
+
+        if (value == '') {
+            triggerData.value = this.options.placeholder;
+        }
+
+        this._trigger('decorateValue', [triggerData]);
+
+        return triggerData.value;
     };
     //#endregion
 
@@ -702,8 +729,8 @@
 
                         var parsedValue = window.parseInt(value, 10);
 
-                        if (this._isValidValue(parsedValue, index)) {
-                            this._getInput(index).val(parsedValue);
+                        if (this._isValidValue(value, index)) {
+                            this._getInput(index).val(value == '' ? value : parsedValue);
                         } else {
                             this._updateLabels();
                             return false;
@@ -881,8 +908,19 @@
         holdMinInterval: 50,
         delimiter: ' - ',
         minValueOnClear: false,
-        allowEmptyValue: false
+        allowEmptyValue: false,
+        allowUnspecifiedValue: false,
     };
+
+    $.fn.bsRangeLang = {
+        'en': {
+            placeholder: 'not specified'
+        },
+        'ro': {
+            placeholder: 'nespecificat'
+        }
+    };
+
 
     $.fn.bsRangePicker = function () {
         var args = Array.prototype.slice.call(arguments, 0),
