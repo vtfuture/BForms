@@ -1233,8 +1233,6 @@
             this._addError(data.Message, $errorContainer);
         }
 
-        console.log(arguments);
-
         if (arguments[4] && arguments[4].pageChanged) {
             $.bforms.scrollToElement(this.$gridHeader);
         }
