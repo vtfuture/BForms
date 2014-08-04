@@ -112,7 +112,7 @@ a.btn {
         font-size: 15px;
         text-transform: uppercase;
         margin: 0;
-        padding: 13px 10px 11px;
+        padding: 12px 10px 11px;
         border: none;
         float: left; }
       .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls {
@@ -131,7 +131,7 @@ a.btn {
           display: inline-block;
           width: 165px;
           color: #333;
-          padding: 9px 3px 8px 15px;
+          padding: 7px 3px 6px 15px;
           border-left: 1px solid #3e9b96;
           vertical-align: middle; }
           .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .input-group input {
