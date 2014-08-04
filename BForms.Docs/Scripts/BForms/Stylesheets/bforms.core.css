@@ -284,14 +284,8 @@ textarea {
   .form-control + .input-group-addon {
     border-left: none; }
 
-.btn {
-  padding: 4px 12px;
-  font-size: 17px; }
-  .btn:focus {
-    outline: none; }
-
-.btn-sm, .btn-xs {
-  font-size: 12px; }
+.btn:focus {
+  outline: none; }
 
 .btn-theme {
   color: #fff !important;

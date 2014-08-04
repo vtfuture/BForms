@@ -388,15 +388,11 @@ textarea {
 }
 
 .btn {
-	padding: 4px 12px;	
-	font-size: 17px;	
 	&:focus {
 		outline: none;
 	}
 }
-.btn-sm, .btn-xs {
-	font-size: 12px;
-}
+
 
 .btn-theme {
 	color: #fff !important;
