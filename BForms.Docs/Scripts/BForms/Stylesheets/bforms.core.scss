@@ -262,12 +262,16 @@ textarea {
 .select2-display-none .select2-results {
 	margin: 0;
 }
+.select2-offscreen  {
+	position: absolute !important;
+}
 .custom_select-multi {
 	
 	&.form-control {
 		padding: 0;
 		border: none;
 	}
+	
 	.select2-choices {
 		min-height: 38px;
 		background-image: none;
