@@ -56,7 +56,7 @@ $Black: #424141;
 		&:hover, &:focus {
 			background-color: #eee !important;
 		}
-		&.btn-default {
+		&.btn-theme {
 			background: darken($mainColor, 10%);
 			color: #FFF;
 			&:hover, &:focus {
@@ -272,7 +272,7 @@ $Black: #424141;
 			&:hover, &:focus {
 				background-color: #eee !important;
 			}
-			&.btn-default {
+			&.btn-theme {
 				background: darken($mainColor, 10%);
 				color: #FFF;
 				&:hover, &:focus {
@@ -387,7 +387,7 @@ $Black: #424141;
 
 /* BLUE*/
 .bs-datetime-picker.blue {
-	.btn-default {
+	.btn-theme {
 		background: darken($Blue, 10%);
 		&:hover, &:focus {
 			background: $Blue !important;
@@ -407,7 +407,7 @@ $Black: #424141;
 	}
 }
 .bs-range-picker.blue {
-	.ranges .btn-default {
+	.ranges .btn-theme {
 		background: darken($Blue, 10%);
 		&:hover, &:focus {
 			background: $Blue !important;
@@ -417,7 +417,7 @@ $Black: #424141;
 
 /* GREEN*/
 .bs-datetime-picker.green {
-	.btn-default {
+	.btn-theme {
 		background: darken($Green, 10%);
 		&:hover, &:focus {
 			background: $Green !important;
@@ -437,7 +437,7 @@ $Black: #424141;
 	}
 }
 .bs-range-picker.green {
-	.ranges .btn-default {
+	.ranges .btn-theme {
 		background: darken($Green, 10%);
 		&:hover, &:focus {
 			background: $Green !important;
@@ -447,7 +447,7 @@ $Black: #424141;
 
 /* PURPLE*/
 .bs-datetime-picker.purple {
-	.btn-default {
+	.btn-theme {
 		background: darken($Purple, 10%);
 		&:hover, &:focus {
 			background: $Purple !important;
@@ -467,7 +467,7 @@ $Black: #424141;
 	}
 }
 .bs-range-picker.purple {
-	.ranges .btn-default {
+	.ranges .btn-theme {
 		background: darken($Purple, 10%);
 		&:hover, &:focus {
 			background: $Purple !important;
@@ -477,7 +477,7 @@ $Black: #424141;
 
 /* ORANGE*/
 .bs-datetime-picker.orange {
-	.btn-default {
+	.btn-theme {
 		background: darken($Orange, 10%);
 		&:hover, &:focus {
 			background: $Orange !important;
@@ -497,7 +497,7 @@ $Black: #424141;
 	}
 }
 .bs-range-picker.orange {
-	.ranges .btn-default {
+	.ranges .btn-theme {
 		background: darken($Orange, 10%);
 		&:hover, &:focus {
 			background: $Orange !important;
@@ -508,7 +508,7 @@ $Black: #424141;
 /* almost BLACK*/
 
 .bs-datetime-picker.black {
-	.btn-default {
+	.btn-theme {
 		background: darken($Black, 10%);
 		&:hover, &:focus {
 			background: $Black !important;
@@ -528,7 +528,7 @@ $Black: #424141;
 	}
 }
 .bs-range-picker.black {
-	.ranges .btn-default {
+	.ranges .btn-theme {
 		background: darken($Black, 10%);
 		&:hover, &:focus {
 			background: $Black !important;

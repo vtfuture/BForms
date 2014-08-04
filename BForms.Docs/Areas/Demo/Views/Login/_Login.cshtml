@@ -9,6 +9,7 @@
 <div class="col-lg-12">
     <h1>@Html.BsGlyphicon(Glyphicon.StartEmpty) Login form</h1>
 </div>
+<div class="clearfix"></div>
 
 @using (Html.BsBeginForm("Index", "Login",
     new {ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, 
@@ -41,7 +42,7 @@
 
     <div class="col-lg-12">
         <hr />
-        <button class="btn btn-default js-loginBtn" type="submit">Login</button>
+        <button class="btn btn-theme js-loginBtn" type="submit">Login</button>
         <a class="btn btn-primary pull-right" href="@Url.Action("Index", new {mode = "register"})">Register</a>
     </div>
 }

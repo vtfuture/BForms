@@ -296,7 +296,7 @@
                 },
                     {
                         text: 'No',
-                        cssClass: 'btn-default bs-cancel',
+                        cssClass: 'btn-theme bs-cancel',
                         callback: function (e) {
                             $saveBtn.bsInlineQuestion('toggle');
                         }
@@ -424,7 +424,7 @@
             },
                 {
                     text: 'No',
-                    cssClass: 'btn-default bs-cancel',
+                    cssClass: 'btn-theme bs-cancel',
                     callback: function (e) {
                         $btn.bsInlineQuestion('toggle');
                     }

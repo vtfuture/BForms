@@ -35,10 +35,10 @@
     text-transform: uppercase; }
     .bs-datetime-picker .btn:hover, .bs-datetime-picker .btn:focus {
       background-color: #eee !important; }
-    .bs-datetime-picker .btn.btn-default {
+    .bs-datetime-picker .btn.btn-theme {
       background: #368985;
       color: #FFF; }
-      .bs-datetime-picker .btn.btn-default:hover, .bs-datetime-picker .btn.btn-default:focus {
+      .bs-datetime-picker .btn.btn-theme:hover, .bs-datetime-picker .btn.btn-theme:focus {
         background: #45ada8 !important; }
     .bs-datetime-picker .btn.disabled {
       opacity: 0.3;
@@ -198,10 +198,10 @@
       text-transform: uppercase; }
       .bs-range-picker .ranges .btn:hover, .bs-range-picker .ranges .btn:focus {
         background-color: #eee !important; }
-      .bs-range-picker .ranges .btn.btn-default {
+      .bs-range-picker .ranges .btn.btn-theme {
         background: #368985;
         color: #FFF; }
-        .bs-range-picker .ranges .btn.btn-default:hover, .bs-range-picker .ranges .btn.btn-default:focus {
+        .bs-range-picker .ranges .btn.btn-theme:hover, .bs-range-picker .ranges .btn.btn-theme:focus {
           background: #45ada8 !important; }
     .bs-range-picker .ranges .form-group {
       margin-bottom: 10px; }
@@ -279,9 +279,9 @@
 
 /* Other color schemes */
 /* BLUE*/
-.bs-datetime-picker.blue .btn-default {
+.bs-datetime-picker.blue .btn-theme {
   background: #3086c8; }
-  .bs-datetime-picker.blue .btn-default:hover, .bs-datetime-picker.blue .btn-default:focus {
+  .bs-datetime-picker.blue .btn-theme:hover, .bs-datetime-picker.blue .btn-theme:focus {
     background: #559ed6 !important; }
 .bs-datetime-picker.blue ul li.in-range a {
   color: #559ed6 !important; }
@@ -291,15 +291,15 @@
   .bs-datetime-picker.blue ul li.active a:hover {
     background: #3086c8 !important; }
 
-.bs-range-picker.blue .ranges .btn-default {
+.bs-range-picker.blue .ranges .btn-theme {
   background: #3086c8; }
-  .bs-range-picker.blue .ranges .btn-default:hover, .bs-range-picker.blue .ranges .btn-default:focus {
+  .bs-range-picker.blue .ranges .btn-theme:hover, .bs-range-picker.blue .ranges .btn-theme:focus {
     background: #559ed6 !important; }
 
 /* GREEN*/
-.bs-datetime-picker.green .btn-default {
+.bs-datetime-picker.green .btn-theme {
   background: #449575; }
-  .bs-datetime-picker.green .btn-default:hover, .bs-datetime-picker.green .btn-default:focus {
+  .bs-datetime-picker.green .btn-theme:hover, .bs-datetime-picker.green .btn-theme:focus {
     background: #59b390 !important; }
 .bs-datetime-picker.green ul li.in-range a {
   color: #59b390 !important; }
@@ -309,15 +309,15 @@
   .bs-datetime-picker.green ul li.active a:hover {
     background: #449575 !important; }
 
-.bs-range-picker.green .ranges .btn-default {
+.bs-range-picker.green .ranges .btn-theme {
   background: #449575; }
-  .bs-range-picker.green .ranges .btn-default:hover, .bs-range-picker.green .ranges .btn-default:focus {
+  .bs-range-picker.green .ranges .btn-theme:hover, .bs-range-picker.green .ranges .btn-theme:focus {
     background: #59b390 !important; }
 
 /* PURPLE*/
-.bs-datetime-picker.purple .btn-default {
+.bs-datetime-picker.purple .btn-theme {
   background: #4f2b4e; }
-  .bs-datetime-picker.purple .btn-default:hover, .bs-datetime-picker.purple .btn-default:focus {
+  .bs-datetime-picker.purple .btn-theme:hover, .bs-datetime-picker.purple .btn-theme:focus {
     background: #703d6f !important; }
 .bs-datetime-picker.purple ul li.in-range a {
   color: #703d6f !important; }
@@ -327,15 +327,15 @@
   .bs-datetime-picker.purple ul li.active a:hover {
     background: #4f2b4e !important; }
 
-.bs-range-picker.purple .ranges .btn-default {
+.bs-range-picker.purple .ranges .btn-theme {
   background: #4f2b4e; }
-  .bs-range-picker.purple .ranges .btn-default:hover, .bs-range-picker.purple .ranges .btn-default:focus {
+  .bs-range-picker.purple .ranges .btn-theme:hover, .bs-range-picker.purple .ranges .btn-theme:focus {
     background: #703d6f !important; }
 
 /* ORANGE*/
-.bs-datetime-picker.orange .btn-default {
+.bs-datetime-picker.orange .btn-theme {
   background: #e5560f; }
-  .bs-datetime-picker.orange .btn-default:hover, .bs-datetime-picker.orange .btn-default:focus {
+  .bs-datetime-picker.orange .btn-theme:hover, .bs-datetime-picker.orange .btn-theme:focus {
     background: #f27435 !important; }
 .bs-datetime-picker.orange ul li.in-range a {
   color: #f27435 !important; }
@@ -345,15 +345,15 @@
   .bs-datetime-picker.orange ul li.active a:hover {
     background: #e5560f !important; }
 
-.bs-range-picker.orange .ranges .btn-default {
+.bs-range-picker.orange .ranges .btn-theme {
   background: #e5560f; }
-  .bs-range-picker.orange .ranges .btn-default:hover, .bs-range-picker.orange .ranges .btn-default:focus {
+  .bs-range-picker.orange .ranges .btn-theme:hover, .bs-range-picker.orange .ranges .btn-theme:focus {
     background: #f27435 !important; }
 
 /* almost BLACK*/
-.bs-datetime-picker.black .btn-default {
+.bs-datetime-picker.black .btn-theme {
   background: #282828; }
-  .bs-datetime-picker.black .btn-default:hover, .bs-datetime-picker.black .btn-default:focus {
+  .bs-datetime-picker.black .btn-theme:hover, .bs-datetime-picker.black .btn-theme:focus {
     background: #424141 !important; }
 .bs-datetime-picker.black ul li.in-range a {
   color: #424141 !important; }
@@ -363,9 +363,9 @@
   .bs-datetime-picker.black ul li.active a:hover {
     background: #282828 !important; }
 
-.bs-range-picker.black .ranges .btn-default {
+.bs-range-picker.black .ranges .btn-theme {
   background: #282828; }
-  .bs-range-picker.black .ranges .btn-default:hover, .bs-range-picker.black .ranges .btn-default:focus {
+  .bs-range-picker.black .ranges .btn-theme:hover, .bs-range-picker.black .ranges .btn-theme:focus {
     background: #424141 !important; }
 
 @media (max-width: 749px) {

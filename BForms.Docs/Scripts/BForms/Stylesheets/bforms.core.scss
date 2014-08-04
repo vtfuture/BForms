@@ -32,6 +32,7 @@ textarea {
 }
 .glyphicon {
 	font-size: 12px;
+	top: 0;
 }
 
 
@@ -372,6 +373,7 @@ textarea {
 
 .form-control {
 	padding: 8px;
+	height: 38px;
 	&:focus {
 		box-shadow: none;
 		border-color: $mainColor;
@@ -392,7 +394,7 @@ textarea {
 	font-size: 12px;
 }
 
-.btn-default {
+.btn-theme {
 	color: #fff !important;
 	background-color: darken($mainColor, 10%);
 	border-color: darken($mainColor, 10%);
@@ -440,6 +442,8 @@ textarea {
 .checkbox-inline input[type="checkbox"] {
 	margin-left: -5px;
 	margin-right: 10px;
+	position: relative;
+	float: left;
 }
 
 .form-group {
@@ -482,7 +486,7 @@ textarea {
 	.twitter-typeahead	.tt-dropdown-menu {
 		border-color: $Blue !important;
 	}
-	.btn-default {
+	.btn-theme {
 		background: darken($Blue, 10%);		
 		border-color: darken($Blue, 10%);
 		&:hover, &:focus {
@@ -511,7 +515,7 @@ textarea {
 		border-color: $Green !important;
 	}
 	
-	.btn-default {
+	.btn-theme {
 		background: darken($Green, 10%);
 		border-color: darken($Green, 10%);
 		&:hover, &:focus {
@@ -540,7 +544,7 @@ textarea {
 		border-color: $Purple !important;
 	}
 	
-	.btn-default {
+	.btn-theme {
 		background: darken($Purple, 10%);
 		border-color: darken($Purple, 10%);
 		&:hover, &:focus {
@@ -569,7 +573,7 @@ textarea {
 		border-color: $Orange !important;
 	}
 	
-	.btn-default {
+	.btn-theme {
 		background: darken($Orange, 10%);
 		border-color: darken($Orange, 10%);
 		&:hover, &:focus {
@@ -598,7 +602,7 @@ textarea {
 		border-color: $Black !important;
 	}
 	
-	.btn-default {
+	.btn-theme {
 		background: darken($Black, 10%);
 		border-color: darken($Black, 10%);
 		&:hover, &:focus {

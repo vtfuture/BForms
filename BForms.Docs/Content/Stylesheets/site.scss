@@ -154,6 +154,9 @@ header .navbar {
 		background-image: none;
 		background: $darkGray;
 		outline: none;
+		.icon-bar {
+			background-color: #ccc;
+		}
 		&:hover {
 			background: $Gray;
 		}

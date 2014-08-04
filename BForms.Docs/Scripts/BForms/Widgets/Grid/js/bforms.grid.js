@@ -233,7 +233,7 @@
                             var question = "Are you sure?";
 
                             var confirmCssClass = "btn-primary bs-confirm";
-                            var cancelCssClass = "btn-default bs-cancel";
+                            var cancelCssClass = "btn-theme bs-cancel";
 
                             var confirmButtonText = "Yes";
                             var cancelButtonText = "No";

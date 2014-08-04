@@ -37,7 +37,7 @@
                 }
             }, {
                 text: 'No',
-                cssClass: 'btn-default bs-cancel',
+                cssClass: 'btn-theme bs-cancel',
                 callback: function (e) {
                     this.hide();
                 }

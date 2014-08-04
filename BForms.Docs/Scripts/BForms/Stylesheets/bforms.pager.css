@@ -11,9 +11,14 @@
   .bs-pager .pagination {
     margin: 0;
     float: left; }
+    .bs-pager .pagination a {
+      color: #212121; }
+      .bs-pager .pagination a:hover {
+        color: #212121; }
     .bs-pager .pagination .active a {
       background: #45ada8;
-      border: 1px solid #45ada8; }
+      border: 1px solid #45ada8;
+      color: #fff; }
       .bs-pager .pagination .active a:hover {
         background: #45ada8;
         border: 1px solid #45ada8;

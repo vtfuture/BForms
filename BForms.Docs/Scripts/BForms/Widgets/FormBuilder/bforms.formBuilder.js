@@ -1163,7 +1163,7 @@
             parse: true,
             actions: [
                 {
-                    selector: '.btn-default',
+                    selector: '.btn-theme',
                     handler: $.proxy(this._handlePropertiesSave, this, $form, controlModel),
                     parse: true,
                     validate: true

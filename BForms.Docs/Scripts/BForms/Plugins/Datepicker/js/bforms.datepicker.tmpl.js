@@ -151,7 +151,7 @@
                                 '{{#allowDeselectEnd}}<a href="#" class="btn bs-resetDateRange"></a>{{/allowDeselectEnd}}' +
                             '</div>' +
                             '</div>' +
-                            '<button class="btn btn-default bs-applyRange">{{applyText}}</button>&nbsp;' +
+                            '<button class="btn btn-theme bs-applyRange">{{applyText}}</button>&nbsp;' +
                             '<button class="btn bs-cancelRange">{{cancelText}}</button>' +
 
                             '{{#hasPresetRanges}}' +
@@ -234,7 +234,7 @@
                                 '{{/Buttons}}' +
                             '{{/HasCustomButtons}}' +
                             '{{^HasCustomButtons}}' +
-                                '{{#DateNowButton}}<a href="#" class="btn btn-default bs-dateNow">{{NowText}}</a>{{/DateNowButton}}' +
+                                '{{#DateNowButton}}<a href="#" class="btn btn-theme bs-dateNow">{{NowText}}</a>{{/DateNowButton}}' +
                                 '{{#WithTime}}<a href="#" class="btn btn-set time pull-right bs-setTimeBtn">{{SetTimeText}}</a>{{/WithTime}}' +
                              '{{/HasCustomButtons}}' +
                         '</div>',
@@ -277,7 +277,7 @@
                             '<li><input type="text" class="bs-hourInput" maxlength="2" value="{{Time.hour}}"></li>' +
                             '<li><input type="text" class="bs-minuteInput" maxlength="2" value="{{Time.minute}}"></li>' +
                             '<li><input type="text" class="bs-secondInput" maxlength="2" value="{{Time.second}}"></li>' +
-                            '{{#Is12Hours}}<li><a href="#" class="btn btn-default bs-timeMeridiem">{{Time.meridiem}}</a></li>{{/Is12Hours}}' +
+                            '{{#Is12Hours}}<li><a href="#" class="btn btn-theme bs-timeMeridiem">{{Time.meridiem}}</a></li>{{/Is12Hours}}' +
 
                             '<li><span class="btn btn-down bs-hourDown"></span></li>' +
                             '<li><span class="btn btn-down bs-minuteDown"></span></li>' +
@@ -286,7 +286,7 @@
                      '</ul>',
         secondaryActions: '<div class="bs-secondary-action">' +
 
-                              '{{#TimeNowButton}}<a href="#" class="btn btn-default bs-timeNow">{{NowText}}</a>{{/TimeNowButton}}' +
+                              '{{#TimeNowButton}}<a href="#" class="btn btn-theme bs-timeNow">{{NowText}}</a>{{/TimeNowButton}}' +
                               '{{#WithDate}}<a href="#" class="btn btn-set date pull-right bs-setDateBtn">{{SetDateText}}</a>{{/WithDate}}' +
 
 

@@ -25,9 +25,16 @@ $Black: #424141;
 	.pagination {
 		margin: 0;
 		float: left;
+		a {
+			color: #212121;
+			&:hover {
+				color: #212121;
+			}
+		}
 		.active a {
 			background: $mainColor;
 			border: 1px solid  $mainColor;
+			color: #fff;
 			&:hover {
 				background: $mainColor;
 				border: 1px solid  $mainColor;

@@ -161,7 +161,7 @@
         
         tabControl: '<div class="btn-group btn-group-justified form_builder-tabControl">' +
                                 '{{#tabs}}' +
-                                    '<a role="button" class="btn btn-default form_builder-tabBtn" data-tabId="{{id}}">{{text}}</a>' +
+                                    '<a role="button" class="btn btn-theme form_builder-tabBtn" data-tabId="{{id}}">{{text}}</a>' +
                                 '{{/tabs}}' +
                             '</div>'
     };

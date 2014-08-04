@@ -119,7 +119,7 @@ a.btn {
 
 .grid_container {	
 	font-size: 16px;
-	.btn-default {
+	.btn-theme {
 		.caret {
 			border-bottom-color: #fff;
 			border-top-color: #fff;
@@ -173,6 +173,7 @@ a.btn {
 					color: #333;
 					padding: 9px 3px 8px 15px;
 					border-left: 1px solid darken($mainColor, 5%);
+					vertical-align: middle;
 					input {
 						border: none;
 						-webkit-box-shadow: none;
@@ -724,7 +725,7 @@ a.btn {
 			color: $Blue !important;
 		}
 	}
-	.btn-default {
+	.btn-theme {
 		background: darken($Blue, 10%);		
 		border-color: darken($Blue, 10%);
 		&:hover, &:focus {
@@ -773,7 +774,7 @@ a.btn {
 			color: $Green !important;
 		}
 	}
-	.btn-default {
+	.btn-theme {
 		background: darken($Green, 10%);
 		border-color: darken($Green, 10%);
 		&:hover, &:focus {
@@ -823,7 +824,7 @@ a.btn {
 			color: $Purple !important;
 		}
 	}
-	.btn-default {
+	.btn-theme {
 		background: darken($Purple, 10%);
 		border-color: darken($Purple, 10%);
 		&:hover, &:focus {
@@ -872,7 +873,7 @@ a.btn {
 			color: $Orange !important;
 		}
 	}
-	.btn-default {
+	.btn-theme {
 		background: darken($Orange, 10%);
 		border-color: darken($Orange, 10%);
 		&:hover, &:focus {
@@ -922,7 +923,7 @@ a.btn {
 			color: $Black !important;
 		}
 	}
-	.btn-default {
+	.btn-theme {
 		background: darken($Black, 10%);
 		border-color: darken($Black, 10%);
 		&:hover, &:focus {
@@ -973,7 +974,7 @@ a.btn {
 }
 @media (max-width: 959px) {
 	.grid_container {
-		.btn-default {
+		.btn-theme {
 			&:hover, &:focus {
 				background: #fff !important;
 				color: #333333 !important;

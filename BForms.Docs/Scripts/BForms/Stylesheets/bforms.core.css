@@ -18,7 +18,8 @@ textarea {
   padding-left: 15px; }
 
 .glyphicon {
-  font-size: 12px; }
+  font-size: 12px;
+  top: 0; }
 
 /* Errors */
 .field-validation-valid {
@@ -272,7 +273,8 @@ textarea {
 
 /* Custom UI END*/
 .form-control {
-  padding: 8px; }
+  padding: 8px;
+  height: 38px; }
   .form-control:focus {
     box-shadow: none;
     border-color: #45ada8; }
@@ -288,11 +290,11 @@ textarea {
 .btn-sm, .btn-xs {
   font-size: 12px; }
 
-.btn-default {
+.btn-theme {
   color: #fff !important;
   background-color: #368985;
   border-color: #368985; }
-  .btn-default:hover, .btn-default:focus {
+  .btn-theme:hover, .btn-theme:focus {
     background: #45ada8 !important;
     border-color: #368985;
     color: #fff !important;
@@ -330,7 +332,9 @@ textarea {
 .checkbox input[type="checkbox"],
 .checkbox-inline input[type="checkbox"] {
   margin-left: -5px;
-  margin-right: 10px; }
+  margin-right: 10px;
+  position: relative;
+  float: left; }
 
 .form-group.checkbox, .form-group.radio {
   display: table; }
@@ -354,10 +358,10 @@ textarea {
 .form_container.blue .form-control:focus,
 .form_container.blue .twitter-typeahead .tt-dropdown-menu {
   border-color: #559ed6 !important; }
-.form_container.blue .btn-default {
+.form_container.blue .btn-theme {
   background: #3086c8;
   border-color: #3086c8; }
-  .form_container.blue .btn-default:hover, .form_container.blue .btn-default:focus {
+  .form_container.blue .btn-theme:hover, .form_container.blue .btn-theme:focus {
     background: #559ed6 !important; }
 
 /* GREEN*/
@@ -370,10 +374,10 @@ textarea {
 .form_container.green .form-control:focus,
 .form_container.green .twitter-typeahead .tt-dropdown-menu {
   border-color: #59b390 !important; }
-.form_container.green .btn-default {
+.form_container.green .btn-theme {
   background: #449575;
   border-color: #449575; }
-  .form_container.green .btn-default:hover, .form_container.green .btn-default:focus {
+  .form_container.green .btn-theme:hover, .form_container.green .btn-theme:focus {
     background: #59b390 !important; }
 
 /* PURPLE*/
@@ -386,10 +390,10 @@ textarea {
 .form_container.purple .form-control:focus,
 .form_container.purple .twitter-typeahead .tt-dropdown-menu {
   border-color: #703d6f !important; }
-.form_container.purple .btn-default {
+.form_container.purple .btn-theme {
   background: #4f2b4e;
   border-color: #4f2b4e; }
-  .form_container.purple .btn-default:hover, .form_container.purple .btn-default:focus {
+  .form_container.purple .btn-theme:hover, .form_container.purple .btn-theme:focus {
     background: #703d6f !important; }
 
 /* ORANGE*/
@@ -402,10 +406,10 @@ textarea {
 .form_container.orange .form-control:focus,
 .form_container.orange .twitter-typeahead .tt-dropdown-menu {
   border-color: #f27435 !important; }
-.form_container.orange .btn-default {
+.form_container.orange .btn-theme {
   background: #e5560f;
   border-color: #e5560f; }
-  .form_container.orange .btn-default:hover, .form_container.orange .btn-default:focus {
+  .form_container.orange .btn-theme:hover, .form_container.orange .btn-theme:focus {
     background: #f27435 !important; }
 
 /* almost BLACK*/
@@ -418,10 +422,10 @@ textarea {
 .form_container.black .form-control:focus,
 .form_container.black .twitter-typeahead .tt-dropdown-menu {
   border-color: #424141 !important; }
-.form_container.black .btn-default {
+.form_container.black .btn-theme {
   background: #282828;
   border-color: #282828; }
-  .form_container.black .btn-default:hover, .form_container.black .btn-default:focus {
+  .form_container.black .btn-theme:hover, .form_container.black .btn-theme:focus {
     background: #424141 !important; }
 
 @media (max-width: 756px) {

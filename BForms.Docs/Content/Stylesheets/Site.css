@@ -108,6 +108,8 @@ header .navbar {
     background-image: none;
     background: #585858;
     outline: none; }
+    header .navbar .navbar-toggle .icon-bar {
+      background-color: #ccc; }
     header .navbar .navbar-toggle:hover {
       background: #dadada; }
 
