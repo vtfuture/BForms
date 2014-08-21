@@ -174,7 +174,7 @@ namespace BForms.Html
                     case BsControlType.ButtonGroup:
                         allowMultiple = false;
                         htmlSelect =
-                            BsButtonGroupIternal(htmlHelper, name, selectList,
+                            BsButtonGroupInternal(htmlHelper, name, selectList,
                             optionLabel, htmlAttributes, bsCssClass, metadata).ToHtmlString();
                         break;
                     default:
@@ -510,7 +510,7 @@ namespace BForms.Html
             return MvcHtmlString.Create(tagBuilder.ToString());
         }
 
-        private static MvcHtmlString BsButtonGroupIternal<TKey>(this HtmlHelper htmlHelper, string name,
+        private static MvcHtmlString BsButtonGroupInternal<TKey>(this HtmlHelper htmlHelper, string name,
            BsSelectList<TKey> selectList, string optionLabel, IDictionary<string, object> htmlAttributes, string bsCssClass, ModelMetadata metadata = null)
         {
             name += ".SelectedValues";
