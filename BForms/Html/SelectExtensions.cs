@@ -408,10 +408,38 @@ namespace BForms.Html
                 html.Append(innerDivTag.ToString(TagRenderMode.EndTag));
             }
 
+            var buttonGroupContainer = new TagBuilder("div");
 
+            buttonGroupContainer.AddCssClass("checkbox_replace form-control");
+            buttonGroupContainer.MergeAttribute("id", fullName + "_checkBox");
+            buttonGroupContainer.MergeAttribute("tabindex", 0.ToString());
+
+            var buttonGroupDiv = new TagBuilder("div");
+            buttonGroupDiv.AddCssClass("btn-group-justified");
+
+            foreach (var item in radioList.Items)
+            {
+                var buttonA = new TagBuilder("a");
+                buttonA.MergeAttribute("href", "#");
+                buttonA.AddCssClass("option bs-buttonGroupItem");
+                buttonA.MergeAttribute("data-value", item.Value);
+
+                if (item.Selected)
+                {
+                    buttonA.AddCssClass("selected");
+                }
+
+                buttonA.InnerHtml += HttpUtility.HtmlEncode(item.Text);
+
+                buttonGroupDiv.InnerHtml += buttonA;
+            }
+
+            buttonGroupContainer.InnerHtml += buttonGroupDiv;
+            
             divTag.InnerHtml = html.ToString();
+            divTag.MergeAttribute("style", "display:none");
 
-            return MvcHtmlString.Create(divTag.ToString());
+            return MvcHtmlString.Create(divTag.ToString() + buttonGroupContainer.ToString());
         }
 
         private static MvcHtmlString BsTagListInternal<TKey>(this HtmlHelper htmlHelper, string name,
