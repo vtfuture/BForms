@@ -171,10 +171,10 @@ namespace BForms.Html
                         htmlSelect = BsSelectInternal(htmlHelper, name, selectList,
                         optionLabel, htmlAttributes, allowMultiple, bsCssClass, metadata).ToHtmlString();
                         break;
-                    case BsControlType.ButtonGroup:
+                    case BsControlType.ButtonGroupDropdown:
                         allowMultiple = false;
                         htmlSelect =
-                            BsButtonGroupInternal(htmlHelper, name, selectList,
+                            BsButtonGroupDropdownInternal(htmlHelper, name, selectList,
                             optionLabel, htmlAttributes, bsCssClass, metadata).ToHtmlString();
                         break;
                     default:
@@ -510,7 +510,7 @@ namespace BForms.Html
             return MvcHtmlString.Create(tagBuilder.ToString());
         }
 
-        private static MvcHtmlString BsButtonGroupInternal<TKey>(this HtmlHelper htmlHelper, string name,
+        private static MvcHtmlString BsButtonGroupDropdownInternal<TKey>(this HtmlHelper htmlHelper, string name,
            BsSelectList<TKey> selectList, string optionLabel, IDictionary<string, object> htmlAttributes, string bsCssClass, ModelMetadata metadata = null)
         {
             name += ".SelectedValues";

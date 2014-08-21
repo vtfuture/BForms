@@ -247,9 +247,6 @@ namespace BForms.Html
             tag.AddCssClass(theme.GetDescription());
 
             var myForm = new BsMvcForm(htmlHelper.ViewContext, form, tag.ToString(TagRenderMode.StartTag), tag.ToString(TagRenderMode.EndTag));
-
-            //htmlHelper.ViewContext.Writer.Write("<span>Test</span>");
-
             return myForm;
         }
     }

@@ -119,7 +119,7 @@ namespace BForms.Docs.Areas.Demo.Models
 
         [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
         [Display(Name = "JavascriptMvcFramework", Prompt = "JavascriptMvcFrameworkPrompt", ResourceType = typeof(Resource))]
-        [BsControl(BsControlType.ButtonGroup)]
+        [BsControl(BsControlType.ButtonGroupDropdown)]
         public BsSelectList<int> JavascriptMvcFramework { get; set; }
     }
 
