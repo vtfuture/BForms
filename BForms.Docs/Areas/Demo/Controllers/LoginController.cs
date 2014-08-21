@@ -124,6 +124,9 @@ namespace BForms.Docs.Areas.Demo.Controllers
             var from = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 10, 30, 0);
             var to = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.AddDays(12).Day, 20, 00, 0);
 
+            var javascriptMvcFrameworkWithSelected = Lists.AllJavascriptFrameworks<int>();
+            javascriptMvcFrameworkWithSelected.SelectedValues = 2;
+
             return new RegisterModel()
             {
                 CountriesList = ddlWithSelected,
@@ -145,7 +148,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
                         ItemValue = DateTime.Now.AddDays(12)
                     }
                 },
-                JavascriptMvcFramework = Lists.AllJavascriptFrameworks<int>()
+                JavascriptMvcFramework = javascriptMvcFrameworkWithSelected
             };
         }
     }

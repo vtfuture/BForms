@@ -52,9 +52,12 @@
         singlenumberrangeinline: true,
         singlenumberrangeinlineSelector: '.bs-number-single_range_inline',
 
+        buttongroupdropdown: true,
+        buttongroupdropdownSelector: '.bs-button-group',
+
         loadingSelector: '.loading',
         loadingClass: 'loading',
-        transformNumbers : true
+        transformNumbers: true
     };
 
     $.fn.bsInitUI = function (opts) {
@@ -126,7 +129,7 @@
                     localeDeferred.resolve();
                 });
             }
-          
+
             //transform number inputs into text input (chrome only)
             if (this.options.transformNumbers === true) {
                 var numberValidation = $('<input type="number"></input>').val('chrome').val() == 'chrome';
@@ -134,7 +137,7 @@
                     this.$elem.find('input[type="number"]').prop('type', 'text');
                 }
             }
-            
+
 
             if (this.options.select2 === true) {
                 if ($.browser.mobile) {
@@ -523,7 +526,7 @@
                                     language: uiLocale,
                                     maxDate: maxDate || null
                                 },
-                                startAltFields: [{ selector: $startInput, format : 'YYYY-MM-DD HH:mm:ss' }],
+                                startAltFields: [{ selector: $startInput, format: 'YYYY-MM-DD HH:mm:ss' }],
                                 endAltFields: [{ selector: $endInput, format: 'YYYY-MM-DD HH:mm:ss' }],
                                 language: uiLocale,
                                 allowDeselectStart: $startInput.data('allowdeselect'),
@@ -546,7 +549,7 @@
                                 $endInput = self.$elem.find('.bs-range-to[data-for="' + rangeName + '"]'),
                                 minDate = $startInput.data('minvalue'),
                                 maxDate = $endInput.data('maxvalue');
-                             
+
 
                             $elem.bsDateRange($.extend(true, {}, self._getOptions(this), {
                                 startOptions: {
@@ -595,7 +598,7 @@
                                 $endInput = self.$elem.find('.bs-range-to[data-for="' + rangeName + '"]'),
                                 minDate = $startInput.data('minvalue'),
                                 maxDate = $endInput.data('maxvalue');
-                              
+
 
                             $elem.bsDateRange($.extend(true, {}, self._getOptions(this), {
                                 startOptions: {
@@ -615,8 +618,8 @@
                                 startAltFields: [{ selector: $startInput, format: 'YYYY-MM-DD HH:mm:ss' }],
                                 endAltFields: [{ selector: $endInput, format: 'YYYY-MM-DD HH:mm:ss' }],
                                 language: uiLocale,
-                                allowDeselectStart : $startInput.data('allowdeselect'),
-                                allowDeselectEnd : $endInput.data('allowdeselect')
+                                allowDeselectStart: $startInput.data('allowdeselect'),
+                                allowDeselectEnd: $endInput.data('allowdeselect')
                             }));
                         });
 
@@ -851,7 +854,7 @@
             }
 
             if (this.options.singlenumberrange === true && this.$elem.find(this.options.singlenumberrangeSelector).length) {
-                
+
                 if (this.loadAMD) {
 
                     var singleNumberRangeDeferred = $.Deferred();
@@ -922,7 +925,7 @@
             }
 
             if (this.options.singlenumberrangeinline === true && this.$elem.find(this.options.singlenumberrangeinlineSelector).length) {
-                 
+
                 if (this.loadAMD) {
 
                     var singleNumberRangeInlineDeferred = $.Deferred();
@@ -990,6 +993,34 @@
                         });
                     } else {
                         throw "bsRangepicker script must be loaded before calling initUI";
+                    }
+                }
+            }
+
+            if (this.options.buttongroupdropdown && this.$elem.find(this.options.buttongroupdropdownSelector).length) {
+
+                if (this.loadAMD) {
+                    var buttonGroupDropdownDeferred = $.Deferred();
+
+                    this.deferredList.push(buttonGroupDropdownDeferred);
+
+                    require(['bforms-buttonGroupDropdown'], function () {
+
+                        self.$elem.find(self.options.buttongroupdropdownSelector).each(function (idx, elem) {
+                            var $elem = $(elem);
+                            $elem.bsButtonGroupDropdown($.extend(true, {}, self._getOptions(this)));
+                        });
+
+                        buttonGroupDropdownDeferred.resolve();
+                    });
+                } else {
+                    if (typeof $.fn.bsButtonGroupDropdown === 'function') {
+                        self.$elem.find(self.options.buttongroupdropdownSelector).each(function (idx, elem) {
+                            var $elem = $(elem);
+                            $elem.bsButtonGroupDropdown($.extend(true, {}, self._getOptions(this)));
+                        });
+                    } else {
+                        throw 'bsButtonGroupDropdown script must be loaded before calling initUI';
                     }
                 }
             }

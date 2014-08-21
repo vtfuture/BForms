@@ -549,6 +549,18 @@ namespace BForms.Html
 
             var listItemBuilder = new StringBuilder();
 
+            // Make optionLabel the first item that gets rendered.
+            if (optionLabel != null)
+            {
+                listItemBuilder.AppendLine(
+                    ListItemToOption(new BsSelectListItem
+                    {
+                        Text = optionLabel,
+                        Value = String.Empty,
+                        Selected = false
+                    }));
+            }
+
             //build options
             foreach (var item in selectList.Items)
             {
@@ -571,15 +583,25 @@ namespace BForms.Html
 
             #region render button dropdown
             var btnGroup = new TagBuilder("div");
-            btnGroup.AddCssClass("btn-group");
+            btnGroup.AddCssClass("btn-group bs-buttonGroupDropdownContainer");
 
             var button = new TagBuilder("button");
-            button.AddCssClass("btn btn-default dropdown-toggle");
+            button.AddCssClass("btn btn-default dropdown-toggle bs-buttonGroupDropdownToggle");
             button.MergeAttribute("type", "button");
             button.MergeAttribute("data-toggle", "dropdown");
-            button.MergeAttribute("data-dropdown-for",tagBuilder.Attributes["id"]);
+            button.MergeAttribute("data-dropdown-for", tagBuilder.Attributes["id"]);
+            button.MergeAttribute("data-placeholder", optionLabel + " ");
 
-            button.InnerHtml += optionLabel + " ";
+            var selectedValue = selectList.Items.FirstOrDefault(x => x.Selected);
+
+            if (selectedValue != null)
+            {
+                button.InnerHtml += selectedValue.Text + " ";
+            }
+            else
+            {
+                button.InnerHtml += optionLabel + " ";
+            }
 
             var carretSpan = new TagBuilder("span");
             carretSpan.AddCssClass("caret");
@@ -589,7 +611,7 @@ namespace BForms.Html
             btnGroup.InnerHtml += button;
 
             var dropdownUl = new TagBuilder("ul");
-            dropdownUl.AddCssClass("dropdown-menu");
+            dropdownUl.AddCssClass("dropdown-menu bs-dropdownList");
             dropdownUl.MergeAttribute("role", "menu");
 
             var dropdownListItemBuilder = new StringBuilder();
@@ -666,6 +688,7 @@ namespace BForms.Html
             };
 
             aBuilder.MergeAttribute("href", "#");
+            aBuilder.AddCssClass("bs-buttonGroupDropdownOption");
 
             if (item.Value != null)
             {
@@ -675,6 +698,7 @@ namespace BForms.Html
             if (item.Selected)
             {
                 aBuilder.MergeAttribute("data-selected", "true");
+                aBuilder.AddCssClass("mark");
             }
 
             if (item.Data != null)

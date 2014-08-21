@@ -266,6 +266,7 @@
     <Content Include="Scripts\BForms\Components\SelectorSet\jquery.selector-set.js" />
     <Content Include="Scripts\BForms\Components\SelectorSet\selector-set.js" />
     <Content Include="Scripts\BForms\Images\bg-user.png" />
+    <Content Include="Scripts\BForms\Plugins\ButtonGroupDropdown\bforms.buttonGroupDropdown.js" />
     <Content Include="Scripts\BForms\Plugins\Rangepicker\css\bforms.rangepicker.css" />
     <Content Include="Scripts\BForms\Plugins\Rangepicker\images\icn-arr-down.png" />
     <Content Include="Scripts\BForms\Plugins\Rangepicker\images\icn-arr-up.png" />

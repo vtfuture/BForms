@@ -276,6 +276,10 @@
                         }
                     }
                 },
+                oncustomchange: function (element, event) {
+
+                    return this.settings.onclick.apply(this, arguments);
+                },
                 highlight: function (element, errorClass, validClass) {
                     if (element.type === "radio") {
                         this.findByName(element.name).addClass(errorClass).removeClass(validClass);
