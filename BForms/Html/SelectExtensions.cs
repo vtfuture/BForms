@@ -420,7 +420,6 @@ namespace BForms.Html
             foreach (var item in radioList.Items)
             {
                 var buttonA = new TagBuilder("a");
-                buttonA.MergeAttribute("href", "#");
                 buttonA.AddCssClass("option bs-buttonGroupItem");
                 buttonA.MergeAttribute("data-value", item.Value);
 

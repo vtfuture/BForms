@@ -16,10 +16,10 @@
         autocomplete: true,
         autocompleteSelector: '.bs-autocomplete:not(.no-initUI)',
 
-        radioButtons: false,
+        radioButtons: true,
         radioButtonsSelector: '.bs-radio-list:not(.no-initUI)',
 
-        checkBoxList: false,
+        checkBoxList: true,
         checkBoxListSelector: '.bs-checkbox-list:not(.no-initUI)',
 
         tagList: true,

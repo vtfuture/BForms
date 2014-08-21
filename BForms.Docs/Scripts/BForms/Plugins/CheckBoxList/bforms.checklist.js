@@ -84,12 +84,13 @@
             //#endregion
 
             //#region actions
-            var wrapper = BuildWrapper(self);
-            self.after(wrapper);
-            self.hide();
-            wrapper.show();
+            //var wrapper = BuildWrapper(self);
+            //self.after(wrapper);
+            //self.hide();
+            //wrapper.show();
             self.addClass("checkBoxList-done");
 
+            var wrapper = self.siblings('.checkbox_replace');
             if (self.data("initialvalue") == undefined) {
 
                 var initialValue = self.find('input[type="checkbox"]:checked').map(function () { return $(this).data('value'); });
@@ -103,7 +104,6 @@
             self.on("change", { self: self, wrapper: wrapper }, function (e) {
                 UpdateWrapper(e.data.self, e.data.wrapper);
             });
-
             wrapper.on("click", "a.option", { self: self }, function (e) {
                 e.preventDefault();
                 e.data.self.bsCheckBoxListUpdateSelf($(this).data("value"));

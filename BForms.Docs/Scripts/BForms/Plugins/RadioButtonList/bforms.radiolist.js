@@ -82,10 +82,11 @@
             //#endregion
 
             //#region actions
-            var wrapper = BuildWrapper(self);
-            self.after(wrapper);
-            self.hide();
-            wrapper.show();
+            //var wrapper = BuildWrapper(self);
+            //self.after(wrapper);
+            //self.hide();
+            //wrapper.show();
+            var wrapper = self.siblings('.checkbox_replace');
             self.addClass("radioButtonsList-done");
 
             var options = self.data('options') || {};
