@@ -315,4 +315,10 @@
   <data name="Age" xml:space="preserve">
     <value>Vârstă</value>
   </data>
+  <data name="JavascriptMvcFramework" xml:space="preserve">
+    <value>Frameworkul javascript preferat</value>
+  </data>
+  <data name="JavascriptMvcFrameworkPrompt" xml:space="preserve">
+    <value>Selectează frameworkul javascript preferat</value>
+  </data>
 </root>

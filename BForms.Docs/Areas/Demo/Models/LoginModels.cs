@@ -116,6 +116,11 @@ namespace BForms.Docs.Areas.Demo.Models
         [Display(Name = "Interval", Prompt = "IntervalPrompt", ResourceType = typeof(Resource))]
         [BsControl(BsControlType.DateTimePickerRange, IsReadonly = true)]
         public BsRange<DateTime> Interval { get; set; }
+
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
+        [Display(Name = "JavascriptMvcFramework", Prompt = "JavascriptMvcFrameworkPrompt", ResourceType = typeof(Resource))]
+        [BsControl(BsControlType.ButtonGroup)]
+        public BsSelectList<int> JavascriptMvcFramework { get; set; }
     }
 
 }

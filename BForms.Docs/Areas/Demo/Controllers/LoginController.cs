@@ -144,7 +144,8 @@ namespace BForms.Docs.Areas.Demo.Controllers
                     {
                         ItemValue = DateTime.Now.AddDays(12)
                     }
-                }
+                },
+                JavascriptMvcFramework = Lists.AllJavascriptFrameworks<int>()
             };
         }
     }

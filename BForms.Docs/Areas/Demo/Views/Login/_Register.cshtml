@@ -150,6 +150,14 @@
         </div>
     </div>
 
+    <div class="col-sm-6 col-md-6 col-lg-6 form-group">
+        @Html.BsLabelFor(m => m.JavascriptMvcFramework)
+        <div class="input-group">
+            @Html.BsSelectFor(m => m.JavascriptMvcFramework)
+            @Html.BsValidationFor(m => m.JavascriptMvcFramework)
+        </div>
+    </div>
+
     <div class="col-sm-6 col-md-6 col-lg-6 form-group checkbox">
         @Html.BsInputFor(m => m.ConsentAgreement)
         @Html.BsValidationFor(m => m.ConsentAgreement)

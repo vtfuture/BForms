@@ -137,5 +137,19 @@ namespace BForms.Docs.Areas.Demo.Mock
 
             return list;
         }
+
+        public static BsSelectList<T> AllJavascriptFrameworks<T>()
+        {
+            var list = new BsSelectList<T>();
+
+            list.Items.Add(new BsSelectListItem() { Text = "Backbone.js", Value = "1" });
+            list.Items.Add(new BsSelectListItem() { Text = "AngularJS", Value = "2" });
+            list.Items.Add(new BsSelectListItem() { Text = "Ember.js", Value = "3" });
+            list.Items.Add(new BsSelectListItem() { Text = "Knockout", Value = "4" });
+            list.Items.Add(new BsSelectListItem() { Text = "CanJS", Value = "5" });
+            list.Items.Add(new BsSelectListItem() { Text = "ExtJS", Value = "6" });
+
+            return list;
+        }
     }
 }

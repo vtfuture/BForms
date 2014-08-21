@@ -12,7 +12,7 @@ namespace BForms.Models
     /// <summary>
     /// Represents a list of items for Dropdown, ListBox, RadioList, CheckboxList binding
     /// </summary>
-    public class BsSelectList<T>
+    public class BsSelectList<T>  
     {
         private T selectedValues;
 

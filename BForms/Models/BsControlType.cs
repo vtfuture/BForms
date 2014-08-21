@@ -151,7 +151,13 @@ namespace BForms.Models
         /// Sortable list element
         /// </summary>
         [Description("bs-sortable")]
-        SortableList
+        SortableList,
+
+        /// <summary>
+        /// Bootstrap button group
+        /// </summary>
+        [Description("bs-button-group")]
+        ButtonGroup
     }
 
 }

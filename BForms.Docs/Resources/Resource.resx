@@ -315,4 +315,10 @@
   <data name="Age" xml:space="preserve">
     <value />
   </data>
+  <data name="JavascriptMvcFramework" xml:space="preserve">
+    <value />
+  </data>
+  <data name="JavascriptMvcFrameworkPrompt" xml:space="preserve">
+    <value />
+  </data>
 </root>

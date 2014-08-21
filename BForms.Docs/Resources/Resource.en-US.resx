@@ -315,4 +315,10 @@
   <data name="Age" xml:space="preserve">
     <value>Age</value>
   </data>
+  <data name="JavascriptMvcFramework" xml:space="preserve">
+    <value>Preferred javascript mvc framework</value>
+  </data>
+  <data name="JavascriptMvcFrameworkPrompt" xml:space="preserve">
+    <value>Please select your preferred javascript mvc framework</value>
+  </data>
 </root>
