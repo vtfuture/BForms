@@ -604,6 +604,7 @@ More info at: http://icanhazjs.com
                 }
             }
         }
-
     })();
+
+    return ich;
 }));

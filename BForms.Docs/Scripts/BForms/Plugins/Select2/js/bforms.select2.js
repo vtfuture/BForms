@@ -60,7 +60,7 @@
         for (; i < l; i++) {
             var attr = attrs[i];
             if (typeof attr.nodeName !== 'undefined' && attr.nodeName.indexOf('data-') === 0) {
-                $input.attr(attr.nodeName, attr.nodeValue);
+                $input.attr(attr.nodeName, attr.value);
                 toRemove.push(attr.nodeName);
             }
         }

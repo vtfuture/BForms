@@ -1735,7 +1735,7 @@
             return makeMoment(c);
         };
 
-        moment.suppressDeprecationWarnings = false;
+        moment.suppressDeprecationWarnings = true;
 
         moment.createFromInputFallback = deprecate(
             'moment construction falls back to js Date. This is ' +

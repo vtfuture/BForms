@@ -1,12 +1,12 @@
 ﻿(function (factory) {
 
     if (typeof define === "function" && define.amd) {
-        define('bforms-datepicker-tmpl', ['jquery', 'icanhaz'], factory);
+        define('bforms-datepicker-tmpl', ['jquery', 'icanhaz', 'moment'], factory);
     } else {
         factory(window.jQuery, window.ich);
     }
 
-}(function ($) {
+}(function ($, ich, moment) {
 
     var bDatepickerRenderer = function (opts) {
         this.options = $.extend(true, {}, opts);
