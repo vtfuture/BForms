@@ -288,6 +288,11 @@ mark, .mark {
 .btn:focus {
   outline: none; }
 
+.btn-group-justified > .btn, .btn-group-justified > .btn-group {
+  overflow: hidden; }
+.btn-group-justified .input-validation-error {
+  border-color: #b94a48 !important; }
+
 .btn-theme {
   color: #fff !important;
   background-color: #368985;

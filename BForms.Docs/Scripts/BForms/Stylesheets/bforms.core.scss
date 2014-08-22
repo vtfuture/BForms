@@ -396,6 +396,14 @@ mark, .mark {
 	}
 }
 
+.btn-group-justified {
+	> .btn, >.btn-group {
+		overflow: hidden;
+	}
+	.input-validation-error {
+		border-color: #b94a48!important;
+	}
+}
 
 .btn-theme {
 	color: #fff !important;
