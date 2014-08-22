@@ -21,6 +21,9 @@ textarea {
   font-size: 12px;
   top: 0; }
 
+mark, .mark {
+  background-color: #CECECE; }
+
 /* Errors */
 .field-validation-valid {
   display: none; }
@@ -122,8 +125,6 @@ textarea {
     .avatar_view .avatar_controls .btn {
       padding: 2px 8px; }
     .avatar_view .avatar_controls .file-upload {
-      width: 30px;
-      height: 30px;
       position: relative; }
     .avatar_view .avatar_controls input[type="file"] {
       filter: alpha(opacity=0);
@@ -254,7 +255,7 @@ textarea {
 
 /* Autocomplete */
 .twitter-typeahead {
-  display: block !important;
+  width: 100%;
   font-size: 14px; }
   .twitter-typeahead .tt-hint {
     padding: 8px;
@@ -277,7 +278,7 @@ textarea {
 /* Custom UI END*/
 .form-control {
   padding: 8px;
-  height: 38px; }
+  min-height: 38px; }
   .form-control:focus {
     box-shadow: none;
     border-color: #45ada8; }
