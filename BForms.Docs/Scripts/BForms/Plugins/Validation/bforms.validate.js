@@ -235,6 +235,7 @@
                 partialNameSearch: false,
                 checklistClass: 'bs-checkbox',
                 bsDropdownClass: 'bs-dropdown',
+                bsButtonGroupToggleClass: 'bs-button-group',
                 validationSummaryKey: 'BsFormError',
                 scrollToError: true,
                 ignoreTitle: false,
@@ -271,13 +272,12 @@
                         this.element(element.parentNode);
                     } else {
                         var $elem = $(element);
-                        if ($elem.hasClass(this.settings.checklistClass) || $elem.hasClass(this.settings.bsDropdownClass)) {
+                        if ($elem.hasClass(this.settings.checklistClass) || $elem.hasClass(this.settings.bsDropdownClass) || $elem.hasClass(this.settings.bsButtonGroupToggleClass)) {
                             this.element(element);
                         }
                     }
                 },
                 oncustomchange: function (element, event) {
-
                     return this.settings.onclick.apply(this, arguments);
                 },
                 highlight: function (element, errorClass, validClass) {
