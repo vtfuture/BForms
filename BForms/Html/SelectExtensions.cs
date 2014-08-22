@@ -610,11 +610,11 @@ namespace BForms.Html
 
             #region render button dropdown
             var btnGroup = new TagBuilder("div");
-            btnGroup.AddCssClass("btn-group bs-buttonGroupDropdownContainer");
+            btnGroup.AddCssClass("btn-group bs-buttonGroupDropdownContainer btn-group-justified");
 
-            var button = new TagBuilder("button");
+            var button = new TagBuilder("a");
             button.AddCssClass("btn btn-default dropdown-toggle bs-buttonGroupDropdownToggle");
-            button.MergeAttribute("type", "button");
+            button.MergeAttribute("href", "#");
             button.MergeAttribute("data-toggle", "dropdown");
             button.MergeAttribute("data-dropdown-for", tagBuilder.Attributes["id"]);
             button.MergeAttribute("data-placeholder", optionLabel + " ");
