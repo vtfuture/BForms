@@ -52,18 +52,21 @@
     <Reference Include="JetBrains.Annotations">
       <HintPath>..\packages\JetBrains.Annotations.7.0\lib\net45\JetBrains.Annotations.dll</HintPath>
     </Reference>
+    <Reference Include="Jint">
+      <HintPath>..\packages\Jint.2.1.0.0\lib\portable-net40+sl50+wp80+win\Jint.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.6.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="RequireJsNet, Version=1.0.13.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="RequireJsNet, Version=1.0.27.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\RequireJsNet.1.0.13.0\lib\net45\RequireJsNet.dll</HintPath>
+      <HintPath>..\packages\RequireJsNet.1.0.27.0\lib\net45\RequireJsNet.dll</HintPath>
     </Reference>
-    <Reference Include="RequireJsNet.Compressor, Version=1.0.9.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="RequireJsNet.Compressor, Version=1.0.16.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\RequireJsNet.Compressor.1.0.9.0\lib\net45\RequireJsNet.Compressor.dll</HintPath>
+      <HintPath>..\packages\RequireJsNet.Compressor.1.0.16.0\lib\net45\RequireJsNet.Compressor.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
