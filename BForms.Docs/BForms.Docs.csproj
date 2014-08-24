@@ -64,9 +64,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\RequireJsNet.1.0.27.0\lib\net45\RequireJsNet.dll</HintPath>
     </Reference>
-    <Reference Include="RequireJsNet.Compressor, Version=1.0.16.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="RequireJsNet.Compressor, Version=1.1.21.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\RequireJsNet.Compressor.1.0.16.0\lib\net45\RequireJsNet.Compressor.dll</HintPath>
+      <HintPath>..\packages\RequireJsNet.Compressor.1.1.21.0\lib\net45\RequireJsNet.Compressor.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
