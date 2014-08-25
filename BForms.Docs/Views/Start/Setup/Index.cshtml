@@ -31,16 +31,16 @@
             <h3 id="install">1. NuGet</h3>
             <p>
                 Install the <a href="http://www.nuget.org/packages/BForms.MVC/">BForms.MVC</a> package via NuGet Manager in your MVC project.
-                This process will include the BForms JS Framework in your Scripts folder and will add references to the BForms and RequireJsNet assemblies. 
+                This process will include the BForms JS Framework in your Scripts folder and will add references to the BForms and RequireJsNet assemblies.
                 The JavaScript and CSS components come in two forms, as individual files and as <b>minified bundles</b>.
             </p>
             <pre class="prettyprint bs-example">
 @Html.InsertFileContentCached("~/Views/Start/Setup/Source/_Files.embed")
             </pre>
             <br />
-            <h3 id="validate">2. Validation provider</h3>           
+            <h3 id="validate">2. Validation provider</h3>
             <p>
-               BForms comes with its custom validation provider. In order to set it up, add the following line in the <code>Application_Start()</code> method (found in Global.asax):
+                BForms comes with its custom validation provider. In order to set it up, add the following line in the <code>Application_Start()</code> method (found in Global.asax):
             </p>
             <h4 class="sub_title">Register the BForms validation provider</h4>
             <pre class="prettyprint lang-cs bs-example">
@@ -58,7 +58,7 @@
             </pre>
             <br />
             <p>
-                Ok! You have added a new bundle, but you also have to use it. Go to Layout.cshtml (or any other layout you are using) and modify the 
+                Ok! You have added a new bundle, but you also have to use it. Go to Layout.cshtml (or any other layout you are using) and modify the
                 head tag like the one below:
             </p>
             <h4 class="sub_title">Include the CSS bundle in your layout</h4>
@@ -69,19 +69,19 @@
             <h3 id="js">4. Include JS</h3>
             <p>
                 The next step is to include the BForms javascript components in your project. There are two ways of working with BForms JS components:
-                using <a href="http://www.nuget.org/packages/RequireJsNet/">RequireJS.NET</a> (recommended) or by referencing the javascript files 
+                using <a href="http://www.nuget.org/packages/RequireJsNet/">RequireJS.NET</a> (recommended) or by referencing the javascript files
                 directly from the <code>~/Scripts/Bforms/Bundles/js</code> folder.
             </p>
             <p>
-                You can read more here: <a href="http://requirejs.org/docs/whyamd.html">AMD</a>, 
-                <a href="http://requirejs.org/docs/start.html">RequireJS</a> 
+                You can read more here: <a href="http://requirejs.org/docs/whyamd.html">AMD</a>,
+                <a href="http://requirejs.org/docs/start.html">RequireJS</a>
                 and <a href="http://www.stefanprodan.com/2013/08/setup-requirejs-for-asp-net-mvc-using-nuget/">RequireJS.NET</a>
             </p>
             <h4 class="sub_title">Using RequireJS</h4>
             <p>
-                To configure RequireJS you'll have to create a <code>BaseController</code> that inherits from <code>RequireJSController</code>. 
-                Keep in mind that each time you create a new controller, it MUST inherit from BaseController 
-                (you just have to change <code>public class MyController : Controller</code> to <code>public class MyController : BaseController</code> 
+                To configure RequireJS you'll have to create a <code>BaseController</code> that inherits from <code>RequireJSController</code>.
+                Keep in mind that each time you create a new controller, it MUST inherit from BaseController
+                (you just have to change <code>public class MyController : Controller</code> to <code>public class MyController : BaseController</code>
                 as you'll see further in this step-by-step guide)
                 <br /><br />
                 You can find BaseController's definition below:
@@ -92,8 +92,8 @@
             <br />
 
             <p>
-                RequireJS comes in handy when you want a release version of your app. Inside the <code>~/Scripts/Bforms</code> 
-                folder there are 2 configuration files for javascript files: <code>RequireJS.config</code> and <code>RequireJS.Release.config</code>. 
+                RequireJS comes in handy when you want a release version of your app. Inside the <code>~/Scripts/Bforms</code>
+                folder there are 2 configuration files for javascript files: <code>RequireJS.config</code> and <code>RequireJS.Release.config</code>.
                 To use them both include the following code in your layout:
             </p>
             <pre class="prettyprint lang-cs bs-example">
@@ -123,7 +123,7 @@
                 Note that selected files from the above image are new. The BForms package comes with its own configuration, which you can find under <code>Scripts/BForms</code>.
             </p>
             <p>
-                Now that we have our files, let's add references to our scripts. To show you how to do this we have created a script 
+                Now that we have our files, let's add references to our scripts. To show you how to do this we have created a script
                 called <code>main-script.js</code> under  <code>Scripts/Controllers/Common</code>, which contains only a <code>console.log</code> statement.
             </p>
             <h4 class="sub_title">Main-script file</h4>
@@ -172,17 +172,23 @@
             <div class="bs-example bs-img-example">
                 <img src="~/Content/images/docs/grid-pager.png">
             </div>
-            <br/>
+            <br />
             <p>
-                <code>Of</code> Default value: "of" <br/>
-                <code>NoResults</code> Default value: "There are no results" <br />
-                <code>Items</code> Default value: "items" <br/>
-                <code>ResultsPerPage</code> Default value: "results per page"
+                <code>BF_GroupEditorMoveToGroups</code> Default Value : "Move to groups"<br />
+                <code>BF_Items</code> Default value: "items" <br />
+                <code>BF_New</code> Default value : "New"<br />
+                <code>BF_NoResults</code> Default value: "There are no results" <br />
+                <code>BF_Of</code> Default value: "of" <br />
+                <code>BF_Reset</code> Default value : "Reset"<br />
+                <code>BF_ResultsPerPage</code> Default value: "results per page" <br />
+                <code>BF_Save</code> Default value : "Save"<br />
+                <code>BF_Search</code> Default value : "Search"<br />
+                <code>BF_Select</code> Default value : "Select"<br />
             </p>
 
             <h3 id="example">Example</h3>
             <p>
-                Thumbs up! Now that everything is set up you can start working on your new project. Let's say you want to add a dropdown element 
+                Thumbs up! Now that everything is set up you can start working on your new project. Let's say you want to add a dropdown element
                 somewhere in your application. Read the following steps and you'll see how easy it is.
             </p>
             <h4 class="sub_title">Model definition - step 1</h4>
@@ -202,7 +208,7 @@
                 The Display annotation comes with ASP.NET and, in our case, we used the properties Name (the output of the Html.BsLabelFor helper) and Prompt (a placeholder value shown in your dropdown before you select anything).
             </p>
             <p>
-                Another important aspect is the type argument of the generic class <code>BsSelectList&lt;&gt;</code>. 
+                Another important aspect is the type argument of the generic class <code>BsSelectList&lt;&gt;</code>.
                 Upon form submission, the type of the <code>SelectedValues</code> property for your <code>DemoDropdown</code> will be <code>int?</code> since <code>DemoDropdown</code>
                 was declared as <code>BsSelectList&lt;int?&gt;</code>.
                 Had we defined it as <code>BsSelectList&lt;string&gt;</code>, <code>DemoDropdown.SelectedValues</code> would be of type string.
@@ -243,7 +249,7 @@
             <br />
             <p>
                 Writing the view is very simple. We have a form which has a class named <code>js-demoForm</code> (remember this because it is important)
-                 and an Html helper <code>@@Html.BsSelectFor</code> (similar to @@Html.DropDownListFor) that renders a dropdown.
+                and an Html helper <code>@@Html.BsSelectFor</code> (similar to @@Html.DropDownListFor) that renders a dropdown.
             </p>
             <p>
                 Don't forget to add <code>@@model Demo</code> to your view.
@@ -251,8 +257,8 @@
 
             <h4 class="sub_title">Javascript - step 5</h4>
             <p>
-                First of all you need to create a folder named <code>Controllers</code> under <code>Scripts</code>. 
-                After that, if you're not working in an area, create a folder called <code>Root</code> under Controllers (that you have created few seconds ago). 
+                First of all you need to create a folder named <code>Controllers</code> under <code>Scripts</code>.
+                After that, if you're not working in an area, create a folder called <code>Root</code> under Controllers (that you have created few seconds ago).
                 Otherwise, replace Root with the area name.
             </p>
             <p>
@@ -276,7 +282,7 @@
             </pre>
             <br />
             <p>
-                The important part is in <code>HomeIndex.prototype.init</code> function. As you can see, we have selected our form 
+                The important part is in <code>HomeIndex.prototype.init</code> function. As you can see, we have selected our form
                 (<code>.js-demoForm</code>, remember ?) and we have applied bforms on it. That's all you have to do.
             </p>
             <p>
