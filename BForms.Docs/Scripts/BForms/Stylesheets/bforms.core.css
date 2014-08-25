@@ -286,6 +286,14 @@ mark, .mark {
 
 .btn-group-justified > .btn, .btn-group-justified > .btn-group {
   width: 100%; }
+.btn-group-justified .dropdown-toggle {
+  text-align: left; }
+  .btn-group-justified .dropdown-toggle .caret {
+    float: right;
+    display: inline-block;
+    margin-top: 7px; }
+.btn-group-justified .dropdown-menu {
+  width: 100%; }
 .btn-group-justified .input-validation-error {
   border-color: #b94a48 !important; }
 

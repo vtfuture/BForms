@@ -26,10 +26,10 @@ header .navbar-inner, header .navbar {
   box-shadow: none; }
 
 a {
-  color: #212121; }
+  color: #3F3F3F; }
   a:hover, a:focus {
     text-decoration: none;
-    color: #368985;
+    color: #000;
     background-color: transparent; }
 
 /* Global loading */
@@ -74,7 +74,7 @@ header .navbar {
     line-height: 30px; }
     header .navbar .nav > li > a {
       padding: 0 0 2px 0;
-      color: #212121; }
+      color: #3F3F3F; }
       header .navbar .nav > li > a .glyphicon {
         vertical-align: top; }
       header .navbar .nav > li > a:hover, header .navbar .nav > li > a:focus {
@@ -400,8 +400,6 @@ code {
 
 /* Other color schemes */
 /* BLUE*/
-body.blue a:hover, body.blue a:focus {
-  color: #3086c8; }
 body.blue .btn-theme {
   background: #3086c8;
   border: 1px solid #559ed6; }
@@ -442,8 +440,6 @@ body.blue .footer a {
     border-top-color: #6aaadb; } }
 
 /* GREEN*/
-body.green a:hover, body.green a:focus {
-  color: #449575; }
 body.green .btn-theme {
   background: #449575;
   border: 1px solid #59B390; }
@@ -484,8 +480,6 @@ body.green .footer a {
     border-top-color: #6abb9c; } }
 
 /* PURPLE*/
-body.purple a:hover, body.purple a:focus {
-  color: #4f2b4e; }
 body.purple .btn-theme {
   background: #4f2b4e;
   border: 1px solid #703D6F; }
@@ -526,8 +520,6 @@ body.purple .footer a {
     border-top-color: #81467f; } }
 
 /* ORANGE*/
-body.orange a:hover, body.orange a:focus {
-  color: #e5560f; }
 body.orange .btn-theme {
   background: #e5560f;
   border: 1px solid #F27435; }
@@ -568,8 +560,6 @@ body.orange .footer a {
     border-top-color: #f4844d; } }
 
 /* almost BLACK*/
-body.black a:hover, body.black a:focus {
-  color: #282828; }
 body.black .btn-theme {
   background: #282828;
   border: 1px solid #424141; }

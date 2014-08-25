@@ -402,6 +402,17 @@ mark, .mark {
 		//overflow: hidden;
 		width: 100%;
 	}
+	.dropdown-toggle {
+		text-align: left;
+		.caret {
+			float: right;
+			display: inline-block;
+			margin-top: 7px;
+		}
+	}
+	.dropdown-menu  {
+		width: 100%;
+	}
 	.input-validation-error {
 		border-color: #b94a48!important;
 	}

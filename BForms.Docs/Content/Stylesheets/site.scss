@@ -2,7 +2,7 @@
 $Gray: #dadada;
 $darkGray: #585858;
 $textGray: #989898;
-$textColor: #212121;
+$textColor: #3F3F3F;
 $borderColor: #e8e8e8;
 
 /* Custom colors for site */
@@ -26,6 +26,7 @@ body {
 	padding: 9px 0;
 }
 
+
 %box_sizing-border_box {
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
@@ -33,7 +34,6 @@ body {
 	-o-box-sizing: border-box;
 	box-sizing: border-box;
 }
-
 
 /* Override bootstrap*/
 
@@ -52,11 +52,10 @@ a {
 	color: $textColor;
 	&:hover, &:focus {
 		text-decoration: none;
-		color: darken($mainColor, 10%);
+		color: #000;
 		background-color: transparent;
 	}
 }
-
 
 /* Global loading */
 
@@ -553,9 +552,6 @@ code {
 /* BLUE*/
 
 body.blue {
-	a:hover, a:focus {
-		color: darken($Blue, 10%);
-	}
 	.btn-theme {
 		background: darken($Blue, 10%);	
 		border: 1px solid $Blue;
@@ -622,9 +618,6 @@ body.blue {
 /* GREEN*/
 
 body.green {
-	a:hover, a:focus {
-		color: darken($Green, 10%);
-	}
 	.btn-theme {
 		background: darken($Green, 10%);
 		border: 1px solid $Green;		
@@ -691,9 +684,6 @@ body.green {
 /* PURPLE*/
 
 body.purple {
-	a:hover, a:focus {
-		color: darken($Purple, 10%);
-	}
 	.btn-theme {
 		background: darken($Purple, 10%);	
 		border: 1px solid $Purple;
@@ -760,17 +750,13 @@ body.purple {
 /* ORANGE*/
 
 body.orange {
-	a:hover, a:focus {
-		color: darken($Orange, 10%);
-	}
 	.btn-theme {
 		background: darken($Orange, 10%);
 		border: 1px solid $Orange;		
 		&:hover, &:focus {
 			background: $Orange !important;			
 		}
-	}
-	
+	}	
 	.navbar {
 		.nav > li .dropdown-menu li {
 			.badge-info {
@@ -830,9 +816,7 @@ body.orange {
 /* almost BLACK*/
 
 body.black {
-	a:hover, a:focus {
-		color: darken($Black, 10%);
-	}
+
 	.btn-theme {
 		background: darken($Black, 10%);
 		border: 1px solid $Black;		
