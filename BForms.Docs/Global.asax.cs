@@ -27,9 +27,6 @@ namespace BForms.Docs
             BForms.Utilities.BsResourceManager.Register(Resources.Resource.ResourceManager);
             //BForms.Utilities.BsUIManager.Theme(BsTheme.Black);
 
-            System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
-            System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US");
-
 #if !DEBUG
             BForms.Utilities.BsConfigurationManager.Release(true);
 #endif
