@@ -5,4 +5,4 @@
 
 The BForms open source framework consists of a collection of ASP.NET MVC HTML Helpers, Javascript AMD modules, custom CSS made with SASS that extends Twitter Bootstrap v3 and makes development of rich user interfaces easy.
 
-Documentation and examples website http://bforms.stefanprodan.com/
+Documentation and examples website http://bforms.veritech.io/

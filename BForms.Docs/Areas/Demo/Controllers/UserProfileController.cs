@@ -277,7 +277,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
                     Contact = new UserProfileContactModel
                     {
                         Mail = "bforms@mvc.fast",
-                        Website = "http://bforms.stefanprodan.eu"
+                        Website = "http://www.stefanprodan.com"
                     }
                 };
 

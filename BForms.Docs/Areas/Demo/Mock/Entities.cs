@@ -41,7 +41,7 @@ namespace BForms.Docs.Areas.Demo.Mock
                             Role = ProjectRole.TeamLeader,
                             StartDate = new DateTime(2013, 8, 1),
                             Languages = new List<string>() { "C#", "Javascript", "SQL", "Objective-C" },
-                            Url = "http://www.stefanprodan.eu/",
+                            Url = "http://www.stefanprodan.com/",
                             Contributions = "concept, api design, razor helpers, documentation, c# bug fixing, testing",
                             Order = 1,
                             Age = 30

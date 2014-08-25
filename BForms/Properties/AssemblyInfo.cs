@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("BForms")]
 [assembly: AssemblyDescription("BForms for ASP.NET MVC")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("stefanprodan.eu")]
+[assembly: AssemblyCompany("VeriTech Solutions SRL")]
 [assembly: AssemblyProduct("BForms")]
-[assembly: AssemblyCopyright("Copyright © Stefan Prodan 2013")]
+[assembly: AssemblyCopyright("Copyright © Stefan Prodan 2013-2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

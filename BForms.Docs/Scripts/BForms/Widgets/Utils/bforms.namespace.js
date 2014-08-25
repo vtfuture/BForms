@@ -1,9 +1,9 @@
 ﻿/*!
  * BForms v1.0.0 Alpha
- * http://bforms.stefanprodan.eu
+ * http://bforms.veritech.io
  *
  * Copyright 2013 Stefan Prodan and contributors
- * http://github.com/stefanprodan/BForms/contributors
+ * http://github.com/vtfuture/BForms/contributors
  * Licensed under the MIT license
  */
 
