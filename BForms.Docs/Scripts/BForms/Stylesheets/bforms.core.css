@@ -168,7 +168,7 @@ mark, .mark {
       display: none; }
   .custom_select.select2-container-active .select2-choice,
   .custom_select.select2-container-active .select2-choices {
-    border: 1px solid #45ADA8;
+    border: 1px solid #a8a8a8;
     outline: none;
     background: #fff;
     -webkit-box-shadow: none;
@@ -223,7 +223,7 @@ mark, .mark {
       top: 5px; }
 .custom_select-multi.select2-container-active .select2-choice,
 .custom_select-multi.select2-container-active .select2-choices {
-  border: 1px solid #45ADA8;
+  border: 1px solid #a8a8a8;
   outline: none;
   background: #fff;
   -webkit-box-shadow: none;
@@ -247,8 +247,7 @@ mark, .mark {
   .checkbox_replace .option:hover {
     background: #f7f7f7 !important; }
   .checkbox_replace .option.selected {
-    background: #eee;
-    color: #368985; }
+    background: #eee; }
 .checkbox_replace:focus {
   outline: none; }
 .checkbox_replace.form-control {
@@ -279,7 +278,7 @@ mark, .mark {
 /* Custom UI END*/
 .form-control:focus {
   box-shadow: none;
-  border-color: #45ADA8; }
+  border-color: #A8A8A8; }
 .form-control.select2-container-multi {
   height: auto; }
 .form-control + .input-group-addon {
@@ -349,15 +348,6 @@ mark, .mark {
 
 /* Other color schemes */
 /* BLUE*/
-.form_container.blue .custom_select.select2-container-active .select2-choice,
-.form_container.blue .custom_select.select2-container-active .select2-choices {
-  border-color: #559ed6; }
-.form_container.blue .custom_select-multi.select2-container-active .select2-choice,
-.form_container.blue .custom_select-multi.select2-container-active .select2-choices {
-  border-color: #559ed6; }
-.form_container.blue .form-control:focus,
-.form_container.blue .twitter-typeahead .tt-dropdown-menu {
-  border-color: #559ed6 !important; }
 .form_container.blue .btn-theme {
   background: #3086c8;
   border-color: #3086c8; }
@@ -365,15 +355,6 @@ mark, .mark {
     background: #559ed6 !important; }
 
 /* GREEN*/
-.form_container.green .custom_select.select2-container-active .select2-choice,
-.form_container.green .custom_select.select2-container-active .select2-choices {
-  border-color: #59B390; }
-.form_container.green .custom_select-multi.select2-container-active .select2-choice,
-.form_container.green .custom_select-multi.select2-container-active .select2-choices {
-  border-color: #59B390; }
-.form_container.green .form-control:focus,
-.form_container.green .twitter-typeahead .tt-dropdown-menu {
-  border-color: #59B390 !important; }
 .form_container.green .btn-theme {
   background: #449575;
   border-color: #449575; }
@@ -381,15 +362,6 @@ mark, .mark {
     background: #59B390 !important; }
 
 /* PURPLE*/
-.form_container.purple .custom_select.select2-container-active .select2-choice,
-.form_container.purple .custom_select.select2-container-active .select2-choices {
-  border-color: #703D6F; }
-.form_container.purple .custom_select-multi.select2-container-active .select2-choice,
-.form_container.purple .custom_select-multi.select2-container-active .select2-choices {
-  border-color: #703D6F; }
-.form_container.purple .form-control:focus,
-.form_container.purple .twitter-typeahead .tt-dropdown-menu {
-  border-color: #703D6F !important; }
 .form_container.purple .btn-theme {
   background: #4f2b4e;
   border-color: #4f2b4e; }
@@ -397,15 +369,6 @@ mark, .mark {
     background: #703D6F !important; }
 
 /* ORANGE*/
-.form_container.orange .custom_select.select2-container-active .select2-choice,
-.form_container.orange .custom_select.select2-container-active .select2-choices {
-  border-color: #F27435; }
-.form_container.orange .custom_select-multi.select2-container-active .select2-choice,
-.form_container.orange .custom_select-multi.select2-container-active .select2-choices {
-  border-color: #F27435; }
-.form_container.orange .form-control:focus,
-.form_container.orange .twitter-typeahead .tt-dropdown-menu {
-  border-color: #F27435 !important; }
 .form_container.orange .btn-theme {
   background: #e5560f;
   border-color: #e5560f; }
@@ -413,15 +376,6 @@ mark, .mark {
     background: #F27435 !important; }
 
 /* almost BLACK*/
-.form_container.black .custom_select.select2-container-active .select2-choice,
-.form_container.black .custom_select.select2-container-active .select2-choices {
-  border-color: #424141; }
-.form_container.black .custom_select-multi.select2-container-active .select2-choice,
-.form_container.black .custom_select-multi.select2-container-active .select2-choices {
-  border-color: #424141; }
-.form_container.black .form-control:focus,
-.form_container.black .twitter-typeahead .tt-dropdown-menu {
-  border-color: #424141 !important; }
 .form_container.black .btn-theme {
   background: #282828;
   border-color: #282828; }

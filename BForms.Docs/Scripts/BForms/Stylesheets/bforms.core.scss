@@ -234,7 +234,7 @@ mark, .mark {
 	&.select2-container-active {
 		.select2-choice,
 		.select2-choices {
-			border: 1px solid $mainColor;
+			border: 1px solid #a8a8a8;
 			outline: none;
 			background:#fff;
 			-webkit-box-shadow: none;
@@ -308,7 +308,7 @@ mark, .mark {
 	&.select2-container-active {
 		.select2-choice,
 		.select2-choices {
-			border: 1px solid $mainColor;
+			border: 1px solid #a8a8a8;
 			outline: none;
 			background: #fff;
 			-webkit-box-shadow: none;
@@ -339,8 +339,7 @@ mark, .mark {
 			background: #f7f7f7 !important;
 		}
 		&.selected {
-			background: #eee;
-			color: darken($mainColor, 10%);
+			background: #eee;			
 		}
 	}
 	&:focus {
@@ -387,7 +386,7 @@ mark, .mark {
 
 	&:focus {
 		box-shadow: none;
-		border-color: $mainColor;
+		border-color: #A8A8A8;
 	}
 	&.select2-container-multi {
 		height: auto;
@@ -483,23 +482,7 @@ mark, .mark {
 
 /* BLUE*/
 .form_container.blue {
-	.custom_select.select2-container-active {
-		.select2-choice,
-		.select2-choices {
-			border-color: $Blue;
-		}
-	}
-	
-	.custom_select-multi.select2-container-active {
-		.select2-choice,
-		.select2-choices {
-			border-color: $Blue;
-		}
-	}
-	.form-control:focus,
-	.twitter-typeahead	.tt-dropdown-menu {
-		border-color: $Blue !important;
-	}
+
 	.btn-theme {
 		background: darken($Blue, 10%);		
 		border-color: darken($Blue, 10%);
@@ -511,23 +494,6 @@ mark, .mark {
 
 /* GREEN*/
 .form_container.green {
-	.custom_select.select2-container-active {
-		.select2-choice,
-		.select2-choices {
-			border-color: $Green;
-		}
-	}
-	
-	.custom_select-multi.select2-container-active {
-		.select2-choice,
-		.select2-choices {
-			border-color: $Green;
-		}
-	}
-	.form-control:focus,
-	.twitter-typeahead	.tt-dropdown-menu {
-		border-color: $Green !important;
-	}
 	
 	.btn-theme {
 		background: darken($Green, 10%);
@@ -540,24 +506,7 @@ mark, .mark {
 
 /* PURPLE*/
 .form_container.purple {
-	.custom_select.select2-container-active {
-		.select2-choice,
-		.select2-choices {
-			border-color: $Purple;
-		}
-	}
-	
-	.custom_select-multi.select2-container-active {
-		.select2-choice,
-		.select2-choices {
-			border-color: $Purple;
-		}
-	}
-	.form-control:focus,
-	.twitter-typeahead	.tt-dropdown-menu {
-		border-color: $Purple !important;
-	}
-	
+
 	.btn-theme {
 		background: darken($Purple, 10%);
 		border-color: darken($Purple, 10%);
@@ -569,23 +518,6 @@ mark, .mark {
 
 /* ORANGE*/
 .form_container.orange {
-	.custom_select.select2-container-active {
-		.select2-choice,
-		.select2-choices {
-			border-color: $Orange;
-		}
-	}
-	
-	.custom_select-multi.select2-container-active {
-		.select2-choice,
-		.select2-choices {
-			border-color: $Orange;
-		}
-	}
-	.form-control:focus,
-	.twitter-typeahead	.tt-dropdown-menu {
-		border-color: $Orange !important;
-	}
 	
 	.btn-theme {
 		background: darken($Orange, 10%);
@@ -598,24 +530,7 @@ mark, .mark {
 
 /* almost BLACK*/
 .form_container.black {
-	.custom_select.select2-container-active {
-		.select2-choice,
-		.select2-choices {
-			border-color: $Black;
-		}
-	}
-	
-	.custom_select-multi.select2-container-active {
-		.select2-choice,
-		.select2-choices {
-			border-color: $Black;
-		}
-	}
-	.form-control:focus,
-	.twitter-typeahead	.tt-dropdown-menu {
-		border-color: $Black !important;
-	}
-	
+
 	.btn-theme {
 		background: darken($Black, 10%);
 		border-color: darken($Black, 10%);
