@@ -1226,7 +1226,7 @@
             var $errorContainer = $(this.element).find('.bs-validation_summary');
 
             if ($errorContainer.length == 0) {
-                $errorContainer = $('<div class="col-sm-12 col-lg-12 bs-validation_summary"></div>');
+                $errorContainer = $('<div class="bs-validation_summary"></div>');
                 this.element.find('h2').after($errorContainer);
             }
 
