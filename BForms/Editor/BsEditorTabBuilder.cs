@@ -206,11 +206,11 @@ namespace BForms.Editor
 
                 if (key == "Search")
                 {
-                    part.Button(BsResourceManager.Resource("Search"), Glyphicon.Search);
+                    part.Button(BsResourceManager.Resource("BF_Search"), Glyphicon.Search);
                 }
                 else if (key == "New")
                 {
-                    part.Button(BsResourceManager.Resource("New"), Glyphicon.Plus);
+                    part.Button(BsResourceManager.Resource("BF_New"), Glyphicon.Plus);
                 }
             }
 

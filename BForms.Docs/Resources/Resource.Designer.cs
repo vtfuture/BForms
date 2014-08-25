@@ -117,6 +117,42 @@ namespace BForms.Docs.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string BF_Of {
+            get {
+                return ResourceManager.GetString("BF_Of", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string BF_Reset {
+            get {
+                return ResourceManager.GetString("BF_Reset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string BF_Save {
+            get {
+                return ResourceManager.GetString("BF_Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string BF_Search {
+            get {
+                return ResourceManager.GetString("BF_Search", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string Birthday {
             get {
                 return ResourceManager.GetString("Birthday", resourceCulture);
@@ -432,15 +468,6 @@ namespace BForms.Docs.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string Of {
-            get {
-                return ResourceManager.GetString("Of", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
         public static string Order {
             get {
                 return ResourceManager.GetString("Order", resourceCulture);
@@ -567,36 +594,9 @@ namespace BForms.Docs.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string Reset {
-            get {
-                return ResourceManager.GetString("Reset", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
         public static string RetypePassword {
             get {
                 return ResourceManager.GetString("RetypePassword", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string Save {
-            get {
-                return ResourceManager.GetString("Save", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string Search {
-            get {
-                return ResourceManager.GetString("Search", resourceCulture);
             }
         }
         

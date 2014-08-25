@@ -255,10 +255,10 @@
   <data name="RequiredField" xml:space="preserve">
     <value>Acest câmp este obligatoriu</value>
   </data>
-  <data name="Reset" xml:space="preserve">
+  <data name="BF_Reset" xml:space="preserve">
     <value>Resetează</value>
   </data>
-  <data name="Search" xml:space="preserve">
+  <data name="BF_Search" xml:space="preserve">
     <value>Caută</value>
   </data>
   <data name="ServerError" xml:space="preserve">
@@ -294,13 +294,13 @@
   <data name="Any" xml:space="preserve">
     <value>Toate</value>
   </data>
-  <data name="Of" xml:space="preserve">
+  <data name="BF_Of" xml:space="preserve">
     <value>din</value>
   </data>
   <data name="Order" xml:space="preserve">
     <value>Ordonează</value>
   </data>
-  <data name="Save" xml:space="preserve">
+  <data name="BF_Save" xml:space="preserve">
     <value>Salvează</value>
   </data>
   <data name="HireDate" xml:space="preserve">

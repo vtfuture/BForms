@@ -134,7 +134,7 @@ namespace BForms.Renderers
                 anchor.MergeAttribute("href", "#");
                 anchor.AddCssClass("btn btn-white pull-right bs-resetGroupEditor");
                 anchor.InnerHtml += GetGlyphicon(Models.Glyphicon.Refresh);
-                anchor.InnerHtml += " " + BsResourceManager.Resource("Reset");
+                anchor.InnerHtml += " " + BsResourceManager.Resource("BF_Reset");
 
                 if (!string.IsNullOrEmpty(this.Builder.saveUrl))
                 {
@@ -143,7 +143,7 @@ namespace BForms.Renderers
                     saveAnchor.MergeAttribute("style", "margin-left:10px");
                     saveAnchor.AddCssClass("btn btn-white pull-right bs-saveGroupEditor");
                     saveAnchor.InnerHtml += GetGlyphicon(Models.Glyphicon.Save);
-                    saveAnchor.InnerHtml += " " + BsResourceManager.Resource("Save");
+                    saveAnchor.InnerHtml += " " + BsResourceManager.Resource("BF_Save");
 
                     reset.InnerHtml += saveAnchor;
                 }
@@ -191,7 +191,7 @@ namespace BForms.Renderers
                     
                     dropdownA.MergeAttribute("data-toggle", "dropdown");
                     dropdownA.MergeAttribute("href", "#");
-                    dropdownA.InnerHtml += BsResourceManager.Resource("GroupEditorMoveToGroups");
+                    dropdownA.InnerHtml += BsResourceManager.Resource("BF_GroupEditorMoveToGroups");
                     dropdownA.InnerHtml += glyph;
 
                     var dropdownUl = new TagBuilder("ul");
@@ -220,7 +220,7 @@ namespace BForms.Renderers
                 else
                 {
                     button.AddCssClass("btn-white btn pull-right bs-bulkGroupMove");
-                    button.InnerHtml += BsResourceManager.Resource("GroupEditorMoveToGroups");
+                    button.InnerHtml += BsResourceManager.Resource("BF_GroupEditorMoveToGroups");
                     button.InnerHtml += glyph;
                     button.AddCssClass("bs-moveToGroupBtn");
                     button.MergeAttribute("data-groupid", MvcHelpers.Serialize(this.Builder.GroupConfigurator.Groups.First().Value.Uid));

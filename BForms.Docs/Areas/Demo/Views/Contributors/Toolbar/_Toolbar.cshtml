@@ -27,7 +27,7 @@
          .Tab(x => Html.BsPartialPrefixed(y => y.New, "Toolbar/_New", x));
         
         ca.Add<BsToolbarQuickSearch>()
-          .Placeholder(Resource.Search);
+          .Placeholder(Resource.BF_Search);
         
         ca.Add(BsToolbarActionType.AdvancedSearch)
           .Tab(x => Html.BsPartialPrefixed(y => y.Search, "Toolbar/_Search", x));

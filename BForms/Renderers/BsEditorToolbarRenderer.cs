@@ -52,7 +52,7 @@ namespace BForms.Renderers
 
                     input.MergeAttribute("type", "text");
 
-                    input.MergeAttribute("placeholder", BsResourceManager.Resource("Search"));
+                    input.MergeAttribute("placeholder", BsResourceManager.Resource("BF_Search"));
 
                     input.AddCssClass("form-control");
 

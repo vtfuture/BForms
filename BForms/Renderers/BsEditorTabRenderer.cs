@@ -151,7 +151,7 @@ namespace BForms.Renderers
 
                     infoBuilder.InnerHtml += !string.IsNullOrEmpty(this.Builder.noResultsTemplate) ?
                                    this.Builder.viewContext.Controller.BsRenderPartialView(this.Builder.noResultsTemplate, null) :
-                                   BsResourceManager.Resource("NoResults");
+                                   BsResourceManager.Resource("BF_NoResults");
 
                     listItem.InnerHtml += infoBuilder.ToString();
 

@@ -117,34 +117,34 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="GroupEditorMoveToGroups" xml:space="preserve">
+  <data name="BF_GroupEditorMoveToGroups" xml:space="preserve">
     <value>Move to groups </value>
   </data>
-  <data name="Items" xml:space="preserve">
+  <data name="BF_Items" xml:space="preserve">
     <value>items</value>
   </data>
-  <data name="New" xml:space="preserve">
+  <data name="BF_New" xml:space="preserve">
     <value>New</value>
   </data>
-  <data name="NoResults" xml:space="preserve">
+  <data name="BF_NoResults" xml:space="preserve">
     <value>There are no results</value>
   </data>
-  <data name="Of" xml:space="preserve">
+  <data name="BF_Of" xml:space="preserve">
     <value>of</value>
   </data>
-  <data name="Reset" xml:space="preserve">
+  <data name="BF_Reset" xml:space="preserve">
     <value>Reset</value>
   </data>
-  <data name="ResultsPerPage" xml:space="preserve">
+  <data name="BF_ResultsPerPage" xml:space="preserve">
     <value>results per page</value>
   </data>
-  <data name="Save" xml:space="preserve">
+  <data name="BF_Save" xml:space="preserve">
     <value>Save</value>
   </data>
-  <data name="Search" xml:space="preserve">
+  <data name="BF_Search" xml:space="preserve">
     <value>Search</value>
   </data>
-  <data name="Select" xml:space="preserve">
+  <data name="BF_Select" xml:space="preserve">
     <value>Select</value>
   </data>
 </root>

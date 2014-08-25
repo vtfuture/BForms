@@ -167,8 +167,8 @@ namespace BForms.Renderers
                     totalCountBuilder.InnerHtml += this.Builder.pager.TotalRecords;
 
                     //TODO:
-                    var template = "{0}-{1} " + BsResourceManager.Resource("Of") + " {2} " + BsResourceManager.Resource("Items");
-                    var result = string.Format(template, firstIdx, lastBuilder, totalCountBuilder.ToString()); //"Rezultate " + firstIdx + "–" + lastIdx + " din";
+                    var template = "{0}-{1} " + BsResourceManager.Resource("BF_Of") + " {2} " + BsResourceManager.Resource("BF_Items");
+                    var result = string.Format(template, firstIdx, lastBuilder, totalCountBuilder.ToString()); 
 
                     textBuilder.InnerHtml += result;
 

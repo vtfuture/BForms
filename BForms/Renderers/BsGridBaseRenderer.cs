@@ -117,7 +117,7 @@ namespace BForms.Renderers
                     bulkActionsSelectToggle.MergeAttribute("type", "button");
                     bulkActionsSelectToggle.MergeAttribute("class", "btn btn-white dropdown-toggle bs-selectorsContainer");
                     bulkActionsSelectToggle.MergeAttribute("data-toggle", "dropdown");
-                    bulkActionsSelectToggle.MergeAttribute("title", BsResourceManager.Resource("Select"));
+                    bulkActionsSelectToggle.MergeAttribute("title", BsResourceManager.Resource("BF_Select"));
 
                     var bulkActionsSelectToggleCaret = new TagBuilder("span");
                     bulkActionsSelectToggleCaret.MergeAttribute("class", "caret");
@@ -430,7 +430,7 @@ namespace BForms.Renderers
 
                 infoBuilder.InnerHtml += !string.IsNullOrEmpty(template) ?
                                     this.Builder.viewContext.Controller.BsRenderPartialView(template, null) :
-                                    BsResourceManager.Resource("NoResults");
+                                    BsResourceManager.Resource("BF_NoResults");
 
                 if (this.Builder.allowAddIfEmpty)
                 {
