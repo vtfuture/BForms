@@ -556,7 +556,7 @@ body.blue {
 	a:hover, a:focus {
 		color: darken($Blue, 10%);
 	}
-	.btn-default {
+	.btn-theme {
 		background: darken($Blue, 10%);	
 		border: 1px solid $Blue;
 		&:hover, &:focus {
@@ -625,7 +625,7 @@ body.green {
 	a:hover, a:focus {
 		color: darken($Green, 10%);
 	}
-	.btn-default {
+	.btn-theme {
 		background: darken($Green, 10%);
 		border: 1px solid $Green;		
 		&:hover, &:focus {
@@ -694,7 +694,7 @@ body.purple {
 	a:hover, a:focus {
 		color: darken($Purple, 10%);
 	}
-	.btn-default {
+	.btn-theme {
 		background: darken($Purple, 10%);	
 		border: 1px solid $Purple;
 		&:hover, &:focus {
@@ -763,13 +763,14 @@ body.orange {
 	a:hover, a:focus {
 		color: darken($Orange, 10%);
 	}
-	.btn-default {
+	.btn-theme {
 		background: darken($Orange, 10%);
 		border: 1px solid $Orange;		
 		&:hover, &:focus {
 			background: $Orange !important;			
 		}
 	}
+	
 	.navbar {
 		.nav > li .dropdown-menu li {
 			.badge-info {
@@ -832,7 +833,7 @@ body.black {
 	a:hover, a:focus {
 		color: darken($Black, 10%);
 	}
-	.btn-default {
+	.btn-theme {
 		background: darken($Black, 10%);
 		border: 1px solid $Black;		
 		&:hover, &:focus {

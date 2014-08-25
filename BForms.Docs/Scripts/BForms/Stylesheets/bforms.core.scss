@@ -37,7 +37,11 @@ textarea {
 mark, .mark {
 	background-color: #CECECE;
 }
-
+.btn {
+	&:focus, &:active:focus {
+		outline: none;
+	}
+}
 
 
 
@@ -70,7 +74,7 @@ mark, .mark {
 	clear: both;
 	&.loading {
 		.form-group {
-			height: 66px;
+			//height: 66px;
 		}
 		&:after {
 			content: "";
@@ -199,8 +203,8 @@ mark, .mark {
 	font-family: Calibri, "Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-size: 14px;
 	.select2-choice {
-		height: 38px;
-		line-height: 38px;
+		height: 34px;
+		line-height: 34px;
 		font-size: 14px;
 		border-radius: 0 !important;
 		background-image: none;
@@ -317,10 +321,10 @@ mark, .mark {
 
 .checkbox_replace {
 	.option {
-		height: 36px;
+		height: 32px;
 		text-decoration: none !important;
 		word-wrap: break-word;
-		padding: 0 8px;
+		padding: 0 4px;
 		border-left: 1px solid #ccc;
 		background: #FFF;
 		text-decoration: none;
@@ -374,31 +378,30 @@ mark, .mark {
 			background: $Gray;
 		}
 	}
+	
 }
 
 /* Custom UI END*/
 
 .form-control {
-	padding: 8px;
-	min-height: 38px;
+
 	&:focus {
 		box-shadow: none;
 		border-color: $mainColor;
+	}
+	&.select2-container-multi {
+		height: auto;
 	}
 	+ .input-group-addon {
 		border-left: none;
 	}
 }
 
-.btn {
-	&:focus {
-		outline: none;
-	}
-}
 
 .btn-group-justified {
 	> .btn, >.btn-group {
-		overflow: hidden;
+		//overflow: hidden;
+		width: 100%;
 	}
 	.input-validation-error {
 		border-color: #b94a48!important;

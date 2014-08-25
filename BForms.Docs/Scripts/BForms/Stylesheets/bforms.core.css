@@ -24,6 +24,9 @@ textarea {
 mark, .mark {
   background-color: #CECECE; }
 
+.btn:focus, .btn:active:focus {
+  outline: none; }
+
 /* Errors */
 .field-validation-valid {
   display: none; }
@@ -46,8 +49,6 @@ mark, .mark {
 .form_container {
   position: relative;
   clear: both; }
-  .form_container.loading .form-group {
-    height: 66px; }
   .form_container.loading:after {
     content: "";
     position: absolute;
@@ -55,7 +56,7 @@ mark, .mark {
     left: 0;
     width: 100%;
     height: 100%;
-    background: white url(../images/preloader.gif) center center no-repeat; }
+    background: #fff url(../images/preloader.gif) center center no-repeat; }
   .form_container.row {
     margin: 0; }
 
@@ -144,8 +145,8 @@ mark, .mark {
   font-family: Calibri, "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px; }
   .custom_select .select2-choice {
-    height: 38px;
-    line-height: 38px;
+    height: 34px;
+    line-height: 34px;
     font-size: 14px;
     border-radius: 0 !important;
     background-image: none;
@@ -167,7 +168,7 @@ mark, .mark {
       display: none; }
   .custom_select.select2-container-active .select2-choice,
   .custom_select.select2-container-active .select2-choices {
-    border: 1px solid #45ada8;
+    border: 1px solid #45ADA8;
     outline: none;
     background: #fff;
     -webkit-box-shadow: none;
@@ -222,7 +223,7 @@ mark, .mark {
       top: 5px; }
 .custom_select-multi.select2-container-active .select2-choice,
 .custom_select-multi.select2-container-active .select2-choices {
-  border: 1px solid #45ada8;
+  border: 1px solid #45ADA8;
   outline: none;
   background: #fff;
   -webkit-box-shadow: none;
@@ -230,10 +231,10 @@ mark, .mark {
   box-shadow: none; }
 
 .checkbox_replace .option {
-  height: 36px;
+  height: 32px;
   text-decoration: none !important;
   word-wrap: break-word;
-  padding: 0 8px;
+  padding: 0 4px;
   border-left: 1px solid #ccc;
   background: #FFF;
   text-decoration: none;
@@ -266,7 +267,7 @@ mark, .mark {
     margin-top: -1px;
     padding: 4px 0;
     background-color: #FFF;
-    border: 1px solid #45ada8;
+    border: 1px solid #45ADA8;
     border-top: none; }
   .twitter-typeahead .tt-suggestion {
     padding: 8px; }
@@ -276,20 +277,16 @@ mark, .mark {
       background: #dadada; }
 
 /* Custom UI END*/
-.form-control {
-  padding: 8px;
-  min-height: 38px; }
-  .form-control:focus {
-    box-shadow: none;
-    border-color: #45ada8; }
-  .form-control + .input-group-addon {
-    border-left: none; }
-
-.btn:focus {
-  outline: none; }
+.form-control:focus {
+  box-shadow: none;
+  border-color: #45ADA8; }
+.form-control.select2-container-multi {
+  height: auto; }
+.form-control + .input-group-addon {
+  border-left: none; }
 
 .btn-group-justified > .btn, .btn-group-justified > .btn-group {
-  overflow: hidden; }
+  width: 100%; }
 .btn-group-justified .input-validation-error {
   border-color: #b94a48 !important; }
 
@@ -298,7 +295,7 @@ mark, .mark {
   background-color: #368985;
   border-color: #368985; }
   .btn-theme:hover, .btn-theme:focus {
-    background: #45ada8 !important;
+    background: #45ADA8 !important;
     border-color: #368985;
     color: #fff !important;
     text-decoration: none; }
@@ -370,50 +367,50 @@ mark, .mark {
 /* GREEN*/
 .form_container.green .custom_select.select2-container-active .select2-choice,
 .form_container.green .custom_select.select2-container-active .select2-choices {
-  border-color: #59b390; }
+  border-color: #59B390; }
 .form_container.green .custom_select-multi.select2-container-active .select2-choice,
 .form_container.green .custom_select-multi.select2-container-active .select2-choices {
-  border-color: #59b390; }
+  border-color: #59B390; }
 .form_container.green .form-control:focus,
 .form_container.green .twitter-typeahead .tt-dropdown-menu {
-  border-color: #59b390 !important; }
+  border-color: #59B390 !important; }
 .form_container.green .btn-theme {
   background: #449575;
   border-color: #449575; }
   .form_container.green .btn-theme:hover, .form_container.green .btn-theme:focus {
-    background: #59b390 !important; }
+    background: #59B390 !important; }
 
 /* PURPLE*/
 .form_container.purple .custom_select.select2-container-active .select2-choice,
 .form_container.purple .custom_select.select2-container-active .select2-choices {
-  border-color: #703d6f; }
+  border-color: #703D6F; }
 .form_container.purple .custom_select-multi.select2-container-active .select2-choice,
 .form_container.purple .custom_select-multi.select2-container-active .select2-choices {
-  border-color: #703d6f; }
+  border-color: #703D6F; }
 .form_container.purple .form-control:focus,
 .form_container.purple .twitter-typeahead .tt-dropdown-menu {
-  border-color: #703d6f !important; }
+  border-color: #703D6F !important; }
 .form_container.purple .btn-theme {
   background: #4f2b4e;
   border-color: #4f2b4e; }
   .form_container.purple .btn-theme:hover, .form_container.purple .btn-theme:focus {
-    background: #703d6f !important; }
+    background: #703D6F !important; }
 
 /* ORANGE*/
 .form_container.orange .custom_select.select2-container-active .select2-choice,
 .form_container.orange .custom_select.select2-container-active .select2-choices {
-  border-color: #f27435; }
+  border-color: #F27435; }
 .form_container.orange .custom_select-multi.select2-container-active .select2-choice,
 .form_container.orange .custom_select-multi.select2-container-active .select2-choices {
-  border-color: #f27435; }
+  border-color: #F27435; }
 .form_container.orange .form-control:focus,
 .form_container.orange .twitter-typeahead .tt-dropdown-menu {
-  border-color: #f27435 !important; }
+  border-color: #F27435 !important; }
 .form_container.orange .btn-theme {
   background: #e5560f;
   border-color: #e5560f; }
   .form_container.orange .btn-theme:hover, .form_container.orange .btn-theme:focus {
-    background: #f27435 !important; }
+    background: #F27435 !important; }
 
 /* almost BLACK*/
 .form_container.black .custom_select.select2-container-active .select2-choice,
@@ -448,3 +445,5 @@ mark, .mark {
     .col-sm-12.checkbox,
     .col-sm-12.radio {
       padding-top: 0; } }
+
+/*# sourceMappingURL=bforms.core.css.map */

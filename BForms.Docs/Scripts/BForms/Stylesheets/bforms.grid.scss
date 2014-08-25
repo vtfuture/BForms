@@ -179,6 +179,7 @@ a.btn {
 						-webkit-box-shadow: none;
 						box-shadow: none;
 						height: 28px;
+						min-height: 22px;
 						line-height: normal;
 						line-height: 8px\9;
 						border-radius: 20px;
@@ -948,7 +949,7 @@ a.btn {
 				border-left: none;
 			}
 			> a:last-child {
-				border-right: 1px solid darken($mainColor, 5%) !important;
+				border-right: 1px solid darken($mainColor, 5%);
 				+ input-group {
 					margin-left: -1px;
 				}
