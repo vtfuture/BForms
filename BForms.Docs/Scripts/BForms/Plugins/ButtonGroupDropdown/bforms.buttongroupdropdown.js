@@ -30,6 +30,8 @@
 
         this._delegateEvents();
 
+        this._monitorSource();
+
         this.$select.addClass('has-bsButtonGroupDropdown');
     };
 
@@ -46,6 +48,24 @@
 
     buttonGroupDropdown.prototype._delegateEvents = function () {
         this.$btnGroup.on('click', this.options.optionSelector, $.proxy(this._onOptionClick, this));
+    };
+
+    buttonGroupDropdown.prototype._monitorSource = function () {
+
+        //for mozilla and ie
+        this.$select.on('propertychange', $.proxy(this._sync,this));
+
+        //webkit
+        if (typeof window.MutationObserver !== "undefined") {
+            if (this._propertyObserver) {
+                delete this._propertyObserver;
+                this._propertyObserver = null;
+            }
+
+            this._propertyObserver = new window.MutationObserver($.proxy(this._mutationCallback, this));
+            this._propertyObserver.observe(this.$select.get(0), { attributes: true, subtree: false });
+        }
+
     };
 
     //#region events
@@ -68,6 +88,13 @@
         }
 
     }
+
+    buttonGroupDropdown.prototype._mutationCallback = function (mutations) {
+
+        for (var key in mutations) {
+            this._sync();
+        }
+    };
     //#endregion
 
     //#region helpers
@@ -103,6 +130,24 @@
         var $caretSpan = $('<span>', { 'class': 'caret' });
         return label + ' ' + $caretSpan[0].outerHTML;
     }
+
+    buttonGroupDropdown.prototype._sync = function () {
+        this._syncCssClasses(this.$element, this.$select);
+    };
+
+    buttonGroupDropdown.prototype._syncCssClasses = function ($dest, $src) {
+
+        var toBeSynced = this.options.syncClasses;
+
+        $.each(toBeSynced, function () {
+            if ($src.hasClass(this)) {
+                $dest.addClass(this.toString());
+            } else {
+                $dest.removeClass(this.toString());
+            }
+        });
+
+    }
     //#endregion
 
     $.fn.bsButtonGroupDropdownDefaults = {
@@ -112,7 +157,8 @@
         toggleSelector: '.bs-buttonGroupDropdownToggle',
 
 
-        markClass: 'mark'
+        markClass: 'mark',
+        syncClasses: ['input-validation-error', 'valid']
     };
 
     $.fn.bsButtonGroupDropdown = function (opts) {
@@ -124,4 +170,4 @@
         return new buttonGroupDropdown($(this), $.extend(true, {}, $.fn.bsButtonGroupDropdownDefaults));
     };
 
-});
+});;
