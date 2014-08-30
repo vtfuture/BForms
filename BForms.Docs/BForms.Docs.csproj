@@ -257,6 +257,7 @@
     <Content Include="Content\Images\Docs\eg-view-model.png" />
     <Content Include="Content\Images\logo-bforms%402x.png" />
     <Content Include="Content\Images\veritech-logo-site%402x.png" />
+    <Content Include="robots.txt" />
     <Content Include="Scripts\BForms\Components\FileUpload\jquery.fileupload-process.js" />
     <Content Include="Scripts\BForms\Components\FileUpload\jquery.fileupload-validate.js" />
     <Content Include="Scripts\BForms\Components\FileUpload\jquery.fileupload.js" />
@@ -293,6 +294,7 @@
     <Content Include="Scripts\Controllers\Root\Docs\docs-groupeditor.js" />
     <Content Include="Scripts\Controllers\Root\Docs\docs-panel.js" />
     <Content Include="Scripts\Controllers\Root\Start\start-group.js" />
+    <Content Include="sitemap.xml" />
     <Content Include="Views\Start\Setup\Source\_BundleConfigJs.cs.embed" />
     <Content Include="Views\Start\Setup\Source\_Files.embed" />
     <Content Include="Areas\Demo\Views\Contributors\Grid\Details\_IdentityEditable.cshtml">

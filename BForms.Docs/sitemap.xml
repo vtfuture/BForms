@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<url>
+  <loc>http://bforms.veritech.io/</loc>
+</url>
+<url>
+  <loc>http://bforms.veritech.io/Start/Setup</loc>
+</url>
+<url>
+  <loc>http://bforms.veritech.io/Start/Form</loc>
+</url>
+<url>
+  <loc>http://bforms.veritech.io/Start/Grid</loc>
+</url>
+<url>
+  <loc>http://bforms.veritech.io/Start/Group</loc>
+</url>
+<url>
+  <loc>http://bforms.veritech.io/Docs/Overview</loc>
+</url>
+<url>
+  <loc>http://bforms.veritech.io/Docs/InputExtensions</loc>
+</url>
+<url>
+  <loc>http://bforms.veritech.io/Docs/SelectExtensions</loc>
+</url>
+<url>
+  <loc>http://bforms.veritech.io/Docs/RangeExtensions</loc>
+</url>
+<url>
+  <loc>http://bforms.veritech.io/Docs/Panel</loc>
+</url>
+<url>
+  <loc>http://bforms.veritech.io/Docs/GroupEditor</loc>
+</url>
+<url>
+  <loc>http://bforms.veritech.io/Docs/Grid</loc>
+</url>
+<url>
+  <loc>http://bforms.veritech.io/Docs/Toolbar</loc>
+</url>
+<url>
+  <loc>http://bforms.veritech.io/Docs/Excel</loc>
+</url>
+</urlset>
