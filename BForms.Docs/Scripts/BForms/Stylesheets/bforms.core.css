@@ -289,11 +289,12 @@ mark, .mark {
 .btn-group-justified > .btn, .btn-group-justified > .btn-group {
   width: 100%; }
 .btn-group-justified .dropdown-toggle {
-  text-align: left; }
+  text-align: left;
+  padding-right: 15px; }
   .btn-group-justified .dropdown-toggle .caret {
-    float: right;
-    display: inline-block;
-    margin-top: 7px; }
+    position: absolute;
+    right: 5px;
+    top: 14px; }
 .btn-group-justified .dropdown-menu {
   width: 100%; }
 .btn-group-justified .input-validation-error {

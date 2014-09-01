@@ -407,10 +407,11 @@ mark, .mark {
 	}
 	.dropdown-toggle {
 		text-align: left;
+		padding-right: 15px;
 		.caret {
-			float: right;
-			display: inline-block;
-			margin-top: 7px;
+			position: absolute;
+			right: 5px;
+			top: 14px;
 		}
 	}
 	.dropdown-menu  {
