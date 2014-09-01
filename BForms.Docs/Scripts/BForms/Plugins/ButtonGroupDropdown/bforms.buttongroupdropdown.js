@@ -120,7 +120,7 @@
 
             } else {
                 this.$btnGroup.find(this.options.optionSelector + '[data-selected="true"]').removeClass(this.options.markClass).attr('data-selected', false);
-                this.$element.html(this.$element.data('placeholder'));
+                this.$element.html(this._buildButtonText(this.$element.data('placeholder')));
             }
         }
 

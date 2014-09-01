@@ -236,6 +236,7 @@
                 checklistClass: 'bs-checkbox',
                 bsDropdownClass: 'bs-dropdown',
                 bsButtonGroupToggleClass: 'bs-button-group',
+                bsMixedButtonGroupClass : 'bs-mixed-button-group',
                 validationSummaryKey: 'BsFormError',
                 scrollToError: true,
                 ignoreTitle: false,
@@ -272,7 +273,7 @@
                         this.element(element.parentNode);
                     } else {
                         var $elem = $(element);
-                        if ($elem.hasClass(this.settings.checklistClass) || $elem.hasClass(this.settings.bsDropdownClass) || $elem.hasClass(this.settings.bsButtonGroupToggleClass)) {
+                        if ($elem.hasClass(this.settings.checklistClass) || $elem.hasClass(this.settings.bsDropdownClass) || $elem.hasClass(this.settings.bsButtonGroupToggleClass) || $elem.hasClass(this.settings.bsMixedButtonGroupClass)) {
                             this.element(element);
                         }
                     }
