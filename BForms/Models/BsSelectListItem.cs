@@ -22,5 +22,10 @@ namespace BForms.Models
         /// The dictionary items are serialized in html as data- attributes
         /// </summary>
         public Dictionary<string, string> Data { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value that indicates if the option should be rendered as a button or inside a select; used for BsMixedButtonGroup component
+        /// </summary>
+        public bool IsButton { get; set; }
     }
 }

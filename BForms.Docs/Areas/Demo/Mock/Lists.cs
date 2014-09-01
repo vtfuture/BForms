@@ -151,5 +151,18 @@ namespace BForms.Docs.Areas.Demo.Mock
 
             return list;
         }
+
+        public static BsSelectList<T> AllWebBrowsers<T>()
+        {
+            var list = new BsSelectList<T>();
+
+            list.Items.Add(new BsSelectListItem() { Text = "Chrome", Value = "1", IsButton = true});
+            list.Items.Add(new BsSelectListItem() { Text = "Firefox", Value = "2", IsButton = true});
+            list.Items.Add(new BsSelectListItem() { Text = "Internet Explorer", Value = "3" });
+            list.Items.Add(new BsSelectListItem() { Text = "Safari", Value = "4" });
+            list.Items.Add(new BsSelectListItem() { Text = "Opera", Value = "5" });
+
+            return list;
+        }
     }
 }

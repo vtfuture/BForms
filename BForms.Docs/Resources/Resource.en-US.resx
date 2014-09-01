@@ -321,4 +321,10 @@
   <data name="JavascriptMvcFrameworkPrompt" xml:space="preserve">
     <value>Please select your preferred javascript mvc framework</value>
   </data>
+  <data name="Other" xml:space="preserve">
+    <value>Other</value>
+  </data>
+  <data name="WebBrowsers" xml:space="preserve">
+    <value>Preferred web browser</value>
+  </data>
 </root>

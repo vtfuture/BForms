@@ -157,7 +157,13 @@ namespace BForms.Models
         /// Bootstrap button group
         /// </summary>
         [Description("bs-button-group")]
-        ButtonGroupDropdown
+        ButtonGroupDropdown,
+
+        /// <summary>
+        /// Bootstrap component containing buttons and button dropdowns
+        /// </summary>
+        [Description("bs-mixed-button-group")]
+        MixedButtonGroup
     }
 
 }
