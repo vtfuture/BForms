@@ -591,6 +591,16 @@ namespace BForms.Html
                         Selected = false
                     }));
             }
+            else
+            {
+                if (!selectList.Items.Any(x => x.Selected))
+                {
+                    if (selectList.Items.Count > 0)
+                    {
+                        selectList.Items.FirstOrDefault().Selected = true;
+                    }
+                }
+            }
 
             //build options
             foreach (var item in selectList.Items)
@@ -756,50 +766,67 @@ namespace BForms.Html
 
                 btnGroup.InnerHtml += buttonA;
             }
+
             #endregion
 
-            var button = new TagBuilder("a");
-            button.AddCssClass("option dropdown-toggle bs-buttonGroupDropdownToggle");
-            button.MergeAttribute("href", "#");
-            button.MergeAttribute("data-toggle", "dropdown");
-            button.MergeAttribute("data-dropdown-for", tagBuilder.Attributes["id"]);
-            button.MergeAttribute("data-placeholder", optionLabel + " ");
-
-            var selectedValue = selectList.Items.Where(x => !x.IsButton).FirstOrDefault(x => x.Selected);
-
-            if (selectedValue != null)
+            if (selectList.Items.Any(x => !x.IsButton))
             {
-                button.InnerHtml += selectedValue.Text + " ";
-                button.AddCssClass("selected");
+                var button = new TagBuilder("a");
+                button.AddCssClass("option dropdown-toggle bs-buttonGroupDropdownToggle");
+                button.MergeAttribute("href", "#");
+                button.MergeAttribute("data-toggle", "dropdown");
+                button.MergeAttribute("data-dropdown-for", tagBuilder.Attributes["id"]);
+
+                if (optionLabel != null)
+                {
+                    button.MergeAttribute("data-placeholder", optionLabel + " ");
+                }
+                else
+                {
+                    optionLabel = selectList.Items.FirstOrDefault(x => !x.IsButton).Text;
+                    button.MergeAttribute("data-placeholder", optionLabel + " ");
+                }
+
+                var selectedValue = selectList.Items.Where(x => !x.IsButton).FirstOrDefault(x => x.Selected);
+
+                if (selectedValue != null)
+                {
+                    button.InnerHtml += selectedValue.Text + " ";
+                    button.AddCssClass("selected");
+                }
+                else
+                {
+                    button.InnerHtml += optionLabel + " ";
+                }
+
+                var carretSpan = new TagBuilder("span");
+                carretSpan.AddCssClass("caret");
+
+                button.InnerHtml += carretSpan.ToString();
+
+                btnGroup.InnerHtml += button;
+
+                var dropdownUl = new TagBuilder("ul");
+                dropdownUl.AddCssClass("dropdown-menu dropdown-menu-right bs-dropdownList");
+                dropdownUl.MergeAttribute("role", "menu");
+
+                var dropdownListItemBuilder = new StringBuilder();
+
+                foreach (var item in selectList.Items.Where(x => !x.IsButton))
+                {
+                    dropdownListItemBuilder.AppendLine(ListItemToLi(item));
+                }
+
+                dropdownUl.InnerHtml += dropdownListItemBuilder.ToString();
+
+                buttonGroupContainer.InnerHtml += btnGroup;
+
+                buttonGroupContainer.InnerHtml += dropdownUl;
             }
             else
             {
-                button.InnerHtml += optionLabel + " ";
+                buttonGroupContainer.InnerHtml += btnGroup;
             }
-
-            var carretSpan = new TagBuilder("span");
-            carretSpan.AddCssClass("caret");
-
-            button.InnerHtml += carretSpan.ToString();
-
-            btnGroup.InnerHtml += button;
-
-            var dropdownUl = new TagBuilder("ul");
-            dropdownUl.AddCssClass("dropdown-menu dropdown-menu-right bs-dropdownList");
-            dropdownUl.MergeAttribute("role", "menu");
-
-            var dropdownListItemBuilder = new StringBuilder();
-
-            foreach (var item in selectList.Items.Where(x => !x.IsButton))
-            {
-                dropdownListItemBuilder.AppendLine(ListItemToLi(item));
-            }
-
-            dropdownUl.InnerHtml += dropdownListItemBuilder.ToString();
-
-            buttonGroupContainer.InnerHtml += btnGroup;
-            buttonGroupContainer.InnerHtml += dropdownUl;
-
 
             #endregion
 
