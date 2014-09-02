@@ -107,21 +107,30 @@ a.btn {
     min-height: 15px; }
     .grid_container .grid_toolbar .grid_toolbar_header {
       background: #45ADA8;
-      color: #fff; }
+      color: #fff;
+      min-height: 40px;
+      border: none; }
       .grid_container .grid_toolbar .grid_toolbar_header h1 {
         font-size: 15px;
         text-transform: uppercase;
         margin: 0;
-        padding: 12px 10px 11px;
+        padding: 11px 10px;
         border: none;
         float: left; }
+      .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_responsive_navbar {
+        padding-left: 0;
+        padding-right: 0; }
+      .grid_container .grid_toolbar .grid_toolbar_header .navbar-toggle {
+        margin: 3px 0 0; }
+        .grid_container .grid_toolbar .grid_toolbar_header .navbar-toggle .icon-bar {
+          background: #fff; }
       .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls {
         line-height: normal;
         float: right; }
-        .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls > a,
-        .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .btn-group > a {
-          padding: 10px 15px 9px;
-          border-left: 1px solid #3e9b96;
+        .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls a,
+        .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .btn-group a {
+          padding: 10px 15px;
+          border: none;
           color: #fff;
           text-transform: capitalize; }
         .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .selected {
@@ -131,8 +140,7 @@ a.btn {
           display: inline-block;
           width: 165px;
           color: #333;
-          padding: 7px 3px 6px 15px;
-          border-left: 1px solid #3e9b96;
+          padding: 6px 3px 6px 15px;
           vertical-align: middle; }
           .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .input-group input {
             border: none;
@@ -143,19 +151,19 @@ a.btn {
             line-height: normal;
             line-height: 8px\9;
             border-radius: 20px; }
-          .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .input-group + .btn_advanced_search {
-            border-left: none; }
-        .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .btn-group .caret {
-          border-top: 4px solid #fff;
-          margin-left: 5px; }
-        .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .btn-group .dropdown-menu .glyphicon {
+        .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .caret {
+          margin-left: 10px; }
+        .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .dropdown-menu .glyphicon {
           font-size: 12px; }
+        .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .dropdown-menu a {
+          color: #333; }
         .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .dropdown-menu a:hover, .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .dropdown-menu a:focus {
           background: none !important; }
         .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .popover {
           color: #333; }
         .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .glyphicon {
-          font-size: 14px; }
+          font-size: 14px;
+          top: 2px; }
       .grid_container .grid_toolbar .grid_toolbar_header:after {
         content: ".";
         display: block;
@@ -496,9 +504,7 @@ a.btn {
 /* BLUE*/
 .grid_toolbar.blue .grid_toolbar_header {
   background: #559ed6; }
-  .grid_toolbar.blue .grid_toolbar_header .grid_toolbar_controls a, .grid_toolbar.blue .grid_toolbar_header .grid_toolbar_controls .input-group {
-    border-left-color: #3086c8 !important; }
-  .grid_toolbar.blue .grid_toolbar_header .grid_toolbar_controls a:hover {
+  .grid_toolbar.blue .grid_toolbar_header .grid_toolbar_controls a:hover, .grid_toolbar.blue .grid_toolbar_header .grid_toolbar_controls .open > a {
     background: #3086c8 !important; }
   .grid_toolbar.blue .grid_toolbar_header .grid_toolbar_controls .dropdown-menu a:hover, .grid_toolbar.blue .grid_toolbar_header .grid_toolbar_controls .dropdown-menu a:focus {
     color: #559ed6 !important; }
@@ -524,9 +530,7 @@ a.btn {
 /* GREEN*/
 .grid_toolbar.green .grid_toolbar_header {
   background: #59B390; }
-  .grid_toolbar.green .grid_toolbar_header .grid_toolbar_controls a, .grid_toolbar.green .grid_toolbar_header .grid_toolbar_controls .input-group {
-    border-left-color: #449575 !important; }
-  .grid_toolbar.green .grid_toolbar_header .grid_toolbar_controls a:hover {
+  .grid_toolbar.green .grid_toolbar_header .grid_toolbar_controls a:hover, .grid_toolbar.green .grid_toolbar_header .grid_toolbar_controls .open > a {
     background: #449575 !important; }
   .grid_toolbar.green .grid_toolbar_header .grid_toolbar_controls .dropdown-menu a:hover, .grid_toolbar.green .grid_toolbar_header .grid_toolbar_controls .dropdown-menu a:focus {
     color: #59B390 !important; }
@@ -552,9 +556,7 @@ a.btn {
 /* PURPLE*/
 .grid_toolbar.purple .grid_toolbar_header {
   background: #703D6F; }
-  .grid_toolbar.purple .grid_toolbar_header .grid_toolbar_controls a, .grid_toolbar.purple .grid_toolbar_header .grid_toolbar_controls .input-group {
-    border-left-color: #4f2b4e !important; }
-  .grid_toolbar.purple .grid_toolbar_header .grid_toolbar_controls a:hover {
+  .grid_toolbar.purple .grid_toolbar_header .grid_toolbar_controls a:hover, .grid_toolbar.purple .grid_toolbar_header .grid_toolbar_controls .open > a {
     background: #4f2b4e !important; }
   .grid_toolbar.purple .grid_toolbar_header .grid_toolbar_controls .dropdown-menu a:hover, .grid_toolbar.purple .grid_toolbar_header .grid_toolbar_controls .dropdown-menu a:focus {
     color: #703D6F !important; }
@@ -580,9 +582,7 @@ a.btn {
 /* ORANGE*/
 .grid_toolbar.orange .grid_toolbar_header {
   background: #F27435; }
-  .grid_toolbar.orange .grid_toolbar_header .grid_toolbar_controls a, .grid_toolbar.orange .grid_toolbar_header .grid_toolbar_controls .input-group {
-    border-left-color: #e5560f !important; }
-  .grid_toolbar.orange .grid_toolbar_header .grid_toolbar_controls a:hover {
+  .grid_toolbar.orange .grid_toolbar_header .grid_toolbar_controls a:hover, .grid_toolbar.orange .grid_toolbar_header .grid_toolbar_controls .open > a {
     background: #e5560f !important; }
   .grid_toolbar.orange .grid_toolbar_header .grid_toolbar_controls .dropdown-menu a:hover, .grid_toolbar.orange .grid_toolbar_header .grid_toolbar_controls .dropdown-menu a:focus {
     color: #F27435 !important; }
@@ -608,9 +608,7 @@ a.btn {
 /* almost BLACK*/
 .grid_toolbar.black .grid_toolbar_header {
   background: #424141; }
-  .grid_toolbar.black .grid_toolbar_header .grid_toolbar_controls a, .grid_toolbar.black .grid_toolbar_header .grid_toolbar_controls .input-group {
-    border-left-color: #282828 !important; }
-  .grid_toolbar.black .grid_toolbar_header .grid_toolbar_controls a:hover {
+  .grid_toolbar.black .grid_toolbar_header .grid_toolbar_controls a:hover, .grid_toolbar.black .grid_toolbar_header .grid_toolbar_controls .open > a {
     background: #282828 !important; }
   .grid_toolbar.black .grid_toolbar_header .grid_toolbar_controls .dropdown-menu a:hover, .grid_toolbar.black .grid_toolbar_header .grid_toolbar_controls .dropdown-menu a:focus {
     color: #424141 !important; }
@@ -641,13 +639,10 @@ a.btn {
     border-bottom: 1px solid #3e9b96;
     float: none; }
   .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls {
-    float: none; }
-    .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls a:first-child {
-      border-left: none; }
-    .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls > a:last-child {
-      border-right: 1px solid #3e9b96; }
-      .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls > a:last-child + input-group {
-        margin-left: -1px; }
+    float: none;
+    margin-top: 0; }
+    .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .dropdown-menu {
+      background: #fff; }
 
   .results_per_page_container, .results_number {
     display: none; } }
@@ -662,12 +657,18 @@ a.btn {
     background: #fff !important;
     color: #333333 !important;
     text-decoration: none; }
+  .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .btn {
+    text-align: left;
+    font-size: 18px; }
+  .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .input-group {
+    width: 100%;
+    padding: 6px 3px; }
 
   .grid_row header div:first-child {
     margin-bottom: 10px; } }
 @media (min-width: 960px) {
   /* Hover effects for desktop only*/
-  .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls a:hover {
+  .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls a:hover, .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .open > a {
     background-color: #3e9b96;
     text-decoration: none;
     color: #fff; }

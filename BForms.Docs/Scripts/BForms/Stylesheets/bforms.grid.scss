@@ -145,21 +145,33 @@ a.btn {
 		.grid_toolbar_header {
 			background: $mainColor;
 			color: #fff;
+			min-height: 40px;
+			border: none;
 			h1 {
 				font-size: 15px;
 				text-transform: uppercase;
 				margin: 0;
-				padding: 12px 10px 11px;
+				padding: 11px 10px;
 				border: none;
 				float: left;
+			}
+			.grid_toolbar_responsive_navbar {
+				padding-left: 0;
+				padding-right: 0;
+			}
+			.navbar-toggle {
+				margin: 3px 0 0;
+				.icon-bar {
+					background: #fff;
+				}
 			}
 			.grid_toolbar_controls {
 				line-height: normal;
 				float: right;
-				 > a,
-                .btn-group > a {
-					padding: 10px 15px 9px;
-					border-left: 1px solid darken($mainColor, 5%);
+				a,
+                .btn-group a {
+					padding: 10px 15px;
+					border: none;
 					color: #fff;
 					text-transform: capitalize;				
 				}
@@ -171,8 +183,7 @@ a.btn {
 					display: inline-block;
 					width: 165px;
 					color: #333;
-					padding: 7px 3px 6px 15px;
-					border-left: 1px solid darken($mainColor, 5%);
+					padding: 6px 3px 6px 15px;
 					vertical-align: middle;
 					input {
 						border: none;
@@ -184,22 +195,22 @@ a.btn {
 						line-height: 8px\9;
 						border-radius: 20px;
 					}
-					+ .btn_advanced_search {
-						border-left: none;
-					}					
+			
 				}
-			    .btn-group {
-					.caret {
-						border-top: 4px solid #fff;
-						margin-left: 5px;
-					}
-					.dropdown-menu {
-						.glyphicon {
-							font-size: 12px;
-						}
-					}			
+			    
+				.caret {						
+					margin-left: 10px;
 				}
 				.dropdown-menu {
+					.glyphicon {
+						font-size: 12px;
+					}
+				}			
+				
+				.dropdown-menu {
+					a {
+						color: #333;
+					}
 					a:hover, a:focus {
 						background: none !important;
 					}
@@ -210,6 +221,7 @@ a.btn {
 				
 				.glyphicon {
 					font-size: 14px;
+					top: 2px;
 				}
 			}
 			&:after {
@@ -691,10 +703,8 @@ a.btn {
 .grid_toolbar.blue  .grid_toolbar_header {
 	background: $Blue;
 	.grid_toolbar_controls {
-		a, .input-group {
-			border-left-color: darken($Blue, 10%) !important;
-		}
-		a:hover {
+
+		a:hover, .open > a {
 			background: darken($Blue, 10%) !important;
 		}	
 		.dropdown-menu {
@@ -740,10 +750,8 @@ a.btn {
 .grid_toolbar.green  .grid_toolbar_header {
 	background: $Green;
 	.grid_toolbar_controls {
-		a, .input-group {
-			border-left-color: darken($Green, 10%) !important;
-		}
-		a:hover {
+
+		a:hover, .open > a {
 			background: darken($Green, 10%) !important;
 		}
 		.dropdown-menu {
@@ -790,10 +798,8 @@ a.btn {
 .grid_toolbar.purple  .grid_toolbar_header {
 	background: $Purple;
 	.grid_toolbar_controls {
-		a, .input-group {
-			border-left-color: darken($Purple, 10%) !important;
-		}	
-		a:hover {
+	
+		a:hover, .open > a {
 			background: darken($Purple, 10%) !important;
 		}
 		.dropdown-menu {
@@ -839,10 +845,8 @@ a.btn {
 .grid_toolbar.orange  .grid_toolbar_header {
 	background: $Orange;
 	.grid_toolbar_controls {
-		a, .input-group {
-			border-left-color: darken($Orange, 10%) !important;
-		}	
-		a:hover {
+
+		a:hover, .open > a {
 			background: darken($Orange, 10%) !important;
 		}
 		.dropdown-menu {
@@ -889,10 +893,8 @@ a.btn {
 .grid_toolbar.black   .grid_toolbar_header {
 	background: $Black;
 	.grid_toolbar_controls {
-		a, .input-group {
-			border-left-color: darken($Black, 10%) !important;
-		}	
-		a:hover {
+
+		a:hover, .open > a {
 			background: darken($Black, 10%) !important;
 		}
 		.dropdown-menu {
@@ -945,14 +947,9 @@ a.btn {
 		}
 		.grid_toolbar_controls {
 			float: none;
-			a:first-child {
-				border-left: none;
-			}
-			> a:last-child {
-				border-right: 1px solid darken($mainColor, 5%);
-				+ input-group {
-					margin-left: -1px;
-				}
+			margin-top: 0;
+			.dropdown-menu {
+				background: #fff;
 			}
 		}
 	}
@@ -982,6 +979,16 @@ a.btn {
 				text-decoration: none;
 			}
 		}
+		.grid_toolbar .grid_toolbar_header .grid_toolbar_controls {
+			.btn {
+				text-align: left;
+				font-size: 18px;
+			}
+			.input-group {
+				width: 100%;
+				padding: 6px 3px;
+			}
+		}
 	}
 	.grid_row {
 		header div:first-child{
@@ -993,7 +1000,7 @@ a.btn {
 @media (min-width: 960px) { /* Hover effects for desktop only*/
 	.grid_container {
 		.grid_toolbar .grid_toolbar_header .grid_toolbar_controls {
-			a:hover {
+			a:hover, .open > a {
 				background-color: darken($mainColor, 5%);
 				text-decoration: none;
 				color: #fff;
