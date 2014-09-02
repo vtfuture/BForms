@@ -339,4 +339,10 @@
   <data name="RequireJsProject" xml:space="preserve">
     <value>RequireJSDotNet</value>
   </data>
+  <data name="Other" xml:space="preserve">
+    <value>Other</value>
+  </data>
+  <data name="WebBrowsers" xml:space="preserve">
+    <value>Preferred web browser</value>
+  </data>
 </root>

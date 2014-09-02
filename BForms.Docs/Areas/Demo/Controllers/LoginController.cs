@@ -27,15 +27,15 @@ namespace BForms.Docs.Areas.Demo.Controllers
                 RegisterModel = InitRegisterModel()
             };
 
-            if(!string.IsNullOrEmpty(mode))
-            if(mode.ToLower() == "login")
-            {
-                model.RegisterModel = null;
-            }
-            else if (mode.ToLower() == "register")
-            {
-                model.LoginModel = null;
-            }
+            if (!string.IsNullOrEmpty(mode))
+                if (mode.ToLower() == "login")
+                {
+                    model.RegisterModel = null;
+                }
+                else if (mode.ToLower() == "register")
+                {
+                    model.LoginModel = null;
+                }
 
             RequireJsOptions.Add("registerUrl", Url.Action("Register"));
 
@@ -86,18 +86,18 @@ namespace BForms.Docs.Areas.Demo.Controllers
                 "Selected location doesn't match your GPS location");
 
             //add global validation error
-            ModelState.AddFormError("RegisterModel", 
+            ModelState.AddFormError("RegisterModel",
                 "This email address is in use.");
 
             if (ModelState.IsValid)
             {
-                
+
             }
             else
             {
                 //JSON serialize ModelState errors
                 return new BsJsonResult(
-                    new Dictionary<string, object> { { "Errors", ModelState.GetErrors() } }, 
+                    new Dictionary<string, object> { { "Errors", ModelState.GetErrors() } },
                     BsResponseStatus.ValidationError);
             }
 
@@ -107,7 +107,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
         private RegisterModel InitRegisterModel()
         {
             var listWithSelected = Lists.AllAsp<List<int>>();
-            listWithSelected.SelectedValues = new List<int> {1, 2};
+            listWithSelected.SelectedValues = new List<int> { 1, 2 };
 
             var enumWithSelected = BsSelectList<NotificationType?>.FromEnum(typeof(NotificationType));
             enumWithSelected.SelectedValues = NotificationType.Monthly;
@@ -126,6 +126,8 @@ namespace BForms.Docs.Areas.Demo.Controllers
 
             var javascriptMvcFrameworkWithSelected = Lists.AllJavascriptFrameworks<int>();
             javascriptMvcFrameworkWithSelected.SelectedValues = 2;
+
+            var webBrowsers = Lists.AllWebBrowsers<int>();
 
             return new RegisterModel()
             {
@@ -148,7 +150,8 @@ namespace BForms.Docs.Areas.Demo.Controllers
                         ItemValue = DateTime.Now.AddDays(12)
                     }
                 },
-                JavascriptMvcFramework = javascriptMvcFrameworkWithSelected
+                JavascriptMvcFramework = javascriptMvcFrameworkWithSelected,
+                WebBrowsers = webBrowsers
             };
         }
     }

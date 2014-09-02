@@ -27,7 +27,7 @@
   .group_editor .search {
     padding: 10px 0;
     margin-bottom: 10px;
-    background: #eeeeee; }
+    background: #eee; }
     .group_editor .search .btn {
       padding: 6px 12px; }
     .group_editor .search.inline > .input-group {
@@ -133,6 +133,8 @@
           border-color: #eee !important; }
     .group_editor .grid_view .controls .glyphicon {
       vertical-align: text-top; }
+  .group_editor .ui-sortable-handle {
+    cursor: move; }
 
 @media (max-width: 959px) {
   .group_editor {
@@ -144,3 +146,5 @@
       margin-bottom: 5px; }
       .group_editor > div .bs-pager, .group_editor > div .counter {
         position: relative; } }
+
+/*# sourceMappingURL=bforms.groupeditor.css.map */

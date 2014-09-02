@@ -323,7 +323,7 @@ mark, .mark {
 	.option {
 		height: 32px;
 		text-decoration: none !important;
-		word-wrap: break-word;
+		//word-wrap: break-word;
 		padding: 0 4px;
 		border-left: 1px solid #ccc;
 		background: #FFF;
@@ -332,6 +332,9 @@ mark, .mark {
 		display: table-cell;
 		width: 1%;
 		vertical-align: middle;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
 		&:first-child {
 			border: none;
 		}
@@ -404,10 +407,11 @@ mark, .mark {
 	}
 	.dropdown-toggle {
 		text-align: left;
+		padding-right: 15px;
 		.caret {
-			float: right;
-			display: inline-block;
-			margin-top: 7px;
+			position: absolute;
+			right: 5px;
+			top: 14px;
 		}
 	}
 	.dropdown-menu  {

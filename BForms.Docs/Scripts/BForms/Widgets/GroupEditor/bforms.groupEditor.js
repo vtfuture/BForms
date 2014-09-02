@@ -258,10 +258,11 @@
         this.$element.find(this.options.groupSelector).find(this.options.groupItemsWrapper).sortable({
             items: this.options.groupItemSelector,
             distance: 5,
-            connectWith: this.options.groupSelector,
+            connectWith: this.options.groupItemsWrapper,
             start: $.proxy(this._sortStart, this),
             beforeStop: $.proxy(this._beforeSortStop, this),
             stop: $.proxy(this._sortStop, this),
+            handle : 'header',
             cancel: '.bs-notDraggable'
         });
     };

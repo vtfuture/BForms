@@ -55,6 +55,9 @@
         buttongroupdropdown: true,
         buttongroupdropdownSelector: '.bs-button-group',
 
+        mixedbuttongroup: true,
+        mixedbuttongroupSelector : '.bs-mixed-button-group',
+
         loadingSelector: '.loading',
         loadingClass: 'loading',
         transformNumbers: true
@@ -1021,6 +1024,34 @@
                         });
                     } else {
                         throw 'bsButtonGroupDropdown script must be loaded before calling initUI';
+                    }
+                }
+            }
+
+            if (this.options.mixedbuttongroup && this.$elem.find(this.options.mixedbuttongroupSelector).length) {
+
+                if (this.loadAMD) {
+                    var mixedButtonGroupDeferred = $.Deferred();
+
+                    this.deferredList.push(mixedButtonGroupDeferred);
+
+                    require(['bforms-mixedButtonGroup'], function () {
+
+                        self.$elem.find(self.options.mixedbuttongroupSelector).each(function (idx, elem) {
+                            var $elem = $(elem);
+                            $elem.bsMixedButtonGroup($.extend(true, {}, self._getOptions(this)));
+                        });
+
+                        mixedButtonGroupDeferred.resolve();
+                    });
+                } else {
+                    if (typeof $.fn.bsMixedButtonGroup === 'function') {
+                        self.$elem.find(self.options.mixedbuttongroupSelector).each(function (idx, elem) {
+                            var $elem = $(elem);
+                            $elem.bsMixedButtonGroup($.extend(true, {}, self._getOptions(this)));
+                        });
+                    } else {
+                        throw 'bsMixedButtonGroup script must be loaded before calling initUI';
                     }
                 }
             }

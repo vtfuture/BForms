@@ -121,6 +121,11 @@ namespace BForms.Docs.Areas.Demo.Models
         [Display(Name = "JavascriptMvcFramework", Prompt = "JavascriptMvcFrameworkPrompt", ResourceType = typeof(Resource))]
         [BsControl(BsControlType.ButtonGroupDropdown)]
         public BsSelectList<int> JavascriptMvcFramework { get; set; }
+
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
+        [Display(Name = "WebBrowsers", Prompt = "Other", ResourceType = typeof(Resource))]
+        [BsControl(BsControlType.MixedButtonGroup)]
+        public BsSelectList<int>  WebBrowsers{ get; set; }
     }
 
 }

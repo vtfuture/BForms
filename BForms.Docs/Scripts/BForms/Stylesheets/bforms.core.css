@@ -233,7 +233,6 @@ mark, .mark {
 .checkbox_replace .option {
   height: 32px;
   text-decoration: none !important;
-  word-wrap: break-word;
   padding: 0 4px;
   border-left: 1px solid #ccc;
   background: #FFF;
@@ -241,7 +240,10 @@ mark, .mark {
   cursor: pointer;
   display: table-cell;
   width: 1%;
-  vertical-align: middle; }
+  vertical-align: middle;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis; }
   .checkbox_replace .option:first-child {
     border: none; }
   .checkbox_replace .option:hover {
@@ -287,11 +289,12 @@ mark, .mark {
 .btn-group-justified > .btn, .btn-group-justified > .btn-group {
   width: 100%; }
 .btn-group-justified .dropdown-toggle {
-  text-align: left; }
+  text-align: left;
+  padding-right: 15px; }
   .btn-group-justified .dropdown-toggle .caret {
-    float: right;
-    display: inline-block;
-    margin-top: 7px; }
+    position: absolute;
+    right: 5px;
+    top: 14px; }
 .btn-group-justified .dropdown-menu {
   width: 100%; }
 .btn-group-justified .input-validation-error {
