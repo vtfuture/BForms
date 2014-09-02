@@ -24,8 +24,8 @@ namespace BForms.Renderers
 
         public override string Render()
         {
-            var buttonGroupBuilder = new TagBuilder("div");
-            buttonGroupBuilder.AddCssClass("btn-group");
+            var buttonGroupBuilder = new TagBuilder("li");
+            buttonGroupBuilder.AddCssClass("dropdown");
             if (!string.IsNullOrEmpty(this.Builder.title))
             {
                 buttonGroupBuilder.MergeAttribute("title", this.Builder.title);

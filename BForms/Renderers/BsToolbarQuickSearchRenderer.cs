@@ -24,6 +24,8 @@ namespace BForms.Renderers
         /// </summary>
         public override string Render()
         {
+            var liBuilder = new TagBuilder("li");
+
             var inputGroupBuilder = new TagBuilder("div");
             inputGroupBuilder.AddCssClass("input-group bs-quick_search");
 
@@ -34,7 +36,9 @@ namespace BForms.Renderers
 
             inputGroupBuilder.InnerHtml += inputBuilder.ToString(TagRenderMode.SelfClosing);
 
-            return inputGroupBuilder.ToString();
+            liBuilder.InnerHtml += inputGroupBuilder;
+
+            return liBuilder.ToString();
         }
     }
 }

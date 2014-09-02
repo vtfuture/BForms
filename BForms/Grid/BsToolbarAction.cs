@@ -24,6 +24,8 @@ namespace BForms.Grid
 
         internal string text;
 
+        internal string xsText;
+
         internal Glyphicon? glyphIcon;
 
         internal string href;
@@ -53,7 +55,7 @@ namespace BForms.Grid
         }
 
         public BsToolbarAction(ViewContext viewContext)
-            : base(viewContext) 
+            : base(viewContext)
         {
             this.renderer = new BsToolbarActionRenderer<TToolbar>(this);
         }
@@ -142,6 +144,17 @@ namespace BForms.Grid
         }
 
         /// <summary>
+        /// Sets control text visible only on less than 768px width
+        /// </summary>
+        /// <param name="xsText"></param>
+        /// <returns></returns>
+        public BsToolbarAction<TToolbar> XsText(string xsText)
+        {
+            this.xsText = xsText;
+            return this;
+        }
+
+        /// <summary>
         /// Sets control button text
         /// </summary>
         /// <returns>BsToolbarAction</returns>
@@ -217,7 +230,7 @@ namespace BForms.Grid
     /// <summary>
     /// For toolbar without forms
     /// </summary>
-    public class BsToolbarAction: BsBaseComponent<BsToolbarAction>
+    public class BsToolbarAction : BsBaseComponent<BsToolbarAction>
     {
         #region Properties and constructors
         internal string descriptorClass;
@@ -225,6 +238,8 @@ namespace BForms.Grid
         internal string styleClasses;
 
         internal string title;
+
+        internal string xsText;
 
         internal string text;
 
@@ -294,6 +309,17 @@ namespace BForms.Grid
         public BsToolbarAction Title(string title)
         {
             this.title = title;
+            return this;
+        }
+
+        /// <summary>
+        /// Sets control text visible only on less than 768px width
+        /// </summary>
+        /// <param name="xsText"></param>
+        /// <returns></returns>
+        public BsToolbarAction XsText(string xsText)
+        {
+            this.xsText = xsText;
             return this;
         }
 

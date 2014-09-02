@@ -30,6 +30,7 @@ namespace BForms.Renderers
         /// </summary>
         public override string Render()
         {
+
             var toolbarBuilder = new TagBuilder("div");
             toolbarBuilder.MergeAttribute("id", this.Builder.id);
             toolbarBuilder.MergeClassAttribute("grid_toolbar", this.Builder.htmlAttributes);
@@ -38,19 +39,44 @@ namespace BForms.Renderers
             toolbarBuilder.AddCssClass(this.Builder.Theme.GetDescription());
 
             var toolbarHeaderBuilder = new TagBuilder("div");
-            toolbarHeaderBuilder.AddCssClass("grid_toolbar_header");
+            toolbarHeaderBuilder.AddCssClass("grid_toolbar_header navbar");
 
-            var headerBulder = new TagBuilder("h1");
-            headerBulder.InnerHtml += this.Builder.displayName;
-            toolbarHeaderBuilder.InnerHtml += headerBulder.ToString();
+            var headerContainer = new TagBuilder("div");
+            headerContainer.AddCssClass("navbar-header");
+
+            var headerBuilder = new TagBuilder("h1");
+            headerBuilder.InnerHtml += this.Builder.displayName;
+
+            headerContainer.InnerHtml += headerBuilder;
+
+            var toggleButton = new TagBuilder("button");
+            toggleButton.AddCssClass("navbar-toggle");
+            toggleButton.MergeAttribute("type", "button");
+            toggleButton.MergeAttribute("data-toggle", "collapse");
+            toggleButton.MergeAttribute("data-target", ".grid_toolbar_responsive_navbar");
+
+            var toggleSpan = new TagBuilder("span");
+            toggleSpan.AddCssClass("icon-bar");
+
+            toggleButton.InnerHtml += toggleSpan.ToString() + toggleSpan + toggleSpan;
+          
+
+            headerContainer.InnerHtml += toggleButton;
+
+            toolbarHeaderBuilder.InnerHtml += headerContainer;
 
             string tabs = string.Empty;
 
             if (this.Builder.ActionsFactory != null)
             {
                 int tabNr = 0;
-                var controlsBuilder = new TagBuilder("div");
-                controlsBuilder.AddCssClass("grid_toolbar_controls");
+
+                var controlsContainer = new TagBuilder("div");
+                controlsContainer.AddCssClass("collapse navbar-collapse grid_toolbar_responsive_navbar");
+
+                var controlsBuilder = new TagBuilder("ul");
+                controlsBuilder.AddCssClass("grid_toolbar_controls nav navbar-nav pull-right");
+
 
                 // Render tab within ButtonGroup
                 if (this.Builder.ActionsFactory.ButtonGroups != null)
@@ -87,13 +113,18 @@ namespace BForms.Renderers
                         tabs += RenderTab(defaultAction, tabNr).ToString();
                         tabNr++;
                     }
+
                     controlsBuilder.InnerHtml += action.ToString();
                 }
 
-                toolbarHeaderBuilder.InnerHtml += controlsBuilder.ToString();
+                controlsContainer.InnerHtml += controlsBuilder;
+
+                toolbarHeaderBuilder.InnerHtml += controlsContainer.ToString();
             }
 
             toolbarBuilder.InnerHtml += toolbarHeaderBuilder.ToString();
+
+
             toolbarBuilder.InnerHtml += tabs;
 
             return toolbarBuilder.ToString();
@@ -189,7 +220,7 @@ namespace BForms.Renderers
                                 // renders tab content if any
                                 if (defaultAction != null)
                                 {
-                                    
+
                                     tabs += RenderTab(defaultAction, tabNr).ToString();
                                     tabNr++;
                                 }

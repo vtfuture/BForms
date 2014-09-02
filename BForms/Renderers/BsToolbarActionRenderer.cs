@@ -20,7 +20,7 @@ namespace BForms.Renderers
 
         public BsToolbarActionRenderer(BsToolbarAction<TToolbar> builder)
             : base(builder)
-        { 
+        {
 
         }
 
@@ -29,6 +29,8 @@ namespace BForms.Renderers
         /// </summary>
         public override string Render()
         {
+            var liContainer = new TagBuilder("li");
+
             var actionBuilder = new TagBuilder("a");
 
             if (this.Builder.htmlAttributes != null)
@@ -50,9 +52,30 @@ namespace BForms.Renderers
                 actionBuilder.MergeAttribute("title", this.Builder.title);
             }
 
-            actionBuilder.InnerHtml += (this.Builder.glyphIcon.HasValue ? GetGlyphicon(this.Builder.glyphIcon.Value) + " " : "") + this.Builder.text;
+            actionBuilder.InnerHtml += (this.Builder.glyphIcon.HasValue ? GetGlyphicon(this.Builder.glyphIcon.Value) + " " : "");
 
-            return actionBuilder.ToString();
+            var notXsSpan = new TagBuilder("span");
+            notXsSpan.InnerHtml += this.Builder.text;
+
+            if (!String.IsNullOrEmpty(this.Builder.xsText))
+            {
+                notXsSpan.AddCssClass("hidden-xs");
+
+                var xsSpan = new TagBuilder("span");
+                xsSpan.AddCssClass("visible-xs");
+                xsSpan.InnerHtml += this.Builder.xsText;
+
+                actionBuilder.InnerHtml += notXsSpan.ToString() + xsSpan;
+            }
+            else
+            {
+                actionBuilder.InnerHtml += notXsSpan;
+            }
+
+
+            liContainer.InnerHtml += actionBuilder;
+
+            return liContainer.ToString();
         }
 
     }
@@ -78,6 +101,8 @@ namespace BForms.Renderers
         /// </summary>
         public override string Render()
         {
+            var liContainer = new TagBuilder("li");
+
             var actionBuilder = new TagBuilder("a");
             actionBuilder.AddCssClass(this.Builder.descriptorClass);
             actionBuilder.AddCssClass("btn");
@@ -96,7 +121,9 @@ namespace BForms.Renderers
 
             actionBuilder.InnerHtml += (this.Builder.glyphIcon.HasValue ? GetGlyphicon(this.Builder.glyphIcon.Value) + " " : "") + this.Builder.text;
 
-            return actionBuilder.ToString();
+            liContainer.InnerHtml += actionBuilder;
+
+            return liContainer.ToString();
         }
 
     }
