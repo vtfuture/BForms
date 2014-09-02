@@ -200,6 +200,9 @@ $borderColor: #e8e8e8;
 		}
 
 	}
+	.ui-sortable-handle {
+		cursor: move;
+	}
 }
 
 @media (max-width: 959px) { 
