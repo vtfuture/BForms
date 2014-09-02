@@ -664,11 +664,7 @@ a.btn {
     text-decoration: none; }
 
   .grid_row header div:first-child {
-    margin-bottom: 10px; }
-
-  .dropdown-menu {
-    left: 0 !important;
-    right: auto !important; } }
+    margin-bottom: 10px; } }
 @media (min-width: 960px) {
   /* Hover effects for desktop only*/
   .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls a:hover {
