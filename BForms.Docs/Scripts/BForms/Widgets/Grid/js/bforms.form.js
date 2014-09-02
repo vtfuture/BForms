@@ -166,7 +166,7 @@
                 data: data
             });
         }
-
+        
         var action = $me.data('action') || buttonOpt.actionUrl;
         if (action) {
             $.bforms.ajax({

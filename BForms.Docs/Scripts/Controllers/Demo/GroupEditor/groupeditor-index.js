@@ -18,9 +18,7 @@
     GroupEditorIndex.prototype.init = function () {
         $('#myGroupEditor').bsGroupEditor({
             getTabUrl: this.options.getTabUrl,
-            groupBulkMoveConfirmShown: function () {
-                //console.log('ha ha ha')
-            },
+            groupBulkMoveConfirmShown: function () {},
             groupBulkMoveConfirm: false,
             groupBulkMoveConfirmContent: 'Are you sure ?',
             groupBulkMoveConfirmBtns: [{
@@ -42,9 +40,7 @@
                     this.hide();
                 }
             }],
-            onTabItemAdd: function (e, response) {
-                //console.log(response.additionalData)
-            },
+            onTabItemAdd: function (e, response) {},
             buildDragHelper: function (model, tabId, connectsWith) {
                 return $('<div class="col-lg-6 col-md-6 bs-itemContent" style="z-index:999"><span>' + model.Name + '</span></div>');
             },
@@ -59,12 +55,11 @@
             }, this),
             initEditorForm: $.proxy(function ($form, uid, tabModel) {
 
-                if (uid == "2.Search") {
-                    this._initSearchForm($form, uid);
-                } else if (uid == "1.New") {
-                    this._initAddForm($form, uid);
+                if (uid.indexOf('Search') != -1) {
+                    this._initSearchForm($form, uid, tabModel.tabId);
+                } else if (uid.indexOf('New') != -1) {
+                    this._initAddForm($form, uid, tabModel.tabId);
                 }
-
 
             }, this),
             validation: {
@@ -76,7 +71,18 @@
         });
     };
 
-    GroupEditorIndex.prototype._initSearchForm = function ($form, uid) {
+    GroupEditorIndex.prototype._initSearchForm = function ($form, uid, tabId) {
+
+        var rolesFilter = [],
+            contributorType = this.options.contributorType,
+            projectRole = this.options.projectRole;
+
+        // this is useless, already filtered on server based on tabId
+        if (tabId == contributorType.Developer) { 
+            rolesFilter = [projectRole.Developer, projectRole.TeamLeader];
+        } else if (tabId == contributorType.Tester) {
+            rolesFilter = [projectRole.Tester]
+        }
 
         $form.bsForm({
             uniqueName: 'searchForm',
@@ -87,6 +93,14 @@
                 selector: '.js-btn-search',
                 actionUrl: this.options.advancedSearchUrl,
                 parse: true,
+                getExtraData: $.proxy(function (data) {
+                    
+                    data.model = $.extend(true, {
+                        RolesFilter: rolesFilter
+                    }, data);
+                    data.tabId = tabId;
+
+                }, this),
                 handler: $.proxy(function (formData, response) {
                     $('#myGroupEditor').bsGroupEditor('setTabContent', response.Html);
                 }, this)
@@ -100,10 +114,10 @@
         });
     };
 
-    GroupEditorIndex.prototype._initAddForm = function ($form, uid) {
+    GroupEditorIndex.prototype._initAddForm = function ($form, uid, tabId) {
 
         $form.bsForm({
-            uniqueName: 'searchForm',
+            uniqueName: 'addForm',
             prefix: 'prefix' + uid + '.',
             actions: [
             {
@@ -111,7 +125,13 @@
                 selector: '.js-btn-save',
                 actionUrl: this.options.addUrl,
                 parse: true,
-                validate : true,
+                validate: true,
+                getExtraData: $.proxy(function (data) {
+
+                    data.model = $.extend(true, {}, data);
+                    data.tabId = tabId;
+
+                }, this),
                 handler: $.proxy(function (formData, response) {
 
                     var $row = $(response.Row).find('.bs-tabItem');

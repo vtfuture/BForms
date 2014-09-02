@@ -149,7 +149,7 @@ namespace BForms.Docs.Areas.Demo.Repositories
                     //select back TEntity
                     query = queryQuick.Select(x => x.Contributer);
                 }
-                else if (Settings.Search != null)
+                if (Settings.Search != null)
                 {
                     #region Name
                     if (!string.IsNullOrEmpty(Settings.Search.Name))
@@ -215,6 +215,11 @@ namespace BForms.Docs.Areas.Demo.Repositories
                         {
                             query = query.Where(x => x.Role == role);
                         }
+                    }
+
+                    if (Settings.Search.RolesFilter != null && Settings.Search.RolesFilter.Any())
+                    {
+                        query = query.Where(x => Settings.Search.RolesFilter.Contains(x.Role));
                     }
                     #endregion
 

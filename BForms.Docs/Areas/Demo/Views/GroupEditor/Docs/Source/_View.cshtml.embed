@@ -1,63 +1,53 @@
-﻿  var builder = Html.BsGroupEditorFor(x => x.Editor2);
+﻿@{
+
+    var builder = Html.BsGroupEditorFor(x => x.Editor);
 
     builder.Theme = Html.GetTheme();
-
+    
     builder.ConfigureTabs(cfg =>
     {
-        var tab3 = cfg.For(x => x.Contributors3)
+        var tab2 = cfg.For(x => x.Testers)
             .Template(x => x.Grid, "_TabItem")
-            .Template(x => x.New, "~/Areas/Demo/Views/Contributors/Toolbar/_New.cshtml")
-            .ConnectsWith(NotificationType.Monthly);
+            .Template(x => x.Search, "~/Areas/Demo/Views/Contributors/Toolbar/_Search.cshtml")
+            .ConnectsWith(GroupEditorProjects.BForms);
 
-        cfg.For(x => x.Contributors2)
-            .Template(x => x.Grid, "_TabItem");
-
-        var tab1 = cfg.For(x => x.Contributors)
+        var tab1 = cfg.For(x => x.Developers)
             .Editable()
             .Template(x => x.Grid, "_TabItem")
             .Template(x => x.Search, "~/Areas/Demo/Views/Contributors/Toolbar/_Search.cshtml")
-            .Template(x => x.Order, "_Order")
-            .ConnectsWith(NotificationType.Monthly, NotificationType.Daily);
+            .Template(x => x.New, "~/Areas/Demo/Views/Contributors/Toolbar/_New.cshtml")
+            .ConnectsWith(GroupEditorProjects.BForms, GroupEditorProjects.RequireJs);
 
-        cfg.Title = "Dev team";
+        tab1.BulkMove = true;
+        tab1.For(x => x.Grid).Avatar(x => x.Name.Contains("Marius") ?
+                    "https://2.gravatar.com/avatar/50e73c9ac16439780dd040694880fe9d" : Url.Content("~/Content/Images/bg-user.png"));
+        
+        tab2.Toolbar.QuickSearch = true;
+        tab2.For(x => x.Grid).Avatar(x => Url.Content("~/Content/Images/bg-user.png"));
+        
+        cfg.Title = Resource.DevTeam;
 
     })
         .ConfigureGroups(cfg =>
         {
-            cfg.For(x => x.Group1)
-                .DisplayText("Adauga la grup 1")
-                .DisplayName("Group1")
+            cfg.For(x => x.BFormsProject)
+                .DisplayText(Resource.AddToBFormsProject)
+                .DisplayName(Resource.BFormsProject)
                 .Template(x => x.Items, "_GroupItem")
                 .Template(x => x.Form, "_RowForm");
 
-            cfg.For(x => x.Group2)
-                .DisplayText("Adauga la grup 2")
-                .DisplayName("Group2")
+            cfg.For(x => x.RequireJsProject)
+                .DisplayText(Resource.AddToRequireJsProject)
+                .DisplayName(Resource.RequireJsProject)
                 .Template(x => x.Items, "_GroupItem");
 
-            cfg.Title = "Groups";
+            cfg.Title = Resource.Projects;
 
+            cfg.FormTemplate(Html.Partial("_GroupEditorForm", Model.Editor.Form));
         })
-        .SaveUrl(Url.Action("Save"));
+        .SaveUrl(Url.Action("Save"))
+        .IgnoreAjaxRequest(false);
+}
 
-		builder.HtmlAttributes(new Dictionary<string, object>() { { "id", "myGroupEditor" } })
-        .ConfigureTabs(cfg =>
-        {
-            var tab1 = cfg.For(x => x.Contributors);
+@Html.BsGroupEditorFor(Model, builder)
 
-            tab1.For(x => x.Search).Button("Test", Glyphicon.Plus);
-
-            tab1.For(x => x.Grid)
-                .Avatar(x => x.Name.Contains("Marius") ? 
-                    "https://2.gravatar.com/avatar/50e73c9ac16439780dd040694880fe9d" : Url.Content("~/Content/Images/bg-user.png"))
-                .HtmlAttributes(x => new Dictionary<string, object>
-                {
-                    { "data-qwe", x.Name.Contains("Oana") ? "oana" : "ok" }
-                });
-
-            tab1.Toolbar.For(x => x.Order)
-                        .Button("Order", Glyphicon.List)
-                        .Template("_Order");
-
-            tab1.Toolbar.QuickSearch = true;
-        }))

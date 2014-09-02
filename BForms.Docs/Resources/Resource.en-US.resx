@@ -321,4 +321,22 @@
   <data name="JavascriptMvcFrameworkPrompt" xml:space="preserve">
     <value>Please select your preferred javascript mvc framework</value>
   </data>
+  <data name="AddToBFormsProject" xml:space="preserve">
+    <value>Add to BForms project</value>
+  </data>
+  <data name="AddToRequireJsProject" xml:space="preserve">
+    <value>Add to RequireJSDotNet project</value>
+  </data>
+  <data name="BFormsProject" xml:space="preserve">
+    <value>BForms</value>
+  </data>
+  <data name="DevTeam" xml:space="preserve">
+    <value>Dev team</value>
+  </data>
+  <data name="Projects" xml:space="preserve">
+    <value>Projects</value>
+  </data>
+  <data name="RequireJsProject" xml:space="preserve">
+    <value>RequireJSDotNet</value>
+  </data>
 </root>

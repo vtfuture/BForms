@@ -321,4 +321,22 @@
   <data name="JavascriptMvcFrameworkPrompt" xml:space="preserve">
     <value />
   </data>
+  <data name="AddToBFormsProject" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AddToRequireJsProject" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BFormsProject" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DevTeam" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Projects" xml:space="preserve">
+    <value />
+  </data>
+  <data name="RequireJsProject" xml:space="preserve">
+    <value />
+  </data>
 </root>

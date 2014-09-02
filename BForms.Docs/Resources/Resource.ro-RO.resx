@@ -321,4 +321,22 @@
   <data name="JavascriptMvcFrameworkPrompt" xml:space="preserve">
     <value>Selectează frameworkul javascript preferat</value>
   </data>
+  <data name="AddToBFormsProject" xml:space="preserve">
+    <value>Adaugă la proiectul BForms</value>
+  </data>
+  <data name="AddToRequireJsProject" xml:space="preserve">
+    <value>Adaugă la proiectul RequireJSDotNet</value>
+  </data>
+  <data name="BFormsProject" xml:space="preserve">
+    <value>BForms</value>
+  </data>
+  <data name="DevTeam" xml:space="preserve">
+    <value>Dezvoltatori</value>
+  </data>
+  <data name="Projects" xml:space="preserve">
+    <value>Proiecte</value>
+  </data>
+  <data name="RequireJsProject" xml:space="preserve">
+    <value>RequireJSDotNet</value>
+  </data>
 </root>

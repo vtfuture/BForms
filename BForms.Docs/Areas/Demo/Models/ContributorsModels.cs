@@ -198,6 +198,8 @@ namespace BForms.Docs.Areas.Demo.Models
         [Display(Name = "Programming in", Prompt = "Type languages")]
         [BsControl(BsControlType.TagList)]
         public new BsSelectList<List<string>> LanguagesList { get; set; }
+
+        public IEnumerable<ProjectRole> RolesFilter { get; set; }
     }
 
     public class ContributorNewModel : ContributorModel

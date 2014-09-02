@@ -1,10 +1,9 @@
-﻿@using BForms.Docs.Areas.Demo.Models
+﻿@model BForms.Docs.Areas.Demo.Models.GroupEditorModel
+
+@using BForms.Docs.Areas.Demo.Models
 @using BForms.Html
-@using BForms.Docs.Resources
 @using BForms.Models
 @using BForms.Grid
-@using BForms.Docs.Areas.Demo.Controllers
-@model BForms.Docs.Areas.Demo.Models.GroupEditorModel
 @using BForms.Editor
 
 @{
@@ -12,14 +11,18 @@
 }
 
 @(Html.BsGroupEditorFor(Model, builder)
-      .HtmlAttributes(new Dictionary<string, object>() { { "id", "myGroupEditor" } })
-      .ConfigureTabs(cfg =>
+        .HtmlAttributes(new Dictionary<string, object>() { { "id", "myGroupEditor" } })
+        .ConfigureTabs(cfg =>
         {
-            var tab3 = cfg.For(x => x.Contributors3)
-                .PagerSettings(new BsPagerSettings
+            var tab1 = cfg.For(x => x.Developers);
+
+            tab1.For(x => x.Search).Button("Search", Glyphicon.Search);
+
+            tab1.For(x => x.Grid)
+                .HtmlAttributes(x => new Dictionary<string, object>
                 {
-                    HasPagesText = false
+                    { "data-designer", x.Name.Contains("Oana") }
                 });
 
-            tab3.QuickSearch = true;
+            tab1.Toolbar.QuickSearch = true;
         }))

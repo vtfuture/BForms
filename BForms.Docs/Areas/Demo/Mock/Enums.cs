@@ -28,4 +28,16 @@ namespace BForms.Docs.Areas.Demo.Mock
         [Display(Name = "No", ResourceType = typeof(Resource))]
         No = 3,
     }
+
+    public enum GroupEditorProjects
+    {
+        BForms = 1,
+        RequireJs = 2,
+    }
+
+    public enum ContributorType
+    {
+        Developer = 1,
+        Tester = 2
+    }
 }

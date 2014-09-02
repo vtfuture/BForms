@@ -173,7 +173,6 @@
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
     <Content Include="Areas\Demo\Views\GroupEditor\_Editors.cshtml" />
-    <Content Include="Areas\Demo\Views\GroupEditor\_GroupEditor2.cshtml" />
     <Content Include="Areas\Demo\Views\GroupEditor\_GroupItem.cshtml" />
     <Content Include="Content\Images\Apple\32_bforms-152x152.png" />
     <Content Include="Content\Images\Apple\64_bforms-152x152.png" />
@@ -1284,9 +1283,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Demo\Views\Contributors\Grid\_NoRecords.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Demo\Views\GroupEditor\_Order.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\_Icons.cshtml" />
