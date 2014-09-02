@@ -262,6 +262,7 @@
             start: $.proxy(this._sortStart, this),
             beforeStop: $.proxy(this._beforeSortStop, this),
             stop: $.proxy(this._sortStop, this),
+            handle : 'header',
             cancel: '.bs-notDraggable'
         });
     };
