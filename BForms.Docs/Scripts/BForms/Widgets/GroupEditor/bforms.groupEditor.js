@@ -1080,7 +1080,7 @@
 
             $template.find(this.options.groupItemContentSelector).html(view);
 
-            this._initGroupItemForm($template.find(this.options.editorFormSelector), model.Form);
+            this._initGroupItemForm($template.find(this.options.editorFormSelector), model);
 
             this._checkEditableItem($template);
 

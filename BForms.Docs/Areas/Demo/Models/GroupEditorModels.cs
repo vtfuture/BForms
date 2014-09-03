@@ -41,6 +41,7 @@ namespace BForms.Docs.Areas.Demo.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public string Contributions { get; set; }
 
         public override object GetUniqueID()
         {
