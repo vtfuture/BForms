@@ -44,11 +44,6 @@ namespace BForms.Renderers
             var headerContainer = new TagBuilder("div");
             headerContainer.AddCssClass("navbar-header");
 
-            var headerBuilder = new TagBuilder("h1");
-            headerBuilder.InnerHtml += this.Builder.displayName;
-
-            headerContainer.InnerHtml += headerBuilder;
-
             var toggleButton = new TagBuilder("button");
             toggleButton.AddCssClass("navbar-toggle");
             toggleButton.MergeAttribute("type", "button");
@@ -59,9 +54,14 @@ namespace BForms.Renderers
             toggleSpan.AddCssClass("icon-bar");
 
             toggleButton.InnerHtml += toggleSpan.ToString() + toggleSpan + toggleSpan;
-          
 
             headerContainer.InnerHtml += toggleButton;
+
+            var navbarBrand = new TagBuilder("span");
+            navbarBrand.AddCssClass("navbar-brand");
+            navbarBrand.InnerHtml += this.Builder.displayName;
+
+            headerContainer.InnerHtml += navbarBrand;
 
             toolbarHeaderBuilder.InnerHtml += headerContainer;
 
