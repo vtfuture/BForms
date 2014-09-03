@@ -8,6 +8,30 @@
 
 })(function ($, undefined) {
 
+    //#region bsFillForm
+    $.fn.bsFillForm = function (model, prefix) {
+        var $elem = $(this),
+            formPrefix = typeof prefix !== "undefined" ? prefix : '';
+
+        if ($elem.length) {
+            var $inputs = $elem.find('input,select,textarea,');
+
+            $inputs.each(function (idx, $input) {
+                var inputName = $input.attr('name'),
+                    propertyName = inputName.replace(formPrefix, ''),
+                    possibleValue = model[propertyName];
+
+                if (typeof possibleValue !== "undefined") {
+                    $input.val(possibleValue);
+                }
+            });
+
+        }
+
+        return $elem;
+    };
+    //#endregion
+
     //#region parse form
     $.fn.parseForm = function (prefix) {
 
@@ -177,13 +201,13 @@
             $(this).bsDateRange('resetValue');
         });
         //#endregion
-        
+
         //#region number rangePicker
         $(this).find('.hasNumberRangepicker' + ':not(' + ignore + ')').each(function () {
             $(this).bsRangePicker('resetValue');
         });
         //#endregion
-        
+
         //#region radioButtonsList
         var radioButtons = $(this).find('.radioButtonsList-done' + ':not(' + ignore + ')');
 
@@ -204,7 +228,7 @@
         }
 
         if ($form.length) {
-            $form.each(function() {
+            $form.each(function () {
                 var validator = $(this).data('validator');
                 if (typeof validator !== "undefined" && typeof validator.resetForm === "function") {
                     validator.resetForm();
@@ -370,5 +394,5 @@
         });
     };
     //#endregion
-    
+
 });
