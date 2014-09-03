@@ -13,11 +13,12 @@
         var $elem = $(this),
             formPrefix = typeof prefix !== "undefined" ? prefix : '';
 
-        if ($elem.length) {
-            var $inputs = $elem.find('input,select,textarea,');
+        if ($elem.length && model != null) {
+            var $inputs = $elem.find('input,select,textarea');
 
-            $inputs.each(function (idx, $input) {
-                var inputName = $input.attr('name'),
+            $inputs.each(function (idx, input) {
+                var $input = $(input),
+                    inputName = $input.attr('name'),
                     propertyName = inputName.replace(formPrefix, ''),
                     possibleValue = model[propertyName];
 
