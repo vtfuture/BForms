@@ -28,7 +28,7 @@ namespace BForms.Renderers
 
             var formBuilder = new TagBuilder("form");
 
-            formBuilder.AddCssClass("navbar-form navbar-right");
+            formBuilder.AddCssClass("navbar-form");
             formBuilder.MergeAttribute("role","search");
 
             var inputGroupBuilder = new TagBuilder("div");
