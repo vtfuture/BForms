@@ -510,7 +510,7 @@ code {
 
 .footer {
 	background: #f1f1f1;
-	padding: 20px;
+	padding: 20px 20px 10px;
 	margin-top: 20px;
 	ul {
 		list-style-type: none;
@@ -519,10 +519,12 @@ code {
 		li {			
 			margin-bottom: 5px;
 			font-size: 14px;
-			&.version {
-				margin: 0;
+			&.version {				
 				color: #999;
 				font-size: 12px;
+			}
+			&.partners {
+				margin: 0;
 			}
 		}
 	}

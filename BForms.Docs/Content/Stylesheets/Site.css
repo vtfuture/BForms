@@ -369,7 +369,7 @@ code {
 /* Footer */
 .footer {
   background: #f1f1f1;
-  padding: 20px;
+  padding: 20px 20px 10px;
   margin-top: 20px; }
   .footer ul {
     list-style-type: none;
@@ -379,9 +379,10 @@ code {
       margin-bottom: 5px;
       font-size: 14px; }
       .footer ul li.version {
-        margin: 0;
         color: #999;
         font-size: 12px; }
+      .footer ul li.partners {
+        margin: 0; }
   .footer a {
     color: #45ADA8; }
   .footer .hosted {
