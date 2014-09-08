@@ -323,6 +323,7 @@ mark, .mark {
 	.option {
 		height: 32px;
 		text-decoration: none !important;
+		position: relative;
 		//word-wrap: break-word;
 		padding: 0 4px;
 		border-left: 1px solid #ccc;
