@@ -106,7 +106,8 @@ a.btn {
       background: #45ADA8;
       color: #fff;
       min-height: 40px;
-      border: none; }
+      border: none;
+      margin-bottom: 0; }
       .grid_container .grid_toolbar .grid_toolbar_header .navbar-toggle {
         background: #585858; }
         .grid_container .grid_toolbar .grid_toolbar_header .navbar-toggle .icon-bar {
