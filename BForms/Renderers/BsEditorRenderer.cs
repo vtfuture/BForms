@@ -165,7 +165,8 @@ namespace BForms.Renderers
 
             var divToolbarHeader = new TagBuilder("div");
             divToolbarHeader.AddCssClass("grid_toolbar_header");
-            var toolbarH = new TagBuilder("h1");
+            var toolbarH = new TagBuilder("span");
+            toolbarH.AddCssClass("navbar-brand");
             toolbarH.InnerHtml += title;
 
             divToolbarHeader.InnerHtml += toolbarH;
