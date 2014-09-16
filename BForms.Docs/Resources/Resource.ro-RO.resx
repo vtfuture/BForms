@@ -345,4 +345,7 @@
   <data name="WebBrowsers" xml:space="preserve">
     <value>Browser-ul web preferat</value>
   </data>
+  <data name="AdvancedSearch" xml:space="preserve">
+    <value>Căutare avansată</value>
+  </data>
 </root>

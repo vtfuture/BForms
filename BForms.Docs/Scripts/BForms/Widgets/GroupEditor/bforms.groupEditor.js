@@ -5,7 +5,8 @@
     'bforms-ajax',
     'bforms-namespace',
     'bforms-inlineQuestion',
-    'bforms-form'
+    'bforms-form',
+    'bforms-extensions'
 ], function () {
 
     //#region Constructor and Properties
@@ -33,18 +34,18 @@
         groupBulkMoveSelector: '.bs-moveToGroupBtn',
         groupBulkMoveMainSelector: '.bs-bulkGroupMove',
         groupBulkMoveConfirmContent: 'Are you sure?',
-        groupBulkMoveConfirmShown: function(){
+        groupBulkMoveConfirmShown: function () {
         },
         groupBulkMoveConfirm: false,
         groupBulkMoveConfirmBtns: [{
             text: 'Yes',
             cssClass: 'btn-primary bs-confirm',
-            callback: function () {}
+            callback: function () { }
         },
         {
             text: 'No',
             cssClass: 'btn-theme bs-cancel',
-            callback: function (e) {}
+            callback: function (e) { }
         }],
         groupEditorFormSelector: '.bs-groupForm',
         groupItemSelector: '.bs-groupItem',
@@ -262,7 +263,7 @@
             start: $.proxy(this._sortStart, this),
             beforeStop: $.proxy(this._beforeSortStop, this),
             stop: $.proxy(this._sortStop, this),
-            handle : 'header',
+            handle: 'header',
             cancel: '.bs-notDraggable'
         });
     };
@@ -299,7 +300,12 @@
 
     };
 
-    GroupEditor.prototype._initGroupItemForm = function ($form) {
+    GroupEditor.prototype._initGroupItemForm = function ($form, model) {
+
+        if (typeof model !== "undefined") {
+            var formPrefix = 'prefix' + $form.data('uid') + '.';
+            $form.bsFillForm(model, formPrefix);
+        }
 
         $form.bsForm({
             uniqueName: $form.data('uid')
@@ -539,7 +545,7 @@
 
                     this._checkEditableItem($template);
 
-                    this._initGroupItemForm($template.find(this.options.editorFormSelector));
+                    this._initGroupItemForm($template.find(this.options.editorFormSelector), model);
 
                     $group.find(this.options.groupItemsWrapper).append($template);
 
@@ -1074,7 +1080,7 @@
 
             $template.find(this.options.groupItemContentSelector).html(view);
 
-            this._initGroupItemForm($template.find(this.options.editorFormSelector));
+            this._initGroupItemForm($template.find(this.options.editorFormSelector), model);
 
             this._checkEditableItem($template);
 

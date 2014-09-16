@@ -74,6 +74,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
                             Id = 1,
                             Name = "Stefan P.",
                             TabId = ContributorType.Developer,
+                            Contributions = "concept, api design, razor helpers, documentation, c# bug fixing, testing",
                             Form = new ContributorsRowFormModel()
                             {
                                 Contributions = "concept, api design, razor helpers, documentation, c# bug fixing, testing"
@@ -84,6 +85,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
                             Id = 6,
                             Name = "Oana M.",
                             TabId = ContributorType.Developer,
+                            Contributions = "UI & UX, css master",
                             Form = new ContributorsRowFormModel()
                             {
                                 Contributions = "UI & UX, css master"
@@ -94,6 +96,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
                             Id = 3,
                             Name = "Cezar C.",
                             TabId = ContributorType.Developer,
+                            Contributions = "documentation, razor helpers",
                             Form = new ContributorsRowFormModel()
                             {
                                 Contributions = "documentation, razor helpers"
@@ -104,6 +107,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
                             Id = 4,
                             Name = "Marius C.",
                             TabId = ContributorType.Developer,
+                            Contributions = "js framework, datetime picker, automated tests for js",
                             Form = new ContributorsRowFormModel()
                             {
                                 Contributions = "js framework, datetime picker, automated tests for js"
@@ -121,12 +125,14 @@ namespace BForms.Docs.Areas.Demo.Controllers
                         {
                             Id = 1,
                             Name = "Stefan P.",
+                            Contributions = "concept, api design, razor helpers, documentation, c# bug fixing, testing",
                             TabId = ContributorType.Developer
                         },
                         new ContributorsGroupRowModel
                         {
                             Id = 3,
                             Name = "Cezar C.",
+                            Contributions = "documentation, razor helpers",
                             TabId = ContributorType.Developer
                         }
                     }

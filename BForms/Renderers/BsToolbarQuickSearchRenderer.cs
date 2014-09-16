@@ -24,8 +24,15 @@ namespace BForms.Renderers
         /// </summary>
         public override string Render()
         {
+            var liBuilder = new TagBuilder("li");
+
+            var formBuilder = new TagBuilder("form");
+
+            formBuilder.AddCssClass("navbar-form");
+            formBuilder.MergeAttribute("role","search");
+
             var inputGroupBuilder = new TagBuilder("div");
-            inputGroupBuilder.AddCssClass("input-group bs-quick_search");
+            inputGroupBuilder.AddCssClass("form-group bs-quick_search");
 
             var inputBuilder = new TagBuilder("input");
             inputBuilder.AddCssClass("form-control bs-text");
@@ -34,7 +41,11 @@ namespace BForms.Renderers
 
             inputGroupBuilder.InnerHtml += inputBuilder.ToString(TagRenderMode.SelfClosing);
 
-            return inputGroupBuilder.ToString();
+            formBuilder.InnerHtml += inputGroupBuilder;
+
+            liBuilder.InnerHtml += formBuilder;
+
+            return liBuilder.ToString();
         }
     }
 }

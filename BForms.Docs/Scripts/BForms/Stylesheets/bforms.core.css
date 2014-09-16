@@ -233,6 +233,7 @@ mark, .mark {
 .checkbox_replace .option {
   height: 32px;
   text-decoration: none !important;
+  position: relative;
   padding: 0 4px;
   border-left: 1px solid #ccc;
   background: #FFF;

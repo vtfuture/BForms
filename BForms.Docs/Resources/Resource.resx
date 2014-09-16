@@ -345,4 +345,7 @@
   <data name="WebBrowsers" xml:space="preserve">
     <value />
   </data>
+  <data name="AdvancedSearch" xml:space="preserve">
+    <value></value>
+  </data>
 </root>

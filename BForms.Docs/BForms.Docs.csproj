@@ -255,6 +255,7 @@
     <Content Include="Content\Images\Docs\eg-simple-grid.png" />
     <Content Include="Content\Images\Docs\eg-view-model.png" />
     <Content Include="Content\Images\logo-bforms%402x.png" />
+    <Content Include="Content\Images\logo_jetbrains.png" />
     <Content Include="Content\Images\veritech-logo-site%402x.png" />
     <Content Include="robots.txt" />
     <Content Include="Scripts\BForms\Components\FileUpload\jquery.fileupload-process.js" />

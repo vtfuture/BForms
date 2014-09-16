@@ -88,9 +88,10 @@
 
                 var $openPopovers = $('.bs-hasInlineQuestion').filter(function (idx, elem) {
                     var $elem = $(elem),
-                        popover = $elem.data('bs.popover');
+                        popover = $elem.data('bs.popover'),
+                        inlineQuestion = $elem.data('bformsBsInlineQuestion');
 
-                    if (typeof popover !== "undefined" && popover != null) {
+                    if (typeof popover !== "undefined" && popover != null && inlineQuestion.options.closeOnOuterClick !== false) {
                         var $tip = popover.$tip;
                         return $tip.is(':visible') && $elem[0] != $target[0] && $elem.find($target).length == 0 && $target[0] != $tip[0] && $tip.find($target).length == 0;
                     }
