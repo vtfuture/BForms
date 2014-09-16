@@ -79,7 +79,7 @@
 
 
     <div class="col-sm-12 col-md-12 col-lg-12 grid_toolbar_submit">
-        <button type="submit" class="btn btn-white js-btn-save" data-action="@Url.Action("New")">Add</button>
+        <button type="submit" class="btn btn-default js-btn-save" data-action="@Url.Action("New")">Add</button>
         <a href="#" class="js-btn-reset">Reset</a>
     </div>
 }

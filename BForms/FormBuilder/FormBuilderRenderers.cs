@@ -327,7 +327,7 @@ namespace BForms.Renderers
             glyphiconBuilder.AddCssClass("glyphicon");
             glyphiconBuilder.AddCssClass(Utilities.ReflectionHelpers.GetDescription(model.Glyphicon));
 
-            glyphiconWrapperBuilder.AddCssClass("btn btn-white pull-left disabled form_builder-controlItem-label");
+            glyphiconWrapperBuilder.AddCssClass("btn btn-default pull-left disabled form_builder-controlItem-label");
             glyphiconWrapperBuilder.MergeAttribute("href", "#");
             glyphiconWrapperBuilder.InnerHtml = glyphiconBuilder.ToString();
 
@@ -340,7 +340,7 @@ namespace BForms.Renderers
 
             addButtonGlyphiconBuilder.AddCssClass("glyphicon glyphicon-plus");
 
-            addButtonBuilder.AddCssClass("btn btn-white pull-right form_builder-controlItem-add");
+            addButtonBuilder.AddCssClass("btn btn-default pull-right form_builder-controlItem-add");
             addButtonBuilder.Attributes.Add("href", "#");
             addButtonBuilder.InnerHtml = addButtonGlyphiconBuilder.ToString();
 

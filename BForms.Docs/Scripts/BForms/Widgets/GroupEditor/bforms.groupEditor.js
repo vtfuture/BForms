@@ -1498,7 +1498,7 @@
         var $saveBtn = this.$element.find(this.options.saveBtn);
 
         if (!$saveBtn.hasClass('btn-danger')) {
-            this.$element.find(this.options.saveBtn).removeClass('btn-white').addClass('btn-danger');
+            this.$element.find(this.options.saveBtn).removeClass('btn-default').addClass('btn-danger');
         }
 
         if (typeof message !== "undefined") {
@@ -1519,8 +1519,8 @@
     GroupEditor.prototype._removeValidationError = function () {
         var $saveBtn = this.$element.find(this.options.saveBtn);
 
-        if (!$saveBtn.hasClass('btn-white')) {
-            this.$element.find(this.options.saveBtn).removeClass('btn-danger').addClass('btn-white');
+        if (!$saveBtn.hasClass('btn-default')) {
+            this.$element.find(this.options.saveBtn).removeClass('btn-danger').addClass('btn-default');
         }
 
         this.$element.find(this.options.errorMessageContainer).remove();

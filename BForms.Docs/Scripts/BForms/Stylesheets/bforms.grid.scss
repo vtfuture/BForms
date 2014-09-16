@@ -100,7 +100,7 @@ a.btn {
 }
 
 
-.btn-white {
+.btn-default {
 	background-color: #fff;
 	border-color: #ccc;
 	color: #333;
@@ -322,7 +322,7 @@ a.btn {
 			position: relative;
 			a {
 				text-decoration: underline;
-				color: #333;
+
 				&.sort_asc {
 					background: url(../images/icn-order_up.png) 100% 50% no-repeat;
 					padding-right: 15px;
@@ -331,12 +331,7 @@ a.btn {
 					background: url(../images/icn-order_down.png) 100% 50% no-repeat;
 					padding-right: 15px;
 				}
-				&.btn {
-					color: #fff;
-				}
-				&.btn-white, &.input-group-addon {
-					color: #333;
-				}
+				
 			}
 			.edit_col:hover {
 				cursor: pointer;

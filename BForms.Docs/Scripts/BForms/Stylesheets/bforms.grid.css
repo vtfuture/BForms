@@ -76,11 +76,11 @@ a.btn {
     color: #333;
     margin-top: -8px; }
 
-.btn-white {
+.btn-default {
   background-color: #fff;
   border-color: #ccc;
   color: #333; }
-  .btn-white:hover, .btn-white:focus {
+  .btn-default:hover, .btn-default:focus {
     color: #333;
     background-color: #ebebeb;
     border-color: #adadad; }
@@ -240,18 +240,13 @@ a.btn {
     padding: 10px 0;
     position: relative; }
     .grid_container .grid_view .grid_row a {
-      text-decoration: underline;
-      color: #333; }
+      text-decoration: underline; }
       .grid_container .grid_view .grid_row a.sort_asc {
         background: url(../images/icn-order_up.png) 100% 50% no-repeat;
         padding-right: 15px; }
       .grid_container .grid_view .grid_row a.sort_desc {
         background: url(../images/icn-order_down.png) 100% 50% no-repeat;
         padding-right: 15px; }
-      .grid_container .grid_view .grid_row a.btn {
-        color: #fff; }
-      .grid_container .grid_view .grid_row a.btn-white, .grid_container .grid_view .grid_row a.input-group-addon {
-        color: #333; }
     .grid_container .grid_view .grid_row .edit_col:hover {
       cursor: pointer;
       border-bottom: 1px dashed #45ADA8;

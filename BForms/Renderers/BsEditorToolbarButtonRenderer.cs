@@ -26,7 +26,7 @@ namespace BForms.Renderers
 
             btn.MergeAttribute("data-uid", this.Builder.uid);
 
-            btn.AddCssClass("btn btn-white bs-toolbarBtn");
+            btn.AddCssClass("btn btn-default bs-toolbarBtn");
 
             btn.InnerHtml += this.GetGlyphicon(this.Builder.glyph);
 

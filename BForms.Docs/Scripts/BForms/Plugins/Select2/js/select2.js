@@ -1731,7 +1731,7 @@ the specific language governing permissions and limitations under the Apache Lic
                     if (data.results.length === 0 && checkFormatter(opts.formatNoMatches, "formatNoMatches")) {
 
                         if (opts.allowsave == true && search.val() != '') {
-                            render('<li class="select2-save js-saveOption" data-value="' + search.val() + '"><a class="btn btn-white">' + $.fn.select2.defaults.formatSaveItem("") + "</a>" + search.val() + '</li>');
+                            render('<li class="select2-save js-saveOption" data-value="' + search.val() + '"><a class="btn btn-default">' + $.fn.select2.defaults.formatSaveItem("") + "</a>" + search.val() + '</li>');
                         } else {
                             render("<li class='select2-no-results'>" + $.fn.select2.defaults.formatNoMatches(search.val()) + "</li>");
                         }

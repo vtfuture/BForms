@@ -270,7 +270,7 @@ namespace BForms.Renderers
 
             anchor.MergeAttribute("href", "#");
 
-            anchor.AddCssClass("btn btn-white");
+            anchor.AddCssClass("btn btn-default");
 
             if (!string.IsNullOrEmpty(cssClass))
             {
