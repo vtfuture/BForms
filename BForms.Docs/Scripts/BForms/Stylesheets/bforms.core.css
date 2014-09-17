@@ -199,7 +199,7 @@ mark, .mark {
   padding: 0;
   border: none; }
 .custom_select-multi .select2-choices {
-  min-height: 38px;
+  min-height: 34px;
   background-image: none;
   border: 1px solid #ccc; }
   .custom_select-multi .select2-choices .select2-search-field input {
@@ -257,7 +257,7 @@ mark, .mark {
   font-size: 14px; }
   .twitter-typeahead .tt-hint {
     padding: 8px;
-    height: 38px;
+    height: 34px;
     width: 100%; }
   .twitter-typeahead .tt-dropdown-menu {
     width: 100%;
@@ -349,7 +349,7 @@ mark, .mark {
     border: 1px solid transparent;
     padding-left: 15px;
     padding-top: 6px;
-    height: 38px; }
+    height: 34px; }
   .form-group.checkbox.has-error label, .form-group.radio.has-error label {
     border: 1px solid #b94a48; }
 
