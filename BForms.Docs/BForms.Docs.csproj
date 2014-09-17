@@ -1742,6 +1742,9 @@
   <ItemGroup>
     <Content Include="Scripts\BForms\Stylesheets\bforms.controlpanel.scss" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\BForms\Plugins\Alerts\bforms.alert.js" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
