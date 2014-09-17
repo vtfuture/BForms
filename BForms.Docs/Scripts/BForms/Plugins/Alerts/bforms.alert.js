@@ -23,16 +23,12 @@
 			oldAlert._removeAlert();
 		}
 
-		console.log(opts)
-
 		$.extend(true, this.options, opts);
 
 		this._init();
 		this._prepareOptions();
 		this._render();
 		this._addAlert();
-
-		console.log(this.$alert);
 
 		this.$element.data('bs-alert', this);
 
