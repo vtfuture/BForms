@@ -3,10 +3,10 @@
 @using BForms.Models
 @model BForms.Docs.Areas.Demo.Models.RegisterModel
 
-<div class="col-lg-12">
-    <h1>@Html.BsGlyphicon(Glyphicon.StartEmpty) Register form</h1>
-</div>
-<div class="clearfix"></div>
+
+<h1>@Html.BsGlyphicon(Glyphicon.StartEmpty) Register form</h1>
+
+
 
 @using (Html.BsBeginForm("Register", "Login", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "bs-form js-registerForm" }, Html.GetTheme()))
 {

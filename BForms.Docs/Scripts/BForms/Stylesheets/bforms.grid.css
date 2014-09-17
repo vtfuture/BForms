@@ -166,13 +166,11 @@ a.btn {
         visibility: hidden; }
     .grid_container .grid_toolbar .grid_toolbar_form {
       background: #f6f6f6;
-      padding: 15px 0;
+      padding: 15px;
       color: #333;
       position: relative; }
-      .grid_container .grid_toolbar .grid_toolbar_form .row {
-        margin: 0; }
-        .grid_container .grid_toolbar .grid_toolbar_form .row label {
-          font-weight: normal; }
+      .grid_container .grid_toolbar .grid_toolbar_form .row label {
+        font-weight: normal; }
       .grid_container .grid_toolbar .grid_toolbar_form h3 {
         font-size: 17px;
         padding: 9px 0;
@@ -320,14 +318,14 @@ a.btn {
           font-weight: normal;
           font-size: 14px;
           padding: 5px 0; }
-          .grid_container .grid_view .grid_rows_wrapper .grid_row_details .grid_details h3 .glyphicon-pencil {
+          .grid_container .grid_view .grid_rows_wrapper .grid_row_details .grid_details h3 a .glyphicon {
             position: absolute;
             bottom: 7px;
             right: 0;
             display: none; }
           .grid_container .grid_view .grid_rows_wrapper .grid_row_details .grid_details h3.editable {
             cursor: pointer; }
-            .grid_container .grid_view .grid_rows_wrapper .grid_row_details .grid_details h3.editable .glyphicon-pencil {
+            .grid_container .grid_view .grid_rows_wrapper .grid_row_details .grid_details h3.editable a .glyphicon {
               display: inline-block; }
             .grid_container .grid_view .grid_rows_wrapper .grid_row_details .grid_details h3.editable:hover {
               border-color: #666; }
@@ -646,14 +644,14 @@ a.btn {
     background: #424141 !important; }
 
 @media (max-width: 756px) {
-  .grid_toolbar_form .row {
-    padding: 0 15px; }
-
   .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls {
     float: none;
     margin-top: 0; }
     .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .dropdown-menu {
       background: #fff; }
+
+  .grid_container .grid_view .grid_rows_wrapper .grid_row_details dl dt {
+    text-align: left; }
 
   .results_per_page_container, .results_number {
     display: none; } }

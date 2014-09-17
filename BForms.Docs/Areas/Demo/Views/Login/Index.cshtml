@@ -7,7 +7,7 @@
 
 @if(Model.RegisterModel != null)
 {
-<div class="row js-registerFormContainer">
+<div class="js-registerFormContainer">
     @Html.BsPartialPrefixed(m => m.RegisterModel, "_Register", Model)
 </div>
     @Html.Partial("Docs/_Register")
@@ -15,7 +15,7 @@
 
 @if (Model.LoginModel != null)
 {
-<div class="row js-loginFormContainer">
+<div class="js-loginFormContainer">
     @Html.BsPartialPrefixed(m => m.LoginModel, "_Login", Model)
 </div>
     @Html.Partial("Docs/_Login")

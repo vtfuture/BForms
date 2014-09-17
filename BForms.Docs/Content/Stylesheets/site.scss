@@ -18,8 +18,7 @@ html {
 body {
 	max-width: 1024px;
 	margin: 20px auto 0;
-	padding: 0 10px;
-	width: 99%;
+	padding: 0 20px;
 	font-size: 17px;
 }
 .sidebar-nav {
@@ -923,26 +922,23 @@ body.black {
 	.brand img {
 		max-width: 230px;
 	}	
-	.pull-right { /* Enable use of floated navbar text */
-		float: none !important;
-	}
+	
 	.navbar {
 		padding: 0;
 		.nav-collapse {
 			margin-top: 0;
 		}
-	}
-	
-	.navbar .dropdown-menu {
-		border: 0;
-		a {
-			font-size: 18px;
+		.dropdown-menu {
+			border: 0;
+			a {
+				font-size: 18px;
+			}
+		}
+		.pull-right { /* Enable use of floated navbar text */
+			float: none !important;
 		}
 	}
-	.row {
-		margin-right: 0;
-		margin-left: 0;
-	}	
+
 	.bs-table-scrollable {
 		width: 100%;
 		margin-bottom: 15px;

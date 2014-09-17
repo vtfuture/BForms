@@ -57,36 +57,28 @@ mark, .mark {
     width: 100%;
     height: 100%;
     background: #fff url(../images/preloader.gif) center center no-repeat; }
-  .form_container.row {
-    margin: 0; }
 
 /* Horizontal form*/
 .row > .form_container_horizontal {
   margin: 0 15px; }
 
 /* Panel group horizontal form */
-.row > .panel-group {
-  margin: 0 15px; }
-  .row > .panel-group .panel-title .caret {
-    margin: -2px 7px 0 3px; }
-  .row > .panel-group .panel-title .loading-spinner {
-    background: url(../images/preloader-small.gif) 0 0 no-repeat;
-    width: 16px;
-    height: 16px;
-    margin: 0 7px 0 -5px;
-    display: inline-block;
-    vertical-align: bottom; }
-  .row > .panel-group .panel-body {
-    position: relative; }
-    @media (max-width: 756px) {
-      .row > .panel-group .panel-body .row {
-        margin-right: -10px;
-        margin-left: -10px; } }
-    .row > .panel-group .panel-body .control-label {
-      color: #aaa; }
-  @media (max-width: 756px) {
-    .row > .panel-group .pull-right {
-      float: right !important; } }
+.panel-group .panel-title .caret {
+  margin: -2px 7px 0 3px; }
+.panel-group .panel-title .loading-spinner {
+  background: url(../images/preloader-small.gif) 0 0 no-repeat;
+  width: 16px;
+  height: 16px;
+  margin: 0 7px 0 -5px;
+  display: inline-block;
+  vertical-align: bottom; }
+.panel-group .panel-body {
+  position: relative; }
+  .panel-group .panel-body .control-label {
+    color: #aaa; }
+@media (max-width: 756px) {
+  .panel-group .pull-right {
+    float: right !important; } }
 
 .panel-body dl {
   margin-bottom: 10px;
@@ -115,6 +107,9 @@ mark, .mark {
     text-overflow: clip; }
   .panel-body dl.to-left dd {
     margin-left: 5px; }
+.panel-body .form-horizontal .form-group {
+  margin-left: 0;
+  margin-right: 0; }
 
 /* Avatar view */
 .avatar_view {
@@ -396,7 +391,10 @@ mark, .mark {
 
 @media (max-width: 756px) {
   .col-12 {
-    padding: 0; } }
+    padding: 0; }
+
+  .panel-body dl dt {
+    text-align: left; } }
 @media (min-width: 768px) {
   /* fixes for 2 cols */
   .form-group.checkbox,

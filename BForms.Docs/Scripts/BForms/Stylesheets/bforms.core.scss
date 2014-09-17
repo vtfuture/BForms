@@ -86,9 +86,6 @@ mark, .mark {
 			background: #fff url(../images/preloader.gif) center center no-repeat;
 		}
 	}
-	&.row {
-		margin: 0;
-	}
 }
 
 /* Horizontal form*/
@@ -97,8 +94,8 @@ mark, .mark {
 }
 
 /* Panel group horizontal form */
-.row > .panel-group {
-	margin: 0 15px;
+.panel-group {
+
 	.panel-title {	
 		.caret {
 			margin: -2px 7px 0 3px;
@@ -114,12 +111,7 @@ mark, .mark {
 	}
 	.panel-body {
 		position: relative;
-		@media (max-width: 756px) {
-			.row {
-				margin-right: -10px;
-				margin-left: -10px;
-			}
-		}
+
 		.control-label {
 			color: #aaa;
 		}		
@@ -165,6 +157,10 @@ mark, .mark {
 				margin-left: 5px;
 			}
 		}
+	}
+	.form-horizontal .form-group {
+		margin-left: 0;
+		margin-right: 0;
 	}
 }
 
@@ -559,6 +555,9 @@ mark, .mark {
 @media (max-width: 756px) {
 	.col-12 {
 		padding: 0;
+	}
+	.panel-body dl dt {
+		text-align: left;
 	}
 }
 
