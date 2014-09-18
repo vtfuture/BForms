@@ -304,7 +304,8 @@ a.btn {
     .grid_container .grid_view .grid_rows_wrapper .grid_row_details {
       margin: 0;
       padding-top: 20px;
-      clear: both; }
+      clear: both;
+      background: #fff; }
       .grid_container .grid_view .grid_rows_wrapper .grid_row_details ul {
         list-style: none; }
       .grid_container .grid_view .grid_rows_wrapper .grid_row_details .col-lg-12, .grid_container .grid_view .grid_rows_wrapper .grid_row_details .col-md-12 {
