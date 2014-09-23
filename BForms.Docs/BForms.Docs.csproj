@@ -258,6 +258,7 @@
     <Content Include="Content\Images\logo_jetbrains.png" />
     <Content Include="Content\Images\veritech-logo-site%402x.png" />
     <Content Include="robots.txt" />
+    <Content Include="Scripts\BForms\Components\ErrorTell\errorTell.js" />
     <Content Include="Scripts\BForms\Components\FileUpload\jquery.fileupload-process.js" />
     <Content Include="Scripts\BForms\Components\FileUpload\jquery.fileupload-validate.js" />
     <Content Include="Scripts\BForms\Components\FileUpload\jquery.fileupload.js" />
