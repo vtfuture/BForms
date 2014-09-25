@@ -91,9 +91,9 @@
         if (typeof data !== 'undefined' && typeof data.settings !== 'undefined') {
             var $elem = data.settings.loadingElement;
             if ($elem != null && $elem.length) {
-                window.clearTimeout(this.loadingTimeout);
+                window.clearTimeout(data.loadingTimeout);
                 if (show) {
-                    this.loadingTimeout = window.setTimeout(function () {
+                    data.loadingTimeout = window.setTimeout(function () {
                         loadingClass == null ? $elem.show() : $elem.addClass(loadingClass);
                     }, data.settings.loadingDelay);
                 } else {
