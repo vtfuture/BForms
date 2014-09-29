@@ -220,7 +220,7 @@
                     var $target = $(e.target);
 
                     if ($target[0] != this.$element[0] && $target.closest('.bs-range-picker').length === 0) {
-                        if (!$target.hasClass('glyphicon') || $target.parent()[0] != this.$input.parent()[0]) {
+                        if (!$target.hasClass('glyphicon') || (this.$input != null ? $target.parent()[0] != this.$input.parent()[0] : true)) {
 
                             var allowHide = true;
 
