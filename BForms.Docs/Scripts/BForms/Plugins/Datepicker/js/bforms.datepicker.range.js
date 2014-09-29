@@ -215,6 +215,8 @@
             if (this.options.closeOnBlur === true) {
                 $(document).on('mouseup', $.proxy(function (e) {
 
+                    if (this._visible === false) return;
+
                     var $target = $(e.target);
 
                     if ($target[0] != this.$element[0] && $target.closest('.bs-range-picker').length === 0) {
