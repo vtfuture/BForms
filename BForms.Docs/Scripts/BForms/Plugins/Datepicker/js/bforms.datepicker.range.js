@@ -104,7 +104,7 @@
         }
 
         if (typeof this.options.theme !== "undefined") {
-            this.options.startOptions.theme = this.options.endOptions.theme = 'blue';
+            this.options.startOptions.theme = this.options.endOptions.theme = this.options.theme;
         }
 
         var startOptions = this.options.startOptions;
