@@ -183,6 +183,7 @@ $Black: #424141;
 			&.btn-set {
 				padding-left: 25px;
 				padding-right: 7px;
+				color: #333 !important;
 				&.time {
 					background:#f1f1f1 url(../images/icn-time.png) 7px 50% no-repeat;
 				}
@@ -373,6 +374,7 @@ $Black: #424141;
 .bs-inline-picker {
 	position: relative;
 	margin-top: 5px;
+	clear: both;
 	&.bs-range-picker {
 		overflow: hidden;
 	}
