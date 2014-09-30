@@ -255,6 +255,7 @@ $Black: #424141;
 		display: inline-block !important;
 		float: left;
 		margin-left: 10px;
+		//clear: none;
 	}
 	.ranges {
 		display: inline-block;
@@ -374,7 +375,7 @@ $Black: #424141;
 .bs-inline-picker {
 	position: relative;
 	margin-top: 5px;
-	clear: both;
+	//clear: both;
 	&.bs-range-picker {
 		overflow: hidden;
 	}
