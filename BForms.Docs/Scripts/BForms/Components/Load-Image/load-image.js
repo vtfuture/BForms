@@ -12,7 +12,14 @@
 /*jslint nomen: true */
 /*global define, window, document, URL, webkitURL, Blob, File, FileReader */
 
-(function ($) {
+
+(function (factory) {
+    if (typeof define === "function" && define.amd) {
+        define('load-image', ['jquery'], factory);
+    } else {
+        factory();
+    }
+}(function ($) {
     'use strict';
 
     // Loads an image for a given File object.
@@ -291,11 +298,5 @@
         return false;
     };
 
-    if (typeof define === 'function' && define.amd) {
-        define(function () {
-            return loadImage;
-        });
-    } else {
-        $.loadImage = loadImage;
-    }
-}(this));
+    return loadImage;
+}));
