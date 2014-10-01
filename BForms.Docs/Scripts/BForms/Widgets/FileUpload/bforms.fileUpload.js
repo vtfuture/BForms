@@ -1,12 +1,12 @@
 ﻿(function (factory) {
 
     if (typeof define === "function" && define.amd) {
-        define('bforms-fileupload', ['jquery', 'jquery-fileupload', 'jquery.fileupload-validate', 'jquery-iframe-transport', 'bforms-ajax'], factory);
+        define('bforms-fileupload', ['jquery', 'load-image', 'jquery-fileupload', 'jquery.fileupload-validate', 'jquery-iframe-transport', 'bforms-ajax'], factory);
     } else {
-        factory(window.jQuery);
+        factory(window.jQuery, window.loadImage);
     }
 
-})(function ($) {
+})(function ($, loadImage) {
 
     var fileUpload = function () {
     };
@@ -18,8 +18,9 @@
 
         imageSelector: '.bs-uploadImage',
         deleteImageSelector: '.bs-deleteImage',
-        
-        hasInitialImage : false
+
+        hasInitialImage: false,
+        autoUpload: true
     };
 
     //#region init
@@ -43,7 +44,7 @@
         this.$image = this.$element.find(this.options.imageSelector);
     };
 
-    fileUpload.prototype._initElement = function() {
+    fileUpload.prototype._initElement = function () {
 
         if (this.options.hasInitialImage == true) {
             this._toggleBlockDelete(false);
@@ -60,9 +61,10 @@
 
     fileUpload.prototype._initUpload = function () {
 
-        this.$element.fileupload($.extend(true, {
+        var fileUploadOptions = $.extend(true, {
             url: this.options.url,
-            autoUpload: true,
+            autoUpload: this.options.autoUpload,
+            add: $.proxy(this._onAdd, this),
             start: $.proxy(this._onStart, this),
             progress: $.proxy(this._onProgress, this),
             done: $.proxy(this._onDone, this),
@@ -71,7 +73,9 @@
             acceptFileTypes: this.options.acceptFileTypes,
             dropZone: this.$element,
             formData: $.proxy(this._getFormData, this)
-        }, this.options.fileUpload));
+        }, this.options.fileUpload);
+
+        this.$element.fileupload(fileUploadOptions);
     };
     //#endregion
 
@@ -81,6 +85,21 @@
         this._toggleLoading(true);
 
         this._trigger('start', 0, arguments);
+    };
+
+    fileUpload.prototype._onAdd = function (e, data) {
+        this._trigger('add', 0, arguments);
+
+        if (this.options.autoUpload === false) {
+
+            this._currentUploadData = data;
+
+            if (!loadImage(data.files[0], $.proxy(this._displayPreviewImage, this, data), { canvas: false })) {
+                console.log('Your browser does not support the URL or FileReader API.');
+            }
+        } else {
+            data.submit();
+        }
     };
 
     fileUpload.prototype._onProgress = function () {
@@ -118,7 +137,7 @@
                 data: data,
                 success: this._onDeleteSuccess,
                 error: this._onDeleteError,
-                context : this
+                context: this
             });
         } else if (typeof this.options.defaultImageUrl !== "undefined") {
             this._updateImage(this.options.defaultImageUrl);
@@ -153,7 +172,7 @@
         }
     };
 
-    fileUpload.prototype._toggleBlockDelete = function(block) {
+    fileUpload.prototype._toggleBlockDelete = function (block) {
         if (block) {
             this.$element.find(this.options.deleteImageSelector).addClass('disabled');
         } else {
@@ -190,17 +209,42 @@
 
     fileUpload.prototype._getFormData = function () {
         var data = [];
-        
+
         if (typeof this.options.getFormData === "function") {
             data = this.options.getFormData();
         }
 
         return data;
     };
+
+    fileUpload.prototype._displayPreviewImage = function (data, img) {
+        if (!(img.src || img instanceof HTMLCanvasElement)) {
+            console.log('Loading image file failed');
+        } else {
+
+            var $image = $(img);
+
+            $image.css('width', this.$image.css('width'));
+            $image.css('height', this.$image.css('width'));
+            $image.attr('class', this.$image.attr('class'));
+
+            this.$image.replaceWith($image);
+
+            this.$image = $image;
+        }
+    };
     //#endregion
 
     //#region public methods
+    fileUpload.prototype.startUpload = function () {
+        if (this._currentUploadData != null && typeof this._currentUploadData.submit === "function") {
+            this._currentUploadData.submit();
+        }
+    };
 
+    fileUpload.prototype.getCurrentData = function() {
+        return this._currentUploadData;
+    };
     //#endregion
 
     $.widget('bforms.bsFileUpload', fileUpload.prototype);
