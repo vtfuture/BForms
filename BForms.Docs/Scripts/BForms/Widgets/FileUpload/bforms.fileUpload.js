@@ -128,6 +128,8 @@
         e.preventDefault();
         e.stopPropagation();
 
+        this._currentUploadData = null;
+
         if (this.options.deleteUrl) {
 
             var data = this._getExtraData();
@@ -142,6 +144,8 @@
         } else if (typeof this.options.defaultImageUrl !== "undefined") {
             this._updateImage(this.options.defaultImageUrl);
         }
+
+        this._trigger('delete', 0, arguments);
     };
     //#endregion
 
@@ -242,7 +246,7 @@
         }
     };
 
-    fileUpload.prototype.getCurrentData = function() {
+    fileUpload.prototype.getCurrentData = function () {       
         return this._currentUploadData;
     };
     //#endregion
