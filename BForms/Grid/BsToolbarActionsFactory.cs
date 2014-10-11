@@ -95,6 +95,23 @@ namespace BForms.Grid
 
             return group;
         }
+
+        /// <summary>
+        /// Adds ButtonGroup to Toolbar, right after the last added toolbar action
+        /// </summary>
+        public BsToolbarActionsBaseFactory<TToolbar> AddButtonGroup(Action<BsToolbarButtonGroup<TToolbar>> action)
+        {
+            var buttonGroupWrapper = new BsToolbarButtonGroupAction<TToolbar>
+            {
+                ButtonGroup = new BsToolbarButtonGroup<TToolbar>(this.viewContext)
+            };
+
+            action(buttonGroupWrapper.ButtonGroup);
+
+            this.actions.Add(buttonGroupWrapper);
+
+            return this;
+        }
     }
 
     /// <summary>
