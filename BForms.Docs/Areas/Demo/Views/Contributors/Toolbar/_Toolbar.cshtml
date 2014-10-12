@@ -10,18 +10,20 @@
     .SetTheme(Html.GetTheme())
     .ConfigureActions(ca =>
     {
+        ca.AddButtonGroup(buttonGroup =>
+        {
+            buttonGroup.DisplayName("Options").GlyphIcon(Glyphicon.Cog);
 
-        var groupButton = ca.AddButtonGroup().DisplayName("Options").GlyphIcon(Glyphicon.Cog);
+            buttonGroup.Add(BsToolbarActionType.Order)
+               .Text(Resource.Order)
+               .Tab(x => Html.BsPartialPrefixed(y => y.Order, "Toolbar/_Order", x));
 
-        groupButton.Add(BsToolbarActionType.Order)
-           .Text(Resource.Order)
-           .Tab(x => Html.BsPartialPrefixed(y => y.Order, "Toolbar/_Order", x));
-
-        groupButton.AddActionLink()
-            .Text("User profile")
-            .GlyphIcon(Glyphicon.User)
-            .Action(Url.Action("Index", "UserProfile"));
-
+            buttonGroup.AddActionLink()
+               .Text("User profile")
+               .GlyphIcon(Glyphicon.User)
+               .Action(Url.Action("Index", "UserProfile"));
+        });
+        
         ca.Add(BsToolbarActionType.Add)
          .Text(Resource.Add)
          .Tab(x => Html.BsPartialPrefixed(y => y.New, "Toolbar/_New", x));
