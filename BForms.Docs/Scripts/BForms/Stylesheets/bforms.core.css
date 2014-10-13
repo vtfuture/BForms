@@ -273,6 +273,27 @@ mark, .mark {
     .twitter-typeahead .tt-suggestion.tt-is-under-cursor {
       background: #dadada; }
 
+/* File upload */
+.input-file-upload .form-control {
+  position: relative; }
+  .input-file-upload .form-control .btn {
+    position: absolute;
+    right: -1px;
+    top: -1px; }
+  .input-file-upload .form-control:after {
+    display: inline-block;
+    content: attr(data-title);
+    margin-left: 5px; }
+.input-file-upload input[type=file] {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  filter: Alpha(opacity=0);
+  z-index: 9;
+  top: 0;
+  left: 0; }
+
 /* Custom UI END*/
 .form-control:focus {
   box-shadow: none;
