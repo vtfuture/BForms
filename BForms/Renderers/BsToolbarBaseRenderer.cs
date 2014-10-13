@@ -114,7 +114,16 @@ namespace BForms.Renderers
                         tabNr++;
                     }
 
-                    controlsBuilder.InnerHtml += action.ToString();
+                    if (action is BsToolbarButtonGroupAction<TToolbar>)
+                    {
+                        var buttonGroup = (action as BsToolbarButtonGroupAction<TToolbar>).ButtonGroup;
+
+                        controlsBuilder.InnerHtml += buttonGroup.ToString();
+                    }
+                    else
+                    {
+                        controlsBuilder.InnerHtml += action.ToString();
+                    }                    
                 }
 
                 controlsContainer.InnerHtml += controlsBuilder;

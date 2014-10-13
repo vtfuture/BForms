@@ -53,9 +53,9 @@ namespace BForms.Grid
         /// <typeparam name="TRow">Grid row model type</typeparam>
         public class OrderedQueryBuilder<TRow>
         {
-            List<BsColumnOrder> columnsOrder;
-            Dictionary<string, Func<IQueryable<TEntity>, BsOrderType, IOrderedQueryable<TEntity>>> delegateSettings = new Dictionary<string, Func<IQueryable<TEntity>, BsOrderType, IOrderedQueryable<TEntity>>>();
-            Dictionary<string, IQueryCriteria<TEntity>> expressionSettings = new Dictionary<string, IQueryCriteria<TEntity>>();
+            protected List<BsColumnOrder> columnsOrder;
+            protected Dictionary<string, Func<IQueryable<TEntity>, BsOrderType, IOrderedQueryable<TEntity>>> delegateSettings = new Dictionary<string, Func<IQueryable<TEntity>, BsOrderType, IOrderedQueryable<TEntity>>>();
+            protected Dictionary<string, IQueryCriteria<TEntity>> expressionSettings = new Dictionary<string, IQueryCriteria<TEntity>>();
 
             /// <summary>
             /// .ctor
@@ -107,7 +107,7 @@ namespace BForms.Grid
             /// <param name="query">Query that will be ordered</param>
             /// <param name="defaultOrderFunc">Default order row column. The query must be ordered before take/skip</param>
             /// <returns>Ordered query</returns>
-            public IOrderedQueryable<TEntity> Order(IQueryable<TEntity> query, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> defaultOrderFunc)
+            public virtual IOrderedQueryable<TEntity> Order(IQueryable<TEntity> query, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> defaultOrderFunc)
             {
                 //throw exception if defaultOrder is not asc or desc
                 if (defaultOrderFunc == null)
