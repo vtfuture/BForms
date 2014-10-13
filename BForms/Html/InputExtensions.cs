@@ -199,8 +199,12 @@ namespace BForms.Html
                     case BsControlType.ColorPicker:
                         inputHtml = htmlHelper.TextBoxForInternal(expression, format, htmlAttributes);
                         break;
+                    case BsControlType.Upload:
+                        htmlAttributes.MergeAttribute("type", "file");
+                        inputHtml = htmlHelper.TextBoxForInternal(expression, format, htmlAttributes);
+                        break;
                     default:
-                        throw new ArgumentException("The " + name + " of type " + bsControl.ControlType.GetDescription() + " does not match an input element");
+                        throw new ArgumentException("The " + name + " property of type " + bsControl.ControlType.GetDescription() + " does not match an input element");
                 }
             }
             else

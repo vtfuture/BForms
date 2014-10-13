@@ -4,6 +4,7 @@
          'bootstrap',
          'bforms-validate-unobtrusive',
          'bforms-initUI',
+         'bforms-ajax',
          'bforms-resetInput',
          'bforms-extensions',
          'main-script',
@@ -42,12 +43,9 @@
 
             $target.prop('disabled', "disabled");
 
-            $.ajax({
+            $.bforms.ajax({
                 url: this.options.registerUrl,
-                data: JSON.stringify(registerData),
-                type: 'POST',
-                dataType: 'json',
-                contentType: 'application/json; charset=utf-8'
+                data: registerData,
             }).then($.proxy(function (response, status, jqXHR) {
                 if (response.Status == 2) {//validation error
                     validatedForm.showErrors(response.Data.Errors, true);

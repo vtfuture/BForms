@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using BForms.Models;
 using BForms.Mvc;
+using System.Web;
 
 namespace BForms.Docs.Areas.Demo.Models
 {
@@ -33,6 +34,11 @@ namespace BForms.Docs.Areas.Demo.Models
 
     public class RegisterModel
     {
+        [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
+        [Display(Name = "Avatar", Prompt = "Choose avatar")]
+        [BsControl(BsControlType.Upload)]
+        public HttpPostedFileBase Avatar { get; set; }
+
         [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
         [Display(Name = "Name", Prompt = "NamePrompt", ResourceType = typeof(Resource))]
         [BsControl(BsControlType.TextBox)]
