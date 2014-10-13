@@ -47,6 +47,13 @@
 			var parts = filePath.split('\\'),
 		        fileName = parts[parts.length - 1];
 
+			if (fileName.length > 20) {
+			    var fileExtensionParts = fileName.split('.'),
+			        fileExtension = fileExtensionParts[fileExtensionParts.length - 1];
+
+			    fileName = fileName.substr(0, 20) + '... .' + fileExtension;
+			}
+
 			$formControl.attr('data-title', fileName);
 			this.$wrapper.find(this.options.removeBtn).show();
 		} else {
