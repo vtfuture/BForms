@@ -381,6 +381,8 @@ mark, .mark {
 }
 /* File upload */
 	.input-file-upload {
+		display: table;
+		width: 100%;
 		.form-control {
 			position: relative;
 			.btn {
