@@ -127,6 +127,7 @@
     <Compile Include="Editor\BsEditorToolbarFormBuilder.cs" />
     <Compile Include="Editor\BsEditorRepositorySettings.cs" />
     <Compile Include="Grid\BsToolbarButtonGroup.cs" />
+    <Compile Include="Grid\BsToolbarButtonGroupAction.cs" />
     <Compile Include="Grid\BsToolbarItemGroupAction.cs" />
     <Compile Include="Html\BsPagerExtensions.cs" />
     <Compile Include="Models\BsEditor.cs">
