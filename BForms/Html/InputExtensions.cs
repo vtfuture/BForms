@@ -200,8 +200,7 @@ namespace BForms.Html
                         inputHtml = htmlHelper.TextBoxForInternal(expression, format, htmlAttributes);
                         break;
                     case BsControlType.Upload:
-                        htmlAttributes.MergeAttribute("type", "file");
-                        inputHtml = htmlHelper.TextBoxForInternal(expression, format, htmlAttributes);
+                        inputHtml = htmlHelper.UploadForInternal(expression, format, htmlAttributes);
                         break;
                     default:
                         throw new ArgumentException("The " + name + " property of type " + bsControl.ControlType.GetDescription() + " does not match an input element");

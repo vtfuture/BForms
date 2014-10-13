@@ -14,8 +14,6 @@
         @Html.BsValidationSummary()
     </div>
 
-    
-
     <div class="col-sm-6 col-md-6 col-lg-6 form-group">
         @Html.BsLabelFor(m => m.Name)
         <div class="input-group">
@@ -170,19 +168,9 @@
     
     <div class="col-sm-6 col-md-6 col-lg-6 form-group">
         @Html.BsLabelFor(m => m.Avatar)
-        <div class="input-group input-file-upload">                    
-
-            <div class="form-control" data-title="No file ...">
-                <input type="file">   
-                <span class="glyphicon glyphicon-camera"></span>
-                <span class="btn btn-theme">Upload</span>
-            </div>
-            
-            <a href="#" class="btn btn-danger input-group-addon"><span class="glyphicon glyphicon-remove"></span></a>
-            
-
-            @*@Html.BsInputFor(m => m.Avatar)
-            @Html.BsValidationFor(m => m.Avatar)*@
+        <div class="input-group">                    
+            @Html.BsInputFor(m => m.Avatar)
+            @Html.BsValidationFor(m => m.Avatar)
         </div>
     </div>
     

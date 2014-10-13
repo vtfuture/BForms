@@ -61,6 +61,15 @@ namespace BForms.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Choose file.
+        /// </summary>
+        internal static string BF_ChooseFIle {
+            get {
+                return ResourceManager.GetString("BF_ChooseFIle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Move to groups .
         /// </summary>
         internal static string BF_GroupEditorMoveToGroups {
@@ -147,6 +156,15 @@ namespace BForms.Resources {
         internal static string BF_Select {
             get {
                 return ResourceManager.GetString("BF_Select", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Upload.
+        /// </summary>
+        internal static string BF_Upload {
+            get {
+                return ResourceManager.GetString("BF_Upload", resourceCulture);
             }
         }
     }

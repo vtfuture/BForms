@@ -1,9 +1,4 @@
-﻿@using (Html.BsBeginForm(
-	"Register", 
-	"Login",
-	new {ReturnUrl = ViewBag.ReturnUrl}, 
-	FormMethod.Post, 
-	new {@class = "js-registerForm"}))
+﻿@using (Html.BsBeginForm("Register", "Login", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "bs-form js-registerForm" }, Html.GetTheme()))
 {
     <div class="col-lg-12 bs-validation_summary">
         @Html.BsValidationSummary()
@@ -58,7 +53,7 @@
         @Html.BsLabelFor(m => m.Interval)
         <div class="input-group">
             @Html.BsGlyphiconAddon(Glyphicon.Calendar)
-            @Html.BsRangeFor(m => m.Interval)
+            @Html.BsRangeFor(m => m.Interval, new { }, new { usePresetRanges = true})
             @Html.BsValidationFor(m => m.Interval)
         </div>
     </div>
@@ -145,6 +140,30 @@
         </div>
     </div>
 
+    <div class="col-sm-6 col-md-6 col-lg-6 form-group">
+        @Html.BsLabelFor(m => m.JavascriptMvcFramework)
+        <div class="input-group">
+            @Html.BsSelectFor(m => m.JavascriptMvcFramework)
+            @Html.BsValidationFor(m => m.JavascriptMvcFramework)
+        </div>
+    </div>
+
+    <div class="col-sm-6 col-md-6 col-lg-6 form-group">
+        @Html.BsLabelFor(m => m.WebBrowsers)
+        <div class="input-group">
+            @Html.BsSelectFor(m => m.WebBrowsers)
+            @Html.BsValidationFor(m => m.WebBrowsers)
+        </div>
+    </div>
+    
+    <div class="col-sm-6 col-md-6 col-lg-6 form-group">
+        @Html.BsLabelFor(m => m.Avatar)
+        <div class="input-group">                    
+            @Html.BsInputFor(m => m.Avatar)
+            @Html.BsValidationFor(m => m.Avatar)
+        </div>
+    </div>
+    
     <div class="col-sm-6 col-md-6 col-lg-6 form-group checkbox">
         @Html.BsInputFor(m => m.ConsentAgreement)
         @Html.BsValidationFor(m => m.ConsentAgreement)
@@ -152,7 +171,9 @@
 
     <div class="col-sm-12 col-md-12 col-lg-12">
         <hr />
-        <button class="btn btn-primary js-registerBtn" type="submit">Register</button>
-        <a class="btn btn-danger pull-right" href="@Url.Action("Index", new { mode="login"})">Cancel</a>
+        <button class="btn btn-theme js-registerBtn" type="submit">Register</button>
+        <a class="btn btn-primary pull-right" href="@Url.Action("Index", new { mode="login"})">Login</a>
     </div>
+    
+    <div class="clearfix"></div>
 }

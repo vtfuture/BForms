@@ -130,6 +130,7 @@
     <Compile Include="Grid\BsToolbarButtonGroupAction.cs" />
     <Compile Include="Grid\BsToolbarItemGroupAction.cs" />
     <Compile Include="Html\BsPagerExtensions.cs" />
+    <Compile Include="Html\UploadExtensions.cs" />
     <Compile Include="Models\BsEditor.cs">
       <SubType>Code</SubType>
     </Compile>

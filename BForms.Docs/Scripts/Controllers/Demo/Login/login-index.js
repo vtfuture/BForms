@@ -1,14 +1,12 @@
 ﻿require([
          'jquery',
-         'jquery-ui-core',
          'bootstrap',
          'bforms-validate-unobtrusive',
          'bforms-initUI',
          'bforms-ajax',
          'bforms-resetInput',
          'bforms-extensions',
-         'main-script',
-         'moment'
+         'main-script'
 ], function () {
 
     var LoginIndex = function (options) {

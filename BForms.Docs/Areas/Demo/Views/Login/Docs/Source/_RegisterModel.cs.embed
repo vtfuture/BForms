@@ -84,4 +84,9 @@
     [Display(Name = "Interval", Prompt = "IntervalPrompt", ResourceType = typeof(Resource))]
     [BsControl(BsControlType.DateTimePickerRange, IsReadonly = true)]
     public BsRange<DateTime?> Interval { get; set; }
+
+    [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
+    [Display(Name = "Avatar", Prompt = "Choose avatar")]
+    [BsControl(BsControlType.Upload)]
+    public HttpPostedFileBase Avatar { get; set; }
 }
