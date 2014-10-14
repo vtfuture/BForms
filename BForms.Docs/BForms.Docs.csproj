@@ -60,13 +60,13 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.6.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="RequireJsNet, Version=1.0.27.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="RequireJsNet, Version=2.0.38.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\RequireJsNet.1.0.27.0\lib\net45\RequireJsNet.dll</HintPath>
+      <HintPath>..\packages\RequireJsNet.2.0.38.0\lib\net40\RequireJsNet.dll</HintPath>
     </Reference>
-    <Reference Include="RequireJsNet.Compressor, Version=1.1.21.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="RequireJsNet.Compressor, Version=2.0.30.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\RequireJsNet.Compressor.1.1.21.0\lib\net45\RequireJsNet.Compressor.dll</HintPath>
+      <HintPath>..\packages\RequireJsNet.Compressor.2.0.30.0\lib\net40\RequireJsNet.Compressor.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -457,13 +457,15 @@
     <Folder Include="Views\Start\Group\Docs\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\BForms\Stylesheets\bforms.core.scss" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="RequireJS.config" />
+    <None Include="RequireJS.json" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\_Footer.cshtml" />
@@ -848,7 +850,7 @@
     <Content Include="Views\Docs\Grid\Source\_JavascriptGrid.js.embed" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="RequireJS.Release.config" />
+    <None Include="RequireJS.Release.json" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\BForms\Widgets\Utils\bforms.themeSelect.js" />
@@ -879,9 +881,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Start\Setup\Source\_LayoutCss.cshtml.embed" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Start\Setup\Source\_BaseController.cs.embed" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Start\Setup\Source\_LayoutRequire.cshtml.embed" />

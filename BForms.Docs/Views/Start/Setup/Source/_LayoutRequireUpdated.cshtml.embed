@@ -8,25 +8,39 @@
     ...
 
     @if (HttpContext.Current.IsDebuggingEnabled)
-    {
-        @Html.RenderRequireJsSetup(Url.Content("~/Scripts"),
-        Url.Content("~/Scripts/bforms/components/requirejs/require.js"),
-        new []
         {
-            "~/Scripts/BForms/RequireJS.config",
-             "~/RequireJS.config"	// added for extra configuration
-        })
-    }
-    else
-    {
-        @Html.RenderRequireJsSetup(Url.Content("~/Scripts"),
-        Url.Content("~/Scripts/bforms/components/requirejs/require.js"),
-        new []
+            @Html.RenderRequireJsSetup(
+			new RequireRendererConfiguration
+                        {
+                            BaseUrl = Url.Content("~/Scripts"),
+                            RequireJsUrl = 
+				Url.Content("~/Scripts/bforms/components/requirejs/require.js"),
+                            ConfigurationFiles = new []
+                                                    {
+                                                        "~/Scripts/BForms/RequireJS.json",
+																			// added for extra configuration
+                                                        "~/RequireJS.json" 
+                                                    }
+                        })
+        }
+        else
         {
-            "~/Scripts/BForms/RequireJS.Release.config",
-             "~/RequireJS.Release.config"	// added for extra configuration
-        })
-    }
+            @Html.RenderRequireJsSetup(
+			new RequireRendererConfiguration
+                        {
+                            BaseUrl = Url.Content("~/Scripts"),
+                            RequireJsUrl = 
+				Url.Content("~/Scripts/bforms/components/requirejs/require.js"),
+                            ConfigurationFiles = 
+				new[]
+					{
+						"~/Scripts/BForms/RequireJS.Release.json",
+						// added for extra configuration
+						"~/RequireJS.Release.json" 
+					}
+                        })
+            @Html.Partial("_Tracking")
+        }
 
   </body>
 </html>

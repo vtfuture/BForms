@@ -34,7 +34,7 @@
     
     <!-- The config files have to be specified explicitly since the BForms.Build  doesn't have them-->
     <ItemGroup>
-      <ComponentsConfigs Include="..\BForms.Docs\**\RequireJS.config" />
+      <ComponentsConfigs Include="..\BForms.Docs\**\RequireJS.json" />
     </ItemGroup>   
     <RequireCompressorTask LoggingType="Debug" 
                            EncodingType="UTF8" 

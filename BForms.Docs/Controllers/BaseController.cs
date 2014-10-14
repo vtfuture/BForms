@@ -2,7 +2,7 @@
 using BForms.Docs.Models;
 using BForms.Grid;
 using BForms.Models;
-using RequireJS;
+using RequireJsNet;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +12,7 @@ using System.Web.Mvc;
 namespace BForms.Docs.Controllers
 {
     [OutputCache(Duration = 0, NoStore = true)]
-    public class BaseController : RequireJS.RequireJsController
+    public class BaseController : Controller
     {
         public BFormsContext Db 
         {
@@ -20,7 +20,6 @@ namespace BForms.Docs.Controllers
             {
                 return BFormsContext.Get();
             }
-            
         }
 
         public ThemeSettings GetTheme
@@ -46,7 +45,7 @@ namespace BForms.Docs.Controllers
             }
         }
 
-        public override void RegisterGlobalOptions()
+        protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             RequireJsOptions.Add(
                 "homeUrl",

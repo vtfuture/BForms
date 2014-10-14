@@ -43,13 +43,11 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.6.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="RequireJsNet, Version=1.0.27.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\RequireJsNet.1.0.27.0\lib\net45\RequireJsNet.dll</HintPath>
+    <Reference Include="RequireJsNet">
+      <HintPath>..\packages\RequireJsNet.2.0.38.0\lib\net40\RequireJsNet.dll</HintPath>
     </Reference>
-    <Reference Include="RequireJsNet.Compressor, Version=1.1.21.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\RequireJsNet.Compressor.1.1.21.0\lib\net45\RequireJsNet.Compressor.dll</HintPath>
+    <Reference Include="RequireJsNet.Compressor">
+      <HintPath>..\packages\RequireJsNet.Compressor.2.0.30.0\lib\net40\RequireJsNet.Compressor.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

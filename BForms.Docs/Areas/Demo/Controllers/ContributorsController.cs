@@ -10,7 +10,7 @@ using BForms.Docs.Resources;
 using BForms.Grid;
 using BForms.Models;
 using BForms.Mvc;
-using RequireJS;
+using RequireJsNet;
 using BForms.Docs.Areas.Demo.Helpers;
 
 namespace BForms.Docs.Areas.Demo.Controllers

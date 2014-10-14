@@ -14,7 +14,7 @@ using BForms.Docs.Areas.Demo.Helpers;
 using BForms.Docs.Controllers;
 using BForms.Docs.Areas.Demo.Repositories;
 using BForms.Grid;
-using RequireJS;
+using RequireJsNet;
 using BForms.Editor;
 using BForms.Docs.Resources;
 

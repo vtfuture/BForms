@@ -1,4 +1,4 @@
-﻿@using RequireJS
+﻿@using RequireJsNet
 <!DOCTYPE html>
 <html>
 <head>
@@ -47,14 +47,18 @@
             <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
         </footer>
     </div>
-
     
-    @Html.RenderRequireJsSetup(Url.Content("~/Scripts"),
-            Url.Content("~/Scripts/bforms/components/requirejs/require.js"),
-            new[]
-            {
-                "~/Scripts/BForms/RequireJS.config",
-                "~/RequireJS.config"
-            })
+    @Html.RenderRequireJsSetup(new RequireRendererConfiguration
+                                   {
+                                       BaseUrl = Url.Content("~/Scripts"),
+                                       RequireJsUrl = Url.Content("~/Scripts/bforms/components/requirejs/require.js"),
+                                       ConfigurationFiles = new []
+                                                                {
+                                                                    "~/Scripts/BForms/RequireJS.json",
+                                                                    "~/RequireJS.json"
+                                                                }
+                                   })
+    
+    
 </body>
 </html>

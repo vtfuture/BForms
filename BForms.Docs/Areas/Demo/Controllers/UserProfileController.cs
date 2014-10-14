@@ -11,6 +11,8 @@ using BForms.Docs.Resources;
 using BForms.Models;
 using BForms.Mvc;
 
+using RequireJsNet;
+
 namespace BForms.Docs.Areas.Demo.Controllers
 {
     public class UserProfileController : BaseController

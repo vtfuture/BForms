@@ -13,6 +13,8 @@ using BForms.Docs.Areas.Demo.Models;
 using BForms.Docs.Areas.Demo.Helpers;
 using BForms.Docs.Controllers;
 
+using RequireJsNet;
+
 namespace BForms.Docs.Areas.Demo.Controllers
 {
 

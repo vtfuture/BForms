@@ -1,7 +1,7 @@
 ﻿@using BForms.Docs.Helpers
 @using BForms.Docs.Areas.Demo.Helpers
 @using BForms.Html
-@using RequireJS
+@using RequireJsNet
 
 <!DOCTYPE html>
 <html lang="en">
@@ -56,23 +56,29 @@
 
         @if (HttpContext.Current.IsDebuggingEnabled)
         {
-            @Html.RenderRequireJsSetup(Url.Content("~/Scripts"),
-            Url.Content("~/Scripts/bforms/components/requirejs/require.js"),
-            new []
-            {
-                "~/Scripts/BForms/RequireJS.config",
-                "~/RequireJS.config"
-            })
+            @Html.RenderRequireJsSetup(new RequireRendererConfiguration
+                                           {
+                                               BaseUrl = Url.Content("~/Scripts"),
+                                               RequireJsUrl = Url.Content("~/Scripts/bforms/components/requirejs/require.js"),
+                                               ConfigurationFiles = new []
+                                                                        {
+                                                                            "~/Scripts/BForms/RequireJS.json",
+                                                                            "~/RequireJS.json"
+                                                                        }
+                                           })
         }
         else
         {
-            @Html.RenderRequireJsSetup(Url.Content("~/Scripts"),
-            Url.Content("~/Scripts/bforms/components/requirejs/require.js"),
-            new []
-            {
-                "~/Scripts/BForms/RequireJS.Release.config",
-                "~/RequireJS.Release.config"
-            })
+            @Html.RenderRequireJsSetup(new RequireRendererConfiguration
+                                           {
+                                               BaseUrl = Url.Content("~/Scripts"),
+                                               RequireJsUrl = Url.Content("~/Scripts/bforms/components/requirejs/require.js"),
+                                               ConfigurationFiles = new[]
+                                                                        {
+                                                                            "~/Scripts/BForms/RequireJS.Release.json",
+                                                                            "~/RequireJS.Release.json"
+                                                                        }
+                                           })
             @Html.Partial("_Tracking")
         }
 
