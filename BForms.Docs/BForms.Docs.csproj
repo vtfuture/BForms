@@ -466,6 +466,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="RequireJS.json" />
+    <Content Include="Scripts\BForms\RequireJS.json" />
+    <Content Include="Scripts\BForms\RequireJS.Release.json" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\_Footer.cshtml" />
@@ -857,12 +859,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\_Themes.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Scripts\BForms\RequireJS.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Scripts\BForms\RequireJS.Release.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Docs\Overview\_CssHelpers.cshtml" />
