@@ -465,7 +465,7 @@
     <Content Include="Scripts\BForms\Stylesheets\bforms.core.scss" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="RequireJS.json" />
+    <Content Include="RequireJS.json" />
     <Content Include="Scripts\BForms\RequireJS.json" />
     <Content Include="Scripts\BForms\RequireJS.Release.json" />
   </ItemGroup>
@@ -852,7 +852,7 @@
     <Content Include="Views\Docs\Grid\Source\_JavascriptGrid.js.embed" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="RequireJS.Release.json" />
+    <Content Include="RequireJS.Release.json" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\BForms\Widgets\Utils\bforms.themeSelect.js" />
