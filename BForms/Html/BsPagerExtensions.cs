@@ -8,9 +8,16 @@ namespace BForms.Html
 {
     public static class BsPagerExtensions
     {
+        public static BsGridPagerBuilder BsPager(this HtmlHelper html, BsPagerModel model, BsPagerSettings pagerSettings)
+        {
+            var builder = new BsGridPagerBuilder(model, pagerSettings, null) { viewContext = html.ViewContext };
+
+            return builder;
+        }
+
         public static BsGridPagerBuilder BsPager(this HtmlHelper html, BsPagerModel model)
         {
-            var builder = new BsGridPagerBuilder(model, new BsPagerSettings(), null) { viewContext = html.ViewContext };
+            var builder = BsPager(html, model, null);
 
             return builder;
         }
