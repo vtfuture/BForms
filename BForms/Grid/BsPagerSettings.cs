@@ -13,6 +13,7 @@ namespace BForms.Grid
         private bool showFirstLastButton = true;
         private bool hasPagesText = true;
         private bool hasPageSizeSelector = true;
+        private bool strippedDown = false;
         private List<int> pageSizeValues;
         private string template;
 
@@ -109,6 +110,18 @@ namespace BForms.Grid
             set
             {
                 this.hasPageSizeSelector = value;
+            }
+        }
+
+        public bool StrippedDown
+        {
+            get
+            {
+                return this.strippedDown;
+            }
+            set
+            {
+                this.strippedDown = value;
             }
         }
 

@@ -22,6 +22,12 @@ namespace BForms.Html
             return builder;
         }
 
+        public static BsGridPagerBuilder BsPagerFor<TModel>(this HtmlHelper<TModel> html, Expression<Func<TModel, BsPagerModel>> expression, BsPagerSettings pagerSettings)
+        {
+            var model = expression.Compile().Invoke(html.ViewData.Model);
+            return BsPager(html, model, pagerSettings);
+        }
+
         public static BsGridPagerBuilder BsPagerFor<TModel>(this HtmlHelper<TModel> html, Expression<Func<TModel, BsPagerModel>> expression)
         {
             var model = expression.Compile().Invoke(html.ViewData.Model);

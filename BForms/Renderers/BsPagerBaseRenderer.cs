@@ -18,6 +18,133 @@ namespace BForms.Renderers
         {
         }
 
+        public string RenderPagination()
+        {
+            var paginationBuilder = new TagBuilder("ul");
+
+            paginationBuilder.AddCssClass("pagination");
+
+            if (!this.Builder.settings.StrippedDown)
+            {
+                paginationBuilder.AddCssClass("pagination-md");
+            }
+
+            if (this.Builder.pager.TotalPages <= 1)
+            {
+                paginationBuilder.MergeAttribute("style", "display:none");
+            }
+
+            #region first page button
+
+            if (this.Builder.settings.ShowFirstLastButtons)
+            {
+                var firstPageBuilder = new TagBuilder("li");
+                if (this.Builder.pager.CurrentPage == 1)
+                {
+                    firstPageBuilder.MergeAttribute("class", "disabled");
+                }
+                var anchorBuilder = new TagBuilder("a");
+                anchorBuilder.MergeAttribute("href", "#");
+                anchorBuilder.MergeAttribute("data-page", "1");
+                anchorBuilder.InnerHtml += "&laquo;";
+
+                firstPageBuilder.InnerHtml += anchorBuilder.ToString();
+
+                paginationBuilder.InnerHtml += firstPageBuilder.ToString();
+            }
+
+            #endregion
+
+            #region prev page button
+
+            if (this.Builder.settings.ShowPrevNextButtons)
+            {
+                var prevPageBuilder = new TagBuilder("li");
+                if (this.Builder.pager.CurrentPage == 1)
+                {
+                    prevPageBuilder.MergeAttribute("class", "disabled");
+                }
+                var anchorBuilder = new TagBuilder("a");
+                anchorBuilder.MergeAttribute("href", "#");
+                anchorBuilder.MergeAttribute("data-page", (this.Builder.pager.CurrentPage - 1).ToString());
+                anchorBuilder.InnerHtml += "&lsaquo;";
+
+                prevPageBuilder.InnerHtml += anchorBuilder.ToString();
+
+                paginationBuilder.InnerHtml += prevPageBuilder.ToString();
+            }
+
+            #endregion
+
+            #region pages buttons
+
+            var startPage = this.Builder.pager.GetStartPage(this.Builder.settings.Size);
+            int nr = this.Builder.settings.Size > this.Builder.pager.TotalPages ? this.Builder.pager.TotalPages % this.Builder.settings.Size : this.Builder.settings.Size;
+            for (int i = 0; i < nr; i++)
+            {
+                var page = i + startPage;
+                var pageBtnBuilder = new TagBuilder("li");
+                if (this.Builder.pager.CurrentPage == page)
+                {
+                    pageBtnBuilder.MergeAttribute("class", "active");
+                }
+                var anchorBuilder = new TagBuilder("a");
+                anchorBuilder.MergeAttribute("href", "#");
+                anchorBuilder.MergeAttribute("data-page", page.ToString());
+                anchorBuilder.InnerHtml += page;
+
+                pageBtnBuilder.InnerHtml += anchorBuilder.ToString();
+
+                paginationBuilder.InnerHtml += pageBtnBuilder.ToString();
+            }
+
+            #endregion
+
+            #region next page button
+
+            if (this.Builder.settings.ShowPrevNextButtons)
+            {
+                var nextPageBuilder = new TagBuilder("li");
+                if (this.Builder.pager.CurrentPage == this.Builder.pager.TotalPages)
+                {
+                    nextPageBuilder.MergeAttribute("class", "disabled");
+                }
+                var anchorBuilder = new TagBuilder("a");
+                anchorBuilder.MergeAttribute("href", "#");
+                anchorBuilder.MergeAttribute("data-page", (this.Builder.pager.CurrentPage + 1).ToString());
+                anchorBuilder.InnerHtml += "&rsaquo;";
+
+                nextPageBuilder.InnerHtml += anchorBuilder.ToString();
+
+                paginationBuilder.InnerHtml += nextPageBuilder.ToString();
+            }
+
+            #endregion
+
+            #region last page button
+
+            if (this.Builder.settings.ShowFirstLastButtons)
+            {
+                var lastPageBuilder = new TagBuilder("li");
+                if (this.Builder.pager.CurrentPage == this.Builder.pager.TotalPages)
+                {
+                    lastPageBuilder.MergeAttribute("class", "disabled");
+                }
+                var anchorBuilder = new TagBuilder("a");
+                anchorBuilder.MergeAttribute("href", "#");
+                anchorBuilder.MergeAttribute("data-page", this.Builder.pager.TotalPages.ToString());
+                anchorBuilder.InnerHtml += "&raquo;";
+
+                lastPageBuilder.InnerHtml += anchorBuilder.ToString();
+
+                paginationBuilder.InnerHtml += lastPageBuilder.ToString();
+            }
+
+            #endregion
+
+            return paginationBuilder.ToString();
+        }
+
         public string RenderPages()
         {
             if (this.Builder.pager != null)
@@ -27,123 +154,7 @@ namespace BForms.Renderers
 
                 #region pagination
 
-                var paginationBuilder = new TagBuilder("ul");
-                paginationBuilder.AddCssClass("pagination pagination-md");
-
-                if (this.Builder.pager.TotalPages <= 1)
-                {
-                    paginationBuilder.MergeAttribute("style", "display:none");
-                }
-
-                #region first page button
-
-                if (this.Builder.settings.ShowFirstLastButtons)
-                {
-                    var firstPageBuilder = new TagBuilder("li");
-                    if (this.Builder.pager.CurrentPage == 1)
-                    {
-                        firstPageBuilder.MergeAttribute("class", "disabled");
-                    }
-                    var anchorBuilder = new TagBuilder("a");
-                    anchorBuilder.MergeAttribute("href", "#");
-                    anchorBuilder.MergeAttribute("data-page", "1");
-                    anchorBuilder.InnerHtml += "&laquo;";
-
-                    firstPageBuilder.InnerHtml += anchorBuilder.ToString();
-
-                    paginationBuilder.InnerHtml += firstPageBuilder.ToString();
-                }
-
-                #endregion
-
-                #region prev page button
-
-                if (this.Builder.settings.ShowPrevNextButtons)
-                {
-                    var prevPageBuilder = new TagBuilder("li");
-                    if (this.Builder.pager.CurrentPage == 1)
-                    {
-                        prevPageBuilder.MergeAttribute("class", "disabled");
-                    }
-                    var anchorBuilder = new TagBuilder("a");
-                    anchorBuilder.MergeAttribute("href", "#");
-                    anchorBuilder.MergeAttribute("data-page", (this.Builder.pager.CurrentPage - 1).ToString());
-                    anchorBuilder.InnerHtml += "&lsaquo;";
-
-                    prevPageBuilder.InnerHtml += anchorBuilder.ToString();
-
-                    paginationBuilder.InnerHtml += prevPageBuilder.ToString();
-                }
-
-                #endregion
-
-                #region pages buttons
-
-                var startPage = this.Builder.pager.GetStartPage(this.Builder.settings.Size);
-                int nr = this.Builder.settings.Size > this.Builder.pager.TotalPages ? this.Builder.pager.TotalPages % this.Builder.settings.Size : this.Builder.settings.Size;
-                for (int i = 0; i < nr; i++)
-                {
-                    var page = i + startPage;
-                    var pageBtnBuilder = new TagBuilder("li");
-                    if (this.Builder.pager.CurrentPage == page)
-                    {
-                        pageBtnBuilder.MergeAttribute("class", "active");
-                    }
-                    var anchorBuilder = new TagBuilder("a");
-                    anchorBuilder.MergeAttribute("href", "#");
-                    anchorBuilder.MergeAttribute("data-page", page.ToString());
-                    anchorBuilder.InnerHtml += page;
-
-                    pageBtnBuilder.InnerHtml += anchorBuilder.ToString();
-
-                    paginationBuilder.InnerHtml += pageBtnBuilder.ToString();
-                }
-
-                #endregion
-
-                #region next page button
-
-                if (this.Builder.settings.ShowPrevNextButtons)
-                {
-                    var nextPageBuilder = new TagBuilder("li");
-                    if (this.Builder.pager.CurrentPage == this.Builder.pager.TotalPages)
-                    {
-                        nextPageBuilder.MergeAttribute("class", "disabled");
-                    }
-                    var anchorBuilder = new TagBuilder("a");
-                    anchorBuilder.MergeAttribute("href", "#");
-                    anchorBuilder.MergeAttribute("data-page", (this.Builder.pager.CurrentPage + 1).ToString());
-                    anchorBuilder.InnerHtml += "&rsaquo;";
-
-                    nextPageBuilder.InnerHtml += anchorBuilder.ToString();
-
-                    paginationBuilder.InnerHtml += nextPageBuilder.ToString();
-                }
-
-                #endregion
-
-                #region last page button
-
-                if (this.Builder.settings.ShowFirstLastButtons)
-                {
-                    var lastPageBuilder = new TagBuilder("li");
-                    if (this.Builder.pager.CurrentPage == this.Builder.pager.TotalPages)
-                    {
-                        lastPageBuilder.MergeAttribute("class", "disabled");
-                    }
-                    var anchorBuilder = new TagBuilder("a");
-                    anchorBuilder.MergeAttribute("href", "#");
-                    anchorBuilder.MergeAttribute("data-page", this.Builder.pager.TotalPages.ToString());
-                    anchorBuilder.InnerHtml += "&raquo;";
-
-                    lastPageBuilder.InnerHtml += anchorBuilder.ToString();
-
-                    paginationBuilder.InnerHtml += lastPageBuilder.ToString();
-                }
-
-                #endregion
-
-                pagesBuilder.InnerHtml += paginationBuilder.ToString();
+                pagesBuilder.InnerHtml += RenderPagination();
 
                 #endregion
 
@@ -194,88 +205,95 @@ namespace BForms.Renderers
                 pagerWrapper.MergeAttribute("style", "display: none;");
             }
 
-            pagerWrapper.AddCssClass("row bs-pager");
-            pagerWrapper.AddCssClass(this.Builder.Theme.GetDescription());
-
-            pagerWrapper.InnerHtml += this.RenderPages();
-
-            if (this.Builder.settings.HasPageSizeSelector)
+            if (this.Builder.settings.StrippedDown)
             {
-                int pageSize = this.Builder.pager != null ? this.Builder.pager.PageSize : this.Builder.baseSettings.PageSize;
-                if (!this.Builder.settings.PageSizeValues.Contains(pageSize))
-                    throw new ArgumentOutOfRangeException("The page size you selected is not in the list");
+                pagerWrapper.InnerHtml += this.RenderPagination();
+            }
+            else
+            {
+                pagerWrapper.AddCssClass("row bs-pager");
+                pagerWrapper.AddCssClass(this.Builder.Theme.GetDescription());
 
-                var selectWrapperBuilder = new TagBuilder("div");
+                pagerWrapper.InnerHtml += this.RenderPages();
 
-                selectWrapperBuilder.AddCssClass("col-md-3 col-lg-3 results_per_page");
-
-                if (this.Builder.hidePageSize)
+                if (this.Builder.settings.HasPageSizeSelector)
                 {
-                    selectWrapperBuilder.AddCssClass("hidden-md hidden-sm hidden-xs");
-                }
+                    int pageSize = this.Builder.pager != null ? this.Builder.pager.PageSize : this.Builder.baseSettings.PageSize;
+                    if (!this.Builder.settings.PageSizeValues.Contains(pageSize))
+                        throw new ArgumentOutOfRangeException("The page size you selected is not in the list");
 
-                TagBuilder divBuilder = new TagBuilder("div");
-                divBuilder.AddCssClass("pull-right");
+                    var selectWrapperBuilder = new TagBuilder("div");
 
-                #region right side
-                var dropdownContainerBuilder = new TagBuilder("div");
-                dropdownContainerBuilder.AddCssClass("dropdown dropup");
+                    selectWrapperBuilder.AddCssClass("col-md-3 col-lg-3 results_per_page");
 
-                var dropdownTriggerBuilder = new TagBuilder("a");
-                dropdownTriggerBuilder.MergeAttribute("data-toggle", "dropdown");
-                dropdownTriggerBuilder.MergeAttribute("href", "#");
-
-
-
-                var dropdownListBuilder = new TagBuilder("ul");
-                dropdownListBuilder.MergeAttribute("class", "dropdown-menu");
-                dropdownListBuilder.MergeAttribute("role", "menu");
-
-                foreach (var item in this.Builder.settings.PageSizeValues)
-                {
-                    var dropdownLiBuilder = new TagBuilder("li");
-                    var dropdownLiAnchorBuilder = new TagBuilder("a");
-
-                    if (pageSize == item)
+                    if (this.Builder.hidePageSize)
                     {
-                        var dropdownCountBuilder = new TagBuilder("span");
-                        dropdownCountBuilder.AddCssClass("btn btn-default bs-perPageDisplay");
-                        var caret = new TagBuilder("span");
-                        caret.AddCssClass("caret");
-                        dropdownCountBuilder.InnerHtml += item.ToString() + caret.ToString();
-                        dropdownTriggerBuilder.InnerHtml += dropdownCountBuilder.ToString();
-
-                        dropdownLiAnchorBuilder.AddCssClass("selected");
+                        selectWrapperBuilder.AddCssClass("hidden-md hidden-sm hidden-xs");
                     }
 
-                    dropdownLiAnchorBuilder.InnerHtml += item;
-                    dropdownLiAnchorBuilder.MergeAttribute("data-value", item.ToString());
-                    dropdownLiAnchorBuilder.AddCssClass("bs-perPage");
-                    dropdownLiAnchorBuilder.Attributes.Add("href", "#");
+                    TagBuilder divBuilder = new TagBuilder("div");
+                    divBuilder.AddCssClass("pull-right");
 
-                    dropdownLiBuilder.InnerHtml += dropdownLiAnchorBuilder.ToString();
-                    dropdownListBuilder.InnerHtml += dropdownLiBuilder.ToString();
+                    #region right side
+                    var dropdownContainerBuilder = new TagBuilder("div");
+                    dropdownContainerBuilder.AddCssClass("dropdown dropup");
+
+                    var dropdownTriggerBuilder = new TagBuilder("a");
+                    dropdownTriggerBuilder.MergeAttribute("data-toggle", "dropdown");
+                    dropdownTriggerBuilder.MergeAttribute("href", "#");
+
+
+
+                    var dropdownListBuilder = new TagBuilder("ul");
+                    dropdownListBuilder.MergeAttribute("class", "dropdown-menu");
+                    dropdownListBuilder.MergeAttribute("role", "menu");
+
+                    foreach (var item in this.Builder.settings.PageSizeValues)
+                    {
+                        var dropdownLiBuilder = new TagBuilder("li");
+                        var dropdownLiAnchorBuilder = new TagBuilder("a");
+
+                        if (pageSize == item)
+                        {
+                            var dropdownCountBuilder = new TagBuilder("span");
+                            dropdownCountBuilder.AddCssClass("btn btn-default bs-perPageDisplay");
+                            var caret = new TagBuilder("span");
+                            caret.AddCssClass("caret");
+                            dropdownCountBuilder.InnerHtml += item.ToString() + caret.ToString();
+                            dropdownTriggerBuilder.InnerHtml += dropdownCountBuilder.ToString();
+
+                            dropdownLiAnchorBuilder.AddCssClass("selected");
+                        }
+
+                        dropdownLiAnchorBuilder.InnerHtml += item;
+                        dropdownLiAnchorBuilder.MergeAttribute("data-value", item.ToString());
+                        dropdownLiAnchorBuilder.AddCssClass("bs-perPage");
+                        dropdownLiAnchorBuilder.Attributes.Add("href", "#");
+
+                        dropdownLiBuilder.InnerHtml += dropdownLiAnchorBuilder.ToString();
+                        dropdownListBuilder.InnerHtml += dropdownLiBuilder.ToString();
+                    }
+
+                    dropdownContainerBuilder.InnerHtml += dropdownTriggerBuilder.ToString();
+                    dropdownContainerBuilder.InnerHtml += dropdownListBuilder.ToString();
+
+                    divBuilder.InnerHtml += dropdownContainerBuilder.ToString();
+
+                    var goTopBuilder = new TagBuilder("button");
+                    goTopBuilder.AddCssClass("btn btn-default btn-go_up bs-goTop");
+                    goTopBuilder.MergeAttribute("title", "Go top");
+                    var goTopSpanBuilder = new TagBuilder("span");
+                    goTopSpanBuilder.AddCssClass("glyphicon glyphicon-arrow-up");
+
+                    goTopBuilder.InnerHtml += goTopSpanBuilder.ToString();
+
+                    divBuilder.InnerHtml += goTopBuilder.ToString();
+                    #endregion
+
+                    selectWrapperBuilder.InnerHtml += divBuilder.ToString();
+
+                    pagerWrapper.InnerHtml += selectWrapperBuilder.ToString();
                 }
-
-                dropdownContainerBuilder.InnerHtml += dropdownTriggerBuilder.ToString();
-                dropdownContainerBuilder.InnerHtml += dropdownListBuilder.ToString();
-
-                divBuilder.InnerHtml += dropdownContainerBuilder.ToString();
-
-                var goTopBuilder = new TagBuilder("button");
-                goTopBuilder.AddCssClass("btn btn-default btn-go_up bs-goTop");
-                goTopBuilder.MergeAttribute("title", "Go top");
-                var goTopSpanBuilder = new TagBuilder("span");
-                goTopSpanBuilder.AddCssClass("glyphicon glyphicon-arrow-up");
-
-                goTopBuilder.InnerHtml += goTopSpanBuilder.ToString();
-
-                divBuilder.InnerHtml += goTopBuilder.ToString();
-                #endregion
-
-                selectWrapperBuilder.InnerHtml += divBuilder.ToString();
-
-                pagerWrapper.InnerHtml += selectWrapperBuilder.ToString();
             }
 
             return pagerWrapper.ToString();
