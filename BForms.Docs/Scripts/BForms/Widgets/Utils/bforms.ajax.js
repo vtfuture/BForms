@@ -341,9 +341,9 @@
                 if (isValidJson) {
                     try {
                         if (response.Status == self._statusEnum.Success || response.Status == self._statusEnum.ValidationError) {
-                            deferredXHR.resolve(response.Status, [response, opts.callbackData]);
+                            deferredXHR.resolve(response.Status, [response.Data, opts.callbackData]);
                         } else {
-                            deferredXHR.reject(response.Status, [response != null ? response.Data : null, xhrRequest, xhrRequest.statusText, null, opts.callbackData]);
+                            deferredXHR.reject(response.Status, [response.Data , xhrRequest, xhrRequest.statusText, null, opts.callbackData]);
                         }
                     } catch (ex) {
                         window.console.log(ex.stack);
