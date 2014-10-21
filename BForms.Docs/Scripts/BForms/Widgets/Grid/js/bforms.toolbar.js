@@ -114,7 +114,6 @@
     };
 
     Toolbar.prototype.reset = function () {
-        debugger;
         this._reset(arguments);
         if (typeof this.options.reset === "function") {
             this.options.reset.apply(this, arguments);
