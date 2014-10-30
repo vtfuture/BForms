@@ -85,6 +85,7 @@
     <Reference Include="System.Web.Mvc, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.Mvc.5.0.0\lib\net45\System.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -258,6 +259,7 @@
     <Content Include="Content\Images\logo_jetbrains.png" />
     <Content Include="Content\Images\veritech-logo-site%402x.png" />
     <Content Include="robots.txt" />
+    <Content Include="Scripts\BForms\Components\Bootstrap\css\bootstrap.css" />
     <Content Include="Scripts\BForms\Components\ErrorTell\errorTell.js" />
     <Content Include="Scripts\BForms\Components\FileUpload\jquery.fileupload-process.js" />
     <Content Include="Scripts\BForms\Components\FileUpload\jquery.fileupload-validate.js" />
@@ -402,7 +404,6 @@
     <Content Include="Content\Stylesheets\Site.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="Scripts\BForms\Components\Bootstrap\css\bootstrap.css" />
     <Content Include="Scripts\BForms\Components\Bootstrap\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Scripts\BForms\Components\Bootstrap\js\bootstrap.js" />
     <Content Include="Scripts\BForms\Components\Html5shiv\html5shiv.js" />
