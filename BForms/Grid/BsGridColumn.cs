@@ -154,21 +154,6 @@ namespace BForms.Grid
             return this;
         }
 
-        public BsGridColumn<TRow> SetWidth(int width)
-        {
-            return this.SetWidth(width, width);
-        }
-
-        public BsGridColumn<TRow> SetWidth(int largeWidth, int mediumWidth)
-        {
-            return this.SetWidth(largeWidth, mediumWidth, mediumWidth);
-        }
-
-        public BsGridColumn<TRow> SetWidth(int largeWidth, int mediumWidth, int smallWidth)
-        {
-            return this.SetWidth(largeWidth, mediumWidth, smallWidth, smallWidth);
-        }
-
         public BsGridColumn<TRow> SetWidth(int largeWidth, int mediumWidth, int smallWidth, int extraSmallWidth)
         {
             this.widthSizes = new List<BsColumnWidth>();
@@ -178,23 +163,32 @@ namespace BForms.Grid
                 Size = largeWidth
             });
 
-            this.widthSizes.Add(new BsColumnWidth
+            if (mediumWidth != 0)
             {
-                ScreenType = BsScreenType.Medium,
-                Size = mediumWidth == 0 ? largeWidth : mediumWidth
-            });
+                this.widthSizes.Add(new BsColumnWidth
+                {
+                    ScreenType = BsScreenType.Medium,
+                    Size = mediumWidth
+                });
+            }
 
-            this.widthSizes.Add(new BsColumnWidth
+            if (smallWidth != 0)
             {
-                ScreenType = BsScreenType.Small,
-                Size = smallWidth == 0 ? (mediumWidth == 0 ? largeWidth : mediumWidth) : smallWidth
-            });
+                this.widthSizes.Add(new BsColumnWidth
+                {
+                    ScreenType = BsScreenType.Small,
+                    Size = smallWidth
+                });
+            }
+            if (extraSmallWidth != 0)
+            {
 
-            this.widthSizes.Add(new BsColumnWidth
-            {
-                ScreenType = BsScreenType.ExtraSmall,
-                Size = extraSmallWidth == 0 ? (smallWidth == 0 ? (mediumWidth == 0 ? largeWidth : mediumWidth) : smallWidth) : extraSmallWidth
-            });
+                this.widthSizes.Add(new BsColumnWidth
+                {
+                    ScreenType = BsScreenType.ExtraSmall,
+                    Size = extraSmallWidth
+                });
+            }
 
             return this;
         }
