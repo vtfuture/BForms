@@ -118,12 +118,20 @@ namespace BForms.Renderers
                     {
                         var buttonGroup = (action as BsToolbarButtonGroupAction<TToolbar>).ButtonGroup;
 
+                        foreach (var controlAction in buttonGroup.Actions)
+                        {
+                            var inlineAction = controlAction as BsToolbarAction<TToolbar>;
+                            if (inlineAction == null || inlineAction.TabDelegate == null) continue;
+                            tabs += RenderTab(inlineAction, tabNr).ToString();
+                            tabNr++;
+                        }
+
                         controlsBuilder.InnerHtml += buttonGroup.ToString();
                     }
                     else
                     {
                         controlsBuilder.InnerHtml += action.ToString();
-                    }                    
+                    }
                 }
 
                 controlsContainer.InnerHtml += controlsBuilder;
