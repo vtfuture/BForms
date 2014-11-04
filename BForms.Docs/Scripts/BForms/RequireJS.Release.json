@@ -26,7 +26,7 @@
     "jquery.fileupload-process": "bforms/bundles/js/components",
     "load-image": "bforms/bundles/js/components",
     "load-image-meta": "bforms/bundles/js/components",
-    "nestedsortable": "bforms/bundles/js/components",
+    "nestedsortable": "bforms/bundles/js/plugins",
     "bforms-rangepicker": "bforms/bundles/js/plugins",
     "bforms-radiolist": "bforms/bundles/js/plugins",
     "bforms-checklist": "bforms/bundles/js/plugins",
