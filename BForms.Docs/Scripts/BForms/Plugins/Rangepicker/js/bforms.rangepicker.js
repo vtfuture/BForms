@@ -41,6 +41,10 @@
         this._hasInitialValue = this.$element.val() != '';
         this._initInitialValues(!this._hasInitialValue);
 
+        if (this.options.allowUnspecifiedValue) {
+            this._updateLabels();
+        }
+
         this._addHandlers();
 
         this.$element.data('bsNumberRangepicker', this);
