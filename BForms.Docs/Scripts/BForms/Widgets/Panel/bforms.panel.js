@@ -567,6 +567,25 @@
         }, this));
 
     };
+    
+    bsPanel.prototype.showErrorMessage = function (message, replace) {
+
+        var $errorContainer = this.$element.find('.bs-panel-error');
+
+        if ($errorContainer.length == 0) {
+            $errorContainer = $('<div class="col-sm-12 col-lg-12 bs-validation_row_control bs-panel-error"></div>');
+            this.$container.before($errorContainer);
+        }
+
+        var $error = $('<div class="bs-form-error alert alert-danger">' +
+                           '<button class="close" data-dismiss="alert" type="button">×</button>' +
+                               message + '</div>');
+        if (replace) {
+            $errorContainer.html($error);
+        } else {
+            $errorContainer.append($error);
+        }
+    };
     //#endregion
 
     $.widget('bforms.bsPanel', bsPanel.prototype);
