@@ -68,6 +68,6 @@
     "select2-ro": "bforms/plugins/select2/js/i18n/select2-ro",
     "depend": "bforms/components/requirejs/depend",
     "i18n": "bforms/components/requirejs/i18n",
-    "text": "forms/components/requirejs/text"
+    "text": "bforms/components/requirejs/text"
   }
 }
