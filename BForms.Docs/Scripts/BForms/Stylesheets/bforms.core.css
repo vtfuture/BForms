@@ -1,4 +1,4 @@
-/*turquoise*/
+﻿/*turquoise*/
 /* Custom colors for components */
 .input-group {
   width: 100%; }
@@ -186,7 +186,7 @@ mark, .mark {
   .select2-results .select2-highlighted {
     background: #dadada;
     color: #333; }
-  .select2-results .select2-result-label, .select2-results .select2-save, .select2-results .select2-no-results {
+  .select2-results .select2-result-label, .select2-results .select2-save, .select2-results .select2-no-results, .select2-results .select2-searching, .select2-results .select2-selection-limit {
     padding: 5px 8px; }
 
 .select2-display-none .select2-results {
