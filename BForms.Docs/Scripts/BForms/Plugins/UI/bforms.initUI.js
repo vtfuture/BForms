@@ -333,7 +333,7 @@
 
                             var $valueField = self.$elem.find('.bs-date-iso[data-for="' + $elem.prop('name') + '"]');
 
-                            $elem.bsDatepicker($.extend(true, {}, self._getOptions(this), {
+                            $elem.bsDatepicker($.extend(true, {}, {
                                 type: 'datepicker',
                                 altFields: [{
                                     selector: $valueField,
@@ -341,7 +341,7 @@
                                 }],
                                 initialValue: $valueField.val(),
                                 language: uiLocale
-                            }));
+                            },self._getOptions(this)));
                         });
 
                         datepickerDeferred.resolve();
@@ -358,7 +358,7 @@
 
                             var $valueField = self.$elem.find('.bs-date-iso[data-for="' + $elem.prop('name') + '"]');
 
-                            $elem.bsDatepicker($.extend(true, {}, self._getOptions(this), {
+                            $elem.bsDatepicker($.extend(true, {}, {
                                 type: 'datepicker',
                                 altFields: [{
                                     selector: $valueField,
@@ -366,7 +366,7 @@
                                 }],
                                 initialValue: $valueField.val(),
                                 language: uiLocale
-                            }));
+                            }, self._getOptions(this)));
                         });
                     }
                     else {
@@ -392,7 +392,7 @@
 
                             var $valueField = self.$elem.find('.bs-date-iso[data-for="' + $elem.prop('name') + '"]');
 
-                            $elem.bsDatepicker($.extend(true, {}, self._getOptions(this), {
+                            $elem.bsDatepicker($.extend(true, {}, {
                                 type: 'timepicker',
                                 is12Hours: true,
                                 altFields: [{
@@ -401,7 +401,7 @@
                                 }],
                                 initialValue: $valueField.val(),
                                 language: uiLocale
-                            }));
+                            },self._getOptions(this)));
                         });
 
                         timepickerDeferred.resolve();
@@ -419,7 +419,7 @@
 
                             var $valueField = self.$elem.find('.bs-date-iso[data-for="' + $elem.prop('name') + '"]');
 
-                            $elem.bsDatepicker($.extend(true, {}, self._getOptions(this), {
+                            $elem.bsDatepicker($.extend(true, {}, {
                                 type: 'timepicker',
                                 is12Hours: true,
                                 altFields: [{
@@ -428,7 +428,7 @@
                                 }],
                                 initialValue: $valueField.val(),
                                 language: uiLocale
-                            }));
+                            }, self._getOptions(this)));
                         });
                     }
                     else {
@@ -479,7 +479,7 @@
                             }
                             var $valueField = self.$elem.find('.bs-date-iso[data-for="' + $elem.prop('name') + '"]');
 
-                            $elem.bsDatepicker($.extend(true, {}, self._getOptions(this), {
+                            $elem.bsDatepicker($.extend(true, {}, {
                                 type: 'datetimepicker',
                                 is12Hours: true,
                                 altFields: [{
@@ -488,7 +488,7 @@
                                 }],
                                 initialValue: $valueField.val(),
                                 language: uiLocale
-                            }));
+                            },self._getOptions(this)));
                         });
                     }
                     else {
