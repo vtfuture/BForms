@@ -295,6 +295,7 @@ a.btn {
 				text-decoration: none;
 				background-color: #E6E6E6;
 				vertical-align: text-bottom;
+				outline: none !important;
 				&.open {
 					background: url(../images/icn-right_arrow-small.png) center center no-repeat;
 				}
