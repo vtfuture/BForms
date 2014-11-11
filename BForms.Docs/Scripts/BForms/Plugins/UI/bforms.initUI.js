@@ -452,7 +452,7 @@
 
                             var $valueField = self.$elem.find('.bs-date-iso[data-for="' + $elem.prop('name') + '"]');
 
-                            $elem.bsDatepicker($.extend(true, {}, self._getOptions(this), {
+                            $elem.bsDatepicker($.extend(true, {}, {
                                 type: 'datetimepicker',
                                 is12Hours: true,
                                 altFields: [{
@@ -461,7 +461,7 @@
                                 }],
                                 initialValue: $valueField.val(),
                                 language: uiLocale
-                            }));
+                            },self._getOptions(this)));
                         });
 
                         datetimepickerDeferred.resolve();
@@ -517,7 +517,7 @@
                                 minDate = $startInput.data('minvalue'),
                                 maxDate = $endInput.data('maxvalue');
 
-                            $elem.bsDateRange($.extend(true, {}, self._getOptions(this), {
+                            $elem.bsDateRange($.extend(true, {}, {
                                 startOptions: {
                                     type: 'datetimepicker',
                                     initialValue: $startInput.val(),
@@ -537,7 +537,7 @@
                                 language: uiLocale,
                                 allowDeselectStart: $startInput.data('allowdeselect'),
                                 allowDeselectEnd: $endInput.data('allowdeselect')
-                            }));
+                            },self._getOptions(this)));
                         });
 
                         datetimerangeDeferred.resolve();
@@ -557,7 +557,7 @@
                                 maxDate = $endInput.data('maxvalue');
 
 
-                            $elem.bsDateRange($.extend(true, {}, self._getOptions(this), {
+                            $elem.bsDateRange($.extend(true, {},  {
                                 startOptions: {
                                     type: 'datetimepicker',
                                     initialValue: $startInput.val(),
@@ -578,7 +578,7 @@
                                 language: uiLocale,
                                 allowDeselectStart: $startInput.data('allowdeselect'),
                                 allowDeselectEnd: $endInput.data('allowdeselect')
-                            }));
+                            },self._getOptions(this)));
                         });
                     }
                     else {
