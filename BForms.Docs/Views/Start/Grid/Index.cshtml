@@ -765,7 +765,7 @@
             <br />
             <h3 id="toolbarRepository">3. Modifying the Repository</h3>
             <p>
-                The fist method we need to add is <code>GetSearchForm()</code>. In this method you can populate dropdowns or other custom controls you might use. We use it to set up the Date Range Picker control.
+                The first method we need to add is <code>GetSearchForm()</code>. In this method you can populate dropdowns or other custom controls you might use. We use it to set up the Date Range Picker control.
             </p>
             <h4 class="sub_title">GetSearchForm Repository Method</h4>
             <pre class="prettyprint bs-example">
@@ -792,11 +792,18 @@
             </pre>
             <br />
             <p>
-                The <code>Filter()</code> method checks if the <code>Settings</code> object is not null and also if it has <code>Search</code> data.
+                The <code>Filter()</code> method checks if the <code>Settings</code> property is not null and also if it has <code>Search</code> data.
             </p>
             <p>
                 It then uses the <code>Search</code> data to filter the query. In this case we filter the query by <code>ReleaseDate</code>, <code>Title</code> and <code>Recommended</code> properties.
             </p>
+            <p>
+                Last we should to add the <code>Settings</code> property for our repository:
+            </p>
+            <h4 class="sub_title">Settings Property</h4>
+            <pre class="prettyprint bs-example">
+@Html.InsertFileContentCached("~/Views/Start/Grid/Source/_SettingsGridRepository.cs.embed")
+            </pre>
             <h3 id="toolbarViews">4. Adding the Toolbar and Search Views</h3>
             <p>
                 Now it's time to add the Views for the Toolbar and for the Advanced Search. Inside the <code>Views/Home</code> folder create a new folder named <code>Toolbar</code>. Inside this folder create two partial views. 
