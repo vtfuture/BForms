@@ -134,7 +134,7 @@
     };
 
     Pager.prototype.updateTotal = function (total) {
-        this.element.find(this.options.totalsContainerSelector).html(total);
+        this.element.find(this.options.totalsContainerSelector).not(this.options.topResultsMargin).html(total);
     };
 
     Pager.prototype.selectValue = function (value) {
