@@ -259,7 +259,7 @@ namespace BForms.Docs.Areas.Demo.Models
     {
         public int Id { get; set; }
 
-        [BsGridColumn(Width = 2, MediumWidth = 2 , IsEditable = true)]
+        [BsGridColumn(Width = 2, MediumWidth = 2, IsEditable = true)]
         public string Name { get; set; }
 
         [BsGridColumn(Width = 3, MediumWidth = 3)]
@@ -268,8 +268,11 @@ namespace BForms.Docs.Areas.Demo.Models
         [BsGridColumn(Width = 3, MediumWidth = 3)]
         public DateTime StartDate { get; set; }
 
-        [BsGridColumn(Width = 4, MediumWidth = 4)]
+        [BsGridColumn(Width = 3, MediumWidth = 3)]
         public string Contributions { get; set; }
+
+        [BsGridColumn(Width = 1, MediumWidth = 1)]
+        public string Action { get; set; }
 
         [BsGridColumn(Width = 1, Usage = BsGridColumnUsage.Excel)]
         public bool Enabled { get; set; }

@@ -40,7 +40,7 @@
         resetGridSelector: '.bs-resetGrid',
         addSelector: '.bs-triggerAdd',
         expandToggleSelector: '.bs-toggleExpand',
-        inlineActionClass: 'bs-inline_action',
+        inlineActionSelector: '.bs-inline_action',
         bulkContainerSelector: '.bs-selectorsContainer',
 
         rowsContainerSelector: '.grid_rows_wrapper',
@@ -125,7 +125,7 @@
         this._initDefaultOptions();
 
         this._initSelectors();
-        
+
         if (this.options.selectorsContainerTitle) {
             this.$selectorsContainer.attr("title", this.options.selectorsContainerTitle);
         }
@@ -337,7 +337,21 @@
             }
 
             if (typeof action.init === 'function') {
-                action.init.call(this, action, $row, this);
+
+                var $btns = $row.find(action.btnSelector);
+
+                $btns.each($.proxy(function (idx, btn) {
+                    var $btn = $(btn);
+
+                    if (!$btn.data('hasrowaction')) {
+
+                        action.init.call(this, $.extend(true, {}, action, { btnSelector: $btn }), $row, this);
+                        $btn.data('hasrowaction', true);
+                    }
+
+                }, this));
+
+                //action.init.call(this, action, $row, this);
             }
 
             if (typeof action.handler === 'function') {
@@ -424,9 +438,9 @@
             this.$rowsContainer.children().remove();
             this.$gridRowsHeader.closest('.row').show();
         }
-        
+
         this.$rowsContainer.prepend($row.find(this.options.rowSelector));
-        
+
         this.$pager.bsPager('updateTotal', this._currentResultsCount);
 
         this.toggleBulkActions();
@@ -488,7 +502,7 @@
         }
     };
 
-    Grid.prototype.manualPager = function(data, pageChanged) {
+    Grid.prototype.manualPager = function (data, pageChanged) {
 
         this._trigger('beforeManualPager', 0, data);
 
@@ -780,7 +794,7 @@
     Grid.prototype._evOnOrderChange = function (e) {
 
         e.preventDefault();
-   	    e.stopPropagation();
+        e.stopPropagation();
 
         if (!this._currentResultsCount) {
             return;
@@ -929,8 +943,6 @@
             this._hidePopoverOnRowCheckChange(e);
         }
     };
-
-
 
     Grid.prototype._showBulkActions = function ($buttons, $checkedRows) {
 
@@ -1192,13 +1204,11 @@
             $.bforms.scrollToElement(this.$gridHeader);
         }
 
-        if (this.refreshModel.DetailsAll || this.refreshModel.DetailsCount > 0) {
-            var $rows = this.$rowsContainer.find(this.options.rowSelector);
+        var $rows = this.$rowsContainer.find(this.options.rowSelector);
 
-            $rows.each($.proxy(function (idx, row) {
-                this._initInitialDetails($(row));
-            }, this));
-        }
+        $rows.each($.proxy(function (idx, row) {
+            this._initInitialDetails($(row));
+        }, this));
 
         this.toggleBulkActions();
         this._updateExpandToggle();
@@ -1429,6 +1439,8 @@
             $detailsHtml: $row.find(this.options.rowDetailsSelector)
         };
 
+        this._createActions(this.options.rowActions, $row);
+
         if (detailsData.$detailsHtml.length) {
 
             this._trigger('beforeRowDetailsSuccess', 0, {
@@ -1439,8 +1451,6 @@
             this._handleDetails($row);
 
             $row.data('hasdetails', true);
-
-            this._createActions(this.options.rowActions, $row);
 
             this._trigger('afterRowDetailsSuccess', 0, {
                 $row: $row,
@@ -1461,7 +1471,7 @@
     };
 
     Grid.prototype._isInlineAction = function (e) {
-        if ($(e.target).hasClass(this.options.inlineActionClass) || $(e.target).parents("." + this.options.inlineActionClass).length > 0)
+        if ($(e.target).is(this.options.inlineActionSelector) || $(e.target).parents(this.options.inlineActionSelector).length > 0)
             return true;
         return false;
     };
