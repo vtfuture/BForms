@@ -26,10 +26,10 @@ namespace BForms.Renderers
         {
             var liBuilder = new TagBuilder("li");
 
-            var formBuilder = new TagBuilder("form");
+            var divBuilder = new TagBuilder("div");
 
-            formBuilder.AddCssClass("navbar-form");
-            formBuilder.MergeAttribute("role","search");
+            divBuilder.AddCssClass("navbar-form");
+            divBuilder.MergeAttribute("role","search");
 
             var inputGroupBuilder = new TagBuilder("div");
             inputGroupBuilder.AddCssClass("form-group bs-quick_search");
@@ -41,9 +41,9 @@ namespace BForms.Renderers
 
             inputGroupBuilder.InnerHtml += inputBuilder.ToString(TagRenderMode.SelfClosing);
 
-            formBuilder.InnerHtml += inputGroupBuilder;
+            divBuilder.InnerHtml += inputGroupBuilder;
 
-            liBuilder.InnerHtml += formBuilder;
+            liBuilder.InnerHtml += divBuilder;
 
             return liBuilder.ToString();
         }
