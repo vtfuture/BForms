@@ -239,12 +239,18 @@
 
         var validatedForm = this.$form.validate();
 
-        this._trigger('beforeFormValidation', 0, {
+        var isValid = this.$form.valid();
+
+        var validationData = {
             validator: validatedForm,
             form: this.$form,
-            name: this.options.uniqueName
-        });
-        return this.$form.valid();
+            name: this.options.uniqueName,
+            isValid: isValid
+        };
+
+        this._trigger('beforeFormValidation', 0, validationData);
+
+        return this.$form.valid() && validationData.isValid;
     };
 
     Form.prototype._getAction = function (action) {
