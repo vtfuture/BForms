@@ -160,11 +160,15 @@
                 buttonOpt.getExtraData.call(this, data);
             }
 
-            this._trigger('beforeFormSubmit', 0, {
+            var beforeFormSubmitData = {
                 $button: $me,
                 buttonOpt: buttonOpt,
                 data: data
-            });
+            };
+
+            this._trigger('beforeFormSubmit', 0, beforeFormSubmitData);
+
+            data = beforeFormSubmitData.data;
         }
         
         var action = $me.data('action') || buttonOpt.actionUrl;
