@@ -95,9 +95,18 @@
     };
 
     Add.prototype._evOnAdd = function (data, response) {
-        for (var i = 0; i < this.widget.subscribers.length; i++) {
-            this.widget.subscribers[i].bsGrid('add', response.Row, data, response);
+        if (response.Row) {
+            for (var i = 0; i < this.widget.subscribers.length; i++) {
+                this.widget.subscribers[i].bsGrid('add', response.Row, data, response);
+            }
+        } else if (response.Rows) {
+            for (var j = 0; j < response.Rows.length; j++) {
+                for (var i = 0; i < this.widget.subscribers.length; i++) {
+                    this.widget.subscribers[i].bsGrid('add', response.Rows[j], data, response);
+                }
+            }
         }
+
         this.$addForm.bsForm('reset');
 
         this.widget._trigger('afterAdd', 0, {
