@@ -138,7 +138,7 @@
         this.refreshModel = $.extend(true, {}, this._refreshModel, this.element.data('settings'));
 
         this.refreshModel.OrderColumns = this._getColumnsOrder();
-        this._currentResultsCount = this.$gridCountContainer.text();
+        this._currentResultsCount = this.element.data('initialcount');
 
         this.$pager = this.element.find(this.options.pagerSelector).bsPager({
             pagerUpdate: $.proxy(this._evOnPageChange, this),
