@@ -74,6 +74,10 @@ namespace BForms.Renderers
 
             gridBuilder.AddCssClass(this.Builder.Theme.GetDescription());
 
+            var totalRecords = this.Builder.Model.Pager != null ? this.Builder.Model.Pager.TotalRecords : 0;
+
+            gridBuilder.MergeAttribute("data-initialcount", totalRecords.ToString());
+
             #region header builder
             if (this.Builder.renderTitle)
             {
@@ -81,7 +85,7 @@ namespace BForms.Renderers
 
                 var badgeBuilder = new TagBuilder("span");
                 badgeBuilder.AddCssClass("badge");
-                badgeBuilder.InnerHtml += this.Builder.Model.Pager != null ? this.Builder.Model.Pager.TotalRecords : 0;
+                badgeBuilder.InnerHtml += totalRecords;
                 headerBuilder.InnerHtml += badgeBuilder.ToString();
 
                 headerBuilder.InnerHtml += this.Builder.Metadata.DisplayName;

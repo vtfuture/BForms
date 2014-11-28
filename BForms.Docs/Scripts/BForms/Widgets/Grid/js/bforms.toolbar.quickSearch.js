@@ -44,6 +44,8 @@
                     this.options.selector + ' .bs-text',
                     $.proxy(this._evOnQuickSearchKeyup, this));
 
+        this.$toolbar.find(this.options.selector).parents('form:first').on('submit',
+                    function (e) { e.preventDefault(); });
     };
 
     // event handler
@@ -67,12 +69,16 @@
             $me.data('empty', false);
         }
 
+        var isEnterKeyPressed = e.which == 13 || e.keyCode == 13;
+
         if (this.options.instant) {
-            window.clearTimeout(this.quickSearchTimeout);
-            this.quickSearchTimeout = window.setTimeout($.proxy(function () {
-                this._search(val);
-            }, this), this.options.timeout);
-        } else if (e.which == 13 || e.keyCode == 13) {
+            if (!isEnterKeyPressed) {
+                window.clearTimeout(this.quickSearchTimeout);
+                this.quickSearchTimeout = window.setTimeout($.proxy(function () {
+                    this._search(val);
+                }, this), this.options.timeout);
+            }
+        } else if (isEnterKeyPressed) {
             this._search(val);
         }
 

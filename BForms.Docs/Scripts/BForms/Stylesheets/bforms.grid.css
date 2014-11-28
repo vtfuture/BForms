@@ -217,7 +217,8 @@ a.btn {
       text-indent: -999em;
       text-decoration: none;
       background-color: #E6E6E6;
-      vertical-align: text-bottom; }
+      vertical-align: text-bottom;
+      outline: none !important; }
       .grid_container .grid_view .grid_rows .expand.open {
         background: url(../images/icn-right_arrow-small.png) center center no-repeat; }
       .grid_container .grid_view .grid_rows .expand:hover {

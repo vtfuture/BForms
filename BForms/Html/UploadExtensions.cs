@@ -25,7 +25,7 @@ namespace BForms.Html
 
             var metadata = ModelMetadata.FromLambdaExpression(expression, htmlHelper.ViewData);
 
-            var placeholder = string.IsNullOrEmpty(metadata.Watermark) ? Resources.BFormsResources.BF_ChooseFIle : metadata.Watermark;
+            var placeholder = string.IsNullOrEmpty(metadata.Watermark) ? Resources.BFormsResources.BF_ChooseFile : metadata.Watermark;
 
             var formControl = new TagBuilder("div");
             formControl.AddCssClass("form-control bs-uploadFormControl");

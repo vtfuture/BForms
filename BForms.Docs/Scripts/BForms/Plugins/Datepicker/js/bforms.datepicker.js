@@ -107,6 +107,11 @@
             var value = this.$element.val(),
                 valueMoment = moment(value);
 
+            if (!valueMoment.isValid()) {
+                //try parsing the date using the specified format
+                valueMoment = moment(value, this.options.format);
+            }
+
             if (valueMoment != null) {
                 valueMoment.lang(this.options.language);
             }

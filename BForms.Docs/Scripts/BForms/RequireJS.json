@@ -107,7 +107,7 @@
     },
     "nestedsortable": {
       "path": "bforms/components/NestedSortable/jquery.mjs.nestedSortable",
-      "defaultBundle": "components"
+      "defaultBundle": "plugins"
     },
     "bforms-rangepicker": {
       "path": "bforms/plugins/rangepicker/js/bforms.rangepicker",

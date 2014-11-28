@@ -53,22 +53,13 @@ namespace BForms.Models
     }
 
     public abstract class BsGridRowModel<TDetails> : BsItemModel
+        where TDetails : class
     {
-        private TDetails details;
+        public TDetails Details { get; set; }
 
-        public TDetails Details
+        internal bool HasDetails
         {
-            get
-            {
-                return this.details;
-            }
-            set
-            {
-                this.details = value;
-                this.HasDetails = true;
-            }
+            get { return Details != null; }
         }
-
-        internal bool HasDetails { get; set; }
     }
 }

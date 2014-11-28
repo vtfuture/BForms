@@ -16,7 +16,7 @@ namespace BForms.Docs.Areas.Demo.Models
         [Display(Name = "Contributors", ResourceType = typeof(Resource))]
         public BsGridModel<ContributorRowModel> Grid { get; set; }
 
-        [BsToolbar(Theme=BsTheme.Black)]
+        [BsToolbar(Theme = BsTheme.Black)]
         [Display(Name = "Contributors", ResourceType = typeof(Resource))]
         public BsToolbarModel<ContributorSearchModel, ContributorNewModel, List<ContributorOrderModel>> Toolbar { get; set; }
     }
@@ -92,9 +92,9 @@ namespace BForms.Docs.Areas.Demo.Models
         [BsControl(BsControlType.DropDownList)]
         public BsSelectList<string> CountriesList { get; set; }
 
-        [Display(Name="Age")]
+        [Display(Name = "Age")]
         [BsControl(BsControlType.Number)]
-        public BsRangeItem<int?> Age { get; set; } 
+        public BsRangeItem<int?> Age { get; set; }
     }
 
     public class ContributorProjectEditableRelatedModel
@@ -129,7 +129,7 @@ namespace BForms.Docs.Areas.Demo.Models
     public class ContributorDetailsModel : ContributorNewModel
     {
         public ContributorDetailsModel()
-            : base() {}
+            : base() { }
 
         public int Id { get; set; }
         public bool Enabled { get; set; }
@@ -204,7 +204,8 @@ namespace BForms.Docs.Areas.Demo.Models
 
     public class ContributorNewModel : ContributorModel
     {
-        public ContributorNewModel() : base()
+        public ContributorNewModel()
+            : base()
         {
             IsEnabled = new BsSelectList<YesNoValueTypes?>();
             IsEnabled.ItemsFromEnum(typeof(YesNoValueTypes), YesNoValueTypes.Both);
@@ -258,19 +259,22 @@ namespace BForms.Docs.Areas.Demo.Models
     {
         public int Id { get; set; }
 
-        [BsGridColumn(Width = 2, IsEditable = true, ExtraSmallWidth = 11)]
+        [BsGridColumn(Width = 2, MediumWidth = 2, IsEditable = true)]
         public string Name { get; set; }
 
-        [BsGridColumn(Width = 3, ExtraSmallWidth = 11)]
+        [BsGridColumn(Width = 3, MediumWidth = 3)]
         public ProjectRole Role { get; set; }
 
-        [BsGridColumn(Width = 3, ExtraSmallWidth = 11)]
+        [BsGridColumn(Width = 3, MediumWidth = 3)]
         public DateTime StartDate { get; set; }
 
-        [BsGridColumn(Width = 4, ExtraSmallWidth = 11)]
+        [BsGridColumn(Width = 3, MediumWidth = 3)]
         public string Contributions { get; set; }
 
-        [BsGridColumn(Width = 1, ExtraSmallWidth = 11, Usage = BsGridColumnUsage.Excel)]
+        [BsGridColumn(Width = 1, MediumWidth = 1)]
+        public string Action { get; set; }
+
+        [BsGridColumn(Width = 1, Usage = BsGridColumnUsage.Excel)]
         public bool Enabled { get; set; }
 
         public override object GetUniqueID()

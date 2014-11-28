@@ -11,7 +11,7 @@
 
     @*For IE7-8 support of HTML5 elements and responsive*@
     <!--[if lt IE 9]>
-    <script src="@Url.Content("~/Scripts/BForms/Bundles/iefix.js")" 
+    <script src="@Url.Content("~/Scripts/BForms/Bundles/js/iefix.js")" 
     type="text/javascript">
     </script>
   <![endif]-->
