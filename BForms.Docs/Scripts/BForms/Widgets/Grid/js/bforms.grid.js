@@ -61,7 +61,7 @@
         pagerUrl: null,
         onRefresh: null,
         pagerSelector: '.bs-pager',
-        pagerGoTopTitle: 'Go top',
+        pagerGoTopTitle: '',
         pagerDataPageContainer: 'page',
         goTopAfterPagination: true,
 

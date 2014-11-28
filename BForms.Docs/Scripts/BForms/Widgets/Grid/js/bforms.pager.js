@@ -20,7 +20,7 @@
         pageSizeContainerSelector: '.results_per_page',
         perPageDisplaySelector: '.bs-perPageDisplay',
         goTopButtonSelector: '.bs-goTop',
-        goTopTitle: 'Go top'
+        goTopTitle: ''
     };
 
     Pager.prototype._create = function () {
@@ -31,7 +31,7 @@
     };
 
     Pager.prototype._initElements = function () {
-        if (typeof $(this.options.goTopButtonSelector) !== "undefined") {
+        if (typeof $(this.options.goTopButtonSelector) !== "undefined" && this.options.goTopTitle) {
             $(this.options.goTopButtonSelector).attr('title', this.options.goTopTitle);
         }
     };
