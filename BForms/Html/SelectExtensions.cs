@@ -326,10 +326,9 @@ namespace BForms.Html
             var fullName = htmlHelper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name);
             var html = new StringBuilder();
             var divTag = new TagBuilder("div");
-            divTag.MergeAttribute("id", fullName, true);
             divTag.AddCssClass(bsCssClass);
             divTag.AddCssClass("form-control");
-
+            divTag.GenerateId(fullName);
 
             if (htmlAttributes != null)
             {
@@ -347,7 +346,7 @@ namespace BForms.Html
             foreach (var item in radioList.Items)
             {
                 // Generate an id to be given to the radio button field
-                var id = string.Format("{0}_{1}", fullName, item.Value);
+                var id = string.Format("{0}_{1}", divTag.Attributes["id"], item.Value);
 
                 // Create and populate a radio button using the existing html htmlHelpers
                 var label = htmlHelper.Label(id, HttpUtility.HtmlEncode(item.Text));
@@ -415,7 +414,7 @@ namespace BForms.Html
             var buttonGroupContainer = new TagBuilder("div");
 
             buttonGroupContainer.AddCssClass("checkbox_replace form-control");
-            buttonGroupContainer.MergeAttribute("id", fullName + "_checkBox");
+            buttonGroupContainer.MergeAttribute("id", divTag.Attributes["id"] + "_checkBox");
             buttonGroupContainer.MergeAttribute("tabindex", 0.ToString());
 
             var buttonGroupDiv = new TagBuilder("div");
