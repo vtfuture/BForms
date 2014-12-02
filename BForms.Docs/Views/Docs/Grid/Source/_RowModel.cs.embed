@@ -1,4 +1,5 @@
-﻿public class ContributorRowModel
+﻿public class ContributorRowModel : BsGridRowModel<ContributorDetailsReadonly> 
+				/* : BsItemModel // simple rows - no details */
 {
     public int Id { get; set; }
 
