@@ -104,7 +104,7 @@
 
         InitUI.prototype._addTheme = function () {
             var $themeSelect = $(".bs-selectTheme");
-            if ($themeSelect.length) {
+            if ($themeSelect.length && $themeSelect.data('bformsBsThemeSelect')) {
                 var currentColor = $themeSelect.bsThemeSelect('getCurrentColorClass');
                 $('.bs-datetime-picker, .bs-range-picker').addClass(currentColor);
 
