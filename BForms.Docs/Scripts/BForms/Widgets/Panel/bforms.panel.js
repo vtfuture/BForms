@@ -225,7 +225,9 @@
 
     //#region private methods
     bsPanel.prototype._saveState = function () {
-        amplify.store(this._key, this._state);
+        if (this._shouldSaveState()) {
+            amplify.store(this._key, this._state);
+        }
     };
 
     bsPanel.prototype._loadState = function (forceOpen) {
@@ -244,6 +246,10 @@
             }
         }
 
+    };
+
+    bsPanel.prototype._shouldSaveState = function () {
+        return this.options.expandable;
     };
 
     bsPanel.prototype._initControls = function () {
