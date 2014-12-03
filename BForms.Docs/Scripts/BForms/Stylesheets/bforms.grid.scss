@@ -163,9 +163,13 @@ a.btn {
 					border: none;
 					color: #fff;
 					text-transform: capitalize;
-					&:hover, &:focus {
+					&:focus {
+						background: $mainColor;
+					}
+					&:hover {
 						background: darken($mainColor, 5%);
 					}
+					
 					&.selected {
 						background: darken($mainColor, 10%);
 					}
@@ -688,8 +692,10 @@ a.btn {
 	.grid_toolbar_controls {
 		a,
 		.btn-group a {
-			
-			&:hover, &:focus {
+			&:focus {
+				background: $Blue;
+			}
+			&:hover {
 				background: darken($Blue, 5%);
 				color: #fff !important;
 			}
@@ -738,7 +744,10 @@ a.btn {
 	.grid_toolbar_controls {
 		a,
 		.btn-group a {			
-			&:hover, &:focus {
+			&:focus {
+				background: $Green;
+			}
+			&:hover {
 				background: darken($Green, 5%);
 				color: #fff !important;
 			}
@@ -788,7 +797,10 @@ a.btn {
 	.grid_toolbar_controls {
 		a,
 		.btn-group a {			
-			&:hover, &:focus {
+			&:focus {
+				background: $Purple;
+			}
+			&:hover {
 				background: darken($Purple, 5%);
 				color: #fff !important;
 			}
@@ -838,7 +850,10 @@ a.btn {
 	.grid_toolbar_controls {
 		a,
 		.btn-group a {			
-			&:hover, &:focus {
+			&:focus {
+				background: $Orange;
+			}
+			&:hover {
 				background: darken($Orange, 5%);
 				color: #fff !important;
 			}
@@ -887,8 +902,11 @@ a.btn {
 	background: $Black;
 	.grid_toolbar_controls {
 		a,
-		.btn-group a {			
-			&:hover, &:focus {
+		.btn-group a {
+			&:focus {
+				background: $Black;
+			}
+			&:hover {
 				background: darken($Black, 5%);
 				color: #fff !important;
 			}
