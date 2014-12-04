@@ -1,4 +1,10 @@
-﻿define(['jquery'], function () {
+﻿(function (factory) {
+    if (typeof define === "function" && define.amd) {
+        define(['jquery'], factory);
+    } else {
+        factory(window.jQuery);
+    }
+}(function () {
 
     var errorTell = function (options) {
         this.options = this._extend(this.options, options);
@@ -212,5 +218,5 @@
     };
 
     return errorTell;
-});
 
+}));
