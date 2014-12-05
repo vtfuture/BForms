@@ -152,6 +152,7 @@
                     break;
                 case 'file':
                     $(this).val('');
+                    $(this).trigger('focusout').trigger('change');
                     break;
                 case 'hidden':
                     if (typeof $(this).data('select2') !== 'undefined') {
