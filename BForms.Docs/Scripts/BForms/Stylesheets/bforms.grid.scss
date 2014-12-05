@@ -323,7 +323,7 @@ a.btn {
 		}
 		.grid_row { /* bootstrap override */	
 			margin: 0;
-			padding: 10px 0;
+			padding: 10px 0 0;
 			position: relative;
 			a {
 				text-decoration: underline;
@@ -337,6 +337,9 @@ a.btn {
 					padding-right: 15px;
 				}
 				
+			}
+			&.title {
+				padding-bottom: 10px;
 			}
 			.edit_col:hover {
 				cursor: pointer;
@@ -363,6 +366,7 @@ a.btn {
 			&.selected header {
 				color: $mainColor;
 			}
+			
 		}
 		.grid_rows_wrapper {
 			border: 1px solid $borderColor;
@@ -422,7 +426,7 @@ a.btn {
 			}
 			.grid_row_details {
 				margin: 0;
-				padding-top: 20px;
+				padding: 10px 0; 
 				clear: both;
 				background: #fff;
 				ul {

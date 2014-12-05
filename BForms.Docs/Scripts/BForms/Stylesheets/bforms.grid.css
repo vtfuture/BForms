@@ -238,7 +238,7 @@ a.btn {
   .grid_container .grid_view .grid_row {
     /* bootstrap override */
     margin: 0;
-    padding: 10px 0;
+    padding: 10px 0 0;
     position: relative; }
     .grid_container .grid_view .grid_row a {
       text-decoration: underline; }
@@ -248,6 +248,8 @@ a.btn {
       .grid_container .grid_view .grid_row a.sort_desc {
         background: url(../images/icn-order_down.png) 100% 50% no-repeat;
         padding-right: 15px; }
+    .grid_container .grid_view .grid_row.title {
+      padding-bottom: 10px; }
     .grid_container .grid_view .grid_row .edit_col:hover {
       cursor: pointer;
       border-bottom: 1px dashed #45ADA8;
@@ -306,7 +308,7 @@ a.btn {
           height: 24px; }
     .grid_container .grid_view .grid_rows_wrapper .grid_row_details {
       margin: 0;
-      padding-top: 20px;
+      padding: 10px 0;
       clear: both;
       background: #fff; }
       .grid_container .grid_view .grid_rows_wrapper .grid_row_details ul {
