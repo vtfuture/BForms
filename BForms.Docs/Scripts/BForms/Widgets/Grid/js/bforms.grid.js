@@ -336,9 +336,9 @@
                 throw 'action with selector ' + action.btnSelector + ' has no click handler and no init handler';
             }
 
-            if (typeof action.init === 'function') {
+            var $btns = $row.find(action.btnSelector);
 
-                var $btns = $row.find(action.btnSelector);
+            if (typeof action.init === 'function') {
 
                 $btns.each($.proxy(function (idx, btn) {
                     var $btn = $(btn);
@@ -350,18 +350,26 @@
                     }
 
                 }, this));
-
-                //action.init.call(this, action, $row, this);
             }
 
             if (typeof action.handler === 'function') {
-                $row.on('click', action.btnSelector, { options: action }, $.proxy(function (e) {
-                    var options = e.data.options;
-                    options.handler.call(this, e, options, $(e.target).closest(this.options.rowSelector), this);
+
+                $btns.each($.proxy(function (idx, btn) {
+                    var $btn = $(btn);
+
+                    if (!$btn.data('hasrowhandler')) {
+
+                        $btn.on('click', $.proxy(function (data, e) {
+                            var options = data.options;
+                            options.handler.call(this, e, options, $(e.target).closest(this.options.rowSelector), this);
+                        }, this, { options: action }));
+
+                        $btn.data('hasrowhandler', true);
+                    }
+
                 }, this));
             }
         }
-
     };
     //#endregion
 
@@ -649,6 +657,8 @@
             this._handleDetails($row);
 
             $row.data('hasdetails', true);
+
+            this._createActions(this.options.rowActions, $row);
 
             this._trigger('afterRowDetailsSuccess', 0, {
                 $row: $row,
