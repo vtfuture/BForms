@@ -650,8 +650,6 @@
 
             $row.data('hasdetails', true);
 
-            this._createActions(this.options.rowActions, $row);
-
             this._trigger('afterRowDetailsSuccess', 0, {
                 $row: $row,
                 data: data
