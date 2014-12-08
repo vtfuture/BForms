@@ -336,6 +336,7 @@
                             break;
                         case 'file':
                             thisObj.val('');
+                            thisObj.trigger('focusout').trigger('change');
                             break;
                         case 'hidden':
                             if (typeof thisObj.data('select2') !== 'undefined') {
