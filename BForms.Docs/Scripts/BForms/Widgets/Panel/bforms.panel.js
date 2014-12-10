@@ -53,7 +53,7 @@
 
         this.$element.addClass('bs-hasPanel');
 
-        this.$toggleEleemnt = this.$element.find(this.options.toggleSelector);
+        this.$toggleElement = this.$element.find(this.options.toggleSelector);
         this._loadOptions();
 
         this._initDefaultProperties();
@@ -74,7 +74,7 @@
             }, this));
         }
 
-        if (!this.$toggleEleemnt.data("expandable")) {
+        if (!this.$toggleElement.data("expandable")) {
             this._loadState(true);
         }
     };
