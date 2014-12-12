@@ -157,7 +157,7 @@
         if (buttonOpt.parse) {
             data = this._parse();
             if (typeof buttonOpt.getExtraData === 'function') {
-                buttonOpt.getExtraData.call(this, data);
+                buttonOpt.getExtraData.call(this, data, $me);
             }
 
             var beforeFormSubmitData = {
