@@ -867,7 +867,6 @@
             dropdown: '<span class="tt-dropdown-menu"></span>'
         }, css = {
             wrapper: {
-                position: "relative",
                 display: "block"
             },
             hint: {
