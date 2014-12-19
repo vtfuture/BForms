@@ -200,6 +200,8 @@ a.btn {
     .grid_container .grid_view h2 .grid_bulk_controls {
       float: right;
       margin-top: -10px; }
+    .grid_container .grid_view h2 .btn .glyphicon {
+      top: 2px; }
     .grid_container .grid_view h2:after {
       content: "";
       display: block;

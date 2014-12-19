@@ -276,6 +276,9 @@ a.btn {
 				margin-top: -10px;
 				
 			}
+			.btn .glyphicon {
+				top: 2px;
+			}
 			&:after {
 				content:"";
 				display: block;
@@ -651,7 +654,7 @@ a.btn {
 .grid_bulk_controls {
 	.btn {
 		text-transform: none;
-		margin-right: 5px;
+		margin-right: 5px;		
 	}
 	.check_all {
 		position: relative;
