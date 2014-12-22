@@ -17,7 +17,8 @@ $Black: #424141;
 }
 
 label {
-	font-size: 16px;
+	font-size: 13px;
+	font-family: arial, verdana, sans-serif;
 	font-weight: normal;
 }
 textarea {
@@ -504,8 +505,7 @@ mark, .mark {
 .radio-inline input[type="radio"], 
 .checkbox input[type="checkbox"], 
 .checkbox-inline input[type="checkbox"] {
-	margin-left: -5px;
-	margin-right: 10px;
+	margin: 2px 10px 0 -5px;
 	position: relative;
 	float: left;
 }
@@ -517,7 +517,7 @@ mark, .mark {
 			display: table-cell;
 			border: 1px solid transparent;
 			padding-left: 15px;
-			padding-top: 6px;
+			padding-top: 8px;
 			height: 34px;
 		}
 		&.has-error {			
