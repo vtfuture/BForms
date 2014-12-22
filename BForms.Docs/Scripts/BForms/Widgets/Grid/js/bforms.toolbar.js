@@ -226,7 +226,7 @@
 
             for (var i = 0; i < tabs.length; i++) {
                 var tab = tabs[i];
-                if (amplify.store('slide|' + this.options.uniqueName + '|' + tab.options.selector)) {
+                if (amplify.store(this._generateTabStateStoreKey(tab))) {
                     tab.$element.trigger('click');
                 }
             }
@@ -334,7 +334,7 @@
         var isSelected = tab.$element.hasClass('selected');
 
         if (this.options.saveTabState) {
-            amplify.store('slide|' + this.options.uniqueName + '|' + tab.options.selector, isSelected);
+            amplify.store(this._generateTabStateStoreKey(tab), isSelected);
         }
 
         if (isSelected) {
@@ -345,6 +345,11 @@
     };
 
     //#region helpers
+    Toolbar.prototype._generateTabStateStoreKey = function (tab) {
+        var url = window.location.href.split('?')[0];
+        return 'slide|' + this.options.uniqueName + '|' + tab.options.selector + '|' + url;
+    };
+
     Toolbar.prototype._getTabs = function () {
 
         return this._controls.filter(function (el) {

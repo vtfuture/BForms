@@ -152,6 +152,7 @@
                     break;
                 case 'file':
                     $(this).val('');
+                    $(this).trigger('focusout').trigger('change');
                     break;
                 case 'hidden':
                     if (typeof $(this).data('select2') !== 'undefined') {
@@ -335,6 +336,7 @@
                             break;
                         case 'file':
                             thisObj.val('');
+                            thisObj.trigger('focusout').trigger('change');
                             break;
                         case 'hidden':
                             if (typeof thisObj.data('select2') !== 'undefined') {

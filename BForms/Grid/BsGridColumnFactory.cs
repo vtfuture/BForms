@@ -56,7 +56,7 @@ namespace BForms.Grid
 
         public BsGridColumn<TRow> Add(string name)
         {
-            BsGridColumn<TRow> column = new BsGridColumn<TRow>(name, this.viewContext);
+            var column = new BsGridColumn<TRow>(name, this.viewContext);
             this.columns.Add(column);
 
             return column;
@@ -84,7 +84,7 @@ namespace BForms.Grid
         
         private BsGridColumn<TRow> GetColumn(PropertyInfo property)
         {
-            var column = this.Columns.Where(x => x.PrivateName == property.Name).FirstOrDefault();
+            var column = this.Columns.FirstOrDefault(x => x.PrivateName == property.Name);
 
             if (column == null)
             {
@@ -101,12 +101,19 @@ namespace BForms.Grid
                 throw new NotImplementedException("You must define your grid columns either in model as data attributes or in the view");
             }
 
-            foreach (BsScreenType item in Enum.GetValues(typeof(BsScreenType)))
+            if (this.columns.Any(x => x.WidthSizes.Any(z => z.Size < 0)))
             {
-                var width = this.Columns.Select(x => x.WidthSizes.Where(y => y.ScreenType == item).Select(y => y.Size).FirstOrDefault()).Sum();
-                if (width < this.totalColumnWidth)
+                throw new ArgumentOutOfRangeException("You must set positive values for all column sizes");
+                
+            }
+
+            foreach (BsScreenType type in Enum.GetValues(typeof(BsScreenType)))
+            {
+                var s = (from column in this.Columns from width in column.WidthSizes where width.ScreenType == type select width.Size).Sum();
+
+                if (s != totalColumnWidth && s != 0)
                 {
-                    throw new Exception(string.Format("Total sum of grid columns width for {0} must be greater than {1}", item, this.totalColumnWidth));
+                    throw new Exception(string.Format("Total sum of grid columns width for {0} must be equal to 12", type));
                 }
             }
         }

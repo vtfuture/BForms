@@ -281,7 +281,7 @@ namespace BForms.Renderers
 
                     var goTopBuilder = new TagBuilder("button");
                     goTopBuilder.AddCssClass("btn btn-default btn-go_up bs-goTop");
-                    goTopBuilder.MergeAttribute("title", "Go top");
+                    goTopBuilder.MergeAttribute("title", BsResourceManager.Resource("BF_GoTop"));
                     var goTopSpanBuilder = new TagBuilder("span");
                     goTopSpanBuilder.AddCssClass("glyphicon glyphicon-arrow-up");
 

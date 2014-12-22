@@ -1,6 +1,6 @@
-﻿public class UsersViewModel
+﻿public class ContributorsViewModel
 {
     [BsGrid(HasDetails = true, Theme = BsTheme.Blue)]
-    [Display(Name = "Users", ResourceType = typeof(Resource))]
-    public BsGridModel<UsersGridRowModel> Grid { get; set; }
+    [Display(Name = "Contributors", ResourceType = typeof(Resource))]
+    public BsGridModel<ContributorRowModel> Grid { get; set; }
 }

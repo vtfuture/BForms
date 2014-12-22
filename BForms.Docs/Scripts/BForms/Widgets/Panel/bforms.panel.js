@@ -53,7 +53,7 @@
 
         this.$element.addClass('bs-hasPanel');
 
-        this.$toggleEleemnt = this.$element.find(this.options.toggleSelector);
+        this.$toggleElement = this.$element.find(this.options.toggleSelector);
         this._loadOptions();
 
         this._initDefaultProperties();
@@ -74,7 +74,7 @@
             }, this));
         }
 
-        if (!this.$toggleEleemnt.data("expandable")) {
+        if (!this.$toggleElement.data("expandable")) {
             this._loadState(true);
         }
     };
@@ -225,7 +225,9 @@
 
     //#region private methods
     bsPanel.prototype._saveState = function () {
-        amplify.store(this._key, this._state);
+        if (this._shouldSaveState()) {
+            amplify.store(this._key, this._state);
+        }
     };
 
     bsPanel.prototype._loadState = function (forceOpen) {
@@ -244,6 +246,10 @@
             }
         }
 
+    };
+
+    bsPanel.prototype._shouldSaveState = function () {
+        return this.options.expandable;
     };
 
     bsPanel.prototype._initControls = function () {
@@ -569,6 +575,25 @@
 
         }, this));
 
+    };
+    
+    bsPanel.prototype.showErrorMessage = function (message, replace) {
+
+        var $errorContainer = this.$element.find('.bs-panel-error');
+
+        if ($errorContainer.length == 0) {
+            $errorContainer = $('<div class="col-sm-12 col-lg-12 bs-validation_row_control bs-panel-error"></div>');
+            this.$container.before($errorContainer);
+        }
+
+        var $error = $('<div class="bs-form-error alert alert-danger">' +
+                           '<button class="close" data-dismiss="alert" type="button">×</button>' +
+                               message + '</div>');
+        if (replace) {
+            $errorContainer.html($error);
+        } else {
+            $errorContainer.append($error);
+        }
     };
     //#endregion
 

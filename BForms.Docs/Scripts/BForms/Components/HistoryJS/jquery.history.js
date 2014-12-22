@@ -5,7 +5,14 @@
  * @license New BSD License <http://creativecommons.org/licenses/BSD/>
  */
 
-define('history-js', ['jquery'], function (jQuery, undefined) {
+(function (factory) {
+    if (typeof define === "function" && define.amd) {
+        define('history-js', ['jquery'], factory);
+    } else {
+        factory(window.jQuery);
+    }
+}(function (jQuery, undefined) {
+
 
     if (typeof JSON !== 'object') {
         JSON = {};
@@ -3137,4 +3144,4 @@ define('history-js', ['jquery'], function (jQuery, undefined) {
 
     })(window);
 
-});
+}));

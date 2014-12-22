@@ -5,9 +5,9 @@ public class ContributorsViewModel
     [Display(Name = "Contributors", ResourceType = typeof(Resource))]
     public BsGridModel<ContributorRowModel> Grid { get; set; }
 
-    [BsToolbar(Theme=BsTheme.Black)]
+    [BsToolbar(Theme = BsTheme.Black)]
     [Display(Name = "Contributors", ResourceType = typeof(Resource))]
-    public BsToolbarModel<ContributorSearchModel, ContributorNewModel> Toolbar { get; set; }
+    public BsToolbarModel<ContributorSearchModel, ContributorNewModel, List<ContributorOrderModel>> Toolbar { get; set; }
 }
 
 // common model
@@ -49,32 +49,31 @@ public class ContributorModel
 }
 
 // row model
-public class ContributorRowModel
+public class ContributorRowModel : BsGridRowModel<ContributorDetailsReadonly>
 {
     public int Id { get; set; }
 
-    [BsGridColumn(Width = 2, IsEditable = true)]
+    [BsGridColumn(Width = 2, MediumWidth = 2, IsEditable = true)]
     public string Name { get; set; }
 
-    [BsGridColumn(Width = 2)]
-    public DateTime StartDate { get; set; }
-
-    [BsGridColumn(Width = 3)]
+    [BsGridColumn(Width = 3, MediumWidth = 3)]
     public ProjectRole Role { get; set; }
 
-    [BsGridColumn(Width = 5)]
+    [BsGridColumn(Width = 3, MediumWidth = 3)]
+    public DateTime StartDate { get; set; }
+
+    [BsGridColumn(Width = 3, MediumWidth = 3)]
     public string Contributions { get; set; }
+
+    [BsGridColumn(Width = 1, MediumWidth = 1)]
+    public string Action { get; set; }
 
     [BsGridColumn(Width = 1, Usage = BsGridColumnUsage.Excel)]
     public bool Enabled { get; set; }
 
-    public Dictionary<string, object> RowData()
+    public override object GetUniqueID()
     {
-        return new Dictionary<string, object> 
-        {
-            { "data-objid", Id },
-            { "data-active", Enabled }
-        };
+        return this.Id;
     }
 }
 

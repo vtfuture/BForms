@@ -1,0 +1,11 @@
+﻿public BsGridRepositorySettings<MoviesSearchModel> Settings
+{
+    get
+    {
+        return settings as BsGridRepositorySettings<MoviesSearchModel>;
+    }
+    set
+    {
+        settings = value;
+    }
+}

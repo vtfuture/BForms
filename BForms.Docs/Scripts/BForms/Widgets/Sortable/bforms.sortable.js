@@ -1,8 +1,12 @@
-﻿var factory = function ($) {
+﻿(function (factory) {
+    if (typeof define == 'function' && define.amd) {
+        define('bforms-sortable', ['jquery', 'jquery-ui-core', 'nestedsortable'], factory);
+    } else {
+        factory(window.jQuery);
+    }
+})(function ($) {
 
-    var Sortable = function (options) {
-
-    };
+    var Sortable = function (options) {};
 
     Sortable.prototype.options = {
         containerSelector: '.sortable-container',
@@ -42,7 +46,6 @@
     };
 
     Sortable.prototype.serializationMethods = {
-
         hierarchy: 'hierarchy',
         array: 'array'
     };
@@ -289,12 +292,5 @@
     $.widget('bforms.bsSortable', Sortable.prototype);
 
     return Sortable;
-};
+});
 
-if (typeof define == 'function' && define.amd) {
-    define('bforms-sortable', ['jquery',
-            'jquery-ui-core',
-            'nestedsortable'], factory);
-} else {
-    factory(window.jQuery);
-}

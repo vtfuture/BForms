@@ -1,5 +1,11 @@
-define('placeholder-shim', ['jquery'],
-function ($) {
+(function (factory) {
+    if (typeof define === "function" && define.amd) {
+        define('placeholder-shim', ['jquery'], factory);
+    } else {
+        factory(window.jQuery);
+    }
+}(function ($) {
+
     $.extend($, {
         placeholder: {
             browser_supported: function () {
@@ -79,7 +85,7 @@ function ($) {
                             backgroundColor: 'transparent',
                             zIndex: 99
                         })
-                        .css("float","none")
+                        .css("float", "none")
                         .css(calcPositionCss(this))
                         .attr('for', this.id)
                         .data('target', $this)
@@ -99,4 +105,5 @@ function ($) {
             });
         }
     });
-});
+
+}));

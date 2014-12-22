@@ -280,12 +280,17 @@
                         }
 
                     } catch (ex) {
+
                         window.console.log(ex.stack);
+
+                        deferredXHR.reject(self._statusEnum.ServerError, [{
+                            Message: errorThrown
+                        }, jqXHR, textStatus, errorThrown, xhrSettings.callbackData]);
                     }
                 },
                 complete: function () {
                     var xhrReq = self._xhrStack[xhrSettings.name];
-                    if (typeof xhrReq !== 'undefined') {
+                    if (typeof xhrReq !== 'undefined' && xhrReq != null) {
                         xhrReq.finished = true;
                     }
                     self._toggleLoading(xhrSettings.name, false);

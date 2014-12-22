@@ -77,7 +77,7 @@
             cancelText: this.options.cancelText,
             fromText: this.options.fromText,
             presetRangesText: this.options.presetRangesText,
-            presetRangesPlaceholderText : this.options.presetRangesPlaceholderText,
+            presetRangesPlaceholderText: this.options.presetRangesPlaceholderText,
             toText: this.options.toText,
             allowDeselectStart: this.options.allowDeselectStart,
             allowDeselectEnd: this.options.allowDeselectEnd,
@@ -403,7 +403,7 @@
         }
     };
 
-    bRangePicker.prototype.applyRange = function (value) {
+    bRangePicker.prototype.applyRange = function (value, selectedOption) {
         this._startValue = this.$startLabel.data('value');
 
         if (typeof this._startValue === "undefined") {
@@ -434,17 +434,26 @@
             endValue: this._endValue,
             $start: this.$start,
             $end: this.$end,
-            value: this.getValue()
+            value: this.getValue(),
+            selectedOption: selectedOption
         });
     };
 
     bRangePicker.prototype.applyRangeClick = function (e) {
+        var value = null;
         if (e != null && typeof e.preventDefault === "function") {
             e.preventDefault();
             e.stopPropagation();
+
+            var $element = $(e.currentTarget);
+
+            if ($element.is("select")) {
+                value = $element.find("option:selected").attr('value');
+            }
         }
 
-        this.applyRange();
+        this.applyRange(null, value);
+
         if (this.options.allowHideOnApply) {
             this.hide();
         }
@@ -536,9 +545,10 @@
         e.preventDefault();
 
         var $selectedOption = $(e.currentTarget).find('option:selected'),
-            data = $selectedOption.data();
+            data = $selectedOption.data(),
+            value = $selectedOption.attr('value');
 
-        if ($selectedOption.attr('value')) {
+        if (value) {
 
             this._resetRangeOnChange = false;
 
@@ -557,7 +567,7 @@
             }
 
             this._resetRangeOnChange = true;
-            this.applyRangeClick();
+            this.applyRangeClick(e);
 
         } else {
 
@@ -835,21 +845,21 @@
     bRangePicker.prototype.getEndValue = function () {
         return this._valueSettedForSecond !== false ? this.$endLabel.val() : this.options.placeholderValue;
     };
-    
-	bRangePicker.prototype.getRealStartValue = function () {
+
+    bRangePicker.prototype.getRealStartValue = function () {
         return this.$start.bsDatepicker('getValue');
     };
 
     bRangePicker.prototype.getRealEndValue = function () {
         return this.$end.bsDatepicker('getValue');
     };
-    
+
     bRangePicker.prototype.clearRange = function (val) {
         this.$start.bsDatepicker('clearValue');
         this.$end.bsDatepicker('clearValue');
         this.applyRange(val);
     };
-    
+
     bRangePicker.prototype.resetRange = function (val) {
         this.$startLabel.data('value', this._startValue);
         this.$startLabel.val(this.$start.bsDatepicker('format', this._startValue));
@@ -1029,7 +1039,7 @@
             toText: 'To',
             placeholder: 'not specified',
             presetRangesPlaceholderText: 'Choose preset',
-            presetRangesText : 'Preset ranges'
+            presetRangesText: 'Preset ranges'
         },
         'ro': {
             applyText: 'Setează',

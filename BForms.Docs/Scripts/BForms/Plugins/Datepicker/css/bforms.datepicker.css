@@ -97,7 +97,7 @@
         padding: 0;
         margin: 0; }
         .bs-datetime-picker ul li a:hover, .bs-datetime-picker ul li a:focus {
-          background-color: #eee !important; }
+          background-color: #eee; }
       .bs-datetime-picker ul li.day {
         font-weight: bold; }
       .bs-datetime-picker ul li.inactive a {

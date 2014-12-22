@@ -63,9 +63,18 @@ namespace BForms.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Choose file.
         /// </summary>
-        internal static string BF_ChooseFIle {
+        internal static string BF_ChooseFile {
             get {
-                return ResourceManager.GetString("BF_ChooseFIle", resourceCulture);
+                return ResourceManager.GetString("BF_ChooseFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Go top.
+        /// </summary>
+        internal static string BF_GoTop {
+            get {
+                return ResourceManager.GetString("BF_GoTop", resourceCulture);
             }
         }
         

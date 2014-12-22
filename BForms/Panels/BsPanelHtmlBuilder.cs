@@ -273,9 +273,9 @@ namespace BForms.Panels
             return this;
         }
 
-        public BsPanelHtmlBuilder InitialEditable()
+        public BsPanelHtmlBuilder InitialEditable(bool initialEditable = true)
         {
-            this._initialReadonly = false;
+            this._initialReadonly = !initialEditable;
             return this;
         }
 

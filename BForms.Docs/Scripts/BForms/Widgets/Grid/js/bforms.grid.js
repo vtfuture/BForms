@@ -40,7 +40,7 @@
         resetGridSelector: '.bs-resetGrid',
         addSelector: '.bs-triggerAdd',
         expandToggleSelector: '.bs-toggleExpand',
-        inlineActionClass: 'bs-inline_action',
+        inlineActionSelector: '.bs-inline_action',
         bulkContainerSelector: '.bs-selectorsContainer',
 
         rowsContainerSelector: '.grid_rows_wrapper',
@@ -61,7 +61,7 @@
         pagerUrl: null,
         onRefresh: null,
         pagerSelector: '.bs-pager',
-        pagerGoTopTitle: 'Go top',
+        pagerGoTopTitle: '',
         pagerDataPageContainer: 'page',
         goTopAfterPagination: true,
 
@@ -125,7 +125,7 @@
         this._initDefaultOptions();
 
         this._initSelectors();
-        
+
         if (this.options.selectorsContainerTitle) {
             this.$selectorsContainer.attr("title", this.options.selectorsContainerTitle);
         }
@@ -138,7 +138,7 @@
         this.refreshModel = $.extend(true, {}, this._refreshModel, this.element.data('settings'));
 
         this.refreshModel.OrderColumns = this._getColumnsOrder();
-        this._currentResultsCount = this.$gridCountContainer.text();
+        this._currentResultsCount = this.element.data('initialcount');
 
         this.$pager = this.element.find(this.options.pagerSelector).bsPager({
             pagerUpdate: $.proxy(this._evOnPageChange, this),
@@ -336,18 +336,40 @@
                 throw 'action with selector ' + action.btnSelector + ' has no click handler and no init handler';
             }
 
+            var $btns = $row.find(action.btnSelector);
+
             if (typeof action.init === 'function') {
-                action.init.call(this, action, $row, this);
+
+                $btns.each($.proxy(function (idx, btn) {
+                    var $btn = $(btn);
+
+                    if (!$btn.data('hasrowaction')) {
+
+                        action.init.call(this, $.extend(true, {}, action, { btnSelector: $btn }), $row, this);
+                        $btn.data('hasrowaction', true);
+                    }
+
+                }, this));
             }
 
             if (typeof action.handler === 'function') {
-                $row.on('click', action.btnSelector, { options: action }, $.proxy(function (e) {
-                    var options = e.data.options;
-                    options.handler.call(this, e, options, $(e.target).closest(this.options.rowSelector), this);
+
+                $btns.each($.proxy(function (idx, btn) {
+                    var $btn = $(btn);
+
+                    if (!$btn.data('hasrowhandler')) {
+
+                        $btn.on('click', $.proxy(function (data, e) {
+                            var options = data.options;
+                            options.handler.call(this, e, options, $(e.target).closest(this.options.rowSelector), this);
+                        }, this, { options: action }));
+
+                        $btn.data('hasrowhandler', true);
+                    }
+
                 }, this));
             }
         }
-
     };
     //#endregion
 
@@ -424,9 +446,9 @@
             this.$rowsContainer.children().remove();
             this.$gridRowsHeader.closest('.row').show();
         }
-        
+
         this.$rowsContainer.prepend($row.find(this.options.rowSelector));
-        
+
         this.$pager.bsPager('updateTotal', this._currentResultsCount);
 
         this.toggleBulkActions();
@@ -488,7 +510,7 @@
         }
     };
 
-    Grid.prototype.manualPager = function(data, pageChanged) {
+    Grid.prototype.manualPager = function (data, pageChanged) {
 
         this._trigger('beforeManualPager', 0, data);
 
@@ -780,7 +802,7 @@
     Grid.prototype._evOnOrderChange = function (e) {
 
         e.preventDefault();
-   	    e.stopPropagation();
+        e.stopPropagation();
 
         if (!this._currentResultsCount) {
             return;
@@ -929,8 +951,6 @@
             this._hidePopoverOnRowCheckChange(e);
         }
     };
-
-
 
     Grid.prototype._showBulkActions = function ($buttons, $checkedRows) {
 
@@ -1192,13 +1212,11 @@
             $.bforms.scrollToElement(this.$gridHeader);
         }
 
-        if (this.refreshModel.DetailsAll || this.refreshModel.DetailsCount > 0) {
-            var $rows = this.$rowsContainer.find(this.options.rowSelector);
+        var $rows = this.$rowsContainer.find(this.options.rowSelector);
 
-            $rows.each($.proxy(function (idx, row) {
-                this._initInitialDetails($(row));
-            }, this));
-        }
+        $rows.each($.proxy(function (idx, row) {
+            this._initInitialDetails($(row));
+        }, this));
 
         this.toggleBulkActions();
         this._updateExpandToggle();
@@ -1429,6 +1447,8 @@
             $detailsHtml: $row.find(this.options.rowDetailsSelector)
         };
 
+        this._createActions(this.options.rowActions, $row);
+
         if (detailsData.$detailsHtml.length) {
 
             this._trigger('beforeRowDetailsSuccess', 0, {
@@ -1439,8 +1459,6 @@
             this._handleDetails($row);
 
             $row.data('hasdetails', true);
-
-            this._createActions(this.options.rowActions, $row);
 
             this._trigger('afterRowDetailsSuccess', 0, {
                 $row: $row,
@@ -1461,7 +1479,7 @@
     };
 
     Grid.prototype._isInlineAction = function (e) {
-        if ($(e.target).hasClass(this.options.inlineActionClass) || $(e.target).parents("." + this.options.inlineActionClass).length > 0)
+        if ($(e.target).is(this.options.inlineActionSelector) || $(e.target).parents(this.options.inlineActionSelector).length > 0)
             return true;
         return false;
     };

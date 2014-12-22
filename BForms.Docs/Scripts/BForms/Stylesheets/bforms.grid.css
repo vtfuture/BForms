@@ -125,9 +125,11 @@ a.btn {
           border: none;
           color: #fff;
           text-transform: capitalize; }
-          .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls a:hover, .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls a:focus,
-          .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .btn-group a:hover,
+          .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls a:focus,
           .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .btn-group a:focus {
+            background: #45ADA8; }
+          .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls a:hover,
+          .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .btn-group a:hover {
             background: #3e9b96; }
           .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls a.selected,
           .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .btn-group a.selected {
@@ -198,6 +200,8 @@ a.btn {
     .grid_container .grid_view h2 .grid_bulk_controls {
       float: right;
       margin-top: -10px; }
+    .grid_container .grid_view h2 .btn .glyphicon {
+      top: 2px; }
     .grid_container .grid_view h2:after {
       content: "";
       display: block;
@@ -217,7 +221,8 @@ a.btn {
       text-indent: -999em;
       text-decoration: none;
       background-color: #E6E6E6;
-      vertical-align: text-bottom; }
+      vertical-align: text-bottom;
+      outline: none !important; }
       .grid_container .grid_view .grid_rows .expand.open {
         background: url(../images/icn-right_arrow-small.png) center center no-repeat; }
       .grid_container .grid_view .grid_rows .expand:hover {
@@ -235,7 +240,7 @@ a.btn {
   .grid_container .grid_view .grid_row {
     /* bootstrap override */
     margin: 0;
-    padding: 10px 0;
+    padding: 10px 0 0;
     position: relative; }
     .grid_container .grid_view .grid_row a {
       text-decoration: underline; }
@@ -245,6 +250,8 @@ a.btn {
       .grid_container .grid_view .grid_row a.sort_desc {
         background: url(../images/icn-order_down.png) 100% 50% no-repeat;
         padding-right: 15px; }
+    .grid_container .grid_view .grid_row.title {
+      padding-bottom: 10px; }
     .grid_container .grid_view .grid_row .edit_col:hover {
       cursor: pointer;
       border-bottom: 1px dashed #45ADA8;
@@ -303,7 +310,7 @@ a.btn {
           height: 24px; }
     .grid_container .grid_view .grid_rows_wrapper .grid_row_details {
       margin: 0;
-      padding-top: 20px;
+      padding: 10px 0;
       clear: both;
       background: #fff; }
       .grid_container .grid_view .grid_rows_wrapper .grid_row_details ul {
@@ -492,9 +499,11 @@ a.btn {
 /* BLUE*/
 .grid_toolbar.blue .grid_toolbar_header {
   background: #559ed6; }
-  .grid_toolbar.blue .grid_toolbar_header .grid_toolbar_controls a:hover, .grid_toolbar.blue .grid_toolbar_header .grid_toolbar_controls a:focus,
-  .grid_toolbar.blue .grid_toolbar_header .grid_toolbar_controls .btn-group a:hover,
+  .grid_toolbar.blue .grid_toolbar_header .grid_toolbar_controls a:focus,
   .grid_toolbar.blue .grid_toolbar_header .grid_toolbar_controls .btn-group a:focus {
+    background: #559ed6; }
+  .grid_toolbar.blue .grid_toolbar_header .grid_toolbar_controls a:hover,
+  .grid_toolbar.blue .grid_toolbar_header .grid_toolbar_controls .btn-group a:hover {
     background: #4092d1;
     color: #fff !important; }
   .grid_toolbar.blue .grid_toolbar_header .grid_toolbar_controls a.selected,
@@ -523,9 +532,11 @@ a.btn {
 /* GREEN*/
 .grid_toolbar.green .grid_toolbar_header {
   background: #59B390; }
-  .grid_toolbar.green .grid_toolbar_header .grid_toolbar_controls a:hover, .grid_toolbar.green .grid_toolbar_header .grid_toolbar_controls a:focus,
-  .grid_toolbar.green .grid_toolbar_header .grid_toolbar_controls .btn-group a:hover,
+  .grid_toolbar.green .grid_toolbar_header .grid_toolbar_controls a:focus,
   .grid_toolbar.green .grid_toolbar_header .grid_toolbar_controls .btn-group a:focus {
+    background: #59B390; }
+  .grid_toolbar.green .grid_toolbar_header .grid_toolbar_controls a:hover,
+  .grid_toolbar.green .grid_toolbar_header .grid_toolbar_controls .btn-group a:hover {
     background: #4ca683;
     color: #fff !important; }
   .grid_toolbar.green .grid_toolbar_header .grid_toolbar_controls a.selected,
@@ -554,9 +565,11 @@ a.btn {
 /* PURPLE*/
 .grid_toolbar.purple .grid_toolbar_header {
   background: #703D6F; }
-  .grid_toolbar.purple .grid_toolbar_header .grid_toolbar_controls a:hover, .grid_toolbar.purple .grid_toolbar_header .grid_toolbar_controls a:focus,
-  .grid_toolbar.purple .grid_toolbar_header .grid_toolbar_controls .btn-group a:hover,
+  .grid_toolbar.purple .grid_toolbar_header .grid_toolbar_controls a:focus,
   .grid_toolbar.purple .grid_toolbar_header .grid_toolbar_controls .btn-group a:focus {
+    background: #703D6F; }
+  .grid_toolbar.purple .grid_toolbar_header .grid_toolbar_controls a:hover,
+  .grid_toolbar.purple .grid_toolbar_header .grid_toolbar_controls .btn-group a:hover {
     background: #5f345f;
     color: #fff !important; }
   .grid_toolbar.purple .grid_toolbar_header .grid_toolbar_controls a.selected,
@@ -585,9 +598,11 @@ a.btn {
 /* ORANGE*/
 .grid_toolbar.orange .grid_toolbar_header {
   background: #F27435; }
-  .grid_toolbar.orange .grid_toolbar_header .grid_toolbar_controls a:hover, .grid_toolbar.orange .grid_toolbar_header .grid_toolbar_controls a:focus,
-  .grid_toolbar.orange .grid_toolbar_header .grid_toolbar_controls .btn-group a:hover,
+  .grid_toolbar.orange .grid_toolbar_header .grid_toolbar_controls a:focus,
   .grid_toolbar.orange .grid_toolbar_header .grid_toolbar_controls .btn-group a:focus {
+    background: #F27435; }
+  .grid_toolbar.orange .grid_toolbar_header .grid_toolbar_controls a:hover,
+  .grid_toolbar.orange .grid_toolbar_header .grid_toolbar_controls .btn-group a:hover {
     background: #f0641d;
     color: #fff !important; }
   .grid_toolbar.orange .grid_toolbar_header .grid_toolbar_controls a.selected,
@@ -616,9 +631,11 @@ a.btn {
 /* almost BLACK*/
 .grid_toolbar.black .grid_toolbar_header {
   background: #424141; }
-  .grid_toolbar.black .grid_toolbar_header .grid_toolbar_controls a:hover, .grid_toolbar.black .grid_toolbar_header .grid_toolbar_controls a:focus,
-  .grid_toolbar.black .grid_toolbar_header .grid_toolbar_controls .btn-group a:hover,
+  .grid_toolbar.black .grid_toolbar_header .grid_toolbar_controls a:focus,
   .grid_toolbar.black .grid_toolbar_header .grid_toolbar_controls .btn-group a:focus {
+    background: #424141; }
+  .grid_toolbar.black .grid_toolbar_header .grid_toolbar_controls a:hover,
+  .grid_toolbar.black .grid_toolbar_header .grid_toolbar_controls .btn-group a:hover {
     background: #353434;
     color: #fff !important; }
   .grid_toolbar.black .grid_toolbar_header .grid_toolbar_controls a.selected,

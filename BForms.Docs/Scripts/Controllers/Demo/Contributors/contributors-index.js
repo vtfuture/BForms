@@ -127,6 +127,7 @@
             detailsUrl: this.options.getRowsUrl,
             beforeRowDetailsSuccess: $.proxy(this._beforeDetailsSuccessHandler, this),
             afterRowDetailsSuccess: $.proxy(this._afterDetailsSuccessHandler, this),
+            inlineActionSelector: '.js-inlineAction',
             rowActions: [{
                 btnSelector: '.js-btn_state',
                 url: this.options.enableDisableUrl,
@@ -137,98 +138,8 @@
                 init: $.proxy(this._deleteHandler, this),
                 context: this
             }]
-        });
+        });      
 
-        this.$grid.on('click', 'header .js-inline_delete', $.proxy(function (e) {
-            e.preventDefault();
-
-            this._deleteHandler({
-                btnSelector: '.js-inline_delete',
-                url: this.options.deleteUrl,
-                init: this._deleteHandler,
-                context: this
-            }, $(e.currentTarget).closest('.grid_row'), this);
-
-        }, this));
-
-        //this.$grid.bsGrid({
-        //    $toolbar: this.$toolbar,
-        //    uniqueName: 'usersGrid',
-        //    pagerUrl: this.options.pagerUrl,
-        //    rowsFilters: {
-        //        '.js-actives': function ($el) {
-        //            return $el.data('active') == 'True';
-        //        },
-        //        '.js-inactives': function ($el) {
-        //            return $el.data('active') != 'True';
-        //        }
-        //    },
-        //    multipleControls: {
-        //        '.js-btn-exportExcel_selected': $.proxy(function ($rows, context) {
-        //            var data = {};
-
-        //            var items = context.getSelectedRows();
-
-        //            data.items = items;
-        //            data.settings = context.refreshModel;
-
-        //            this._exportExcel(data, this.options.exportExcelUrl);
-
-        //        }, this),
-        //        '.js-btn-enable_selected': $.proxy(function ($rows, context) {
-        //            var data = {};
-
-        //            var items = context.getSelectedRows();
-
-        //            data.items = items;
-        //            data.enable = true;
-
-        //            this._ajaxEnableDisable($rows, data, this.options.enableDisableUrl, function (response) {
-
-        //                context.updateRows(response.RowsHtml);
-
-        //            }, function (response) {
-        //                context._pagerAjaxError(response);
-        //            });
-        //        }, this),
-        //        '.js-btn-disable_selected': $.proxy(function ($rows, context) {
-        //            var data = {};
-
-        //            var items = context.getSelectedRows();
-        //            data.items = items;
-        //            data.enable = false;
-
-        //            this._ajaxEnableDisable($rows, data, this.options.enableDisableUrl, function (response) {
-
-        //                context.updateRows(response.RowsHtml);
-
-        //            }, function (response) {
-        //                context._pagerAjaxError(response);
-        //            });
-        //        }, this),
-        //        '.js-btn-delete_selected': $.proxy(function ($rows, context) {
-
-        //            var items = context.getSelectedRows();
-
-        //            this._ajaxDelete($rows, items, this.options.deleteUrl, $.proxy(function () {
-        //                $rows.remove();
-        //                context._evOnRowCheckChange($rows);
-        //                if (this.$grid.find('.grid_row[data-objid]').length == 0) {
-        //                    this.$grid.bsGrid('refresh');
-        //                }
-        //            }, this), function (response) {
-        //                context._pagerAjaxError(response);
-        //            });
-        //        }, this)
-        //    },
-        //    detailsControls: {
-        //        '.js-btn_state': $.proxy(this._enableDisableHandler, this),
-        //        '.js-btn_delete': {
-        //            isCustom: true,
-        //            handler: $.proxy(this._deleteHandler, this)
-        //        }
-        //    }
-        //});
     };
 
     GridIndex.prototype._evExportToExcel = function (e, $selectedRows) {
@@ -414,9 +325,20 @@
                     });
 
                     this._ajaxDelete($row, data, options.url, function () {
+
                         context._getPage(true);
+
                     }, function (response) {
-                        context._rowActionAjaxError(response, $row);
+
+                        if ($(options.btnSelector).is('.js-inlineAction')) {
+
+                            context._pagerAjaxError(response, $row);
+
+                        } else {
+
+                            context._rowActionAjaxError(response, $row);
+
+                        }
                     });
 
                     $btn.bsInlineQuestion('toggle');

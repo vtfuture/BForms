@@ -20,13 +20,15 @@
 
           cols.For(row => row.StartDate).Name("Contributor since")
               .Sortable()
-              .Text(row => Html.BsGlyphicon(Glyphicon.Calendar) + " " + row.StartDate.ToMonthNameDate());
+              .Text(row => Html.BsGlyphicon(Glyphicon.Calendar) + " " + row.StartDate.ToMonthNameDate());          
 
           cols.For(row => row.Contributions).Name("Contributions")
               .Sortable()
               .Text(row => string.IsNullOrEmpty(row.Contributions) ? "" : String.Join(", ", row.Contributions.Split(new[] { ',' }).Take(2)));
 
           cols.For(row => row.Name).Name(Resource.Name);
+
+          cols.For(row => row.Action).Name("").Text(RowButtonTemplate);
       });
 }
 @(Html.BsGridFor(m => m.Grid, builder)
@@ -64,8 +66,6 @@
 
 @helper RowButtonTemplate(ContributorRowModel row)
 {
-    if (!row.Enabled && row.Name.StartsWith("M"))
-    {
-        <a href="#" class="js-inline_delete"><span class="glyphicon glyphicon-trash"></span></a>
-    }
+
+    <a href="#" class="js-btn_delete js-inlineAction"><span class="glyphicon glyphicon-trash"></span></a>
 }

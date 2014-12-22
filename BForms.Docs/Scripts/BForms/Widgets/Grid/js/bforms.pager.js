@@ -20,7 +20,7 @@
         pageSizeContainerSelector: '.results_per_page',
         perPageDisplaySelector: '.bs-perPageDisplay',
         goTopButtonSelector: '.bs-goTop',
-        goTopTitle: 'Go top'
+        goTopTitle: ''
     };
 
     Pager.prototype._create = function () {
@@ -31,7 +31,7 @@
     };
 
     Pager.prototype._initElements = function () {
-        if (typeof $(this.options.goTopButtonSelector) !== "undefined") {
+        if (typeof $(this.options.goTopButtonSelector) !== "undefined" && this.options.goTopTitle) {
             $(this.options.goTopButtonSelector).attr('title', this.options.goTopTitle);
         }
     };
@@ -134,7 +134,7 @@
     };
 
     Pager.prototype.updateTotal = function (total) {
-        this.element.find(this.options.totalsContainerSelector).html(total);
+        this.element.find(this.options.totalsContainerSelector).not(this.options.topResultsMargin).html(total);
     };
 
     Pager.prototype.selectValue = function (value) {

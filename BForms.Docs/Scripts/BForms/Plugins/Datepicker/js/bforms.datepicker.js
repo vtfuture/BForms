@@ -107,6 +107,11 @@
             var value = this.$element.val(),
                 valueMoment = moment(value);
 
+            if (!valueMoment.isValid()) {
+                //try parsing the date using the specified format
+                valueMoment = moment(value, this.options.format);
+            }
+
             if (valueMoment != null) {
                 valueMoment.lang(this.options.language);
             }
@@ -1036,13 +1041,23 @@
         var hour = window.parseInt($(e.currentTarget).val(), 10);
 
         if (!window.isNaN(hour) && hour > 0 && hour < 24) {
-            this.currentValue.hour(hour);
-            this.value = this.currentValue.clone();
 
-            this._updateDisplays();
+            var newValue = this.currentValue.clone().hour(hour);
 
-            this._updateTimeView();
-            this._updateDateView();
+            if (this.isValidDate(newValue)) {
+                this.currentValue.hour(hour);
+                this.value = this.currentValue.clone();
+
+
+                this._setCurrentValue(false);
+
+                this._updateDisplays();
+
+                this._updateTimeView();
+                this._updateDateView();
+            } else {
+                this._updateTimeView();
+            }
 
         } else {
             this._updateTimeView();
@@ -1055,13 +1070,22 @@
         var minute = window.parseInt($(e.currentTarget).val(), 10);
 
         if (!window.isNaN(minute) && minute >= 0 && minute < 60) {
-            this.currentValue.minute(minute);
-            this.value = this.currentValue.clone();
+            var newValue = this.currentValue.clone().minute(minute);
 
-            this._updateDisplays();
+            if (this.isValidDate(newValue)) {
+                this.currentValue.minute(minute);
+                this.value = this.currentValue.clone();
 
-            this._updateTimeView();
-            this._updateDateView();
+
+                this._setCurrentValue(false);
+
+                this._updateDisplays();
+
+                this._updateTimeView();
+                this._updateDateView();
+            } else {
+                this._updateTimeView();
+            }
 
         } else {
             this._updateTimeView();
@@ -1074,13 +1098,22 @@
         var second = window.parseInt($(e.currentTarget).val(), 10);
 
         if (!window.isNaN(second) && second >= 0 && second < 60) {
-            this.currentValue.second(second);
-            this.value = this.currentValue.clone();
+            var newValue = this.currentValue.clone().second(second);
 
-            this._updateDisplays();
+            if (this.isValidDate(newValue)) {
+                this.currentValue.second(second);
+                this.value = this.currentValue.clone();
 
-            this._updateTimeView();
-            this._updateDateView();
+
+                this._setCurrentValue(false);
+
+                this._updateDisplays();
+
+                this._updateTimeView();
+                this._updateDateView();
+            } else {
+                this._updateTimeView();
+            }
 
         } else {
             this._updateTimeView();

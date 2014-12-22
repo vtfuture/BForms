@@ -1,7 +1,10 @@
-﻿define('singleton-ich', [
-        //'i18n!nls/resources',
-        'icanhaz'
-], function (Resources, i) {
+﻿(function (factory) {
+    if (typeof define === "function" && define.amd) {
+        define('singleton-ich', ['icanhaz'], factory);
+    } else {
+        factory();
+    }
+}(function () {
 
     var IchSingleton = (function () {
         var instance;
@@ -20,8 +23,6 @@
         var getInstance = function (opt) {
             if (!instance) {
                 instance = ich;
-                //loadTemplate(instance, common);
-                //instance.setResources(Resources);
                 instance.grabTemplates();
             }
             return instance;
@@ -40,4 +41,4 @@
 
     return IchSingleton;
 
-});
+}));
