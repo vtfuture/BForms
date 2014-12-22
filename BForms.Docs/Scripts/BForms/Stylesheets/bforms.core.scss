@@ -164,6 +164,17 @@ mark, .mark {
 	}
 }
 
+/* Media object */
+
+.media {
+	overflow: hidden;
+	.media-body {
+		overflow: hidden;
+		display: block;
+		zoom: 1;
+	}
+}
+
 /* Avatar view */
 .avatar_view {
 	border: 1px solid #dddddd;
