@@ -503,6 +503,7 @@
 
         if (openData.allowOpen === true) {
             this.$container.stop(true, true).slideDown(300);
+            this.$container.addClass('in');
             this.$element.find(this.options.toggleSelector).addClass('dropup');
         }
 
@@ -521,7 +522,9 @@
         this._trigger('beforeClose', closeData);
 
         if (closeData.allowClose === true) {
-            this.$container.stop(true, true).slideUp(300);
+            this.$container.stop(true, true).slideUp(300,$.proxy(function() {
+                this.$container.removeClass('in');
+            },this));
             this.$element.find(this.options.toggleSelector).removeClass('dropup');
         }
 
