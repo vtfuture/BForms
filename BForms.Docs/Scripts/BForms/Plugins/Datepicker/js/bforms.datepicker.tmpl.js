@@ -162,7 +162,7 @@
                                                 '{{presetRangesPlaceholderText}}' +
                                             '</option>' +
                                         '{{#presetRanges}}' +
-                                            '<option value="{{value}}" data-source="{{source}}" data-priority="{{priority}}" data-expressionfrom="{{expressionFrom}}" data-expressionto="{{expressionTo}}">' +
+                                            '<option value="{{value}}" data-source="{{source}}" {{#selected}}selected="selected"{{/selected}} data-priority="{{priority}}" data-expressionfrom="{{expressionFrom}}" data-expressionto="{{expressionTo}}">' +
                                                 '{{text}}' +
                                             '</option>' +
                                         '{{/presetRanges}}' +
