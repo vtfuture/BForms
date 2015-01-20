@@ -155,18 +155,20 @@
                             '<button class="btn bs-cancelRange">{{cancelText}}</button>' +
 
                             '{{#hasPresetRanges}}' +
-                                '<div class="bs-preset-ranges_container" style="margin-top:10px">' +
+                                '<div class="form-group bs-preset-ranges_container">' +
                                     '<label>{{presetRangesText}}</label>' +
-                                    '<select style="width:100%" class="bs-preset-ranges">' +
-                                            '<option value="">' +
-                                                '{{presetRangesPlaceholderText}}' +
-                                            '</option>' +
-                                        '{{#presetRanges}}' +
-                                            '<option value="{{value}}" data-source="{{source}}" {{#selected}}selected="selected"{{/selected}} data-priority="{{priority}}" data-expressionfrom="{{expressionFrom}}" data-expressionto="{{expressionTo}}">' +
-                                                '{{text}}' +
-                                            '</option>' +
-                                        '{{/presetRanges}}' +
-                                    '</select>' +
+                                    '<div class="input-group">' +
+                                        '<select class="bs-preset-ranges">' +
+                                                '<option value="">' +
+                                                    '{{presetRangesPlaceholderText}}' +
+                                                '</option>' +
+                                            '{{#presetRanges}}' +
+                                                '<option value="{{value}}" data-source="{{source}}" {{#selected}}selected="selected"{{/selected}} data-priority="{{priority}}" data-expressionfrom="{{expressionFrom}}" data-expressionto="{{expressionTo}}">' +
+                                                    '{{text}}' +
+                                                '</option>' +
+                                            '{{/presetRanges}}' +
+                                        '</select>' +
+                                    '</div>'+
                                 '</div>' +
                             '{{/hasPresetRanges}}' +
 

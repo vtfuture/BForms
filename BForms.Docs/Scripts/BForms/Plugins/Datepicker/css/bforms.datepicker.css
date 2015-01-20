@@ -208,7 +208,7 @@
       margin-bottom: 10px; }
       .bs-range-picker .ranges .form-group label {
         font-size: 15px; }
-      .bs-range-picker .ranges .form-group .input-group input {
+      .bs-range-picker .ranges .form-group .input-group input, .bs-range-picker .ranges .form-group .input-group select {
         width: 100%;
         font-size: 13px;
         padding: 3px;
@@ -219,6 +219,8 @@
         top: 8px;
         cursor: pointer;
         background: url(../images/icn-remove.png) 50% 50% no-repeat; }
+    .bs-range-picker .ranges .bs-preset-ranges_container {
+      margin-top: 20px; }
   .bs-range-picker.bs-hide_range {
     width: auto; }
     .bs-range-picker.bs-hide_range .ranges {
@@ -384,7 +386,7 @@
       max-width: 100%; } }
 @media (max-width: 580px) {
   .bs-range-picker {
-    padding-bottom: 170px; }
+    padding-bottom: 250px; }
     .bs-range-picker .ranges {
       position: absolute;
       padding: 0;

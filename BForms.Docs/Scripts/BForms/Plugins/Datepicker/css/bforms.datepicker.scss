@@ -288,7 +288,7 @@ $Black: #424141;
 				font-size: 15px;
 			}
 			.input-group {
-				input  {
+				input, select  {
 					width: 100%;
 					font-size: 13px;
 					padding: 3px;
@@ -302,7 +302,10 @@ $Black: #424141;
 					background:url(../images/icn-remove.png) 50% 50% no-repeat;					
 				}			
 			}
-		}		
+		}	
+		.bs-preset-ranges_container {
+			margin-top: 20px;
+		}
 	}
 	&.bs-hide_range{
 		width:auto;
@@ -559,7 +562,7 @@ $Black: #424141;
 }
 @media (max-width: 580px) { 
 	.bs-range-picker {
-		padding-bottom: 170px;
+		padding-bottom: 250px;
 		.ranges {
 			position: absolute;
 			padding: 0;
