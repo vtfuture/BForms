@@ -749,11 +749,13 @@
 
     bRangePicker.prototype._getPresetRanges = function () {
 
-        var ranges = null;
+        var ranges;
 
-        if (typeof this.options.getPresetRanges == "function") ranges = this.options.getPresetRanges();
-
-        ranges = [
+        if (typeof this.options.getPresetRanges == "function") {
+            ranges = this.options.getPresetRanges();
+        }
+        else {
+            ranges = [
             {
                 text: 'Today',
                 value: 1,
@@ -780,7 +782,8 @@
                 value: 4,
                 priority: 'to'
             }
-        ];
+            ];
+        }
 
         if (typeof this.options.initialPresetRangeValue !== "undefined") {
             $.each(ranges, $.proxy(function (idx, range) {
