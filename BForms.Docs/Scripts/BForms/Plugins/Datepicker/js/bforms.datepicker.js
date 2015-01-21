@@ -252,11 +252,17 @@
 
     bDatepicker.prototype._initInlineMobile = function () {
 
+        var altField = {
+            selector: this.$element
+        };
+
+        if (this.options.format) {
+            altField.format = this.options.format;
+        }
+
         var modalPickerOptions = $.extend(true, {}, this.options, {
             inline: true,
-            altFields: [{
-                selector: this.$element
-            }],
+            altFields: [altField],
             showClose: true,
             visible: false,
             closeOnBlur: false,
@@ -273,6 +279,24 @@
 
             }, this)
         });
+
+        if (typeof modalPickerOptions.initialValue === "undefined" && this.$element.is('input')) {
+            var initialValue = this.$element.val(),
+                initialValueMoment = moment(initialValue);
+
+            if (!initialValueMoment.isValid()) {
+                //try parsing the date using the specified format
+                initialValueMoment = moment(initialValue, this.options.format);
+            }
+
+            if (initialValueMoment != null) {
+                initialValueMoment.lang(this.options.language);
+            }
+
+            if (initialValueMoment != null && initialValueMoment.isValid()) {
+                modalPickerOptions.initialValue = initialValueMoment;
+            }
+        }
 
         var $pickerReplace = $('<div class="bs-picker-replace"></div>');
         this.$element.parent().after($pickerReplace);
