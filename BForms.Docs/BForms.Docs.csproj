@@ -1749,6 +1749,9 @@
   <ItemGroup>
     <Content Include="Views\Start\Grid\Source\_SettingsGridRepository.cs.embed" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\BForms\Components\Bootstrap\fonts\glyphicons-halflings-regular.woff2" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

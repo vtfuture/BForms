@@ -26,7 +26,7 @@ $borderColor: #e8e8e8;
 	}
 	.navbar-default {
 		border: none;
-		margin: 5px 5px 0;
+		margin: 0;
 		.navbar-collapse {
 			background: #fff;
 		}
@@ -34,14 +34,13 @@ $borderColor: #e8e8e8;
 			padding-left:0px;
 		}
 		.active a {
-			background: #eee !important;
+			background: #f8f8f8!important;
 		}
 	}
-
 	.search {
 		padding: 10px 0;
 		margin-bottom: 10px;
-		background: #eee ;
+		background: #f8f8f8;
 		.btn {
 			padding: 6px 12px;
 		}
