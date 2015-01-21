@@ -554,6 +554,7 @@ $Black: #424141;
 		}
 		.bs-datetime-picker {
 			margin: 0 5px 10px;
+			display: block !important; 
 		}
 		&.bs-inline-picker {
 			max-width: 100%;
@@ -568,7 +569,7 @@ $Black: #424141;
 		}
 		.bs-datetime-picker {
 			margin: 5px 0 !important;
-			display: block; 
+			display: block !important; 
 		}
 	}
 	

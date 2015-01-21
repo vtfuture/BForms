@@ -382,7 +382,8 @@
       position: relative;
       left: 0; }
     .bs-range-picker .bs-datetime-picker {
-      margin: 0 5px 10px; }
+      margin: 0 5px 10px;
+      display: block !important; }
     .bs-range-picker.bs-inline-picker {
       max-width: 100%; } }
 @media (max-width: 580px) {
@@ -392,6 +393,6 @@
       padding-bottom: 0; }
     .bs-range-picker .bs-datetime-picker {
       margin: 5px 0 !important;
-      display: block; } }
+      display: block !important; } }
 
 /*# sourceMappingURL=bforms.datepicker.css.map */
