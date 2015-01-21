@@ -370,6 +370,20 @@ namespace BForms.Utilities
             return parent;
         }
 
+        internal static Type ResolveNullableType(this Type t)
+        {
+            if (t.IsGenericType && t.GetGenericTypeDefinition() == typeof(Nullable<>))
+            {
+                var genericArgs = t.GetGenericArguments();
+                if (genericArgs.Length > 0)
+                {
+                    return genericArgs[0];
+                }
+            }
+
+            return t;
+        }
+
         internal static string GetNonEnumerableValue(object obj)
         {
             var bsKeyType = obj.GetType();

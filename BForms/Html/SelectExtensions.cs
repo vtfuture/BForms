@@ -210,9 +210,9 @@ namespace BForms.Html
             //bind the selected values BsSelectList.SelectedValues
             name += ".SelectedValues";
 
-            name = htmlHelper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name);
+            var fullName = htmlHelper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name);
 
-            if (String.IsNullOrEmpty(name))
+            if (String.IsNullOrEmpty(fullName))
             {
                 throw new ArgumentException("Null Or Empty", "name");
             }
@@ -222,13 +222,13 @@ namespace BForms.Html
             // If we got a null selectList, try to use ViewData to get the list of items.
             if (selectList == null)
             {
-                selectList = htmlHelper.GetSelectData<TKey>(name);
+                selectList = htmlHelper.GetSelectData<TKey>(fullName);
                 usedViewData = true;
             }
 
             object defaultValue = (allowMultiple)
-                ? htmlHelper.GetModelStateValue(name, typeof(string[]))
-                : htmlHelper.GetModelStateValue(name, typeof(string));
+                ? htmlHelper.GetModelStateValue(fullName, typeof(string[]))
+                : htmlHelper.GetModelStateValue(fullName, typeof(string));
 
             // If we haven't already used ViewData to get the entire list of items then we need to
             // use the ViewData-supplied value before using the parameter-supplied value.
@@ -237,6 +237,24 @@ namespace BForms.Html
                 if (defaultValue == null)
                 {
                     defaultValue = htmlHelper.ViewData.Eval(name);
+
+                    if (defaultValue != null)
+                    {
+                        var type = ReflectionHelpers.ResolveNullableType(typeof(TKey));
+
+                        if (type.IsEnum)
+                        {
+                            var enumValues = Enum.GetValues(type);
+
+                            foreach (var enumValue in enumValues)
+                            {
+                                if (enumValue.ToString() == defaultValue.ToString())
+                                {
+                                    defaultValue = (int)enumValue;
+                                }
+                            }
+                        }
+                    }
                 }
             }
 
@@ -302,16 +320,16 @@ namespace BForms.Html
                 InnerHtml = listItemBuilder.ToString()
             };
             tagBuilder.MergeAttributes(htmlAttributes);
-            tagBuilder.MergeAttribute("name", name, true);
+            tagBuilder.MergeAttribute("name", fullName, true);
             tagBuilder.AddCssClass(bsCssClass);
             tagBuilder.AddCssClass("form-control");
-            tagBuilder.GenerateId(name);
+            tagBuilder.GenerateId(fullName);
             if (allowMultiple)
             {
                 tagBuilder.MergeAttribute("multiple", "multiple");
             }
 
-            tagBuilder.BsSelectListValidation(htmlHelper, name, metadata);
+            tagBuilder.BsSelectListValidation(htmlHelper, fullName, metadata);
 
             return MvcHtmlString.Create(tagBuilder.ToString());
         }
