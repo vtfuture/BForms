@@ -17,17 +17,17 @@
     margin: 10px 0; }
   .group_editor .navbar-default {
     border: none;
-    margin: 5px 5px 0; }
+    margin: 0; }
     .group_editor .navbar-default .navbar-collapse {
       background: #fff; }
     .group_editor .navbar-default .group_editor-navbar {
       padding-left: 0px; }
     .group_editor .navbar-default .active a {
-      background: #eee !important; }
+      background: #f8f8f8 !important; }
   .group_editor .search {
     padding: 10px 0;
     margin-bottom: 10px;
-    background: #eee; }
+    background: #f8f8f8; }
     .group_editor .search .btn {
       padding: 6px 12px; }
     .group_editor .search.inline > .input-group {

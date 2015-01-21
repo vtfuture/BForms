@@ -88,17 +88,36 @@
     };
 
     fileUpload.prototype._onAdd = function (e, data) {
-        this._trigger('add', 0, arguments);
 
-        if (this.options.autoUpload === false) {
+        var uploadErrors = [];
 
-            this._currentUploadData = data;
-
-            if (!loadImage(data.files[0], $.proxy(this._displayPreviewImage, this, data), { canvas: false })) {
-                console.log('Your browser does not support the URL or FileReader API.');
-            }
+        if (data.originalFiles[0]['type'].length && !this.options.acceptFileTypes.test(data.originalFiles[0]['type'])) {
+            uploadErrors.push({
+                Type: 'InvalidFileType',
+                Message: 'Not an accepted file type'
+            });
+        }
+        if (data.originalFiles[0]['size'].length && data.originalFiles[0]['size'] > this.options.maxFileSize) {
+            uploadErrors.push({
+                Type: 'MaxFileSize',
+                Message: 'Filesize is too big'
+            });
+        }
+        if (uploadErrors.length > 0) {
+            this._trigger('onInvalidFile', 0, uploadErrors);
         } else {
-            data.submit();
+            this._trigger('add', 0, arguments);
+
+            if (this.options.autoUpload === false) {
+
+                this._currentUploadData = data;
+
+                if (!loadImage(data.files[0], $.proxy(this._displayPreviewImage, this, data), { canvas: false })) {
+                    console.log('Your browser does not support the URL or FileReader API.');
+                }
+            } else {
+                data.submit();
+            }
         }
     };
 
@@ -110,11 +129,18 @@
 
         var response = data.result.Data;
 
-        var imageUrl = response[this.options.imageUrlParam];
-        this._updateImage(imageUrl);
-        this._toggleBlockDelete(false);
+        if (response != null) {
 
-        this._trigger('done', 0, arguments);
+            var imageUrl = response[this.options.imageUrlParam];
+
+            if (imageUrl != null) {
+                this._updateImage(imageUrl);
+                this._toggleBlockDelete(false);
+
+                this._trigger('done', 0, arguments);
+            }
+        }
+
     };
 
     fileUpload.prototype._onStop = function () {
@@ -246,7 +272,7 @@
         }
     };
 
-    fileUpload.prototype.getCurrentData = function () {       
+    fileUpload.prototype.getCurrentData = function () {
         return this._currentUploadData;
     };
     //#endregion

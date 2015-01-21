@@ -17,7 +17,8 @@ $Black: #424141;
 }
 
 label {
-	font-size: 16px;
+	font-size: 13px;
+	font-family: arial, verdana, sans-serif;
 	font-weight: normal;
 }
 textarea {
@@ -164,6 +165,17 @@ mark, .mark {
 	}
 }
 
+/* Media object */
+
+.media {
+	overflow: hidden;
+	.media-body {
+		overflow: hidden;
+		display: block;
+		zoom: 1;
+	}
+}
+
 /* Avatar view */
 .avatar_view {
 	border: 1px solid #dddddd;
@@ -273,6 +285,7 @@ mark, .mark {
 	&.form-control {
 		padding: 0;
 		border: none;
+		height: auto;
 	}
 	
 	.select2-choices {
@@ -283,7 +296,7 @@ mark, .mark {
 			input {
 				font-family: Calibri, "Helvetica Neue", Helvetica, Arial, sans-serif;
 				margin-top: 3px;
-				padding: 5px 8px;
+				padding: 4px 8px;
 				
 			}
 		}
@@ -295,7 +308,7 @@ mark, .mark {
 			background-image: none;
 			border-radius: 0;
 			padding: 5px 5px 5px 18px;
-			margin: 6px 0 0 5px;
+			margin: 4px 0 0 5px;
 			.select2-search-choice-close {
 				top: 5px;
 			}
@@ -417,9 +430,7 @@ mark, .mark {
 		box-shadow: none;
 		border-color: #A8A8A8;
 	}
-	&.select2-container-multi {
-		height: auto;
-	}
+
 	+ .input-group-addon {
 		border-left: none;
 	}
@@ -494,8 +505,7 @@ mark, .mark {
 .radio-inline input[type="radio"], 
 .checkbox input[type="checkbox"], 
 .checkbox-inline input[type="checkbox"] {
-	margin-left: -5px;
-	margin-right: 10px;
+	margin: 2px 10px 0 -5px;
 	position: relative;
 	float: left;
 }
@@ -507,7 +517,7 @@ mark, .mark {
 			display: table-cell;
 			border: 1px solid transparent;
 			padding-left: 15px;
-			padding-top: 6px;
+			padding-top: 8px;
 			height: 34px;
 		}
 		&.has-error {			

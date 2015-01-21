@@ -247,21 +247,19 @@ $Black: #424141;
 	width: 642px;
 	border: 1px solid #ccc;
 	background: #fff;
-	padding: 10px 10px 3px;
+	padding: 10px 10px 3px 170px;
 	font-family: Calibri, "Helvetica Neue", Helvetica, Arial, sans-serif;
 	z-index: 9999;
 	.bs-datetime-picker {
 		position: relative;
-		display: inline-block !important;
 		float: left;
 		margin-left: 10px;
-		//clear: none;
 	}
-	.ranges {
-		display: inline-block;
+	.ranges {		
 		vertical-align: top;
 		width: 160px;
-		float: left;
+		position: absolute;
+		left: 10px;
 		.btn {
 			padding: 4px 12px;
 			line-height: 1.4;
@@ -288,7 +286,7 @@ $Black: #424141;
 				font-size: 15px;
 			}
 			.input-group {
-				input  {
+				input, select  {
 					width: 100%;
 					font-size: 13px;
 					padding: 3px;
@@ -302,7 +300,10 @@ $Black: #424141;
 					background:url(../images/icn-remove.png) 50% 50% no-repeat;					
 				}			
 			}
-		}		
+		}	
+		.bs-preset-ranges_container {
+			margin-top: 20px;
+		}
 	}
 	&.bs-hide_range{
 		width:auto;
@@ -541,16 +542,19 @@ $Black: #424141;
 
 @media (max-width: 749px) {
 	.bs-range-picker {
-		max-width: 485px;
-		width: auto;
+		width: 485px;
+		padding: 10px 10px 3px;
 		.ranges {
 			display: block;
 			margin-bottom: 10px;
 			width: 100%;
 			padding: 0 5px;
+			position: relative;
+			left: 0;
 		}
 		.bs-datetime-picker {
 			margin: 0 5px 10px;
+			display: block !important; 
 		}
 		&.bs-inline-picker {
 			max-width: 100%;
@@ -559,21 +563,14 @@ $Black: #424141;
 }
 @media (max-width: 580px) { 
 	.bs-range-picker {
-		padding-bottom: 170px;
-		.ranges {
-			position: absolute;
-			padding: 0;
-			bottom: 0;
-			left: 10px;
-			right: 10px;
-			width: auto;
-		}
+		width: 242px;
 		&.bs-hide_range{
 			padding-bottom : 0;
 		}
+		.bs-datetime-picker {
+			margin: 5px 0 !important;
+			display: block !important; 
+		}
 	}
-	.bs-datetime-picker  {
-		margin: 5px 0 !important;
-		clear: both;
-	}
+	
 }

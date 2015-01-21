@@ -137,6 +137,9 @@
     bDatepickerRenderer.prototype.mainTemplates = {
 
         rangeTemplate: '<div class="bs-range-picker {{theme}} {{#hideRanges}}bs-hide_range{{/hideRanges}}">' +
+
+                        '<div class="bs-start-replace"></div>' +
+                        '<div class="bs-end-replace"></div>' +
                             '<div class="ranges">' +
                                 '<div class="form-group">' +
                                     '<label>{{fromText}}</label><div class="input-group">' +
@@ -155,25 +158,25 @@
                             '<button class="btn bs-cancelRange">{{cancelText}}</button>' +
 
                             '{{#hasPresetRanges}}' +
-                                '<div class="bs-preset-ranges_container" style="margin-top:10px">' +
+                                '<div class="form-group bs-preset-ranges_container">' +
                                     '<label>{{presetRangesText}}</label>' +
-                                    '<select style="width:100%" class="bs-preset-ranges">' +
-                                            '<option value="">' +
-                                                '{{presetRangesPlaceholderText}}' +
-                                            '</option>' +
-                                        '{{#presetRanges}}' +
-                                            '<option value="{{value}}" data-source="{{source}}" data-priority="{{priority}}" data-expressionfrom="{{expressionFrom}}" data-expressionto="{{expressionTo}}">' +
-                                                '{{text}}' +
-                                            '</option>' +
-                                        '{{/presetRanges}}' +
-                                    '</select>' +
+                                    '<div class="input-group">' +
+                                        '<select class="bs-preset-ranges">' +
+                                                '<option value="">' +
+                                                    '{{presetRangesPlaceholderText}}' +
+                                                '</option>' +
+                                            '{{#presetRanges}}' +
+                                                '<option value="{{value}}" data-source="{{source}}" {{#selected}}selected="selected"{{/selected}} data-priority="{{priority}}" data-expressionfrom="{{expressionFrom}}" data-expressionto="{{expressionTo}}">' +
+                                                    '{{text}}' +
+                                                '</option>' +
+                                            '{{/presetRanges}}' +
+                                        '</select>' +
+                                    '</div>'+
                                 '</div>' +
                             '{{/hasPresetRanges}}' +
 
                             '</div>' +
 
-                        '<div class="bs-start-replace"></div>' +
-                        '<div class="bs-end-replace"></div>' +
 
                         '</div>',
 

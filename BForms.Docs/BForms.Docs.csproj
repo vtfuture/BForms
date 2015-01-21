@@ -22,7 +22,6 @@
     <IISExpressUseClassicPipelineMode />
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
-    <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -124,9 +123,9 @@
     </Reference>
     <Reference Include="System.Net.Http.WebRequest">
     </Reference>
-    <Reference Include="WebGrease, Version=1.5.2.14234, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
     </Reference>
     <Reference Include="Yahoo.Yui.Compressor, Version=2.3.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -259,6 +258,7 @@
     <Content Include="Content\Images\logo_jetbrains.png" />
     <Content Include="Content\Images\veritech-logo-site%402x.png" />
     <Content Include="robots.txt" />
+    <Content Include="Scripts\BForms\Components\Bootstrap\css\bootstrap.css" />
     <Content Include="Scripts\BForms\Components\ErrorTell\errorTell.js" />
     <Content Include="Scripts\BForms\Components\FileUpload\jquery.fileupload-process.js" />
     <Content Include="Scripts\BForms\Components\FileUpload\jquery.fileupload-validate.js" />
@@ -403,7 +403,6 @@
     <Content Include="Content\Stylesheets\Site.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="Scripts\BForms\Components\Bootstrap\css\bootstrap.css" />
     <Content Include="Scripts\BForms\Components\Bootstrap\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Scripts\BForms\Components\Bootstrap\js\bootstrap.js" />
     <Content Include="Scripts\BForms\Components\Html5shiv\html5shiv.js" />
@@ -438,7 +437,9 @@
     <Content Include="Scripts\Controllers\Root\Docs\docs-selectextensions.js" />
     <Content Include="Scripts\Controllers\Root\Home\home-contact.js" />
     <Content Include="Scripts\Controllers\Root\Home\home-index.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -1747,6 +1748,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Start\Grid\Source\_SettingsGridRepository.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\BForms\Components\Bootstrap\fonts\glyphicons-halflings-regular.woff2" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

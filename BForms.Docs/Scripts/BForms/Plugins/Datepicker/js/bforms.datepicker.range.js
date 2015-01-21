@@ -734,7 +734,13 @@
                     if ($toUpdate.is('input')) {
                         $toUpdate.val(this.getValue());
                     } else {
-                        $toUpdate.text(this.getValue());
+                        if (this.options.usePresetRanges === true && this.$container.find('.bs-preset-ranges').val()) {
+                            var presetVal = this.$container.find('.bs-preset-ranges').val();
+                            var displayText = this.$container.find('.bs-preset-ranges').find('option[value="' + presetVal + '"]').text();
+                            $toUpdate.text(displayText);
+                        } else {
+                            $toUpdate.text(this.getValue());
+                        }
                     }
                 }
             }
@@ -743,9 +749,13 @@
 
     bRangePicker.prototype._getPresetRanges = function () {
 
-        if (typeof this.options.getPresetRanges == "function") return this.options.getPresetRanges();
+        var ranges;
 
-        return [
+        if (typeof this.options.getPresetRanges == "function") {
+            ranges = this.options.getPresetRanges();
+        }
+        else {
+            ranges = [
             {
                 text: 'Today',
                 value: 1,
@@ -772,7 +782,18 @@
                 value: 4,
                 priority: 'to'
             }
-        ];
+            ];
+        }
+
+        if (typeof this.options.initialPresetRangeValue !== "undefined") {
+            $.each(ranges, $.proxy(function (idx, range) {
+                if (range.value === this.options.initialPresetRangeValue) {
+                    range.selected = true;
+                }
+            }, this));
+        }
+
+        return ranges;
     };
     //#endregion
 

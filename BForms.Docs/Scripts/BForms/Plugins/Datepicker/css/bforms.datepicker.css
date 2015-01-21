@@ -175,19 +175,18 @@
   width: 642px;
   border: 1px solid #ccc;
   background: #fff;
-  padding: 10px 10px 3px;
+  padding: 10px 10px 3px 170px;
   font-family: Calibri, "Helvetica Neue", Helvetica, Arial, sans-serif;
   z-index: 9999; }
   .bs-range-picker .bs-datetime-picker {
     position: relative;
-    display: inline-block !important;
     float: left;
     margin-left: 10px; }
   .bs-range-picker .ranges {
-    display: inline-block;
     vertical-align: top;
     width: 160px;
-    float: left; }
+    position: absolute;
+    left: 10px; }
     .bs-range-picker .ranges .btn {
       padding: 4px 12px;
       line-height: 1.4;
@@ -208,7 +207,7 @@
       margin-bottom: 10px; }
       .bs-range-picker .ranges .form-group label {
         font-size: 15px; }
-      .bs-range-picker .ranges .form-group .input-group input {
+      .bs-range-picker .ranges .form-group .input-group input, .bs-range-picker .ranges .form-group .input-group select {
         width: 100%;
         font-size: 13px;
         padding: 3px;
@@ -219,6 +218,8 @@
         top: 8px;
         cursor: pointer;
         background: url(../images/icn-remove.png) 50% 50% no-repeat; }
+    .bs-range-picker .ranges .bs-preset-ranges_container {
+      margin-top: 20px; }
   .bs-range-picker.bs-hide_range {
     width: auto; }
     .bs-range-picker.bs-hide_range .ranges {
@@ -371,32 +372,27 @@
 
 @media (max-width: 749px) {
   .bs-range-picker {
-    max-width: 485px;
-    width: auto; }
+    width: 485px;
+    padding: 10px 10px 3px; }
     .bs-range-picker .ranges {
       display: block;
       margin-bottom: 10px;
       width: 100%;
-      padding: 0 5px; }
+      padding: 0 5px;
+      position: relative;
+      left: 0; }
     .bs-range-picker .bs-datetime-picker {
-      margin: 0 5px 10px; }
+      margin: 0 5px 10px;
+      display: block !important; }
     .bs-range-picker.bs-inline-picker {
       max-width: 100%; } }
 @media (max-width: 580px) {
   .bs-range-picker {
-    padding-bottom: 170px; }
-    .bs-range-picker .ranges {
-      position: absolute;
-      padding: 0;
-      bottom: 0;
-      left: 10px;
-      right: 10px;
-      width: auto; }
+    width: 242px; }
     .bs-range-picker.bs-hide_range {
       padding-bottom: 0; }
-
-  .bs-datetime-picker {
-    margin: 5px 0 !important;
-    clear: both; } }
+    .bs-range-picker .bs-datetime-picker {
+      margin: 5px 0 !important;
+      display: block !important; } }
 
 /*# sourceMappingURL=bforms.datepicker.css.map */

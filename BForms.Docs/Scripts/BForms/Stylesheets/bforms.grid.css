@@ -94,9 +94,6 @@ a.btn {
   .grid_container .btn-theme .caret {
     border-bottom-color: #fff;
     border-top-color: #fff; }
-  .grid_container label {
-    font-size: 13px;
-    font-family: arial, verdana, sans-serif; }
   .grid_container ul {
     padding: 0; }
   .grid_container .grid_toolbar {
@@ -171,8 +168,6 @@ a.btn {
       padding: 15px;
       color: #333;
       position: relative; }
-      .grid_container .grid_toolbar .grid_toolbar_form .row label {
-        font-weight: normal; }
       .grid_container .grid_toolbar .grid_toolbar_form h3 {
         font-size: 17px;
         padding: 9px 0;
@@ -200,6 +195,8 @@ a.btn {
     .grid_container .grid_view h2 .grid_bulk_controls {
       float: right;
       margin-top: -10px; }
+    .grid_container .grid_view h2 .btn .glyphicon {
+      top: 2px; }
     .grid_container .grid_view h2:after {
       content: "";
       display: block;

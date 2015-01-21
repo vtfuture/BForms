@@ -125,10 +125,6 @@ a.btn {
 			border-top-color: #fff;
 		}
 	}
-	label {
-		font-size: 13px;
-		font-family: arial, verdana, sans-serif;
-	}
 	ul {
 		padding: 0;
 	}
@@ -229,12 +225,7 @@ a.btn {
 			padding: 15px;
 			color: #333;
 			position: relative;
-			.row {
-			
-				label {
-					font-weight: normal;
-				}
-			}
+
 			h3 {
 				font-size: 17px;
 				padding: 9px 0;
@@ -275,6 +266,9 @@ a.btn {
 				float: right;
 				margin-top: -10px;
 				
+			}
+			.btn .glyphicon {
+				top: 2px;
 			}
 			&:after {
 				content:"";
@@ -651,7 +645,7 @@ a.btn {
 .grid_bulk_controls {
 	.btn {
 		text-transform: none;
-		margin-right: 5px;
+		margin-right: 5px;		
 	}
 	.check_all {
 		position: relative;
