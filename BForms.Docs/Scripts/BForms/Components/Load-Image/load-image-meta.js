@@ -20,7 +20,7 @@
     //'use strict';
     if (typeof define === 'function' && define.amd) {
         // Register as an anonymous AMD module:
-        define(['load-image'], factory);
+        define('load-image-meta', ['load-image'], factory);
     } else {
         // Browser globals:
         factory(window.loadImage);
@@ -54,21 +54,21 @@
             // 256 KiB should contain all EXIF/ICC/IPTC segments:
             maxMetaDataSize = options.maxMetaDataSize || 262144,
             data = {},
-            noMetaData = !(window.DataView  && file && file.size >= 12 &&
+            noMetaData = !(window.DataView && file && file.size >= 12 &&
                 file.type === 'image/jpeg' && loadImage.blobSlice);
         if (noMetaData || !loadImage.readFile(
                 loadImage.blobSlice.call(file, 0, maxMetaDataSize),
                 function (e) {
                     if (e.target.error) {
-                        // FileReader error
+            // FileReader error
                         console.log(e.target.error);
                         callback(data);
                         return;
-                    }
-                    // Note on endianness:
-                    // Since the marker and length bytes in JPEG files are always
-                    // stored in big endian order, we can leave the endian parameter
-                    // of the DataView methods undefined, defaulting to big endian.
+        }
+            // Note on endianness:
+            // Since the marker and length bytes in JPEG files are always
+            // stored in big endian order, we can leave the endian parameter
+            // of the DataView methods undefined, defaulting to big endian.
                     var buffer = e.target.result,
                         dataView = new DataView(buffer),
                         offset = 2,
@@ -78,24 +78,24 @@
                         markerLength,
                         parsers,
                         i;
-                    // Check for the JPEG marker (0xffd8):
+            // Check for the JPEG marker (0xffd8):
                     if (dataView.getUint16(0) === 0xffd8) {
                         while (offset < maxOffset) {
                             markerBytes = dataView.getUint16(offset);
-                            // Search for APPn (0xffeN) and COM (0xfffe) markers,
-                            // which contain application-specific meta-data like
-                            // Exif, ICC and IPTC data and text comments:
+            // Search for APPn (0xffeN) and COM (0xfffe) markers,
+            // which contain application-specific meta-data like
+            // Exif, ICC and IPTC data and text comments:
                             if ((markerBytes >= 0xffe0 && markerBytes <= 0xffef) ||
                                     markerBytes === 0xfffe) {
-                                // The marker bytes (2) are always followed by
-                                // the length bytes (2), indicating the length of the
-                                // marker segment, which includes the length bytes,
-                                // but not the marker bytes, so we add 2:
+            // The marker bytes (2) are always followed by
+            // the length bytes (2), indicating the length of the
+            // marker segment, which includes the length bytes,
+            // but not the marker bytes, so we add 2:
                                 markerLength = dataView.getUint16(offset + 2) + 2;
                                 if (offset + markerLength > dataView.byteLength) {
                                     console.log('Invalid meta data: Invalid segment size.');
                                     break;
-                                }
+        }
                                 parsers = loadImage.metaDataParsers.jpeg[markerBytes];
                                 if (parsers) {
                                     for (i = 0; i < parsers.length; i += 1) {
@@ -107,33 +107,33 @@
                                             data,
                                             options
                                         );
-                                    }
-                                }
+        }
+        }
                                 offset += markerLength;
                                 headLength = offset;
-                            } else {
-                                // Not an APPn or COM marker, probably safe to
-                                // assume that this is the end of the meta data
+        } else {
+            // Not an APPn or COM marker, probably safe to
+            // assume that this is the end of the meta data
                                 break;
-                            }
-                        }
-                        // Meta length must be longer than JPEG marker (2)
-                        // plus APPn marker (2), followed by length bytes (2):
+        }
+        }
+            // Meta length must be longer than JPEG marker (2)
+            // plus APPn marker (2), followed by length bytes (2):
                         if (!options.disableImageHead && headLength > 6) {
                             if (buffer.slice) {
                                 data.imageHead = buffer.slice(0, headLength);
-                            } else {
-                                // Workaround for IE10, which does not yet
-                                // support ArrayBuffer.slice:
+        } else {
+            // Workaround for IE10, which does not yet
+            // support ArrayBuffer.slice:
                                 data.imageHead = new Uint8Array(buffer)
                                     .subarray(0, headLength);
-                            }
-                        }
-                    } else {
+        }
+        }
+        } else {
                         console.log('Invalid JPEG file: Missing JPEG marker.');
-                    }
+        }
                     callback(data);
-                },
+        },
                 'readAsArrayBuffer'
             )) {
             callback(data);
