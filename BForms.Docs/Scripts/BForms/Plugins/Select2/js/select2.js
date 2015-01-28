@@ -2523,6 +2523,7 @@ the specific language governing permissions and limitations under the Apache Lic
 
             this.searchContainer = this.container.find(".select2-search-field");
             this.selection = selection = this.container.find(selector);
+            this.lastSelection = null;
 
             var _this = this;
             this.selection.on("mousedown", ".select2-search-choice", function (e) {
@@ -2675,25 +2676,15 @@ the specific language governing permissions and limitations under the Apache Lic
                 if ($(e.target).closest(".select2-search-choice").length > 0) {
 
                     if (this.opts.editOnClick) {
-                        // clicked inside a select2 search choice, replace selected with text so it can be edited
+                        // clicked inside a select2 search choice, replace selected with text so it can be edited, and preversing the order
+
+                        this.lastSelection = $(e.target).closest(".select2-search-choice");
 
                         var selectedText = $(e.target).text();
 
-                        //remove selected value
-                        var isMsie = typeof $.browser !== "undefined" && $.browser.msie;
-
-                        if (isMsie) {
-                            $(e.target).closest(".select2-search-choice").hide();
-                            this.unselect($(e.target));
-                            this.open();
-                            this.focusSearch();
-                        } else {
-                            $(e.target).closest(".select2-search-choice").fadeOut('fast', this.bind(function () {
-                                this.unselect($(e.target));
-                                this.open();
-                                this.focusSearch();
-                            })).dequeue();
-                        }
+                        this.selectChoice(null);
+                        this.open();
+                        this.focusSearch();
 
                         selection.find(".select2-search-field input").val(selectedText);
                         this.resizeSearch();
@@ -2905,66 +2896,85 @@ the specific language governing permissions and limitations under the Apache Lic
         },
 
         addSelectedChoice: function (data) {
-            var enableChoice = !data.locked,
-                enabledItem = $(
-                    "<li class='select2-search-choice'>" +
-                    "    <div></div>" +
-                    "    <a href='#' onclick='return false;' class='select2-search-choice-close' tabindex='-1'></a>" +
-                    "</li>"),
-                disabledItem = $(
-                    "<li class='select2-search-choice select2-locked'>" +
-                    "<div></div>" +
-                    "</li>");
-            var choice = enableChoice ? enabledItem : disabledItem,
-                id = this.id(data),
-                val = this.getVal(),
-                formatted,
-                cssClass;
+            var val = this.getVal();
 
-            formatted = this.opts.formatSelection(data, choice.find("div"));
-            if (formatted != undefined) {
-                choice.find("div").replaceWith("<div>" + this.opts.escapeMarkup(formatted) + "</div>");
+            //replace text if the last tag was edited, otherwise add it
+            if (this.lastSelection && this.lastSelection != undefined) {
+                this.lastSelection.find("div").replaceWith("<div>" + this.opts.escapeMarkup(data.text) + "</div>");
+
+                var oldData = this.lastSelection.data("select2-data");
+                if (oldData != null) {
+
+                    data.id = oldData.id;
+                    val[val.indexOf(oldData.text.toString())] = data.text;
+
+                    this.lastSelection.data("select2-data", data);
+                }
+
+                this.lastSelection = null;
             }
-            cssClass = this.opts.formatSelectionCssClass(data, choice.find("div"));
-            if (cssClass != undefined) {
-                choice.addClass(cssClass);
-            }
+            else {
+                var enableChoice = !data.locked,
+                    enabledItem = $(
+                        "<li class='select2-search-choice'>" +
+                        "    <div></div>" +
+                        "    <a href='#' onclick='return false;' class='select2-search-choice-close' tabindex='-1'></a>" +
+                        "</li>"),
+                    disabledItem = $(
+                        "<li class='select2-search-choice select2-locked'>" +
+                        "<div></div>" +
+                        "</li>");
+                var choice = enableChoice ? enabledItem : disabledItem,
+                    id = this.id(data),
+                    formatted,
+                    cssClass;
 
-            if (enableChoice) {
-                choice.find(".select2-search-choice-close")
-                    .on("mousedown", killEvent)
-                    .on("click dblclick", this.bind(function (e) {
-                        if (!this.isInterfaceEnabled()) return;
+                formatted = this.opts.formatSelection(data, choice.find("div"));
+                if (formatted != undefined) {
+                    choice.find("div").replaceWith("<div>" + this.opts.escapeMarkup(formatted) + "</div>");
+                }
+                cssClass = this.opts.formatSelectionCssClass(data, choice.find("div"));
+                if (cssClass != undefined) {
+                    choice.addClass(cssClass);
+                }
 
-                        var isMsie = typeof $.browser !== "undefined" && $.browser.msie;
+                if (enableChoice) {
+                    choice.find(".select2-search-choice-close")
+                        .on("mousedown", killEvent)
+                        .on("click dblclick", this.bind(function (e) {
+                            if (!this.isInterfaceEnabled()) return;
 
-                        if (isMsie) {
-                            $(e.target).closest(".select2-search-choice").hide();
-                            this.unselect($(e.target));
-                            this.selection.find(".select2-search-choice-focus").removeClass("select2-search-choice-focus");
-                            this.close();
-                            this.focusSearch();
-                        } else {
-                            $(e.target).closest(".select2-search-choice").fadeOut('fast', this.bind(function () {
+                            var isMsie = typeof $.browser !== "undefined" && $.browser.msie;
+
+                            if (isMsie) {
+                                $(e.target).closest(".select2-search-choice").hide();
                                 this.unselect($(e.target));
                                 this.selection.find(".select2-search-choice-focus").removeClass("select2-search-choice-focus");
                                 this.close();
                                 this.focusSearch();
-                            })).dequeue();
-                        }
+                            } else {
+                                $(e.target).closest(".select2-search-choice").fadeOut('fast', this.bind(function () {
+                                    this.unselect($(e.target));
+                                    this.selection.find(".select2-search-choice-focus").removeClass("select2-search-choice-focus");
+                                    this.close();
+                                    this.focusSearch();
+                                })).dequeue();
+                            }
 
-                        killEvent(e);
-                    })).on("focus", this.bind(function () {
-                        if (!this.isInterfaceEnabled()) return;
-                        this.container.addClass("select2-container-active");
-                        this.dropdown.addClass("select2-drop-active");
-                    }));
+                            killEvent(e);
+                        })).on("focus", this.bind(function () {
+                            if (!this.isInterfaceEnabled()) return;
+                            this.container.addClass("select2-container-active");
+                            this.dropdown.addClass("select2-drop-active");
+                        }));
+                }
+
+                choice.data("select2-data", data);
+                choice.insertBefore(this.searchContainer);
+
+                val.push(id);
             }
 
-            choice.data("select2-data", data);
-            choice.insertBefore(this.searchContainer);
-
-            val.push(id);
             this.setVal(val);
         },
 
