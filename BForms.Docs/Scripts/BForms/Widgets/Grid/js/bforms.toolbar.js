@@ -99,13 +99,7 @@
             for (var i = 0; i < this.options.controls.length; i++) {
                 if (typeof (this.options.controls[i]) != 'undefined') {
 
-                    var opts = $.extend(true, {}, this.options);
-
-                    if (typeof this.options.customControlsOptions !== "undefined" && typeof this.options.customControlsOptions[k] !== "undefined") {
-                        $.extend(true, opts, this.options.customControlsOptions[k]);
-                    }
-
-                    var control = new this.options.controls[i](this.element, opts);
+                    var control = new this.options.controls[i](this.element, this.options);
                     var $btn = this.element.find(control._defaultOptions.selector);
                     if ($btn.length > 0) {
                         control.$element = $btn;
