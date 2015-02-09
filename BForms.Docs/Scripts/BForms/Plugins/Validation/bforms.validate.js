@@ -476,18 +476,26 @@
                             }
                         }
 
+                        //Check if form is contained in a modal
+                        var $formModalContainer = $(this.currentForm).closest('.modal').first();
+                        var formWithinModal = $formModalContainer.length > 0;
+
                         var $elem = $(firstError.element).parents('.has-error, .bs-validation_summary').first();
 
                         if ($elem.offset() != null && typeof $elem.offset() !== "undefined") {
 
                             var elemTop = $elem.offset().top;
                             var elemBottom = elemTop + $elem.height();
-                            var docTop = $(document).scrollTop();
-                            var docBottom = docTop + $(window).height();
+                            var docTop = formWithinModal ? $formModalContainer.scrollTop() : $(document).scrollTop();
+                            var docBottom = docTop + (formWithinModal ? $formModalContainer.height() : $(window).height());
+                            var $animateElem = formWithinModal ? $formModalContainer : $('html, body');
+                            var animateModalDifference = formWithinModal ?
+                                $formModalContainer.offset().top + $formModalContainer.scrollTop() :
+                                0;
 
                             if (elemTop < docTop || elemBottom > docBottom) {
-                                $('html, body').animate({
-                                    scrollTop: $elem.offset().top - 200
+                                $animateElem.animate({
+                                    scrollTop: $elem.offset().top - animateModalDifference - 200
                                 });
                             }
                         }
