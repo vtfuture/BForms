@@ -94,9 +94,9 @@
         dismissable: true,
         type: 'danger',
         template: '<div class="alert alert-{{type}}" role="alert">' +
-					  '{{#dismissable}}<button type="button" class="close" data-dismiss="alert">{{/dismissable}}' +
+					  '{{#dismissable}}<button type="button" class="close" data-dismiss="alert">' +
 						'<span aria-hidden="true">&times;</span>' +
-					  '</button>' +
+					  '</button>{{/dismissable}}' +
 				  '{{{message}}}' +
 				  '</div>',
         placement: 'inside-after', //supported values : inside-after,inside-before, after, before
