@@ -478,17 +478,27 @@
 
                         var $elem = $(firstError.element).parents('.has-error, .bs-validation_summary').first();
 
+                         //Check if form is contained in a modal
+                        var $formModalContainer = $(this.currentForm).closest('.modal');
+                        var formWithinModal = $formModalContainer != null && typeof $formModalContainer !== "undefined";
+
                         if ($elem.offset() != null && typeof $elem.offset() !== "undefined") {
 
                             var elemTop = $elem.offset().top;
                             var elemBottom = elemTop + $elem.height();
-                            var docTop = $(document).scrollTop();
+                            var docTop = formWithinModal ? $(document).scrollTop() : $formModalContainer.scrollTop();
                             var docBottom = docTop + $(window).height();
 
                             if (elemTop < docTop || elemBottom > docBottom) {
-                                $('html, body').animate({
-                                    scrollTop: $elem.offset().top - 200
-                                });
+                                if (formWithinModal) {
+                                    $formModalContainer.animate({
+                                        scrollTop: $elem.offset().top - $formModalContainer.offset().top + $formModalContainer.scrollTop()
+                                    });
+                                } else {
+                                    $('html, body').animate({
+                                        scrollTop: $elem.offset().top - 200
+                                    });
+                                }
                             }
                         }
                     }
