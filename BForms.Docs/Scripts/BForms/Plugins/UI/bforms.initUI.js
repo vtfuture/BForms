@@ -1109,7 +1109,7 @@
     // GLYPHICON CLICK EVENT
     // ====================
     $(function () {
-        $('body').on('click', '.input-group-addon', function () {
+        $('body').on('click', '.input-group-addon:not(.btn)', function () {
             var $next = $(this).next();
 
             if (!$next.is(':visible') || !$next.is('input, select'))
