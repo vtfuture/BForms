@@ -14,9 +14,10 @@
     <projectUrl>http://bforms.veritech.io</projectUrl>
     <iconUrl>http://bforms.veritech.io/Content/images/bforms-32x32.png</iconUrl>
     <dependencies>
-      <dependency id="Newtonsoft.Json" version="5.0.8" />
+      <dependency id="Newtonsoft.Json" version="6.0.0" />
       <dependency id="RequireJsNet" version="1.0.7.0" />
       <dependency id="DocumentFormat.OpenXml" version="2.5" />
+      <dependency id="Microsoft.AspNet.Mvc" version="5.2.3" />
     </dependencies>
   </metadata>
   <files>
