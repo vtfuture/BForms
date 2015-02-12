@@ -51,21 +51,22 @@
     <Reference Include="JetBrains.Annotations">
       <HintPath>..\packages\JetBrains.Annotations.7.0\lib\net45\JetBrains.Annotations.dll</HintPath>
     </Reference>
-    <Reference Include="Jint">
-      <HintPath>..\packages\Jint.2.1.0.0\lib\portable-net40+sl50+wp80+win\Jint.dll</HintPath>
+    <Reference Include="Jint, Version=2.4.0.0, Culture=neutral, PublicKeyToken=2e92ba9c8d81157f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Jint.2.4.0\lib\portable-net40+sl50+win+wpa81+wp80\Jint.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="RequireJsNet, Version=2.0.38.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="RequireJsNet, Version=2.1.40.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\RequireJsNet.2.0.38.0\lib\net40\RequireJsNet.dll</HintPath>
+      <HintPath>..\packages\RequireJsNet.2.1.40.0\lib\net40\RequireJsNet.dll</HintPath>
     </Reference>
-    <Reference Include="RequireJsNet.Compressor, Version=2.0.30.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="RequireJsNet.Compressor, Version=2.1.32.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\RequireJsNet.Compressor.2.0.30.0\lib\net40\RequireJsNet.Compressor.dll</HintPath>
+      <HintPath>..\packages\RequireJsNet.Compressor.2.1.32.0\lib\net40\RequireJsNet.Compressor.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -126,9 +127,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
     </Reference>
-    <Reference Include="Yahoo.Yui.Compressor, Version=2.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Yahoo.Yui.Compressor, Version=2.7.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\YUICompressor.NET.2.3.0.0\lib\NET20\Yahoo.Yui.Compressor.dll</HintPath>
+      <HintPath>..\packages\YUICompressor.NET.2.7.0.0\lib\NET20\Yahoo.Yui.Compressor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
