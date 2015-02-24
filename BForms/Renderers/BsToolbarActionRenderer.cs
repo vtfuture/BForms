@@ -38,6 +38,11 @@ namespace BForms.Renderers
                 actionBuilder.MergeAttributes(this.Builder.htmlAttributes);
             }
 
+            if (this.Builder.selected)
+            {
+                actionBuilder.MergeAttribute("class","selected");
+            }
+
             actionBuilder.AddCssClass(this.Builder.descriptorClass);
             actionBuilder.AddCssClass(this.Builder.styleClasses);
             actionBuilder.MergeAttribute("href", this.Builder.href ?? "#");
@@ -108,6 +113,7 @@ namespace BForms.Renderers
             actionBuilder.AddCssClass("btn");
             actionBuilder.AddCssClass(this.Builder.styleClasses);
             actionBuilder.MergeAttribute("href", this.Builder.href ?? "#");
+          
 
             if (!string.IsNullOrEmpty(this.Builder.tabId))
             {
