@@ -789,6 +789,8 @@
             $.each(ranges, $.proxy(function (idx, range) {
                 if (range.value === this.options.initialPresetRangeValue) {
                     range.selected = true;
+
+                    this._resetRangeOnChange = true;
                 }
             }, this));
         }
