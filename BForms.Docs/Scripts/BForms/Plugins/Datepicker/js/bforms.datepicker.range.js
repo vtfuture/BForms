@@ -1023,6 +1023,10 @@
 
         this.applyRange();
     };
+
+    bRangePicker.prototype.setPresetRangeValue = function (value) {
+        this.$container.find('.bs-preset-ranges').val(value).trigger('change');
+    };
     //#endregion
 
     //#region options update
