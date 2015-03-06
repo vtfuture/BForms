@@ -1055,7 +1055,7 @@
 
 
     bDatepicker.prototype._allowHold = function () {
-        return this._visible;
+        return this.options.holdEvents ? this._visible : false;
     };
     //#endregion
 
@@ -1645,7 +1645,7 @@
     //#endregion
 
     //#region public methods
-    bDatepicker.prototype.reposition = function() {
+    bDatepicker.prototype.reposition = function () {
         this._positionPicker();
     };
 
@@ -2257,7 +2257,8 @@
         holdInterval: 175,
         holdMinInterval: 50,
         holdDecreaseFactor: 4,
-        deferredRender: false
+        deferredRender: false,
+        holdEvents: false
     };
 
     $.fn.bsDatepickerLang = {

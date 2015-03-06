@@ -188,6 +188,7 @@
             this._rangeDownTimeoutSpeed = null;
         }, this));
 
+
         this.$picker.on('change', '.bs-rangeInput', $.proxy(this._onInputChange, this));
         this.$picker.on('keypress', '.bs-rangeInput', $.proxy(this._onInputKeyPress, this));
     };
@@ -423,7 +424,7 @@
 
     };
 
-   rangePicker.prototype._getLimits = function (idx) {
+    rangePicker.prototype._getLimits = function (idx) {
         var limits = {
             max: this.options.maxValue,
             min: this.options.minValue
@@ -462,7 +463,7 @@
     };
 
     rangePicker.prototype._allowHold = function () {
-        return !this.options.isSingleNumberInline ? this._visible : true;
+        return this.options.holdEvents ? (!this.options.isSingleNumberInline ? this._visible : true) : false;
     };
 
     rangePicker.prototype._blockRanges = function () {
@@ -922,6 +923,7 @@
         minValueOnClear: false,
         allowEmptyValue: false,
         allowUnspecifiedValue: false,
+        holdEvents : false
     };
 
     $.fn.bsRangeLang = {
