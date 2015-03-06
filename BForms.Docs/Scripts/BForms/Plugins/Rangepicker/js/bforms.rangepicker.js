@@ -323,11 +323,13 @@
 
         if (this.options.fixedPicker === true && this.$picker.css('position') == 'fixed') return;
 
+        var $attachTo = (typeof this.options.$attachTo !== "undefined" && this.options.$attachTo instanceof $ && this.options.$attachTo.length) ? this.options.$attachTo : this.$element;
+
         var xOrient = this.options.xOrient,
             yOrient = this.options.yOrient,
             pickerHeight = this.$picker.outerHeight(true),
             pickerWidth = this.$picker.outerWidth(true),
-            elemOffset = this.$element.offset(),
+            elemOffset = $attachTo.offset(),
             newTop = -1,
             newLeft = -1;
 
@@ -335,7 +337,7 @@
 
             var windowHeight = $(window).innerHeight(),
                 scrollTop = $(document).scrollTop(),
-                elemHeight = this.$element.outerHeight(true);
+                elemHeight = $attachTo.outerHeight(true);
 
             var topOverflow = -scrollTop + elemOffset.top - pickerHeight,
                 bottomOverflow = scrollTop + windowHeight - (elemOffset.top + elemHeight + pickerHeight);
@@ -351,7 +353,7 @@
         if (xOrient != 'right' && xOrient != 'left') {
 
             var windowWidth = $(window).innerWidth(),
-                elemWidth = this.$element.outerWidth(true);
+                elemWidth = $attachTo.outerWidth(true);
 
             var rightOverflow = elemOffset.left - (elemWidth > pickerWidth ? elemWidth - pickerWidth : pickerWidth - elemWidth),
                 leftOverflow = windowWidth - (elemOffset.left + pickerWidth);
@@ -369,14 +371,14 @@
 
         if (yOrient == 'below') {
 
-            newTop = elemOffset.top + this.$element.height() + this.options.heightPosition;
+            newTop = elemOffset.top + $attachTo.height() + this.options.heightPosition;
 
             this.$picker.removeClass('open-above');
             this.$picker.addClass('open-below');
 
         } else if (yOrient == 'above') {
 
-            newTop = elemOffset.top - this.$element.height() - pickerHeight + 16;
+            newTop = elemOffset.top - $attachTo.height() - pickerHeight + 16;
 
             this.$picker.removeClass('open-below');
             this.$picker.addClass('open-above');
@@ -394,7 +396,7 @@
 
         } else if (xOrient == 'right') {
 
-            newLeft = elemOffset.left + this.$element.outerWidth() - this.$picker.outerWidth();
+            newLeft = elemOffset.left + $attachTo.outerWidth() - this.$picker.outerWidth();
             this.$picker.removeClass('open-left');
             this.$picker.addClass('open-right');
         }
@@ -923,7 +925,7 @@
         minValueOnClear: false,
         allowEmptyValue: false,
         allowUnspecifiedValue: false,
-        holdEvents : false
+        holdEvents: false
     };
 
     $.fn.bsRangeLang = {
