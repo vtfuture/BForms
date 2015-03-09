@@ -132,13 +132,15 @@
 
     var RadioButtonsListUpdateSelf = (function () {
         function RadioButtonsListUpdateSelf(self, value, fromReset) {
+            var options = self.data('options') || {};
+
             self.find("input[type='radio']").each(function () {
 
                 var $current = $(this),
                     wasChecked = $current.prop("checked"),
                     newVal = $current.val() == value ? true : false;
 
-                if (newVal && wasChecked && fromReset !== true) {
+                if (newVal && wasChecked && options.preventDeselect !== true && fromReset !== true) {
                     newVal = false;
                 }
 
