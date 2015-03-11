@@ -96,6 +96,7 @@ namespace BForms.Grid
 
         internal Func<TRow, object> CellText { get; set; }
         internal Func<TRow, object> CellTitle { get; set; }
+        internal Func<TRow, IDictionary<string, object>> CellHtmlAttributes { get; set; }
 
         public BsGridColumn()
         {
@@ -208,6 +209,12 @@ namespace BForms.Grid
         public BsGridColumn<TRow> SetOrder(int order)
         {
             this.Order = order;
+            return this;
+        }
+
+        public BsGridColumn<TRow> HtmlAttributes(Func<TRow, Dictionary<string, object>> htmlAttributes)
+        {
+            this.CellHtmlAttributes = htmlAttributes;
             return this;
         }
 

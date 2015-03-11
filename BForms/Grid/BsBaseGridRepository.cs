@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Web.Mvc;
+using BForms.Mvc;
 using BForms.Utilities;
 
 namespace BForms.Grid
@@ -25,6 +26,10 @@ namespace BForms.Grid
             IOrderedQueryable<TEntity> OrderBy(IQueryable<TEntity> query);
 
             IOrderedQueryable<TEntity> OrderByDescending(IQueryable<TEntity> query);
+
+            Expression GetExpression();
+
+            Expression GetBody();
         }
 
         public class QueryCriteria<TEntity, TReturn> : IQueryCriteria<TEntity>
@@ -44,6 +49,16 @@ namespace BForms.Grid
             public IOrderedQueryable<TEntity> OrderByDescending(IQueryable<TEntity> query)
             {
                 return query.OrderByDescending(storedExpression);
+            }
+
+            public Expression GetExpression()
+            {
+                return this.storedExpression;
+            }
+
+            public Expression GetBody()
+            {
+                return this.storedExpression.Body;
             }
         }
 
@@ -162,6 +177,17 @@ namespace BForms.Grid
 
                 return orderedQuery;
             }
+
+            public IQueryCriteria<TEntity> GetCriteria(string columnName)
+            {
+                if (this.expressionSettings.ContainsKey(columnName))
+                {
+                    return this.expressionSettings[columnName];
+                }
+
+                return null;
+            }
+
         }
 
         /// <summary>
@@ -196,6 +222,171 @@ namespace BForms.Grid
         public virtual void FillDetails(TRow row)
         {
             throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Paginates the result using the direction the orderQueryable
+        /// </summary>
+        /// <param name="query"></param>
+        /// <param name="settings"></param>
+        public virtual IQueryable<TEntity> PaginateBy<TValue>(IOrderedQueryable<TEntity> orderedQueryable, Expression<Func<TEntity, TValue>> uniqueIdFunc, BsGridBaseRepositorySettings gridSettings)
+        {
+            var query = orderedQueryable.AsQueryable();
+
+            if (gridSettings.OrderableColumns != null && gridSettings.OrderableColumns.Any())
+            {
+                var pe = Expression.Parameter(typeof(TEntity), "x");
+
+                foreach (var orderColumn in gridSettings.OrderableColumns)
+                {
+                    if (gridSettings.GoTo.Value == BsDirectionType.Next || gridSettings.GoTo.Value == BsDirectionType.Prev)
+                    {
+                        Expression left;
+                        Expression right;
+                        object value;
+
+                        var propertyInfo = typeof(TRow).GetProperty(orderColumn.Name);
+
+                        var baseType = propertyInfo.PropertyType.BaseType;
+
+                        if (baseType.Name == (typeof(BsGridColumnValue).Name))
+                        {
+                            var mockValue = new BsGridColumnValue<object, object>();
+
+                            propertyInfo = propertyInfo.PropertyType.GetProperties().FirstOrDefault(p => p.Name == mockValue.GetPropertyName(x => x.ItemValue));
+                        }
+
+                        var propertyType = propertyInfo.PropertyType;
+
+                        value = propertyType.IsEnum ? Enum.Parse(propertyType, orderColumn.Value.ToString()) : Convert.ChangeType(orderColumn.Value, propertyType);
+
+                        var criteria = this.orderedQueryBuilder.GetCriteria(orderColumn.Name);
+
+                        if (criteria != null)
+                        {
+                            var body = criteria.GetBody();
+
+                            left = body;
+                        }
+                        else
+                        {
+                            left = Expression.Property(pe, orderColumn.Name);
+                        }
+
+
+                        right = Expression.Constant(value, propertyType);
+
+                        Expression predicateBody = null;
+
+                        Expression stringCompare = null;
+
+                        if (propertyType == typeof(string))
+                        {
+                            stringCompare = Expression.Call(left, typeof(string).GetMethod("CompareTo", new[] { typeof(string) }), right);
+                        }
+
+                        var zeroConstant = Expression.Constant(0, typeof(int));
+
+                        var uniqueIdConstant = Expression.Constant(this.settings.UniqueID, typeof(TValue));
+
+                        if (propertyType.IsEnum)
+                        {
+                            left = Expression.Convert(left, typeof(long));
+                            right = Expression.Convert(right, typeof(long));
+                        }
+
+
+                        switch (gridSettings.GoTo.Value)
+                        {
+                            case BsDirectionType.Prev:
+                                switch (orderColumn.Type)
+                                {
+                                    case BsOrderType.Descending:
+                                        if (propertyType == typeof(string))
+                                        {
+                                            var sortingKeyExpr = Expression.GreaterThan(stringCompare, zeroConstant);
+                                            var sortingKeyEqExpr = Expression.Equal(stringCompare, zeroConstant);
+                                            var uniqueIdExpr = Expression.GreaterThan(uniqueIdFunc.Body, uniqueIdConstant);
+
+                                            predicateBody = Expression.Or(sortingKeyExpr, Expression.AndAlso(sortingKeyEqExpr, uniqueIdExpr));
+                                        }
+                                        else
+                                        {
+                                            var sortingKeyExpr = Expression.GreaterThan(left, right);
+                                            var sortingKeyEqExpr = Expression.Equal(left, right);
+                                            var uniqueIdExpr = Expression.GreaterThan(uniqueIdFunc.Body, uniqueIdConstant);
+
+
+                                            predicateBody = Expression.Or(sortingKeyExpr, Expression.AndAlso(sortingKeyEqExpr, uniqueIdExpr));
+                                        }
+
+                                        break;
+                                    case BsOrderType.Ascending:
+
+                                        if (propertyType == typeof(string))
+                                        {
+                                            var sortingKeyExpr = Expression.LessThan(stringCompare, zeroConstant);
+                                            var sortingKeyEqExpr = Expression.Equal(stringCompare, zeroConstant);
+                                            var uniqueIdExpr = Expression.LessThan(uniqueIdFunc.Body, uniqueIdConstant);
+
+                                            predicateBody = Expression.Or(sortingKeyExpr, Expression.AndAlso(sortingKeyEqExpr, uniqueIdExpr));
+                                        }
+                                        else
+                                        {
+                                            predicateBody = Expression.LessThan(left, right);
+                                        }
+                                        break;
+                                }
+                                break;
+                            case BsDirectionType.Next:
+                                switch (orderColumn.Type)
+                                {
+                                    case BsOrderType.Descending:
+                                        if (propertyType == typeof(string))
+                                        {
+                                            predicateBody = Expression.LessThan(stringCompare, zeroConstant);
+                                        }
+                                        else
+                                        {
+                                            predicateBody = Expression.LessThan(left, right);
+                                        }
+
+                                        break;
+                                    case BsOrderType.Ascending:
+
+                                        if (propertyType == typeof(string))
+                                        {
+                                            predicateBody = Expression.GreaterThan(stringCompare, zeroConstant);
+                                        }
+                                        else
+                                        {
+                                            predicateBody = Expression.GreaterThan(left, right);
+                                        }
+                                        break;
+                                }
+                                break;
+
+                        }
+
+                        var leftParams = new ParameterVisitor().GetParameters(left);
+
+                        var whereCallExpression =
+                                           Expression.Call(
+                                                           typeof(Queryable),
+                                                           "Where",
+                                                           new[] { query.ElementType },
+                                                           query.Expression,
+                                                           Expression.Lambda<Func<TEntity, bool>>(predicateBody, leftParams)
+                                                          );
+
+
+                        query = query.Provider.CreateQuery<TEntity>(whereCallExpression);
+                    }
+
+                }
+            }
+
+            return query.Take(gridSettings.PageSize);
         }
 
         /// <summary>
@@ -316,15 +507,9 @@ namespace BForms.Grid
             return grid;
         }
 
-        /// <summary>
-        /// Creates GridModel based on Query, OrderQuery and MapQuery
-        /// </summary>
-        /// <param name="settings">Settings</param>
-        /// <param name="count">Total records</param>
-        /// <returns>Wrapper model</returns>
-        public BsGridModel<TRow> ToBsGridViewModel(BsGridBaseRepositorySettings settings, out int count)
+        public BsGridModel<TRow> ToBsGridViewModel<TValue>(BsGridBaseRepositorySettings settings, out int count, Expression<Func<TEntity, TValue>> uniqueIdSelector)
         {
-            var grid = ToBsGridViewModel(settings);
+            var grid = ToBsGridViewModel(settings, uniqueIdSelector);
 
             count = grid.Pager == null ? 0 : grid.Pager.TotalRecords;
 
@@ -364,10 +549,105 @@ namespace BForms.Grid
                 {
                     this.orderedQueryBuilder = new OrderedQueryBuilder<TRow>(this.settings.OrderableColumns);
                     var orderedQuery = this.OrderQuery(basicQuery);
-
                     var pagedQuery = orderedQuery.Skip(pager.PageSize * (pager.CurrentPage - 1)).Take(pager.PageSize);
-
                     finalQuery = this.MapQuery(pagedQuery);
+                }
+                else
+                {
+                    finalQuery = this.MapQuery(basicQuery);
+                }
+
+                // get items for current page
+                result.Items = finalQuery.ToList();
+
+                //sets pager
+                pager.CurrentPageRecords = result.Items.Count();
+                result.Pager = pager;
+
+                if (settings.DetailsAll || settings.DetailsCount > 0)
+                {
+                    for (var i = 0; i < pager.CurrentPageRecords; i++)
+                    {
+                        if (settings.HasDetails(i))
+                        {
+                            var row = result.Items.ElementAt(i);
+                            this.FillDetails(row);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                result.Items = new List<TRow>();
+            }
+
+            //sets base settings
+            result.BaseSettings = this.settings.GetBase();
+
+            return result;
+        }
+
+        /// <summary>
+        /// Creates GridModel based on Query, OrderQuery and MapQuery
+        /// </summary>
+        /// <param name="settings">Settings</param>
+        /// <param name="count">Total records</param>
+        /// <returns>Wrapper model</returns>
+        public BsGridModel<TRow> ToBsGridViewModel(BsGridBaseRepositorySettings settings, out int count)
+        {
+            var grid = ToBsGridViewModel(settings);
+
+            count = grid.Pager == null ? 0 : grid.Pager.TotalRecords;
+
+            return grid;
+        }
+
+        /// <summary>
+        /// Creates GridModel based on Query, OrderQuery and MapQuery
+        /// </summary>
+        /// <param name="settings">Requested settings</param>
+        /// <returns>Grid model</returns>
+        public virtual BsGridModel<TRow> ToBsGridViewModel<TValue>(BsGridBaseRepositorySettings settings, Expression<Func<TEntity, TValue>> uniqueIdSelector)
+        {
+            this.settings = settings;
+
+            var result = new BsGridModel<TRow>();
+
+            //creates basic query
+            var basicQuery = this.Query();
+
+            //performs count
+            var totalRecords = basicQuery.Select(x => false).Count();
+
+            //add column order
+            result.BaseSettings.OrderColumns = settings.OrderColumns;
+
+            //add orderable columns
+            result.BaseSettings.OrderableColumns = settings.OrderableColumns;
+
+            if (totalRecords > 0)
+            {
+                var pager = new BsPagerModel(totalRecords, this.settings.PageSize, this.settings.Page);
+
+                IEnumerable<TRow> finalQuery = null;
+
+                if (totalRecords > 1)
+                {
+                    this.orderedQueryBuilder = new OrderedQueryBuilder<TRow>(this.settings.OrderableColumns);
+                    var orderedQuery = this.OrderQuery(basicQuery);
+
+                    if (settings.GoTo.HasValue)
+                    {
+                        var pagedQuery = this.PaginateBy<TValue>(orderedQuery, uniqueIdSelector, settings);
+                        finalQuery = this.MapQuery(pagedQuery);
+                    }
+                    else
+                    {
+                        var pagedQuery = orderedQuery.Skip(pager.PageSize * (pager.CurrentPage - 1)).Take(pager.PageSize);
+                        finalQuery = this.MapQuery(pagedQuery);
+                    }
+
+
                 }
                 else
                 {

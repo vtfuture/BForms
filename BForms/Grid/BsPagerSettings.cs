@@ -7,27 +7,28 @@ namespace BForms.Grid
 {
     public class BsPagerSettings
     {
-        private int defaultPageSize = 5;
-        private int size = 5;
-        private bool showPrevNextButtons = true;
-        private bool showFirstLastButton = true;
-        private bool hasPagesText = true;
-        private bool hasPageSizeSelector = true;
-        private bool strippedDown = false;
-        private List<int> pageSizeValues;
-        private string template;
+        private int _defaultPageSize = 5;
+        private int _size = 5;
+        private bool _showPrevNextButtons = true;
+        private bool _showFirstLastButton = true;
+        private bool _hasPagesText = true;
+        private bool _hasPageSizeSelector = true;
+        private bool _strippedDown = false;
+        private List<int> _pageSizeValues;
+        private string _template;
+        private bool _noOffset = false;
 
         public int DefaultPageSize
         {
             get
             {
-                return this.defaultPageSize;
+                return this._defaultPageSize;
             }
             set
             {
                 if (!PageSizeValues.Contains(value))
                     throw new ArgumentOutOfRangeException();
-                this.defaultPageSize = value;
+                this._defaultPageSize = value;
             }
         }
 
@@ -35,7 +36,7 @@ namespace BForms.Grid
         {
             get
             {
-                List<int> list = this.pageSizeValues;
+                List<int> list = this._pageSizeValues;
                 if (list == null)
                     list = new List<int>()
           {
@@ -49,7 +50,7 @@ namespace BForms.Grid
             }
             set
             {
-                this.pageSizeValues = value;
+                this._pageSizeValues = value;
             }
         }
 
@@ -57,11 +58,11 @@ namespace BForms.Grid
         {
             get
             {
-                return this.size;
+                return this._size;
             }
             set
             {
-                this.size = value;
+                this._size = value;
             }
         }
 
@@ -69,11 +70,11 @@ namespace BForms.Grid
         {
             get
             {
-                return this.showPrevNextButtons;
+                return this._showPrevNextButtons;
             }
             set
             {
-                this.showPrevNextButtons = value;
+                this._showPrevNextButtons = value;
             }
         }
 
@@ -81,11 +82,11 @@ namespace BForms.Grid
         {
             get
             {
-                return this.showFirstLastButton;
+                return this._showFirstLastButton;
             }
             set
             {
-                this.showFirstLastButton = value;
+                this._showFirstLastButton = value;
             }
         }
 
@@ -93,11 +94,11 @@ namespace BForms.Grid
         {
             get
             {
-                return this.hasPagesText;
+                return this._hasPagesText;
             }
             set
             {
-                this.hasPagesText = value;
+                this._hasPagesText = value;
             }
         }
 
@@ -105,11 +106,11 @@ namespace BForms.Grid
         {
             get
             {
-                return this.hasPageSizeSelector;
+                return this._hasPageSizeSelector;
             }
             set
             {
-                this.hasPageSizeSelector = value;
+                this._hasPageSizeSelector = value;
             }
         }
 
@@ -117,11 +118,11 @@ namespace BForms.Grid
         {
             get
             {
-                return this.strippedDown;
+                return this._strippedDown;
             }
             set
             {
-                this.strippedDown = value;
+                this._strippedDown = value;
             }
         }
 
@@ -129,12 +130,18 @@ namespace BForms.Grid
         {
             get
             {
-                return this.template;
+                return this._template;
             }
             set
             {
-                this.template = value;
+                this._template = value;
             }
+        }
+
+        public bool NoOffset
+        {
+            get { return this._noOffset; }
+            set { this._noOffset = value; }
         }
 
         private class PageSizeSelectorItem

@@ -54,7 +54,13 @@ namespace BForms.Docs.Areas.Demo.Controllers
 
             bsGridSettings.Search = _gridRepository.GetSearchForm(bsGridSettings.Search);
 
-            var gridModel = _gridRepository.ToBsGridViewModel(bsGridSettings);
+            bsGridSettings.OrderableColumns = new List<BsColumnOrder>{new BsColumnOrder
+            {
+                Name = "Name",
+                Type = BsOrderType.Descending
+            }};
+
+            var gridModel = _gridRepository.ToBsGridViewModel(bsGridSettings, x => x.Id);
 
             var model = new ContributorsViewModel
             {
@@ -101,7 +107,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
                     throw new Exception("This is how an exception message is displayed in grid header");
                 }
 
-                var viewModel = _gridRepository.ToBsGridViewModel(settings, out count).Wrap<ContributorsViewModel>(x => x.Grid);
+                var viewModel = _gridRepository.ToBsGridViewModel(settings, out count, x => x.Id).Wrap<ContributorsViewModel>(x => x.Grid);
 
                 html = this.BsRenderPartialView("Grid/_Grid", viewModel);
 
@@ -354,11 +360,11 @@ namespace BForms.Docs.Areas.Demo.Controllers
                         })
                        .ConfigureRows((row, style) =>
                         {
-                            if (row.Role == ProjectRole.TeamLeader)
+                            if (row.Role.DisplayValue == ProjectRole.TeamLeader)
                             {
                                 style.Font.Bold = true;
                             }
-                            if (row.Role == ProjectRole.Tester)
+                            if (row.Role.DisplayValue == ProjectRole.Tester)
                             {
                                 style.Font.Italic = true;
                             }
@@ -375,7 +381,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
                                    .Text(x => x.Role.ToString())
                                    .Style(style => style.FillColor = BsGridExcelColor.Lavender);
                             columns.For(x => x.StartDate)
-                                   .Text(x => x.StartDate.ToMonthNameDate())
+                                   .Text(x => x.StartDate.DisplayValue.ToMonthNameDate())
                                    .Style(style => style.Font.Italic = true);
                         });
 
@@ -410,7 +416,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
 
             var viewModel = _gridRepository.ToBsGridViewModel(rowsModel, row => row.Id, items)
                     .Wrap<ContributorsViewModel>(x => x.Grid);
-                       
+
             return this.BsRenderPartialView("Grid/_Grid", viewModel);
         }
 

@@ -11,6 +11,7 @@ using BForms.Utilities;
 using BForms.Models;
 using BForms.Mvc;
 using DocumentFormat.OpenXml.Spreadsheet;
+using Newtonsoft.Json;
 
 namespace BForms.Renderers
 {
@@ -322,17 +323,62 @@ namespace BForms.Renderers
                             cellBuilder.MergeAttributes(column.htmlAttributes);
                         }
 
+                        if (column.CellHtmlAttributes != null)
+                        {
+                            cellBuilder.MergeAttributes(column.CellHtmlAttributes(row));
+                        }
+
                         cellBuilder.AddCssClass(column.GetWidthClasses());
                         cellBuilder.AddCssClass("grid_cell");
 
                         var text = string.Empty;
+                        object itemValue = null;
+
+                        //get item value
+                        if (column.Property != null)
+                        {
+                            var value = column.Property.GetValue(row);
+
+                            if (value != null)
+                            {
+                                var type = value.GetType();
+
+                                var baseType = type.BaseType;
+
+                                if (baseType.Name == (typeof(BsGridColumnValue).Name))
+                                {
+                                    var itemValueProp = type.GetProperties().FirstOrDefault(p => p.Name == "ItemValue");
+
+                                    var columnItemValue = itemValueProp.GetValue(value);
+
+                                    itemValue = columnItemValue;
+                                }
+                            }
+                        }
 
                         if (column.CellText == null)
                         {
                             if (column.Property != null)
                             {
                                 var value = column.Property.GetValue(row);
-                                text = value != null ? value.ToString() : string.Empty;
+
+                                var type = value.GetType();
+
+                                var baseType = type.BaseType;
+
+                                if (baseType.Name == (typeof(BsGridColumnValue).Name))
+                                {
+                                    var displayValueProp =
+                                        type.GetProperties().FirstOrDefault(p => p.Name == "DisplayValue");
+
+                                    var columnDisplayValue = displayValueProp.GetValue(value);
+
+                                    text = columnDisplayValue != null ? columnDisplayValue.ToString() : string.Empty;
+                                }
+                                else
+                                {
+                                    text = value != null ? value.ToString() : string.Empty;
+                                }
                             }
                         }
                         else
@@ -341,7 +387,11 @@ namespace BForms.Renderers
 
                             text = cellText != null ? cellText.ToString() : string.Empty;
                         }
+
                         var title = string.Empty;
+
+                        cellBuilder.MergeAttribute("data-value",itemValue != null ? itemValue.ToString() : string.Empty);
+
                         if (column.CellTitle != null)
                         {
                             title = (column.CellTitle(row) ?? string.Empty).ToString();

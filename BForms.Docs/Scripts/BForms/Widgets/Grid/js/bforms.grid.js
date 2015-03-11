@@ -56,6 +56,7 @@
         rowCheckSelector: '.bs-row_check:not([disabled="disabled"])',
         headerCheckSelector: '.check_all > input',
         groupActionsSelector: '.bs-group_actions',
+        gridCell: '.grid_cell',
 
         pager: null,
         pagerUrl: null,
@@ -109,6 +110,8 @@
     //#region init
     Grid.prototype._init = function () {
 
+        this.$element = this.element;
+
         if (!this.options.uniqueName) {
             this.options.uniqueName = this.element.attr('id');
         }
@@ -142,6 +145,7 @@
 
         this.$pager = this.element.find(this.options.pagerSelector).bsPager({
             pagerUpdate: $.proxy(this._evOnPageChange, this),
+            pagerUpdateNoOffset: $.proxy(this._onPageNoOffsetChange, this),
             pagerGoTop: $.proxy(this._evOnPagerGoTop, this),
             goTopTitle: this.options.pagerGoTopTitle,
             dataPageContainer: this.options.pagerDataPageContainer
@@ -401,6 +405,10 @@
 
         this.refreshModel.fromReset = false;
 
+        if (this.$pager && this.$pager.length && this.$pager.bsPager('noOffset')) {
+            this.refreshModel.GoTo = "First";
+        }
+
         this._getPage();
     };
 
@@ -411,6 +419,10 @@
         this.refreshModel.quickSearch = null;
         this.refreshModel.fromReset = true;
         this._hideFilterIcon();
+
+        if (this.$pager && this.$pager.length && this.$pager.bsPager('noOffset')) {
+            this.refreshModel.GoTo = "First";
+        }
 
         if (preventPagination !== true) {
             this._getPage();
@@ -785,6 +797,17 @@
         this._getPage(pageChanged);
     };
 
+    Grid.prototype._onPageNoOffsetChange = function (e, data) {
+
+        this.refreshModel.GoTo = data.goTo;
+        var pageChanged = true;
+
+        console.log(this.refreshModel)
+
+        this._getPage(true);
+
+    };
+
     Grid.prototype._evOnPagerGoTop = function (e) {
         var $goTo = $([]);
 
@@ -861,6 +884,10 @@
 
         if (type != 0) {
             elem.addClass(toAddClass);
+        }
+
+        if (this.$pager && this.$pager.length && this.$pager.bsPager('noOffset')) {
+            this.refreshModel.GoTo = "First";
         }
 
         this._getPage();
@@ -1069,6 +1096,10 @@
                 this.refreshModel.Page = 1;
             }
 
+            if (this.$pager && this.$pager.length && this.$pager.bsPager('noOffset')) {
+                this.refreshModel.GoTo = "First";
+            }
+
             this._getPage();
         }
 
@@ -1144,6 +1175,10 @@
 
         //serialize data
         var data = this._serializeRefreshModel();
+
+        if (this.$pager && this.$pager.length && this.$pager.bsPager('noOffset')) {
+            this._fillNoOffsetData(data);
+        }
 
         if (typeof this.options.onRefresh === 'function') {
             this.options.onRefresh.call(this, data);
@@ -1256,6 +1291,37 @@
         }
 
         this._trigger('afterPaginationError', 0, data);
+    };
+
+    Grid.prototype._fillNoOffsetData = function (data) {
+
+        var $gridHeader = this.$element.find(this.options.gridRowsHeaderSelector);
+
+        if (data.GoTo == "Next" || data.GoTo == "Prev") {
+            var $currentRow = data.GoTo == "Next" ? this.$element.find(this.options.rowSelector + ':last') : this.$element.find(this.options.rowSelector + '[data-objid]:first');
+
+            if (data.OrderableColumns) {
+                for (var key in data.OrderableColumns) {
+                    var orderItem = data.OrderableColumns[key],
+                        orderItemIndex = $gridHeader.find('[data-name]').index($gridHeader.find('[data-name="' + orderItem.Name + '"]')),
+                        orderItemValue = $currentRow.find(this.options.gridCell).eq(orderItemIndex).data('value');
+
+
+                    if (window.isNaN(orderItemValue)) {
+                        orderItem.Value = orderItemValue;
+                    } else {
+                        orderItem.Value = window.parseInt(orderItemValue);
+                    }
+
+                }
+            }
+
+            if (data.GoTo == "Next") {
+                data.UniqueId = $currentRow.data('objid');
+            } else if (data.GoTo == "Prev") {
+                data.UniqueId = $currentRow.data('objid');
+            }
+        }
     };
     //#endregion
 

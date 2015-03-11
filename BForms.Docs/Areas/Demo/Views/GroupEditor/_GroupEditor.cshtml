@@ -21,7 +21,7 @@
             tab1.For(x => x.Grid)
                 .HtmlAttributes(x => new Dictionary<string, object>
                 {
-                    { "data-designer", x.Name.Contains("Oana") }
+                    { "data-designer", x.Name.DisplayValue.Contains("Oana") }
                 });
 
             tab1.Toolbar.QuickSearch = true;

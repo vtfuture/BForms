@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Reflection;
 using System.Runtime.Remoting.Messaging;
 using System.Web;
 using BForms.Docs.Areas.Demo.Mock;
@@ -8,9 +11,9 @@ using BForms.Docs.Areas.Demo.Models;
 using BForms.Docs.Resources;
 using BForms.Grid;
 using BForms.Models;
+using BForms.Mvc;
 using BForms.Utilities;
 using BForms.Docs.Areas.Demo.Helpers;
-using WebGrease.Css.Extensions;
 
 namespace BForms.Docs.Areas.Demo.Repositories
 {
@@ -43,10 +46,10 @@ namespace BForms.Docs.Areas.Demo.Repositories
             {
                 Id = x.Id,
                 Enabled = x.Enabled,
-                Name = x.FirstName + " " + x.LastName,
-                Role = x.Role,
-                Contributions = x.Contributions,
-                StartDate = x.StartDate,
+                Name = new BsGridColumnValue<string, string>(x.FirstName + " " + x.LastName, x.FirstName + " " + x.LastName),
+                Role = new BsGridColumnValue<ProjectRole, ProjectRole>(x.Role, x.Role),
+                Contributions = new BsGridColumnValue<string, string>(x.Contributions, x.Contributions),
+                StartDate = new BsGridColumnValue<DateTime, DateTime>(x.StartDate, x.StartDate)
             };
 
         public Func<Contributor, ContributorDetailsReadonly> MapContributor_ContributorDetailsModel = x =>
@@ -103,7 +106,9 @@ namespace BForms.Docs.Areas.Demo.Repositories
 
         public override IOrderedQueryable<Contributor> OrderQuery(IQueryable<Contributor> query)
         {
-            this.orderedQueryBuilder.OrderFor(x => x.Name, y => y.FirstName + " " + y.LastName);
+            this.orderedQueryBuilder.OrderFor(x => x.Name, x => x.FirstName + " " + x.LastName);
+
+            this.orderedQueryBuilder.OrderFor(x => x.StartDate, x => x.StartDate);
 
             var orderedQuery = this.orderedQueryBuilder.Order(query, x => x.OrderBy(y => y.StartDate));
 

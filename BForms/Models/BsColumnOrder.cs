@@ -17,5 +17,6 @@ namespace BForms.Grid
         public string Name { get; set; }
         public BsOrderType Type { get; set; }
         public int Order { get; set; }
+        public object Value { get; set; }
     }
 }

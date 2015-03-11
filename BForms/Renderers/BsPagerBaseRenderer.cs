@@ -29,6 +29,73 @@ namespace BForms.Renderers
                 paginationBuilder.AddCssClass("pagination-md");
             }
 
+            if (this.Builder.settings.NoOffset)
+            {
+                this.RenderIndexButtons(paginationBuilder);
+            }
+            else
+            {
+                this.RenderPageButtons(paginationBuilder);
+            }
+
+
+            return paginationBuilder.ToString();
+        }
+
+        public void RenderIndexButtons(TagBuilder paginationBuilder)
+        {
+            #region first page button
+            var firstPageBuilder = new TagBuilder("li");
+            var anchorBuilder = new TagBuilder("a");
+            anchorBuilder.MergeAttribute("href", "#");
+            anchorBuilder.MergeAttribute("data-goto", BsDirectionType.First.ToString());
+            anchorBuilder.InnerHtml += "&laquo;";
+
+            firstPageBuilder.InnerHtml += anchorBuilder.ToString();
+
+            paginationBuilder.InnerHtml += firstPageBuilder.ToString();
+            #endregion
+
+            #region prev page button
+            var prevPageBuilder = new TagBuilder("li");
+            anchorBuilder = new TagBuilder("a");
+            anchorBuilder.MergeAttribute("href", "#");
+            anchorBuilder.MergeAttribute("data-goto", BsDirectionType.Prev.ToString());
+            anchorBuilder.InnerHtml += "&lsaquo;";
+
+            prevPageBuilder.InnerHtml += anchorBuilder.ToString();
+
+            paginationBuilder.InnerHtml += prevPageBuilder.ToString();
+
+            #endregion
+
+            #region next page button
+            var nextPageBuilder = new TagBuilder("li");
+            anchorBuilder = new TagBuilder("a");
+            anchorBuilder.MergeAttribute("href", "#");
+            anchorBuilder.MergeAttribute("data-goto", BsDirectionType.Next.ToString());
+            anchorBuilder.InnerHtml += "&rsaquo;";
+
+            nextPageBuilder.InnerHtml += anchorBuilder.ToString();
+
+            paginationBuilder.InnerHtml += nextPageBuilder.ToString();
+            #endregion
+
+            #region last page button
+            var lastPageBuilder = new TagBuilder("li");
+            anchorBuilder = new TagBuilder("a");
+            anchorBuilder.MergeAttribute("href", "#");
+            anchorBuilder.MergeAttribute("data-goto", BsDirectionType.Last.ToString());
+            anchorBuilder.InnerHtml += "&raquo;";
+
+            lastPageBuilder.InnerHtml += anchorBuilder.ToString();
+
+            paginationBuilder.InnerHtml += lastPageBuilder.ToString();
+            #endregion
+        }
+
+        public void RenderPageButtons(TagBuilder paginationBuilder)
+        {
             if (this.Builder.pager.TotalPages <= 1)
             {
                 paginationBuilder.MergeAttribute("style", "display:none");
@@ -77,7 +144,6 @@ namespace BForms.Renderers
             #endregion
 
             #region pages buttons
-
             var startPage = this.Builder.pager.GetStartPage(this.Builder.settings.Size);
             int nr = this.Builder.settings.Size > this.Builder.pager.TotalPages ? this.Builder.pager.TotalPages % this.Builder.settings.Size : this.Builder.settings.Size;
             for (int i = 0; i < nr; i++)
@@ -141,8 +207,6 @@ namespace BForms.Renderers
             }
 
             #endregion
-
-            return paginationBuilder.ToString();
         }
 
         public string RenderPages()
@@ -179,7 +243,7 @@ namespace BForms.Renderers
 
                     //TODO:
                     var template = "{0}-{1} " + BsResourceManager.Resource("BF_Of") + " {2} " + BsResourceManager.Resource("BF_Items");
-                    var result = string.Format(template, firstIdx, lastBuilder, totalCountBuilder.ToString()); 
+                    var result = string.Format(template, firstIdx, lastBuilder, totalCountBuilder.ToString());
 
                     textBuilder.InnerHtml += result;
 
@@ -213,6 +277,11 @@ namespace BForms.Renderers
             {
                 pagerWrapper.AddCssClass("row bs-pager");
                 pagerWrapper.AddCssClass(this.Builder.Theme.GetDescription());
+
+                if (this.Builder.settings.NoOffset)
+                {
+                    pagerWrapper.MergeAttribute("data-nooffset", "true");
+                }
 
                 pagerWrapper.InnerHtml += this.RenderPages();
 

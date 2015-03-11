@@ -11,11 +11,12 @@
     Pager.prototype.options = {
         pagesContainerSelector: '.bs-pages',
         pageSelector: 'a[data-page]',
+        goToSelector: 'a[data-goto]',
         dataPageContainer: 'page',
         pageSizeSelector: '.bs-perPage',
         currentPageSelector: 'active',
         disabledPageSelector: 'disabled',
-        topResultsMargin : '.bs-topResultsMargin',
+        topResultsMargin: '.bs-topResultsMargin',
         totalsContainerSelector: '.results_number span',
         pageSizeContainerSelector: '.results_per_page',
         perPageDisplaySelector: '.bs-perPageDisplay',
@@ -23,28 +24,53 @@
         goTopTitle: ''
     };
 
+    //#region init
     Pager.prototype._create = function () {
 
-        this._initElements();
-        this._addDelegates();
+        this._noOffset = this.element.data('nooffset') == true;
 
+        this._initElements();
+
+        this._addDelegates();
     };
 
     Pager.prototype._initElements = function () {
         if (typeof $(this.options.goTopButtonSelector) !== "undefined" && this.options.goTopTitle) {
             $(this.options.goTopButtonSelector).attr('title', this.options.goTopTitle);
         }
+
+        this.$element = this.element;
     };
 
     Pager.prototype._addDelegates = function () {
 
-        this.element.on('click', this.options.pageSelector, $.proxy(this._evPageChanged, this));
+        if (this._noOffset) {
+            this.$element.on('click', this.options.goToSelector, $.proxy(this._onPageBtnClick, this));
+        } else {
+            this.element.on('click', this.options.pageSelector, $.proxy(this._evPageChanged, this));
+        }
 
         this.element.on('click', this.options.pageSizeSelector, $.proxy(this._evPageSizeChanged, this));
 
         this.element.on('click', this.options.goTopButtonSelector, $.proxy(this._evGoTopClick, this));
-
     };
+    //#endregion
+
+    //#region events
+    Pager.prototype._onPageBtnClick = function (e) {
+        e.preventDefault();
+
+        var $target = $(e.currentTarget);
+
+        var goTo = $target.data('goto');
+
+        console.log(goTo);
+
+        this._trigger('pagerUpdateNoOffset', e, {
+            goTo: goTo,
+            pageSize: this.element.find(this.options.pageSizeSelector + '.selected').data('value')
+        });
+    }
 
     Pager.prototype._evPageChanged = function (e) {
 
@@ -75,11 +101,17 @@
 
         this.element.find(this.options.perPageDisplaySelector).html(value + '<span class="caret"></span>');
 
-        this._trigger('pagerUpdate', e, {
-            page: 1,
-            pageSize: $(e.currentTarget).data('value')
-        });
-
+        if (this._noOffset) {
+            this._trigger('pagerUpdateNoOffset', e, {
+                goTo: 'first',
+                pageSize: $(e.currentTarget).data('value')
+            });
+        } else {
+            this._trigger('pagerUpdate', e, {
+                page: 1,
+                pageSize: $(e.currentTarget).data('value')
+            });
+        }
     };
 
     Pager.prototype._evGoTopClick = function (e) {
@@ -95,7 +127,9 @@
     Pager.prototype._btnClickAjaxError = function () {
         throw 'not implemented error handler';
     };
+    //#endregion
 
+    //#region public methods
     Pager.prototype.update = function ($pagesHtml) {
 
         var $pageSizeContainer = this.element.find(this.options.pageSizeContainerSelector)
@@ -113,7 +147,7 @@
 
     Pager.prototype.add = function () {
 
-        var currentPage = window.parseInt(this.element.find('.' + this.options.currentPageSelector).find('a').data('page'),10);
+        var currentPage = window.parseInt(this.element.find('.' + this.options.currentPageSelector).find('a').data('page'), 10);
 
         var oldTotal = window.parseInt(this.element.find(this.options.totalsContainerSelector).not(this.options.topResultsMargin).text(), 10);
         if (!window.isNaN(oldTotal)) {
@@ -126,7 +160,7 @@
 
         if (!window.isNaN(oldTopMargin)) {
             var pageSize = this.getPageSize();
-            if (oldTopMargin > pageSize * (currentPage - 1) &&  oldTopMargin < pageSize * currentPage) {
+            if (oldTopMargin > pageSize * (currentPage - 1) && oldTopMargin < pageSize * currentPage) {
                 var newTopMargin = oldTopMargin + 1;
                 this.element.find(this.options.topResultsMargin).text(newTopMargin);
             }
@@ -152,6 +186,11 @@
     Pager.prototype.getPageSize = function () {
         return this.element.find(this.options.pageSizeSelector + '.selected').data('value');
     };
+
+    Pager.prototype.noOffset = function () {
+        return this._noOffset == true;
+    };
+    //#endregion
 
     $.widget('bforms.bsPager', Pager.prototype);
 

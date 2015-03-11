@@ -138,6 +138,7 @@
     <Compile Include="Models\BsJavascriptErrorModel.cs" />
     <Compile Include="Models\BsRangeItem.cs" />
     <Compile Include="Mvc\BsBaseConfigurator.cs" />
+    <Compile Include="Mvc\BsGridColumnValue.cs" />
     <Compile Include="Mvc\BsPanelAttribute.cs" />
     <Compile Include="Panels\BsPanelExtensions.cs" />
     <Compile Include="Panels\BsPanelHtmlBuilder.cs" />
@@ -241,6 +242,7 @@
     <Compile Include="Utilities\ActionResultHelpers.cs" />
     <Compile Include="Mvc\ModelStateExtensions.cs" />
     <Compile Include="Utilities\ExcelHelpers.cs" />
+    <Compile Include="Utilities\ExpressionHelpers.cs" />
     <Compile Include="Utilities\LinqHelpers.cs" />
     <Compile Include="Utilities\ReflectionHelpers.cs" />
     <Compile Include="Mvc\RenderViewHelpers.cs" />

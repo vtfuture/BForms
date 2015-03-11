@@ -320,6 +320,16 @@ namespace BForms.Utilities
             return html5Type;
         }
 
+        internal static string GetPropertyTypeName(Type propertyType)
+        {
+            if (propertyType.IsGenericType &&
+                    propertyType.GetGenericTypeDefinition() == typeof(Nullable<>))
+            {
+                propertyType = propertyType.GetGenericArguments()[0];
+            }
+
+            return propertyType.Name;
+        }
 
         /// <summary>
         /// Checks to see if a generic type is a subclass of a raw generic type. eg. List&lt;int&gt; for List&lt;&gt;

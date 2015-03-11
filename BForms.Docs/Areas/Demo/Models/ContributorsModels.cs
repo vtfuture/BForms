@@ -260,16 +260,16 @@ namespace BForms.Docs.Areas.Demo.Models
         public int Id { get; set; }
 
         [BsGridColumn(Width = 2, MediumWidth = 2, IsEditable = true)]
-        public string Name { get; set; }
+        public BsGridColumnValue<string, string> Name { get; set; }
 
         [BsGridColumn(Width = 3, MediumWidth = 3)]
-        public ProjectRole Role { get; set; }
+        public BsGridColumnValue<ProjectRole, ProjectRole> Role { get; set; }
 
         [BsGridColumn(Width = 3, MediumWidth = 3)]
-        public DateTime StartDate { get; set; }
+        public BsGridColumnValue<DateTime, DateTime> StartDate { get; set; }
 
         [BsGridColumn(Width = 3, MediumWidth = 3)]
-        public string Contributions { get; set; }
+        public BsGridColumnValue<string, string> Contributions { get; set; }
 
         [BsGridColumn(Width = 1, MediumWidth = 1)]
         public string Action { get; set; }

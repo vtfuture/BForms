@@ -35,6 +35,10 @@ namespace BForms.Grid
     {
         public string QuickSearch { get; set; }
 
+        public BsDirectionType? GoTo { get; set; }
+
+        public object UniqueID { get; set; }
+
         public List<BsColumnOrder> OrderableColumns { get; set; } // order grid by column
 
         public Dictionary<string, int> OrderColumns { get; set; } // swap columns order
@@ -94,5 +98,13 @@ namespace BForms.Grid
         public int Page { get; set; }
 
         public int PageSize { get; set; }
+    }
+
+    public enum BsDirectionType
+    {
+        First = 1,
+        Prev = 2,
+        Next = 3,
+        Last = 4
     }
 }
