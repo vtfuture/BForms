@@ -104,13 +104,13 @@ namespace BForms.Docs.Areas.Demo.Repositories
             return Filter(query);
         }
 
-        public override IOrderedQueryable<Contributor> OrderQuery(IQueryable<Contributor> query)
+        public override IOrderedQueryable<Contributor> OrderQuery(IQueryable<Contributor> query, BsGridBaseRepositorySettings gridSettings = null)
         {
             this.orderedQueryBuilder.OrderFor(x => x.Name, x => x.FirstName + " " + x.LastName);
 
             this.orderedQueryBuilder.OrderFor(x => x.StartDate, x => x.StartDate);
 
-            var orderedQuery = this.orderedQueryBuilder.Order(query, x => x.OrderBy(y => y.StartDate));
+            var orderedQuery = this.orderedQueryBuilder.Order(query, x => x.OrderBy(y => y.Id), gridSettings);
 
             return orderedQuery;
         }

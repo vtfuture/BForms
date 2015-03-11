@@ -800,12 +800,15 @@
     Grid.prototype._onPageNoOffsetChange = function (e, data) {
 
         this.refreshModel.GoTo = data.goTo;
+
+        if (data.pageSize && this.refreshModel.PageSize !== data.pageSize) {
+            this.refreshModel.PageSize = data.pageSize;
+            pageChanged = false;
+        }
+
         var pageChanged = true;
 
-        console.log(this.refreshModel)
-
         this._getPage(true);
-
     };
 
     Grid.prototype._evOnPagerGoTop = function (e) {
@@ -836,10 +839,11 @@
         var toRemoveClass = "";
         var type = 0;
 
+
         if (elem.hasClass('sort_asc')) {
             toAddClass = 'sort_desc';
             type = 2;
-        } else if (!elem.hasClass('sort_desc')) {
+        } else if (!elem.hasClass('sort_desc') || this._isNoOffset) {
             toAddClass = 'sort_asc';
             type = 1;
         }
@@ -886,7 +890,7 @@
             elem.addClass(toAddClass);
         }
 
-        if (this.$pager && this.$pager.length && this.$pager.bsPager('noOffset')) {
+        if (this._isNoOffset()) {
             this.refreshModel.GoTo = "First";
         }
 
@@ -1323,6 +1327,10 @@
             }
         }
     };
+
+    Grid.prototype._isNoOffset = function() {
+        return this.$pager && this.$pager.length && this.$pager.bsPager('noOffset');
+    }
     //#endregion
 
     //#region sortable

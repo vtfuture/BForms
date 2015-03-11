@@ -7,25 +7,30 @@ using System.Threading.Tasks;
 
 namespace BForms.Utilities
 {
-    public class ParameterVisitor : ExpressionVisitor
+
+    public class ParameterReplaceVisitor : ExpressionVisitor
     {
+        private ParameterExpression _parameterExpression;
 
-        List<ParameterExpression> _parameterExpressions;
-
-        public IEnumerable<ParameterExpression> GetParameters(Expression expr)
+        public Expression ReplaceParameter(Expression expr, ParameterExpression parameterExpression)
         {
-            _parameterExpressions = new List<ParameterExpression>();
-            Visit(expr);
-            return _parameterExpressions;
+            _parameterExpression = parameterExpression;
+
+            return Visit(expr);
         }
 
-        protected override Expression VisitParameter(System.Linq.Expressions.ParameterExpression p)
+        protected override Expression VisitParameter(ParameterExpression node)
         {
 
-            if (!_parameterExpressions.Contains(p))
-                _parameterExpressions.Add(p);
-
-            return base.VisitParameter(p);
+            if (node.NodeType == ExpressionType.Parameter)
+            {
+                return this._parameterExpression;
+            }
+            else
+            {
+                return base.VisitParameter(node);
+            }
         }
     }
+
 }

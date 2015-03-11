@@ -33,7 +33,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
         {
             BsGridRepositorySettings<ContributorSearchModel> bsGridSettings = null;
 
-            if (stateId.HasValue)
+            if (false && stateId.HasValue)
             {
                 var state = _componentState.Get(stateId.Value);
 
