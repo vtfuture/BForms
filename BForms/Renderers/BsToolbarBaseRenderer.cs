@@ -161,7 +161,12 @@ namespace BForms.Renderers
                 tabBuilder.MergeAttributes(defaultAction.HtmlAttr);
             }
             tabBuilder.AddCssClass("grid_toolbar_form");
-            tabBuilder.MergeAttribute("style", "display:none;");
+
+            if (!defaultAction.selected)
+            {
+                tabBuilder.MergeAttribute("style", "display:none;");
+            }
+
             tabBuilder.MergeAttribute("id", tabId);
             tabBuilder.InnerHtml += defaultAction.TabDelegate(this.Builder.model);
 

@@ -605,17 +605,19 @@
     bRangePicker.prototype._positionRange = function () {
         if (this.isInline) return;
 
+        var $attachTo = (typeof this.options.$attachTo !== "undefined" && this.options.$attachTo instanceof $ && this.options.$attachTo.length) ? this.options.$attachTo : this.$element;
+
         var xOrient = this.options.xOrient,
             yOrient = this.options.yOrient,
             rangeHeight = this.$container.outerHeight(true),
             rangeWidth = this.$container.outerWidth(true),
-            elemOffset = this.$element.offset();
+            elemOffset = $attachTo.offset();
 
         if (yOrient != 'below' && yOrient != 'above') {
 
             var windowHeight = $(window).innerHeight(),
                 scrollTop = $(document).scrollTop(),
-                elemHeight = this.$element.outerHeight(true);
+                elemHeight = $attachTo.outerHeight(true);
 
             var topOverflow = -scrollTop + elemOffset.top - rangeHeight,
                 bottomOverflow = scrollTop + windowHeight - (elemOffset.top + elemHeight + rangeHeight);
@@ -630,7 +632,7 @@
         if (xOrient != 'right' && xOrient != 'left') {
 
             var windowWidth = $(window).innerWidth(),
-                elemWidth = this.$element.outerWidth(true);
+                elemWidth = $attachTo.outerWidth(true);
 
             var rightOverflow = elemOffset.left - (elemWidth > rangeWidth ? elemWidth - rangeWidth : rangeWidth - elemWidth),
                 leftOverflow = windowWidth - (elemOffset.left + rangeWidth);
@@ -649,7 +651,7 @@
 
         if (yOrient == 'below') {
             this.$container.css({
-                top: elemOffset.top + this.$element.height() + 20
+                top: elemOffset.top + $attachTo.height() + 20
             });
 
             this.$container.removeClass('open-above');
@@ -657,7 +659,7 @@
 
         } else if (yOrient == 'above') {
             this.$container.css({
-                top: elemOffset.top - this.$element.height() - rangeHeight + 16
+                top: elemOffset.top - $attachTo.height() - rangeHeight + 16
             });
 
             this.$container.removeClass('open-below');
@@ -675,7 +677,7 @@
             this.$container.addClass('open-left');
 
         } else if (xOrient == 'right') {
-            this.$container.css('left', elemOffset.left + this.$element.outerWidth() - this.$container.outerWidth());
+            this.$container.css('left', elemOffset.left + $attachTo.outerWidth() - this.$container.outerWidth());
             this.$container.removeClass('open-left');
             this.$container.addClass('open-right');
         }
@@ -789,6 +791,8 @@
             $.each(ranges, $.proxy(function (idx, range) {
                 if (range.value === this.options.initialPresetRangeValue) {
                     range.selected = true;
+
+                    this._resetRangeOnChange = true;
                 }
             }, this));
         }
@@ -1020,6 +1024,10 @@
         }
 
         this.applyRange();
+    };
+
+    bRangePicker.prototype.setPresetRangeValue = function (value) {
+        this.$container.find('.bs-preset-ranges').val(value).trigger('change');
     };
     //#endregion
 

@@ -32,6 +32,8 @@ namespace BForms.Grid
 
         internal string tabId;
 
+        internal bool selected;
+
         private Func<TToolbar, MvcHtmlString> tabDelegate;
         public Func<TToolbar, MvcHtmlString> TabDelegate
         {
@@ -161,6 +163,17 @@ namespace BForms.Grid
         public BsToolbarAction<TToolbar> Text(string text)
         {
             this.text = text;
+            return this;
+        }
+
+        /// <summary>
+        /// Specifies if the tab is selected
+        /// </summary>
+        /// <param name="visible"></param>
+        /// <returns>BsToolbarAction</returns>
+        public BsToolbarAction<TToolbar> Selected(bool selected)
+        {
+            this.selected = selected;
             return this;
         }
 

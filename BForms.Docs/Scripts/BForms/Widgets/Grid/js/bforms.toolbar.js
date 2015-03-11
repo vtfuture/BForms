@@ -27,7 +27,7 @@
     Toolbar.prototype.options = {
         uniqueName: null,
         // save opened tab in localstorage and retreive it later
-        saveTabState: true,
+        saveTabState: false,
         // tab container selector
         tabContainerSelector: '.grid_toolbar_form',
         // auto initialize controls that were attached on bforms.toolbar.defaults and bforms.toolbar.controls namespaces
@@ -110,6 +110,8 @@
         }
 
         this._addControls(this._controls);
+
+        this._updateSelectedTab();
 
         this._expandSavedTab();
     };
@@ -233,6 +235,16 @@
             }
         }
 
+    };
+
+    Toolbar.prototype._updateSelectedTab = function () {
+        var tabs = this._getTabs();
+
+        $.each(tabs, $.proxy(function (idx, tab) {
+            if (tab.$container.is(':visible')) {
+                this._selectedTab = tab;
+            }
+        }, this));
     };
 
     Toolbar.prototype._addCustomControl = function (control) {
