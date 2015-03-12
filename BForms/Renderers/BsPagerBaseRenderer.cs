@@ -46,6 +46,10 @@ namespace BForms.Renderers
         {
             #region first page button
             var firstPageBuilder = new TagBuilder("li");
+            if (this.Builder.pager.GoTo == BsDirectionType.First)
+            {
+                firstPageBuilder.MergeAttribute("class", "disabled");
+            }
             var anchorBuilder = new TagBuilder("a");
             anchorBuilder.MergeAttribute("href", "#");
             anchorBuilder.MergeAttribute("data-goto", BsDirectionType.First.ToString());
@@ -58,6 +62,10 @@ namespace BForms.Renderers
 
             #region prev page button
             var prevPageBuilder = new TagBuilder("li");
+            if (this.Builder.pager.GoTo == BsDirectionType.First)
+            {
+                prevPageBuilder.MergeAttribute("class", "disabled");
+            }
             anchorBuilder = new TagBuilder("a");
             anchorBuilder.MergeAttribute("href", "#");
             anchorBuilder.MergeAttribute("data-goto", BsDirectionType.Prev.ToString());
@@ -71,6 +79,10 @@ namespace BForms.Renderers
 
             #region next page button
             var nextPageBuilder = new TagBuilder("li");
+            if (this.Builder.pager.GoTo == BsDirectionType.Last)
+            {
+                nextPageBuilder.MergeAttribute("class", "disabled");
+            }
             anchorBuilder = new TagBuilder("a");
             anchorBuilder.MergeAttribute("href", "#");
             anchorBuilder.MergeAttribute("data-goto", BsDirectionType.Next.ToString());
@@ -83,6 +95,10 @@ namespace BForms.Renderers
 
             #region last page button
             var lastPageBuilder = new TagBuilder("li");
+            if (this.Builder.pager.GoTo == BsDirectionType.Last)
+            {
+                lastPageBuilder.MergeAttribute("class", "disabled");
+            }
             anchorBuilder = new TagBuilder("a");
             anchorBuilder.MergeAttribute("href", "#");
             anchorBuilder.MergeAttribute("data-goto", BsDirectionType.Last.ToString());
@@ -224,7 +240,7 @@ namespace BForms.Renderers
 
                 #region text
 
-                if (this.Builder.settings.HasPagesText)
+                if (this.Builder.settings.HasPagesText && this.Builder.settings.NoOffset != true)
                 {
                     var textBuilder = new TagBuilder("div");
                     textBuilder.MergeAttribute("class", "results_number");

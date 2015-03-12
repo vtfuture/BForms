@@ -60,11 +60,15 @@
     Pager.prototype._onPageBtnClick = function (e) {
         e.preventDefault();
 
-        var $target = $(e.currentTarget);
+        var $target = $(e.currentTarget),
+            $parent = $target.parent();
 
         var goTo = $target.data('goto');
 
-        console.log(goTo);
+        if ($parent.hasClass(this.options.currentPageSelector) ||
+          $parent.hasClass(this.options.disabledPageSelector)) {
+            return;
+        }
 
         this._trigger('pagerUpdateNoOffset', e, {
             goTo: goTo,
@@ -189,6 +193,13 @@
 
     Pager.prototype.noOffset = function () {
         return this._noOffset == true;
+    };
+
+    Pager.prototype.blockGoTo = function (goTo) {
+        var $a = this.$element.find('a[data-goto="' + goTo + '"]'),
+            $parentLi = $a.parents('li:first');
+
+        $parentLi.addClass('disabled');
     };
     //#endregion
 

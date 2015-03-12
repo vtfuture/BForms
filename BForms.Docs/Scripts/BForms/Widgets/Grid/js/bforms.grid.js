@@ -839,11 +839,10 @@
         var toRemoveClass = "";
         var type = 0;
 
-
         if (elem.hasClass('sort_asc')) {
             toAddClass = 'sort_desc';
             type = 2;
-        } else if (!elem.hasClass('sort_desc') || this._isNoOffset) {
+        } else if (!elem.hasClass('sort_desc') || this._isNoOffset()) {
             toAddClass = 'sort_asc';
             type = 1;
         }
@@ -1216,6 +1215,8 @@
 
         data.sendData = callbackData.sent;
 
+        var updatePager = true;
+
         this._trigger('beforePaginationSuccess', 0, data);
 
         this._currentResultsCount = data.Count || 0;
@@ -1223,19 +1224,39 @@
         var $html = $(data.Html),
             $wrapper = $('<div></div>').append($html);
 
-        //update rows
-        if (this._currentResultsCount) {
-            this.$rowsContainer.html($html.html());
-            this.$rowsContainer.removeClass('no_results');
-            this.element.find(this.options.pagerSelector).show();
-            this.$gridRowsHeader.closest('.row').show();
+        if (this._isNoOffset()) {
+            if (this._currentResultsCount) {
+                this.$rowsContainer.html($html.html());
+                this.$rowsContainer.removeClass('no_results');
+                this.element.find(this.options.pagerSelector).show();
+                this.$gridRowsHeader.closest('.row').show();
+            } else {
+                if (callbackData.sent.GoTo == "Prev" || callbackData.sent.GoTo == "Next") {
+                    this.$pager.bsPager('blockGoTo', callbackData.sent.GoTo);
+                    updatePager = false;
+                } else {
+                    this.$rowsContainer.html($wrapper.find(this.options.noResultsRowSelector));
+                    this.$rowsContainer.addClass('no_results');
+                    this.$gridRowsHeader.closest('.row').hide();
+                }
+            }
         } else {
-            this.$rowsContainer.html($wrapper.find(this.options.noResultsRowSelector));
-            this.$rowsContainer.addClass('no_results');
-            this.$gridRowsHeader.closest('.row').hide();
+            //update rows
+            if (this._currentResultsCount) {
+                this.$rowsContainer.html($html.html());
+                this.$rowsContainer.removeClass('no_results');
+                this.element.find(this.options.pagerSelector).show();
+                this.$gridRowsHeader.closest('.row').show();
+            } else {
+                this.$rowsContainer.html($wrapper.find(this.options.noResultsRowSelector));
+                this.$rowsContainer.addClass('no_results');
+                this.$gridRowsHeader.closest('.row').hide();
+            }
         }
 
-        this.$pager.bsPager('update', $html.closest('.bs-pages'));
+        if (updatePager) {
+            this.$pager.bsPager('update', $html.closest('.bs-pages'));
+        }
 
         if (this._currentResultsCount == 0) {
             this.$actionsContainer.hide();
@@ -1328,9 +1349,29 @@
         }
     };
 
-    Grid.prototype._isNoOffset = function() {
+    Grid.prototype._isNoOffset = function () {
         return this.$pager && this.$pager.length && this.$pager.bsPager('noOffset');
-    }
+    };
+
+    Grid.prototype._reverseOrder = function (data) {
+
+        if (data && data.OrderableColumns) {
+            for (var key in data.OrderableColumns) {
+                var orderItem = data.OrderableColumns[key],
+                    $orderColumn = this._getOrderColumn(orderItem.Name);
+
+                if (orderItem.Type == 1) {
+
+                    orderItem.Type = 2;
+                    //$orderColumn.removeClass('sort_asc').addClass('sort_desc');
+                } else if (orderItem.Type == 2) {
+
+                    orderItem.Type = 1;
+                    //$orderColumn.removeClass('sort_desc').addClass('sort_asc');
+                }
+            }
+        }
+    };
     //#endregion
 
     //#region sortable
@@ -1632,6 +1673,10 @@
 
         $row.remove();
     };
+
+    Grid.prototype._getOrderColumn = function (name) {
+        return this.$element.find(this.options.gridRowsHeaderSelector).find('[data-name="' + name + '"]').find(this.options.orderElemSelector);
+    }
     //#endregion
 
     //#region row update

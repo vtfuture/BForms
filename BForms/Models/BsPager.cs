@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using BForms.Grid;
 
 namespace BForms.Models
 {
@@ -11,6 +12,7 @@ namespace BForms.Models
         private int currentPage;
         private int totalPages;
         private int totalRecords;
+        private BsDirectionType _goTo;
 
         public int CurrentPage
         {
@@ -34,6 +36,7 @@ namespace BForms.Models
             {
                 return this.totalRecords;
             }
+            set { this.totalRecords = value; }
         }
 
         public int PageSize
@@ -42,9 +45,20 @@ namespace BForms.Models
             {
                 return this.pageSize;
             }
+            set { this.pageSize = value; }
         }
 
         public int CurrentPageRecords { get; set; }
+
+        public BsDirectionType GoTo
+        {
+            get { return this._goTo; }
+            set { this._goTo = value; }
+        }
+
+        public BsPagerModel()
+        {
+        }
 
         public BsPagerModel(int totalRecords, int pageSize = 5, int page = 1)
         {

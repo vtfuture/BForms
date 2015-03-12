@@ -33,24 +33,23 @@ namespace BForms.Docs.Areas.Demo.Controllers
         {
             BsGridRepositorySettings<ContributorSearchModel> bsGridSettings = null;
 
-            if (false && stateId.HasValue)
-            {
-                var state = _componentState.Get(stateId.Value);
+            //if (false && stateId.HasValue)
+            //{
+            //    var state = _componentState.Get(stateId.Value);
 
-                if (state != null)
-                {
-                    bsGridSettings = state.ToBsGridRepositorySettings<ContributorSearchModel>();
-                }
-            }
+            //    if (state != null)
+            //    {
+            //        bsGridSettings = state.ToBsGridRepositorySettings<ContributorSearchModel>();
+            //    }
+            //}
 
-            if (bsGridSettings == null)
+
+            bsGridSettings = new BsGridRepositorySettings<ContributorSearchModel>()
             {
-                bsGridSettings = new BsGridRepositorySettings<ContributorSearchModel>()
-                {
-                    PageSize = 5,
-                    Page = 1
-                };
-            }
+                //PageSize = 5,
+                //Page = 1,
+                GoTo = BsDirectionType.First
+            };
 
             bsGridSettings.Search = _gridRepository.GetSearchForm(bsGridSettings.Search);
 

@@ -21,7 +21,7 @@
           
           cols.For(row => row.StartDate).Name("Contributor since")
               .Sortable()
-              .Text(row => Html.BsGlyphicon(Glyphicon.Calendar) + " " + row.StartDate.DisplayValue.ToMonthNameDate());
+              .Text(row => Html.BsGlyphicon(Glyphicon.Calendar) + " " + row.StartDate.DisplayValue);
 
           cols.For(row => row.Contributions).Name("Contributions")
               .Sortable()

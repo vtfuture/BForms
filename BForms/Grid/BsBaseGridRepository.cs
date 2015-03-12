@@ -1,4 +1,5 @@
-﻿using BForms.Models;
+﻿using System.Web.UI.HtmlControls;
+using BForms.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -666,28 +667,9 @@ namespace BForms.Grid
             return grid;
         }
 
-        /// <summary>
-        /// Creates GridModel based on Query, OrderQuery and MapQuery
-        /// </summary>
-        /// <param name="settings">Requested settings</param>
-        /// <returns>Grid model</returns>
-        public virtual BsGridModel<TRow> ToBsGridViewModel<TValue>(BsGridBaseRepositorySettings settings, Expression<Func<TEntity, TValue>> uniqueIdSelector)
+        private void SetResult<TValue>(BsGridModel<TRow> result, IQueryable<TEntity> basicQuery, BsGridBaseRepositorySettings settings, Expression<Func<TEntity, TValue>> uniqueIdSelector)
         {
-            this.settings = settings;
-
-            var result = new BsGridModel<TRow>();
-
-            //creates basic query
-            var basicQuery = this.Query();
-
-            //performs count
             var totalRecords = basicQuery.Select(x => false).Count();
-
-            //add column order
-            result.BaseSettings.OrderColumns = settings.OrderColumns;
-
-            //add orderable columns
-            result.BaseSettings.OrderableColumns = settings.OrderableColumns;
 
             if (totalRecords > 0)
             {
@@ -697,70 +679,20 @@ namespace BForms.Grid
 
                 if (totalRecords > 1)
                 {
-                    this.orderedQueryBuilder = new OrderedQueryBuilder<TRow>(this.settings.OrderableColumns);
+                    var orderedQuery = this.OrderQuery(basicQuery);
 
-                    if (settings.GoTo.HasValue)
+                    if (settings.OrderableColumns.Any(c => c.Type == BsOrderType.Descending))
                     {
-                        var orderedQuery = this.OrderQuery(basicQuery, settings);
-
-                        var intermediateQuery = this.PaginateBy(orderedQuery, uniqueIdSelector, settings);
-
-                        var orderedPagerQuery = this.OrderQuery(intermediateQuery, settings);
-
-                        if (settings.OrderableColumns.Any(c => c.Type == BsOrderType.Descending))
-                        {
-                            if (this.settings.GoTo.HasValue && this.settings.GoTo.Value == BsDirectionType.Prev)
-                            {
-                                orderedPagerQuery = orderedPagerQuery.ThenBy(uniqueIdSelector);
-                            }
-                            else
-                            {
-                                orderedPagerQuery = orderedPagerQuery.ThenByDescending(uniqueIdSelector);
-                            }
-                        }
-                        else
-                        {
-                            if (this.settings.GoTo.HasValue && this.settings.GoTo.Value == BsDirectionType.Prev)
-                            {
-                                orderedPagerQuery = orderedPagerQuery.ThenByDescending(uniqueIdSelector);
-                            }
-                            else
-                            {
-                                orderedPagerQuery = orderedPagerQuery.ThenBy(uniqueIdSelector);
-                            }
-                        }
-
-                        var pagedQuery = this.OrderQuery(orderedPagerQuery.Take(pager.PageSize));
-
-                        if (settings.OrderableColumns.Any(c => c.Type == BsOrderType.Descending))
-                        {
-                            pagedQuery = pagedQuery.ThenByDescending(uniqueIdSelector);
-                        }
-                        else
-                        {
-                            pagedQuery = pagedQuery.ThenBy(uniqueIdSelector);
-                        }
-
-                        finalQuery = this.MapQuery(pagedQuery);
+                        orderedQuery = orderedQuery.ThenByDescending(uniqueIdSelector);
                     }
                     else
                     {
-                        var orderedQuery = this.OrderQuery(basicQuery);
-
-                        if (settings.OrderableColumns.Any(c => c.Type == BsOrderType.Descending))
-                        {
-                            orderedQuery = orderedQuery.ThenByDescending(uniqueIdSelector);
-                        }
-                        else
-                        {
-                            orderedQuery = orderedQuery.ThenBy(uniqueIdSelector);
-                        }
-
-                        var pagedQuery = orderedQuery.Skip(pager.PageSize * (pager.CurrentPage - 1)).Take(pager.PageSize);
-
-                        finalQuery = this.MapQuery(pagedQuery);
+                        orderedQuery = orderedQuery.ThenBy(uniqueIdSelector);
                     }
 
+                    var pagedQuery = orderedQuery.Skip(pager.PageSize * (pager.CurrentPage - 1)).Take(pager.PageSize);
+
+                    finalQuery = this.MapQuery(pagedQuery);
 
                 }
                 else
@@ -791,12 +723,150 @@ namespace BForms.Grid
             {
                 result.Items = new List<TRow>();
             }
+        }
+
+        private void SetNoOffsetResult<TValue>(BsGridModel<TRow> result, IQueryable<TEntity> basicQuery, BsGridBaseRepositorySettings settings, Expression<Func<TEntity, TValue>> uniqueIdSelector)
+        {
+            var pager = new BsPagerModel
+            {
+                PageSize = settings.PageSize
+            };
+
+            IEnumerable<TRow> finalQuery = new List<TRow>();
+
+            pager.GoTo = settings.GoTo.Value;
+
+            if (settings.GoTo.Value == BsDirectionType.Last)
+            {
+                foreach (var orderItem in result.BaseSettings.OrderableColumns)
+                {
+                    if (orderItem.Type == BsOrderType.Descending)
+                    {
+                        orderItem.Type = BsOrderType.Ascending;
+                    }
+                    else if (orderItem.Type == BsOrderType.Ascending)
+                    {
+                        orderItem.Type = BsOrderType.Descending;
+                    }
+                }
+            }
+
+
+            var orderedQuery = this.OrderQuery(basicQuery, settings);
+
+            var intermediateQuery = this.PaginateBy(orderedQuery, uniqueIdSelector, settings);
+
+            var orderedPagerQuery = this.OrderQuery(intermediateQuery, settings);
+
+            if (settings.OrderableColumns.Any(c => c.Type == BsOrderType.Descending))
+            {
+                if (this.settings.GoTo.HasValue && this.settings.GoTo.Value == BsDirectionType.Prev)
+                {
+                    orderedPagerQuery = orderedPagerQuery.ThenBy(uniqueIdSelector);
+                }
+                else
+                {
+                    orderedPagerQuery = orderedPagerQuery.ThenByDescending(uniqueIdSelector);
+                }
+            }
+            else
+            {
+                if (this.settings.GoTo.HasValue && this.settings.GoTo.Value == BsDirectionType.Prev)
+                {
+                    orderedPagerQuery = orderedPagerQuery.ThenByDescending(uniqueIdSelector);
+                }
+                else
+                {
+                    orderedPagerQuery = orderedPagerQuery.ThenBy(uniqueIdSelector);
+                }
+            }
+
+
+            if (settings.GoTo.Value == BsDirectionType.Last)
+            {
+                foreach (var orderItem in result.BaseSettings.OrderableColumns)
+                {
+                    if (orderItem.Type == BsOrderType.Descending)
+                    {
+                        orderItem.Type = BsOrderType.Ascending;
+                    }
+                    else if (orderItem.Type == BsOrderType.Ascending)
+                    {
+                        orderItem.Type = BsOrderType.Descending;
+                    }
+                }
+            }
+
+            var pagedQuery = this.OrderQuery(orderedPagerQuery.Take(pager.PageSize));
+
+            if (settings.OrderableColumns.Any(c => c.Type == BsOrderType.Descending))
+            {
+                pagedQuery = pagedQuery.ThenByDescending(uniqueIdSelector);
+            }
+            else
+            {
+                pagedQuery = pagedQuery.ThenBy(uniqueIdSelector);
+            }
+
+            finalQuery = this.MapQuery(pagedQuery);
+
+            result.Items = finalQuery.ToList();
+
+            result.Pager = pager;
+
+            result.Pager.CurrentPageRecords = result.Items.Count();
+            result.Pager.TotalRecords = result.Pager.CurrentPageRecords;
+
+            if (settings.DetailsAll || settings.DetailsCount > 0)
+            {
+                for (var i = 0; i < pager.CurrentPageRecords; i++)
+                {
+                    if (settings.HasDetails(i))
+                    {
+                        var row = result.Items.ElementAt(i);
+                        this.FillDetails(row);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Creates GridModel based on Query, OrderQuery and MapQuery
+        /// </summary>
+        /// <param name="settings">Requested settings</param>
+        /// <returns>Grid model</returns>
+        public virtual BsGridModel<TRow> ToBsGridViewModel<TValue>(BsGridBaseRepositorySettings settings, Expression<Func<TEntity, TValue>> uniqueIdSelector)
+        {
+            this.settings = settings;
+
+            var result = new BsGridModel<TRow>();
+
+            //creates basic query
+            var basicQuery = this.Query();
+
+            //add column order
+            result.BaseSettings.OrderColumns = settings.OrderColumns;
+
+            //add orderable columns
+            result.BaseSettings.OrderableColumns = settings.OrderableColumns;
+
+            this.orderedQueryBuilder = new OrderedQueryBuilder<TRow>(this.settings.OrderableColumns);
+
+            if (this.settings.GoTo.HasValue)
+            {
+                this.SetNoOffsetResult(result, basicQuery, settings, uniqueIdSelector);
+            }
+            else
+            {
+                this.SetResult(result, basicQuery, settings,uniqueIdSelector);
+            }
 
             //sets base settings
             result.BaseSettings = this.settings.GetBase();
 
             return result;
         }
+
 
         /// <summary>
         /// Helper for wrapping grid
