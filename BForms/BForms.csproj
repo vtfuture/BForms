@@ -135,6 +135,7 @@
     <Compile Include="Models\BsEditor.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Models\BsExpressionMembers.cs" />
     <Compile Include="Models\BsJavascriptErrorModel.cs" />
     <Compile Include="Models\BsRangeItem.cs" />
     <Compile Include="Mvc\BsBaseConfigurator.cs" />

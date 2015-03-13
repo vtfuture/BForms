@@ -253,6 +253,21 @@ namespace BForms.Docs.Areas.Demo.Mock
                             Id_Coordinator = 14,
                             Age = 23
                         },
+                        new Contributor()
+                        {
+                            Id = 16,
+                            Enabled = false,
+                            FirstName = "Lolol",
+                            LastName = "T.",
+                            Country = "Romania",
+                            Role = ProjectRole.Tester,
+                            StartDate = new DateTime(2013, 10, 14),
+                            Languages = new List<string>() { "C#", "Javascript" },
+                            Contributions = "testing, bug fixing",
+                            Order = 14,
+                            Id_Coordinator = 14,
+                            Age = 23
+                        },
                     };
             #endregion
         }

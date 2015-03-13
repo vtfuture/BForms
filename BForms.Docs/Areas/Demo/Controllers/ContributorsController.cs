@@ -33,22 +33,22 @@ namespace BForms.Docs.Areas.Demo.Controllers
         {
             BsGridRepositorySettings<ContributorSearchModel> bsGridSettings = null;
 
-            //if (false && stateId.HasValue)
-            //{
-            //    var state = _componentState.Get(stateId.Value);
+            if (stateId.HasValue)
+            {
+                var state = _componentState.Get(stateId.Value);
 
-            //    if (state != null)
-            //    {
-            //        bsGridSettings = state.ToBsGridRepositorySettings<ContributorSearchModel>();
-            //    }
-            //}
+                if (state != null)
+                {
+                    bsGridSettings = state.ToBsGridRepositorySettings<ContributorSearchModel>();
+                }
+            }
 
 
             bsGridSettings = new BsGridRepositorySettings<ContributorSearchModel>()
             {
-                //PageSize = 5,
-                //Page = 1,
-                GoTo = BsDirectionType.First
+                PageSize = 5,
+                Page = 1,
+                //GoTo = BsDirectionType.First
             };
 
             bsGridSettings.Search = _gridRepository.GetSearchForm(bsGridSettings.Search);
@@ -80,7 +80,8 @@ namespace BForms.Docs.Areas.Demo.Controllers
                 {"exportExcelUrl", Url.Action("ExportExcel")},
                 {"updateUrl", Url.Action("Update")},
                 {"deleteUrl", Url.Action("Delete")},
-                {"editComponents", RequireJsHtmlHelpers.ToJsonDictionary<EditComponents>()}
+                {"editComponents", RequireJsHtmlHelpers.ToJsonDictionary<EditComponents>()},
+                {"countUrl", Url.Action("Count")}
             };
 
             RequireJsOptions.Add("index", options);
@@ -129,6 +130,16 @@ namespace BForms.Docs.Areas.Demo.Controllers
                 Count = count,
                 Html = html
             }, status, msg);
+        }
+
+        public BsJsonResult Count(BsGridRepositorySettings<ContributorSearchModel> settings)
+        {
+            var count = _gridRepository.Count(settings);
+
+            return new BsJsonResult(new
+            {
+                Count = count
+            });
         }
 
         public BsJsonResult New(BsToolbarModel<ContributorSearchModel, ContributorNewModel> model)
@@ -380,7 +391,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
                                    .Text(x => x.Role.ToString())
                                    .Style(style => style.FillColor = BsGridExcelColor.Lavender);
                             columns.For(x => x.StartDate)
-                                   .Text(x => x.StartDate.DisplayValue.ToMonthNameDate())
+                                   .Text(x => x.StartDate.ToMonthNameDate())
                                    .Style(style => style.Font.Italic = true);
                         });
 

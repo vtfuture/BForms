@@ -266,7 +266,7 @@ namespace BForms.Docs.Areas.Demo.Models
         public BsGridColumnValue<ProjectRole, ProjectRole> Role { get; set; }
 
         [BsGridColumn(Width = 3, MediumWidth = 3)]
-        public BsGridColumnValue<DateTime, DateTime> StartDate { get; set; }
+        public DateTime StartDate { get; set; }
 
         [BsGridColumn(Width = 3, MediumWidth = 3)]
         public BsGridColumnValue<string, string> Contributions { get; set; }

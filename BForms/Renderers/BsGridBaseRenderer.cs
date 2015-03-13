@@ -86,7 +86,19 @@ namespace BForms.Renderers
 
                 var badgeBuilder = new TagBuilder("span");
                 badgeBuilder.AddCssClass("badge");
-                badgeBuilder.InnerHtml += totalRecords;
+
+                if (this.Builder.pagerSettings.NoOffset)
+                {
+                    if (totalRecords >= (this.Builder.Model.Pager != null ? this.Builder.Model.Pager.PageSize : this.Builder.pagerSettings.DefaultPageSize))
+                    {
+                        badgeBuilder.InnerHtml += totalRecords + "+";
+                    }
+                }
+                else
+                {
+                    badgeBuilder.InnerHtml += totalRecords;
+                }
+
                 headerBuilder.InnerHtml += badgeBuilder.ToString();
 
                 headerBuilder.InnerHtml += this.Builder.Metadata.DisplayName;
@@ -345,13 +357,17 @@ namespace BForms.Renderers
 
                                 var baseType = type.BaseType;
 
-                                if (baseType.Name == (typeof(BsGridColumnValue).Name))
+                                if (baseType.Name == (typeof (BsGridColumnValue).Name))
                                 {
                                     var itemValueProp = type.GetProperties().FirstOrDefault(p => p.Name == "ItemValue");
 
                                     var columnItemValue = itemValueProp.GetValue(value);
 
                                     itemValue = columnItemValue;
+                                }
+                                else
+                                {
+                                    itemValue = value;
                                 }
                             }
                         }
@@ -390,7 +406,7 @@ namespace BForms.Renderers
 
                         var title = string.Empty;
 
-                        cellBuilder.MergeAttribute("data-value",itemValue != null ? itemValue.ToString() : string.Empty);
+                        cellBuilder.MergeAttribute("data-value", itemValue != null ? itemValue.ToString() : string.Empty);
 
                         if (column.CellTitle != null)
                         {

@@ -21,7 +21,7 @@
           
           cols.For(row => row.StartDate).Name("Contributor since")
               .Sortable()
-              .Text(row => Html.BsGlyphicon(Glyphicon.Calendar) + " " + row.StartDate.DisplayValue);
+              .Text(row => Html.BsGlyphicon(Glyphicon.Calendar) + " " + row.StartDate.ToMonthNameDate());
 
           cols.For(row => row.Contributions).Name("Contributions")
               .Sortable()
@@ -63,7 +63,7 @@
           .HasCheckbox(row => (row.Enabled || !row.Name.DisplayValue.StartsWith("M")))
           .HtmlAttributes(row => new Dictionary<string, object> {{"data-active", row.Enabled}})
           .Highlighter(row => row.Enabled ? "#59b444" : "#f0ad4e"))
-      .PagerSettings(new BsPagerSettings { NoOffset = true, Size = 5, HasPageSizeSelector = true, HasPagesText = true }))
+      .PagerSettings(new BsPagerSettings { NoOffset = false, Size = 5, HasPageSizeSelector = true, HasPagesText = true }))
 
 
 @helper RowButtonTemplate(ContributorRowModel row)

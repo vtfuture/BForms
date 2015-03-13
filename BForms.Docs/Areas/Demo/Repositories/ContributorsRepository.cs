@@ -49,7 +49,7 @@ namespace BForms.Docs.Areas.Demo.Repositories
                 Name = new BsGridColumnValue<string, string>(x.FirstName + " " + x.LastName, x.FirstName + " " + x.LastName),
                 Role = new BsGridColumnValue<ProjectRole, ProjectRole>(x.Role, x.Role),
                 Contributions = new BsGridColumnValue<string, string>(x.Contributions, x.Contributions),
-                StartDate = new BsGridColumnValue<DateTime, DateTime>(x.StartDate, x.StartDate)
+                StartDate = x.StartDate
             };
 
         public Func<Contributor, ContributorDetailsReadonly> MapContributor_ContributorDetailsModel = x =>
@@ -108,7 +108,7 @@ namespace BForms.Docs.Areas.Demo.Repositories
         {
             this.orderedQueryBuilder.OrderFor(x => x.Name, x => x.FirstName + " " + x.LastName);
 
-            this.orderedQueryBuilder.OrderFor(x => x.StartDate, x => x.StartDate);
+            this.orderedQueryBuilder.OrderFor(x => x.StartDate, y => y.StartDate);
 
             var orderedQuery = this.orderedQueryBuilder.Order(query, x => x.OrderBy(y => y.Id), gridSettings);
 

@@ -107,7 +107,7 @@
 
         if (this._noOffset) {
             this._trigger('pagerUpdateNoOffset', e, {
-                goTo: 'first',
+                goTo: 'First',
                 pageSize: $(e.currentTarget).data('value')
             });
         } else {
@@ -136,7 +136,7 @@
     //#region public methods
     Pager.prototype.update = function ($pagesHtml) {
 
-        var $pageSizeContainer = this.element.find(this.options.pageSizeContainerSelector)
+        var $pageSizeContainer = this.element.find(this.options.pageSizeContainerSelector);
 
         var $pagesContainer = this.element.find(this.options.pagesContainerSelector);
 

@@ -262,192 +262,125 @@ namespace BForms.Grid
             throw new NotImplementedException();
         }
 
+        private Type GetNoOffsetPropertyType(BsColumnOrder orderColumn)
+        {
+            var propertyInfo = typeof(TRow).GetProperty(orderColumn.Name);
+
+            var baseType = propertyInfo.PropertyType.BaseType;
+
+            if (baseType.Name == (typeof(BsGridColumnValue).Name))
+            {
+                var mockValue = new BsGridColumnValue<object, object>();
+
+                propertyInfo = propertyInfo.PropertyType.GetProperties().FirstOrDefault(p => p.Name == mockValue.GetPropertyName(x => x.ItemValue));
+            }
+
+            var propertyType = propertyInfo.PropertyType;
+
+            return propertyType;
+        }
+
+        private BsExpressionMembers GetExpressionMembers(Type propertyType, BsColumnOrder orderColumn, ParameterExpression pe)
+        {
+            Expression left, right;
+
+            var parameterSetVisitor = new ParameterReplaceVisitor();
+
+            var value = propertyType.IsEnum ? Enum.Parse(propertyType, orderColumn.Value.ToString()) : Convert.ChangeType(orderColumn.Value, propertyType);
+
+            var criteria = this.orderedQueryBuilder.GetCriteria(orderColumn.Name);
+
+            if (criteria != null)
+            {
+                var body = criteria.GetBody();
+
+                left = parameterSetVisitor.ReplaceParameter(body, pe);
+            }
+            else
+            {
+                left = Expression.Property(pe, orderColumn.Name);
+            }
+
+            right = Expression.Constant(value, propertyType);
+
+            if (propertyType == typeof(string))
+            {
+                var stringCompare = Expression.Call(left, typeof(string).GetMethod("CompareTo", new[] { typeof(string) }), right);
+
+                var zeroConstant = Expression.Constant(0, typeof(int));
+
+                left = stringCompare;
+                right = zeroConstant;
+            }
+            else if (propertyType.IsEnum)
+            {
+                left = Expression.Convert(left, typeof(long));
+                right = Expression.Convert(right, typeof(long));
+            }
+
+            return new BsExpressionMembers
+            {
+                Left = left,
+                Right = right
+            };
+        }
+
         /// <summary>
         /// Paginates the result using the direction the orderQueryable
         /// </summary>
+        /// <typeparam name="TValue"></typeparam>
         /// <param name="query"></param>
-        /// <param name="settings"></param>
-        public virtual IQueryable<TEntity> PaginateBy<TValue>(IQueryable<TEntity> queryable, Expression<Func<TEntity, TValue>> uniqueIdFunc, BsGridBaseRepositorySettings gridSettings)
+        /// <param name="uniqueIdFunc"></param>
+        /// <param name="gridSettings"></param>
+        /// <returns></returns>
+        public virtual IQueryable<TEntity> PaginateBy<TValue>(IQueryable<TEntity> query, Expression<Func<TEntity, TValue>> uniqueIdFunc, BsGridBaseRepositorySettings gridSettings)
         {
-
-            var query = queryable.AsQueryable();
-
             if (gridSettings.OrderableColumns != null && gridSettings.OrderableColumns.Any())
             {
                 var pe = Expression.Parameter(typeof(TEntity), "x");
 
-                foreach (var orderColumn in gridSettings.OrderableColumns)
+                var orderColumn = gridSettings.OrderableColumns.LastOrDefault();
+
+                if (gridSettings.GoTo.HasValue && (gridSettings.GoTo.Value == BsDirectionType.Next || gridSettings.GoTo.Value == BsDirectionType.Prev))
                 {
-                    if (gridSettings.GoTo.Value == BsDirectionType.Next || gridSettings.GoTo.Value == BsDirectionType.Prev)
+
+                    var parameterSetVisitor = new ParameterReplaceVisitor();
+
+                    uniqueIdFunc = Expression.Lambda<Func<TEntity, TValue>>(parameterSetVisitor.ReplaceParameter(uniqueIdFunc.Body, pe), pe);
+
+                    var propertyType = this.GetNoOffsetPropertyType(orderColumn);
+
+                    var expressionMembers = this.GetExpressionMembers(propertyType, orderColumn, pe);
+
+                    var uniqueIdConstant = Expression.Constant(Convert.ChangeType(gridSettings.UniqueID, typeof(TValue)), typeof(TValue));
+
+                    Expression sortingKeyExpr, sortingKeyEqExpr, uniqueIdExpr;
+
+                    if (gridSettings.GoTo.Value == BsDirectionType.Prev ^ orderColumn.Type == BsOrderType.Descending)
                     {
-                        Expression left;
-                        Expression right;
-                        object value;
-
-                        var parameterSetVisitor = new ParameterReplaceVisitor();
-
-                        uniqueIdFunc = Expression.Lambda<Func<TEntity, TValue>>(parameterSetVisitor.ReplaceParameter(uniqueIdFunc.Body, pe), pe);
-
-                        var propertyInfo = typeof(TRow).GetProperty(orderColumn.Name);
-
-                        var baseType = propertyInfo.PropertyType.BaseType;
-
-                        if (baseType.Name == (typeof(BsGridColumnValue).Name))
-                        {
-                            var mockValue = new BsGridColumnValue<object, object>();
-
-                            propertyInfo = propertyInfo.PropertyType.GetProperties().FirstOrDefault(p => p.Name == mockValue.GetPropertyName(x => x.ItemValue));
-                        }
-
-                        var propertyType = propertyInfo.PropertyType;
-
-                        value = propertyType.IsEnum ? Enum.Parse(propertyType, orderColumn.Value.ToString()) : Convert.ChangeType(orderColumn.Value, propertyType);
-
-                        var criteria = this.orderedQueryBuilder.GetCriteria(orderColumn.Name);
-
-                        if (criteria != null)
-                        {
-                            var body = criteria.GetBody();
-
-                            left = parameterSetVisitor.ReplaceParameter(body, pe);
-                        }
-                        else
-                        {
-                            left = Expression.Property(pe, orderColumn.Name);
-                        }
-
-
-                        right = Expression.Constant(value, propertyType);
-
-                        Expression predicateBody = null;
-
-                        Expression stringCompare = null;
-
-                        if (propertyType == typeof(string))
-                        {
-                            stringCompare = Expression.Call(left, typeof(string).GetMethod("CompareTo", new[] { typeof(string) }), right);
-                        }
-
-                        var zeroConstant = Expression.Constant(0, typeof(int));
-
-                        var uniqueIdConstant = Expression.Constant(Convert.ChangeType(gridSettings.UniqueID, typeof(TValue)), typeof(TValue));
-
-                        if (propertyType.IsEnum)
-                        {
-                            left = Expression.Convert(left, typeof(long));
-                            right = Expression.Convert(right, typeof(long));
-                        }
-
-
-                        switch (gridSettings.GoTo.Value)
-                        {
-                            case BsDirectionType.Prev:
-                                switch (orderColumn.Type)
-                                {
-                                    case BsOrderType.Descending:
-
-                                        if (propertyType == typeof(string))
-                                        {
-                                            var sortingKeyExpr = Expression.GreaterThan(stringCompare, zeroConstant);
-                                            var sortingKeyEqExpr = Expression.Equal(stringCompare, zeroConstant);
-                                            var uniqueIdExpr = Expression.GreaterThan(uniqueIdFunc.Body, uniqueIdConstant);
-
-                                            predicateBody = Expression.Or(sortingKeyExpr, Expression.AndAlso(sortingKeyEqExpr, uniqueIdExpr));
-                                        }
-                                        else
-                                        {
-                                            var sortingKeyExpr = Expression.GreaterThan(left, right);
-                                            var sortingKeyEqExpr = Expression.Equal(left, right);
-                                            var uniqueIdExpr = Expression.GreaterThan(uniqueIdFunc.Body, uniqueIdConstant);
-
-                                            predicateBody = Expression.Or(sortingKeyExpr, Expression.AndAlso(sortingKeyEqExpr, uniqueIdExpr));
-                                        }
-
-                                        break;
-                                    case BsOrderType.Ascending:
-
-                                        if (propertyType == typeof(string))
-                                        {
-                                            var sortingKeyExpr = Expression.LessThan(stringCompare, zeroConstant);
-                                            var sortingKeyEqExpr = Expression.Equal(stringCompare, zeroConstant);
-                                            var uniqueIdExpr = Expression.LessThan(uniqueIdFunc.Body, uniqueIdConstant);
-
-                                            predicateBody = Expression.Or(sortingKeyExpr, Expression.AndAlso(sortingKeyEqExpr, uniqueIdExpr));
-                                        }
-                                        else
-                                        {
-                                            var sortingKeyExpr = Expression.LessThan(left, right);
-                                            var sortingKeyEqExpr = Expression.Equal(left, right);
-                                            var uniqueIdExpr = Expression.LessThan(uniqueIdFunc.Body, uniqueIdConstant);
-
-                                            predicateBody = Expression.Or(sortingKeyExpr, Expression.AndAlso(sortingKeyEqExpr, uniqueIdExpr));
-                                        }
-                                        break;
-                                }
-                                break;
-                            case BsDirectionType.Next:
-                                switch (orderColumn.Type)
-                                {
-                                    case BsOrderType.Descending:
-                                        if (propertyType == typeof(string))
-                                        {
-                                            var sortingKeyExpr = Expression.LessThan(stringCompare, zeroConstant);
-                                            var sortingKeyEqExpr = Expression.Equal(stringCompare, zeroConstant);
-                                            var uniqueIdExpr = Expression.LessThan(uniqueIdFunc.Body, uniqueIdConstant);
-
-                                            predicateBody = Expression.Or(sortingKeyExpr, Expression.AndAlso(sortingKeyEqExpr, uniqueIdExpr));
-                                        }
-                                        else
-                                        {
-                                            var sortingKeyExpr = Expression.LessThan(left, right);
-                                            var sortingKeyEqExpr = Expression.Equal(left, right);
-                                            var uniqueIdExpr = Expression.LessThan(uniqueIdFunc.Body, uniqueIdConstant);
-
-
-                                            predicateBody = Expression.Or(sortingKeyExpr, Expression.AndAlso(sortingKeyEqExpr, uniqueIdExpr));
-                                        }
-
-                                        break;
-                                    case BsOrderType.Ascending:
-
-                                        if (propertyType == typeof(string))
-                                        {
-                                            var sortingKeyExpr = Expression.GreaterThan(stringCompare, zeroConstant);
-                                            var sortingKeyEqExpr = Expression.Equal(stringCompare, zeroConstant);
-                                            var uniqueIdExpr = Expression.GreaterThan(uniqueIdFunc.Body, uniqueIdConstant);
-
-                                            predicateBody = Expression.Or(sortingKeyExpr, Expression.AndAlso(sortingKeyEqExpr, uniqueIdExpr));
-                                        }
-                                        else
-                                        {
-                                            var sortingKeyExpr = Expression.GreaterThan(left, right);
-                                            var sortingKeyEqExpr = Expression.Equal(left, right);
-                                            var uniqueIdExpr = Expression.GreaterThan(uniqueIdFunc.Body, uniqueIdConstant);
-
-
-                                            predicateBody = Expression.Or(sortingKeyExpr, Expression.AndAlso(sortingKeyEqExpr, uniqueIdExpr));
-                                        }
-                                        break;
-                                }
-                                break;
-
-                        }
-
-                        //var leftParams = new ParameterVisitor().GetParameters(left);
-
-                        var whereCallExpression =
-                                           Expression.Call(
-                                                           typeof(Queryable),
-                                                           "Where",
-                                                           new[] { query.ElementType },
-                                                           query.Expression,
-                                                           Expression.Lambda<Func<TEntity, bool>>(predicateBody, new[] { pe })
-                                                          );
-
-
-                        query = query.Provider.CreateQuery<TEntity>(whereCallExpression);
+                        sortingKeyExpr = Expression.LessThan(expressionMembers.Left, expressionMembers.Right);
+                        sortingKeyEqExpr = Expression.Equal(expressionMembers.Left, expressionMembers.Right);
+                        uniqueIdExpr = Expression.LessThan(uniqueIdFunc.Body, uniqueIdConstant);
+                    }
+                    else
+                    {
+                        sortingKeyExpr = Expression.GreaterThan(expressionMembers.Left, expressionMembers.Right);
+                        sortingKeyEqExpr = Expression.Equal(expressionMembers.Left, expressionMembers.Right);
+                        uniqueIdExpr = Expression.GreaterThan(uniqueIdFunc.Body, uniqueIdConstant);
                     }
 
+                    var predicateBody = Expression.Or(sortingKeyExpr, Expression.AndAlso(sortingKeyEqExpr, uniqueIdExpr));
+
+                    var whereCallExpression = Expression.Call(
+                                                        typeof(Queryable),
+                                                        "Where",
+                                                        new[] { query.ElementType },
+                                                        query.Expression,
+                                                        Expression.Lambda<Func<TEntity, bool>>(predicateBody, new[] { pe })
+                                                       );
+
+
+                    query = query.Provider.CreateQuery<TEntity>(whereCallExpression);
                 }
             }
 
@@ -581,6 +514,17 @@ namespace BForms.Grid
             return grid;
         }
 
+        public long Count(BsGridBaseRepositorySettings settings)
+        {
+            this.settings = settings;
+
+            var basicQuery = this.Query();
+
+            var totalRecords = basicQuery.Select(x => false).Count();
+
+            return totalRecords;
+        }
+
         /// <summary>
         /// Creates GridModel based on Query, OrderQuery and MapQuery
         /// </summary>
@@ -706,18 +650,6 @@ namespace BForms.Grid
                 //sets pager
                 pager.CurrentPageRecords = result.Items.Count();
                 result.Pager = pager;
-
-                if (settings.DetailsAll || settings.DetailsCount > 0)
-                {
-                    for (var i = 0; i < pager.CurrentPageRecords; i++)
-                    {
-                        if (settings.HasDetails(i))
-                        {
-                            var row = result.Items.ElementAt(i);
-                            this.FillDetails(row);
-                        }
-                    }
-                }
             }
             else
             {
@@ -738,20 +670,32 @@ namespace BForms.Grid
 
             if (settings.GoTo.Value == BsDirectionType.Last)
             {
-                foreach (var orderItem in result.BaseSettings.OrderableColumns)
-                {
-                    if (orderItem.Type == BsOrderType.Descending)
-                    {
-                        orderItem.Type = BsOrderType.Ascending;
-                    }
-                    else if (orderItem.Type == BsOrderType.Ascending)
-                    {
-                        orderItem.Type = BsOrderType.Descending;
-                    }
-                }
+                this.SwitchOrderType(result);
             }
 
+            var orderedPagerQuery = this.OrderAndPaginate(basicQuery, uniqueIdSelector);
 
+            if (settings.GoTo.Value == BsDirectionType.Last)
+            {
+                this.SwitchOrderType(result);
+            }
+
+            var pagedQuery = this.OrderQuery(orderedPagerQuery.Take(pager.PageSize));
+
+            pagedQuery = this.OrderByUniqueId(pagedQuery, uniqueIdSelector);
+
+            finalQuery = this.MapQuery(pagedQuery);
+
+            result.Items = finalQuery.ToList();
+
+            result.Pager = pager;
+
+            result.Pager.CurrentPageRecords = result.Items.Count();
+            result.Pager.TotalRecords = result.Pager.CurrentPageRecords;
+        }
+
+        private IOrderedQueryable<TEntity> OrderAndPaginate<TValue>(IQueryable<TEntity> basicQuery, Expression<Func<TEntity, TValue>> uniqueIdSelector)
+        {
             var orderedQuery = this.OrderQuery(basicQuery, settings);
 
             var intermediateQuery = this.PaginateBy(orderedQuery, uniqueIdSelector, settings);
@@ -781,51 +725,33 @@ namespace BForms.Grid
                 }
             }
 
+            return orderedPagerQuery;
+        }
 
-            if (settings.GoTo.Value == BsDirectionType.Last)
-            {
-                foreach (var orderItem in result.BaseSettings.OrderableColumns)
-                {
-                    if (orderItem.Type == BsOrderType.Descending)
-                    {
-                        orderItem.Type = BsOrderType.Ascending;
-                    }
-                    else if (orderItem.Type == BsOrderType.Ascending)
-                    {
-                        orderItem.Type = BsOrderType.Descending;
-                    }
-                }
-            }
 
-            var pagedQuery = this.OrderQuery(orderedPagerQuery.Take(pager.PageSize));
-
+        private IOrderedQueryable<TEntity> OrderByUniqueId<TValue>(IOrderedQueryable<TEntity> query, Expression<Func<TEntity, TValue>> uniqueIdSelector)
+        {
             if (settings.OrderableColumns.Any(c => c.Type == BsOrderType.Descending))
             {
-                pagedQuery = pagedQuery.ThenByDescending(uniqueIdSelector);
+                return query.ThenByDescending(uniqueIdSelector);
             }
             else
             {
-                pagedQuery = pagedQuery.ThenBy(uniqueIdSelector);
+                return query.ThenBy(uniqueIdSelector);
             }
+        }
 
-            finalQuery = this.MapQuery(pagedQuery);
-
-            result.Items = finalQuery.ToList();
-
-            result.Pager = pager;
-
-            result.Pager.CurrentPageRecords = result.Items.Count();
-            result.Pager.TotalRecords = result.Pager.CurrentPageRecords;
-
-            if (settings.DetailsAll || settings.DetailsCount > 0)
+        private void SwitchOrderType(BsGridModel<TRow> result)
+        {
+            foreach (var orderItem in result.BaseSettings.OrderableColumns)
             {
-                for (var i = 0; i < pager.CurrentPageRecords; i++)
+                if (orderItem.Type == BsOrderType.Descending)
                 {
-                    if (settings.HasDetails(i))
-                    {
-                        var row = result.Items.ElementAt(i);
-                        this.FillDetails(row);
-                    }
+                    orderItem.Type = BsOrderType.Ascending;
+                }
+                else if (orderItem.Type == BsOrderType.Ascending)
+                {
+                    orderItem.Type = BsOrderType.Descending;
                 }
             }
         }
@@ -858,7 +784,19 @@ namespace BForms.Grid
             }
             else
             {
-                this.SetResult(result, basicQuery, settings,uniqueIdSelector);
+                this.SetResult(result, basicQuery, settings, uniqueIdSelector);
+            }
+
+            if (settings.DetailsAll || settings.DetailsCount > 0)
+            {
+                for (var i = 0; i < result.Pager.CurrentPageRecords; i++)
+                {
+                    if (settings.HasDetails(i))
+                    {
+                        var row = result.Items.ElementAt(i);
+                        this.FillDetails(row);
+                    }
+                }
             }
 
             //sets base settings

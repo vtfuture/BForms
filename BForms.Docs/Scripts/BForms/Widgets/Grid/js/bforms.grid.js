@@ -64,7 +64,7 @@
         pagerSelector: '.bs-pager',
         pagerGoTopTitle: '',
         pagerDataPageContainer: 'page',
-        goTopAfterPagination: true,
+        goTopAfterPagination: false,
 
         detailsSelector: '.bs-expand',
         detailsUrl: null,
@@ -166,6 +166,10 @@
         this.$rowsContainer.find(this.options.rowSelector).each($.proxy(function (idx, row) {
             this._initInitialDetails($(row));
         }, this));
+
+        if (this._isNoOffset()) {
+            this._getTotalCount(true);
+        }
     };
 
     Grid.prototype._initDefaultOptions = function () {
@@ -405,9 +409,11 @@
 
         this.refreshModel.fromReset = false;
 
-        if (this.$pager && this.$pager.length && this.$pager.bsPager('noOffset')) {
+        if (this._isNoOffset()) {
             this.refreshModel.GoTo = "First";
+            this._forceGetCount = true;
         }
+
 
         this._getPage();
     };
@@ -446,6 +452,8 @@
         }
 
         var $row = $(row);
+
+        $row.find(this.options.rowSelector).attr('data-new', true);
 
         this._currentResultsCount++;
 
@@ -1075,7 +1083,11 @@
 
         this._resetHeaderCheck();
         this._uncheckAllRows();
-        this._resetOrder();
+
+        if (!this._isNoOffset()) {
+            this._resetOrder();
+        }
+
         this._hideResetGridButton(true);
         this._removeErrors();
 
@@ -1219,6 +1231,8 @@
 
         this._trigger('beforePaginationSuccess', 0, data);
 
+        var oldResultsCount = this._currentResultsCount;
+
         this._currentResultsCount = data.Count || 0;
 
         var $html = $(data.Html),
@@ -1234,6 +1248,7 @@
                 if (callbackData.sent.GoTo == "Prev" || callbackData.sent.GoTo == "Next") {
                     this.$pager.bsPager('blockGoTo', callbackData.sent.GoTo);
                     updatePager = false;
+                    this._currentResultsCount = oldResultsCount;
                 } else {
                     this.$rowsContainer.html($wrapper.find(this.options.noResultsRowSelector));
                     this.$rowsContainer.addClass('no_results');
@@ -1258,7 +1273,28 @@
             this.$pager.bsPager('update', $html.closest('.bs-pages'));
         }
 
-        if (this._currentResultsCount == 0) {
+
+        if (this._isNoOffset()) {
+            var rowsCount = this.$rowsContainer.find(this.options.rowSelector).length;
+
+            if (rowsCount < this.refreshModel.PageSize) {
+                if (callbackData.sent.GoTo == 'Next') {
+                    this.$pager.bsPager('blockGoTo', "Next");
+                    this.$pager.bsPager('blockGoTo', "Last");
+                } else if (callbackData.sent.GoTo == "Prev") {
+                    this.$pager.bsPager('blockGoTo', "Prev");
+                    this.$pager.bsPager('blockGoTo', "First");
+                } else if (callbackData.sent.GoTo == "First") {
+                    this.$pager.bsPager('blockGoTo', "Next");
+                    this.$pager.bsPager('blockGoTo', "Last");
+                    this.$pager.bsPager('blockGoTo', "Prev");
+                    this.$pager.bsPager('blockGoTo', "First");
+                }
+            }
+        }
+
+
+        if (this._currentResultsCount == 0 && updatePager) {
             this.$actionsContainer.hide();
         } else {
             this.$actionsContainer.show();
@@ -1267,10 +1303,6 @@
         this._changeCount();
 
         this._resetHeaderCheck();
-
-        if (callbackData.pageChanged) {
-            $.bforms.scrollToElement(this.$gridHeader);
-        }
 
         var $rows = this.$rowsContainer.find(this.options.rowSelector);
 
@@ -1294,7 +1326,12 @@
 
     Grid.prototype._changeCount = function () {
 
-        this.$gridCountContainer.html(this._currentResultsCount);
+        if (this._isNoOffset()) {
+            this._getTotalCount();
+        } else {
+            this.$gridCountContainer.html(this._currentResultsCount);
+        }
+
     };
 
     Grid.prototype._pagerAjaxError = function (data) {
@@ -1323,7 +1360,7 @@
         var $gridHeader = this.$element.find(this.options.gridRowsHeaderSelector);
 
         if (data.GoTo == "Next" || data.GoTo == "Prev") {
-            var $currentRow = data.GoTo == "Next" ? this.$element.find(this.options.rowSelector + ':last') : this.$element.find(this.options.rowSelector + '[data-objid]:first');
+            var $currentRow = data.GoTo == "Next" ? this.$element.find(this.options.rowSelector + '[data-new!="true"]:last') : this.$element.find(this.options.rowSelector + '[data-objid][data-new!="true"]:first');
 
             if (data.OrderableColumns) {
                 for (var key in data.OrderableColumns) {
@@ -1372,6 +1409,32 @@
             }
         }
     };
+
+    Grid.prototype._getTotalCount = function (force) {
+        if (typeof this.options.countUrl !== "undefined") {
+
+            if (force === true || this._forceGetCount === true) {
+
+                var data = this._serializeRefreshModel();
+
+                $.bforms.ajax({
+                    url: this.options.countUrl,
+                    success: $.proxy(this._onGetTotalCountSuccess, this),
+                    error: $.proxy(this._onGetTotalCountError, this),
+                    data: data
+                });
+            }
+        }
+    };
+    //#endregion
+
+    //#region xhr callbacks
+    Grid.prototype._onGetTotalCountSuccess = function (response) {
+        this.$gridCountContainer.html(response.Count);
+    };
+
+    Grid.prototype._onGetTotalCountError = function (response) {
+    };
     //#endregion
 
     //#region sortable
@@ -1408,6 +1471,7 @@
 
     Grid.prototype._onSortUpdate = function (e, ui) {
         this.refreshModel.OrderColumns = this._getColumnsOrder();
+
         this._getPage();
 
         this.$expandToggle.show();

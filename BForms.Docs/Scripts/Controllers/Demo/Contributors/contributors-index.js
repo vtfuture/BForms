@@ -36,6 +36,7 @@
             $toolbar: this.$toolbar,
             uniqueName: 'usersGrid',
             pagerUrl: this.options.pagerUrl,
+            countUrl: this.options.countUrl,
             afterPaginationSuccess: $.proxy(this.afterPaginationSuccess, this),
             addValidation: function (data, response) {
                 if (data["New.FirstName"] == "Cristi Pufu") return false;
@@ -138,7 +139,7 @@
                 init: $.proxy(this._deleteHandler, this),
                 context: this
             }]
-        });      
+        });
 
     };
 
@@ -158,7 +159,7 @@
             History.pushState({ state: data.ComponentState, parseForm: data.sendData, timestamp: t }, "ContributorsGridState", "?stateId=" + data.ComponentState);
         } else if (data.sendData.fromReset) {
             this.historyTimestamps[t] = t;
-            History.pushState({ state:null, parseForm:null, timestamp: t }, "ContributorsGridState", window.location.pathname);
+            History.pushState({ state: null, parseForm: null, timestamp: t }, "ContributorsGridState", window.location.pathname);
         }
     };
 
@@ -214,7 +215,7 @@
                     }]
             });
 
-        },this));
+        }, this));
 
 
 
@@ -415,11 +416,11 @@
 
         //// Step 3: add control to toolbar
         //this.$toolbar.bsToolbar('controls', [advancedSearch]);
-        
+
         this.$toolbar.on('bstoolbarbeforeorderformsubmit', $.proxy(this.evBeforeOrderFormSubmit, this));
 
     };
-    
+
     GridIndex.prototype.evBeforeOrderFormSubmit = function (e, data) {
 
         event.preventDefault();
