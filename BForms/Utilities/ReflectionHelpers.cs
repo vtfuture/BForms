@@ -12,6 +12,7 @@ using BForms.Models;
 using BForms.Mvc;
 
 using DocumentFormat.OpenXml.EMMA;
+using Newtonsoft.Json;
 
 namespace BForms.Utilities
 {
@@ -420,12 +421,10 @@ namespace BForms.Utilities
         internal static string ToJsonString(this IDictionary<string, object> options)
         {
             var config = new StringBuilder();
-            var serializer = new JavaScriptSerializer();
-
             config.Append("{");
             foreach (var item in options)
             {
-                config.AppendFormat(" \"{0}\": {1}{2} ", item.Key, serializer.Serialize(item.Value), options.Last().Equals(item) ? "" : ",");
+                config.AppendFormat(" \"{0}\": {1}{2} ", item.Key, JsonConvert.SerializeObject(item.Value), options.Last().Equals(item) ? "" : ",");
             }
             config.Append("}");
             return config.ToString();

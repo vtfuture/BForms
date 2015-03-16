@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Script.Serialization;
+using Newtonsoft.Json;
 
 namespace BForms.Utilities
 {
@@ -42,7 +43,7 @@ namespace BForms.Utilities
 
         internal static string Serialize(object o)
         {
-            return new JavaScriptSerializer().Serialize(o);
+            return JsonConvert.SerializeObject(o);
         }
     }
 }

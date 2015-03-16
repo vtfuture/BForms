@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using BForms.Utilities;
+using Newtonsoft.Json;
 
 namespace BForms.Models
 {
@@ -21,12 +22,6 @@ namespace BForms.Models
         {
             if (json == null)
             {
-                var serializer = new JavaScriptSerializer();
-                if (jsonMaxLength.HasValue)
-                {
-                    serializer.MaxJsonLength = jsonMaxLength.Value;
-                }
-
                 object result = new
                     {
                         Data = obj,
@@ -35,7 +30,7 @@ namespace BForms.Models
                         Release = BForms.Utilities.BsConfigurationManager.GetRelease()
                     };
 
-                Json = serializer.Serialize(result);
+                Json = JsonConvert.SerializeObject(result);
             }
             else
             {
