@@ -30,6 +30,15 @@ namespace BForms.Html
         }
 
         /// <summary>
+        /// Returns an input element with placeholder and info tooltip
+        /// </summary>
+        public static MvcHtmlString BsInputFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper,
+            Expression<Func<TModel, TProperty>> expression, BsControlType controlType)
+        {
+            return BsInputFor(htmlHelper, expression, controlType, null, null, null);
+        }
+
+        /// <summary>
         /// Returns an input element based on BsControlType with placeholder and info tooltip
         /// </summary>
         public static MvcHtmlString BsInputFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper,
@@ -44,9 +53,32 @@ namespace BForms.Html
         /// Returns an input element based on BsControlType with placeholder and info tooltip
         /// </summary>
         public static MvcHtmlString BsInputFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper,
+            Expression<Func<TModel, TProperty>> expression, BsControlType controlType, object htmlAttributes)
+        {
+            return BsInputFor(htmlHelper, expression, controlType, null,
+                HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes),
+                null);
+        }
+
+        /// <summary>
+        /// Returns an input element based on BsControlType with placeholder and info tooltip
+        /// </summary>
+        public static MvcHtmlString BsInputFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper,
             Expression<Func<TModel, TProperty>> expression, object htmlAttributes, object dataOptions)
         {
             return BsInputFor(htmlHelper, expression, null,
+                HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes),
+                HtmlHelper.AnonymousObjectToHtmlAttributes(dataOptions));
+        }
+
+
+        /// <summary>
+        /// Returns an input element based on BsControlType with placeholder and info tooltip
+        /// </summary>
+        public static MvcHtmlString BsInputFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper,
+            Expression<Func<TModel, TProperty>> expression, BsControlType controlType, object htmlAttributes, object dataOptions)
+        {
+            return BsInputFor(htmlHelper, expression, controlType, null,
                 HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes),
                 HtmlHelper.AnonymousObjectToHtmlAttributes(dataOptions));
         }
@@ -99,6 +131,31 @@ namespace BForms.Html
             IDictionary<string, object> htmlAttributes,
             IDictionary<string, object> dataOptions)
         {
+            BsControlAttribute bsControl = null;
+            if (ReflectionHelpers.TryGetAttribute(ExpressionHelper.GetExpressionText(expression), typeof(TModel),
+                out bsControl))
+            {
+                if (bsControl.IsReadonly)
+                {
+                    htmlAttributes.MergeAttribute("readonly", "readonly");
+                }
+
+                return htmlHelper.BsInputFor(expression, bsControl.ControlType, format, htmlAttributes, dataOptions);
+            }
+            else
+            {
+                var name = ExpressionHelper.GetExpressionText(expression);
+
+                throw new InvalidOperationException("The " + name + " property is not decorated with a BsControlAttribute");
+            }
+
+        }
+
+        public static MvcHtmlString BsInputFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper,
+           Expression<Func<TModel, TProperty>> expression, BsControlType controlType, string format,
+           IDictionary<string, object> htmlAttributes,
+           IDictionary<string, object> dataOptions)
+        {
             var inputHtml = new MvcHtmlString("");
             var metadata = ModelMetadata.FromLambdaExpression(expression, htmlHelper.ViewData);
             var name = ExpressionHelper.GetExpressionText(expression);
@@ -115,100 +172,86 @@ namespace BForms.Html
             //add html attributes
             htmlAttributes.ApplyBFormsAttributes(metadata, dataOptions);
 
-            //set html5 input type based on BsControlType attribute
-            BsControlAttribute bsControl = null;
-            if (ReflectionHelpers.TryGetAttribute(ExpressionHelper.GetExpressionText(expression), typeof(TModel), out bsControl))
+            htmlAttributes.MergeAttribute("type", controlType.GetHtml5Type(), true);
+            htmlAttributes.MergeAttribute("class", controlType.GetDescription());
+
+            switch (controlType)
             {
-                htmlAttributes.MergeAttribute("type", bsControl.ControlType.GetHtml5Type(), true);
-                htmlAttributes.MergeAttribute("class", bsControl.ControlType.GetDescription());
+                case BsControlType.TextBox:
+                    inputHtml = htmlHelper.TextBoxForInternal(expression, format, htmlAttributes);
+                    break;
+                case BsControlType.TextArea:
+                    inputHtml = htmlHelper.TextAreaForInternal(expression, 2, 20, htmlAttributes);
+                    break;
+                case BsControlType.Password:
+                    inputHtml = htmlHelper.PasswordFor(expression, htmlAttributes);
+                    break;
+                case BsControlType.Url:
+                case BsControlType.Email:
+                case BsControlType.Number:
+                case BsControlType.NumberInline:
+                    var genericArguments = typeof(TProperty).GetGenericArguments();
 
-                if (bsControl.IsReadonly)
-                {
-                    htmlAttributes.MergeAttribute("readonly", "readonly");
-                }
+                    if (genericArguments.Any() && (genericArguments[0] == typeof(int) || genericArguments[0] == typeof(int?)))
+                    {
+                        htmlAttributes.MergeAttribute("class",
+                            controlType == BsControlType.NumberInline
+                                ? "bs-number-single_range_inline"
+                                : "bs-number-single_range");
+                        htmlAttributes.MergeAttribute("type", "text");
 
-                switch (bsControl.ControlType)
-                {
-                    case BsControlType.TextBox:
-                        inputHtml = htmlHelper.TextBoxForInternal(expression, format, htmlAttributes);
-                        break;
-                    case BsControlType.TextArea:
-                        inputHtml = htmlHelper.TextAreaForInternal(expression, 2, 20, htmlAttributes);
-                        break;
-                    case BsControlType.Password:
-                        inputHtml = htmlHelper.PasswordFor(expression, htmlAttributes);
-                        break;
-                    case BsControlType.Url:
-                    case BsControlType.Email:
-                    case BsControlType.Number:
-                    case BsControlType.NumberInline:
-                        var genericArguments = typeof(TProperty).GetGenericArguments();
-
-                        if (genericArguments.Any() && (genericArguments[0] == typeof(int) || genericArguments[0] == typeof(int?)))
+                        if (genericArguments[0] == typeof(int))
                         {
-                            htmlAttributes.MergeAttribute("class",
-                                bsControl.ControlType == BsControlType.NumberInline
-                                    ? "bs-number-single_range_inline"
-                                    : "bs-number-single_range");
-                            htmlAttributes.MergeAttribute("type", "text");
-
-                            if (genericArguments[0] == typeof(int))
-                            {
-                                var numberRange = (Expression<Func<TModel, BsRangeItem<int>>>)(object)expression;
-                                inputHtml = htmlHelper.NumberRangeForInternal(numberRange, htmlAttributes, dataOptions);
-                            }
-                            else
-                            {
-                                var numberRange = (Expression<Func<TModel, BsRangeItem<int?>>>)(object)expression;
-                                inputHtml = htmlHelper.NumberRangeForInternal(numberRange, htmlAttributes, dataOptions);
-                            }
-
+                            var numberRange = (Expression<Func<TModel, BsRangeItem<int>>>)(object)expression;
+                            inputHtml = htmlHelper.NumberRangeForInternal(numberRange, htmlAttributes, dataOptions);
                         }
                         else
                         {
-                            inputHtml = htmlHelper.TextBoxForInternal(expression, format, htmlAttributes);
+                            var numberRange = (Expression<Func<TModel, BsRangeItem<int?>>>)(object)expression;
+                            inputHtml = htmlHelper.NumberRangeForInternal(numberRange, htmlAttributes, dataOptions);
                         }
 
-                        break;
-                    case BsControlType.DatePicker:
-                    case BsControlType.DateTimePicker:
-                    case BsControlType.TimePicker:
-                        if (typeof(TProperty) != typeof(BsDateTime))
-                        {
-                            throw new ArgumentException("The " + name + " property must be of type BsDateTime");
-                        }
-                        var dateExpression = (Expression<Func<TModel, BsDateTime>>)(object)expression;
-                        inputHtml = htmlHelper.DateTimeForInternal(dateExpression, htmlAttributes, dataOptions);
-                        break;
-                    case BsControlType.CheckBox:
-                        if (typeof(TProperty) != typeof(bool))
-                        {
-                            throw new ArgumentException("The " + name + " property must be of type bool");
-                        }
-                        var checkExpression = (Expression<Func<TModel, bool>>)(object)expression;
-                        inputHtml = htmlHelper.CheckBoxForInternal(checkExpression, htmlAttributes);
-                        break;
-                    case BsControlType.RadioButton:
-                        if (typeof(TProperty) != typeof(bool))
-                        {
-                            throw new ArgumentException("The " + name + " property must be of type bool");
-                        }
-                        var radioExpression = (Expression<Func<TModel, bool>>)(object)expression;
-                        inputHtml = htmlHelper.RadioButtonForInternal(radioExpression, htmlAttributes);
-                        break;
-                    case BsControlType.ColorPicker:
+                    }
+                    else
+                    {
                         inputHtml = htmlHelper.TextBoxForInternal(expression, format, htmlAttributes);
-                        break;
-                    case BsControlType.Upload:
-                        inputHtml = htmlHelper.UploadForInternal(expression, format, htmlAttributes);
-                        break;
-                    default:
-                        throw new ArgumentException("The " + name + " property of type " + bsControl.ControlType.GetDescription() + " does not match an input element");
-                }
-            }
-            else
-            {
-                throw new InvalidOperationException("The " + name + " property is not decorated with a BsControlAttribute");
+                    }
+
+                    break;
+                case BsControlType.DatePicker:
+                case BsControlType.DateTimePicker:
+                case BsControlType.TimePicker:
+                    if (typeof(TProperty) != typeof(BsDateTime))
+                    {
+                        throw new ArgumentException("The " + name + " property must be of type BsDateTime");
+                    }
+                    var dateExpression = (Expression<Func<TModel, BsDateTime>>)(object)expression;
+                    inputHtml = htmlHelper.DateTimeForInternal(dateExpression, htmlAttributes, dataOptions);
+                    break;
+                case BsControlType.CheckBox:
+                    if (typeof(TProperty) != typeof(bool))
+                    {
+                        throw new ArgumentException("The " + name + " property must be of type bool");
+                    }
+                    var checkExpression = (Expression<Func<TModel, bool>>)(object)expression;
+                    inputHtml = htmlHelper.CheckBoxForInternal(checkExpression, htmlAttributes);
+                    break;
+                case BsControlType.RadioButton:
+                    if (typeof(TProperty) != typeof(bool))
+                    {
+                        throw new ArgumentException("The " + name + " property must be of type bool");
+                    }
+                    var radioExpression = (Expression<Func<TModel, bool>>)(object)expression;
+                    inputHtml = htmlHelper.RadioButtonForInternal(radioExpression, htmlAttributes);
+                    break;
+                case BsControlType.ColorPicker:
+                    inputHtml = htmlHelper.TextBoxForInternal(expression, format, htmlAttributes);
+                    break;
+                case BsControlType.Upload:
+                    inputHtml = htmlHelper.UploadForInternal(expression, format, htmlAttributes);
+                    break;
+                default:
+                    throw new ArgumentException("The " + name + " property of type " + controlType.GetDescription() + " does not match an input element");
             }
 
             //add info tooltip
