@@ -278,7 +278,9 @@ namespace BForms.Renderers
                     hasDetailsProp = rowType.GetProperty("HasDetails", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
                 }
 
-                for (var rowIndex = 0; rowIndex < this.Builder.Model.Items.Count(); rowIndex++)
+                var currentItemsCount = this.Builder.Model.Items.Count();
+
+                for (var rowIndex = 0; rowIndex < currentItemsCount; rowIndex++)
                 {
                     var row = this.Builder.Model.Items.ElementAt(rowIndex);
 
@@ -378,22 +380,25 @@ namespace BForms.Renderers
                             {
                                 var value = column.Property.GetValue(row);
 
-                                var type = value.GetType();
-
-                                var baseType = type.BaseType;
-
-                                if (baseType.Name == (typeof(BsGridColumnValue).Name))
+                                if (value != null)
                                 {
-                                    var displayValueProp =
-                                        type.GetProperties().FirstOrDefault(p => p.Name == "DisplayValue");
+                                    var type = value.GetType();
 
-                                    var columnDisplayValue = displayValueProp.GetValue(value);
+                                    var baseType = type.BaseType;
 
-                                    text = columnDisplayValue != null ? columnDisplayValue.ToString() : string.Empty;
-                                }
-                                else
-                                {
-                                    text = value != null ? value.ToString() : string.Empty;
+                                    if (baseType.Name == (typeof(BsGridColumnValue).Name))
+                                    {
+                                        var displayValueProp =
+                                            type.GetProperties().FirstOrDefault(p => p.Name == "DisplayValue");
+
+                                        var columnDisplayValue = displayValueProp.GetValue(value);
+
+                                        text = columnDisplayValue != null ? columnDisplayValue.ToString() : string.Empty;
+                                    }
+                                    else
+                                    {
+                                        text = value != null ? value.ToString() : string.Empty;
+                                    }
                                 }
                             }
                         }
@@ -406,7 +411,10 @@ namespace BForms.Renderers
 
                         var title = string.Empty;
 
-                        cellBuilder.MergeAttribute("data-value", itemValue != null ? itemValue.ToString() : string.Empty);
+                        if (rowIndex == 0 || rowIndex == currentItemsCount - 1)
+                        {
+                            cellBuilder.MergeAttribute("data-value", itemValue != null ? itemValue.ToString() : string.Empty);
+                        }
 
                         if (column.CellTitle != null)
                         {
