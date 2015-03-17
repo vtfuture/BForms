@@ -359,7 +359,7 @@ namespace BForms.Renderers
 
                                 var baseType = type.BaseType;
 
-                                if (baseType.Name == (typeof (BsGridColumnValue).Name))
+                                if (baseType.Name == (typeof(BsGridColumnValue).Name))
                                 {
                                     var itemValueProp = type.GetProperties().FirstOrDefault(p => p.Name == "ItemValue");
 
@@ -413,7 +413,10 @@ namespace BForms.Renderers
 
                         if (rowIndex == 0 || rowIndex == currentItemsCount - 1)
                         {
-                            cellBuilder.MergeAttribute("data-value", itemValue != null ? itemValue.ToString() : string.Empty);
+                            if (itemValue != null)
+                            {
+                                cellBuilder.MergeAttribute("data-value", itemValue.ToString());
+                            }
                         }
 
                         if (column.CellTitle != null)

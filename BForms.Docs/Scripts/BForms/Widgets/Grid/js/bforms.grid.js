@@ -1368,8 +1368,7 @@
                         orderItemIndex = $gridHeader.find('[data-name]').index($gridHeader.find('[data-name="' + orderItem.Name + '"]')),
                         orderItemValue = $currentRow.find(this.options.gridCell).eq(orderItemIndex).data('value');
 
-
-                    if (window.isNaN(orderItemValue)) {
+                    if (window.isNaN(orderItemValue) || orderItemValue == '') {
                         orderItem.Value = orderItemValue;
                     } else {
                         orderItem.Value = window.parseInt(orderItemValue);
