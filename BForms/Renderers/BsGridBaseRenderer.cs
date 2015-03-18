@@ -371,6 +371,15 @@ namespace BForms.Renderers
                                 {
                                     itemValue = value;
                                 }
+
+                                //try convert itemValue to binary if itemValue type is DateTime
+
+                                var itemValueType = itemValue.GetType();
+
+                                if (itemValueType == typeof (DateTime))
+                                {
+                                    itemValue = ((DateTime) itemValue).ToBinary();
+                                }
                             }
                         }
 

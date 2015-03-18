@@ -283,10 +283,39 @@ namespace BForms.Grid
         private BsExpressionMembers GetExpressionMembers(Type propertyType, BsColumnOrder orderColumn, ParameterExpression pe)
         {
             Expression left, right;
+            object value;
 
             var parameterSetVisitor = new ParameterReplaceVisitor();
 
-            var value = propertyType.IsEnum ? Enum.Parse(propertyType, orderColumn.Value.ToString()) : Convert.ChangeType(orderColumn.Value, propertyType);
+            var finalType = Nullable.GetUnderlyingType(propertyType) ?? propertyType;
+
+            if (orderColumn.Value != null)
+            {
+                if (finalType == typeof(DateTime))
+                {
+                    long binaryDate;
+                    var succceded = Int64.TryParse(orderColumn.Value.ToString(), out binaryDate);
+
+                    if (succceded)
+                    {
+                        value = DateTime.FromBinary(binaryDate);
+                    }
+                    else
+                    {
+                        value = Convert.ChangeType(orderColumn.Value, finalType);
+                    }
+                }
+                else
+                {
+                    value = propertyType.IsEnum
+                        ? Enum.Parse(propertyType, orderColumn.Value.ToString())
+                        : Convert.ChangeType(orderColumn.Value, finalType);
+                }
+            }
+            else
+            {
+                value = orderColumn.Value;
+            }
 
             var criteria = this.orderedQueryBuilder.GetCriteria(orderColumn.Name);
 
