@@ -1245,8 +1245,11 @@
                 this.element.find(this.options.pagerSelector).show();
                 this.$gridRowsHeader.closest('.row').show();
             } else {
-                if (callbackData.sent.GoTo == "Prev" || callbackData.sent.GoTo == "Next") {
+                if (callbackData.sent.GoTo == 'Prev' || callbackData.sent.GoTo == 'Next') {
+
                     this.$pager.bsPager('blockGoTo', callbackData.sent.GoTo);
+                    this.$pager.bsPager('blockGoTo', callbackData.sent.GoTo == 'Prev' ? 'First' : 'Last');
+
                     updatePager = false;
                     this._currentResultsCount = oldResultsCount;
                 } else {
@@ -1371,7 +1374,7 @@
                     if (window.isNaN(orderItemValue) || orderItemValue == '') {
                         orderItem.Value = orderItemValue;
                     } else {
-                        orderItem.Value = window.parseInt(orderItemValue);
+                        orderItem.Value = orderItemValue;
                     }
 
                 }
