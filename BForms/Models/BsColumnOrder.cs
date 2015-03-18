@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -17,6 +18,8 @@ namespace BForms.Grid
         public string Name { get; set; }
         public BsOrderType Type { get; set; }
         public int Order { get; set; }
+
+        [DisplayFormat(ConvertEmptyStringToNull = false)]
         public object Value { get; set; }
     }
 }
