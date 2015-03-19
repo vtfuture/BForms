@@ -5,26 +5,28 @@
 @model BForms.Docs.Areas.Demo.Models.ContributorProjectRelatedModel
 
 <div class="bs-readonly">
-    <dl>
-        <dt>role</dt>
-        <dd>@Html.GetRoleIcon(Model.Role) @Model.Role.ToString()</dd>
-    </dl>
-    <dl>
-        <dt>contributor since</dt>
-        <dd>@Model.ContributorSince.ToShortDateString()</dd>
-    </dl>
-    @if (Model.Languages != null)
-    {
+    <div class="definition-table">
         <dl>
-            <dt>languages</dt>
-            <dd>@String.Join(", ", Model.Languages.ToArray())</dd>
+            <dt>role</dt>
+            <dd>@Html.GetRoleIcon(Model.Role) @Model.Role.ToString()</dd>
         </dl>
-    }
-    @if (!string.IsNullOrEmpty(Model.Contributions))
-    {
         <dl>
-            <dt>contributions</dt>
-            <dd>@Model.Contributions</dd>
+            <dt>contributor since</dt>
+            <dd>@Model.ContributorSince.ToShortDateString()</dd>
         </dl>
-    }
+        @if (Model.Languages != null)
+        {
+            <dl>
+                <dt>languages</dt>
+                <dd>@String.Join(", ", Model.Languages.ToArray())</dd>
+            </dl>
+        }
+        @if (!string.IsNullOrEmpty(Model.Contributions))
+        {
+            <dl>
+                <dt>contributions</dt>
+                <dd>@Model.Contributions</dd>
+            </dl>
+        }
+    </div>
 </div>

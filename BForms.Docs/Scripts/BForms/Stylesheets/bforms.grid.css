@@ -396,33 +396,36 @@ a.btn {
           font-weight: bold; }
         .grid_container .grid_view .grid_rows_wrapper .grid_row_details .flow .flow_steps-editable .btn_minus {
           margin-top: 22px; }
-      .grid_container .grid_view .grid_rows_wrapper .grid_row_details dl {
-        margin-bottom: 10px;
-        clear: both;
-        overflow: hidden; }
-        .grid_container .grid_view .grid_rows_wrapper .grid_row_details dl dt {
-          float: left;
-          width: 30%;
-          overflow: hidden;
-          clear: left;
-          text-align: right;
-          text-overflow: ellipsis;
-          white-space: nowrap;
-          font-weight: normal;
-          color: #aaa;
-          padding-right: 10px; }
-        .grid_container .grid_view .grid_rows_wrapper .grid_row_details dl dd {
-          margin-left: 30%;
-          word-wrap: break-word; }
-        .grid_container .grid_view .grid_rows_wrapper .grid_row_details dl.to-left dt {
-          max-width: 70%;
-          width: auto;
-          white-space: normal;
-          text-align: left;
-          overflow: visible;
-          text-overflow: clip; }
-        .grid_container .grid_view .grid_rows_wrapper .grid_row_details dl.to-left dd {
-          margin-left: 5px; }
+      .grid_container .grid_view .grid_rows_wrapper .grid_row_details .definition-table {
+        display: table;
+        padding-left: 10px; }
+        .grid_container .grid_view .grid_rows_wrapper .grid_row_details .definition-table dl {
+          display: table-row; }
+          .grid_container .grid_view .grid_rows_wrapper .grid_row_details .definition-table dl dd, .grid_container .grid_view .grid_rows_wrapper .grid_row_details .definition-table dl dt {
+            display: table-cell;
+            width: auto;
+            float: none !important;
+            padding-bottom: 10px; }
+          .grid_container .grid_view .grid_rows_wrapper .grid_row_details .definition-table dl dd {
+            margin-left: 0; }
+            .grid_container .grid_view .grid_rows_wrapper .grid_row_details .definition-table dl dd .definition-table {
+              padding: 0; }
+              .grid_container .grid_view .grid_rows_wrapper .grid_row_details .definition-table dl dd .definition-table dl:last-child dt, .grid_container .grid_view .grid_rows_wrapper .grid_row_details .definition-table dl dd .definition-table dl:last-child dd {
+                padding-bottom: 0; }
+          .grid_container .grid_view .grid_rows_wrapper .grid_row_details .definition-table dl dt {
+            padding-right: 10px;
+            font-weight: normal;
+            color: #aaa; }
+        @media (max-width: 786px) {
+          .grid_container .grid_view .grid_rows_wrapper .grid_row_details .definition-table dl {
+            display: block;
+            margin-bottom: 10px;
+            clear: left; }
+            .grid_container .grid_view .grid_rows_wrapper .grid_row_details .definition-table dl dd, .grid_container .grid_view .grid_rows_wrapper .grid_row_details .definition-table dl dt {
+              display: inline-block;
+              padding-bottom: 3px; }
+            .grid_container .grid_view .grid_rows_wrapper .grid_row_details .definition-table dl dt {
+              float: left !important; } }
       .grid_container .grid_view .grid_rows_wrapper .grid_row_details .profile img {
         max-width: 64px;
         border: 1px solid #e8e8e8; }
