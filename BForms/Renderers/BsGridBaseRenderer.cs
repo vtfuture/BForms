@@ -89,9 +89,16 @@ namespace BForms.Renderers
 
                 if (this.Builder.pagerSettings.NoOffset)
                 {
-                    if (totalRecords >= (this.Builder.Model.Pager != null ? this.Builder.Model.Pager.PageSize : this.Builder.pagerSettings.DefaultPageSize))
+                    if (totalRecords >=
+                        (this.Builder.Model.Pager != null
+                            ? this.Builder.Model.Pager.PageSize
+                            : this.Builder.pagerSettings.DefaultPageSize))
                     {
                         badgeBuilder.InnerHtml += totalRecords + "+";
+                    }
+                    else
+                    {
+                        badgeBuilder.InnerHtml += totalRecords;
                     }
                 }
                 else
