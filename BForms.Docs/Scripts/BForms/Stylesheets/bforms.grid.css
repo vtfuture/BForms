@@ -429,8 +429,6 @@ a.btn {
       .grid_container .grid_view .grid_rows_wrapper .grid_row_details .profile img {
         max-width: 64px;
         border: 1px solid #e8e8e8; }
-      .grid_container .grid_view .grid_rows_wrapper .grid_row_details .profile dl {
-        margin-top: 0; }
       .grid_container .grid_view .grid_rows_wrapper .grid_row_details .profile.large {
         border: 1px solid #e8e8e8;
         padding: 5px;
