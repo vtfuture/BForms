@@ -44,6 +44,11 @@ namespace BForms.Renderers
 
         public void RenderIndexButtons(TagBuilder paginationBuilder)
         {
+            if (this.Builder.pager.TotalRecords == 0)
+            {
+                paginationBuilder.MergeAttribute("style", "display:none");
+            }
+
             #region first page button
             var firstPageBuilder = new TagBuilder("li");
             if (this.Builder.pager.GoTo == BsDirectionType.First)
@@ -232,6 +237,11 @@ namespace BForms.Renderers
                 var pagesBuilder = new TagBuilder("div");
                 pagesBuilder.AddCssClass("col-md-9 col-lg-9 bs-pages");
 
+                if (this.Builder.settings.NoOffset)
+                {
+                    pagesBuilder.AddCssClass("col-sm-9 col-xs-9");
+                }
+
                 #region pagination
 
                 pagesBuilder.InnerHtml += RenderPagination();
@@ -310,6 +320,11 @@ namespace BForms.Renderers
                     var selectWrapperBuilder = new TagBuilder("div");
 
                     selectWrapperBuilder.AddCssClass("col-md-3 col-lg-3 results_per_page");
+
+                    if (this.Builder.settings.NoOffset)
+                    {
+                        selectWrapperBuilder.AddCssClass("col-sm-3 col-xs-3");
+                    }
 
                     if (this.Builder.hidePageSize)
                     {

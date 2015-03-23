@@ -166,10 +166,6 @@
         this.$rowsContainer.find(this.options.rowSelector).each($.proxy(function (idx, row) {
             this._initInitialDetails($(row));
         }, this));
-
-        if (this._isNoOffset()) {
-            this._getTotalCount(true);
-        }
     };
 
     Grid.prototype._initDefaultOptions = function () {
@@ -384,6 +380,10 @@
     //#region public methods
     Grid.prototype.initSearch = function (data) {
         this.refreshModel.Search = data;
+
+        if (this._isNoOffset()) {
+            this._getTotalCount(true);
+        }
     };
 
     Grid.prototype.search = function (data, isQuick) {
@@ -1200,7 +1200,6 @@
         }
 
         this._addAdditionalData(data);
-
         this._trigger('beforePager', 0, data);
 
         //ajax
@@ -1678,6 +1677,7 @@
 
         for (var k in this.refreshModel) {
             if (k in this.refreshModel) {
+
                 var prop = this.refreshModel[k];
 
                 if (prop instanceof Array || typeof (prop) !== 'object') {
