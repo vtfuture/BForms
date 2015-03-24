@@ -99,6 +99,9 @@
                 var files = el.files;
                 if (files != undefined) {
                     var name = el.name;
+                    if (prefix && name) {
+                        name = name.replace(prefix, "");
+                    }
                     if (files.length > 1) {
                         for (var i = 0; i < files.length; i++) {
                             data[name + '[' + i + ']'] = files[i];
