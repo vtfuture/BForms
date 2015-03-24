@@ -992,13 +992,6 @@ a.btn {
 }
 @media (max-width: 959px) {
 	.grid_container {
-		.btn-theme {
-			&:hover, &:focus {
-				background: #fff !important;
-				color: #333333 !important;
-				text-decoration: none;
-			}
-		}
 		.grid_toolbar .grid_toolbar_header .grid_toolbar_controls {
 			.btn {
 				text-align: left;

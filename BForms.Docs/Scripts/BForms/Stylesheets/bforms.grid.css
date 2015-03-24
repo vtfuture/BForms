@@ -679,10 +679,6 @@ a.btn {
   .grid_container .grid_view .reset-grid {
     margin-top: 10px; } }
 @media (max-width: 959px) {
-  .grid_container .btn-theme:hover, .grid_container .btn-theme:focus {
-    background: #fff !important;
-    color: #333333 !important;
-    text-decoration: none; }
   .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .btn {
     text-align: left;
     font-size: 18px; }
