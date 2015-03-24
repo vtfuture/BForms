@@ -133,6 +133,34 @@ define('bforms-namespace', [
             add(prefix, obj);
         }
     };
+
+    Utils.prototype.flattenObject = function (data, to, oldKey) {
+
+        if (oldKey == null) {
+            oldKey = '';
+        }
+
+        if (data instanceof Array) {
+            var i = 0;
+            for (i; i < data.length; i++) {
+                this.flattenObject(data[i], to, oldKey + '[' + i + ']');
+            }
+        }
+        else if (data instanceof Object && !(data instanceof File)) {
+            for (var key in data) {
+                this.flattenObject(data[key], to, oldKey == '' ? key : oldKey + '.' + key);
+            }
+        }
+
+        else {
+            if (to instanceof FormData) {
+                to.append(oldKey, data);
+            } else {
+                to[oldKey] = data;
+            }
+        }
+
+    };
     //#endregion
 
     //#region inherit

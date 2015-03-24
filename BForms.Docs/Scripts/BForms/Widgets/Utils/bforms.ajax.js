@@ -120,17 +120,7 @@
 
     //#region public methods
     AjaxWrapper.prototype.ajax = function (opts, calldata) {
-        var withFiles = false;
-        if (typeof File !== "undefined") {
-            for (var k in opts.data) {
-                if (opts.data.hasOwnProperty(k)) {
-                    if (opts.data[k] instanceof File) {
-                        withFiles = true;
-                        break;
-                    }
-                }
-            }
-        }
+        var withFiles = this._checkForFiles(opts.data);
 
         var xhrSettings = $.extend({}, this.getDefaultOptions(), opts),
             jqXHR = null;
@@ -314,11 +304,7 @@
             data = new FormData(),
             self = this;
 
-        for (var k in opts.data) {
-            if (opts.data.hasOwnProperty(k)) {
-                data.append(k, opts.data[k]);
-            }
-        }
+        $.bforms.flattenObject(opts.data, data);
 
         opts.contentType = '';
 
@@ -348,7 +334,7 @@
                         if (response.Status == self._statusEnum.Success || response.Status == self._statusEnum.ValidationError) {
                             deferredXHR.resolve(response.Status, [response.Data, opts.callbackData]);
                         } else {
-                            deferredXHR.reject(response.Status, [response.Data , xhrRequest, xhrRequest.statusText, null, opts.callbackData]);
+                            deferredXHR.reject(response.Status, [response.Data, xhrRequest, xhrRequest.statusText, null, opts.callbackData]);
                         }
                     } catch (ex) {
                         window.console.log(ex.stack);
@@ -406,6 +392,21 @@
 
     };
 
+    AjaxWrapper.prototype._checkForFiles = function (data) {
+        if (typeof File !== "undefined") {
+            if (data instanceof File) {
+                return true;
+            }
+            else if (data instanceof Array || data instanceof Object) {
+                for (var key in data) {
+                    var hasFiles = this._checkForFiles(data[key]);
+                    if (hasFiles) return true;
+                }
+            }
+        } else {
+            return false;
+        }
+    };
     //#endregion
 
     $.extend(true, $.bforms, new AjaxWrapper());
