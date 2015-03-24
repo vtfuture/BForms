@@ -315,9 +315,6 @@
             deferredXHR.notifyWith(e, opts.callbackData);
         }, this));
 
-
-        xhrRequest.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-
         xhrRequest.onreadystatechange = $.proxy(function (e) {
             var stackedXhr = this._xhrStack[xhrRequest.name];
 
@@ -350,6 +347,7 @@
         }, this);
 
         xhrRequest.open('POST', opts.url, true);
+        xhrRequest.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
         xhrRequest.send(data);
 
         this._xhrStack[opts.name] = {
