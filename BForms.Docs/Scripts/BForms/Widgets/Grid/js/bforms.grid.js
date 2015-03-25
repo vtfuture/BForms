@@ -1338,9 +1338,11 @@
 
                         if (this._currentResultsCount >= this.refreshModel.PageSize) {
 
-                            this.$gridCountContainer.html(this._currentResultsCount + '+');
+                            if (this._forceGetCount) {
+                                this.$gridCountContainer.html(this._currentResultsCount + '+');
 
-                            this._getTotalCount();
+                                this._getTotalCount();
+                            }
 
                         } else {
                             this.$gridCountContainer.html(this._currentResultsCount);
