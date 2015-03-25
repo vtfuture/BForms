@@ -29,7 +29,7 @@ namespace BForms.Renderers
                 paginationBuilder.AddCssClass("pagination-md");
             }
 
-            if (this.Builder.settings.NoOffset)
+            if (this.Builder.settings.NoOffset || this.Builder.pager.GoTo != null)
             {
                 this.RenderIndexButtons(paginationBuilder);
             }
@@ -237,7 +237,7 @@ namespace BForms.Renderers
                 var pagesBuilder = new TagBuilder("div");
                 pagesBuilder.AddCssClass("col-md-9 col-lg-9 bs-pages");
 
-                if (this.Builder.settings.NoOffset)
+                if (this.Builder.settings.NoOffset || this.Builder.pager.GoTo != null)
                 {
                     pagesBuilder.AddCssClass("col-sm-9 col-xs-9");
                 }
@@ -250,7 +250,7 @@ namespace BForms.Renderers
 
                 #region text
 
-                if (this.Builder.settings.HasPagesText && this.Builder.settings.NoOffset != true)
+                if (this.Builder.settings.HasPagesText && !(this.Builder.settings.NoOffset || this.Builder.pager.GoTo != null))
                 {
                     var textBuilder = new TagBuilder("div");
                     textBuilder.MergeAttribute("class", "results_number");
@@ -304,7 +304,7 @@ namespace BForms.Renderers
                 pagerWrapper.AddCssClass("row bs-pager");
                 pagerWrapper.AddCssClass(this.Builder.Theme.GetDescription());
 
-                if (this.Builder.settings.NoOffset)
+                if (this.Builder.settings.NoOffset || this.Builder.pager.GoTo != null)
                 {
                     pagerWrapper.MergeAttribute("data-nooffset", "true");
                 }
@@ -321,7 +321,7 @@ namespace BForms.Renderers
 
                     selectWrapperBuilder.AddCssClass("col-md-3 col-lg-3 results_per_page");
 
-                    if (this.Builder.settings.NoOffset)
+                    if (this.Builder.settings.NoOffset || this.Builder.pager.GoTo != null)
                     {
                         selectWrapperBuilder.AddCssClass("col-sm-3 col-xs-3");
                     }

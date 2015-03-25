@@ -1329,7 +1329,34 @@
     Grid.prototype._changeCount = function () {
 
         if (this._isNoOffset()) {
-            this._getTotalCount();
+
+            if (this._currentResultsCount > 0) {
+
+                if (!window.isNaN(this._currentResultsCount)) {
+
+                    if (this.refreshModel.PageSize != null) {
+
+                        if (this._currentResultsCount >= this.refreshModel.PageSize) {
+
+                            this.$gridCountContainer.html(this._currentResultsCount + '+');
+
+                            this._getTotalCount();
+
+                        } else {
+                            this.$gridCountContainer.html(this._currentResultsCount);
+
+                        }
+                    } else {
+                        this._getTotalCount();
+                    }
+
+                } else {
+                    this._getTotalCount();
+                }
+            } else if (this._currentResultsCount == 0) {
+                this.$gridCountContainer.html(this._currentResultsCount);
+            }
+
         } else {
             this.$gridCountContainer.html(this._currentResultsCount);
         }

@@ -12,7 +12,7 @@ namespace BForms.Models
         private int currentPage;
         private int totalPages;
         private int totalRecords;
-        private BsDirectionType _goTo;
+        private BsDirectionType? _goTo;
 
         public int CurrentPage
         {
@@ -50,7 +50,7 @@ namespace BForms.Models
 
         public int CurrentPageRecords { get; set; }
 
-        public BsDirectionType GoTo
+        public BsDirectionType? GoTo
         {
             get { return this._goTo; }
             set { this._goTo = value; }

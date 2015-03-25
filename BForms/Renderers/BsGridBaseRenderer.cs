@@ -87,7 +87,7 @@ namespace BForms.Renderers
                 var badgeBuilder = new TagBuilder("span");
                 badgeBuilder.AddCssClass("badge");
 
-                if (this.Builder.pagerSettings.NoOffset)
+                if (this.Builder.pagerSettings.NoOffset || (this.Builder.pagerBuilder != null && this.Builder.pagerBuilder.pager != null && this.Builder.pagerBuilder.pager.GoTo.HasValue))
                 {
                     if (totalRecords >=
                         (this.Builder.Model.Pager != null
