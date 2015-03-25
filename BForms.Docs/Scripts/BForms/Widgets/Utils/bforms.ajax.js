@@ -59,6 +59,10 @@
         for (var key in XHRData) {
             if (XHRData.hasOwnProperty(key)) {
 
+                if (XHRData[key] instanceof $) {
+                    throw "Cannot send jQuery objects via ajax";
+                }
+
                 if (typeof XHRData[key] === 'number') {
                     XHRData[key] += '';
                 } else {
@@ -395,6 +399,11 @@
 
     AjaxWrapper.prototype._checkForFiles = function (data) {
         if (typeof File !== "undefined") {
+
+            if (data instanceof $) {
+                throw "Cannot send jQuery objects via ajax";
+            }
+
             if (data instanceof File) {
                 return true;
             }
