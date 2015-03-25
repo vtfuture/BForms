@@ -304,7 +304,9 @@ namespace BForms.Renderers
                 pagerWrapper.AddCssClass("row bs-pager");
                 pagerWrapper.AddCssClass(this.Builder.Theme.GetDescription());
 
-                if (this.Builder.settings.NoOffset || this.Builder.pager.GoTo != null)
+                var bsPagerModel = this.Builder.pager;
+
+                if (bsPagerModel != null && (this.Builder.settings.NoOffset || bsPagerModel.GoTo != null))
                 {
                     pagerWrapper.MergeAttribute("data-nooffset", "true");
                 }
@@ -321,7 +323,7 @@ namespace BForms.Renderers
 
                     selectWrapperBuilder.AddCssClass("col-md-3 col-lg-3 results_per_page");
 
-                    if (this.Builder.settings.NoOffset || this.Builder.pager.GoTo != null)
+                    if (bsPagerModel != null && (this.Builder.settings.NoOffset || bsPagerModel.GoTo != null))
                     {
                         selectWrapperBuilder.AddCssClass("col-sm-3 col-xs-3");
                     }
@@ -331,7 +333,7 @@ namespace BForms.Renderers
                         selectWrapperBuilder.AddCssClass("hidden-md hidden-sm hidden-xs");
                     }
 
-                    TagBuilder divBuilder = new TagBuilder("div");
+                    var divBuilder = new TagBuilder("div");
                     divBuilder.AddCssClass("pull-right");
 
                     #region right side
