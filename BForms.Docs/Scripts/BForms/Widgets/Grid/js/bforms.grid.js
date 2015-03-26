@@ -457,6 +457,7 @@
 
         this._currentResultsCount++;
 
+        this._forceSetCount = true;
         this._changeCount();
 
         this.$pager.bsPager('add');
@@ -1232,7 +1233,9 @@
 
         var oldResultsCount = this._currentResultsCount;
 
-        this._currentResultsCount = data.Count || 0;
+        if (!this._isNoOffset() || this._forceGetCount || data.Count == 0) {
+            this._currentResultsCount = data.Count || 0;
+        }
 
         var $html = $(data.Html),
             $wrapper = $('<div></div>').append($html);
@@ -1342,11 +1345,16 @@
                                 this.$gridCountContainer.html(this._currentResultsCount + '+');
 
                                 this._getTotalCount();
+                            } else if (this._forceSetCount === true) {
+                                this.$gridCountContainer.html(this._currentResultsCount);
+                                this._forceSetCount = false;
                             }
 
-                        } else {
-                            this.$gridCountContainer.html(this._currentResultsCount);
 
+                        } else {
+                            if (this._forceGetCount) {
+                                this.$gridCountContainer.html(this._currentResultsCount);
+                            }
                         }
                     } else {
                         this._getTotalCount();
@@ -1447,6 +1455,8 @@
 
                 var data = this._serializeRefreshModel();
 
+                this._forceGetCount = false;
+
                 $.bforms.ajax({
                     url: this.options.countUrl,
                     success: $.proxy(this._onGetTotalCountSuccess, this),
@@ -1460,6 +1470,7 @@
 
     //#region xhr callbacks
     Grid.prototype._onGetTotalCountSuccess = function (response) {
+        this._currentResultsCount = response.Count;
         this.$gridCountContainer.html(response.Count);
     };
 

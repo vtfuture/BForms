@@ -49,9 +49,11 @@ namespace BForms.Renderers
                 paginationBuilder.MergeAttribute("style", "display:none");
             }
 
+            var disableAll = this.Builder.pager.TotalRecords < this.Builder.pager.PageSize && this.Builder.pager.GoTo.Value == BsDirectionType.First;
+
             #region first page button
             var firstPageBuilder = new TagBuilder("li");
-            if (this.Builder.pager.GoTo == BsDirectionType.First)
+            if (this.Builder.pager.GoTo == BsDirectionType.First || disableAll)
             {
                 firstPageBuilder.MergeAttribute("class", "disabled");
             }
@@ -67,7 +69,7 @@ namespace BForms.Renderers
 
             #region prev page button
             var prevPageBuilder = new TagBuilder("li");
-            if (this.Builder.pager.GoTo == BsDirectionType.First)
+            if (this.Builder.pager.GoTo == BsDirectionType.First || disableAll)
             {
                 prevPageBuilder.MergeAttribute("class", "disabled");
             }
@@ -84,7 +86,7 @@ namespace BForms.Renderers
 
             #region next page button
             var nextPageBuilder = new TagBuilder("li");
-            if (this.Builder.pager.GoTo == BsDirectionType.Last)
+            if (this.Builder.pager.GoTo == BsDirectionType.Last || disableAll)
             {
                 nextPageBuilder.MergeAttribute("class", "disabled");
             }
@@ -100,7 +102,7 @@ namespace BForms.Renderers
 
             #region last page button
             var lastPageBuilder = new TagBuilder("li");
-            if (this.Builder.pager.GoTo == BsDirectionType.Last)
+            if (this.Builder.pager.GoTo == BsDirectionType.Last || disableAll)
             {
                 lastPageBuilder.MergeAttribute("class", "disabled");
             }
