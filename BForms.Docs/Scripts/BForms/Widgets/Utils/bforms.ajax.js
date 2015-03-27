@@ -345,7 +345,8 @@
                     }
                 }
 
-
+                stackedXhr.finished = true;
+                
                 self._toggleLoading(opts.name, false);
             }
         }, this);
