@@ -241,7 +241,7 @@ namespace BForms.Renderers
 
                 if (this.Builder.settings.NoOffset || this.Builder.pager.GoTo != null)
                 {
-                    pagesBuilder.AddCssClass("col-sm-9 col-xs-9");
+                    pagesBuilder.AddCssClass("col-sm-8 col-xs-8");
                 }
 
                 #region pagination
@@ -327,7 +327,7 @@ namespace BForms.Renderers
 
                     if (bsPagerModel != null && (this.Builder.settings.NoOffset || bsPagerModel.GoTo != null))
                     {
-                        selectWrapperBuilder.AddCssClass("col-sm-3 col-xs-3");
+                        selectWrapperBuilder.AddCssClass("col-sm-4 col-xs-4");
                     }
 
                     if (this.Builder.hidePageSize)

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using BForms.Utilities;
 
 namespace BForms.Grid
 {
@@ -36,16 +37,13 @@ namespace BForms.Grid
         {
             get
             {
-                List<int> list = this._pageSizeValues;
+                var list = this._pageSizeValues;
+
                 if (list == null)
-                    list = new List<int>()
-          {
-            5,
-            10,
-            50,
-            100,
-            500
-          };
+                {
+                    list = BsDefaultsManagers.GetPageSizeValues();
+                }
+
                 return list;
             }
             set

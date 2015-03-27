@@ -74,9 +74,11 @@
         if (this.options.instant) {
             if (!isEnterKeyPressed) {
                 window.clearTimeout(this.quickSearchTimeout);
-                this.quickSearchTimeout = window.setTimeout($.proxy(function () {
+                this.quickSearchTimeout = window.setTimeout($.proxy(function() {
                     this._search(val);
                 }, this), this.options.timeout);
+            } else {
+                this._search(val);
             }
         } else if (isEnterKeyPressed) {
             this._search(val);

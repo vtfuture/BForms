@@ -25,6 +25,11 @@ namespace BForms.Docs
             ModelValidatorProviders.Providers.Add(new BsModelValidatorProvider());
 
             BForms.Utilities.BsResourceManager.Register(Resources.Resource.ResourceManager);
+
+            //Utilities.BsDefaultsManagers.PageSizeValues(new List<int>
+            //{
+            //    5,10,50
+            //});
             //BForms.Utilities.BsUIManager.Theme(BsTheme.Black);
 
 #if !DEBUG
