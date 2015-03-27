@@ -91,7 +91,8 @@ mark, .mark {
   .media .media-body {
     overflow: hidden;
     display: block;
-    zoom: 1; }
+    zoom: 1;
+    width: auto; }
 
 /* Avatar view */
 .avatar_view {

@@ -1,6 +1,7 @@
 .group_editor {
   margin-bottom: 20px;
   display: table;
+  table-layout: fixed;
   border-collapse: collapse;
   width: 100%;
   position: relative; }
