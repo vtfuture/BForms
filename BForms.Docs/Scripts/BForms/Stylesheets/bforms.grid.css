@@ -141,6 +141,17 @@ a.btn {
           border: none;
           -webkit-box-shadow: none;
           box-shadow: none; }
+        .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .form-group {
+          position: relative; }
+        .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .glyphicon.bs-remove {
+          position: absolute;
+          right: 0;
+          top: 0;
+          height: 34px;
+          font-size: 14px;
+          cursor: pointer;
+          color: #ccc;
+          padding: 10px; }
         .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .caret {
           margin-left: 10px; }
         .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .dropdown-menu {

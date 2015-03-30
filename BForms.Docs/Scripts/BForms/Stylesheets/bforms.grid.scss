@@ -180,10 +180,23 @@ a.btn {
 					}
 				}
 				.form-control  {
-					border: none;
+					border: none;					
 					-webkit-box-shadow: none;
 					box-shadow: none;
-				}				
+				}
+				.form-group {
+					position: relative;
+				}
+				.glyphicon.bs-remove {
+					position: absolute;
+					right: 0;
+					top: 0;
+					height: 34px;
+					font-size: 14px;
+					cursor: pointer;
+					color: #ccc;
+					padding: 10px;
+				}					
 			    
 				.caret {						
 					margin-left: 10px;
