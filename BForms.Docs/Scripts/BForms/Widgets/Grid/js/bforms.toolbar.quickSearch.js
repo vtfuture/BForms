@@ -29,7 +29,9 @@
         // wheather the search is triggered while you type or on enter
         instant: true,
         // search timeout interval if it is set to instant
-        timeout: 250
+        timeout: 250,
+
+        removeBtn: '.bs-remove'
     };
 
     // plugin init
@@ -46,6 +48,8 @@
 
         this.$toolbar.find(this.options.selector).parents('form:first').on('submit',
                     function (e) { e.preventDefault(); });
+
+        this.$toolbar.on('click', this.options.removeBtn, $.proxy(this._onRemoveBtnClick, this));
     };
 
     // event handler
@@ -74,7 +78,7 @@
         if (this.options.instant) {
             if (!isEnterKeyPressed) {
                 window.clearTimeout(this.quickSearchTimeout);
-                this.quickSearchTimeout = window.setTimeout($.proxy(function() {
+                this.quickSearchTimeout = window.setTimeout($.proxy(function () {
                     this._search(val);
                 }, this), this.options.timeout);
             } else {
@@ -86,8 +90,22 @@
 
     };
 
+    QuickSearch.prototype._onRemoveBtnClick = function (e) {
+        e.preventDefault();
+
+        this.$toolbar.find(this.options.selector + ' .bs-text').val('');
+
+        this._search('');
+    };
+
     // search trigger
     QuickSearch.prototype._search = function (quickSearch) {
+
+        if (quickSearch != '') {
+            this.$toolbar.find(this.options.removeBtn).show();
+        } else {
+            this.$toolbar.find(this.options.removeBtn).hide();
+        }
 
         this.widget._trigger('beforeQuickSearch', 0, {
             quickSearch: quickSearch
@@ -102,6 +120,12 @@
             quickSearch: quickSearch
         });
 
+    };
+
+    QuickSearch.prototype.reset = function () {
+        this.$toolbar.find(this.options.selector + ' .bs-text').val('');
+
+        this.$toolbar.find(this.options.removeBtn).hide();
     };
 
     // export module

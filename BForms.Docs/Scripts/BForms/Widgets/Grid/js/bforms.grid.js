@@ -438,6 +438,10 @@
     Grid.prototype.refresh = function (e, data) {
         //this.refreshModel.Page = 1;
         this._getPage();
+
+        if (this._isNoOffset()) {
+            this._getTotalCount(true);
+        }
     };
 
     Grid.prototype.add = function (row, data, response) {

@@ -133,8 +133,9 @@
         }
 
         // reset quick search if any
-        if (quickSearch != null) {
-            quickSearch.$element.find('input').val('');
+        if (quickSearch != null && typeof quickSearch.reset === "function") {
+            quickSearch.reset();
+            //quickSearch.$element.find('input').val('');
         }
 
         // reset advanced search if any
