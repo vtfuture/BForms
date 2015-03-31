@@ -18,6 +18,10 @@ namespace BForms.Renderers
         {
         }
 
+        /// <summary>
+        /// Used for the default pager rendering
+        /// </summary>
+        /// <returns></returns>
         public string RenderPagination()
         {
             var paginationBuilder = new TagBuilder("ul");
@@ -42,18 +46,22 @@ namespace BForms.Renderers
             return paginationBuilder.ToString();
         }
 
+        /// <summary>
+        /// Used for no offset pagination
+        /// </summary>
+        /// <param name="paginationBuilder"></param>
         public void RenderIndexButtons(TagBuilder paginationBuilder)
         {
-            if (this.Builder.pager.TotalRecords == 0)
+            var hideAll = this.Builder.pager.TotalRecords < this.Builder.pager.PageSize && this.Builder.pager.GoTo.Value == BsDirectionType.First;
+
+            if (hideAll)
             {
                 paginationBuilder.MergeAttribute("style", "display:none");
             }
 
-            var disableAll = this.Builder.pager.TotalRecords < this.Builder.pager.PageSize && this.Builder.pager.GoTo.Value == BsDirectionType.First;
-
             #region first page button
             var firstPageBuilder = new TagBuilder("li");
-            if (this.Builder.pager.GoTo == BsDirectionType.First || disableAll)
+            if (this.Builder.pager.GoTo == BsDirectionType.First)
             {
                 firstPageBuilder.MergeAttribute("class", "disabled");
             }
@@ -69,7 +77,7 @@ namespace BForms.Renderers
 
             #region prev page button
             var prevPageBuilder = new TagBuilder("li");
-            if (this.Builder.pager.GoTo == BsDirectionType.First || disableAll)
+            if (this.Builder.pager.GoTo == BsDirectionType.First)
             {
                 prevPageBuilder.MergeAttribute("class", "disabled");
             }
@@ -86,7 +94,7 @@ namespace BForms.Renderers
 
             #region next page button
             var nextPageBuilder = new TagBuilder("li");
-            if (this.Builder.pager.GoTo == BsDirectionType.Last || disableAll)
+            if (this.Builder.pager.GoTo == BsDirectionType.Last)
             {
                 nextPageBuilder.MergeAttribute("class", "disabled");
             }
@@ -102,7 +110,7 @@ namespace BForms.Renderers
 
             #region last page button
             var lastPageBuilder = new TagBuilder("li");
-            if (this.Builder.pager.GoTo == BsDirectionType.Last || disableAll)
+            if (this.Builder.pager.GoTo == BsDirectionType.Last)
             {
                 lastPageBuilder.MergeAttribute("class", "disabled");
             }
