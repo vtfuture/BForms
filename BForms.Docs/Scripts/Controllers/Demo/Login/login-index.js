@@ -44,17 +44,18 @@
             $.bforms.ajax({
                 url: this.options.registerUrl,
                 data: registerData,
-            }).then($.proxy(function (response, status, jqXHR) {
-                if (response.Status == 2) {//validation error
-                    validatedForm.showErrors(response.Data.Errors, true);
-                } else {
+                success: $.proxy(function() {
+                    $target.removeProp('disabled');
+                }, this),
+                validationError: function(response) {
 
+                    if (response != null && response.Errors != null) {
+
+                        validatedForm.showErrors(response.Errors, true);
+                    }
+
+                    $target.removeProp('disabled');
                 }
-
-                $target.removeProp('disabled');
-
-            }, this), function () {
-                $target.removeProp('disabled');
             });
         }
     };

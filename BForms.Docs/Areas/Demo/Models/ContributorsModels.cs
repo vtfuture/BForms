@@ -271,7 +271,7 @@ namespace BForms.Docs.Areas.Demo.Models
         [BsGridColumn(Width = 3, MediumWidth = 3)]
         public BsGridColumnValue<string, string> Contributions { get; set; }
 
-        [BsGridColumn(Width = 1, MediumWidth = 1)]
+        [BsGridColumn(Width = 1, MediumWidth = 1, Usage = BsGridColumnUsage.Html)]
         public string Action { get; set; }
 
         [BsGridColumn(Width = 1, Usage = BsGridColumnUsage.Excel)]

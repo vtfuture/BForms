@@ -382,14 +382,17 @@ namespace BForms.Docs.Areas.Demo.Controllers
                         .ConfigureColumns(columns =>
                         {
                             columns.For(x => x.Name)
+                                   .Text(x=>x.Name.DisplayValue)
                                    .Order(1);
                             columns.For(x => x.Enabled)
                                    .Text(x => x.Enabled ? Resource.Yes : Resource.No)
                                    .Style((row, style) => style.FillColor = row.Enabled ? BsGridExcelColor.LightGreen : BsGridExcelColor.Red);
                             columns.For(x => x.Role)
                                    .Order(2)
-                                   .Text(x => x.Role.ToString())
+                                   .Text(x => x.Role.DisplayValue.ToString())
                                    .Style(style => style.FillColor = BsGridExcelColor.Lavender);
+                            columns.For(x => x.Contributions)
+                                   .Text(x => x.Contributions.DisplayValue);
                             columns.For(x => x.StartDate)
                                    .Text(x => x.StartDate.ToMonthNameDate())
                                    .Style(style => style.Font.Italic = true);

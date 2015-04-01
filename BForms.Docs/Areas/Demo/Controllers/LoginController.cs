@@ -44,6 +44,12 @@ namespace BForms.Docs.Areas.Demo.Controllers
             return View(model);
         }
 
+        [HttpGet]
+        public ActionResult Register()
+        {
+            return RedirectToAction("Index", "Login", new {mode = "register"});
+        }
+
         [HttpPost]
         public ActionResult Index(AuthenticationModel model, string mode)
         {
