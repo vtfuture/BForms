@@ -32,6 +32,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
 
         #region Ajax
 
+        [HttpPost]
         public BsJsonResult GetReadonlyContent(PanelComponentsEnum componentId)
         {
             var html = string.Empty;
@@ -71,6 +72,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
             }, status, msg);
         }
 
+        [HttpPost]
         public BsJsonResult GetEditableContent(PanelComponentsEnum componentId)
         {
             var html = string.Empty;
@@ -92,6 +94,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
             });
         }
 
+        [HttpPost]
         public BsJsonResult SetContent(UserProfileEditableModel model, PanelComponentsEnum componentId)
         {
 
@@ -185,6 +188,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
             },status,msg);
         }
 
+        [HttpPost]
         public BsJsonResult UploadAvatar()
         {
             var status = BsResponseStatus.Success;
@@ -215,6 +219,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
             }, status, msg);
         }
 
+        [HttpPost]
         public BsJsonResult DeleteAvatar()
         {
             var status = BsResponseStatus.Success;
@@ -236,8 +241,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
                 AvatarUrl = Url.Action("GetAvatar")
             }, status, msg);
         }
-
-
+        
         public ActionResult GetAvatar()
         {
             if (Session["Avatar"] != null)

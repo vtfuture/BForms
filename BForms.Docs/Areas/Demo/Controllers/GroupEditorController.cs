@@ -162,6 +162,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
         #endregion
 
         #region Ajax
+        [HttpPost]
         public BsJsonResult GetTab(BsEditorRepositorySettings<ContributorType> settings)
         {
             var msg = string.Empty;
@@ -186,6 +187,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
             }, status, msg);
         }
 
+        [HttpPost]
         public BsJsonResult Save(GroupEditorModel model)
         {
             var errorMessage = "This is how a server error is displayed in group editor";
@@ -196,6 +198,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
             },BsResponseStatus.ValidationError, "Server error");
         }
 
+        [HttpPost]
         public BsJsonResult Search(ContributorSearchModel model, ContributorType tabId)
         {
             var settings = new BsEditorRepositorySettings<ContributorType>
@@ -215,6 +218,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
             });
         }
 
+        [HttpPost]
         public BsJsonResult New(ContributorNewModel model, ContributorType tabId)
         {
             var status = BsResponseStatus.Success;

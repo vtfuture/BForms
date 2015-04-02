@@ -42,7 +42,7 @@
             }],
             onTabItemAdd: function (e, response) {},
             buildDragHelper: function (model, tabId, connectsWith) {
-                return $('<div class="col-lg-6 col-md-6 bs-itemContent" style="z-index:999"><span>' + model.Name + '</span></div>');
+                return $('<div class="col-lg-6 col-md-6 bs-itemContent" style="z-index:999"><span>' + model.Name.DisplayValue + '</span></div>');
             },
             buildGroupItem: $.proxy(function (model, group, tabId, objId) {
                 var view = this.renderer['js-groupItem'](model);

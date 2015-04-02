@@ -91,6 +91,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
         #endregion
 
         #region Ajax
+        [HttpPost]
         public BsJsonResult Pager(BsGridRepositorySettings<ContributorSearchModel> settings)
         {
             var msg = string.Empty;
@@ -132,6 +133,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
             }, status, msg);
         }
 
+        [HttpPost]
         public BsJsonResult Count(BsGridRepositorySettings<ContributorSearchModel> settings)
         {
             var count = _gridRepository.Count(settings);
@@ -142,6 +144,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
             });
         }
 
+        [HttpPost]
         public BsJsonResult New(BsToolbarModel<ContributorSearchModel, ContributorNewModel> model)
         {
             var msg = string.Empty;
@@ -177,6 +180,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
             }, status, msg);
         }
 
+        [HttpPost]
         public BsJsonResult GetEditable(int objId, EditComponents componentId)
         {
             var html = string.Empty;
@@ -198,6 +202,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
             });
         }
 
+        [HttpPost]
         public BsJsonResult Update(ContributorDetailsEditable model, int objId, EditComponents componentId)
         {
             var msg = string.Empty;
@@ -249,6 +254,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
             }, status, msg);
         }
 
+        [HttpPost]
         public BsJsonResult Reorder(List<ContributorOrderModel> model)
         {
             var status = BsResponseStatus.Success;
@@ -269,6 +275,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
             return new BsJsonResult(null, status, msg);
         }
 
+        [HttpPost]
         public BsJsonResult GetRows(List<BsGridRowData<int>> items, int? stateId)
         {
             var msg = string.Empty;
@@ -291,6 +298,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
             }, status, msg);
         }
 
+        [HttpPost]
         public BsJsonResult Delete(List<BsGridRowData<int>> items)
         {
             var msg = string.Empty;
@@ -318,6 +326,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
             return new BsJsonResult(null, status, msg);
         }
 
+        [HttpPost]
         public BsJsonResult EnableDisable(List<BsGridRowData<int>> items, bool? enable, int? stateId)
         {
             var msg = string.Empty;
@@ -351,6 +360,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
             }, status, msg);
         }
 
+        [HttpPost]
         public ActionResult ExportExcel(BsGridRepositorySettings<ContributorSearchModel> settings, List<BsGridRowData<int>> items)
         {
             var rows = _gridRepository.GetItems(settings, items.Select(x => x.Id).ToList());
