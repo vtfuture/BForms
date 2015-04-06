@@ -154,8 +154,500 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\BForms.Docs\Scripts\BForms\**\*.*">
-      <Link>Scripts\BForms\%(RecursiveDir)%(FileName)%(Extension)</Link>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Bundles\css\stylesheets.css">
+      <Link>Scripts\BForms\Bundles\css\stylesheets.css</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Bundles\fonts\glyphicons-halflings-regular.eot">
+      <Link>Scripts\BForms\Bundles\fonts\glyphicons-halflings-regular.eot</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Bundles\fonts\glyphicons-halflings-regular.svg">
+      <Link>Scripts\BForms\Bundles\fonts\glyphicons-halflings-regular.svg</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Bundles\fonts\glyphicons-halflings-regular.ttf">
+      <Link>Scripts\BForms\Bundles\fonts\glyphicons-halflings-regular.ttf</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Bundles\fonts\glyphicons-halflings-regular.woff">
+      <Link>Scripts\BForms\Bundles\fonts\glyphicons-halflings-regular.woff</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Bundles\images\bg-user.png">
+      <Link>Scripts\BForms\Bundles\images\bg-user.png</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Bundles\images\edit-pencil.gif">
+      <Link>Scripts\BForms\Bundles\images\edit-pencil.gif</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Bundles\images\grippy.png">
+      <Link>Scripts\BForms\Bundles\images\grippy.png</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Bundles\images\icn-arr-down.png">
+      <Link>Scripts\BForms\Bundles\images\icn-arr-down.png</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Bundles\images\icn-arr-left.png">
+      <Link>Scripts\BForms\Bundles\images\icn-arr-left.png</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Bundles\images\icn-arr-right.png">
+      <Link>Scripts\BForms\Bundles\images\icn-arr-right.png</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Bundles\images\icn-arr-up.png">
+      <Link>Scripts\BForms\Bundles\images\icn-arr-up.png</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Bundles\images\icn-calendar.png">
+      <Link>Scripts\BForms\Bundles\images\icn-calendar.png</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Bundles\images\icn-down_arrow-small.png">
+      <Link>Scripts\BForms\Bundles\images\icn-down_arrow-small.png</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Bundles\images\icn-grippy.png">
+      <Link>Scripts\BForms\Bundles\images\icn-grippy.png</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Bundles\images\icn-order_down.png">
+      <Link>Scripts\BForms\Bundles\images\icn-order_down.png</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Bundles\images\icn-order_up.png">
+      <Link>Scripts\BForms\Bundles\images\icn-order_up.png</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Bundles\images\icn-remove.png">
+      <Link>Scripts\BForms\Bundles\images\icn-remove.png</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Bundles\images\icn-right_arrow-small.png">
+      <Link>Scripts\BForms\Bundles\images\icn-right_arrow-small.png</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Bundles\images\icn-time.png">
+      <Link>Scripts\BForms\Bundles\images\icn-time.png</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Bundles\images\preloader-small.gif">
+      <Link>Scripts\BForms\Bundles\images\preloader-small.gif</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Bundles\images\preloader.gif">
+      <Link>Scripts\BForms\Bundles\images\preloader.gif</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Bundles\images\preloader_16x16.gif">
+      <Link>Scripts\BForms\Bundles\images\preloader_16x16.gif</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Bundles\images\select2-spinner.gif">
+      <Link>Scripts\BForms\Bundles\images\select2-spinner.gif</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Bundles\images\select2.png">
+      <Link>Scripts\BForms\Bundles\images\select2.png</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Bundles\images\select2x2.png">
+      <Link>Scripts\BForms\Bundles\images\select2x2.png</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Bundles\js\components.js">
+      <Link>Scripts\BForms\Bundles\js\components.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Bundles\js\iefix.js">
+      <Link>Scripts\BForms\Bundles\js\iefix.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Bundles\js\plugins.js">
+      <Link>Scripts\BForms\Bundles\js\plugins.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Bundles\js\widgets.js">
+      <Link>Scripts\BForms\Bundles\js\widgets.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Components\Amplify\amplify.js">
+      <Link>Scripts\BForms\Components\Amplify\amplify.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Components\Bootstrap\css\bootstrap.css">
+      <Link>Scripts\BForms\Components\Bootstrap\css\bootstrap.css</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Components\Bootstrap\fonts\glyphicons-halflings-regular.eot">
+      <Link>Scripts\BForms\Components\Bootstrap\fonts\glyphicons-halflings-regular.eot</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Components\Bootstrap\fonts\glyphicons-halflings-regular.svg">
+      <Link>Scripts\BForms\Components\Bootstrap\fonts\glyphicons-halflings-regular.svg</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Components\Bootstrap\fonts\glyphicons-halflings-regular.ttf">
+      <Link>Scripts\BForms\Components\Bootstrap\fonts\glyphicons-halflings-regular.ttf</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Components\Bootstrap\fonts\glyphicons-halflings-regular.woff">
+      <Link>Scripts\BForms\Components\Bootstrap\fonts\glyphicons-halflings-regular.woff</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Components\Bootstrap\fonts\glyphicons-halflings-regular.woff2">
+      <Link>Scripts\BForms\Components\Bootstrap\fonts\glyphicons-halflings-regular.woff2</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Components\Bootstrap\js\bootstrap.js">
+      <Link>Scripts\BForms\Components\Bootstrap\js\bootstrap.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Components\ErrorTell\errorTell.js">
+      <Link>Scripts\BForms\Components\ErrorTell\errorTell.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Components\FileUpload\jquery.fileupload-process.js">
+      <Link>Scripts\BForms\Components\FileUpload\jquery.fileupload-process.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Components\FileUpload\jquery.fileupload-validate.js">
+      <Link>Scripts\BForms\Components\FileUpload\jquery.fileupload-validate.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Components\FileUpload\jquery.fileupload.js">
+      <Link>Scripts\BForms\Components\FileUpload\jquery.fileupload.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Components\FileUpload\jquery.iframe-transport.js">
+      <Link>Scripts\BForms\Components\FileUpload\jquery.iframe-transport.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Components\Gremlins\gremlins.min.js">
+      <Link>Scripts\BForms\Components\Gremlins\gremlins.min.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Components\HistoryJS\jquery.history.js">
+      <Link>Scripts\BForms\Components\HistoryJS\jquery.history.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Components\Html5shiv\html5shiv.js">
+      <Link>Scripts\BForms\Components\Html5shiv\html5shiv.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Components\ICanHaz\ICanHaz.js">
+      <Link>Scripts\BForms\Components\ICanHaz\ICanHaz.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Components\ICanHaz\singleton-ich.js">
+      <Link>Scripts\BForms\Components\ICanHaz\singleton-ich.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Components\jQuery-ui\jquery-ui.core.js">
+      <Link>Scripts\BForms\Components\jQuery-ui\jquery-ui.core.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Components\jQuery\jquery-migrate.js">
+      <Link>Scripts\BForms\Components\jQuery\jquery-migrate.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Components\jQuery\jquery.js">
+      <Link>Scripts\BForms\Components\jQuery\jquery.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Components\Load-Image\load-image-meta.js">
+      <Link>Scripts\BForms\Components\Load-Image\load-image-meta.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Components\Load-Image\load-image.js">
+      <Link>Scripts\BForms\Components\Load-Image\load-image.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Components\NestedSortable\jquery.mjs.nestedSortable.js">
+      <Link>Scripts\BForms\Components\NestedSortable\jquery.mjs.nestedSortable.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Components\PlaceholderShim\jquery.html5-placeholder-shim.js">
+      <Link>Scripts\BForms\Components\PlaceholderShim\jquery.html5-placeholder-shim.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Components\RequireJS\depend.js">
+      <Link>Scripts\BForms\Components\RequireJS\depend.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Components\RequireJS\i18n.js">
+      <Link>Scripts\BForms\Components\RequireJS\i18n.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Components\RequireJS\require.js">
+      <Link>Scripts\BForms\Components\RequireJS\require.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Components\RequireJS\text.js">
+      <Link>Scripts\BForms\Components\RequireJS\text.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Components\Respond\respond.js">
+      <Link>Scripts\BForms\Components\Respond\respond.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Components\SelectorSet\jquery.selector-set.js">
+      <Link>Scripts\BForms\Components\SelectorSet\jquery.selector-set.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Components\SelectorSet\selector-set.js">
+      <Link>Scripts\BForms\Components\SelectorSet\selector-set.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Images\bg-user.png">
+      <Link>Scripts\BForms\Images\bg-user.png</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Images\chosen-sprite.png">
+      <Link>Scripts\BForms\Images\chosen-sprite.png</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Images\icn-down_arrow-small.png">
+      <Link>Scripts\BForms\Images\icn-down_arrow-small.png</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Images\icn-grippy.png">
+      <Link>Scripts\BForms\Images\icn-grippy.png</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Images\icn-order_down.png">
+      <Link>Scripts\BForms\Images\icn-order_down.png</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Images\icn-order_up.png">
+      <Link>Scripts\BForms\Images\icn-order_up.png</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Images\icn-right_arrow-small.png">
+      <Link>Scripts\BForms\Images\icn-right_arrow-small.png</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Images\preloader-small.gif">
+      <Link>Scripts\BForms\Images\preloader-small.gif</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Images\preloader.gif">
+      <Link>Scripts\BForms\Images\preloader.gif</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Plugins\.sass-cache\0037aa9bbdcd629e73a80b8c2317c1afbc6d0903\bforms.rangepicker.scssc">
+      <Link>Scripts\BForms\Plugins\.sass-cache\0037aa9bbdcd629e73a80b8c2317c1afbc6d0903\bforms.rangepicker.scssc</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Plugins\.sass-cache\526c328ec55c27f37b1e5e58fec3398033798d47\bforms.datepicker.scssc">
+      <Link>Scripts\BForms\Plugins\.sass-cache\526c328ec55c27f37b1e5e58fec3398033798d47\bforms.datepicker.scssc</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Plugins\Alerts\bforms.alert.js">
+      <Link>Scripts\BForms\Plugins\Alerts\bforms.alert.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Plugins\BsUpload\bforms.upload.js">
+      <Link>Scripts\BForms\Plugins\BsUpload\bforms.upload.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Plugins\ButtonGroupDropdown\bforms.buttongroupdropdown.js">
+      <Link>Scripts\BForms\Plugins\ButtonGroupDropdown\bforms.buttongroupdropdown.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Plugins\CheckBoxList\bforms.checklist.js">
+      <Link>Scripts\BForms\Plugins\CheckBoxList\bforms.checklist.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Plugins\Datepicker\css\.sass-cache\526c328ec55c27f37b1e5e58fec3398033798d47\bforms.datepicker.scssc">
+      <Link>Scripts\BForms\Plugins\Datepicker\css\.sass-cache\526c328ec55c27f37b1e5e58fec3398033798d47\bforms.datepicker.scssc</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Plugins\Datepicker\css\bforms.datepicker.css">
+      <Link>Scripts\BForms\Plugins\Datepicker\css\bforms.datepicker.css</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Plugins\Datepicker\css\bforms.datepicker.css.map">
+      <Link>Scripts\BForms\Plugins\Datepicker\css\bforms.datepicker.css.map</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Plugins\Datepicker\css\bforms.datepicker.scss">
+      <Link>Scripts\BForms\Plugins\Datepicker\css\bforms.datepicker.scss</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Plugins\Datepicker\images\icn-arr-down.png">
+      <Link>Scripts\BForms\Plugins\Datepicker\images\icn-arr-down.png</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Plugins\Datepicker\images\icn-arr-left.png">
+      <Link>Scripts\BForms\Plugins\Datepicker\images\icn-arr-left.png</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Plugins\Datepicker\images\icn-arr-right.png">
+      <Link>Scripts\BForms\Plugins\Datepicker\images\icn-arr-right.png</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Plugins\Datepicker\images\icn-arr-up.png">
+      <Link>Scripts\BForms\Plugins\Datepicker\images\icn-arr-up.png</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Plugins\Datepicker\images\icn-calendar.png">
+      <Link>Scripts\BForms\Plugins\Datepicker\images\icn-calendar.png</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Plugins\Datepicker\images\icn-remove.png">
+      <Link>Scripts\BForms\Plugins\Datepicker\images\icn-remove.png</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Plugins\Datepicker\images\icn-time.png">
+      <Link>Scripts\BForms\Plugins\Datepicker\images\icn-time.png</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Plugins\Datepicker\js\bforms.datepicker.js">
+      <Link>Scripts\BForms\Plugins\Datepicker\js\bforms.datepicker.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Plugins\Datepicker\js\bforms.datepicker.range.js">
+      <Link>Scripts\BForms\Plugins\Datepicker\js\bforms.datepicker.range.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Plugins\Datepicker\js\bforms.datepicker.tmpl.js">
+      <Link>Scripts\BForms\Plugins\Datepicker\js\bforms.datepicker.tmpl.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Plugins\Datepicker\js\i18n\lang.bundle.js">
+      <Link>Scripts\BForms\Plugins\Datepicker\js\i18n\lang.bundle.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Plugins\Datepicker\js\lib\moment.isocalendar.js">
+      <Link>Scripts\BForms\Plugins\Datepicker\js\lib\moment.isocalendar.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Plugins\Datepicker\js\lib\moment.js">
+      <Link>Scripts\BForms\Plugins\Datepicker\js\lib\moment.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Plugins\MixedButtonGroup\bforms.mixedButtonGroup.js">
+      <Link>Scripts\BForms\Plugins\MixedButtonGroup\bforms.mixedButtonGroup.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Plugins\NavScroll\bforms.navScroll.js">
+      <Link>Scripts\BForms\Plugins\NavScroll\bforms.navScroll.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Plugins\RadioButtonList\bforms.radiolist.js">
+      <Link>Scripts\BForms\Plugins\RadioButtonList\bforms.radiolist.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Plugins\Rangepicker\css\bforms.rangepicker.css">
+      <Link>Scripts\BForms\Plugins\Rangepicker\css\bforms.rangepicker.css</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Plugins\Rangepicker\css\bforms.rangepicker.min.css">
+      <Link>Scripts\BForms\Plugins\Rangepicker\css\bforms.rangepicker.min.css</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Plugins\Rangepicker\css\bforms.rangepicker.scss">
+      <Link>Scripts\BForms\Plugins\Rangepicker\css\bforms.rangepicker.scss</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Plugins\Rangepicker\images\icn-arr-down.png">
+      <Link>Scripts\BForms\Plugins\Rangepicker\images\icn-arr-down.png</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Plugins\Rangepicker\images\icn-arr-up.png">
+      <Link>Scripts\BForms\Plugins\Rangepicker\images\icn-arr-up.png</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Plugins\Rangepicker\images\icn-remove.png">
+      <Link>Scripts\BForms\Plugins\Rangepicker\images\icn-remove.png</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Plugins\Rangepicker\js\bforms.rangepicker.js">
+      <Link>Scripts\BForms\Plugins\Rangepicker\js\bforms.rangepicker.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Plugins\Select2\css\select2.css">
+      <Link>Scripts\BForms\Plugins\Select2\css\select2.css</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Plugins\Select2\images\select2-spinner.gif">
+      <Link>Scripts\BForms\Plugins\Select2\images\select2-spinner.gif</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Plugins\Select2\images\select2.png">
+      <Link>Scripts\BForms\Plugins\Select2\images\select2.png</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Plugins\Select2\images\select2x2.png">
+      <Link>Scripts\BForms\Plugins\Select2\images\select2x2.png</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Plugins\Select2\js\bforms.select2.js">
+      <Link>Scripts\BForms\Plugins\Select2\js\bforms.select2.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Plugins\Select2\js\i18n\select2-ro.js">
+      <Link>Scripts\BForms\Plugins\Select2\js\i18n\select2-ro.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Plugins\Select2\js\select2.js">
+      <Link>Scripts\BForms\Plugins\Select2\js\select2.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Plugins\Typeahead\bforms.typeahead.js">
+      <Link>Scripts\BForms\Plugins\Typeahead\bforms.typeahead.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Plugins\Typeahead\typeahead.js">
+      <Link>Scripts\BForms\Plugins\Typeahead\typeahead.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Plugins\UI\bforms.extensions.js">
+      <Link>Scripts\BForms\Plugins\UI\bforms.extensions.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Plugins\UI\bforms.initUI.js">
+      <Link>Scripts\BForms\Plugins\UI\bforms.initUI.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Plugins\UI\bforms.resetInput.js">
+      <Link>Scripts\BForms\Plugins\UI\bforms.resetInput.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Plugins\Validation\bforms.validate.js">
+      <Link>Scripts\BForms\Plugins\Validation\bforms.validate.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Plugins\Validation\bforms.validate.unobtrusive.js">
+      <Link>Scripts\BForms\Plugins\Validation\bforms.validate.unobtrusive.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Plugins\Validation\i18n\bforms.validate-ro.js">
+      <Link>Scripts\BForms\Plugins\Validation\i18n\bforms.validate-ro.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\RequireJS.json">
+      <Link>Scripts\BForms\RequireJS.json</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\RequireJS.Release.json">
+      <Link>Scripts\BForms\RequireJS.Release.json</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Stylesheets\.sass-cache\22856e17210e83f7f9603dc9b7d7f8af92349971\bforms.controlpanel.scssc">
+      <Link>Scripts\BForms\Stylesheets\.sass-cache\22856e17210e83f7f9603dc9b7d7f8af92349971\bforms.controlpanel.scssc</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Stylesheets\.sass-cache\22856e17210e83f7f9603dc9b7d7f8af92349971\bforms.core.scssc">
+      <Link>Scripts\BForms\Stylesheets\.sass-cache\22856e17210e83f7f9603dc9b7d7f8af92349971\bforms.core.scssc</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Stylesheets\.sass-cache\22856e17210e83f7f9603dc9b7d7f8af92349971\bforms.formbuilder.scssc">
+      <Link>Scripts\BForms\Stylesheets\.sass-cache\22856e17210e83f7f9603dc9b7d7f8af92349971\bforms.formbuilder.scssc</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Stylesheets\.sass-cache\22856e17210e83f7f9603dc9b7d7f8af92349971\bforms.grid.scssc">
+      <Link>Scripts\BForms\Stylesheets\.sass-cache\22856e17210e83f7f9603dc9b7d7f8af92349971\bforms.grid.scssc</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Stylesheets\.sass-cache\22856e17210e83f7f9603dc9b7d7f8af92349971\bforms.groupeditor.scssc">
+      <Link>Scripts\BForms\Stylesheets\.sass-cache\22856e17210e83f7f9603dc9b7d7f8af92349971\bforms.groupeditor.scssc</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Stylesheets\.sass-cache\22856e17210e83f7f9603dc9b7d7f8af92349971\bforms.helpers.scssc">
+      <Link>Scripts\BForms\Stylesheets\.sass-cache\22856e17210e83f7f9603dc9b7d7f8af92349971\bforms.helpers.scssc</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Stylesheets\.sass-cache\22856e17210e83f7f9603dc9b7d7f8af92349971\bforms.pager.scssc">
+      <Link>Scripts\BForms\Stylesheets\.sass-cache\22856e17210e83f7f9603dc9b7d7f8af92349971\bforms.pager.scssc</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Stylesheets\.sass-cache\22856e17210e83f7f9603dc9b7d7f8af92349971\bootstrap-forms.scssc">
+      <Link>Scripts\BForms\Stylesheets\.sass-cache\22856e17210e83f7f9603dc9b7d7f8af92349971\bootstrap-forms.scssc</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Stylesheets\bforms.core.css">
+      <Link>Scripts\BForms\Stylesheets\bforms.core.css</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Stylesheets\bforms.core.css.map">
+      <Link>Scripts\BForms\Stylesheets\bforms.core.css.map</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Stylesheets\bforms.core.scss">
+      <Link>Scripts\BForms\Stylesheets\bforms.core.scss</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Stylesheets\bforms.formbuilder.css">
+      <Link>Scripts\BForms\Stylesheets\bforms.formbuilder.css</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Stylesheets\bforms.formbuilder.scss">
+      <Link>Scripts\BForms\Stylesheets\bforms.formbuilder.scss</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Stylesheets\bforms.grid.css">
+      <Link>Scripts\BForms\Stylesheets\bforms.grid.css</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Stylesheets\bforms.grid.css.map">
+      <Link>Scripts\BForms\Stylesheets\bforms.grid.css.map</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Stylesheets\bforms.grid.scss">
+      <Link>Scripts\BForms\Stylesheets\bforms.grid.scss</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Stylesheets\bforms.groupeditor.css">
+      <Link>Scripts\BForms\Stylesheets\bforms.groupeditor.css</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Stylesheets\bforms.groupeditor.css.map">
+      <Link>Scripts\BForms\Stylesheets\bforms.groupeditor.css.map</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Stylesheets\bforms.groupeditor.scss">
+      <Link>Scripts\BForms\Stylesheets\bforms.groupeditor.scss</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Stylesheets\bforms.pager.css">
+      <Link>Scripts\BForms\Stylesheets\bforms.pager.css</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Stylesheets\bforms.pager.scss">
+      <Link>Scripts\BForms\Stylesheets\bforms.pager.scss</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Widgets\ControlPanel\bforms.controlPanel.js">
+      <Link>Scripts\BForms\Widgets\ControlPanel\bforms.controlPanel.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Widgets\FileUpload\bforms.fileUpload.js">
+      <Link>Scripts\BForms\Widgets\FileUpload\bforms.fileUpload.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Widgets\FormBuilder\bforms.formBuilder.formRenderer.js">
+      <Link>Scripts\BForms\Widgets\FormBuilder\bforms.formBuilder.formRenderer.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Widgets\FormBuilder\bforms.formBuilder.js">
+      <Link>Scripts\BForms\Widgets\FormBuilder\bforms.formBuilder.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Widgets\FormBuilder\bforms.formBuilder.models.js">
+      <Link>Scripts\BForms\Widgets\FormBuilder\bforms.formBuilder.models.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Widgets\FormBuilder\bforms.formBuilder.templates.js">
+      <Link>Scripts\BForms\Widgets\FormBuilder\bforms.formBuilder.templates.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Widgets\Grid\js\bforms.editable.js">
+      <Link>Scripts\BForms\Widgets\Grid\js\bforms.editable.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Widgets\Grid\js\bforms.form.js">
+      <Link>Scripts\BForms\Widgets\Grid\js\bforms.form.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Widgets\Grid\js\bforms.grid.js">
+      <Link>Scripts\BForms\Widgets\Grid\js\bforms.grid.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Widgets\Grid\js\bforms.pager.js">
+      <Link>Scripts\BForms\Widgets\Grid\js\bforms.pager.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Widgets\Grid\js\bforms.toolbar.add.js">
+      <Link>Scripts\BForms\Widgets\Grid\js\bforms.toolbar.add.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Widgets\Grid\js\bforms.toolbar.advancedSearch.js">
+      <Link>Scripts\BForms\Widgets\Grid\js\bforms.toolbar.advancedSearch.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Widgets\Grid\js\bforms.toolbar.js">
+      <Link>Scripts\BForms\Widgets\Grid\js\bforms.toolbar.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Widgets\Grid\js\bforms.toolbar.order.js">
+      <Link>Scripts\BForms\Widgets\Grid\js\bforms.toolbar.order.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Widgets\Grid\js\bforms.toolbar.quickSearch.js">
+      <Link>Scripts\BForms\Widgets\Grid\js\bforms.toolbar.quickSearch.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Widgets\GroupEditor\bforms.groupEditor.js">
+      <Link>Scripts\BForms\Widgets\GroupEditor\bforms.groupEditor.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Widgets\InlineQuestion\bforms.inlineQuestion.js">
+      <Link>Scripts\BForms\Widgets\InlineQuestion\bforms.inlineQuestion.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Widgets\Panel\bforms.panel.js">
+      <Link>Scripts\BForms\Widgets\Panel\bforms.panel.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Widgets\Sortable\bforms.sortable.js">
+      <Link>Scripts\BForms\Widgets\Sortable\bforms.sortable.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Widgets\Taglist\bforms.taglist.js">
+      <Link>Scripts\BForms\Widgets\Taglist\bforms.taglist.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Widgets\Utils\bforms.ajax.js">
+      <Link>Scripts\BForms\Widgets\Utils\bforms.ajax.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Widgets\Utils\bforms.namespace.js">
+      <Link>Scripts\BForms\Widgets\Utils\bforms.namespace.js</Link>
+    </Content>
+    <Content Include="..\BForms.Docs\Scripts\BForms\Widgets\Utils\bforms.themeSelect.js">
+      <Link>Scripts\BForms\Widgets\Utils\bforms.themeSelect.js</Link>
     </Content>
   </ItemGroup>
   <ItemGroup>
