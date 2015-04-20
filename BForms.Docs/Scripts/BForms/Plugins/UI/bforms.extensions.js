@@ -168,7 +168,7 @@
         //#region select2
         $(this).find('select' + ':not(' + ignore + ')').each(function () {
             var thisObj = $(this);
-            if (thisObj.data('initialvalue')) {
+            if (typeof thisObj.data('initialvalue') !== 'undefined') {
                 if (thisObj.data('select2') != null) {
                     thisObj.select2('val', thisObj.data('initialvalue'));
                 } else {
