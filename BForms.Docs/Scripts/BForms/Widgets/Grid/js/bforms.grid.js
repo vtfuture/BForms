@@ -430,6 +430,10 @@
             this.refreshModel.GoTo = "First";
         }
 
+        if (this._isNoOffset()) {
+            this._forceGetCount = true;
+        }
+
         if (preventPagination !== true) {
             this._getPage();
         }
