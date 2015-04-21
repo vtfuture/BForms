@@ -670,7 +670,7 @@ a.btn {
 
 @media (max-width: 756px) {
   .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls {
-    float: none;
+    float: none !important;
     margin-top: 0; }
     .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .dropdown-menu {
       background: #fff; }
@@ -691,8 +691,7 @@ a.btn {
     margin-top: 10px; } }
 @media (max-width: 959px) {
   .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .btn {
-    text-align: left;
-    font-size: 18px; }
+    text-align: left; }
   .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .input-group {
     width: 100%;
     padding: 6px 3px; }

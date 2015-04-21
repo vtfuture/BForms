@@ -968,7 +968,7 @@ a.btn {
 
 	.grid_container .grid_toolbar .grid_toolbar_header {
 		.grid_toolbar_controls {
-			float: none;
+			float: none !important;
 			margin-top: 0;
 			.dropdown-menu {
 				background: #fff;
@@ -1008,7 +1008,6 @@ a.btn {
 		.grid_toolbar .grid_toolbar_header .grid_toolbar_controls {
 			.btn {
 				text-align: left;
-				font-size: 18px;
 			}
 			.input-group {
 				width: 100%;
