@@ -124,7 +124,7 @@
 
                             if (data.Items) {
 
-                                more = (page * options.pageSize) < data.Count;
+                                more = (page * data.PageSize) < data.Count;
 
                                 for (var i = 0; i < data.Items.length; i++) {
                                     var item = data.Items[i];

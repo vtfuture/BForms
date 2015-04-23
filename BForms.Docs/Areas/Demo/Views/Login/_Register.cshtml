@@ -98,8 +98,7 @@
         <div class="input-group">
             @Html.BsSelectFor(m => m.CountriesList, null, new 
                             { 
-                                url = Url.Action("GetCountriesPaged", "Login", new { area = "Demo" }),
-                                pageSize = 10 
+                                url = Url.Action("GetCountriesPaged", "Login", new { area = "Demo" })
                             })
             @Html.BsValidationFor(m => m.CountriesList)
         </div>

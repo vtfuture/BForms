@@ -178,15 +178,17 @@ namespace BForms.Docs.Areas.Demo.Controllers
             var pageSize = 10;
             var ddlWithSelected = Lists.AllCounties<string>();
 
-            var items = ddlWithSelected.Items
-                .Where(x => x.Text.ToLower().Contains(search.ToLower()))
-                .Skip((page - 1) * pageSize)
+            var q = ddlWithSelected.Items
+                .Where(x => x.Text.ToLower().Contains(search.ToLower()));
+
+            var items = q.Skip((page - 1) * pageSize)
                 .Take(pageSize)
                 .ToList();
 
             return new BsJsonResult(new
             {
-                Count = ddlWithSelected.Items.Count(),
+                PageSize = pageSize,
+                Count = q.Count(),
                 Items = items
             });
         }
