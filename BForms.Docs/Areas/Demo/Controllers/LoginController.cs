@@ -120,8 +120,18 @@ namespace BForms.Docs.Areas.Demo.Controllers
             var enumWithSelected = BsSelectList<NotificationType?>.FromEnum(typeof(NotificationType));
             enumWithSelected.SelectedValues = NotificationType.Monthly;
 
-            var ddlWithSelected = Lists.AllCounties<string>();
-            ddlWithSelected.SelectedValues = "ROU";
+            var countries = Lists.AllCounties<string>();
+            var ddlInitialValue = countries.Items.Where(x => x.Value == "ROU").FirstOrDefault();
+            ddlInitialValue.Selected = true;
+
+            var ddlWithSelected = new BsSelectList<string>()
+            {
+                Items = new List<BsSelectListItem>
+                {
+                    ddlInitialValue
+                },
+                SelectedValues = "ROU"
+            };
 
             var ideListWithSelected = Lists.AllIde<string>();
             ideListWithSelected.SelectedValues = "Visual Studio";
@@ -161,6 +171,24 @@ namespace BForms.Docs.Areas.Demo.Controllers
                 JavascriptMvcFramework = javascriptMvcFrameworkWithSelected,
                 WebBrowsers = webBrowsers
             };
+        }
+
+        public BsJsonResult GetCountriesPaged(int page, string search)
+        {
+            var pageSize = 10;
+            var ddlWithSelected = Lists.AllCounties<string>();
+
+            var items = ddlWithSelected.Items
+                .Where(x => x.Text.ToLower().Contains(search.ToLower()))
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+            return new BsJsonResult(new
+            {
+                Count = ddlWithSelected.Items.Count(),
+                Items = items
+            });
         }
     }
 }

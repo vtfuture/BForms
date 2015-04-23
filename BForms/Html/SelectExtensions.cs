@@ -14,6 +14,7 @@ using BForms.Mvc;
 using BForms.Utilities;
 using DocumentFormat.OpenXml.Office.CustomUI;
 using DocumentFormat.OpenXml.Office2010.Drawing.ChartDrawing;
+using Newtonsoft.Json;
 
 namespace BForms.Html
 {
@@ -92,7 +93,7 @@ namespace BForms.Html
             var allowMultiple = false;
 
             //copy from BsSelectList.SelectedValues to SelectListItem.Selected
-            if (selectList.SelectedValues != null && selectList.Items != null && selectList.Items.Any())
+            if (selectList != null && selectList.SelectedValues != null && selectList.Items != null && selectList.Items.Any())
             {
                 var selectedValuesStr = new List<string>();
                 var bsKeyType = typeof(TKey);
@@ -169,6 +170,11 @@ namespace BForms.Html
                     case BsControlType.Autocomplete:
                         allowMultiple = false;
                         htmlSelect = BsSelectInternal(htmlHelper, name, selectList,
+                        optionLabel, htmlAttributes, allowMultiple, bsCssClass, metadata).ToHtmlString();
+                        break;
+                    case BsControlType.DropDownListRemote:
+                        allowMultiple = false;
+                        htmlSelect = BsHiddenInternal(htmlHelper, name, selectList,
                         optionLabel, htmlAttributes, allowMultiple, bsCssClass, metadata).ToHtmlString();
                         break;
                     case BsControlType.ButtonGroupDropdown:
@@ -460,6 +466,56 @@ namespace BForms.Html
             divTag.MergeAttribute("style", "display:none");
 
             return MvcHtmlString.Create(divTag.ToString() + buttonGroupContainer.ToString());
+        }
+
+        private static MvcHtmlString BsHiddenInternal<TKey>(this HtmlHelper htmlHelper, string name,
+            BsSelectList<TKey> selectList, string optionLabel,
+            IDictionary<string, object> htmlAttributes, bool allowMultiple, string bsCssClass, ModelMetadata metadata = null)
+        {
+
+            name += ".SelectedValues";
+
+            var fullName = htmlHelper.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name);
+
+            if (String.IsNullOrEmpty(fullName))
+            {
+                throw new ArgumentException("Null Or Empty", "name");
+            }
+
+            var tagBuilder = new TagBuilder("input");
+            tagBuilder.MergeAttribute("type", "hidden");
+            tagBuilder.MergeAttributes(htmlAttributes);
+            tagBuilder.MergeAttribute("class", bsCssClass);
+            tagBuilder.MergeAttribute("name", fullName, true);
+            tagBuilder.MergeAttribute("placeholder", optionLabel);
+            tagBuilder.GenerateId(fullName);
+
+            if (selectList != null)
+            {
+                if (selectList.Items != null)
+                {
+                    var selectedItem = selectList.Items.Where(x => x.Selected).FirstOrDefault();
+
+                    if (selectedItem != null)
+                    {
+                        tagBuilder.MergeAttribute("data-init", JsonConvert.SerializeObject(selectedItem));
+                    }
+                }
+
+                if (selectList.SelectedValues != null)
+                {
+                    tagBuilder.MergeAttribute("value", selectList.SelectedValues.ToString());
+                }
+            }
+
+            if (allowMultiple)
+            {
+                tagBuilder.MergeAttribute("multiple", "multiple");
+            }
+
+            tagBuilder.BsSelectListValidation(htmlHelper, fullName, metadata);
+
+            return MvcHtmlString.Create(tagBuilder.ToString());
         }
 
         private static MvcHtmlString BsTagListInternal<TKey>(this HtmlHelper htmlHelper, string name,

@@ -96,7 +96,11 @@
     <div class="col-sm-6 col-md-6 col-lg-6 form-group">
         @Html.BsLabelFor(m => m.CountriesList)
         <div class="input-group">
-            @Html.BsSelectFor(m => m.CountriesList)
+            @Html.BsSelectFor(m => m.CountriesList, null, new 
+                            { 
+                                url = Url.Action("GetCountriesPaged", "Login", new { area = "Demo" }),
+                                pageSize = 10 
+                            })
             @Html.BsValidationFor(m => m.CountriesList)
         </div>
     </div>

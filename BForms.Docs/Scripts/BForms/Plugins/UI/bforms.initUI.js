@@ -10,6 +10,9 @@
         select2: true,
         select2Selector: '.bs-dropdown:not(.no-initUI), .bs-dropdown-grouped:not(.no-initUI)',
 
+        select2Remote: true,
+        select2RemoteSelector: '.bs-dropdown-remote:not(.no-initUI)',
+
         multiSelect2: true,
         multiSelect2Selector: '.bs-listbox:not(.no-initUI), .bs-listbox-grouped:not(.no-initUI)',
 
@@ -94,6 +97,62 @@
             return $.extend(true, {}, $(elem).data('options'));
         };
 
+        InitUI.prototype._getSelect2RemoteOptions = function (elem) {
+            var $elem = $(elem),
+                options = $elem.data('options');
+
+            return {
+                placeholder: $elem.attr('placeholder'),
+                multiple: $elem.attr('multiple'),
+                ajax: {
+                    url: options.url,
+                    dataType: 'json',
+                    data: $.proxy(function (search, page) {
+                        return {
+                            extraData: options.extraData,
+                            search: search,
+                            page: page
+                        };
+                    }, this),
+                    results: function (response, page) {
+
+                        var data = response.Data,
+                            results = [],
+                            more = false;
+
+                        if (data) {
+
+                            if (data.Items) {
+
+                                more = (page * options.pageSize) < data.Count;
+
+                                for (var i = 0; i < data.Items.length; i++) {
+                                    var item = data.Items[i];
+
+                                    results.push({
+                                        id: item.Value,
+                                        text: item.Text
+                                    });
+                                }
+                            } 
+                        }
+
+                        return { results: results, more: more };
+                    },
+                },
+                initSelection: function (element, callback) {
+                    if ($elem.data('init')) {
+                        var init = $elem.data('init');
+                        callback({
+                            id: init.Value,
+                            text: init.Text
+                        });
+                    }
+                },
+                escapeMarkup: function (m) { return m; }
+            };
+        };
+
         InitUI.prototype._removePlaceholder = function ($elem) {
             $elem.each(function () {
                 if (typeof $(this).data('val-required') !== "undefined") {
@@ -168,6 +227,29 @@
                         } else {
                             throw "bforms.select2 script must be loaded before calling initUI";
                         }
+                    }
+                }
+            }
+
+            if (this.options.select2Remote === true) {
+                if (self.loadAMD) {
+                    var select2RemoteDeferred = $.Deferred();
+                    this.deferredList.push(select2RemoteDeferred);
+
+                    require(['bforms-select2'], function () {
+                        self.$elem.find(self.options.select2RemoteSelector).each(function () {
+                            $(this).select2(self._getSelect2RemoteOptions(this));
+                        });
+
+                        select2RemoteDeferred.resolve();
+                    });
+                } else {
+                    if (typeof $.fn.select2 === "function") {
+                        this.$elem.find(this.options.select2RemoteSelector).each(function () {
+                            $(this).select2(self._getSelect2RemoteOptions(this));
+                        });
+                    } else {
+                        throw "bforms.select2 script must be loaded before calling initUI";
                     }
                 }
             }

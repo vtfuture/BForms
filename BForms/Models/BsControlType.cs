@@ -118,6 +118,11 @@ namespace BForms.Models
         [Description("bs-dropdown")]
         DropDownList,
         /// <summary>
+        /// Drop-down list input element with remote data
+        /// </summary>
+        [Description("bs-dropdown-remote")]
+        DropDownListRemote,
+        /// <summary>
         /// Grouped drop-down list input element
         /// </summary>
         [Description("bs-dropdown-grouped")]

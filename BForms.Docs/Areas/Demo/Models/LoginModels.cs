@@ -76,7 +76,7 @@ namespace BForms.Docs.Areas.Demo.Models
 
         [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
         [Display(Name = "Location", Prompt = "PromptLocation", ResourceType = typeof(Resource))]
-        [BsControl(BsControlType.DropDownList)]
+        [BsControl(BsControlType.DropDownListRemote)]
         public BsSelectList<string> CountriesList { get; set; }
 
         [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Resource))]
