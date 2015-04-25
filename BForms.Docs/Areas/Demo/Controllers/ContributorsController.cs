@@ -33,6 +33,8 @@ namespace BForms.Docs.Areas.Demo.Controllers
         {
             BsGridRepositorySettings<ContributorSearchModel> bsGridSettings = null;
 
+            //HttpContext.Items["RequestTheme"] = BsTheme.Black;
+
             if (stateId.HasValue)
             {
                 var state = _componentState.Get(stateId.Value);

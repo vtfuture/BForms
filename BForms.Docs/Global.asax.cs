@@ -30,7 +30,7 @@ namespace BForms.Docs
             //{
             //    5,10,50
             //});
-            //BForms.Utilities.BsUIManager.Theme(BsTheme.Black);
+            BForms.Utilities.BsUIManager.Theme(BsTheme.Default);
 
 #if !DEBUG
             BForms.Utilities.BsConfigurationManager.Release(true);

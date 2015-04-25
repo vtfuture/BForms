@@ -19,17 +19,25 @@ namespace BForms.Mvc
 
         internal IDictionary<string, object> _htmlAttributes;
 
-        public BsBaseComponent(){}
+        public BsBaseComponent() { }
 
-        public BsBaseComponent(ViewContext viewContext) : base(viewContext){}
+        public BsBaseComponent(ViewContext viewContext) : base(viewContext) { }
 
         private BsTheme? _theme;
 
         public BsTheme Theme
         {
-            get { return _theme ?? BForms.Utilities.BsUIManager.GetGlobalTheme(); }
+            get
+            {
+                var requestTheme = viewContext != null ? viewContext.HttpContext.Items["RequestTheme"] as BsTheme? : null;
 
-            set { _theme = value; }
+                return _theme ?? requestTheme ?? BForms.Utilities.BsUIManager.GetGlobalTheme();
+            }
+
+            set
+            {
+                _theme = value;
+            }
         }
 
         public virtual TComponent HtmlAttributes(IDictionary<string, object> htmlAttributes)
@@ -54,7 +62,7 @@ namespace BForms.Mvc
         }
     }
 
-    public abstract class BsBaseComponent : IHtmlString 
+    public abstract class BsBaseComponent : IHtmlString
     {
         #region Properties and Constructor
         internal ViewContext viewContext { get; set; }
@@ -62,7 +70,7 @@ namespace BForms.Mvc
         internal BsBaseRenderer renderer;
         internal Dictionary<string, object> options = new Dictionary<string, object>();
 
-        public BsBaseComponent(){}
+        public BsBaseComponent() { }
 
         public BsBaseComponent(ViewContext viewContext)
         {
@@ -103,7 +111,7 @@ namespace BForms.Mvc
             }
             else
             {
-                this.options.Add(key,value);
+                this.options.Add(key, value);
             }
         }
 
