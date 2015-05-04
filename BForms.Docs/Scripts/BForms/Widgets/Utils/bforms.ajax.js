@@ -107,11 +107,11 @@
         }
     };
 
-    AjaxWrapper.prototype._getQueryStringObject = function() {
+    AjaxWrapper.prototype._getQueryStringObject = function () {
         var pairs = location.search.slice(1).split('&');
         var result = {};
 
-        pairs.forEach(function(pair) {
+        pairs.forEach(function (pair) {
             if (pair) {
                 pair = pair.split('=');
                 result[pair[0]] = decodeURIComponent(pair[1] || '');
@@ -315,8 +315,8 @@
         $.extend(true, xhrRequest, $.extend(true, {}, this.getDefaultOptions(), opts));
 
         xhrRequest.upload.addEventListener('progress', $.proxy(function (e) {
-            e.progress = e.progress / e.total;
-            deferredXHR.notifyWith(e, opts.callbackData);
+            e.percentage = (e.loaded / e.total) * 100;
+            deferredXHR.notify(e, opts.callbackData);
         }, this));
 
         xhrRequest.onreadystatechange = $.proxy(function (e) {
@@ -346,7 +346,7 @@
                 }
 
                 stackedXhr.finished = true;
-                
+
                 self._toggleLoading(opts.name, false);
             }
         }, this);
