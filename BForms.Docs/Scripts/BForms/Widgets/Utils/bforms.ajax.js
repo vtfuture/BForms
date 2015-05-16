@@ -8,18 +8,6 @@
     };
 
     //#region private methods and properties
-    AjaxWrapper.prototype._defOptions = {
-        cache: false,
-        type: 'POST',
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        context: null,
-        registerGlobal: true,
-        killPrevious: true,
-        loadingDelay: 100,
-        parseQueryString: true,
-        lang: typeof requireConfig !== "undefined" ? requireConfig.locale : 'en'
-    };
 
     AjaxWrapper.prototype._getStack = function () {
         return this._xhrStack;
@@ -29,18 +17,19 @@
         Success: 1,
         ValidationError: 2,
         Denied: 3,
-        ServerError: 4
+        ServerError: 4,
+        Timeout: 5
     };
 
     AjaxWrapper.prototype.getAjaxOptions = function () {
-        return $.extend(true, {}, this._defOptions);
+        return $.extend(true, {}, $.bforms.defAjaxOptions);
     };
 
     AjaxWrapper.prototype._updateXHRSettings = function (settings) {
 
         var XHROpts = $.extend(true, {}, settings);
 
-        XHROpts.data = settings.contentType === this._defOptions.contentType ? JSON.stringify(this._serializeJsonData(settings.data)) : settings.data;
+        XHROpts.data = settings.contentType === $.bforms.defAjaxOptions.contentType ? JSON.stringify(this._serializeJsonData(settings.data)) : settings.data;
 
         return XHROpts;
     };
@@ -191,6 +180,12 @@
                 }
             }
 
+            if (status === this._statusEnum.Timeout) {
+                if (typeof opts.onTimeout === "function") {
+                    opts.onTimeout.apply(opts.context, args);
+                }
+            }
+
             if (typeof opts.error === "function") {
                 opts.error.apply(opts.context, args);
             }
@@ -226,7 +221,24 @@
         return promise;
     };
 
+    AjaxWrapper.prototype.getDefaultOptions = function () {
+        return $.extend(true, {}, $.bforms.defAjaxOptions);
+    };
+
+    AjaxWrapper.prototype.abort = function (name) {
+        var xhrRequest = this._xhrStack[name];
+
+        if (typeof xhrRequest !== 'undefined' && xhrRequest != null && xhrRequest.jqXHR != null) {
+            xhrRequest.jqXHR.abort();
+            xhrRequest.aborted = true;
+
+        }
+    };
+    //#endregion
+
+    //#region ajax call
     AjaxWrapper.prototype._ajaxWithoutFiles = function (xhrSettings, calldata, deferredXHR) {
+
         var self = this,
             jqXHRSettings = $.extend({}, xhrSettings, {
                 success: function (response, textStatus, jqXHR) {
@@ -256,21 +268,38 @@
                 error: function (jqXHR, textStatus, errorThrown) {
 
                     var xhrReq = self._xhrStack[xhrSettings.name];
+
                     if (typeof xhrReq !== 'undefined' && xhrReq != null && xhrReq.aborted === true) return;
 
                     try {
 
-                        if (typeof jqXHR.responseText !== "undefined" && jqXHR.responseText != '') {
+                        if (textStatus == 'timeout') {
 
-                            var response = JSON.parse(jqXHR.responseText);
+                            self._handleTimeout.apply(self, [xhrSettings, deferredXHR, xhrReq, jqXHR, textStatus, errorThrown]);
 
-                            self._applyLocalization(response, xhrReq.settings.lang);
-
-                            deferredXHR.reject(response.Status, [response, jqXHR, textStatus, errorThrown, xhrSettings.callbackData]);
                         } else {
-                            deferredXHR.reject(self._statusEnum.ServerError, [{
-                                Message: errorThrown
-                            }, jqXHR, textStatus, errorThrown, xhrSettings.callbackData]);
+                            if (jqXHR.status == 401) {//unauthorized
+                                self._handleUnauthorized.apply(self, [xhrSettings, deferredXHR, xhrReq, jqXHR, textStatus, errorThrown]);
+                            }
+
+                            if (typeof jqXHR.responseText !== "undefined" && jqXHR.responseText != '') {
+
+                                try {
+                                    var response = JSON.parse(jqXHR.responseText);
+
+                                    self._applyLocalization(response, xhrReq.settings.lang);
+
+                                    deferredXHR.reject(response.Status, [response, jqXHR, textStatus, errorThrown, xhrSettings.callbackData]);
+                                } catch (ex) {
+                                    deferredXHR.reject(self._statusEnum.ServerError, [{
+                                        Message: errorThrown
+                                    }, jqXHR, textStatus, errorThrown, xhrSettings.callbackData]);
+                                }
+                            } else {
+                                deferredXHR.reject(self._statusEnum.ServerError, [{
+                                    Message: errorThrown
+                                }, jqXHR, textStatus, errorThrown, xhrSettings.callbackData]);
+                            }
                         }
 
                     } catch (ex) {
@@ -363,21 +392,24 @@
 
         return this._xhrStack[opts.name].jqXHR;
     };
+    //#endregion
 
-    AjaxWrapper.prototype.getDefaultOptions = function () {
-        return $.extend(true, {}, this._defOptions);
+    //#region handlers
+    AjaxWrapper.prototype._handleTimeout = function (xhrSettings, deferredXhr, xhrReq, jqXhr, textStatus, errorThrown) {
+
+        deferredXhr.reject(this._statusEnum.Timeout, [{
+            Message: this._getResource(xhrReq.settings.lang, "TimeoutOccurred")
+        }, jqXhr, textStatus, errorThrown, xhrSettings.callbackData]);
     };
 
-    AjaxWrapper.prototype.abort = function (name) {
-        var xhrRequest = this._xhrStack[name];
-
-        if (typeof xhrRequest !== 'undefined' && xhrRequest != null && xhrRequest.jqXHR != null) {
-            xhrRequest.jqXHR.abort();
-            xhrRequest.aborted = true;
-
+    AjaxWrapper.prototype._handleUnauthorized = function (xhrSettings, deferredXhr, xhrReq, jqXhr, textStatus, errorThrown) {
+        if (typeof xhrSettings.unauthorizedRedirectUrl === "string" && xhrSettings.unauthorizedRedirectUrl != '') {
+            window.location.href = xhrSettings.unauthorizedRedirectUrl;
         }
     };
+    //#endregion
 
+    //#region helpers
     AjaxWrapper.prototype._applyLocalization = function (response, lang) {
 
         if (!response.Message) {
@@ -396,6 +428,15 @@
             }
         }
 
+    };
+
+    AjaxWrapper.prototype._getResource = function (lang, key) {
+
+        if ($.bforms.ajaxResources[lang] != null) {
+            return $.bforms.ajaxResources[lang][key];
+        }
+
+        return '';
     };
 
     AjaxWrapper.prototype._checkForFiles = function (data) {
@@ -420,13 +461,13 @@
     };
     //#endregion
 
-    $.extend(true, $.bforms, new AjaxWrapper());
-
+    //#region plugin methods
     $.bforms.ajaxResources = $.extend(true, $.bforms.ajaxResources, {
         en: {
             ValidationError: 'A validation error has occured',
             Denied: 'The request was denied',
-            ServerError: 'Server error'
+            ServerError: 'Server error',
+            TimeoutOccurred: 'Timeout ocurred'
         }
     });
 
@@ -439,6 +480,28 @@
         }
     };
 
+    $.bforms.defAjaxOptions = {
+        cache: false,
+        type: 'POST',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        context: null,
+        registerGlobal: true,
+        killPrevious: true,
+        loadingDelay: 100,
+        parseQueryString: true,
+        lang: typeof requireConfig !== "undefined" ? requireConfig.locale : 'en'
+    };
+
+    $.bforms.addDefaultOption = function (key, value) {
+        if (typeof $.bforms.defAjaxOptions === 'undefined' || $.bforms.defAjaxOptions == null) {
+            $.bforms.defAjaxOptions = {};
+        }
+        $.bforms.defAjaxOptions[key] = value;
+    };
+    //#endregion
+
+    $.extend(true, $.bforms, new AjaxWrapper());
     // return module
     return AjaxWrapper;
 })
