@@ -25,6 +25,5 @@
     <file src="..\BForms\bin\Release\BForms.xml" target="lib\net45" />
     <file src="..\BForms.Docs\Scripts\BForms\**\*.*" target="Content\Scripts\BForms" />
     <file src="..\BForms\bin\Release\BForms.pdb" target="lib\net45" />
-    <file src="..\BForms\**\*.cs" target="src" />
   </files>
 </package>
