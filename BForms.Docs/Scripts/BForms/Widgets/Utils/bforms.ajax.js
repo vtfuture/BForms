@@ -155,8 +155,10 @@
                     opts.error.apply(opts.context, args);
                 }
             }
-
             if (status === this._statusEnum.Denied) {
+
+                this._handleUnauthorized.apply(self, [xhrSettings]);
+
                 if (typeof opts.denied === "function") {
                     opts.denied.apply(opts.context, args);
                 }
@@ -175,6 +177,9 @@
                     opts.serverError.apply(opts.context, args);
                 }
             } else if (status === this._statusEnum.Denied) {
+
+                this._handleUnauthorized.apply(self, [xhrSettings]);
+
                 if (typeof opts.denied === "function") {
                     opts.denied.apply(opts.context, args);
                 }
@@ -402,7 +407,7 @@
         }, jqXhr, textStatus, errorThrown, xhrSettings.callbackData]);
     };
 
-    AjaxWrapper.prototype._handleUnauthorized = function (xhrSettings, deferredXhr, xhrReq, jqXhr, textStatus, errorThrown) {
+    AjaxWrapper.prototype._handleUnauthorized = function (xhrSettings) {
         if (typeof xhrSettings.unauthorizedRedirectUrl === "string" && xhrSettings.unauthorizedRedirectUrl != '') {
             window.location.href = xhrSettings.unauthorizedRedirectUrl;
         }
