@@ -1,18 +1,18 @@
-﻿(function (factory) {
-    if (typeof define === "function" && define.amd) {
-        define(['jquery'], factory);
-    } else {
-        factory(window.jQuery);
-    }
-}(function () {
+﻿(function () {
 
     var errorTell = function (options) {
         this.options = this._extend(this.options, options);
+
+        if (this.options.loggerUrl == null && this.options.preventRemoveLogger != true && window.requireConfig != null && window.requireConfig.websiteOptions != null && window.requireConfig.websiteOptions.loggerUrl != null) {
+            this.options.loggerUrl = window.requireConfig.websiteOptions.loggerUrl;
+        }
+
+        this.init();
     };
 
     errorTell.prototype.options = {
 
-        batchSize: 10,
+        batchSize: 1,
 
         //in milliseconds
         minWaitTime: 1000,
@@ -24,7 +24,7 @@
 
         outputErrorToConsole: false,
 
-        preventDifferentUploadData: true
+        preventDistinctUploadData: false
     };
 
     errorTell.prototype._errorsQueue = [];
@@ -74,7 +74,7 @@
     errorTell.prototype._sendCurrentErrors = function () {
         var formattedData;
 
-        if (this.options.preventDifferentUploadData === true || this._errorsQueue.length > 1) {
+        if (this.options.preventDistinctUploadData === true || this._errorsQueue.length > 1) {
 
             formattedData = [];
 
@@ -86,35 +86,46 @@
                     ColumnNumber: this._errorsQueue[index].columnNumber,
                     Timestamp: this._errorsQueue[index].timestamp,
                     ErrorType: this._errorsQueue[index].errorType,
-                    Stack: this._errorsQueue[index].stack
+                    Stack: this._errorsQueue[index].stack,
+                    Href: this._errorsQueue[index].href,
+                    ReadyState: this._errorsQueue[index].readyState,
+                    UserAgent: this._errorsQueue[index].userAgent,
+                    Referrer: this._errorsQueue[index].referrer
                 };
 
                 formattedData.push(currentErrorData);
             }
 
         } else {
-            formattedData = {
+            formattedData = [{
                 ErrorMessage: this._errorsQueue[0].errorMessage,
                 Url: this._errorsQueue[0].url,
                 LineNumber: this._errorsQueue[0].lineNumber,
                 ColumnNumber: this._errorsQueue[0].columnNumber,
                 Timestamp: this._errorsQueue[0].timestamp,
                 ErrorType: this._errorsQueue[0].errorType,
-                Stack: this._errorsQueue[0].stack
-            };
+                Stack: this._errorsQueue[0].stack,
+                Href: this._errorsQueue[0].href,
+                ReadyState: this._errorsQueue[0].readyState,
+                UserAgent: this._errorsQueue[0].userAgent,
+                Referrer: this._errorsQueue[0].referrer
+            }];
         }
 
         this._errorsQueue = [];
 
-        if (this.options.apiUrl) {
-            $.ajax({
-                url: this.options.apiUrl,
-                data: JSON.stringify(formattedData),
-                cache: false,
-                type: 'POST',
-                dataType: 'json',
-                contentType: 'application/json; charset=utf-8',
-            });
+        if (this.options.loggerUrl) {
+
+            try {
+                var xhr = new XMLHttpRequest();
+
+                xhr.open('POST', this.options.loggerUrl, true);
+                xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+                xhr.setRequestHeader("Content-Type", 'application/json; charset=utf-8');
+                xhr.send(JSON.stringify(this._serializeJsonData(formattedData)));
+            } catch (ex) {
+                //capture exception
+            }
         }
     };
 
@@ -165,7 +176,11 @@
             lineNUmber: lineNumber,
             columnNumber: columnNumber,
             error: error,
-            timestamp: timestamp
+            timestamp: timestamp.toUTCString(),
+            userAgent: window.navigator.userAgent,
+            href: window.location.href,
+            readyState: document.readyState,
+            referrer: document.referrer
         };
 
         if (error != null) {
@@ -175,6 +190,8 @@
                 err.stack = error.stack;
             }
         }
+
+        console.log(err);
 
         return err;
     };
@@ -198,7 +215,7 @@
         if (data instanceof Array) {
             XHRData = data.slice(0);
         } else {
-            XHRData = $.extend(true, {}, data);
+            XHRData = this._extend({}, data);
         }
 
         for (var key in XHRData) {
@@ -217,6 +234,5 @@
         return XHRData;
     };
 
-    return errorTell;
-
-}));
+    window.errorTell = new errorTell();
+})();
