@@ -173,7 +173,7 @@
         var err = {
             errorMessage: errorMessage,
             url: url,
-            lineNUmber: lineNumber,
+            lineNumber: lineNumber,
             columnNumber: columnNumber,
             error: error,
             timestamp: timestamp.toUTCString(),
