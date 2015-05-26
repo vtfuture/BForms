@@ -276,6 +276,9 @@ mark, .mark {
 			.select2-search-choice-close {
 				top: 5px;
 			}
+			&.select2-locked {
+				padding: 5px !important;
+			}
 		}
 	}
 	&.select2-container-active {

@@ -200,6 +200,8 @@ mark, .mark {
     margin: 4px 0 0 5px; }
     .custom_select-multi .select2-choices .select2-search-choice .select2-search-choice-close {
       top: 5px; }
+    .custom_select-multi .select2-choices .select2-search-choice.select2-locked {
+      padding: 5px !important; }
 .custom_select-multi.select2-container-active .select2-choice,
 .custom_select-multi.select2-container-active .select2-choices {
   border: 1px solid #a8a8a8;
