@@ -261,6 +261,9 @@
                             $me.bsInlineQuestion($.extend(true, opts.popoverOptions, {
                                 placement: 'auto',
                                 question: question,
+                                popoverOptions: {
+                                    animation: false
+                                },
                                 buttons: [{
                                     text: confirmButtonText,
                                     cssClass: confirmCssClass,
