@@ -191,8 +191,6 @@
             }
         }
 
-        console.log(err);
-
         return err;
     };
 
