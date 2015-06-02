@@ -18,7 +18,8 @@
         ValidationError: 2,
         Denied: 3,
         ServerError: 4,
-        Timeout: 5
+        Timeout: 5,
+        Offline: 6
     };
 
     AjaxWrapper.prototype.getAjaxOptions = function () {
@@ -191,6 +192,12 @@
                 }
             }
 
+            if (status === this._statusEnum.Offline) {
+                if (typeof opts.offline === "function") {
+                    opts.offline.apply(opts.context, args);
+                }
+            }
+
             if (typeof opts.error === "function") {
                 opts.error.apply(opts.context, args);
             }
@@ -283,28 +290,31 @@
                             self._handleTimeout.apply(self, [xhrSettings, deferredXHR, xhrReq, jqXHR, textStatus, errorThrown]);
 
                         } else {
+
                             if (jqXHR.status == 401) {//unauthorized
                                 self._handleUnauthorized.apply(self, [xhrSettings, deferredXHR, xhrReq, jqXHR, textStatus, errorThrown]);
+                            }
+
+                            var response = {
+                                Message: errorThrown,
+                                Status: self._statusEnum.ServerError
+                            };
+
+                            if (jqXHR.status === 0 && jqXHR.responseText === '') {
+                                response.Status = self._statusEnum.Offline;
                             }
 
                             if (typeof jqXHR.responseText !== "undefined" && jqXHR.responseText != '') {
 
                                 try {
-                                    var response = JSON.parse(jqXHR.responseText);
+                                    response = JSON.parse(jqXHR.responseText);
 
-                                    self._applyLocalization(response, xhrReq.settings.lang);
-
-                                    deferredXHR.reject(response.Status, [response, jqXHR, textStatus, errorThrown, xhrSettings.callbackData]);
-                                } catch (ex) {
-                                    deferredXHR.reject(self._statusEnum.ServerError, [{
-                                        Message: errorThrown
-                                    }, jqXHR, textStatus, errorThrown, xhrSettings.callbackData]);
-                                }
-                            } else {
-                                deferredXHR.reject(self._statusEnum.ServerError, [{
-                                    Message: errorThrown
-                                }, jqXHR, textStatus, errorThrown, xhrSettings.callbackData]);
+                                } catch (ex) { }
                             }
+
+                            self._applyLocalization(response, xhrReq.settings.lang);
+
+                            deferredXHR.reject(response.Status, [response, jqXHR, textStatus, errorThrown, xhrSettings.callbackData]);
                         }
 
                     } catch (ex) {
@@ -466,13 +476,16 @@
     };
     //#endregion
 
+    $.extend(true, $.bforms, new AjaxWrapper());
+
     //#region plugin methods
     $.bforms.ajaxResources = $.extend(true, $.bforms.ajaxResources, {
         en: {
             ValidationError: 'A validation error has occured',
             Denied: 'The request was denied',
             ServerError: 'Server error',
-            TimeoutOccurred: 'Timeout ocurred'
+            TimeoutOccurred: 'Timeout ocurred',
+            Offline: "The computer appears to be offline"
         }
     });
 
@@ -506,7 +519,6 @@
     };
     //#endregion
 
-    $.extend(true, $.bforms, new AjaxWrapper());
     // return module
     return AjaxWrapper;
 })
