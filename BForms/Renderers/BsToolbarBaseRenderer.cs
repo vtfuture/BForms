@@ -112,6 +112,10 @@ namespace BForms.Renderers
                     {
                         tabs += RenderTab(defaultAction, tabNr).ToString();
                         tabNr++;
+                        if (defaultAction.selected)
+                        {
+                            controlsContainer.AddCssClass("in");
+                        }
                     }
 
                     if (action is BsToolbarButtonGroupAction<TToolbar>)

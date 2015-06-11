@@ -36,12 +36,16 @@
         reset: null,
         // controls to be added to toolbar widget
         controls: null,
+        //collapseable navbar
+        navbarCollapse: '.grid_toolbar_responsive_navbar',
 
         // common options for all toolbar controls
         controlsOptions: null
     };
 
     Toolbar.prototype._init = function () {
+
+        this.$element = this.element;
 
         if (!this.options.uniqueName) {
             this.options.uniqueName = this.element.attr('id');
@@ -114,6 +118,8 @@
         this._updateSelectedTab();
 
         this._expandSavedTab();
+
+        this._addDelegates();
     };
 
     Toolbar.prototype.reset = function () {
@@ -156,9 +162,7 @@
     };
 
     Toolbar.prototype._addDelegates = function () {
-
-
-
+        this.$element.on('hide.bs.collapse', $.proxy(this._onCollapseHide, this));
     };
 
     Toolbar.prototype.controls = function (controls) {
@@ -294,6 +298,7 @@
         this.subscribers.push(subscriber);
     };
 
+    //#region events
     Toolbar.prototype._evBtnClick = function (e) {
 
         e.preventDefault();
@@ -316,7 +321,14 @@
         this._toggleTab(clickedTab);
     };
 
-    Toolbar.prototype._toggleTab = function (tab) {
+    Toolbar.prototype._onCollapseHide = function () {
+        if (this._selectedTab != null) {
+            this._toggleTab(this._selectedTab, true);
+        }
+    };
+    //#endregion
+
+    Toolbar.prototype._toggleTab = function (tab, instant) {
 
         if (tab == null) return;
 
@@ -335,15 +347,29 @@
                 tab: tab
             };
 
-        tab.$container.stop(true, false).slideToggle({
+        if (instant) {
+            this._trigger('beforeTabToggle', 0, triggerOptions);
 
-            start: function () {
-                context._trigger('beforeTabToggle', 0, triggerOptions);
-            },
-            complete: function () {
-                context._trigger('afterTabToggle', 0, triggerOptions);
+            if (tab.$container.is(':visible')) {
+                tab.$container.hide();
+            } else {
+                tab.$container.show();
             }
-        });
+
+            this._trigger('afterTabToggle', 0, triggerOptions);
+        } else {
+            tab.$container.stop(true, false).slideToggle({
+
+                start: function () {
+                    context._trigger('beforeTabToggle', 0, triggerOptions);
+                },
+                complete: function () {
+                    context._trigger('afterTabToggle', 0, triggerOptions);
+                }
+            });
+        }
+
+
 
         var isSelected = tab.$element.hasClass('selected');
 
