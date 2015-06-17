@@ -254,7 +254,16 @@
 
         var altField = {
             selector: this.$element
-        };
+        },
+            altFields = [];
+
+        if ($.isArray(this.options.altFields)) {
+            this.options.altFields.push(altField);
+            altFields = this.options.altFields;
+        } else {
+            altFields = [altField];
+        }
+
 
         if (this.options.format) {
             altField.format = this.options.format;
@@ -262,7 +271,7 @@
 
         var modalPickerOptions = $.extend(true, {}, this.options, {
             inline: true,
-            altFields: [altField],
+            altFields: altFields,
             showClose: true,
             visible: false,
             closeOnBlur: false,
