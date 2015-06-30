@@ -158,7 +158,7 @@
             }
             if (status === this._statusEnum.Denied) {
 
-                this._handleUnauthorized.apply(self, [xhrSettings]);
+                this._handleUnauthorized.apply(self, [xhrSettings, args[0]]);
 
                 if (typeof opts.denied === "function") {
                     opts.denied.apply(opts.context, args);
@@ -179,7 +179,7 @@
                 }
             } else if (status === this._statusEnum.Denied) {
 
-                this._handleUnauthorized.apply(self, [xhrSettings]);
+                this._handleUnauthorized.apply(self, [xhrSettings, args[0]]);
 
                 if (typeof opts.denied === "function") {
                     opts.denied.apply(opts.context, args);
@@ -417,8 +417,11 @@
         }, jqXhr, textStatus, errorThrown, xhrSettings.callbackData]);
     };
 
-    AjaxWrapper.prototype._handleUnauthorized = function (xhrSettings) {
-        if (typeof xhrSettings.unauthorizedRedirectUrl === "string" && xhrSettings.unauthorizedRedirectUrl != '') {
+    AjaxWrapper.prototype._handleUnauthorized = function (xhrSettings, response) {
+        if (response != null && response.Data != null && typeof response.Data.ReturnUrl === "string") {
+            window.location.href = response.Data.ReturnUrl;
+        }
+        else if (typeof xhrSettings.unauthorizedRedirectUrl === "string" && xhrSettings.unauthorizedRedirectUrl != '') {
             window.location.href = xhrSettings.unauthorizedRedirectUrl;
         }
     };
