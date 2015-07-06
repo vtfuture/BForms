@@ -66,6 +66,8 @@ namespace BForms.Docs.Controllers
               "themeEnum",
               RequireJsHtmlHelpers.ToJsonDictionary<BsTheme>(),
               RequireJsOptionsScope.Global);
+
+            //RequireJsOptions.Add("loggerUrl", Url.Action("LogException", "Error", new { area = string.Empty }), RequireJsOptionsScope.Global);
         }
     }
 }

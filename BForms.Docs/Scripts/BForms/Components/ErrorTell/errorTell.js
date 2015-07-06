@@ -24,7 +24,10 @@
 
         outputErrorToConsole: false,
 
-        preventDistinctUploadData: false
+        preventDistinctUploadData: false,
+
+        //in milliseconds
+        retryAfter: 5000
     };
 
     errorTell.prototype._errorsQueue = [];
@@ -36,6 +39,8 @@
     errorTell.prototype._addEvents = function () {
         window.onerror = this._onError.bind(this);
     };
+
+    errorTell.prototype._timeouts = [];
 
     errorTell.prototype._onError = function (errorMessage, url, lineNumber, columnNumber, error) {
 
@@ -115,19 +120,58 @@
         this._errorsQueue = [];
 
         if (this.options.loggerUrl) {
-
             try {
-                var xhr = new XMLHttpRequest();
 
-                xhr.open('POST', this.options.loggerUrl, true);
-                xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-                xhr.setRequestHeader("Content-Type", 'application/json; charset=utf-8');
-                xhr.send(JSON.stringify(this._serializeJsonData(formattedData)));
+                var data = JSON.stringify(this._serializeJsonData(formattedData));
+
+                this._makeXhr(data);
+
             } catch (ex) {
-                //capture exception
             }
         }
     };
+
+    errorTell.prototype._guid = function () {
+        var g = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+            var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
+
+        return g.replace(/-/g, '');
+    };
+
+    errorTell.prototype._makeXhr = function (formattedData, guid) {
+
+        try {
+
+            guid = guid != null ? guid : this._guid();
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('POST', this.options.loggerUrl, true);
+            xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+            xhr.setRequestHeader("Content-Type", 'application/json; charset=utf-8');
+            xhr.timeout = this.options.retryAfter;
+            xhr.send(formattedData);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.aborted !== true && xhr.status === 200) {
+                        if (this._timeouts[guid] != null) {
+                            window.clearTimeout(this._timeouts[guid]);
+                        }
+                    } else {
+                        this._timeouts[guid] = window.setTimeout(function () {
+                            this._makeXhr(formattedData, guid);
+                        }.bind(this), xhr.timeout);
+                    }
+                }
+            }.bind(this);
+
+        } catch (ex) {
+            //capture exception
+        }
+    }
 
     errorTell.prototype._outputErrorToConsole = function (errorData) {
         console.log('---Error---');
