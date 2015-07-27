@@ -554,17 +554,41 @@
 
             var expressionFrom = data.expressionfrom,
                 expressionTo = data.expressionto,
+                valueFrom = data.valuefrom,
+                valueTo = data.valueto,
                 priority = data.priority;
 
-            if (data.priority == "to") {
+            if (valueFrom != null && valueFrom != '' || valueTo != null && valueTo != '') {
 
-                var toValue = this.$end.bsDatepicker('setValueFromExpression', data.expressionto, data.source == "now" ? moment() : null);
-                this.$start.bsDatepicker('setValueFromExpression', data.expressionfrom, toValue);
+                if (valueFrom != null) {
+                    if (valueFrom == 'clear') {
+                        this.$start.bsDatepicker('clearValue');
+                    } else {
+                        this.$start.bsDatepicker('setValue', valueFrom);
+                    }
+                }
+
+                if (valueTo != null) {
+                    if (valueTo == 'clear') {
+                        this.$end.bsDatepicker('clearValue');
+                    } else {
+                        this.$end.bsDatepicker('setValue', valueTo);
+                    }
+                }
 
             } else {
-                var fromValue = this.$start.bsDatepicker('setValueFromExpression', data.expressionfrom, data.source == "now" ? moment() : null);
-                this.$end.bsDatepicker('setValueFromExpression', data.expressionto, fromValue);
+                if (data.priority == "to") {
+
+                    var toValue = this.$end.bsDatepicker('setValueFromExpression', data.expressionto, data.source == "now" ? moment() : null);
+                    this.$start.bsDatepicker('setValueFromExpression', data.expressionfrom, toValue);
+
+                } else {
+                    var fromValue = this.$start.bsDatepicker('setValueFromExpression', data.expressionfrom, data.source == "now" ? moment() : null);
+                    this.$end.bsDatepicker('setValueFromExpression', data.expressionto, fromValue);
+                }
             }
+
+
 
             this._resetRangeOnChange = true;
             this.applyRangeClick(e);
