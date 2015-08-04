@@ -14,7 +14,7 @@ namespace BForms.Docs.Controllers
     [OutputCache(Duration = 0, NoStore = true)]
     public class BaseController : Controller
     {
-        public BFormsContext Db 
+        public BFormsContext Db
         {
             get
             {
@@ -27,7 +27,7 @@ namespace BForms.Docs.Controllers
             get
             {
                 var theme = Session["ThemeSettings"] as ThemeSettings;
-                
+
                 if (theme == null)
                 {
                     var newThemeSettings = new ThemeSettings()
@@ -68,6 +68,8 @@ namespace BForms.Docs.Controllers
               RequireJsOptionsScope.Global);
 
             //RequireJsOptions.Add("loggerUrl", Url.Action("LogException", "Error", new { area = string.Empty }), RequireJsOptionsScope.Global);
+
+            //RequireJsOptions.Add("loadLoggerUrl", Url.Action("LogLoadTimes", "Log", new { area = string.Empty }), RequireJsOptionsScope.Global);
         }
     }
 }

@@ -22,6 +22,7 @@
     <IISExpressUseClassicPipelineMode />
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -154,6 +155,7 @@
     <Compile Include="Areas\Demo\Repositories\UserProfileRepository.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\LogController.cs" />
     <Compile Include="Controllers\StartController.cs" />
     <Compile Include="Controllers\DocsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -166,6 +168,7 @@
     <Compile Include="Helpers\ImageResult.cs" />
     <Compile Include="Helpers\ReflectionHelpers.cs" />
     <Compile Include="Models\CommonModels.cs" />
+    <Compile Include="Models\PerformanceModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Resource.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -268,6 +271,7 @@
     <Content Include="Scripts\BForms\Components\HistoryJS\jquery.history.js" />
     <Content Include="Scripts\BForms\Components\ICanHaz\ICanHaz.js" />
     <Content Include="Scripts\BForms\Components\ICanHaz\singleton-ich.js" />
+    <Content Include="Scripts\BForms\Components\LoadTell\loadTell.js" />
     <Content Include="Scripts\BForms\Components\NestedSortable\jquery.mjs.nestedSortable.js" />
     <Content Include="Scripts\BForms\Components\PlaceholderShim\jquery.html5-placeholder-shim.js" />
     <Content Include="Scripts\BForms\Components\SelectorSet\jquery.selector-set.js" />
@@ -454,6 +458,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Demo\Views\Shared\" />
     <Folder Include="Properties\PublishProfiles\" />
+    <Folder Include="Views\Log\" />
     <Folder Include="Views\Start\Group\Docs\" />
   </ItemGroup>
   <ItemGroup>
