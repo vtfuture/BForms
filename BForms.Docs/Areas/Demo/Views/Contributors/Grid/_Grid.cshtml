@@ -37,6 +37,7 @@
         //.NoTitle()
       .NoResultsTemplate("Grid/_NoResults")
       .NoRecordsTemplate("Grid/_NoRecords")
+      .SetTheme(Html.GetTheme())
       .GridResetButton()
       .ConfigureBulkActions(bulk =>
       {
@@ -55,7 +56,7 @@
 
       })
       .HtmlAttributes(new { @class = "custom_class" })
-        //.AllowAddIfEmpty()
+      //.AllowAddIfEmpty()
 
       .ConfigureRows(cfg => cfg.HasDetails(row => row.Enabled)
           .DetailsTemplate(row => Html.Partial("Grid/Details/_Index", row.Details))
