@@ -389,6 +389,13 @@ mark, .mark {
   .form_container.orange .btn-theme:hover, .form_container.orange .btn-theme:focus {
     background: #F27435 !important; }
 
+/* RED*/
+.form_container.red .btn-theme {
+  background: #961915;
+  border-color: #961915; }
+  .form_container.red .btn-theme:hover, .form_container.red .btn-theme:focus {
+    background: #C3201B !important; }
+
 /* almost BLACK*/
 .form_container.black .btn-theme {
   background: #282828;

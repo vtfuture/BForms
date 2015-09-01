@@ -16,12 +16,12 @@
       .bs-pager .pagination a:hover {
         color: #212121; }
     .bs-pager .pagination .active a {
-      background: #45ada8;
-      border: 1px solid #45ada8;
+      background: #45ADA8;
+      border: 1px solid #45ADA8;
       color: #fff; }
       .bs-pager .pagination .active a:hover {
-        background: #45ada8;
-        border: 1px solid #45ada8;
+        background: #45ADA8;
+        border: 1px solid #45ADA8;
         color: #fff; }
   .bs-pager .results_number {
     float: left;
@@ -54,18 +54,23 @@
 
 /*GREEN*/
 .bs-pager.green .pagination .active a, .bs-pager.green .pagination .active a:hover {
-  background: #59b390;
-  border: 1px solid #59b390; }
+  background: #59B390;
+  border: 1px solid #59B390; }
 
 /*PURPLE*/
 .bs-pager.purple .pagination .active a, .bs-pager.purple .pagination .active a:hover {
-  background: #703d6f;
-  border: 1px solid #703d6f; }
+  background: #703D6F;
+  border: 1px solid #703D6F; }
 
 /*ORANGE*/
 .bs-pager.orange .pagination .active a, .bs-pager.orange .pagination .active a:hover {
-  background: #f27435;
-  border: 1px solid #f27435; }
+  background: #F27435;
+  border: 1px solid #F27435; }
+
+/*RED*/
+.bs-pager.red .pagination .active a, .bs-pager.red .pagination .active a:hover {
+  background: #C3201B;
+  border: 1px solid #C3201B; }
 
 /*BLACK*/
 .bs-pager.black .pagination .active a, .bs-pager.black .pagination .active a:hover {

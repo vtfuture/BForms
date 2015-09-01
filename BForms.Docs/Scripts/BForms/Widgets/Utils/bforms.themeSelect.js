@@ -19,7 +19,7 @@
         targets: 'body, .form_container, .grid_toolbar, .grid_view, .bs-datetime-picker, .bs-range-picker, .bs-pager',
         startTheme: opts.startTheme,
         themeEnum: opts.themeEnum,
-        availableColors: 'turqoise orange green blue purple black',
+        availableColors: 'turqoise orange red green blue purple black',
         toggleSelector: '.bs-toggleThemeSelect',
 
         openSelector: '.bs-selectThemeOpen',

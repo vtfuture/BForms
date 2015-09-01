@@ -635,6 +635,39 @@ a.btn {
   .grid_view.orange .btn-theme:hover, .grid_view.orange .btn-theme:focus {
     background: #F27435 !important; }
 
+/* RED*/
+.grid_toolbar.red .grid_toolbar_header {
+  background: #C3201B; }
+  .grid_toolbar.red .grid_toolbar_header .grid_toolbar_controls a:focus,
+  .grid_toolbar.red .grid_toolbar_header .grid_toolbar_controls .btn-group a:focus {
+    background: #C3201B; }
+  .grid_toolbar.red .grid_toolbar_header .grid_toolbar_controls a:hover,
+  .grid_toolbar.red .grid_toolbar_header .grid_toolbar_controls .btn-group a:hover {
+    background: #ad1c18;
+    color: #fff !important; }
+  .grid_toolbar.red .grid_toolbar_header .grid_toolbar_controls a.selected,
+  .grid_toolbar.red .grid_toolbar_header .grid_toolbar_controls .btn-group a.selected {
+    background: #961915; }
+  .grid_toolbar.red .grid_toolbar_header .grid_toolbar_controls .open a {
+    background: #ad1c18; }
+    .grid_toolbar.red .grid_toolbar_header .grid_toolbar_controls .open a:hover, .grid_toolbar.red .grid_toolbar_header .grid_toolbar_controls .open a:focus {
+      background: #961915; }
+    .grid_toolbar.red .grid_toolbar_header .grid_toolbar_controls .open a.selected {
+      background: #961915; }
+
+.grid_view.red h2 .badge {
+  background: #C3201B; }
+.grid_view.red .grid_row.selected header {
+  color: #C3201B; }
+.grid_view.red .dropdown-menu a:hover, .grid_view.red .dropdown-menu a:focus {
+  background: none !important;
+  color: #C3201B !important; }
+.grid_view.red .btn-theme {
+  background: #961915;
+  border-color: #961915; }
+  .grid_view.red .btn-theme:hover, .grid_view.red .btn-theme:focus {
+    background: #C3201B !important; }
+
 /* almost BLACK*/
 .grid_toolbar.black .grid_toolbar_header {
   background: #424141; }

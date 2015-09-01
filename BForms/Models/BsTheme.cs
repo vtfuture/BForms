@@ -15,9 +15,11 @@ namespace BForms.Models
         Green = 3,
         [Description("orange")]
         Orange = 4,
+        [Description("red")]
+        Red = 5,
         [Description("purple")]
-        Purple = 5,
+        Purple = 6,
         [Description("black")]
-        Black = 6
+        Black = 7
     }
 }

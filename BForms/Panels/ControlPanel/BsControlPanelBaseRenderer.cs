@@ -72,6 +72,10 @@ namespace BForms.Renderers
                     {
                         return "bg-orange";
                     }
+                case BsTheme.Red:
+                    {
+                        return "bg-red";
+                    }
                 case BsTheme.Purple:
                     {
                         return "bg-purple";

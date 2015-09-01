@@ -10,6 +10,7 @@ $Blue: #559ed6;
 $Green: #59B390;
 $Purple: #703D6F;
 $Orange: #F27435;
+$Red: #C3201B;
 $Black: #424141;
 
 .input-group {
@@ -542,6 +543,18 @@ mark, .mark {
 		border-color: darken($Orange, 10%);
 		&:hover, &:focus {
 			background: $Orange !important;	
+		}
+	}
+}
+
+/* RED*/
+.form_container.red {
+	
+	.btn-theme {
+		background: darken($Red, 10%);
+		border-color: darken($Red, 10%);
+		&:hover, &:focus {
+			background: $Red !important;	
 		}
 	}
 }

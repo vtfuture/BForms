@@ -10,6 +10,7 @@ $Blue: #559ed6;
 $Green: #59B390;
 $Purple: #703D6F;
 $Orange: #F27435;
+$Red: #C3201B;
 $Black: #424141;
 
 html {
@@ -355,6 +356,9 @@ code {
 				}
 				&.orange .color {
 					background: $Orange;
+				}
+				&.red .color {
+					background: $Red;
 				}
 				&.green .color {
 					background: $Green;
@@ -810,6 +814,72 @@ body.orange {
 		.bs-docs-section .bs-docs-tech > div {
 			border-bottom-color: darken($Orange, 5%);
 			border-top-color: lighten($Orange, 5%);
+		}	
+	}	
+}
+
+/* RED*/
+
+body.red {
+	.btn-theme {
+		background: darken($Red, 10%);
+		border: 1px solid $Red;		
+		&:hover, &:focus {
+			background: $Red !important;			
+		}
+	}	
+	.navbar {
+		.nav > li .dropdown-menu li {
+			.badge-info {
+				background: $Red;
+			}
+			a:hover, a:focus {
+				color: darken($Red, 10%);
+			}
+		}
+		li.active > a {
+			border-color: $Red !important;
+		}
+	}
+	h1 {
+		border-color: $Red;
+	}
+	h1 span,
+	h5 {
+		color: $Red;
+	}
+	.bs-docs-section {
+		.bs-link-buttons li.current-version {
+			color: $Red;
+		}
+		.bs-docs-tech {
+			background: $Red;
+			> div {
+				border-right-color: darken($Red, 5%);
+				border-left-color: lighten($Red, 5%);
+			}
+		}
+		.btn:hover, .btn:focus {
+			background: darken($Red, 5%) !important;
+		}
+	}
+	.bs-sidebar .bs-sidenav .active > a {
+		border-color: $Red;
+		color: $Red;
+	}
+	.error_page .btn {
+		border-bottom-color: $Red;
+		&:last-child {
+			border-bottom-color: darken($Red, 10%);
+		}
+	}
+	.footer a {
+		color: $Red;
+	}
+	@media screen and (max-width: 959px) {
+		.bs-docs-section .bs-docs-tech > div {
+			border-bottom-color: darken($Red, 5%);
+			border-top-color: lighten($Red, 5%);
 		}	
 	}	
 }

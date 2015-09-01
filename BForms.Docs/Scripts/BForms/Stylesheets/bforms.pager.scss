@@ -10,6 +10,7 @@ $Blue: #559ed6;
 $Green: #59B390;
 $Purple: #703D6F;
 $Orange: #F27435;
+$Red: #C3201B;
 $Black: #424141;
 
 
@@ -105,6 +106,14 @@ $Black: #424141;
 	a, a:hover {
 		background: $Orange;
 		border: 1px solid $Orange;
+	}
+}
+
+/*RED*/
+.bs-pager.red .pagination .active {
+	a, a:hover {
+		background: $Red;
+		border: 1px solid $Red;
 	}
 }
 

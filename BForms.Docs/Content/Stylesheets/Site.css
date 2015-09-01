@@ -262,6 +262,8 @@ code {
           background: #45ADA8; }
         .select_theme .options ul li.orange .color {
           background: #F27435; }
+        .select_theme .options ul li.red .color {
+          background: #C3201B; }
         .select_theme .options ul li.green .color {
           background: #59B390; }
         .select_theme .options ul li.blue .color {
@@ -559,6 +561,46 @@ body.orange .footer a {
   body.orange .bs-docs-section .bs-docs-tech > div {
     border-bottom-color: #f0641d;
     border-top-color: #f4844d; } }
+
+/* RED*/
+body.red .btn-theme {
+  background: #961915;
+  border: 1px solid #C3201B; }
+  body.red .btn-theme:hover, body.red .btn-theme:focus {
+    background: #C3201B !important; }
+body.red .navbar .nav > li .dropdown-menu li .badge-info {
+  background: #C3201B; }
+body.red .navbar .nav > li .dropdown-menu li a:hover, body.red .navbar .nav > li .dropdown-menu li a:focus {
+  color: #961915; }
+body.red .navbar li.active > a {
+  border-color: #C3201B !important; }
+body.red h1 {
+  border-color: #C3201B; }
+body.red h1 span,
+body.red h5 {
+  color: #C3201B; }
+body.red .bs-docs-section .bs-link-buttons li.current-version {
+  color: #C3201B; }
+body.red .bs-docs-section .bs-docs-tech {
+  background: #C3201B; }
+  body.red .bs-docs-section .bs-docs-tech > div {
+    border-right-color: #ad1c18;
+    border-left-color: #d9241e; }
+body.red .bs-docs-section .btn:hover, body.red .bs-docs-section .btn:focus {
+  background: #ad1c18 !important; }
+body.red .bs-sidebar .bs-sidenav .active > a {
+  border-color: #C3201B;
+  color: #C3201B; }
+body.red .error_page .btn {
+  border-bottom-color: #C3201B; }
+  body.red .error_page .btn:last-child {
+    border-bottom-color: #961915; }
+body.red .footer a {
+  color: #C3201B; }
+@media screen and (max-width: 959px) {
+  body.red .bs-docs-section .bs-docs-tech > div {
+    border-bottom-color: #ad1c18;
+    border-top-color: #d9241e; } }
 
 /* almost BLACK*/
 body.black .btn-theme {

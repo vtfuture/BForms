@@ -16,6 +16,7 @@ $Blue: #559ed6;
 $Green: #59B390;
 $Purple: #703D6F;
 $Orange: #F27435;
+$Red: #C3201B;
 $Black: #424141;
 
 a.btn {
@@ -907,6 +908,59 @@ a.btn {
 		}
 	}
 }
+
+/* RED*/
+
+.grid_toolbar.red  .grid_toolbar_header {
+	background: $Red;
+	.grid_toolbar_controls {
+		a,
+		.btn-group a {			
+			&:focus {
+				background: $Red;
+			}
+			&:hover {
+				background: darken($Red, 5%);
+				color: #fff !important;
+			}
+			&.selected {
+				background: darken($Red, 10%);
+			}
+		}
+		.open a {
+			background: darken($Red, 5%);
+			&:hover, &:focus {
+				background: darken($Red, 10%);
+			}
+			&.selected {
+				background: darken($Red, 10%);
+			}
+		}	
+	}
+
+}
+.grid_view.red {
+	h2 .badge {
+		background: $Red;
+	}
+	.grid_row.selected header {
+		color: $Red;
+	}
+	.dropdown-menu {
+		a:hover, a:focus {
+			background: none !important;
+			color: $Red !important;
+		}
+	}
+	.btn-theme {
+		background: darken($Red, 10%);
+		border-color: darken($Red, 10%);
+		&:hover, &:focus {
+			background: $Red !important;	
+		}
+	}
+}
+
 
 
 /* almost BLACK*/
