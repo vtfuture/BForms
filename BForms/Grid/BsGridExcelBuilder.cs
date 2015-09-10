@@ -221,8 +221,6 @@ namespace BForms.Grid
         /// <param name="worksheet"></param>
         private void AddRows(Worksheet worksheet)
         {
-            if (items == null || !items.Any()) return;
-
             var sheetData = new SheetData();
 
             var columns = new List<string>();

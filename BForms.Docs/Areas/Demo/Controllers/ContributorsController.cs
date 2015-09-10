@@ -362,7 +362,6 @@ namespace BForms.Docs.Areas.Demo.Controllers
             }, status, msg);
         }
 
-        [HttpPost]
         public ActionResult ExportExcel(BsGridRepositorySettings<ContributorSearchModel> settings, List<BsGridRowData<int>> items)
         {
             var rows = _gridRepository.GetItems(settings, items.Select(x => x.Id).ToList());
