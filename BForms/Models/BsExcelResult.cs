@@ -40,9 +40,19 @@ namespace BForms.Models
         /// <param name="context">Controller context.</param> 
         public override void ExecuteResult(ControllerContext context)
         {
-            var builder = this.builder ?? new BsGridExcelBuilder<T>(fileName, items);
-            var stream = builder.ToStream();
-            WriteStream(stream, fileName);
+            if (this.builder == null && this.items == null)
+            {
+                throw new Exception("Excel builder is null or items collection is null");
+            }
+
+            if (this.builder == null)
+            {
+                this.builder = new BsGridExcelBuilder<T>();
+                this.builder.AddSheet<T>(items, this.fileName);
+            }
+
+            var stream = this.builder.ToStream();
+            WriteStream(stream, this.fileName);
         }
 
         /// <summary> 

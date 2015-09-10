@@ -368,9 +368,11 @@ namespace BForms.Docs.Areas.Demo.Controllers
 
             try
             {
-                var builder = new BsGridExcelBuilder<ContributorRowModel>("BForms Contributors.xlsx", rows);
+                var builder = new BsGridExcelBuilder<ContributorRowModel>();
 
-                builder.ConfigureHeader(header =>
+                var lightThemeSheet = builder.AddSheet<ContributorRowModel>(rows, "Contributors Light");
+
+                lightThemeSheet.ConfigureHeader(header =>
                         {
                             header.Order(settings.OrderColumns);
                             header.Style.Font.Bold = true;
@@ -408,6 +410,36 @@ namespace BForms.Docs.Areas.Demo.Controllers
                                    .Text(x => x.StartDate.ToMonthNameDate())
                                    .Style(style => style.Font.Italic = true);
                         });
+
+                var darkThemeSheet = builder.AddSheet<ContributorRowModel>(rows, "Contributors Dark");
+
+                darkThemeSheet.ConfigureHeader(header =>
+                {
+                    header.Order(settings.OrderColumns);
+                    header.Style.Font.Bold = true;
+                    header.Style.Font.Italic = true;
+                    header.Style.FillColor = BsGridExcelColor.DarkTeal;
+                    header.For(x => x.StartDate)
+                          .Text("Contributor since");
+                })
+                .ConfigureColumns(columns =>
+                {
+                    columns.For(x => x.Name)
+                            .Text(x => x.Name.DisplayValue)
+                            .Style(style => style.FillColor = BsGridExcelColor.DarkYellow)
+                            .Order(1);
+                    columns.For(x => x.Enabled)
+                            .Text(x => x.Enabled ? Resource.Yes : Resource.No)
+                            .Style((row, style) => style.FillColor = row.Enabled ? BsGridExcelColor.DarkGreen : BsGridExcelColor.DarkRed);
+                    columns.For(x => x.Role)
+                            .Order(2)
+                            .Text(x => x.Role.DisplayValue.ToString());
+                    columns.For(x => x.Contributions)
+                            .Text(x => x.Contributions.DisplayValue);
+                    columns.For(x => x.StartDate)
+                            .Text(x => x.StartDate.ToMonthNameDate())
+                            .Style(style => style.Font.Italic = true);
+                });
 
                 return new BsExcelResult<ContributorRowModel>("BForms Contributors.xlsx", builder);
             }
