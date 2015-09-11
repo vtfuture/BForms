@@ -317,7 +317,6 @@ namespace BForms.Grid
     #endregion
 
     #region BsGridExcelSheetBuilder
-
     public abstract class BsGridExcelSheetBuilder
     {
         internal virtual void AttachToWorksheet(Worksheet worksheet)
@@ -636,11 +635,11 @@ namespace BForms.Grid
     #endregion
 
     #region BsGridExcelBuilder
-    public class BsGridExcelBuilder<T> where T : class
+    public class BsGridExcelBuilder
     {
         #region Constructor and Properties
-        private Dictionary<string, BsGridExcelSheetBuilder> sheetBuilders;
-        private BsGridExcelStyleSheetBuilder styleBuilder;
+        protected Dictionary<string, BsGridExcelSheetBuilder> sheetBuilders;
+        protected BsGridExcelStyleSheetBuilder styleBuilder;
 
         public BsGridExcelBuilder()
         {
@@ -742,6 +741,20 @@ namespace BForms.Grid
             }
 
             return null;
+        }
+        #endregion
+    }
+
+    public class BsGridExcelBuilder<T> : BsGridExcelBuilder where T : class
+    {
+        #region Constructor and Properties
+        public BsGridExcelBuilder() : base() { }
+        #endregion
+
+        #region Config
+        public BsGridExcelSheetBuilder<T> AddSheet(IEnumerable<T> items, string name)
+        {
+            return base.AddSheet<T>(items, name);
         }
         #endregion
     }

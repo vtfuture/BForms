@@ -1,4 +1,4 @@
-﻿builder.ConfigureColumns(columns =>
+﻿sheet.ConfigureColumns(columns =>
         {
             columns.For(x => x.Enabled)
                    .Order(3) // column position 

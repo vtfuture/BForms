@@ -1,1 +1,1 @@
-﻿BsGridExcelBuilder<T> ConfigureColumns(Action<BsGridExcelColumnFactory<T>> config)
+﻿BsGridExcelSheetBuilder<T> ConfigureColumns(Action<BsGridExcelColumnFactory<T>> config)

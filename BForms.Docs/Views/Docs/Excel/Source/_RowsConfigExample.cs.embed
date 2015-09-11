@@ -1,4 +1,4 @@
-﻿builder.ConfigureRows((row, style) =>
+﻿sheet.ConfigureRows((row, style) =>
         {
             if (row.Role == "TeamLeader")
             {

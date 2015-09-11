@@ -1,3 +1,5 @@
 ﻿IEnumerable<ContributorRowModel> items = _gridRepository.GetItems(settings, ids);
 
-var builder = new BsGridExcelBuilder<ContributorRowModel>("BForms Contributors.xlsx", items);
+var builder = new BsGridExcelBuilder<ContributorRowModel>();
+
+var sheet = builder.AddSheet(items, "Contributors sheet");

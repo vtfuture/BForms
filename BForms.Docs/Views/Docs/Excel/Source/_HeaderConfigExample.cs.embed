@@ -1,4 +1,4 @@
-﻿builder.ConfigureHeader(header =>
+﻿sheet.ConfigureHeader(header =>
         {
             // general style
             header.Style.Font.Bold = true;
