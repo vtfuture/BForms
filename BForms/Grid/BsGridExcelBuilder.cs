@@ -524,7 +524,12 @@ namespace BForms.Grid
 
                     object value;
 
-                    var cell = dataCells.FirstOrDefault(x => string.Compare(x.PropName, column) == 0);
+                    BsGridExcelCell<T> cell = null;
+
+                    if (this.dataCells != null && this.dataCells.Any())
+                    {
+                        cell = this.dataCells.FirstOrDefault(x => string.Compare(x.PropName, column) == 0);
+                    }
 
                     #region Style
                     BsGridExcelStyle style = new BsGridExcelStyle();
