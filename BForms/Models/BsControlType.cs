@@ -133,6 +133,11 @@ namespace BForms.Models
         [Description("bs-listbox")]
         ListBox,
         /// <summary>
+        /// Listbox input element with remote data
+        /// </summary>
+        [Description("bs-listbox-remote")]
+        ListBoxRemote,
+        /// <summary>
         /// Grouped listbox input element
         /// </summary>
         [Description("bs-listbox-grouped")]

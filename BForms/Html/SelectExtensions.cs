@@ -172,6 +172,11 @@ namespace BForms.Html
                         htmlSelect = BsSelectInternal(htmlHelper, name, selectList,
                         optionLabel, htmlAttributes, allowMultiple, bsCssClass, metadata).ToHtmlString();
                         break;
+                    case BsControlType.ListBoxRemote:
+                        allowMultiple = true;
+                        htmlSelect = BsHiddenInternal(htmlHelper, name, selectList,
+                        optionLabel, htmlAttributes, allowMultiple, bsCssClass, metadata).ToHtmlString();
+                        break;
                     case BsControlType.DropDownListRemote:
                         allowMultiple = false;
                         htmlSelect = BsHiddenInternal(htmlHelper, name, selectList,
@@ -485,7 +490,7 @@ namespace BForms.Html
             var tagBuilder = new TagBuilder("input");
             tagBuilder.MergeAttribute("type", "hidden");
             tagBuilder.MergeAttributes(htmlAttributes);
-            tagBuilder.MergeAttribute("class", bsCssClass);
+            tagBuilder.MergeAttribute("class", bsCssClass + " form-control");
             tagBuilder.MergeAttribute("name", fullName, true);
             tagBuilder.MergeAttribute("placeholder", optionLabel);
             tagBuilder.GenerateId(fullName);
@@ -494,17 +499,55 @@ namespace BForms.Html
             {
                 if (selectList.Items != null)
                 {
-                    var selectedItem = selectList.Items.Where(x => x.Selected).FirstOrDefault();
-
-                    if (selectedItem != null)
+                    if (allowMultiple)
                     {
-                        tagBuilder.MergeAttribute("data-init", JsonConvert.SerializeObject(selectedItem));
+                        var selectedItems = selectList.Items.Where(x => x.Selected).ToList();
+
+                        if (selectedItems.Any())
+                        {
+                            tagBuilder.MergeAttribute("data-init", JsonConvert.SerializeObject(selectedItems.Select(x => new
+                            {
+                                id = x.Value,
+                                text = x.Text
+                            })));
+                        }
+                    }
+                    else
+                    {
+                        var selectedItem = selectList.Items.Where(x => x.Selected).FirstOrDefault();
+
+                        if (selectedItem != null)
+                        {
+                            tagBuilder.MergeAttribute("data-init", JsonConvert.SerializeObject(new
+                            {
+                                id = selectedItem.Value,
+                                text = selectedItem.Text
+                            }));
+                        }
                     }
                 }
 
                 if (selectList.SelectedValues != null)
                 {
-                    tagBuilder.MergeAttribute("value", selectList.SelectedValues.ToString());
+                    var value = "";
+
+                    if (ReflectionHelpers.IsList(selectList.SelectedValues))
+                    {
+                        var arr = new List<string>();
+
+                        foreach (var item in selectList.SelectedValues as IEnumerable)
+                        {
+                            arr.Add(item.ToString());
+                        }
+
+                        value = string.Join(",", arr);
+                    }
+                    else
+                    {
+                        value = selectList.SelectedValues.ToString();
+                    }
+
+                    tagBuilder.MergeAttribute("value", value);
                 }
             }
 

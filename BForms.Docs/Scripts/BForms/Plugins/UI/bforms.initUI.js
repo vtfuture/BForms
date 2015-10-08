@@ -11,7 +11,7 @@
         select2Selector: '.bs-dropdown:not(.no-initUI), .bs-dropdown-grouped:not(.no-initUI)',
 
         select2Remote: true,
-        select2RemoteSelector: '.bs-dropdown-remote:not(.no-initUI)',
+        select2RemoteSelector: '.bs-dropdown-remote:not(.no-initUI), .bs-listbox-remote:not(.no-initUI)',
 
         multiSelect2: true,
         multiSelect2Selector: '.bs-listbox:not(.no-initUI), .bs-listbox-grouped:not(.no-initUI)',
@@ -143,10 +143,7 @@
                 initSelection: function (element, callback) {
                     if ($elem.data('init')) {
                         var init = $elem.data('init');
-                        callback({
-                            id: init.Value,
-                            text: init.Text
-                        });
+                        callback(init);
                     }
                 },
                 escapeMarkup: function (m) { return m; }

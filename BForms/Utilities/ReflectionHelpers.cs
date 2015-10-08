@@ -13,6 +13,7 @@ using BForms.Mvc;
 
 using DocumentFormat.OpenXml.EMMA;
 using Newtonsoft.Json;
+using System.Collections;
 
 namespace BForms.Utilities
 {
@@ -453,6 +454,19 @@ namespace BForms.Utilities
                 throw new Exception("Could not get selector from specified expression.");
             }
             return memberInfo.Member.Name;
+        }
+
+        internal static bool IsList(object value)
+        {
+            return value is IList
+                || IsGenericList(value);
+        }
+
+        internal static bool IsGenericList(object value)
+        {
+            var type = value.GetType();
+            return type.IsGenericType
+                && typeof(List<>) == type.GetGenericTypeDefinition();
         }
     }
 }
