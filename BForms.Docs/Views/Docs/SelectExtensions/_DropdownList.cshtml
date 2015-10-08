@@ -21,3 +21,21 @@
 <pre class="prettyprint lang-cs bs-example">
 @Html.InsertFileContentCached("~/Views/Docs/SelectExtensions/Source/DropdownListView.cshtml.embed")
 </pre>
+
+<br/>
+
+<p>
+    You can also use it by loading <strong>remote data</strong>. Just decorate it with <code>[BsControl(BsControlType.DropDownListRemote)]</code>.
+</p>
+
+<h4 class="sub_title">Example</h4> 
+
+<h4 class="sub_title">View</h4>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/SelectExtensions/Source/DropdownListRemoteView.cshtml.embed")
+</pre>
+
+<h4 class="sub_title">Controller (remote data action)</h4>
+<pre class="prettyprint lang-cs bs-example">
+@Html.InsertFileContentCached("~/Views/Docs/SelectExtensions/Source/DropdownListRemoteController.cs.embed")
+</pre>

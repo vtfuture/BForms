@@ -1749,6 +1749,12 @@
   <ItemGroup>
     <Content Include="Scripts\BForms\Components\Bootstrap\fonts\glyphicons-halflings-regular.woff2" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\SelectExtensions\Source\DropdownListRemoteView.cshtml.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\SelectExtensions\Source\DropdownListRemoteController.cs.embed" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

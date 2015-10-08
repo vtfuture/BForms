@@ -1,0 +1,19 @@
+﻿public BsJsonResult GetCountriesPaged(int page, string search)
+{
+    var pageSize = 10;
+    var ddlWithSelected = Lists.AllCounties<string>();
+
+    var q = ddlWithSelected.Items
+        .Where(x => x.Text.ToLower().Contains(search.ToLower()));
+
+    var items = q.Skip((page - 1) * pageSize)
+        .Take(pageSize)
+        .ToList();
+
+    return new BsJsonResult(new
+    {
+        PageSize = pageSize,
+        Count = q.Count(),
+        Items = items
+    });
+}
