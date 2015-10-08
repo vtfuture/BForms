@@ -464,6 +464,17 @@ the specific language governing permissions and limitations under the Apache Lic
                         // TODO - replace query.page with query so users have access to term, page, etc.
                         var results = options.results(data, query.page);
                         query.callback(results);
+                    },
+                    error: function (jqXHR, status, error) {
+                        if (requestNumber < requestSequence) {
+                            return;
+                        }
+                        var r = null;
+                        if (options.error) {
+                            r = options.error(jqXHR, status, error);
+                            r.isError = true;
+                        }
+                        query.callback(r || { isError: true });
                     }
                 });
                 handler = transport.call(self, params);
@@ -1726,6 +1737,11 @@ the specific language governing permissions and limitations under the Apache Lic
                                 data.results.unshift(def);
                             }
                         }
+                    }
+                    
+                    if (data.isError && checkFormatter(opts.formatError, "formatError")){
+                        render("<li class='select2-no-results'>" + $.fn.select2.defaults.formatError(search.val()) + "</li>");
+                        return;
                     }
 
                     if (data.results.length === 0 && checkFormatter(opts.formatNoMatches, "formatNoMatches")) {
@@ -3320,6 +3336,7 @@ the specific language governing permissions and limitations under the Apache Lic
         },
         formatResultCssClass: function (data) { return undefined; },
         formatSelectionCssClass: function (data, container) { return undefined; },
+        formatError: function (term) { return "Server error. Try again later"; },
         formatNoMatches: function () { return "No matches found"; },
         formatInputTooShort: function (input, min) { var n = min - input.length; return "Please enter " + n + " more character" + (n == 1 ? "" : "s"); },
         formatInputTooLong: function (input, max) { var n = input.length - max; return "Please delete " + n + " character" + (n == 1 ? "" : "s"); },

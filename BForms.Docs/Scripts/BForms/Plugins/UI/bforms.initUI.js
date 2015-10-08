@@ -139,6 +139,11 @@
 
                         return { results: results, more: more };
                     },
+                    error: function (jqXHR, status, error) {
+                        return {
+                            errorMessage: jqXHR.statusText
+                        };
+                    }
                 },
                 initSelection: function (element, callback) {
                     if ($elem.data('init')) {
