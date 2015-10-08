@@ -157,10 +157,12 @@
             if (options.formatResult) {
                 s2ropts = $.extend(true, {}, s2ropts, {
                     formatResult: function (state) {
-                        var fr = options.formatResult
-                            .replace(/\{{id\}}\s?/g, state.id)
-                            .replace(/\{{text\}}\s?/g, state.text);
-                        return fr;
+                        var html, prop, regex;
+                        for (prop in state) {
+                            regex = new RegExp('{{' + prop + '}}', 'ig');
+                            html = (html || options.formatResult).replace(regex, state[prop]);
+                        }
+                        return html;
                     },
                 });
             }
