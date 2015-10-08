@@ -97,9 +97,10 @@
         @Html.BsLabelFor(m => m.CountriesList)
         <div class="input-group">
             @Html.BsSelectFor(m => m.CountriesList, null, new 
-                            { 
-                                url = Url.Action("GetCountriesPaged", "Login", new { area = "Demo" })
-                            })
+            { 
+                formatResult = "<img class='flag' src='" + Url.Content("~/Content/Images/Flags/") + "{{id}}.png'/> <span class='flag-text'>{{text}}</span>",
+                url = Url.Action("GetCountriesPaged", "Login", new { area = "Demo" })
+            })
             @Html.BsValidationFor(m => m.CountriesList)
         </div>
     </div>

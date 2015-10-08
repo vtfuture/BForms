@@ -120,8 +120,8 @@ namespace BForms.Docs.Areas.Demo.Controllers
             var enumWithSelected = BsSelectList<NotificationType?>.FromEnum(typeof(NotificationType));
             enumWithSelected.SelectedValues = NotificationType.Monthly;
 
-            var countries = Lists.AllCounties<string>();
-            var ddlInitialValue = countries.Items.Where(x => x.Value == "ROU").FirstOrDefault();
+            var countries = Lists.AllCountries<string>();
+            var ddlInitialValue = countries.Items.Where(x => x.Value == "RO").FirstOrDefault();
             ddlInitialValue.Selected = true;
 
             var ddlWithSelected = new BsSelectList<string>()
@@ -176,7 +176,7 @@ namespace BForms.Docs.Areas.Demo.Controllers
         public BsJsonResult GetCountriesPaged(int page, string search)
         {
             var pageSize = 10;
-            var ddlWithSelected = Lists.AllCounties<string>();
+            var ddlWithSelected = Lists.AllCountries<string>();
 
             var q = ddlWithSelected.Items
                 .Where(x => x.Text.ToLower().Contains(search.ToLower()));

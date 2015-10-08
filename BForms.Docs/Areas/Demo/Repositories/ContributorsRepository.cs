@@ -82,7 +82,7 @@ namespace BForms.Docs.Areas.Demo.Repositories
                 FirstName = x.FirstName,
                 LastName = x.LastName,
                 Url = x.Url,
-                CountriesList = Lists.AllCounties<string>(false)
+                CountriesList = Lists.AllCountries<string>(false)
             },
             ProjectRelated = new ContributorProjectEditableRelatedModel
             {
@@ -368,7 +368,7 @@ namespace BForms.Docs.Areas.Demo.Repositories
                     FirstName = model.FirstName,
                     LastName = model.LastName,
                     Url = model.Url,
-                    CountriesList = Lists.AllCounties<string>(false),
+                    CountriesList = Lists.AllCountries<string>(false),
                     Age = new BsRangeItem<int?>
                     {
                         ItemValue = model.Age,
@@ -474,7 +474,7 @@ namespace BForms.Docs.Areas.Demo.Repositories
             model.IsEnabled.ItemsFromEnum(typeof(YesNoValueTypes));
             model.RoleList = new BsSelectList<ProjectRole?>();
             model.RoleList.ItemsFromEnum(typeof(ProjectRole));
-            model.CountriesList = Lists.AllCounties<string>(false);
+            model.CountriesList = Lists.AllCountries<string>(false);
             model.LanguagesList = Lists.AllLanguages<List<string>>();
 
             if (stateModel != null)
@@ -553,7 +553,7 @@ namespace BForms.Docs.Areas.Demo.Repositories
         {
             return new ContributorNewModel()
             {
-                CountriesList = Lists.AllCounties<string>(false),
+                CountriesList = Lists.AllCountries<string>(false),
                 LanguagesList = Lists.AllLanguages<List<string>>(),
                 Age = new BsRangeItem<int?>
                 {

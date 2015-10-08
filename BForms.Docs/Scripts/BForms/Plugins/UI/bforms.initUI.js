@@ -101,7 +101,7 @@
             var $elem = $(elem),
                 options = $elem.data('options');
 
-            return {
+            var s2ropts = {
                 placeholder: $elem.attr('placeholder'),
                 multiple: $elem.attr('multiple'),
                 ajax: {
@@ -153,6 +153,18 @@
                 },
                 escapeMarkup: function (m) { return m; }
             };
+
+            if (options.formatResult) {
+                s2ropts = $.extend(true, {}, s2ropts, {
+                    formatResult: function (state) {
+                        var fr = options.formatResult
+                            .replace(/\{{id\}}\s?/g, state.id)
+                            .replace(/\{{text\}}\s?/g, state.text);
+                        return fr;
+                    },
+                });
+            }
+            return s2ropts;
         };
 
         InitUI.prototype._removePlaceholder = function ($elem) {

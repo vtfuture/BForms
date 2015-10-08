@@ -11,7 +11,7 @@ namespace BForms.Docs.Areas.Demo.Mock
     public static class Lists
     {
         [System.Diagnostics.DebuggerHidden()]
-        public static BsSelectList<T> AllCounties<T>(bool isoKey = true)
+        public static BsSelectList<T> AllCountries<T>(bool isoKey = true)
         {
             var countryList = new SortedDictionary<string, string>();
             // Iterate the Framework Cultures...
@@ -29,7 +29,7 @@ namespace BForms.Docs.Areas.Demo.Mock
                     continue;
                 }
                 // Create new country dictionary entry.
-                var newKeyValuePair = new KeyValuePair<string, string>(ri.EnglishName, isoKey ? ri.ThreeLetterISORegionName : ri.EnglishName);
+                var newKeyValuePair = new KeyValuePair<string, string>(ri.EnglishName, isoKey ? ri.TwoLetterISORegionName : ri.EnglishName);
 
                 // If the country is not alreayd in the countryList add it...
                 if (!(countryList.ContainsKey(ri.EnglishName)))
