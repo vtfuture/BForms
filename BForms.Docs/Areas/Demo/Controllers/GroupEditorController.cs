@@ -17,6 +17,7 @@ using BForms.Grid;
 using RequireJsNet;
 using BForms.Editor;
 using BForms.Docs.Resources;
+using System.Drawing;
 
 namespace BForms.Docs.Areas.Demo.Controllers
 {
@@ -162,6 +163,18 @@ namespace BForms.Docs.Areas.Demo.Controllers
         #endregion
 
         #region Ajax
+
+        public ActionResult GenerateAvatar(string name)
+        {
+            var avatarStream = new BsAvatar()
+                .Circle()
+                .FontColor(Color.White)
+                .Name(name)
+                .GenerateStream();
+
+            return this.File(avatarStream.GetBuffer(), "image/png");
+        }
+
         [HttpPost]
         public BsJsonResult GetTab(BsEditorRepositorySettings<ContributorType> settings)
         {

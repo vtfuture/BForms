@@ -28,7 +28,7 @@
 
         tab1.BulkMove = true;
         tab1.For(x => x.Grid).Avatar(x => x.Name.DisplayValue.Contains("Marius") ?
-                    "https://2.gravatar.com/avatar/50e73c9ac16439780dd040694880fe9d" : Url.Content("~/Content/Images/bg-user.png"));
+                    "https://2.gravatar.com/avatar/50e73c9ac16439780dd040694880fe9d" : Url.Action("GenerateAvatar", "GroupEditor", new { area = "Demo", name = x.Name.ItemValue }));
         
         tab2.Toolbar.QuickSearch = true;
         tab2.For(x => x.Grid).Avatar(x => Url.Content("~/Content/Images/bg-user.png"));
