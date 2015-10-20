@@ -43,7 +43,9 @@ namespace BForms.Utilities
 
         internal static string Serialize(object o)
         {
-            return JsonConvert.SerializeObject(o);
+            var type = o.GetType();
+            
+            return type.IsEnum || type.IsClass ? JsonConvert.SerializeObject(o) : o.ToString();
         }
     }
 }
