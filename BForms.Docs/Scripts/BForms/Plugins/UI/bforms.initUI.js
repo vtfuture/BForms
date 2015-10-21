@@ -194,7 +194,7 @@
             var uiLocale = $('html').attr('lang') !== "undefined" ? $('html').attr('lang') : 'en';
             if (requireConfig && requireConfig.locale) {
                 var locale = requireConfig.locale;
-                if (typeof moment.langData(locale) !== "undefined") {
+                if (typeof moment.localeData(locale) !== "undefined") {
                     uiLocale = locale;
                 }
             }
