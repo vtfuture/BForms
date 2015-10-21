@@ -47,7 +47,7 @@
                 }
             }
 
-            this.newMoment = moment().lang(this.options.language);
+            this.newMoment = moment().locale(this.options.language);
 
             switch (this.options.type) {
                 case 'datepicker':
@@ -98,7 +98,7 @@
 
         if (typeof this.options.initialValue !== "undefined" && this.options.initialValue != '') {
 
-            var initialValue = moment(this.options.initialValue).lang(this.options.language);
+            var initialValue = moment(this.options.initialValue).locale(this.options.language);
             this.currentValue = initialValue.clone();
             this._valueSet = true;
             this._updateDisplays();
@@ -113,16 +113,16 @@
             }
 
             if (valueMoment != null) {
-                valueMoment.lang(this.options.language);
+                valueMoment.locale(this.options.language);
             }
 
             if (valueMoment != null && valueMoment.isValid()) {
-                this.currentValue = valueMoment.lang(this.options.language);
+                this.currentValue = valueMoment.locale(this.options.language);
             } else {
-                this.currentValue = this._getDefaultDate().lang(this.options.language);
+                this.currentValue = this._getDefaultDate().locale(this.options.language);
             }
         } else {
-            this.currentValue = this._getDefaultDate().lang(this.options.language);
+            this.currentValue = this._getDefaultDate().locale(this.options.language);
         }
 
         if (this.options.allowDeselect !== true) {
@@ -200,13 +200,13 @@
         } else {
             switch (this._type) {
                 case this.enums.Type.DateTimepicker:
-                    this._displayFormat = moment.langData(this.options.language)._longDateFormat['L'] + ' ' + moment.langData(this.options.language)._longDateFormat['LT'];
+                    this._displayFormat = moment.localeData(this.options.language)._longDateFormat['L'] + ' ' + moment.localeData(this.options.language)._longDateFormat['LT'];
                     break;
                 case this.enums.Type.Datepicker:
-                    this._displayFormat = moment.langData(this.options.language)._longDateFormat['L'];
+                    this._displayFormat = moment.localeData(this.options.language)._longDateFormat['L'];
                     break;
                 case this.enums.Type.Timepicker:
-                    this._displayFormat = moment.langData(this.options.language)._longDateFormat['LT'];
+                    this._displayFormat = moment.localeData(this.options.language)._longDateFormat['LT'];
                     break;
                 default:
             }
@@ -299,7 +299,7 @@
             }
 
             if (initialValueMoment != null) {
-                initialValueMoment.lang(this.options.language);
+                initialValueMoment.locale(this.options.language);
             }
 
             if (initialValueMoment != null && initialValueMoment.isValid()) {
@@ -590,7 +590,7 @@
 
             this.$picker.on('mouseover', '.bs-dateValue', $.proxy(function (e) {
                 var $target = $(e.currentTarget);
-                var dateValue = moment($target.data('value')).lang(this.options.language);
+                var dateValue = moment($target.data('value')).locale(this.options.language);
 
                 this.options.onDayMouseOver(dateValue, dateValue.format(this._displayFormat), this.isValidDate(dateValue));
 
@@ -667,13 +667,13 @@
         switch (this._currentDisplay) {
             case this.enums.Display.Days:
                 if (!this._blockMonths) {
-                    this.value.subtract('month', 1);
+                    this.value.subtract(1, 'month');
                     hasChanged = true;
                 }
                 break;
             case this.enums.Display.Months:
                 if (!this._blockYears) {
-                    this.value.subtract('year', 1);
+                    this.value.subtract(1, 'year');
                     hasChanged = true;
                 }
                 break;
@@ -751,7 +751,7 @@
         this._stopEvent(e);
 
         var $target = $(e.currentTarget),
-            value = moment($target.data('value')).lang(this.options.language);
+            value = moment($target.data('value')).locale(this.options.language);
 
         if ($target.parents('.bs-notSelectable').length) return;
 
@@ -780,13 +780,13 @@
         if ($target.parents().hasClass('bs-notSelectable')) return;
 
         if (this._selectOn === this.enums.Display.Months) {
-            if (this.isValidDate(moment(value).lang(this.options.language))) {
-                this._setCurrentValue(moment(value).lang(this.options.language));
+            if (this.isValidDate(moment(value).locale(this.options.language))) {
+                this._setCurrentValue(moment(value).locale(this.options.language));
                 this.value = this.currentValue.clone();
                 this._updateDateView();
             }
         } else {
-            this.value = moment(value).lang(this.options.language);
+            this.value = moment(value).locale(this.options.language);
             this._currentDisplay = this.enums.Display.Days;
             this._updateDateView();
         }
@@ -801,14 +801,14 @@
         if ($target.parents().hasClass('bs-notSelectable')) return;
 
         if (this._selectOn === this.enums.Display.Years) {
-            if (this.isValidDate(moment(value).lang(this.options.language))) {
-                this._setCurrentValue(moment(value).lang(this.options.language));
+            if (this.isValidDate(moment(value).locale(this.options.language))) {
+                this._setCurrentValue(moment(value).locale(this.options.language));
                 this.value = this.currentValue.clone();
                 this._updateDateView();
             }
 
         } else {
-            this.value = moment(value).lang(this.options.language);
+            this.value = moment(value).locale(this.options.language);
 
             this._currentDisplay = this.enums.Display.Months;
 
@@ -819,9 +819,9 @@
     bDatepicker.prototype.dateNowClick = function (e) {
         this._stopEvent(e);
 
-        var newValue = moment().lang(this.options.language);
+        var newValue = moment().locale(this.options.language);
         if (this.isValidDate(newValue)) {
-            this._setCurrentValue(moment().lang(this.options.language));
+            this._setCurrentValue(moment().locale(this.options.language));
             this.value = this.currentValue;
 
             if (typeof this._selectOn === "undefined" || this._selectOn === this.enums.Display.Days) {
@@ -835,10 +835,10 @@
     bDatepicker.prototype.timeNowClick = function (e) {
         this._stopEvent(e);
 
-        var newValue = moment().lang(this.options.language);
+        var newValue = moment().locale(this.options.language);
 
         if (this.isValidDate(newValue)) {
-            this._setCurrentValue(moment().lang(this.options.language));
+            this._setCurrentValue(moment().locale(this.options.language));
             this.value = this.currentValue;
 
             if (typeof this._selectOn === "undefined" || this._selectOn === this.enums.Display.Days) {
@@ -1758,7 +1758,7 @@
 
         if (value != null) {
 
-            var val = moment(value).lang(this.options.language);
+            var val = moment(value).locale(this.options.language);
 
             if (this.isValidDate(val)) {
                 this._setCurrentValue(val);
@@ -1789,7 +1789,7 @@
     bDatepicker.prototype.format = function (date) {
         if (date != null) {
 
-            var fDate = moment(date).lang(this.options.language);
+            var fDate = moment(date).locale(this.options.language);
 
             if (fDate.isValid())
                 return fDate.format(this._displayFormat);
@@ -2004,8 +2004,8 @@
         var renderedDays = 0;
 
         //find start date
-        while (daysStart.day() != moment.langData(this.options.language)._week.dow) {
-            daysStart.subtract('days', 1);
+        while (daysStart.day() != moment.localeData(this.options.language)._week.dow) {
+            daysStart.subtract(1,'days');
         }
 
         //we should renderer 42 days, for uniformity with months that start on a saturday
@@ -2046,7 +2046,7 @@
     };
 
     bDatepicker.prototype.getDaysNames = function () {
-        return this.value.clone().lang()._weekdaysMin;
+        return this.value.clone().localeData()._weekdaysMin;
     };
 
     bDatepicker.prototype.getMonths = function (date) {
@@ -2081,7 +2081,7 @@
             years = [],
             it = date.clone();
 
-        it.year(startOfDecade).subtract('year', 1);
+        it.year(startOfDecade).subtract(1,'year');
 
         var prevYear = {
             year: it.format('YYYY'),
@@ -2147,7 +2147,7 @@
             hour: time.format(this.options.is12Hours ? 'h' : 'H'),
             minute: time.minute(),
             second: time.second(),
-            meridiem: time.lang().meridiem(time.clone().add('hour', 12).format('H')),
+            meridiem: time.localeData().meridiem(time.clone().add('hour', 12).format('H')),
         };
     };
 
@@ -2166,12 +2166,12 @@
             allowSame = this.options.allowSame;
 
         if (typeof this.options.maxDate !== "undefined" && this.options.maxDate !== null) {
-            maxDate = this.options.maxDate === "now" ? moment().lang(this.options.language) : moment(this.options.maxDate).lang(this.options.language);
+            maxDate = this.options.maxDate === "now" ? moment().locale(this.options.language) : moment(this.options.maxDate).locale(this.options.language);
             withMax = true;
         }
 
         if (typeof this.options.minDate !== "undefined" && this.options.minDate !== null) {
-            minDate = moment(this.options.minDate).lang(this.options.language);
+            minDate = moment(this.options.minDate).locale(this.options.language);
             withMin = true;
         }
 

@@ -9,7 +9,7 @@
 
 }(function (moment) {
 
-    moment.lang('es', {
+    moment.locale('es', {
         months: "enero_febrero_marzo_abril_mayo_junio_julio_agosto_septiembre_octubre_noviembre_diciembre".split("_"),
         monthsShort: "ene._feb._mar._abr._may._jun._jul._ago._sep._oct._nov._dic.".split("_"),
         weekdays: "domingo_lunes_martes_miércoles_jueves_viernes_sábado".split("_"),
@@ -62,7 +62,7 @@
         }
     });
     
-    moment.lang('ro', {
+    moment.locale('ro', {
         months: "Ianuarie_Februarie_Martie_Aprilie_Mai_Iunie_Iulie_August_Septembrie_Octombrie_Noiembrie_Decembrie".split("_"),
         monthsShort: "Ian_Feb_Mar_Apr_Mai_Iun_Iul_Aug_Sep_Oct_Noi_Dec".split("_"),
         weekdays: "Luni_Marţi_Miercuri_Joi_Vineri_Sâmbătă_Duminică".split("_"),
@@ -104,7 +104,7 @@
         }
     });
 
-    moment.lang('fr', {
+    moment.locale('fr', {
         months: "janvier_février_mars_avril_mai_juin_juillet_août_septembre_octobre_novembre_décembre".split("_"),
         monthsShort: "janv._févr._mars_avr._mai_juin_juil._août_sept._oct._nov._déc.".split("_"),
         weekdays: "dimanche_lundi_mardi_mercredi_jeudi_vendredi_samedi".split("_"),
@@ -149,7 +149,7 @@
         }
     });
 
-    moment.lang('en');
+    moment.locale('en');
 
 }));
 	
