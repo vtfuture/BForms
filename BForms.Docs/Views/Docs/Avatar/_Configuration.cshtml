@@ -1,0 +1,209 @@
+﻿<h3 id="Configuration">Configuration</h3>
+
+<code>BsAvatarBuilder</code>
+
+<h4 class="sub_title">Methods</h4>
+
+<p>
+    <code>Size(int size) | Size(int width, int height)</code>
+</p>
+<p>
+    <strong>params:</strong>
+    <ul>
+        <li>
+            <code>size</code>
+            <p>
+                <strong>type </strong><code>int</code><br />
+                <strong>default</strong> 64 <br />
+                <strong>description</strong> Size of avatar in pixels.
+            </p>
+        </li>
+    </ul>
+</p>
+
+<p>
+    Sets the avatar dimensions (width/height)
+</p>
+
+<hr />
+
+<p>
+    <code>BackgroundColor(string hex) | BackgroundColor(Color color)</code>
+</p>
+<p>
+    <strong>params:</strong>
+    <ul>
+        <li>
+            <code>hex</code>
+            <p>
+                <strong>type </strong><code>string</code><br />
+                <strong>default</strong> random <br />
+                <strong>description</strong> Hex color code.
+            </p>
+        </li>
+        <li>
+            <code>color</code>
+            <p>
+                <strong>type </strong><code>struct Color</code><br />
+                <strong>default</strong> random <br />
+            </p>
+        </li>
+    </ul>
+</p>
+
+<p>
+    Sets the background color
+</p>
+
+<hr/>
+
+<p>
+    <code>FontColor(string hex) | FontColor(Color color)</code>
+</p>
+<p>
+    <strong>params:</strong>
+    <ul>
+        <li>
+            <code>hex</code>
+<p>
+    <strong>type </strong><code>string</code><br />
+    <strong>default</strong> random monochrome color <br />
+    <strong>description</strong> Hex color code.
+</p>
+        </li>
+<li>
+    <code>color</code>
+    <p>
+        <strong>type </strong><code>struct Color</code><br />
+        <strong>default</strong> random monochrome color<br />
+    </p>
+</li>
+    </ul>
+</p>
+
+<p>
+    Sets the font color
+</p>
+
+<hr />
+
+<p>
+    <code>Font(string fontFamily, float fontSize, FontStyle fontStyle) | Font(Font font)</code>
+</p>
+<p>
+    <strong>params:</strong>
+    <ul>
+        <li>
+            <code>fontFamily</code>
+            <p>
+                <strong>type </strong><code>string</code><br />
+                <strong>default</strong> "Arial" <br />
+                <strong>description</strong> Font family
+            </p>
+        </li>
+        <li>
+            <code>fontSize</code>
+            <p>
+                <strong>type </strong><code>float</code><br />
+                <strong>default</strong> 20 <br />
+                <strong>description</strong> Font size
+            </p>
+        </li>
+        <li>
+            <code>fontStyle</code>
+            <p>
+                <strong>type </strong><code>enum FontStyle</code><br />
+                <strong>default</strong> FontStyle.Bold <br />
+                <strong>description</strong> Font style
+            </p>
+        </li>
+        <li>
+            <code>font</code>
+            <p>
+                <strong>type </strong><code>struct Font</code><br />
+                <strong>default</strong> Arial 20 Bold<br />
+            </p>
+        </li>
+    </ul>
+</p>
+
+<p>
+    Sets the font family, size and style
+</p>
+
+<hr />
+
+<p>
+    <code>Text(string text)</code>
+</p>
+<p>
+    <strong>params:</strong>
+    <ul>
+        <li>
+            <code>text</code>
+<p>
+    <strong>type </strong><code>string</code><br />
+    <strong>default</strong> null <br />
+    <strong>description</strong> Avatar text.
+</p>
+        </li>
+    </ul>
+</p>
+
+<p>
+    Sets the drawn text
+</p>
+
+<hr />
+
+<p>
+    <code>Name(string fullName)</code>
+</p>
+<p>
+    <strong>params:</strong>
+    <ul>
+        <li>
+            <code>fullName</code>
+<p>
+    <strong>type </strong><code>string</code><br />
+    <strong>default</strong> null <br />
+    <strong>description</strong> Full user name (eg "Mike Johnson").
+</p>
+        </li>
+    </ul>
+</p>
+
+<p>
+    Sets the drawn text as the credentials of the user name
+</p>
+
+<hr />
+
+<p>
+    <code>Circle()</code>
+</p>
+
+<p>
+    Rounded corners
+</p>
+
+<hr/>
+
+<p>
+    <code>MemoryStream ToStream()</code>
+</p>
+
+<p>
+    Generates a stream using the specified configuration 
+</p>
+
+<hr />
+
+<p>
+    <code>byte[] ToByteArray()</code>
+</p>
+
+<p>
+    Generates a byte array representation of the configured avatar
+</p>
+

@@ -4,14 +4,11 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Text;
 using System.IO;
-using System.Linq;
-using System.Security.Cryptography;
 using System.Text.RegularExpressions;
-using System.Web;
 
 namespace BForms.Utilities
 {
-    public class BsAvatar
+    public class BsAvatarBuilder
     {
         private int _width;
         private int _height;
@@ -21,21 +18,21 @@ namespace BForms.Utilities
         private Color _fontColor;
         private Font _font;
         private List<string> FlatUIColors = new List<string>() { "#1abc9c", "#2ecc71", "#3498db", "#9b59b6", "#34495e", "#16a085", "#27ae60", "#2980b9", "#8e44ad", "#f1c40f", "#e67e22", "#e74c3c", "#f39c12", "#d35400", "#c0392b" };
-        private List<string> MonochromColors = new List<string>() { "#ecf0f1", "#ffffff", "#95a5a6", "#bdc3c7", "#7f8c8d" };
+        private List<string> MonochromeColors = new List<string>() { "#ecf0f1", "#ffffff", "#95a5a6", "#bdc3c7", "#7f8c8d" };
         private static Random rnd = new Random();
 
-        public BsAvatar() 
+        public BsAvatarBuilder() 
         {
             this._width = 64;
             this._height = 64;
         }
 
-        public BsAvatar(string text) : this()
+        public BsAvatarBuilder(string text) : this()
         {
             this._text = text;
         }
 
-        public BsAvatar Size(int size)
+        public BsAvatarBuilder Size(int size)
         {
             this._width = size;
             this._height = size;
@@ -43,7 +40,7 @@ namespace BForms.Utilities
             return this;
         }
 
-        public BsAvatar Size(int width, int height)
+        public BsAvatarBuilder Size(int width, int height)
         {
             this._width = width;
             this._height = height;
@@ -51,63 +48,63 @@ namespace BForms.Utilities
             return this;
         }
 
-        public BsAvatar Circle()
+        public BsAvatarBuilder Circle()
         {
             this._circle = true;
 
             return this;
         }
 
-        public BsAvatar BackgroundColor(string hex)
+        public BsAvatarBuilder BackgroundColor(string hex)
         {
             this._backgroundColor = ColorTranslator.FromHtml(hex);
 
             return this;
         }
 
-        public BsAvatar BackgroundColor(Color color)
+        public BsAvatarBuilder BackgroundColor(Color color)
         {
             this._backgroundColor = color;
 
             return this;
         }
 
-        public BsAvatar Font(string fontFamily, float fontSize, FontStyle fontStyle)
+        public BsAvatarBuilder Font(string fontFamily, float fontSize, FontStyle fontStyle)
         {
             this._font = new Font(fontFamily, fontSize, fontStyle, GraphicsUnit.Pixel);
 
             return this;
         }
 
-        public BsAvatar Font(Font font)
+        public BsAvatarBuilder Font(Font font)
         {
             this._font = font;
 
             return this;
         }
 
-        public BsAvatar FontColor(Color fontColor)
+        public BsAvatarBuilder FontColor(Color fontColor)
         {
             this._fontColor = fontColor;
 
             return this;
         }
 
-        public BsAvatar FontColor(string hex)
+        public BsAvatarBuilder FontColor(string hex)
         {
             this._fontColor = ColorTranslator.FromHtml(hex);
 
             return this;
         }
 
-        public BsAvatar Text(string text)
+        public BsAvatarBuilder Text(string text)
         {
             this._text = text;
 
             return this;
         }
 
-        public BsAvatar Name(string fullName)
+        public BsAvatarBuilder Name(string fullName)
         {
             Regex regexInitials = new Regex(@"(\b[a-zA-Z])[a-zA-Z]* ?");
             this._text = regexInitials.Replace(fullName, "$1").Replace(".", "");
@@ -115,13 +112,13 @@ namespace BForms.Utilities
             return this;
         }
 
-        public MemoryStream GenerateStream()
+        public MemoryStream ToStream()
         {
             using (var bitmap = new Bitmap(this._width, this._height))
             {
                 DrawAvatar(bitmap);
 
-                using (var memStream = new System.IO.MemoryStream())
+                using (var memStream = new MemoryStream())
                 {
                     bitmap.Save(memStream, System.Drawing.Imaging.ImageFormat.Png);
 
@@ -130,9 +127,9 @@ namespace BForms.Utilities
             }
         }
 
-        public byte[] Generate()
+        public byte[] ToByteArray()
         {
-            return GenerateStream().ToArray();
+            return ToStream().ToArray();
         }
 
         private void DrawAvatar(Bitmap bitmap)
@@ -205,9 +202,9 @@ namespace BForms.Utilities
 
         private Color GetRandomFontColor()
         {
-            int r = rnd.Next(MonochromColors.Count);
+            int r = rnd.Next(MonochromeColors.Count);
 
-            return ColorTranslator.FromHtml(MonochromColors[r]);
+            return ColorTranslator.FromHtml(MonochromeColors[r]);
         }
 
         private Font GetDefaultFont()

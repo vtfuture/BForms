@@ -184,7 +184,7 @@
       <DependentUpon>BFormsResources.resx</DependentUpon>
     </Compile>
     <Compile Include="Utilities\Attributes\DisplayFormatted.cs" />
-    <Compile Include="Utilities\BsAvatar.cs" />
+    <Compile Include="Utilities\BsAvatarBuilder.cs" />
     <Compile Include="Utilities\BsComponentStateHandler.cs" />
     <Compile Include="Utilities\BsConfigurationManager.cs" />
     <Compile Include="Utilities\BsDefaultsManagers.cs" />

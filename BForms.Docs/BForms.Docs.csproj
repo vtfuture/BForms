@@ -207,6 +207,7 @@
     <Content Include="Content\Images\bforms-200x200.png" />
     <Content Include="Content\Images\bforms-32x32.png" />
     <Content Include="Content\Images\bg-user.png" />
+    <Content Include="Content\Images\Docs\avatars.jpg" />
     <Content Include="Content\Images\Docs\eg-grid-new-row.jpg" />
     <Content Include="Content\Images\Docs\eg-quicksearch-comedy.jpg" />
     <Content Include="Content\Images\Docs\eg-reorder-after.jpg" />
@@ -1975,6 +1976,18 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Docs\SelectExtensions\Source\DropdownListRemoteController.cs.embed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Avatar\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Avatar\_Configuration.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Avatar\_Example.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Docs\Avatar\Source\_Controller.cs.embed" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

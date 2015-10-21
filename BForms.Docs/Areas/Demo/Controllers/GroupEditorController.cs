@@ -164,13 +164,13 @@ namespace BForms.Docs.Areas.Demo.Controllers
 
         #region Ajax
 
-        public ActionResult GenerateAvatar(string name)
+        public ActionResult GetAvatar(string name)
         {
-            var avatarStream = new BsAvatar()
-                .Circle()
+            var avatarStream = new BsAvatarBuilder()
+                //.Circle()
                 .FontColor(Color.White)
                 .Name(name)
-                .GenerateStream();
+                .ToStream();
 
             return this.File(avatarStream.GetBuffer(), "image/png");
         }

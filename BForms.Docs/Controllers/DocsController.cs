@@ -58,5 +58,10 @@ namespace BForms.Docs.Controllers
         {
             return View("Excel/Index");
         }
+
+        public ActionResult Avatar()
+        {
+            return View("Avatar/Index");
+        }
     }
 }

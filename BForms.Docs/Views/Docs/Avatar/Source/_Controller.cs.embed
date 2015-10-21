@@ -1,0 +1,10 @@
+﻿public ActionResult GetAvatar(string name)
+{
+    var avatarStream = new BsAvatarBuilder()
+        //.Circle()
+        .FontColor(Color.White)
+        .Name(name)
+        .ToStream();
+
+    return this.File(avatarStream.GetBuffer(), "image/png");
+}

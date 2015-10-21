@@ -1,0 +1,36 @@
+﻿@{
+    ViewBag.Title = "Avatar control";
+}
+
+<div class="row">
+    <div class="hidden-xs hidden-sm col-md-3 col-lg-3">
+        <div class="bs-sidebar">
+            <ul class="nav bs-sidenav">
+                <li>
+                    <a href="#panel-section">Avatar control</a>
+                    <ul class="nav">
+                        <li><a href="#Example">Example</a></li>
+                        <li><a href="#Configuration">Configuration</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <main class="col-md-9 col-lg-9" role="main">
+        <div class="bs-docs-section">
+            <div class="page-header">
+                <h1 id="groupeditor-section">Avatar</h1>
+            </div>
+            <p>
+                The avatar component helps you generate a default user avatar using its credentials. 
+            </p>
+            <hr/>
+            @Html.Partial("Avatar/_Example")
+            <hr />
+            @Html.Partial("Avatar/_Configuration")
+            <hr />
+        </div>
+
+    </main>
+</div>
