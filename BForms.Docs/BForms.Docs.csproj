@@ -518,6 +518,7 @@
     <Content Include="Scripts\BForms\Widgets\Taglist\bforms.taglist.js" />
     <Content Include="Scripts\Controllers\Demo\FormBuilder\index.js" />
     <Content Include="Scripts\Controllers\Demo\UserProfile\userprofile-index.js" />
+    <Content Include="Scripts\Controllers\Root\Docs\docs-avatar.js" />
     <Content Include="Scripts\Controllers\Root\Docs\docs-groupeditor.js" />
     <Content Include="Scripts\Controllers\Root\Docs\docs-panel.js" />
     <Content Include="Scripts\Controllers\Root\Start\start-group.js" />
