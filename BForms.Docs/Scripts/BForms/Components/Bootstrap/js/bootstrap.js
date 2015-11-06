@@ -9,6 +9,8 @@
     1.Add module definition
     2.Fix dropdown backdrop
           $('<div class="dropdown-backdrop"/>').insertAfter($parent).on('click', clearMenus), line 799
+    3.Fix tooltip offset check
+        rightEdgeOffset > viewportDimensions.width, line 1661
 
 */
 
@@ -1658,7 +1660,7 @@ if (typeof jQuery === 'undefined') {
             var rightEdgeOffset = pos.left + viewportPadding + actualWidth
             if (leftEdgeOffset < viewportDimensions.left) { // left overflow
                 delta.left = viewportDimensions.left - leftEdgeOffset
-            } else if (rightEdgeOffset > viewportDimensions.right) { // right overflow
+            } else if (rightEdgeOffset > viewportDimensions.width) { // right overflow
                 delta.left = viewportDimensions.left + viewportDimensions.width - rightEdgeOffset
             }
         }
