@@ -245,25 +245,35 @@ namespace BForms.Renderers
             }
 
             #region Left
-            var left = new TagBuilder("div");
 
-            left.AddCssClass("left bs-tabs");
+            if (this.Builder.TabConfigurator.Tabs.Any())
+            {
+                var left = new TagBuilder("div");
 
-            left.InnerHtml += RenderTabs();
+                left.AddCssClass("left bs-tabs");
 
-            container.InnerHtml += left;
+                left.InnerHtml += RenderTabs();
+
+                container.InnerHtml += left;
+            }
+            
             #endregion
 
             #region Right
-            var right = new TagBuilder("div");
 
-            right.AddCssClass("right bs-groups");
+            if (this.Builder.GroupConfigurator.Groups.Any())
+            {
+                var right = new TagBuilder("div");
 
-            right.InnerHtml += RenderGroups();
+                right.AddCssClass("right bs-groups");
 
-            right.InnerHtml += RenderGroupsFooter();
+                right.InnerHtml += RenderGroups();
 
-            container.InnerHtml += right;
+                right.InnerHtml += RenderGroupsFooter();
+
+                container.InnerHtml += right;
+            }
+           
             #endregion
 
             return container.ToString();
