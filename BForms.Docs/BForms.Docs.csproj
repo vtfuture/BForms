@@ -190,6 +190,7 @@
     <Content Include="Content\Images\Apple\apple-touch-icon.png" />
     <Content Include="Content\Images\Apple\favicon.ico" />
     <Content Include="Content\Images\Banners\BForms_Banner_Turquoise_1024x368_v1.jpg" />
+    <Content Include="Content\Images\Banners\BForms_Banner_Turquoise_1024x368_v2-uncompressed.jpg" />
     <Content Include="Content\Images\Banners\BForms_Banner_Turquoise_1024x368_v2.jpg" />
     <Content Include="Content\Images\Banners\BForms_Banner_Turquoise_1024x368_v3.jpg" />
     <Content Include="Content\Images\Banners\BForms_Banner_Turquoise_300x250_v1.jpg" />
