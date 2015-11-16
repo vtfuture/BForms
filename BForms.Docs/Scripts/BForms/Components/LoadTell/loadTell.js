@@ -33,6 +33,10 @@
             perfTime[key] = JSON.stringify(perfTime[key]);
         }
 
+        if (window.requireConfig != null && window.requireConfig.websiteOptions !== null && window.requireConfig.websiteOptions.requestKey != null) {
+            perfTime["requestKey"] = window.requireConfig.websiteOptions.requestKey;
+        }
+
         this._send(perfTime);
     };
 

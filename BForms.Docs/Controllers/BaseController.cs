@@ -70,6 +70,9 @@ namespace BForms.Docs.Controllers
             //RequireJsOptions.Add("loggerUrl", Url.Action("LogException", "Error", new { area = string.Empty }), RequireJsOptionsScope.Global);
 
             //RequireJsOptions.Add("loadLoggerUrl", Url.Action("LogLoadTimes", "Log", new { area = string.Empty }), RequireJsOptionsScope.Global);
+
+            //RequireJsOptions.Add("requestKey", "request-guid", RequireJsOptionsScope.Global);
+
         }
     }
 }
