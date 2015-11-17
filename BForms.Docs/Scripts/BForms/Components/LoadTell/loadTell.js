@@ -36,7 +36,11 @@
         }
 
         if (window.requireConfig != null && window.requireConfig.websiteOptions !== null && window.requireConfig.websiteOptions.requestKey != null) {
-            perfTime["requestKey"] = window.requireConfig.websiteOptions.requestKey;
+            perfTime["RequestKey"] = window.requireConfig.websiteOptions.requestKey;
+        }
+
+        if (window.requireConfig != null && window.requireConfig.websiteOptions !== null && window.requireConfig.websiteOptions.requestStartTime != null) {
+            perfTime["RequestStartTime"] = window.requireConfig.websiteOptions.requestStartTime;
         }
 
         this._send(perfTime);
