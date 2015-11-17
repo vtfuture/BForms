@@ -22,7 +22,9 @@
     };
 
     loadTell.prototype._addEvents = function () {
-        window.onload = this._onLoad.bind(this);
+        window.addEventListener('load', function () {
+            window.setTimeout(this._onLoad.bind(this), 50);
+        }.bind(this));
     };
 
     loadTell.prototype._onLoad = function () {
