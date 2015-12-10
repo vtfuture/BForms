@@ -202,7 +202,7 @@ a.btn {
 				}
 		
 				.dropdown-menu {
-					background: $mainColor;
+					background: darken($mainColor, 5%);
 					border: none;
 					a {
 						color: #fff;
@@ -725,7 +725,10 @@ a.btn {
 			&.selected {
 				background: darken($Blue, 10%);
 			}
-		}		
+		}
+		.dropdown-menu {
+			background: darken($Blue, 5%);
+		}
 	}
 
 }
@@ -777,7 +780,10 @@ a.btn {
 			&.selected {
 				background: darken($Green, 10%);
 			}
-		}	
+		}
+		.dropdown-menu {
+			background: darken($Green, 5%);
+		}		
 	}
 
 }
@@ -830,7 +836,10 @@ a.btn {
 			&.selected {
 				background: darken($Purple, 10%);
 			}
-		}	
+		}
+		.dropdown-menu {
+			background: darken($Purple, 5%);
+		}
 	}
 	
 
@@ -884,6 +893,9 @@ a.btn {
 				background: darken($Orange, 10%);
 			}
 		}	
+		.dropdown-menu {
+			background: darken($Orange, 5%);
+		}
 	}
 
 }
@@ -936,6 +948,9 @@ a.btn {
 				background: darken($Red, 10%);
 			}
 		}	
+		.dropdown-menu {
+			background: darken($Red, 5%);
+		}
 	}
 
 }
@@ -989,7 +1004,10 @@ a.btn {
 			&.selected {
 				background: darken($Black, 10%);
 			}
-		}	
+		}
+		.dropdown-menu {
+			background: darken($Black, 5%);
+		}		
 	}
 	
 }
