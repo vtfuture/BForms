@@ -93,7 +93,7 @@
         @Html.BsLabelFor(m => m.Contributions)
         <div class="input-group">
             @Html.BsGlyphiconAddon(Glyphicon.Stats)
-            @Html.BsInputFor(model => model.Contributions)
+            @Html.BsInputFor(model => model.Contributions, BsControlType.TextArea, new { rows = 5 })
         </div>
     </div>
     

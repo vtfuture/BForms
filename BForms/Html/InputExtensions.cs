@@ -181,7 +181,17 @@ namespace BForms.Html
                     inputHtml = htmlHelper.TextBoxForInternal(expression, format, htmlAttributes);
                     break;
                 case BsControlType.TextArea:
-                    inputHtml = htmlHelper.TextAreaForInternal(expression, 2, 20, htmlAttributes);
+                    int rows = 2;
+                    int columns = 20;
+                    if (htmlAttributes.ContainsKey("rows"))
+                    {
+                        int.TryParse(htmlAttributes["rows"].ToString(), out rows);
+                    }
+                    if (htmlAttributes.ContainsKey("cols"))
+                    {
+                        int.TryParse(htmlAttributes["cols"].ToString(), out columns);
+                    }
+                    inputHtml = htmlHelper.TextAreaForInternal(expression, rows, columns, htmlAttributes);
                     break;
                 case BsControlType.Password:
                     inputHtml = htmlHelper.PasswordFor(expression, htmlAttributes);
