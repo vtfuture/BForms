@@ -11,6 +11,20 @@
           $('<div class="dropdown-backdrop"/>').insertAfter($parent).on('click', clearMenus), line 799
     3.Fix tooltip offset check
         rightEdgeOffset > viewportDimensions.width, line 1661
+    4.Fix tooltip toggle
+        Tooltip.prototype.toggle = function (e) {
+        var self = this
+        if (e) {
+            self = $(e.currentTarget).data('bs.' + this.type)
+            if (!self) {
+                self = new this.constructor(e.currentTarget, this.getDelegateOptions())
+                $(e.currentTarget).data('bs.' + this.type, self)
+            }
+        }
+
+        self.tip().hasClass('in') ? self.leave(self) : self.enter(self)
+        }
+        line 1728
 
 */
 
@@ -1721,13 +1735,7 @@ if (typeof jQuery === 'undefined') {
             }
         }
 
-        if (e) {
-            self.inState.click = !self.inState.click
-            if (self.isInStateTrue()) self.enter(self)
-            else self.leave(self)
-        } else {
-            self.tip().hasClass('in') ? self.leave(self) : self.enter(self)
-        }
+        self.tip().hasClass('in') ? self.leave(self) : self.enter(self)
     }
 
     Tooltip.prototype.destroy = function () {

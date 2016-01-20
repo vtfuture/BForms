@@ -32,6 +32,12 @@
 
         XHROpts.data = settings.contentType === $.bforms.defAjaxOptions.contentType ? JSON.stringify(this._serializeJsonData(settings.data)) : settings.data;
 
+        if (window.requireConfig != null && window.requireConfig.websiteOptions !== null && window.requireConfig.websiteOptions.requestKey != null) {
+            XHROpts.beforeSend = function(request) {
+                request.setRequestHeader("X-Parent-Request", window.requireConfig.websiteOptions.requestKey);
+            }
+        }
+
         return XHROpts;
     };
 
@@ -397,6 +403,11 @@
 
         xhrRequest.open('POST', opts.url, true);
         xhrRequest.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+        if (window.requireConfig != null && window.requireConfig.websiteOptions !== null && window.requireConfig.websiteOptions.requestKey != null) {
+            xhrRequest.setRequestHeader("X-Parent-Request", window.requireConfig.websiteOptions.requestKey);
+        }
+
         xhrRequest.send(data);
 
         this._xhrStack[opts.name] = {

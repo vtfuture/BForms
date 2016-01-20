@@ -22,7 +22,9 @@
     };
 
     loadTell.prototype._addEvents = function () {
-        window.onload = this._onLoad.bind(this);
+        window.addEventListener('load', function () {
+            window.setTimeout(this._onLoad.bind(this), 50);
+        }.bind(this));
     };
 
     loadTell.prototype._onLoad = function () {
@@ -31,6 +33,14 @@
 
         for (var key in perfTime) {
             perfTime[key] = JSON.stringify(perfTime[key]);
+        }
+
+        if (window.requireConfig != null && window.requireConfig.websiteOptions !== null && window.requireConfig.websiteOptions.requestKey != null) {
+            perfTime["RequestKey"] = window.requireConfig.websiteOptions.requestKey;
+        }
+
+        if (window.requireConfig != null && window.requireConfig.websiteOptions !== null && window.requireConfig.websiteOptions.requestStartTime != null) {
+            perfTime["RequestStartTime"] = window.requireConfig.websiteOptions.requestStartTime;
         }
 
         this._send(perfTime);

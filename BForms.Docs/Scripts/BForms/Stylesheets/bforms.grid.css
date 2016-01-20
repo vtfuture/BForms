@@ -155,7 +155,7 @@ a.btn {
         .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .caret {
           margin-left: 10px; }
         .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .dropdown-menu {
-          background: #45ADA8;
+          background: #3e9b96;
           border: none; }
           .grid_container .grid_toolbar .grid_toolbar_header .grid_toolbar_controls .dropdown-menu a {
             color: #fff;
@@ -522,6 +522,8 @@ a.btn {
       background: #3086c8; }
     .grid_toolbar.blue .grid_toolbar_header .grid_toolbar_controls .open a.selected {
       background: #3086c8; }
+  .grid_toolbar.blue .grid_toolbar_header .grid_toolbar_controls .dropdown-menu {
+    background: #4092d1; }
 
 .grid_view.blue h2 .badge {
   background: #559ed6; }
@@ -555,6 +557,8 @@ a.btn {
       background: #449575; }
     .grid_toolbar.green .grid_toolbar_header .grid_toolbar_controls .open a.selected {
       background: #449575; }
+  .grid_toolbar.green .grid_toolbar_header .grid_toolbar_controls .dropdown-menu {
+    background: #4ca683; }
 
 .grid_view.green h2 .badge {
   background: #59B390; }
@@ -588,6 +592,8 @@ a.btn {
       background: #4f2b4e; }
     .grid_toolbar.purple .grid_toolbar_header .grid_toolbar_controls .open a.selected {
       background: #4f2b4e; }
+  .grid_toolbar.purple .grid_toolbar_header .grid_toolbar_controls .dropdown-menu {
+    background: #5f345f; }
 
 .grid_view.purple h2 .badge {
   background: #703D6F; }
@@ -621,6 +627,8 @@ a.btn {
       background: #e5560f; }
     .grid_toolbar.orange .grid_toolbar_header .grid_toolbar_controls .open a.selected {
       background: #e5560f; }
+  .grid_toolbar.orange .grid_toolbar_header .grid_toolbar_controls .dropdown-menu {
+    background: #f0641d; }
 
 .grid_view.orange h2 .badge {
   background: #F27435; }
@@ -654,6 +662,8 @@ a.btn {
       background: #961915; }
     .grid_toolbar.red .grid_toolbar_header .grid_toolbar_controls .open a.selected {
       background: #961915; }
+  .grid_toolbar.red .grid_toolbar_header .grid_toolbar_controls .dropdown-menu {
+    background: #ad1c18; }
 
 .grid_view.red h2 .badge {
   background: #C3201B; }
@@ -687,6 +697,8 @@ a.btn {
       background: #282828; }
     .grid_toolbar.black .grid_toolbar_header .grid_toolbar_controls .open a.selected {
       background: #282828; }
+  .grid_toolbar.black .grid_toolbar_header .grid_toolbar_controls .dropdown-menu {
+    background: #353434; }
 
 .grid_view.black h2 .badge {
   background: #424141; }
