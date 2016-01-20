@@ -462,9 +462,9 @@
             }
         }
 
-        var $row = $(row);
+        var $row = $(row).find(this.options.rowSelector);
 
-        $row.find(this.options.rowSelector).attr('data-new', true);
+        $row.attr('data-new', true);
 
         this._currentResultsCount++;
 
@@ -479,7 +479,9 @@
             this.$gridRowsHeader.closest('.row').show();
         }
 
-        this.$rowsContainer.prepend($row.find(this.options.rowSelector));
+        this.$rowsContainer.prepend($row);
+
+        this._createActions(this.options.rowActions, $row);
 
         this.$pager.bsPager('updateTotal', this._currentResultsCount);
 
