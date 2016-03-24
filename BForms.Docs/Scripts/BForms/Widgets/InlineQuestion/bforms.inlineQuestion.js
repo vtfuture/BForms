@@ -1,4 +1,4 @@
-﻿(function (factory) {
+(function (factory) {
     if (typeof define === "function" && define.amd) {
         define('bforms-inlineQuestion', ['jquery', 'bootstrap', 'jquery-ui-core', 'icanhaz'], factory);
     } else {
@@ -32,7 +32,8 @@
         placementArray: 'left,right,bottom,top',
         content: undefined,
         stretch: false,
-        closeOnOuterClick: true
+        closeOnOuterClick: true,
+        preventDefault: false
     };
 
     //#region init and render
@@ -111,8 +112,18 @@
         this.$element.popover($.extend(true, {
             html: true,
             placement: this.options.placement,
-            content: this.options.cacheContent === true ? this._renderPopover() : $.proxy(this._renderPopover, this)
+            content: this.options.cacheContent === true ? this._renderPopover() : $.proxy(this._renderPopover, this),
+            trigger: this.options.preventDefault ? "manual" : "click"
         }, this.options.popoverOptions)).addClass('bs-hasInlineQuestion');
+
+        if (this.options.preventDefault === true) {
+            this.$element.on('click', $.proxy(function (e) {
+                e.preventDefault();
+
+                this.$element.popover('toggle');
+
+            }, this))
+        }
 
         this.$element.on('show.bs.popover', $.proxy(function () {
             this._trigger('show', 0, arguments);
