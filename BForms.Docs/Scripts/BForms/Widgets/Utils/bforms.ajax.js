@@ -5,6 +5,10 @@
 
     var AjaxWrapper = function () {
         this._xhrStack = {};
+        
+          $(window).on('beforeunload', $.proxy(function() {
+            this._willUnload = true;
+        }, this));
     };
 
     //#region private methods and properties
@@ -199,7 +203,7 @@
             }
 
             if (status === this._statusEnum.Offline) {
-                if (typeof opts.offline === "function") {
+                if (typeof opts.offline === "function" && this._willUnload !== true) {
                     opts.offline.apply(opts.context, args);
                 }
             }
