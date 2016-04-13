@@ -1,12 +1,12 @@
-﻿define('bforms-ajax', [
+define('bforms-ajax', [
     'bforms-namespace',
     'jquery'
 ], function () {
 
     var AjaxWrapper = function () {
         this._xhrStack = {};
-        
-          $(window).on('beforeunload', $.proxy(function() {
+      
+        $(window).on("beforeunload", $.proxy(function () {
             this._willUnload = true;
         }, this));
     };
@@ -125,7 +125,7 @@
     //#region public methods
     AjaxWrapper.prototype.ajax = function (opts, calldata) {
         var withFiles = this._checkForFiles(opts.data);
-
+        
         var xhrSettings = $.extend({}, this.getDefaultOptions(), opts),
             jqXHR = null;
 
@@ -203,14 +203,23 @@
             }
 
             if (status === this._statusEnum.Offline) {
-                if (typeof opts.offline === "function" && this._willUnload !== true) {
-                    opts.offline.apply(opts.context, args);
+                window.setTimeout($.proxy(function () {
+                    if (this._willUnload !== true) {
+                        if (typeof opts.offline === "function") {
+                            opts.offline.apply(opts.context, args);
+                        }
+
+                        if (typeof opts.error === "function") {
+                            opts.error.apply(opts.context, args);
+                        }
+                    }
+                }, this), xhrSettings.offlineDelay)
+            } else {
+                if (typeof opts.error === "function") {
+                    opts.error.apply(opts.context, args);
                 }
             }
-
-            if (typeof opts.error === "function") {
-                opts.error.apply(opts.context, args);
-            }
+            
         }, this));
 
         if (typeof opts.complete === "function") {
@@ -526,7 +535,8 @@
         killPrevious: true,
         loadingDelay: 100,
         parseQueryString: true,
-        lang: typeof requireConfig !== "undefined" ? requireConfig.locale : 'en'
+        lang: typeof requireConfig !== "undefined" ? requireConfig.locale : 'en',
+        offlineDelay : 5000
     };
 
     $.bforms.addDefaultOption = function (key, value) {
