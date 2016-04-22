@@ -422,8 +422,11 @@ define('bforms-ajax', [
         xhrRequest.open('POST', opts.url, true);
         xhrRequest.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
-        if (window.requireConfig != null && window.requireConfig.websiteOptions !== null && window.requireConfig.websiteOptions.requestKey != null) {
-            xhrRequest.setRequestHeader("X-Parent-Request", window.requireConfig.websiteOptions.requestKey);
+        if ($.bforms.defaultHeaders != null) {
+            for (var i in $.bforms.defaultHeaders) {
+                var header = $.bforms.defaultHeaders[i];
+                xhrRequest.setRequestHeader(header.key, header.value);
+            }
         }
 
         xhrRequest.send(data);
