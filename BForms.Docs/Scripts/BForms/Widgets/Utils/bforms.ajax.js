@@ -5,7 +5,7 @@ define('bforms-ajax', [
 
     var AjaxWrapper = function () {
         this._xhrStack = {};
-      
+
         $(window).on("beforeunload", $.proxy(function () {
             this._willUnload = true;
         }, this));
@@ -36,9 +36,12 @@ define('bforms-ajax', [
 
         XHROpts.data = settings.contentType === $.bforms.defAjaxOptions.contentType ? JSON.stringify(this._serializeJsonData(settings.data)) : settings.data;
 
-        if (window.requireConfig != null && window.requireConfig.websiteOptions !== null && window.requireConfig.websiteOptions.requestKey != null) {
-            XHROpts.beforeSend = function(request) {
-                request.setRequestHeader("X-Parent-Request", window.requireConfig.websiteOptions.requestKey);
+        if ($.bforms.defaultHeaders != null) {
+            XHROpts.beforeSend = function (request) {
+                for (var i in $.bforms.defaultHeaders) {
+                    var header = $.bforms.defaultHeaders[i];
+                    request.setRequestHeader(header.key, header.value);
+                }
             }
         }
 
@@ -125,7 +128,7 @@ define('bforms-ajax', [
     //#region public methods
     AjaxWrapper.prototype.ajax = function (opts, calldata) {
         var withFiles = this._checkForFiles(opts.data);
-        
+
         var xhrSettings = $.extend({}, this.getDefaultOptions(), opts),
             jqXHR = null;
 
@@ -219,7 +222,7 @@ define('bforms-ajax', [
                     opts.error.apply(opts.context, args);
                 }
             }
-            
+
         }, this));
 
         if (typeof opts.complete === "function") {
@@ -353,6 +356,8 @@ define('bforms-ajax', [
                     self._toggleLoading(xhrSettings.name, false);
                 }
             });
+
+
 
         var _settings = this._updateXHRSettings(jqXHRSettings);
 
@@ -536,7 +541,7 @@ define('bforms-ajax', [
         loadingDelay: 100,
         parseQueryString: true,
         lang: typeof requireConfig !== "undefined" ? requireConfig.locale : 'en',
-        offlineDelay : 5000
+        offlineDelay: 5000
     };
 
     $.bforms.addDefaultOption = function (key, value) {
@@ -545,6 +550,10 @@ define('bforms-ajax', [
         }
         $.bforms.defAjaxOptions[key] = value;
     };
+
+    $.bforms.setHeaders = function (headers) {
+        $.bforms.defaultHeaders = headers;
+    }
     //#endregion
 
     // return module
